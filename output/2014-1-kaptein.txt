@@ -7,29 +7,32 @@ page	left	top	code
 3	164	242	  # Split the sentence into words
 3	164	260	  words <- unlist(
 3	179	278	    strsplit(as.character(
-3	195	295	       tuple$sentence), " "
+3	195	295	      tuple$sentence), " "
 3	179	313	    ))
 3	164	349	  # For each word emit a tuple
 3	164	367	  for (word in words)
 3	179	385	    Emit(Tuple(
-3	195	403	       data.frame(word = word)),
-3	195	421	       ...)
+3	195	403	      data.frame(word = word)),
+3	195	421	      ...)
 3	149	439	}
-3	455	152	
-3	455	170	
-3	455	188	
-3	471	259	   super("Python",
-3	486	277	     "splitsentence.py")
-3	455	295	
-3	455	331	
-3	455	349	
-3	455	367	
-3	471	385	   (storm.BasicBolt):
-3	471	403	   def process(self, tuple)
-3	486	421	     words =
-3	501	439	       tuple.values[0].split(" ")
-3	486	457	     for word in words:
-3	501	474	       storm.emit([word])
+3	455	152	/**
+3	455	170	* A Java function which makes
+3	455	188	* a call from the topology
+3	455	205	* to an external Python script: */
+3	455	223	public SplitSentence()
+3	455	241	{
+3	471	259	  super("Python",
+3	486	277	    "splitsentence.py")
+3	455	295	}
+3	455	331	/* The Python script (.py) */
+3	455	349	import storm
+3	455	367	class SplitSentenceBolt
+3	471	385	  (storm.BasicBolt):
+3	471	403	  def process(self, tuple)
+3	486	421	    words =
+3	501	439	      tuple.values[0].split(" ")
+3	486	457	    for word in words:
+3	501	474	      storm.emit([word])
 4	149	152	# R word counting function:
 4	149	170	CountWord <- function(tuple, ...) {
 4	164	188	  # Get the hashmap "word count"
@@ -38,29 +41,30 @@ page	left	top	code
 4	179	242	    # Increment the word count:
 4	179	260	    words[words$word == tuple$word,]
 4	195	278	      $count <-
-4	195	295	       words[words$word == tuple$word,]
-4	210	313	         $count + 1
+4	195	295	      words[words$word == tuple$word,]
+4	210	313	        $count + 1
 4	164	331	  } else { # If the word does not exist
 4	179	349	    # Add the word with count 1
 4	179	367	    words <- rbind(words, data.frame(
-4	195	385	       word = tuple$word, count = 1))
+4	195	385	      word = tuple$word, count = 1))
 4	164	403	  }
 4	164	439	  # Store the hashmap
 4	164	457	  SetHash("wordcount", words)
 4	149	475	}
-4	455	152	
-4	455	170	
-4	455	188	
-4	471	223	   execute(Tuple tuple, ...)
-4	471	259	   /* collect word from the tuple */
-4	471	277	   String word = tuple.getString(0);
-4	471	313	   /* get counts from hashmap */
-4	471	331	   Integer count = counts.get(word);
-4	471	349	   if (count == null) count = 0;
-4	471	385	   /* increment counts */
-4	471	403	   count++;
-4	471	439	   /* store counts */
-4	471	457	   counts.put(word, count);
+4	455	170	* A Java function which stores
+4	455	188	* the word count. */
+4	455	205	public void
+4	471	223	  execute(Tuple tuple, ...)
+4	471	259	  /* collect word from the tuple */
+4	471	277	  String word = tuple.getString(0);
+4	471	313	  /* get counts from hashmap */
+4	471	331	  Integer count = counts.get(word);
+4	471	349	  if (count == null) count = 0;
+4	471	385	  /* increment counts */
+4	471	403	  count++;
+4	471	439	  /* store counts */
+4	471	457	  counts.put(word, count);
+4	455	474	}
 4	149	636	# Setting up the R topology
 4	149	654	# Create topology:
 4	149	672	topology <- Topology(sentences)
@@ -71,66 +75,66 @@ page	left	top	code
 4	172	779	   )
 4	149	797	)
 4	149	815	topology <- AddBolt(
-4	172	833	    topology, Bolt(
-4	195	851	       CountWord, listen = 1
+4	172	833	   topology, Bolt(
+4	195	851	      CountWord, listen = 1
 4	179	869	    )
 4	149	887	)
-4	455	636	
-4	455	654	
-4	455	672	
-4	455	690	
-4	478	708	    new TopologyBuilder();
-4	455	744	
-4	455	762	
-4	455	779	
-4	455	797	
-4	478	815	    new SplitSentence(), ... ,
-4	478	833	    .Grouping("sentences", ...)
-4	455	851	
-4	478	869	    new WordCount(), ... ,
-4	478	887	    .Grouping("split"), ... )
+4	455	636	/**
+4	455	654	* Java core topology implementation */
+4	455	672	/* Create topology */
+4	455	690	TopologyBuilder builder =
+4	478	708	   new TopologyBuilder();
+4	455	744	/* Add the spout */
+4	455	762	builder.setSpout("sentences", ...);
+4	455	779	/* Add the bolts */
+4	455	797	builder.setBolt("split",
+4	478	815	   new SplitSentence(), ... ,
+4	478	833	   .Grouping("sentences", ...)
+4	455	851	builder.setBolt("count",
+4	478	869	   new WordCount(), ... ,
+4	478	887	   .Grouping("split"), ... )
 5	149	152	var.SS <- function(x, ...) {
-5	172	170	    # Get values stored in hashmap
-5	172	188	    params <- GetHash("params1")
-5	172	206	    if (!is.data.frame(params)) {
+5	172	170	   # Get values stored in hashmap
+5	172	188	   params <- GetHash("params1")
+5	172	206	   if (!is.data.frame(params)) {
 5	187	224	     # If no hashmap exists initialise:
 5	187	242	     params <- list()
 5	187	260	     params$n <- params$sum <-
 5	202	278	       params$sum2 <- 0
 5	172	295	   }
-5	172	331	    # Perform updates:
-5	172	349	    n <- params$n + 1
-5	172	367	    S <- params$sum + as.numeric(x[1])
-5	172	385	    SS <- params$sum2 +
+5	172	331	   # Perform updates:
+5	172	349	   n <- params$n + 1
+5	172	367	   S <- params$sum + as.numeric(x[1])
+5	172	385	   SS <- params$sum2 +
 5	187	403	     as.numeric(x[1]^2)
-5	172	439	    # Store the hashmap:
-5	172	457	    SetHash("params1",
+5	172	439	   # Store the hashmap:
+5	172	457	   SetHash("params1",
 5	187	475	     data.frame(n = n, sum = S,
 5	202	493	       sum2 = SS))
-5	172	529	    # Track the variance at time t:
-5	172	547	    var <- 1/(n * (n-1)) * (n * SS - S^2)
-5	172	564	    TrackRow("var.SS",
+5	172	529	   # Track the variance at time t:
+5	172	547	   var <- 1/(n * (n-1)) * (n * SS - S^2)
+5	172	564	   TrackRow("var.SS",
 5	187	582	     data.frame(var = var))
 5	156	600	 }
-5	455	152	
-5	478	170	    x <- as.numeric(x[1])
-5	478	188	    params <- GetHash("params2")
-5	478	206	    if (!is.data.frame(params)) {
-5	494	224	      params <- list()
-5	494	242	      params$M <- params$S <-
-5	509	260	        params$n <- 0
+5	455	152	var.Welford <- function(x, ...) {
+5	478	170	   x <- as.numeric(x[1])
+5	478	188	   params <- GetHash("params2")
+5	478	206	   if (!is.data.frame(params)) {
+5	494	224	     params <- list()
+5	494	242	     params$M <- params$S <-
+5	509	260	       params$n <- 0
 5	478	278	   }
-5	478	295	    n <- params$n + 1
-5	478	313	    M <- params$M +
-5	494	331	      (x - params$M) / (n + 1)
-5	478	349	    S <- params$S +
-5	494	367	      (x - params$M) * (x - M)
-5	478	403	    SetHash("params2",
-5	494	421	      data.frame(n = n, M = M, S = S))
-5	478	457	    var <- ifelse(n > 1,
-5	494	475	      S / (n - 1), 0)
-5	478	511	    TrackRow("var.Welford",
-5	494	529	      data.frame(var = var))
+5	478	295	   n <- params$n + 1
+5	478	313	   M <- params$M +
+5	494	331	     (x - params$M) / (n + 1)
+5	478	349	   S <- params$S +
+5	494	367	     (x - params$M) * (x - M)
+5	478	403	   SetHash("params2",
+5	494	421	     data.frame(n = n, M = M, S = S))
+5	478	457	   var <- ifelse(n > 1,
+5	494	475	     S / (n - 1), 0)
+5	478	511	   TrackRow("var.Welford",
+5	494	529	     data.frame(var = var))
 5	463	547	 }
 8	149	152	# bolt which always selects arm 1:
 8	149	170	selectMax <- function(x, k.best = 1,
@@ -139,7 +143,7 @@ page	left	top	code
 8	164	223	  # and emit:
 8	164	241	  tuple <-
 8	179	259	    Tuple(data.frame(
-8	195	277	       best = x[,k.best]))
+8	195	277	      best = x[,k.best]))
 8	164	295	  Emit(tuple, ...)
 8	149	313	}
 8	149	349	# bolt which counts the rewards:
@@ -152,41 +156,41 @@ page	left	top	code
 8	164	474	  SetHash("maxSum",
 8	179	492	    data.frame(sum = sum))
 8	149	510	}
-8	455	152	
-8	455	170	
-8	471	188	   arms <- length(x)
-8	471	205	   rpmCoefs <- GetHash("coefs")
-8	471	241	   # if no estimates set beta priors:
-8	471	259	   if (!is.data.frame(rpmCoefs)) {
-8	486	277	     rpmCoefs <- data.frame(
-8	501	295	       arm = 1:arms,
-8	501	313	       a = rep(1, arms),
-8	501	331	       b = rep(1, arms))
-8	486	349	     SetHash("coefs", rpmCoefs)
+8	455	152	# bolt to select the action
+8	455	170	selectRPM <- function(x, ...) {
+8	471	188	  arms <- length(x)
+8	471	205	  rpmCoefs <- GetHash("coefs")
+8	471	241	  # if no estimates set beta priors:
+8	471	259	  if (!is.data.frame(rpmCoefs)) {
+8	486	277	    rpmCoefs <- data.frame(
+8	501	295	      arm = 1:arms,
+8	501	313	      a = rep(1, arms),
+8	501	331	      b = rep(1, arms))
+8	486	349	    SetHash("coefs", rpmCoefs)
 8	471	367	  }
-8	471	385	   # Get a random draw:
-8	471	403	   draw <- daply(rpmCoefs, .(arm),
-8	486	421	     .fun = function(x)
-8	501	439	       return(rbeta(1, x$a, x$b)))
-8	471	457	   # Determine which arm to play:
-8	471	474	   rpm <- which.max(as.vector(draw))
-8	471	492	   tuple <- Tuple(data.frame(
-8	486	510	     arm = rpm, rpm = x[,rpm]))
-8	471	528	   Emit(tuple, ...)
-8	455	546	
-8	455	582	
-8	455	600	
-8	471	618	   rpmCoefs <- GetHash("coefs")
-8	471	636	   # update posteriors:
-8	471	654	   rpmCoefs[x$arm, ]$a <-
-8	486	672	     rpmCoefs[x$arm, ]$a + x$rpm
-8	471	690	   rpmCoefs[x$arm, ]$b <-
-8	486	708	     rpmCoefs[x$arm, ]$b + (1 - x$rpm)
-8	471	726	   SetHash("coefs", rpmCoefs)
-8	455	743	
-8	455	779	
-8	455	797	
-8	471	815	   # See "countMax()" for
-8	471	833	   # implementation.
-8	471	851	   # Values stored in hashmap "rpmSum"
-8	455	869	
+8	471	385	  # Get a random draw:
+8	471	403	  draw <- daply(rpmCoefs, .(arm),
+8	486	421	    .fun = function(x)
+8	501	439	      return(rbeta(1, x$a, x$b)))
+8	471	457	  # Determine which arm to play:
+8	471	474	  rpm <- which.max(as.vector(draw))
+8	471	492	  tuple <- Tuple(data.frame(
+8	486	510	    arm = rpm, rpm = x[,rpm]))
+8	471	528	  Emit(tuple, ...)
+8	455	546	}
+8	455	582	# bolt to update the estimates
+8	455	600	updateRPM <- function(x, ...) {
+8	471	618	  rpmCoefs <- GetHash("coefs")
+8	471	636	  # update posteriors:
+8	471	654	  rpmCoefs[x$arm, ]$a <-
+8	486	672	    rpmCoefs[x$arm, ]$a + x$rpm
+8	471	690	  rpmCoefs[x$arm, ]$b <-
+8	486	708	    rpmCoefs[x$arm, ]$b + (1 - x$rpm)
+8	471	726	  SetHash("coefs", rpmCoefs)
+8	455	743	}
+8	455	779	# bolt to count the reward
+8	455	797	countRPM <- function(x, ...) {
+8	471	815	  # See "countMax()" for
+8	471	833	  # implementation.
+8	471	851	  # Values stored in hashmap "rpmSum"
+8	455	869	}

@@ -1,25 +1,25 @@
 page	left	top	code
-2	89	1077	  ncols   720
-2	89	1093	  nrows   360
-2	89	1110	  xllcorner -180
-2	89	1126	  yllcorner -90
-2	89	1142	  cellsize   0.5
-2	89	1159	  NODATA_value -999
-2	89	1175	  -999 1 0 1 1 ... [all 259200 cell values]
+2	89	1077	 ncols  720
+2	89	1093	 nrows  360
+2	89	1110	 xllcorner -180
+2	89	1126	 yllcorner -90
+2	89	1142	 cellsize  0.5
+2	89	1159	 NODATA_value -999
+2	89	1175	 -999 1 0 1 1 ... [all 259200 cell values]
 2	459	601	data(countryExData)
 2	459	617	sPDF <- joinCountryData2Map( countryExData
-2	521	634	          ,joinCode = "ISO3"
-2	521	650	          ,nameJoinColumn = "ISO3V10")
+2	521	634	         ,joinCode = "ISO3"
+2	521	650	         ,nameJoinColumn = "ISO3V10")
 2	459	1077	data(countryExData)
 2	459	1093	sPDF <- joinCountryData2Map( countryExData
-2	521	1110	          ,joinCode = "ISO3"
-2	521	1126	          ,nameJoinColumn = "ISO3V10")
+2	521	1110	         ,joinCode = "ISO3"
+2	521	1126	         ,nameJoinColumn = "ISO3V10")
 2	459	1142	mapDevice() #create world map shaped window
 2	459	1159	mapCountryData(sPDF
 2	555	1175	              ,nameColumnToPlot='BIODIVERSITY')
-3	96	614	   data(gridExData)
-3	96	631	   mapDevice() #create world map shaped window
-3	96	647	   mapGriddedData(gridExData)
+3	96	614	  data(gridExData)
+3	96	631	  mapDevice() #create world map shaped window
+3	96	647	  mapGriddedData(gridExData)
 3	459	1077	mapDevice() #create world map shaped window
 3	459	1093	mapBubbles(dF=getMap()
 3	527	1110	          ,nameZSize="POP2005"
@@ -28,27 +28,27 @@ page	left	top	code
 3	527	1159	          ,oceanCol="lightblue"
 3	527	1175	          ,landCol="wheat")
 4	82	595	identifyCountries(getMap()
-4	199	612	                  ,nameColumnToPlot="POP2005")
+4	199	612	                 ,nameColumnToPlot="POP2005")
 4	82	1039	data(countryExData)
 4	82	1056	country2Region(countryExData
-4	158	1072	            ,nameDataColumn="CLIMATE"
-4	158	1089	            ,joinCode="ISO3"
-4	158	1105	            ,nameJoinColumn="ISO3V10"
-4	158	1122	            ,regionType="Stern"
-4	158	1138	            ,FUN="mean")
-4	569	127	                 meanCLIMATEbyStern
-4	459	144	Australasia                56.92000
+4	158	1072	           ,nameDataColumn="CLIMATE"
+4	158	1089	           ,joinCode="ISO3"
+4	158	1105	           ,nameJoinColumn="ISO3V10"
+4	158	1122	           ,regionType="Stern"
+4	158	1138	           ,FUN="mean")
+4	569	127	                meanCLIMATEbyStern
+4	459	144	Australasia               56.92000
 4	459	160	Caribbean                 65.20000
 4	459	177	Central America           76.11250
-4	459	193	Central Asia               56.18000
+4	459	193	Central Asia              56.18000
 4	459	210	East Asia                 69.18462
-4	459	226	Europe                     73.87619
-4	459	242	North Africa               71.00000
+4	459	226	Europe                    73.87619
+4	459	242	North Africa              71.00000
 4	459	259	North America             62.70000
 4	459	275	South America             77.01818
 4	459	292	South Asia                77.22000
 4	459	308	South+E Africa            75.79474
-4	459	325	West Africa                78.68421
+4	459	325	West Africa               78.68421
 4	459	341	West Asia                 49.62000
 4	459	368	data(countryExData)
 4	459	385	mapDevice() #create world map shaped window
@@ -60,8 +60,8 @@ page	left	top	code
 4	534	483	           ,FUN="mean")
 4	459	913	data(countryRegions)
 4	459	929	sPDF <- joinCountryData2Map( countryRegions
-4	521	946	          ,joinCode = "ISO3"
-4	521	962	          ,nameJoinColumn = "ISO3")
+4	521	946	         ,joinCode = "ISO3"
+4	521	962	         ,nameJoinColumn = "ISO3")
 4	459	978	mapDevice() #create world map shaped window
 4	459	995	mapCountryData(sPDF[which(sPDF$LDC=='LDC'),]
 4	555	1011	              ,nameColumnToPlot="POP2005")
@@ -70,102 +70,102 @@ page	left	top	code
 5	82	177	#getting smallexample data and joining to a map
 5	82	193	data(countryExData)
 5	82	210	sPDF <- joinCountryData2Map(countryExData
-5	137	226	         ,joinCode = "ISO3"
-5	137	242	         ,nameJoinColumn = "ISO3V10"
-5	137	259	         ,mapResolution = "coarse")
+5	137	226	        ,joinCode = "ISO3"
+5	137	242	        ,nameJoinColumn = "ISO3V10"
+5	137	259	        ,mapResolution = "coarse")
 5	82	292	#getting class intervals
 5	82	308	classInt <- classIntervals( sPDF[["EPI"]]
-5	165	325	             ,n=5, style = "jenks")
+5	165	325	            ,n=5, style = "jenks")
 5	82	341	catMethod = classInt[["brks"]]
 5	82	374	#getting colours
 5	82	390	colourPalette <- brewer.pal(5,'RdPu')
 5	82	423	#plot map
 5	82	440	mapDevice() #create world map shaped window
 5	82	456	mapParams <- mapCountryData(sPDF
-5	172	473	              ,nameColumnToPlot="EPI"
-5	172	489	              ,addLegend=FALSE
-5	172	505	              ,catMethod = catMethod
-5	172	522	              ,colourPalette=colourPalette )
+5	172	473	             ,nameColumnToPlot="EPI"
+5	172	489	             ,addLegend=FALSE
+5	172	505	             ,catMethod = catMethod
+5	172	522	             ,colourPalette=colourPalette )
 5	82	555	#adding legend
 5	82	571	do.call(addMapLegend
-5	131	588	        ,c(mapParams
-5	144	604	          ,legendLabels="all"
-5	144	620	          ,legendWidth=0.5
-5	144	637	          ,legendIntervals="data"
-5	144	653	          ,legendMar = 2))
+5	131	588	       ,c(mapParams
+5	144	604	         ,legendLabels="all"
+5	144	620	         ,legendWidth=0.5
+5	144	637	         ,legendIntervals="data"
+5	144	653	         ,legendMar = 2))
 5	459	320	inFile <- 'hpi2_0edited2.csv'
 5	459	336	dF <- read.csv(inFile,header=TRUE,as.is=TRUE)
 5	459	352	sPDF <- joinCountryData2Map(dF
 5	582	369	                  , joinCode='NAME'
 5	582	385	                  , nameJoinColumn='country'
 5	582	402	                  , verbose='TRUE')
-5	459	626	name in HPI      name in rworldmap
-5	459	643	Iran             Iran (Islamic Republic of)
-5	459	659	Korea            Korea, Republic of
-5	459	676	Laos             Lao People's Democratic Republic
-5	459	692	Moldova          Republic of Moldova
-5	459	709	Syria            Syrian Arab Republic
+5	459	626	name in HPI     name in rworldmap
+5	459	643	Iran            Iran (Islamic Republic of)
+5	459	659	Korea           Korea, Republic of
+5	459	676	Laos            Lao People's Democratic Republic
+5	459	692	Moldova         Republic of Moldova
+5	459	709	Syria           Syrian Arab Republic
 5	459	725	Tanzania        United Republic of Tanzania
-5	459	741	Vietnam          Viet Nam
+5	459	741	Vietnam         Viet Nam
 5	459	758	United States of America    United States
 5	459	929	#categorise component indices
 5	459	945	dF$LifeSatcolour <-
-5	473	962	   ifelse(dF$LifeSat < 5.5,'red'
+5	473	962	  ifelse(dF$LifeSat < 5.5,'red'
 5	486	978	    ,ifelse(dF$LifeSat > 7.0,'green'
 5	534	995	           ,'amber' ))
 5	459	1027	dF$LifeExpcolour <-
-5	473	1044	   ifelse(dF$LifeExp < 60,'red'
+5	473	1044	  ifelse(dF$LifeExp < 60,'red'
 5	486	1060	    ,ifelse(dF$LifeExp > 75,'green'
 5	534	1077	           ,'amber' ))
 5	459	1110	dF$HLYcolour <-
-5	473	1126	   ifelse(dF$HLY < 33,'red'
+5	473	1126	  ifelse(dF$HLY < 33,'red'
 5	486	1142	    ,ifelse(dF$HLY > 52.5,'green'
 5	534	1159	           ,'amber' ))
 6	82	127	dF$Footprintcolour <-
-6	96	144	   ifelse(dF$Footprint > 8.4,'blood red'
-6	110	160	     ,ifelse(dF$Footprint > 4.2,'red'
+6	96	144	  ifelse(dF$Footprint > 8.4,'blood red'
+6	110	160	    ,ifelse(dF$Footprint > 4.2,'red'
 6	144	177	         ,ifelse(dF$Footprint < 2.1,'green'
 6	192	193	                ,'amber' )))
 6	82	226	#count red, amber , greens per country
 6	82	242	numReds<-
-6	96	259	   (as.numeric(dF$Footprintcolour=='red')
-6	96	275	   +as.numeric(dF$LifeExpcolour=='red')
-6	96	292	   +as.numeric(dF$LifeSatcolour=='red'))
+6	96	259	  (as.numeric(dF$Footprintcolour=='red')
+6	96	275	  +as.numeric(dF$LifeExpcolour=='red')
+6	96	292	  +as.numeric(dF$LifeSatcolour=='red'))
 6	82	308	numAmbers<-
-6	96	325	   (as.numeric(dF$Footprintcolour=='amber')
-6	96	341	   +as.numeric(dF$LifeExpcolour=='amber')
-6	96	357	   +as.numeric(dF$LifeSatcolour=='amber'))
+6	96	325	  (as.numeric(dF$Footprintcolour=='amber')
+6	96	341	  +as.numeric(dF$LifeExpcolour=='amber')
+6	96	357	  +as.numeric(dF$LifeSatcolour=='amber'))
 6	82	374	numGreens<-
-6	96	390	   (as.numeric(dF$Footprintcolour=='green')
-6	96	407	   +as.numeric(dF$LifeExpcolour=='green')
-6	96	423	   +as.numeric(dF$LifeSatcolour=='green'))
+6	96	390	  (as.numeric(dF$Footprintcolour=='green')
+6	96	407	  +as.numeric(dF$LifeExpcolour=='green')
+6	96	423	  +as.numeric(dF$LifeSatcolour=='green'))
 6	82	456	#calculate HPI colour per country
 6	82	473	dF$HPIcolour <-
-6	89	489	  ifelse(dF$Footprintcolour=='blood red'
-6	131	505	        | numReds>1,6
-6	96	522	   ,ifelse(numReds==1,5
-6	103	538	    ,ifelse(numAmbers==3,4
-6	110	555	     ,ifelse(numGreens==1 & numAmbers==2,3
-6	117	571	      ,ifelse(numGreens==2 & numAmbers==1,2
-6	124	588	       ,ifelse(numGreens==3,1
-6	131	604	        ,NA))))))
+6	89	489	 ifelse(dF$Footprintcolour=='blood red'
+6	131	505	       | numReds>1,6
+6	96	522	  ,ifelse(numReds==1,5
+6	103	538	   ,ifelse(numAmbers==3,4
+6	110	555	    ,ifelse(numGreens==1 & numAmbers==2,3
+6	117	571	     ,ifelse(numGreens==2 & numAmbers==1,2
+6	124	588	      ,ifelse(numGreens==3,1
+6	131	604	       ,NA))))))
 6	82	637	#join data to map
 6	82	653	sPDF <- joinCountryData2Map(dF
-6	206	670	                   ,joinCode="NAME"
-6	206	686	                   ,nameJoinColumn="country")
+6	206	670	                  ,joinCode="NAME"
+6	206	686	                  ,nameJoinColumn="country")
 6	82	719	#set colours
 6	82	736	colourPalette <- c('palegreen'
-6	206	752	                  ,'yellow'
-6	206	768	                  ,'orange'
+6	206	752	                 ,'yellow'
+6	206	768	                 ,'orange'
 6	206	785	                  ,'orangered'
-6	206	801	                  ,'darkred')
+6	206	801	                 ,'darkred')
 6	82	834	#plot map
 6	82	851	mapDevice() #create world map shaped window
 6	82	867	mapParams <- mapCountryData(sPDF
 6	179	883	              ,nameColumnToPlot='HPIcolour'
 6	179	900	              ,catMethod='categorical'
-6	179	916	               ,colourPalette=colourPalette
-6	179	933	               ,addLegend=FALSE
+6	179	916	              ,colourPalette=colourPalette
+6	179	933	              ,addLegend=FALSE
 6	179	949	              ,mapTitle='Happy Planet Index')
 6	82	982	#changing legendText
 6	82	999	mapParams$legendText <-
@@ -173,12 +173,12 @@ page	left	top	code
 6	117	1031	     ,'1 good, 2 middle'
 6	117	1048	     ,'3 middle'
 6	117	1064	     ,'1 poor'
-6	117	1081	      ,'2 poor or footprint v.poor')
+6	117	1081	     ,'2 poor or footprint v.poor')
 6	82	1097	#add legend
 6	82	1114	do.call( addMapLegendBoxes
-6	137	1130	         , c(mapParams
+6	137	1130	        , c(mapParams
 6	158	1146	           ,x='bottom'
-6	158	1163	            ,title="HPI colour"))
+6	158	1163	           ,title="HPI colour"))
 6	459	577	inFile1 <- 'Koeppen-Geiger-ASCII.txt'
 6	459	594	#read in data which is as lon,lat,catID
 6	459	610	dF<-read.table(inFile1,header=TRUE,as.is=TRUE)
@@ -195,9 +195,9 @@ page	left	top	code
 6	603	791	                     ,addLegend=FALSE)
 6	459	807	#adding formatted legend
 6	459	824	do.call(addMapLegendBoxes
-6	507	840	        ,c(mapParams
-6	521	857	          ,cex=0.8
-6	521	873	          ,ncol=10
+6	507	840	       ,c(mapParams
+6	521	857	         ,cex=0.8
+6	521	873	         ,ncol=10
 6	521	889	         ,x='bottom'
 6	521	906	         ,title='Koeppen-Geiger Climate Zones'))
 7	82	331	#reading in colour palette
@@ -210,14 +210,14 @@ page	left	top	code
 7	82	462	mapParams <- mapGriddedData(sGDF
 7	185	479	               ,catMethod='categorical'
 7	185	495	               ,addLegend=FALSE
-7	185	512	                ,colourPalette=tst$x)
+7	185	512	               ,colourPalette=tst$x)
 7	82	528	#adding legend
 7	82	545	do.call(addMapLegendBoxes
-7	96	561	   ,c(mapParams
-7	96	578	   ,cex=0.8
-7	96	594	   ,ncol=3
+7	96	561	  ,c(mapParams
+7	96	578	  ,cex=0.8
+7	96	594	  ,ncol=3
 7	96	610	  ,x='bottomleft'
-7	96	627	   ,title='Koeppen-Geiger Climate Zones'))
+7	96	627	  ,title='Koeppen-Geiger Climate Zones'))
 7	459	249	library(ncdf)
 7	459	266	#the downloaded file
 7	459	282	inFile <-
@@ -225,10 +225,10 @@ page	left	top	code
 7	459	315	memory.limit(4000) #set memory limit to max
 7	459	331	nc = open.ncdf(inFile, write=FALSE)
 7	459	433	file ... has 4 dimensions:
-7	459	449	time    Size: 12
+7	459	449	time   Size: 12
 7	459	466	latitude   Size: 73
 7	459	482	longitude   Size: 96
-7	459	499	bounds    Size: 2
+7	459	499	bounds   Size: 2
 7	459	515	------------------------
 7	459	531	file ... has 4 variables
 7	459	548	float climatological_bounds[bounds,time]
@@ -260,40 +260,40 @@ page	left	top	code
 8	185	226	               ,brewer.pal(9,'YlOrRd'))
 8	82	259	#looping for each month
 8	82	275	for( zDim in 1 : nc$dim$time$len ){
-8	89	292	  #reading the values for this month
-8	89	308	  ncMatrix <- ncArray[,,zDim]
-8	89	325	  #to get the image up the right way
-8	89	341	  #this reverses the y values but not the x ones
-8	89	357	  ncMatrix2 <-ncMatrix[ ,nc$dim$latitude$len:1 ]
-8	89	374	  gridVals <-data.frame(att=as.vector(ncMatrix2))
-8	89	390	  #creating a spatialGridDataFrame
-8	89	407	  sGDF <-SpatialGridDataFrame(gt, data=gridVals)
-8	89	440	  #plotting the map and getting params for legend
-8	89	456	  mapParams <- mapGriddedData( sGDF
+8	89	292	 #reading the values for this month
+8	89	308	 ncMatrix <- ncArray[,,zDim]
+8	89	325	 #to get the image up the right way
+8	89	341	 #this reverses the y values but not the x ones
+8	89	357	 ncMatrix2 <-ncMatrix[ ,nc$dim$latitude$len:1 ]
+8	89	374	 gridVals <-data.frame(att=as.vector(ncMatrix2))
+8	89	390	 #creating a spatialGridDataFrame
+8	89	407	 sGDF <-SpatialGridDataFrame(gt, data=gridVals)
+8	89	440	 #plotting the map and getting params for legend
+8	89	456	 mapParams <- mapGriddedData( sGDF
 8	185	473	               ,nameColumnToPlot='att'
-8	185	489	                ,catMethod=catMethod
-8	185	505	                ,colourPalette=colourPalette
-8	185	522	                ,addLegend=FALSE )
-8	89	538	  #adding formatted legend
-8	89	555	  do.call(addMapLegend
-8	137	571	         ,c(mapParams
-8	137	588	         ,legendLabels="all"
+8	185	489	               ,catMethod=catMethod
+8	185	505	               ,colourPalette=colourPalette
+8	185	522	               ,addLegend=FALSE )
+8	89	538	 #adding formatted legend
+8	89	555	 do.call(addMapLegend
+8	137	571	        ,c(mapParams
+8	137	588	        ,legendLabels="all"
 8	137	604	        ,legendWidth=0.5
 8	137	620	        ,legendMar = 3))
-8	89	637	  title(paste('month :',zDim))#adding brief title
-8	89	670	  outputPlotType = 'png'
-8	89	686	  savePlot(paste("ipccAirAnomalyMonth",zDim,sep='')
-8	144	703	          ,type=outputPlotType)
+8	89	637	 title(paste('month :',zDim))#adding brief title
+8	89	670	 outputPlotType = 'png'
+8	89	686	 savePlot(paste("ipccAirAnomalyMonth",zDim,sep='')
+8	144	703	         ,type=outputPlotType)
 8	82	719	} #end of month loop
 8	82	736	close.ncdf(nc) #closing the ncdf file
 9	82	433	inFile <- 'indicatoralcoholconsumption20100830.csv'
 9	82	450	dF <- read.csv(inFile)
 9	82	520	library(rworldmap)
 9	82	536	sPDF <- joinCountryData2Map(dF,
-9	165	553	             , joinCode = "NAME"
-9	165	569	             , nameJoinColumn = "X"
-9	165	586	             , nameCountryColumn = "X"
-9	165	602	             , verbose = TRUE)
+9	165	553	            , joinCode = "NAME"
+9	165	569	            , nameJoinColumn = "X"
+9	165	586	            , nameCountryColumn = "X"
+9	165	602	            , verbose = TRUE)
 9	82	635	mapCountryData(sPDF,nameColumnToPlot='X2005')
 9	82	705	library(maptools)
 9	82	722	library(fields)
@@ -302,18 +302,18 @@ page	left	top	code
 9	82	771	## joining
 9	82	787	#first identify failures
 9	82	804	matchPosnsInLookup <- match(
-9	151	820	           as.character(dF$X)
-9	144	837	          ,as.character(wrld_simpl$NAME))
+9	151	820	          as.character(dF$X)
+9	144	837	         ,as.character(wrld_simpl$NAME))
 9	82	853	failedCodes <- dF$X[is.na(matchPosnsInLookup)]
 9	82	870	numFailedCodes <- length(failedCodes)
 9	82	903	#printing info to console
 9	82	919	cat(numFailedCodes
-9	110	935	     ,"countries failed to join to the map\n")
+9	110	935	    ,"countries failed to join to the map\n")
 9	82	952	print(failedCodes)
 9	82	968	#find match positions in the data
 9	82	985	matchPosnsInData <- match(
-9	158	1001	            as.character(wrld_simpl$NAME)
-9	151	1018	           ,as.character(dF$X))
+9	158	1001	           as.character(wrld_simpl$NAME)
+9	151	1018	          ,as.character(dF$X))
 9	82	1034	# join data to the map
 9	82	1050	wrld_simpl@data <- cbind(wrld_simpl@data
 9	247	1067	                        , dF[matchPosnsInData,])

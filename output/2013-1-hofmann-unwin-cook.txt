@@ -5,31 +5,31 @@ page	left	top	code
 2	149	937	## Suggested addition for ?anorexia (Cont.)
 2	149	954	## - Simple
 2	149	970	qplot(Prewt, Postwt, data=anorexia, colour=Treat, facets=.~Treat) +
-2	163	987	   xlim(c(68,105)) + ylim(c(68,105))
+2	163	987	  xlim(c(68,105)) + ylim(c(68,105))
 2	149	1058	## - Polished
 2	149	1075	limits <- with(anorexia, range(c(Prewt, Postwt)))
 2	149	1091	limits <- limits + 0.05*c(-1,1)*limits
 2	149	1124	ggplot(data=anorexia, aes(x=Prewt, y=Postwt, colour=Treat)) +
-2	163	1141	   coord_equal(ylim=limits, xlim=limits) +
-3	163	417	   xlab("Pre-treatment weight (lbs)") +
-3	163	434	   ylab("Post-treatment weight (lbs)") +
-3	163	450	   geom_abline(intercept=0, slope=1, colour="white", size=1.25) +
-3	163	467	   geom_point(size=3) +
-3	163	483	   facet_grid(.~Treat) +
-3	163	500	   scale_colour_discrete(guide="none")
+2	163	1141	  coord_equal(ylim=limits, xlim=limits) +
+3	163	417	  xlab("Pre-treatment weight (lbs)") +
+3	163	434	  ylab("Post-treatment weight (lbs)") +
+3	163	450	  geom_abline(intercept=0, slope=1, colour="white", size=1.25) +
+3	163	467	  geom_point(size=3) +
+3	163	483	  facet_grid(.~Treat) +
+3	163	500	  scale_colour_discrete(guide="none")
 3	149	1086	## Existing example code
 3	149	1103	?glm
 3	149	1119	anorex.1 <- glm(Postwt ~ Prewt+Treat+offset(Prewt), family = gaussian, data = anorexia)
 3	149	1136	summary(anorex.1)
 4	149	116	## Suggested addition
 4	149	132	ggplot(data=anorexia,
-4	163	149	   aes(x=Prewt, colour=Treat, y=(Postwt-Prewt)/Prewt*100)) +
-4	163	165	   xlab("Pre-treatment weight (lbs)") +
-4	163	181	   ylab("Percent change in weight (in lbs)") +
-4	163	198	   geom_hline(yintercept=0, size=1.25, colour="white") +
-4	163	214	   geom_point(size=3) +
-4	163	231	   facet_grid(.~Treat)+
-4	163	247	   scale_colour_discrete(guide="none")
+4	163	149	  aes(x=Prewt, colour=Treat, y=(Postwt-Prewt)/Prewt*100)) +
+4	163	165	  xlab("Pre-treatment weight (lbs)") +
+4	163	181	  ylab("Percent change in weight (in lbs)") +
+4	163	198	  geom_hline(yintercept=0, size=1.25, colour="white") +
+4	163	214	  geom_point(size=3) +
+4	163	231	  facet_grid(.~Treat)+
+4	163	247	  scale_colour_discrete(guide="none")
 4	149	1075	## Existing code
 4	149	1091	data(Lanza, package="HSAUR2")
 4	149	1124	## Suggested example code for ?Lanza
@@ -57,7 +57,7 @@ page	left	top	code
 8	149	429	## for each individual
 8	149	445	require(plyr)
 8	149	462	sc.present <- subset(sc, disorder == "present")
-8	149	494	attacks <- ddply(sc.present,   .(subject),   summarise,
+8	149	494	attacks <- ddply(sc.present,  .(subject),  summarise,
 8	176	511	    episodes=length(month),
 8	176	527	    first=min(month),
 8	176	544	    last=max(month)
@@ -65,7 +65,7 @@ page	left	top	code
 8	149	593	## Dropout information for each individual
 8	149	609	sc.dropout <- subset(sc, disorder=="dropout")
 8	149	626	drops <- ddply(sc.dropout,
-8	163	642	   .(subject), summarise,
+8	163	642	  .(subject), summarise,
 8	176	659	    drops=length(month)
 8	149	675	)
 8	149	708	## Merge all the information
@@ -82,7 +82,7 @@ page	left	top	code
 8	149	905	sc$subject <- reorder(sc$subject, sc$last)
 8	149	939	sc$subject <- reorder(sc$subject, sc$first)
 8	149	956	sc$subject <- reorder(sc$subject, sc$episodes)
-8	149	988	sc.table <- with(sc, table(onset,   month, subject, disorder))
+8	149	988	sc.table <- with(sc, table(onset,  month, subject, disorder))
 8	149	1005	dimnames(sc.table)$subject <- rep("", 44)
 8	149	1038	par(mar=c(2,2,0,0))
 8	149	1054	## Finally, plot
@@ -103,8 +103,8 @@ page	left	top	code
 11	149	765	sf$range <- sqrt(sf$Freq)
 11	149	781	sf$range <- sf$range/max(sf$range)/2
 11	149	814	ggfluctuation( xtabs(Freq~Disagree+Scale, data=sf)) +
-11	156	830	  xlab("Joint Couple Score") +
-11	156	847	  ylab("Disagreement: Husband - Wife") +
-11	156	863	  geom_rect(aes(xmin=Scale-1-range, ymin=-Disagree+4-range,
-11	252	880	                xmax=Scale-1+range, ymax=-Disagree+4+range),
+11	156	830	 xlab("Joint Couple Score") +
+11	156	847	 ylab("Disagreement: Husband - Wife") +
+11	156	863	 geom_rect(aes(xmin=Scale-1-range, ymin=-Disagree+4-range,
+11	252	880	               xmax=Scale-1+range, ymax=-Disagree+4+range),
 11	217	896	          fill=NA, colour="grey30", data=subset(sf, Disagree!=0), inherit.aes=FALSE)

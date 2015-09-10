@@ -1,39 +1,39 @@
 page	left	top	code
 5	149	709	data(tooth24)
 5	149	725	head(tooth24)
-5	163	758	   id left right sex dmf
-5	149	775	1 1 2.7   3.5   1   1
-5	149	791	2 2 2.4   3.4   0   1
-5	149	808	3 3 4.5   5.5   1   0
-5	149	824	4 4 5.9   Inf   1   0
-5	149	840	5 5 4.1   5.0   1   1
-5	149	857	6 6 3.7   4.5   0   1
+5	163	758	  id left right sex dmf
+5	149	775	1 1 2.7  3.5  1  1
+5	149	791	2 2 2.4  3.4  0  1
+5	149	808	3 3 4.5  5.5  1  0
+5	149	824	4 4 5.9  Inf  1  0
+5	149	840	5 5 4.1  5.0  1  1
+5	149	857	6 6 3.7  4.5  0  1
 5	149	1053	fit <- icweib(L = left, R = right, data = tooth24, strata = dmf, covariates = ~sex)
 5	149	1069	fit
 5	149	1102	Total observations used: 4386. Model Convergence: TRUE
 5	149	1135	Coefficients:
-6	176	100	    coefficient      SE    z p.value
+6	176	100	    coefficient     SE    z p.value
 6	149	116	sex       0.331 0.0387 8.55       0
 6	149	149	Weibull parameters - gamma(shape), lambda(scale):
-6	156	165	  straname strata gamma   lambda
+6	156	165	 straname strata gamma   lambda
 6	190	182	      dmf      0 5.99 1.63e-05
 6	190	198	      dmf      1 4.85 1.76e-04
 6	149	231	Test of proportional hazards for strata (H0: all strata's shape parameters are equal):
-6	238	248	             test TestStat df p.value
-6	238	264	              Wald      44.2 1 2.96e-11
-6	156	281	  Likelihood Ratio     44.2 1 3.00e-11
+6	238	248	            test TestStat df p.value
+6	238	264	             Wald     44.2 1 2.96e-11
+6	156	281	 Likelihood Ratio     44.2 1 3.00e-11
 6	149	313	Loglik(model)= -5501.781   Loglik(reduced)= -5523.87
 6	149	330	Loglik(null)= -5538.309 Chisq= 73.05611   df= 1 p.value= 0
 6	149	595	fit0 <- icweib(L = left, R = right, data = tooth24)
 6	149	611	fit0
 6	149	644	Total observations used: 4386. Model Convergence: TRUE
 6	149	677	Weibull parameters - gamma(shape), lambda(scale):
-6	156	693	  straname strata gamma   lambda
-6	169	710	   strata     ALL   5.3 7.78e-05
+6	156	693	 straname strata gamma   lambda
+6	169	710	   strata    ALL   5.3 7.78e-05
 6	149	743	Loglik(model)= -5596.986
 6	149	759	Loglik(null)= -5596.986
 6	149	936	HRatio(fit, times = 1:7, NumStra = 0, NumZ = 0, DemStra = 1, DemZ = 0)
-6	163	969	   time NumStra DemStra beta*(Z1-Z2)         HR      low95    high95
+6	163	969	  time NumStra DemStra beta*(Z1-Z2)        HR      low95    high95
 6	149	986	1    1       0       1            0 0.1143698 0.06596383 0.1982972
 6	149	1002	2    2       0       1            0 0.2520248 0.18308361 0.3469262
 6	149	1018	3    3       0       1            0 0.4000946 0.33112219 0.4834339
@@ -47,42 +47,42 @@ page	left	top	code
 7	149	704	tooth24.survreg <- tooth24
 7	149	720	tooth24.survreg$right <- with(tooth24, ifelse(is.finite(right), right, NA))
 7	149	737	fit1 <- survreg(Surv(left, right, type="interval2") ~ sex + strata(dmf) + factor(dmf),
-7	259	753	                 data = tooth24.survreg)
+7	259	753	                data = tooth24.survreg)
 7	149	770	fit1
 7	149	803	Call:
 7	149	819	survreg(formula = Surv(left, right, type = "interval2") ~ sex +
 7	176	835	    strata(dmf) + factor(dmf), data = tooth24.survreg)
 7	149	868	Coefficients:
-7	156	885	  (Intercept)           sex factor(dmf)1
+7	156	885	 (Intercept)          sex factor(dmf)1
 7	163	901	  1.84389938 -0.06254599 -0.06491729
 7	149	934	Scale:
 7	149	951	dmf=Sound1 dmf=Sound2
 7	156	967	 0.1659477 0.2072465
 7	149	1000	Loglik(model)= -5499.3   Loglik(intercept only)= -5576.2
-7	204	1016	         Chisq= 153.8 on 2 degrees of freedom, p= 0
+7	204	1016	        Chisq= 153.8 on 2 degrees of freedom, p= 0
 7	149	1033	n= 4386
 8	149	100	fit20 <- icweib(L= left, R=right, data=tooth24[tooth24$dmf==0, ], covariates = ~sex)
 8	149	116	fit20 ### Partial results shown below
 8	149	133	Coefficients:
-8	176	149	    coefficient      SE    z p.value
+8	176	149	    coefficient     SE    z p.value
 8	149	165	sex       0.448 0.0543 8.25 2.22e-16
 8	149	219	fit21 <- icweib(L= left, R=right, data=tooth24[tooth24$dmf==1, ], covariates = ~sex)
 8	149	236	fit21 ### Partial results shown below
 8	149	252	Coefficients:
-8	176	269	    coefficient      SE    z p.value
+8	176	269	    coefficient     SE    z p.value
 8	149	285	sex       0.208 0.0554 3.76 0.000169
 8	149	426	fit20.survreg <- survreg(Surv(left, right, type="interval2") ~ sex,
-8	259	442	                 data = tooth24.survreg[tooth24.survreg$dmf==0, ])
+8	259	442	                data = tooth24.survreg[tooth24.survreg$dmf==0, ])
 8	149	458	fit20.survreg ### Partial results shown below
 8	149	475	Coefficients:
-8	149	491	(Intercept)          sex
-8	156	508	  1.85029150 -0.07453785
+8	149	491	(Intercept)         sex
+8	156	508	 1.85029150 -0.07453785
 8	149	561	fit21.survreg <- survreg(Surv(left, right, type="interval2") ~ sex,
-8	259	578	                 data = tooth24.survreg[tooth24.survreg$dmf==1, ])
+8	259	578	                data = tooth24.survreg[tooth24.survreg$dmf==1, ])
 8	149	594	fit21.survreg ### Partial results shown below
 8	149	611	Coefficients:
-8	149	627	(Intercept)          sex
-8	156	644	  1.76931556 -0.04303767
+8	149	627	(Intercept)         sex
+8	156	644	 1.76931556 -0.04303767
 8	149	986	HR.straweib <- exp(fit$coef[1, 1])
 8	149	1002	HR.survreg <- exp(-fit1$coefficients['sex']/fit1$scale)
 8	149	1019	HR.subgroup <- exp(c(fit20$coef[1, 1], fit21$coef[1, 1]))

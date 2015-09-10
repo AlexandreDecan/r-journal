@@ -25,26 +25,26 @@ page	left	top	code
 2	169	1112	   felm(formula = y ~ x + G(f1) + G(f2))
 2	149	1145	Residuals:
 3	197	104	       Min         1Q     Median         3Q        Max
-3	149	120	-1.9531308 -0.3018539 -0.0003573   0.3007738  2.2052754
+3	149	120	-1.9531308 -0.3018539 -0.0003573  0.3007738  2.2052754
 3	149	153	Coefficients:
-3	163	169	   Estimate Std. Error t value Pr(>|t|)
-3	149	186	x 2.130889   0.001768    1205    <2e-16 ***
+3	163	169	  Estimate Std. Error t value Pr(>|t|)
+3	149	186	x 2.130889   0.001768    1205   <2e-16 ***
 3	149	202	---
-3	149	219	Signif. codes:   0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+3	149	219	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 3	149	252	Residual standard error: 0.5013 on 80000 degrees of freedom
-3	149	268	Multiple R-squared: 0.9683    Adjusted R-squared: 0.9603
+3	149	268	Multiple R-squared: 0.9683   Adjusted R-squared: 0.9603
 3	149	285	F-statistic: 122.1 on 19999 and 80000 DF, p-value: < 2.2e-16
 3	149	866	> alpha <- getfe(est)
 3	149	883	> nrow(alpha)
 3	149	912	[1] 20000
 3	149	941	> alpha[9998:10003,]
-3	238	970	              effect obs comp fe    idx
-3	149	987	f1.9998   -0.2431720   9    1 f1   9998
-3	149	1003	f1.9999   -0.9733257   5    1 f1   9999
-3	149	1020	f1.10000 -0.8456289    9    1 f1 10000
-3	149	1036	f2.1       0.4800013    9    1 f2      1
-3	149	1052	f2.2       1.4868744   14    1 f2      2
-3	149	1069	f2.3       1.5002583   11    1 f2      3
+3	238	970	             effect obs comp fe   idx
+3	149	987	f1.9998  -0.2431720   9    1 f1  9998
+3	149	1003	f1.9999  -0.9733257   5    1 f1  9999
+3	149	1020	f1.10000 -0.8456289   9    1 f1 10000
+3	149	1036	f2.1      0.4800013   9    1 f2     1
+3	149	1052	f2.2      1.4868744  14    1 f2     2
+3	149	1069	f2.3      1.5002583  11    1 f2     3
 5	149	104	> set.seed(42)
 5	149	120	> f1 <- factor(sample(50, 1000, replace=TRUE))
 5	149	137	> f2 <- factor(sample(50, 1000, replace=TRUE))
@@ -70,8 +70,8 @@ page	left	top	code
 5	149	1016	> f1 <- factor(sample(4, 100, replace=TRUE))
 5	149	1032	> f2 <- factor(sample(5, 100, replace=TRUE))
 5	149	1049	> f3 <- factor(sample(6, 100, replace=TRUE))
-5	149	1065	> e1 <- sin(1:4)[f1] + 0.02*((1:5)^2)[f2]   + 0.17*((1:6)^3)[f3] + rnorm(100)
-5	149	1082	> y <-   2.5*x + (e1-mean(e1))
+5	149	1065	> e1 <- sin(1:4)[f1] + 0.02*((1:5)^2)[f2]  + 0.17*((1:6)^3)[f3] + rnorm(100)
+5	149	1082	> y <-  2.5*x + (e1-mean(e1))
 5	149	1098	> est <- felm(y ~ x + G(f1) + G(f2) + G(f3))
 6	149	210	> ef <- function(gamma, addnames) {
 6	149	227	+   ref1 <- gamma[1]  # first level of f1
@@ -84,20 +84,20 @@ page	left	top	code
 6	149	342	+   result <- c(icpt, gamma[2:4]-ref1, gamma[6:9]-ref2, gamma[11:15]-ref3)
 6	149	358	+   if(addnames) {
 6	149	375	+     names(result) <- c(’(Intercept)’,
-6	149	391	+                        paste(’f1’, levels(f1)[2:4], sep=’’),
-6	149	407	+                        paste(’f2’, levels(f2)[2:5], sep=’’),
-6	149	424	+                        paste(’f3’, levels(f3)[2:6], sep=’’))
+6	149	391	+                       paste(’f1’, levels(f1)[2:4], sep=’’),
+6	149	407	+                       paste(’f2’, levels(f2)[2:5], sep=’’),
+6	149	424	+                       paste(’f3’, levels(f3)[2:6], sep=’’))
 6	149	440	+     attr(result, ’extra’) <- list(fe=factor(
-6	149	457	+                                    c(’icpt’, rep(’f1’,3),
-6	149	473	+                                      rep(’f2’,4), rep(’f3’,5))),
-6	149	490	+                                  idx=factor(c(1, 2:4, 2:5, 2:6)))
+6	149	457	+                                   c(’icpt’, rep(’f1’,3),
+6	149	473	+                                     rep(’f2’,4), rep(’f3’,5))),
+6	149	490	+                                 idx=factor(c(1, 2:4, 2:5, 2:6)))
 6	149	506	+   }
 6	149	523	+   result
 6	149	539	+ }
 6	149	588	> is.estimable(ef, list(f1,f2,f3))
 6	149	614	[1] TRUE
 6	149	681	> getfe(est, ef=ef, se=TRUE, bN=1000)
-6	265	707	                 effect    fe idx         se
+6	265	707	                 effect   fe idx        se
 6	149	723	(Intercept) -10.9016327 icpt   1 0.3077378
 6	149	739	f12          -0.1265879   f1   2 0.2356162
 6	149	756	f13          -0.7541019   f1   3 0.2896058
@@ -129,16 +129,16 @@ page	left	top	code
 7	169	1011	   felm(formula = y ~ x + x2 + G(id) + G(firm) + Q, iv = Q ~ x3)
 7	149	1044	Residuals:
 7	190	1060	      Min        1Q    Median        3Q       Max
-7	149	1077	-6.036142 -0.903260   0.000759  0.913758   4.971614
+7	149	1077	-6.036142 -0.903260  0.000759  0.913758  4.971614
 7	149	1109	Coefficients:
-7	211	1126	          Estimate Std. Error t value Pr(>|t|)
+7	211	1126	         Estimate Std. Error t value Pr(>|t|)
 7	149	1142	x         0.94963    0.03975   23.89   <2e-16 ***
 8	149	104	x2        0.49567    0.01449   34.20   <2e-16 ***
-8	149	120	‘Q(fit)‘  0.94297     0.03816   24.71    <2e-16 ***
+8	149	120	‘Q(fit)‘  0.94297    0.03816   24.71   <2e-16 ***
 8	149	137	---
-8	149	153	Signif. codes:   0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+8	149	153	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 8	149	186	Residual standard error: 1.668 on 6717 degrees of freedom
-8	149	202	Multiple R-squared: 0.8112    Adjusted R-squared: 0.7189
+8	149	202	Multiple R-squared: 0.8112   Adjusted R-squared: 0.7189
 8	149	219	F-statistic: 8.791 on 3282 and 6717 DF, p-value: < 2.2e-16
 8	149	761	> set.seed(54)
 8	149	778	> x <- rnorm(100000)
@@ -146,55 +146,55 @@ page	left	top	code
 8	149	811	> f2 <- sample(300, length(x), replace=TRUE)
 8	149	827	> y <- x + cos(f1) + log(f2+1) + rnorm(length(x), sd=0.5)
 8	149	881	> system.time(est <- felm(y ~ x + G(f1) + G(f2)))
-8	169	911	   user   system elapsed
-8	163	927	   2.420   0.008    1.955
+8	169	911	   user  system elapsed
+8	163	927	  2.420   0.008   1.955
 8	149	957	> system.time(alpha <- getfe(est))
-8	169	987	   user   system elapsed
-8	163	1004	   0.256   0.008    0.263
+8	169	987	   user  system elapsed
+8	163	1004	  0.256   0.008   0.263
 9	149	104	> f3 <- (f1 + sample(5, length(x), replace=TRUE)) %% 300
 9	149	120	> y <- x + cos(f1) + log(f3+1) + rnorm(length(x), sd=0.5)
 9	149	137	> system.time(est <- felm(y ~ x + G(f1) + G(f3)))
-9	169	166	   user   system elapsed
-9	156	182	  34.624   0.000   18.804
+9	169	166	   user  system elapsed
+9	156	182	 34.624   0.000  18.804
 9	149	212	> system.time(alpha <- getfe(est))
-9	169	241	   user   system elapsed
-9	163	258	   3.868   0.008    3.880
+9	169	241	   user  system elapsed
+9	163	258	  3.868   0.008   3.880
 9	149	347	> system.time(est <- felm(y ~ x + G(f1) + factor(f3)))
-9	169	376	   user   system elapsed
-9	156	393	  10.340   0.832    5.379
+9	169	376	   user  system elapsed
+9	156	393	 10.340   0.832   5.379
 9	149	422	> length(coef(est))
 9	149	451	[1] 300
 9	149	481	> system.time(alpha <- getfe(est))
-9	169	510	   user   system elapsed
-9	163	527	   0.192   0.000    0.192
+9	169	510	   user  system elapsed
+9	163	527	  0.192   0.000   0.192
 9	149	616	> f4 <- (f1 + sample(5, length(x), replace=TRUE)^3) %% 300
 9	149	632	> y <- x + cos(f1) + log(f4+1) + rnorm(length(x), sd=0.5)
 9	149	648	> system.time(est <- felm(y ~ x + G(f1) + G(f4)))
-9	169	678	   user   system elapsed
-9	163	694	   2.564   0.000    2.081
+9	169	678	   user  system elapsed
+9	163	694	  2.564   0.000   2.081
 9	149	724	> system.time(alpha <- getfe(est))
-9	169	753	   user   system elapsed
-9	163	770	   0.240   0.004    0.244
+9	169	753	   user  system elapsed
+9	163	770	  0.240   0.004   0.244
 9	149	859	> f5 <- (f1 + sample(seq(1,197,49), length(x), replace=TRUE)) %% 300
 9	149	875	> y <- x + cos(f1) + log(f5+1) + rnorm(length(x), sd=0.5)
 9	149	891	> system.time(est <- felm(y ~ x + G(f1) + G(f5)))
-9	169	921	   user   system elapsed
-9	156	937	  32.636   0.000   17.368
+9	169	921	   user  system elapsed
+9	156	937	 32.636   0.000  17.368
 9	149	967	> system.time(alpha <- getfe(est))
-9	169	996	   user   system elapsed
-9	163	1013	   3.972   0.000    3.975
+9	169	996	   user  system elapsed
+9	163	1013	  3.972   0.000   3.975
 9	149	1069	> f6 <- (f1 + sample(seq(1,201,50), length(x), replace=TRUE)) %% 300
 9	149	1085	> y <- x + cos(f1) + log(f6+1) + rnorm(length(x), sd=0.5)
 9	149	1101	> system.time(est <- felm(y ~ x + G(f1) + G(f6)))
-9	169	1131	   user   system elapsed
-9	163	1147	   2.548   0.000    2.073
+9	169	1131	   user  system elapsed
+9	163	1147	  2.548   0.000   2.073
 10	149	104	> system.time(alpha <- getfe(est))
-10	169	134	   user   system elapsed
-10	163	150	   0.244   0.000    0.244
+10	169	134	   user  system elapsed
+10	163	150	  0.244   0.000   0.244
 10	149	376	> library(igraph)
 10	149	392	> mkgraph <- function(flist) {
 10	149	409	+   graph.adjacency(tcrossprod(do.call(’rBind’,
-10	149	425	+                                      lapply(flist, as, ’sparseMatrix’)))>0,
+10	149	425	+                                     lapply(flist, as, ’sparseMatrix’)))>0,
 10	149	441	+                   ’undirected’, diag=FALSE)
 10	149	458	+ }
 10	149	512	> glist <- lapply(list(f2,f3,f4,f5,f6),
@@ -202,7 +202,7 @@ page	left	top	code
 10	149	582	> sapply(glist, no.clusters)
 10	149	612	[1]  1  1  1  1 50
 10	149	685	> sapply(glist, function(g) mean(degree(g)))
-10	149	715	[1] 19.100301   8.404311  8.410719   8.400039  8.423925
+10	149	715	[1] 19.100301  8.404311  8.410719  8.400039  8.423925
 10	149	1039	> for(gr in glist[1:4])
 10	149	1056	+   print(fivenum(shortest.paths(gr, v=sample(V(gr),10), to=sample(V(gr),10))))
 10	149	1086	[1]  2  2  4  4  4

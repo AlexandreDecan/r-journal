@@ -23,33 +23,33 @@ page	left	top	code
 2	82	1159	> p[[x]]
 2	82	1175	[1] 0
 3	82	127	n <- 3
-3	82	144	N <- 2^2^n   # number of functions with n var
+3	82	144	N <- 2^2^n  # number of functions with n var
 3	82	177	allRes <- vector("integer", N)
 3	82	193	allAIs <- vector("integer", N)
 3	82	226	for( i in 1:N ) { # forall Boolean function
-3	96	242	   f <- BooleanFunction( toBin(i-1,2^n) )
-3	96	259	   allRes[i] <- res(f)   # get its resiliency
-3	96	275	   allAIs[i] <- ai(f)    # and algebraic immunity
+3	96	242	  f <- BooleanFunction( toBin(i-1,2^n) )
+3	96	259	  allRes[i] <- res(f)  # get its resiliency
+3	96	275	  allAIs[i] <- ai(f)   # and algebraic immunity
 3	82	292	}
 3	82	325	xlabel <- "Truth tables as integers"
 3	82	357	plot( x=1:N, y=allRes, type="b",
-3	124	374	       xlab=xlabel, ylab="Resiliency" )
+3	124	374	      xlab=xlabel, ylab="Resiliency" )
 3	82	390	plot( x=1:N, y=allAIs, type="b",
-3	124	407	       xlab=xlabel, ylab="Algebraic immunity" )
+3	124	407	      xlab=xlabel, ylab="Algebraic immunity" )
 3	459	482	plot( 1:N, allRes+allAIs, type="b",
-3	514	498	         xlab="f", ylab="ai(f)+res(f)" )
+3	514	498	        xlab="f", ylab="ai(f)+res(f)" )
 4	82	196	n <- 8
 4	82	212	data <- data.frame( matrix(nrow=0,ncol=4) )
 4	82	229	names(data) <- c( "deg", "ai", "nl", "res" )
 4	82	245	for( i in 1:1000 ) { # for 1000 random functions
-4	110	262	     randomTT <- round(runif(2^n, 0, 1))
-4	110	278	     randomBF <- BooleanFunction(randomTT)
-4	110	294	     data[i,] <-c( deg(randomBF), ai(randomBF),
-4	165	311	             nl(randomBF), res(randomBF))
+4	110	262	    randomTT <- round(runif(2^n, 0, 1))
+4	110	278	    randomBF <- BooleanFunction(randomTT)
+4	110	294	    data[i,] <-c( deg(randomBF), ai(randomBF),
+4	165	311	            nl(randomBF), res(randomBF))
 4	82	327	}
 4	82	466	> mean(data)
 4	110	482	    deg      ai      nl     res
-4	96	498	   7.479    3.997 103.376   -0.939
+4	96	498	  7.479   3.997 103.376  -0.939
 4	82	515	> sd(data)
 4	124	531	      deg        ai        nl       res
 4	82	548	0.5057814 0.0547174 3.0248593 0.2476698
@@ -57,5 +57,5 @@ page	left	top	code
 4	82	846	chistat <- computeChiStat(data)
 4	82	879	outcome <- "random"
 4	82	895	if(chistat > qchisq(0.99, df=n))
-4	96	912	   outcome <- "cipher"
+4	96	912	  outcome <- "cipher"
 4	82	945	print(outcome)

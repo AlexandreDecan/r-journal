@@ -8,7 +8,6 @@ page	left	top	code
 3	149	475	+            c(-Inf,qnorm(c(0.06,0.31,0.69,0.94)),Inf))
 3	149	491	> Dx <- rdatagen(n=100,R=R,Q=c(5,5),th=th)
 3	149	508	> Dx$data
-3	516	666	
 3	149	742	> d1 <- factor(Dx$data[,1],ordered=TRUE)
 3	149	759	> d2 <- factor(Dx$data[,2],ordered=TRUE)
 3	149	775	> polychor(d1,d2,ML=TRUE,std.err=TRUE)
@@ -23,7 +22,7 @@ page	left	top	code
 5	156	806	 5 29 40 24 2
 5	149	822	> table(Fx$Fx[,1])
 5	156	855	 1 2 3 4 5
-5	156	872	  2 17 36 31 14
+5	156	872	 2 17 36 31 14
 6	149	715	> require(polycor)
 6	149	731	> set.seed(367)
 6	149	748	> obs.stat <- .3; mc.stat <- NULL
@@ -44,7 +43,6 @@ page	left	top	code
 6	149	1011	> hist(mc.stat)
 6	149	1027	> sum(mc.stat>=obs.stat)/1000
 6	149	1043	[1] 0.226
-7	560	664	
 8	149	565	> require(MASS)
 8	149	582	> set.seed(367)
 8	149	598	> data(smokers)
@@ -59,10 +57,10 @@ page	left	top	code
 8	149	746	> mc.lrt <- NULL
 8	149	763	> for (b in 1:1000) {
 8	149	779	+   smokers$simdrug <- rdatagen(nrow(smokers),R=matrix(1),Q=2,
-8	149	796	+                               probs=list(c(.75,.25)))$data
+8	149	796	+                              probs=list(c(.75,.25)))$data
 8	149	812	+   Fx <- partition.replacement(smokers[,c("age","simdrug")],PM,Pparm=Pparm)
 8	149	828	+   mc.lrt <- c(mc.lrt,loglm(~simdrug+age,data=table(Fx$simdrug,Fx$age,
-8	149	845	+                               dnn=c("simdrug","age")))$lrt)
+8	149	845	+                              dnn=c("simdrug","age")))$lrt)
 8	149	861	+ }
 8	149	894	> hist(mc.lrt)
 8	149	911	> sum(mc.lrt>=obs.lrt)/1000
@@ -79,7 +77,7 @@ page	left	top	code
 10	149	809	> lrt.mc <- NULL
 10	149	826	> for (b in 1:1000) {
 10	149	842	+   Z$simdrug <- rdatagen(nrow(Z),R=matrix(1),Q=4,
-10	149	859	+                         probs=list(c(27,5,18,10)/60))$data
+10	149	859	+                        probs=list(c(27,5,18,10)/60))$data
 10	149	875	+   Dx <- Z[,-2]
 10	149	892	+   Fx <- partition.replacement(Dx,PM,p=matrix(c(0,.1),1),fake.model="slight")
 10	149	908	+   Tmc <- table(Fx$age,Fx$simdrug)
@@ -111,7 +109,7 @@ page	left	top	code
 12	149	248	+
 12	149	264	+     for (b in 1:B) {
 12	149	281	+       Z$simdrug <- rdatagen(nrow(Z),R=matrix(1),Q=4,
-12	149	297	+                             probs=list(c(27,5,18,10)/60))$data
+12	149	297	+                            probs=list(c(27,5,18,10)/60))$data
 12	149	313	+       Dx <- Z[,-2]
 12	149	330	+       Fx <- partition.replacement(Dx,PM,Pparm=Pparm)
 12	149	346	+

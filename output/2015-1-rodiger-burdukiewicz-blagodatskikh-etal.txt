@@ -39,8 +39,8 @@ page	left	top	code
 5	149	699	-1.4904 -0.2730 0.0601 0.3540 1.1871
 5	149	732	Coefficients:
 5	238	748	Estimate Std. Error t value Pr(>|t|)
-5	149	765	(Intercept) -8.125534   0.207419 -39.17    <2e-16 ***
-5	149	781	Cq.SDM        0.988504   0.008097 122.08    <2e-16 ***
+5	149	765	(Intercept) -8.125534   0.207419 -39.17   <2e-16 ***
+5	149	781	Cq.SDM       0.988504   0.008097 122.08   <2e-16 ***
 5	149	798	---
 5	149	814	Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 5	149	847	Residual standard error: 0.5281 on 82 degrees of freedom
@@ -140,15 +140,15 @@ page	left	top	code
 10	149	788	# the expected Tm of circa 54.5 degree Celsius is found. The result of the test
 10	149	805	# is assigned to the object 'Tm.Positive'.
 10	149	838	Tm.Positive <- matrix(nrow = ncol(melt) - 1,
-10	300	854	         byrow = TRUE,
-10	300	871	         dimnames = list(colnames(melt)[-1]),
-10	300	887	         unlist(apply(melt[, -1], 2, function(x) {
-10	313	903	           res.Tm <- diffQ(cbind(melt[, 1], x),
-10	423	920	                           fct = max, inder = TRUE)
-10	313	936	           positive <- ifelse(res.Tm[1] > 54 &
-10	444	953	                              res.Tm[1] < 55 &
-10	444	969	                              res.Tm[2] > 80, 1, 0)
-10	313	986	           c(res.Tm[1], res.Tm[2], positive)
+10	300	854	        byrow = TRUE,
+10	300	871	        dimnames = list(colnames(melt)[-1]),
+10	300	887	        unlist(apply(melt[, -1], 2, function(x) {
+10	313	903	          res.Tm <- diffQ(cbind(melt[, 1], x),
+10	423	920	                          fct = max, inder = TRUE)
+10	313	936	          positive <- ifelse(res.Tm[1] > 54 &
+10	444	953	                             res.Tm[1] < 55 &
+10	444	969	                             res.Tm[2] > 80, 1, 0)
+10	313	986	          c(res.Tm[1], res.Tm[2], positive)
 10	300	1002	         })))
 10	149	1078	# Present the results in a tabular output as data.frame 'results.tab'.
 10	149	1094	# Result of analysis logic is:
@@ -168,11 +168,11 @@ page	left	top	code
 11	149	281	})
 11	149	369	results.tab <- data.frame(cbind(Cq.Positive, Tm.Positive, results))
 11	149	386	names(results.tab) <- c("Cq", "M.Tub DNA", "Tm", "Height",
-11	313	402	           "Tm positive", "Result")
+11	313	402	          "Tm positive", "Result")
 11	149	435	results.tab[["M.Tub DNA"]] <- factor(results.tab[["M.Tub DNA"]],
-11	403	451	                        labels = c("Not Detected", "Detected"))
+11	403	451	                       labels = c("Not Detected", "Detected"))
 11	149	484	results.tab[["Tm positive"]] <- factor(results.tab[["Tm positive"]],
-11	416	501	                          labels = c(TRUE, FALSE))
+11	416	501	                         labels = c(TRUE, FALSE))
 11	149	517	results.tab
 11	149	590	# Convert the decision from the 'results' object in a colour code:
 11	149	606	# Negative, black; Positive, red.
@@ -197,14 +197,14 @@ page	left	top	code
 11	149	1017	invisible(
 11	163	1033	lapply(2L:ncol(melt), function(i)
 11	176	1050	lines(diffQ(cbind(melt[, 1], melt[, i]), verbose = TRUE,
-11	259	1066	   fct = max, inder = TRUE)[["xy"]], col = color[i - 1]))
+11	259	1066	  fct = max, inder = TRUE)[["xy"]], col = color[i - 1]))
 11	149	1083	)
 12	149	493	# This case study uses the qIA raw data (C81 dataset) from the chipPCR
 12	149	509	# package. Therefore, first we load the chipPCR package.
 12	149	526	require(chipPCR)
 12	149	559	# To see the structure of the C81 dataset we used the str function.
 12	149	575	str(C81)
-12	149	592	'data.frame':         351 obs. of 5 variables:
+12	149	592	'data.frame':        351 obs. of 5 variables:
 12	156	608	$ Cycle : int 0 1 2 3 4 5 6 7 8 9 ...
 12	156	624	$ t.D1 : int 0 51 73 90 107 124 140 157 174 190 ...
 12	156	641	$ MFI.D1: num 0.549 0.535 0.532 0.53 0.525 ...
@@ -255,7 +255,7 @@ page	left	top	code
 14	149	564	k <- 4601
 14	149	580	n <- 16800
 14	149	596	(dens <- dpcr_density(k = k, n = n, average = TRUE, methods = "wilson",
-14	300	613	         conf.level = 0.95))
+14	300	613	        conf.level = 0.95))
 14	149	629	legend("topleft", paste("k:", k,"\nn:", n))
 14	149	646	#dev.off()
 14	149	662	# Let us assume, that every partition has roughly a volume of 5 nL.
@@ -269,7 +269,7 @@ page	left	top	code
 15	149	807	# samples (A01 ...)
 15	149	840	require(dpcR)
 15	149	873	head(summary(pds_raw))
-15	176	906	Length Class         Mode
+15	176	906	Length Class        Mode
 15	149	922	A01 "3"    "data.frame" "list"
 15	149	938	A02 "3"    "data.frame" "list"
 15	149	955	A03 "3"    "data.frame" "list"
@@ -280,7 +280,7 @@ page	left	top	code
 15	149	1053	# with three columns. Two contain amplitude values (fluorescence intensity) and one
 15	149	1070	# contains cluster results (integer values of 1 - 4).
 15	149	1103	str(pds_raw[["A01"]])
-15	149	1119	'data.frame':         11964 obs. of 3 variables:
+15	149	1119	'data.frame':        11964 obs. of 3 variables:
 15	156	1136	$ Assay1.Amplitude: num 397 399 402 416 417 ...
 16	156	100	$ Assay2.Amplitude: num 3732 3808 4007 3778 3685 ...
 16	156	116	$ Cluster         : int 4 4 4 4 4 4 4 4 4 4 ...
@@ -298,9 +298,9 @@ page	left	top	code
 16	149	439	for (i in 1L:length(wells)) {
 16	163	455	cluster.info <- unique(pds_raw[wells[i]][[1]]["Cluster"])
 16	163	472	res <- bioamp(data = pds_raw[wells[i]][[1]], amp_x = 2, amp_y = 1,
-16	259	488	   main = paste("Well", wells[i]), xlab = "Amplitude of ileS (FAM)",
-16	259	505	   ylab = "Amplitude of styA (HEX)", xlim = c(500,4700),
-16	259	521	   ylim = c(0,3300), pch = 19)
+16	259	488	  main = paste("Well", wells[i]), xlab = "Amplitude of ileS (FAM)",
+16	259	505	  ylab = "Amplitude of styA (HEX)", xlim = c(500,4700),
+16	259	521	  ylim = c(0,3300), pch = 19)
 16	163	554	legend("topright", as.character(cluster.info[, 1]), col = cluster.info[, 1],
 16	211	570	pch = 19)
 16	149	647	# Counts for the positive clusters 2 and 3 were assigned to new objects
@@ -314,13 +314,13 @@ page	left	top	code
 16	149	827	if(i < 5) x.lim <- c(0.065, 0.115) else x.lim <- c(0, 0.115)
 16	149	860	# The next step is the calculation of the dPCR statistics.
 16	149	877	dens <- dpcr_density(k = k.tmp, n = n.tmp, average = TRUE, methods = "wilson",
-16	293	893	        conf.level = 0.95, xlim = x.lim, bars = FALSE)
+16	293	893	       conf.level = 0.95, xlim = x.lim, bars = FALSE)
 16	149	910	legend("topright", paste("k:", k.tmp,"\nn:", n.tmp), bty = "n")
 16	149	943	# Finally, the concentration of the molecules was calculated with the volume
 16	149	959	# used in the QX100 system and as proposed by Corbisier et al. (2015). The
 16	149	975	# results were added as barplot with the confidence intervals.
 16	149	1008	res.conc <- rbind(original = dens[4:6] / 0.90072,
-16	272	1025	     corrected = dens[4:6] / 0.834)
+16	272	1025	    corrected = dens[4:6] / 0.834)
 16	149	1041	barplot(res.conc[, 1], col = c("white","grey"),
 16	204	1058	names = c("Bio-Rad", "Corbisier"),
 16	204	1074	main = "Influence of\nDroplet size", ylab = "molecules/nL",
@@ -335,8 +335,8 @@ page	left	top	code
 18	163	278	res <- bioamp(data = pds_raw[wells[i]][[1]], amp_x = 2, amp_y = 1, plot = FALSE)
 18	163	294	# create ddpcr object for each experiment
 18	163	310	create_dpcr(data = c(rep(1, res[1, "Cluster.2"]), rep(1, res[1, "Cluster.3"])),
-18	259	327	   n = as.integer(sum(res[1, ])), threshold = 1,
-18	245	343	 type = "np", adpcr = FALSE)
+18	259	327	  n = as.integer(sum(res[1, ])), threshold = 1,
+18	245	343	type = "np", adpcr = FALSE)
 18	149	360	}))
 18	149	393	# Message: 'Different number of partitions.' is expected while joining objects
 18	149	409	# with uneven length as droplet-based experiments. The message is specifically
@@ -349,7 +349,7 @@ page	left	top	code
 18	149	573	comp <- test_counts(cluster_data, model = "ratio")
 18	149	633	> comp
 18	149	666	Groups:
-18	176	683	group       lambda   lambda.low    lambda.up
+18	176	683	group      lambda   lambda.low   lambda.up
 18	149	699	A02     b 0.077011051 0.0704320674 0.084179123
 18	149	715	B02     c 0.096061636 0.0888030003 0.103883369
 18	149	732	C02     c 0.099979708 0.0918318731 0.108811947
@@ -372,7 +372,7 @@ page	left	top	code
 18	149	1044	Model used:
 18	149	1061	[1] "ratio"
 18	149	1093	> summary(comp)
-18	163	1126	group       lambda    lambda.low   lambda.up
+18	163	1126	group      lambda   lambda.low   lambda.up
 18	149	1143	1     a 0.001218274 0.0006348818 0.002337119
 19	149	589	2     b 0.077011051 0.0704320674 0.084179123
 19	149	606	3     c 0.096230428 0.0887509893 0.104308745

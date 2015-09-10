@@ -2,7 +2,7 @@ page	left	top	code
 1	82	1141	> library(MASS)
 1	82	1157	> data(bacteria)
 1	82	1174	> head(bacteria)
-1	473	220	   y ap hilo week  ID     trt
+1	473	220	  y ap hilo week  ID     trt
 1	459	236	1 y  p   hi    0 X01 placebo
 1	459	253	2 y  p   hi    2 X01 placebo
 1	459	269	3 y  p   hi    4 X01 placebo
@@ -20,7 +20,7 @@ page	left	top	code
 2	82	144	+     effects = "ID", modelFile = "model.bug",
 2	82	160	+     family = "bernoulli")
 2	82	731	> names(bacrag$ragged)
-2	82	762	[1] "NID"            "SID"
+2	82	762	[1] "NID"           "SID"
 2	82	778	[3] "yInt"          "XID"
 2	82	795	[5] "Xobservations"
 2	82	1142	> source("getInits.R")
@@ -41,26 +41,26 @@ page	left	top	code
 2	459	616	[1] "scalars" "RID"     "betas"
 2	459	645	> signif(bacsummary$betas[, c("mean",
 2	459	661	+     "2.5%", "97.5%")], 3)
-2	562	690	                mean    2.5%    97.5%
+2	562	690	               mean   2.5%   97.5%
 2	459	706	observations -0.159 -0.263 -0.0614
-2	459	723	trtdrug      -1.500 -3.240   0.0164
-2	459	739	trtdrugplus   -0.920 -2.740   0.6060
+2	459	723	trtdrug      -1.500 -3.240  0.0164
+2	459	739	trtdrugplus  -0.920 -2.740  0.6060
 2	459	768	> bacsummary$scalars[, c("mean", "2.5%",
 2	459	784	+     "97.5%")]
-2	555	813	               mean      2.5%    97.5%
+2	555	813	              mean     2.5%    97.5%
 2	459	830	intercept 3.547556 2.243375 5.219125
-2	459	846	SDID       1.597761 0.737010 2.716975
+2	459	846	SDID      1.597761 0.737010 2.716975
 2	459	938	> checkChain(bacParams, c("intercept",
 2	459	955	+     "SDID"))
 3	82	219	> data(ontario)
 3	82	236	> head(ontario)
-3	144	266	          CSDUID observed logExpected
-3	82	283	3501005 3501005       61     2.118865
-3	82	299	3501011 3501011       50     1.971265
-3	82	316	3501012 3501012       117    3.396444
-3	82	332	3501020 3501020       65     1.919814
-3	82	349	3501030 3501030       37     1.779957
-3	82	365	3501042 3501042       16     1.182329
+3	144	266	         CSDUID observed logExpected
+3	82	283	3501005 3501005       61    2.118865
+3	82	299	3501011 3501011       50    1.971265
+3	82	316	3501012 3501012      117    3.396444
+3	82	332	3501020 3501020       65    1.919814
+3	82	349	3501030 3501030       37    1.779957
+3	82	365	3501042 3501042       16    1.182329
 3	82	795	> data(popDataAdjMat)
 3	82	812	> forBugs = glmmBUGS(formula = observed +
 3	82	828	+     logExpected ~ 1, spatial = popDataAdjMat,
@@ -76,16 +76,16 @@ page	left	top	code
 3	82	1141	> ontarioParams = restoreParams(onResult,
 3	82	1157	+     forBugs$ragged)
 3	82	1174	> names(ontarioParams)
-3	459	127	[1] "intercept"         "SDCSDUID"
-3	459	144	[3] "SDCSDUIDSpatial"   "deviance"
-3	459	160	[5] "RCSDUID"           "RCSDUIDSpatial"
+3	459	127	[1] "intercept"        "SDCSDUID"
+3	459	144	[3] "SDCSDUIDSpatial"  "deviance"
+3	459	160	[5] "RCSDUID"          "RCSDUIDSpatial"
 3	459	177	[7] "FittedRateCSDUID"
 3	459	369	> checkChain(ontarioParams, c("SDCSDUIDSpatial",
 3	459	386	+     "SDCSDUID"))
 3	459	769	> ontarioSummary = summaryChain(ontarioParams)
 3	459	785	> ontarioSummary$FittedRateCSDUID[c("3506008",
 3	459	801	+     "3520005"), "mean"]
-3	486	843	    3506008      3520005
+3	486	843	    3506008     3520005
 3	459	860	0.119725007 0.008148696
 3	459	975	> postProb = apply(ontarioParams$RCSDUID,
 3	459	992	+     3, function(x) mean(x > log(2)))
