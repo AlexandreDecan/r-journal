@@ -1,101 +1,118 @@
 page	left	top	code
+2	544	610	
 2	149	841	> r <- pi/2
 2	149	857	> U <- c(0, 1, 0)
 2	149	874	> W <- U * r
 2	149	890	> R <- as.SO3(W)
 2	149	907	> R
-2	183	940	[,1] [,2] [,3]
-2	149	956	[1,] 0 0 1
-2	149	972	[2,] 0 1 0
-2	149	989	[3,] -1 0 0
+2	183	940	     [,1] [,2] [,3]
+2	149	956	[1,]     0    0    1
+2	149	972	[2,]     0    1    0
+2	149	989	[3,]    -1    0    0
 2	149	1022	> identical(R, as.SO3(U, r))
 2	149	1055	[1] TRUE
 2	149	1127	> mis.angle(R) * 2/pi
 3	149	100	[1] 1
 3	149	133	> mis.axis(R)
-3	183	165	[,1] [,2] [,3]
-3	149	182	[1,] 0 1 0
+3	183	165	     [,1] [,2] [,3]
+3	149	182	[1,]     0    1    0
+3	570	548	
+3	515	619	
 3	149	648	> as.Q4(U, r)
 3	149	681	0.707 + 0 * i + 0.707 * j + 0 * k
 3	149	714	> as.Q4(as.SO3(U, r))
 3	149	747	0.707 + 0 * i + 0.707 * j + 0 * k
-4	652	284	.haar
-4	652	323	.cayley
-4	652	366	.fisher
-4	652	409	.vmises
+4	652	284	  .haar
+4	652	323	  .cayley
+4	652	366	  .fisher
+4	652	409	  .vmises
+4	471	524	
 4	149	540	kappa to specify the sample size, angular distribution and concentration as shown below. Alternatively,
 4	149	650	> Rs <- ruars(n = 20, rangle = rcayley, kappa = 1, space = "SO3")
 4	149	667	> Qs <- ruars(n = 20, rangle = rcayley, kappa = 1, space = "Q4")
 4	149	683	> Rs <- ruars(n = 20, rangle = rcayley, nu = 1, space = "SO3")
 4	149	700	> Qs <- ruars(n = 20, rangle = rcayley, nu = 1, space = "Q4")
 4	149	716	> head(Rs, 3)
-4	204	749	R11 R21 R31 R12 R22 R32 R13 R23 R33
+4	204	749	        R11    R21   R31   R12    R22    R32    R13    R23   R33
 4	149	765	[1,] -0.425 -0.850 0.310 0.475 -0.501 -0.723 0.770 -0.160 0.617
 4	149	782	[2,] -0.564 -0.733 0.379 0.745 -0.256 0.615 -0.354 0.630 0.691
 4	149	798	[3,] 0.087 -0.716 0.692 0.117 0.698 0.707 -0.989 0.019 0.145
+5	554	401	
+5	548	558	
 5	149	773	> # error function definition
 5	149	790	> L1.error <- function(sample, Shat) {
-5	149	806	+ sum(rot.dist(sample, Shat, method = "intrinsic", p = 1))
+5	149	806	+    sum(rot.dist(sample, Shat, method = "intrinsic", p = 1))
 5	149	823	+ }
 5	149	839	> cayley.sample <- ruars(n = 50, rangle = rcayley, nu = 1, space = "SO3")
 5	149	855	> # gradient based optimization
 5	149	872	> system.time(SL1 <- gradient.search(cayley.sample, L1.error))
-5	169	905	user system elapsed
-5	163	921	3.464 0.007 3.473
+5	169	905	   user system elapsed
+5	163	921	   3.464   0.007    3.473
 5	149	954	> # in-built function
 5	149	971	> system.time(S <- median(cayley.sample, type = "geometric"))
-5	169	1003	user system elapsed
-5	163	1020	0.004 0.000 0.005
+5	169	1003	   user system elapsed
+5	163	1020	   0.004   0.000    0.005
 5	149	1053	> rot.dist(S, SL1$Shat)
 5	149	1086	[1] 1.492e-05
+6	580	358	
+6	531	957	
+6	537	990	
 6	149	1139	> Rs <- ruars(50, rcayley, kappa = 10)
 7	149	100	> region(Rs, method = "direct", type = "asymptotic",
-7	149	116	+ estimator = "mean", alp = 0.05)
+7	149	116	+        estimator = "mean", alp = 0.05)
 7	149	149	[1] 0.189
 7	149	182	> region(Rs, method = "direct", type = "bootstrap", estimator = "mean",
-7	149	198	+ alp = 0.05, m = 300)
+7	149	198	+        alp = 0.05, m = 300)
 7	149	231	[1] 0.201
 7	149	264	> region(Rs, method = "direct", type = "asymptotic",
-7	149	281	+ estimator = "median", alp = 0.05)
+7	149	281	+        estimator = "median", alp = 0.05)
 7	149	313	[1] 0.201
 7	149	346	> region(Rs, method = "direct", type = "bootstrap", estimator = "median",
-7	149	363	+ alp = 0.05, m = 300)
+7	149	363	+        alp = 0.05, m = 300)
 7	149	396	[1] 0.249
+7	591	615	
+7	493	632	
+7	571	681	
+7	503	714	
+7	613	854	
 7	149	887	col argument with options 1, 2 and 3 representing the x-, y- and z- axes, respectively. For static plots,
-7	647	920	to_range, which
+7	574	904	
+7	647	920	 to_range, which
 7	149	1023	mean_regions and median_regions options allow the user to draw a circle on the surface of the sphere
+7	519	1107	
 8	149	100	> plot(Rs, center = mean(Rs), col = 1, show_estimates = "all",
-8	197	116	interactive = FALSE)
+8	197	116	        interactive = FALSE)
 8	149	133	> plot(Rs, center = mean(Rs), col = 1, show_estimates = "proj.mean",
-8	149	149	+ mean_regions = "all", alp = .05, interactive = FALSE)
+8	149	149	+      mean_regions = "all", alp = .05, interactive = FALSE)
+8	561	585	
 8	149	727	> data(drill)
 8	149	744	> head(drill)
-8	163	776	Subject Joint Position Replicate Q1 Q2 Q3 Q4
-8	149	793	1 1 Wrist 1 1 0.944 -0.192 -0.156 0.217
-8	149	809	2 1 Wrist 1 2 0.974 -0.120 -0.111 0.158
-8	149	826	3 1 Wrist 1 3 0.965 -0.133 -0.141 0.177
-8	149	842	4 1 Wrist 1 4 0.956 -0.134 -0.115 0.233
-8	149	859	5 1 Wrist 1 5 0.953 -0.199 -0.061 0.222
-8	149	875	6 1 Wrist 2 1 0.963 -0.159 -0.127 0.177
+8	163	776	   Subject Joint Position Replicate    Q1      Q2      Q3     Q4
+8	149	793	1       1 Wrist        1         1 0.944 -0.192 -0.156 0.217
+8	149	809	2       1 Wrist        1         2 0.974 -0.120 -0.111 0.158
+8	149	826	3       1 Wrist        1         3 0.965 -0.133 -0.141 0.177
+8	149	842	4       1 Wrist        1         4 0.956 -0.134 -0.115 0.233
+8	149	859	5       1 Wrist        1         5 0.953 -0.199 -0.061 0.222
+8	149	875	6       1 Wrist        2         1 0.963 -0.159 -0.127 0.177
 8	149	908	> Subj1Wrist<-subset(drill, Subject == '1' & Joint == 'Wrist')
 8	149	924	> Subj1Wdata <- as.Q4(Subj1Wrist[, 5:8])
 8	149	941	> mean(Subj1Wdata)
 8	149	974	0.987 - 0.070 * i - 0.134 * j + 0.049 * k
-8	649	1018	location on the
+8	649	1018	  location on the
 8	148	1067	v1-v9, represent the elements of the rotation matrix at that location in vector form. See
 8	149	1127	> data(nickel)
 8	149	1144	> head(nickel[, 1:6])
-9	163	116	xpos ypos location rep V1 V2
-9	149	133	1 0 0.346 1 1 -0.648 0.686
-9	149	149	2 0 0.346 1 2 -0.645 0.688
-9	149	165	3 0 0.346 1 3 -0.645 0.688
-9	149	182	4 0 0.346 1 4 -0.646 0.688
-9	149	198	5 0 0.346 1 5 -0.646 0.686
-9	149	215	6 0 0.346 1 6 -0.644 0.690
+9	163	116	  xpos ypos location rep     V1    V2
+9	149	133	1    0 0.346        1   1 -0.648 0.686
+9	149	149	2    0 0.346        1   2 -0.645 0.688
+9	149	165	3    0 0.346        1   3 -0.645 0.688
+9	149	182	4    0 0.346        1   4 -0.646 0.688
+9	149	198	5    0 0.346        1   5 -0.646 0.686
+9	149	215	6    0 0.346        1   6 -0.644 0.690
 9	149	248	> Location1<-subset(nickel, location == 1)
 9	149	264	> Loc1data<-as.SO3(Location1[, 5:13])
 9	149	281	> mean(Loc1data)
-9	197	313	[,1] [,2] [,3]
+9	197	313	        [,1]    [,2]    [,3]
 9	149	330	[1,] -0.645 -0.286 -0.708
 9	149	346	[2,] 0.687 -0.623 -0.374
 9	149	363	[3,] -0.334 -0.728 0.599

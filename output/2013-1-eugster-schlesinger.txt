@@ -9,7 +9,7 @@ page	left	top	code
 2	149	599	Attaching package: ’osmar’
 2	149	631	The following object(s) are masked
 2	149	648	from ’package:utils’:
-2	176	681	find
+2	176	681	    find
 2	149	709	> src <- osmsource_api()
 2	149	797	> get_osm(node(18961430), source = src)
 2	149	826	osmar object
@@ -29,39 +29,39 @@ page	left	top	code
 3	149	543	osmar$nodes object
 3	149	559	2427 nodes, 771 tags
 3	149	592	..$attrs data.frame:
-3	176	609	id, lat, lon, user, uid, visible, version,
-3	176	625	changeset, timestamp
+3	176	609	    id, lat, lon, user, uid, visible, version,
+3	176	625	    changeset, timestamp
 3	149	642	..$tags data.frame:
-3	176	658	id, k, v
+3	176	658	    id, k, v
 3	149	691	Bounding box:
-3	217	707	lat lon
+3	217	707	          lat      lon
 3	149	724	min -36.85661 174.7627
 3	149	740	max -36.84472 174.7753
 3	149	773	Key-Value contingency table:
-3	238	790	Key Value Freq
-3	149	806	1 addr:city Auckland 101
-3	149	822	2 addr:street Queen Street 61
-3	149	839	3 addr:country NZ 40
-3	149	855	4 addr:postcode 1010 39
-3	149	872	5 comment Determined via Keypa... 29
-3	149	888	6 addr:street Symonds Street 27
-3	149	905	7 highway traffic_signals 23
-3	149	921	8 addr:street Lorne Street 19
-3	149	938	9 highway bus_stop 15
-3	149	954	10 amenity cafe 11
+3	238	790	             Key                   Value Freq
+3	149	806	1      addr:city                Auckland  101
+3	149	822	2    addr:street            Queen Street   61
+3	149	839	3   addr:country                      NZ   40
+3	149	855	4  addr:postcode                    1010   39
+3	149	872	5        comment Determined via Keypa...   29
+3	149	888	6    addr:street          Symonds Street   27
+3	149	905	7        highway         traffic_signals   23
+3	149	921	8    addr:street            Lorne Street   19
+3	149	938	9        highway                bus_stop   15
+3	149	954	10       amenity                    cafe   11
 4	149	217	> ts_ids <- find(ua, node(tags(v == "traffic_signals")))
 4	149	233	> ts_ids
 4	149	262	[1] 25769635 25769637 25769641 ...
 4	149	350	> bs_ids <- find(ua, node(tags(v %agrep% "busstop")))
 4	149	367	> bs_ids
-4	149	396	[1] 678301119 737159091 1318401034 ...
+4	149	396	[1] 678301119   737159091  1318401034 ...
 4	149	596	> hw_ids <- find(ua, way(tags(k == "highway")))
 4	149	613	> hw_ids <- find_down(ua, way(hw_ids))
 4	149	698	> str(hw_ids)
 4	149	727	List of 3
-4	156	744	$ node_ids : num [1:1321] 25769641 ...
-4	156	760	$ way_ids : num [1:253] 4309608 ...
-4	156	777	$ relation_ids: NULL
+4	156	744	  $ node_ids    : num [1:1321] 25769641 ...
+4	156	760	  $ way_ids     : num [1:253] 4309608 ...
+4	156	777	  $ relation_ids: NULL
 4	149	877	> ts <- subset(ua, node_ids = ts_ids)
 4	149	894	> ts
 4	149	923	osmar object
@@ -80,7 +80,7 @@ page	left	top	code
 5	149	320	> plot_nodes(bs, add = TRUE, col = "blue")
 5	149	960	> args(as_sp)
 5	149	990	function(obj, what = c("points", "lines", "polygons"),
-5	211	1006	crs = osm_crs(), simplify = TRUE)
+5	211	1006	          crs = osm_crs(), simplify = TRUE)
 5	149	1022	NULL
 6	149	104	> bg_ids <- find(ua, way(tags(k == "building")))
 6	149	120	> bg_ids <- find_down(ua, way(bg_ids))
@@ -94,15 +94,15 @@ page	left	top	code
 6	149	791	> bs_points <- as_sp(bs, "points")
 6	149	933	> bus_ids <- find(ua, relation(tags(v == "bus")))
 6	149	949	> bus <- lapply(bus_ids,
-6	149	966	+ function(i) {
-6	149	982	+ raw <- get_osm(relation(i), full = TRUE)
-6	149	999	+ as_sp(raw, "lines")
-6	149	1015	+ })
+6	149	966	+   function(i) {
+6	149	982	+     raw <- get_osm(relation(i), full = TRUE)
+6	149	999	+     as_sp(raw, "lines")
+6	149	1015	+   })
 6	149	1123	> plot(bg_poly, col = "gray")
 6	149	1139	> plot(hw_line, add = TRUE, col = "green")
 7	149	104	> plot(bs_points, add = TRUE, col = "blue")
 7	149	120	> for ( i in seq(along = bus) ) {
-7	149	137	+ plot(bus[[i]], add = TRUE, col = "blue")
+7	149	137	+   plot(bus[[i]], add = TRUE, col = "blue")
 7	149	153	+ }
 7	149	803	> library("osmar")
 7	149	819	> url <- "http://osmar.r-forge.r-project.org/"
@@ -123,13 +123,13 @@ page	left	top	code
 8	149	104	osmar object
 8	149	120	3889 nodes, 995 ways, 0 relations
 8	149	193	> hway_start_node <- local({
-8	149	210	+ id <- find(muc, node(tags(v == "Sendlinger Tor")))[1]
-8	149	226	+ find_nearest_node(muc, id, way(tags(k == "highway")))
+8	149	210	+   id <- find(muc, node(tags(v == "Sendlinger Tor")))[1]
+8	149	226	+   find_nearest_node(muc, id, way(tags(k == "highway")))
 8	149	243	+ })
 8	149	259	> hway_start <- subset(muc, node(hway_start_node))
 8	149	362	> hway_end_node <- local({
-8	149	379	+ id <- find(muc, node(attrs(lon > 11.59 & lat > 48.150)))[1]
-8	149	395	+ find_nearest_node(muc, id, way(tags(k == "highway")))
+8	149	379	+   id <- find(muc, node(attrs(lon > 11.59 & lat > 48.150)))[1]
+8	149	395	+   find_nearest_node(muc, id, way(tags(k == "highway")))
 8	149	412	+ })
 8	149	428	> hway_end <- subset(muc, node(hway_end_node))
 8	149	482	> plot_nodes(muc, col = "gray")
@@ -147,8 +147,8 @@ page	left	top	code
 9	149	169	Vertex attributes: name.
 9	149	186	Edge attributes: weight, name.
 9	149	313	> route <- get.shortest.paths(gr_muc,
-9	149	329	+ from = as.character(hway_start_node),
-9	149	345	+ to = as.character(hway_end_node))[[1]]
+9	149	329	+   from = as.character(hway_start_node),
+9	149	345	+   to = as.character(hway_end_node))[[1]]
 9	149	362	> route_nodes <- as.numeric(V(gr_muc)[route]$name)
 9	149	415	> route_ids <- find_up(hways_muc, node(route_nodes))
 9	149	432	> route_muc <- subset(hways_muc, ids = route_ids)
@@ -159,33 +159,33 @@ page	left	top	code
 9	149	567	> plot_ways(route_muc, add = TRUE, col = "green")
 9	149	1082	> node_ids <- route_muc$nodes$attrs$id
 9	149	1098	> way_ids <- local({
-9	149	1115	+ w <- match(node_ids, route_muc$ways$refs$ref)
-9	149	1131	+ route_muc$ways$refs$id[w]
+9	149	1115	+   w <- match(node_ids, route_muc$ways$refs$ref)
+9	149	1131	+   route_muc$ways$refs$id[w]
 9	149	1147	+ })
 10	149	130	> way_names <- local({
-10	149	146	+ n <- subset(route_muc$ways$tags, k == "name")
-10	149	163	+ n[match(way_ids, n$id), "v"]
+10	149	146	+   n <- subset(route_muc$ways$tags, k == "name")
+10	149	163	+   n[match(way_ids, n$id), "v"]
 10	149	179	+ })
 10	149	232	> node_coords <- route_muc$nodes$attrs[, c("lon", "lat")]
 10	149	301	> node_dirs <- local({
-10	149	317	+ n <- nrow(node_coords)
-10	149	334	+ from <- 1:(n-1)
-10	149	350	+ to <- 2:n
+10	149	317	+   n <- nrow(node_coords)
+10	149	334	+   from <- 1:(n-1)
+10	149	350	+   to <- 2:n
 10	149	366	+
-10	149	383	+ cbind(dist = c(0,
-10	149	399	+ distHaversine(node_coords[from, ], node_coords[to, ])),
-10	149	416	+ bear = c(0,
-10	149	432	+ bearing(node_coords[from, ],
-10	149	449	+ node_coords[to, ])))
+10	149	383	+   cbind(dist = c(0,
+10	149	399	+         distHaversine(node_coords[from, ], node_coords[to, ])),
+10	149	416	+         bear = c(0,
+10	149	432	+         bearing(node_coords[from, ],
+10	149	449	+                 node_coords[to, ])))
 10	149	465	+ })
 10	149	550	> route_details <- data.frame(way_names, node_dirs)
 10	149	567	> route_details$cdist <- cumsum(route_details$dist)
 10	149	583	> route_details$dir <- compass(route_details$bear)
 10	149	669	> head(route_details)
-10	252	698	way_names dist bear cdist dir
-10	149	714	1 Sendlinger-Tor-Platz 0 0 0 N
-10	149	730	2 WallstraÃ§e 65 62 65 ENE
-10	149	747	3 Herzog-Wilhelm-StraÃ§e 29 75 94 ENE
-10	149	763	4 Oberanger 10 78 104 ENE
-10	149	780	5 Oberanger 69 94 173 E
-10	149	796	6 Nikolaus-Gradl-Weg 25 76 198 ENE
+10	252	698	                way_names dist bear cdist dir
+10	149	714	1   Sendlinger-Tor-Platz    0    0     0   N
+10	149	730	2             WallstraÃ§e   65   62    65 ENE
+10	149	747	3  Herzog-Wilhelm-StraÃ§e   29   75    94 ENE
+10	149	763	4              Oberanger   10   78   104 ENE
+10	149	780	5              Oberanger   69   94   173   E
+10	149	796	6     Nikolaus-Gradl-Weg   25   76   198 ENE

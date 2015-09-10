@@ -7,17 +7,17 @@ page	left	top	code
 3	149	153	plot(forecast(ftsm(Australiasmoothfertility, order=2), h=20), "components")
 4	149	104	# Plot the historical data in gray
 4	149	120	plot(Australiasmoothfertility, col = gray(0.8), xlab = "Age",
-4	183	137	ylab = "Count of live birth (per 1,000 females)",
-4	183	153	main = "Forecasted fertility rates (2007-2026)")
+4	183	137	     ylab = "Count of live birth (per 1,000 females)",
+4	183	153	     main = "Forecasted fertility rates (2007-2026)")
 4	149	169	# Plot the forecasts in rainbow color for Fig. 4(a)
 4	149	186	plot(forecast(ftsm(Australiasmoothfertility, order = 2), h = 20), add = TRUE)
 4	149	202	legend("topright", c("2007", "2026"), col = c("red", "blue"), lty = 1)
 4	149	235	plot(Australiasmoothfertility, col = gray(0.8), xlab = "Age",
-4	183	252	ylab = "Count of live birth (per 1,000 females)",
-4	183	268	main = "Forecasted fertility rates (2007-2026)")
+4	183	252	     ylab = "Count of live birth (per 1,000 females)",
+4	183	268	     main = "Forecasted fertility rates (2007-2026)")
 4	149	285	# Plot the forecasts in rainbow color for Fig. 4(b)
 4	149	301	plot(ftsmiterativeforecasts(Australiasmoothfertility, components = 2, iteration = 20),
-4	183	317	add = TRUE)
+4	183	317	     add = TRUE)
 4	149	334	legend("topright", c("2007", "2026"), col = c("red", "blue"), lty = 1)
 4	149	1054	# Plot the point forecast
 4	149	1070	aus = forecast(ftsm(Australiasmoothfertility, order = 2), h = 1)
@@ -26,7 +26,7 @@ page	left	top	code
 4	149	1120	lines(aus$lower, col = 2); lines(aus$upper, col = 2)
 4	149	1136	# Add a legend to the plot
 5	149	104	legend("topright", c("Point forecasts", "Interval forecasts"), col = c(1, 2), lty = 1,
-5	197	120	cex = 0.9)
+5	197	120	       cex = 0.9)
 5	149	1098	# Name history to represent historical data,
 5	149	1115	history <- ElNino2011smooth
 5	149	1131	# Name obs to represent partially observed data,
@@ -34,15 +34,15 @@ page	left	top	code
 6	149	1028	# Name fore to represent the forecasting period
 6	149	1045	fore <- ElNino2011smooth$y[6:12,62]
 6	149	1061	int <- dynupdate(data = history, newdata = obs, holdoutdata = fore,
-6	163	1078	method = "block", interval = TRUE, level = 80)
+6	163	1078	   method = "block", interval = TRUE, level = 80)
 6	149	1094	bmupdate <- dynupdate(data = history, newdata = obs, holdoutdata = fore,
-6	163	1111	method = "block", value = TRUE)
+6	163	1111	   method = "block", value = TRUE)
 6	149	1127	plot(6:12, fore, type = "l", ylim = c(19, 26), xlab = "Month",
-6	163	1143	ylab = "Sea surface temperature")
+6	163	1143	   ylab = "Sea surface temperature")
 7	149	104	lines(6:12, bmupdate, col = 4)
 7	149	120	lines(6:12, int$low$y, col = 2); lines(6:12, int$up$y, col = 2)
 7	149	137	legend("topright", c("True observations", "Point forecasts", "Interval forecasts"),
-7	169	153	col=c(1, 4, 2), lty = 1, cex = 0.8)
+7	169	153	   col=c(1, 4, 2), lty = 1, cex = 0.8)
 7	149	1058	history <- ElNino2011smooth
 7	149	1075	obs <- ElNino2011smooth$y[1:5, 62]
 7	149	1091	fore <- ElNino2011smooth$y[6:12, 62]
@@ -50,17 +50,17 @@ page	left	top	code
 7	149	1124	# The tuning parameter lambda=100 as an
 7	149	1140	# illustration
 8	149	587	rrmethod <- dynupdate(history, newdata = obs, holdoutdata = fore, method = "ridge",
-8	163	604	value = TRUE, lambda = 100, level = 80)
+8	163	604	   value = TRUE, lambda = 100, level = 80)
 8	149	620	plsmethod <- dynupdate(history, newdata = obs, holdoutdata = fore, method = "pls",
-8	163	637	value = TRUE, lambda = 100, level = 80)
+8	163	637	   value = TRUE, lambda = 100, level = 80)
 8	149	653	plsmethodint <- dynupdate(history, newdata = obs, holdoutdata = fore, method = "pls",
-8	163	669	interval = TRUE, lambda = 100, level = 80)
+8	163	669	   interval = TRUE, lambda = 100, level = 80)
 8	149	686	# Plot the true observations for forecasting period
 8	149	702	plot(6:12, fore, type = "l", ylim = c(19, 26), xlab = "Month",
-8	163	719	ylab = "Sea surface temperature")
+8	163	719	   ylab = "Sea surface temperature")
 8	149	735	# Plot point forecasts obtained by RR and PLS
 8	149	752	lines(6:12, plsmethod, col = 4); lines(6:12, rrmethod, col = "purple")
 8	149	768	# Plot interval forecasts obtained by PLS
 8	149	784	lines(6:12, plsmethodint$low$y, col = 2); lines(6:12, plsmethodint$up$y, col = 2)
 8	149	801	legend("topright",c("True observations", "PLS point forecasts", "RR point forecasts",
-8	163	817	"PLS interval forecasts"), col = c(1, 4, "purple", 2), lty = 1, cex = 0.8)
+8	163	817	   "PLS interval forecasts"), col = c(1, 4, "purple", 2), lty = 1, cex = 0.8)

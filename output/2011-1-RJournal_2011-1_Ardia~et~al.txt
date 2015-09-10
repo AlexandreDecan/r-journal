@@ -1,21 +1,21 @@
 page	left	top	code
 2	82	562	> Rastrigin <- function(x) {
-2	82	578	+ sum(x^2 - 10 * cos(2 * pi * x)) + 20
+2	82	578	+   sum(x^2 - 10 * cos(2 * pi * x)) + 20
 2	82	595	}
 2	459	127	> set.seed(1234)
 2	459	144	> DEoptim(fn = Rastrigin,
-2	459	160	+ lower = c(-5, -5),
-2	459	177	+ upper = c(5, 5),
-2	459	193	+ control = list(storepopfrom = 1))
+2	459	160	+   lower = c(-5, -5),
+2	459	177	+   upper = c(5, 5),
+2	459	193	+   control = list(storepopfrom = 1))
 4	459	231	> library("quantmod")
 4	459	247	> tickers <- c("GE", "IBM", "JPM", "MSFT", "WMT")
 4	459	263	> getSymbols(tickers,
-4	459	280	+ from = "2000-12-01",
-4	459	296	+ to = "2010-12-31")
+4	459	280	+   from = "2000-12-01",
+4	459	296	+   to   = "2010-12-31")
 4	459	313	> P <- NULL
 4	459	329	> for(ticker in tickers) {
-4	459	346	+ tmp <- Cl(to.monthly(eval(parse(text = ticker))))
-4	459	362	+ P <- cbind(P, tmp)
+4	459	346	+   tmp <- Cl(to.monthly(eval(parse(text = ticker))))
+4	459	362	+   P <- cbind(P, tmp)
 4	459	378	+ }
 4	459	395	> colnames(P) <- tickers
 4	459	411	> R <- diff(log(P))
@@ -24,80 +24,80 @@ page	left	top	code
 4	459	461	> sigma <- cov(R)
 4	459	686	> library("PerformanceAnalytics")
 4	459	703	> pContribCVaR <- ES(weights = rep(0.2, 5),
-4	459	719	+ method = "gaussian",
-4	459	736	+ portfolio_method = "component",
-4	459	752	+ mu = mu,
-4	459	769	+ sigma = sigma)$pct_contrib_ES
+4	459	719	+   method = "gaussian",
+4	459	736	+   portfolio_method = "component",
+4	459	752	+   mu = mu,
+4	459	769	+   sigma = sigma)$pct_contrib_ES
 4	459	785	> rbind(tickers, round(100 * pContribCVaR, 2))
-4	514	802	[,1] [,2] [,3] [,4] [,5]
-4	459	818	tickers "GE" "IBM" "JPM" "MSFT" "WMT"
-4	514	834	"21.61" "18.6" "25.1" "25.39" "9.3"
+4	514	802	         [,1]     [,2]    [,3]     [,4]     [,5]
+4	459	818	tickers "GE"     "IBM"   "JPM"    "MSFT"   "WMT"
+4	514	834	         "21.61" "18.6" "25.1" "25.39" "9.3"
 4	459	1006	> round(100 * mu , 2)
-4	479	1023	GE IBM JPM MSFT WMT
-4	459	1039	-0.80 0.46 -0.06 -0.37 0.0
+4	479	1023	   GE   IBM   JPM  MSFT   WMT
+4	459	1039	-0.80   0.46 -0.06 -0.37  0.0
 4	459	1056	> round(100 * diag(sigma)^(1/2), 2)
-4	479	1072	GE IBM JPM MSFT WMT
-4	459	1089	8.90 7.95 9.65 10.47 5.33
+4	479	1072	   GE   IBM   JPM  MSFT   WMT
+4	459	1089	8.90   7.95   9.65 10.47  5.33
 5	82	555	> obj <- function(w) {
-5	82	571	+ if (sum(w) == 0) { w <- w + 1e-2 }
-5	82	587	+ w <- w / sum(w)
-5	82	604	+ CVaR <- ES(weights = w,
-5	82	620	+ method = "gaussian",
-5	82	637	+ portfolio_method = "component",
-5	82	653	+ mu = mu,
-5	82	670	+ sigma = sigma)
-5	82	686	+ tmp1 <- CVaR$ES
-5	82	703	+ tmp2 <- max(CVaR$pct_contrib_ES - 0.225, 0)
-5	82	719	+ out <- tmp1 + 1e3 * tmp2
+5	82	571	+   if (sum(w) == 0) { w <- w + 1e-2 }
+5	82	587	+   w <- w / sum(w)
+5	82	604	+   CVaR <- ES(weights = w,
+5	82	620	+     method = "gaussian",
+5	82	637	+     portfolio_method = "component",
+5	82	653	+     mu = mu,
+5	82	670	+     sigma = sigma)
+5	82	686	+   tmp1 <- CVaR$ES
+5	82	703	+   tmp2 <- max(CVaR$pct_contrib_ES - 0.225, 0)
+5	82	719	+   out <- tmp1 + 1e3 * tmp2
 5	82	735	+ }
 5	82	892	> set.seed(1234)
 5	82	908	> out <- DEoptim(fn = obj,
-5	82	925	+ lower = rep(0, 5),
-5	82	941	+ upper = rep(1, 5))
+5	82	925	+   lower = rep(0, 5),
+5	82	941	+   upper = rep(1, 5))
 5	82	958	> out$optim$bestval
 5	82	974	[1] 0.1143538
 5	82	990	> wstar <- out$optim$bestmem
 5	82	1007	> wstar <- wstar / sum(wstar)
 5	82	1023	> rbind(tickers, round(100 * wstar, 2))
-5	137	1040	par1 par2 par3 par4 par5
-5	82	1056	tickers "GE" "IBM" "JPM" "MSFT" "WMT"
-5	137	1073	"18.53" "21.19" "11.61" "13.37" "35.3"
+5	137	1040	         par1     par2     par3     par4     par5
+5	82	1056	tickers "GE"     "IBM"    "JPM"    "MSFT"   "WMT"
+5	137	1073	         "18.53" "21.19" "11.61" "13.37" "35.3"
 5	82	1089	> 100 * (sum(wstar * mu) - mean(mu))
 5	82	1106	[1] 0.04827935
 5	459	227	> out <- optim(par = rep(0.2, 5),
-5	459	243	+ fn = obj,
-5	459	260	+ method = "L-BFGS-B",
-5	459	276	+ lower = rep(0, 5),
-5	459	293	+ upper = rep(1, 5))
+5	459	243	+  fn = obj,
+5	459	260	+  method = "L-BFGS-B",
+5	459	276	+  lower = rep(0, 5),
+5	459	293	+  upper = rep(1, 5))
 5	459	309	> out$value
 5	459	325	[1] 0.1255093
 5	459	342	> out <- nlminb(start = rep(0.2, 5),
-5	459	358	+ objective = obj,
-5	459	375	+ lower = rep(0, 5),
-5	459	391	+ upper = rep(1, 5))
+5	459	358	+   objective = obj,
+5	459	375	+   lower = rep(0, 5),
+5	459	391	+   upper = rep(1, 5))
 5	459	408	> out$objective
 5	459	424	[1] 0.1158250
 5	459	625	> obj <- function(w) {
-5	459	641	+ if(sum(w) == 0) { w <- w + 1e-2 }
-5	459	657	+ w <- w / sum(w)
-5	459	674	+ contribCVaR <- ES(weights = w,
-5	459	690	+ method = "gaussian",
-5	459	707	+ portfolio_method = "component",
-5	459	723	+ mu = mu,
-5	459	740	+ sigma = sigma)$contribution
-5	459	756	+ tmp1 <- max(contribCVaR)
-5	459	772	+ tmp2 <- max(mean(mu) - sum(w * mu), 0)
-5	459	789	+ out <- tmp1 + 1e3 * tmp2
+5	459	641	+   if(sum(w) == 0) { w <- w + 1e-2 }
+5	459	657	+   w <- w / sum(w)
+5	459	674	+   contribCVaR <- ES(weights = w,
+5	459	690	+     method = "gaussian",
+5	459	707	+     portfolio_method = "component",
+5	459	723	+     mu = mu,
+5	459	740	+     sigma = sigma)$contribution
+5	459	756	+   tmp1 <- max(contribCVaR)
+5	459	772	+   tmp2 <- max(mean(mu) - sum(w * mu), 0)
+5	459	789	+   out <- tmp1 + 1e3 * tmp2
 5	459	805	+ }
 5	459	822	> set.seed(1234)
 5	459	838	> out <- DEoptim(fn = obj,
-5	459	855	+ lower = rep(0, 5),
-5	459	871	+ upper = rep(1, 5))
+5	459	855	+   lower = rep(0, 5),
+5	459	871	+   upper = rep(1, 5))
 5	459	888	> wstar <- out$optim$bestmem
 5	459	904	> wstar <- wstar / sum(wstar)
 5	459	920	> rbind(tickers, round(100 * wstar, 2))
-5	514	937	par1 par2 par3 par4 par5
-5	459	953	tickers "GE" "IBM" "JPM" "MSFT" "WMT"
-5	514	970	"17.38" "19.61" "14.85" "15.19" "32.98"
+5	514	937	         par1     par2    par3     par4     par5
+5	459	953	tickers "GE"     "IBM"   "JPM"    "MSFT"   "WMT"
+5	514	970	         "17.38" "19.61" "14.85" "15.19" "32.98"
 5	459	986	> 100 * (sum(wstar * mu) - mean(mu))
 5	459	1003	[1] 0.04150506

@@ -5,19 +5,19 @@ page	left	top	code
 4	149	678	hacide.train data. The orange and blue colors denote the majority and minority class examples,
 4	149	792	> data(hacide)
 4	149	825	> str(hacide.train)
-4	149	841	'data.frame': 1000 obs. of 3 variables:
-4	156	858	$ cls: Factor w/ 2 levels "0","1": 1 1 1 1 1 1 1 1 1 1 ...
-4	156	874	$ x1 : num 0.2008 0.0166 0.2287 0.1264 0.6008 ...
-4	156	890	$ x2 : num 0.678 1.5766 -0.5595 -0.0938 -0.2984 ...
+4	149	841	'data.frame':         1000 obs. of 3 variables:
+4	156	858	  $ cls: Factor w/ 2 levels "0","1": 1 1 1 1 1 1 1 1 1 1 ...
+4	156	874	 $ x1 : num 0.2008 0.0166 0.2287 0.1264 0.6008 ...
+4	156	890	 $ x2 : num 0.678 1.5766 -0.5595 -0.0938 -0.2984 ...
 4	149	923	> table(hacide.train$cls)
-4	163	940	0 1
+4	163	940	  0   1
 4	149	956	980 20
 4	149	1029	> library(rpart)
 4	149	1046	> treeimb <- rpart(cls ~ ., data = hacide.train)
 4	149	1125	hacide.test is supplied by the package.
 5	149	142	> pred.treeimb <- predict(treeimb, newdata = hacide.test)
 5	149	159	> head(pred.treeimb)
-5	217	175	0 1
+5	217	175	          0          1
 5	149	192	1 0.9898888 0.01011122
 5	149	208	2 0.9898888 0.01011122
 5	149	225	3 0.9898888 0.01011122
@@ -35,34 +35,34 @@ page	left	top	code
 5	149	818	Area under the curve (AUC): 0.600
 5	149	880	lines can be invoked in roc.curve to customize the resulting ROC curve.
 6	149	100	> data.bal.ov.N <- ovun.sample(cls ~ ., data = hacide.train, method = "over",
-6	279	116	N = 1960)$data
+6	279	116	                   N = 1960)$data
 6	149	133	> table(data.bal.ov.N$cls)
-6	163	149	0 1
+6	163	149	  0   1
 6	149	165	980 980
 6	149	284	> data.bal.ov.p <- ovun.sample(cls ~ ., data = hacide.train, method = "over",
-6	279	300	p = 0.5)$data
+6	279	300	                   p = 0.5)$data
 6	149	317	> table(data.bal.ov.p$cls)
-6	163	333	0 1
+6	163	333	  0   1
 6	149	350	980 986
 6	149	438	> data.bal.ov <- ovun.sample(cls ~ ., data = hacide.train, method = "over",
-6	265	454	p = 0.5, seed = 1)$data
+6	265	454	                 p = 0.5, seed = 1)$data
 6	149	648	> data.bal.un <- ovun.sample(cls ~ ., data = hacide.train, method = "under",
-6	272	664	p = 0.5, seed = 1)$data
+6	272	664	                  p = 0.5, seed = 1)$data
 6	149	681	> table(data.bal.un$cls)
-6	156	697	0 1
+6	156	697	 0 1
 6	149	714	19 20
 6	149	837	> data.bal.ou <- ovun.sample(cls ~ ., data = hacide.train, method = "both",
-6	265	854	N = 1000, p = 0.5, seed = 1)$data
+6	265	854	                 N = 1000, p = 0.5, seed = 1)$data
 6	149	870	> table(data.bal.ou$cls)
-6	163	887	0 1
+6	163	887	  0   1
 6	149	903	520 480
 6	149	1144	> data.rose <- ROSE(cls ~ ., data = hacide.train, seed = 1)$data
 7	149	399	ROSE have been set to the default values. Right panel: smoothing parameters have been shrunk, by
 7	149	555	> table(data.rose$cls)
-7	163	571	0 1
+7	163	571	  0   1
 7	149	588	520 480
 7	149	804	> data.rose.h <- ROSE(cls ~ ., data = hacide.train, seed = 1, hmult.majo = 0.25,
-7	259	821	hmult.mino = 0.5)$data
+7	259	821	                 hmult.mino = 0.5)$data
 7	149	896	0.25,hmult.mino = 0.5.
 7	149	963	> tree.rose <- rpart(cls ~ ., data = data.rose)
 7	149	979	> tree.ov <- rpart(cls ~ ., data = data.bal.ov)
@@ -81,45 +81,45 @@ page	left	top	code
 8	149	165	> roc.curve(hacide.test$cls, pred.tree.ou[,2], add.roc = TRUE, col = 4, lty = 4)
 8	149	182	Area under the curve (AUC): 0.798
 8	149	468	> ROSE.holdout <- ROSE.eval(cls ~ ., data = hacide.train, learner = rpart,
-8	272	484	method.assess = "holdout", extr.pred = function(obj)obj[,2], seed = 1)
+8	272	484	                  method.assess = "holdout", extr.pred = function(obj)obj[,2], seed = 1)
 8	149	501	> ROSE.holdout
 8	149	534	Holdout estimate of auc: 0.985
 9	149	339	acc.measure, an accuracy measure to be selected among c("auc","precision","recall","F"), which
 9	149	442	learner on B ROSE samples and test each of them on the observed data specified in the formula.
 9	149	521	> ROSE.boot <- ROSE.eval(cls ~ ., data = hacide.train, learner = rpart,
-9	259	538	method.assess = "BOOT", B = 50, extr.pred = function(obj)obj[,2],
-9	259	554	seed = 1, trace = TRUE)
+9	259	538	                 method.assess = "BOOT", B = 50, extr.pred = function(obj)obj[,2],
+9	259	554	                 seed = 1, trace = TRUE)
 9	149	570	Iteration:
 9	149	587	10, 20, 30, 40, 50
 9	149	620	> summary(ROSE.boot)
 9	149	653	Call:
 9	149	669	ROSE.eval(formula = cls ~ ., data = hacide.train, method.assess = "BOOT",
-9	176	686	B = 50, learner = rpart, extr.pred = function(obj) obj[, 2],
-9	176	702	trace = TRUE, seed = 1)
+9	176	686	    B = 50, learner = rpart, extr.pred = function(obj) obj[, 2],
+9	176	702	    trace = TRUE, seed = 1)
 9	149	735	Summary of bootstrap distribution of auc:
-9	169	751	Min. 1st Qu. Median Mean 3rd Qu. Max.
-9	156	768	0.9282 0.9800 0.9839 0.9820 0.9860 0.9911
+9	169	751	   Min. 1st Qu. Median    Mean 3rd Qu.    Max.
+9	156	768	 0.9282 0.9800 0.9839 0.9820 0.9860 0.9911
 9	149	959	> ROSE.l5ocv <- ROSE.eval(cls ~ ., data = hacide.train, learner = rpart,
-9	259	975	method.assess = "LKOCV", K= 5, extr.pred = function(obj)obj[,2],
-9	259	992	seed = 1, trace = TRUE)
+9	259	975	                 method.assess = "LKOCV", K= 5, extr.pred = function(obj)obj[,2],
+9	259	992	                 seed = 1, trace = TRUE)
 9	149	1008	Iteration:
 9	149	1025	10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
 9	149	1041	110, 120, 130, 140, 150, 160, 170, 180, 190, 200
 9	149	1074	> ROSE.l5ocv
 9	149	1091	Call:
 9	149	1107	ROSE.eval(formula = cls ~ ., data = hacide.train, learner = rpart,
-9	176	1123	extr.pred = function(obj)obj[, 2], method.assess = "LKOCV",
-9	176	1140	K = 5, trace = TRUE, seed = 1)
+9	176	1123	    extr.pred = function(obj)obj[, 2], method.assess = "LKOCV",
+9	176	1140	    K = 5, trace = TRUE, seed = 1)
 10	149	116	Leave K out cross-validation estimate of auc: 0.973
 10	149	222	> ROSE.holdout.h <- ROSE.eval(cls ~ ., data = hacide.train, learner = rpart,
-10	286	239	extr.pred = function(obj)obj[,2], seed = 1,
-10	286	255	control.rose = list(hmult.majo = 0.25, hmult.mino = 0.5))
+10	286	239	                    extr.pred = function(obj)obj[,2], seed = 1,
+10	286	255	                    control.rose = list(hmult.majo = 0.25, hmult.mino = 0.5))
 10	149	312	> ROSE.holdout.cp <- ROSE.eval(cls ~ ., data = hacide.train, learner = rpart,
-10	293	328	extr.pred = function(obj)obj[,2], seed = 1,
-10	293	345	control.learner = list(control=list(cp = 0.05)))
-10	204	467	knn(train, test, cl, k = 1, l = 0, prob = FALSE, use.all = TRUE)
+10	293	328	                     extr.pred = function(obj)obj[,2], seed = 1,
+10	293	345	                      control.learner = list(control=list(cp = 0.05)))
+10	204	467	         knn(train, test, cl, k = 1, l = 0, prob = FALSE, use.all = TRUE)
 10	149	570	knn.wrap <- function(data, newdata, ...){
-10	231	587	knn(train = data[,-1], test = newdata, cl = data[,1], ...)}
+10	231	587	            knn(train = data[,-1], test = newdata, cl = data[,1], ...)}
 10	149	706	> rose.holdout.knn <- ROSE.eval(cls ~ ., data = hacide.train, learner = knn.wrap,
-10	300	723	control.learner = list(k = 2, prob = TRUE),
-10	300	739	method.assess = "holdout", seed = 1)
+10	300	723	                       control.learner = list(k = 2, prob = TRUE),
+10	300	739	                       method.assess = "holdout", seed = 1)

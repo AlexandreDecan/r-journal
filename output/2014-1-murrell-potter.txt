@@ -1,21 +1,21 @@
 page	left	top	code
 1	149	695	> library(lattice)
 1	149	725	> dotplot(variety ~ yield | site, data = barley, groups = year,
-1	217	741	key = simpleKey(levels(barley$year), space = "right"),
-1	217	757	subset = as.numeric(site) < 4, layout = c(1, 3))
+1	217	741	          key = simpleKey(levels(barley$year), space = "right"),
+1	217	757	          subset = as.numeric(site) < 4, layout = c(1, 3))
 1	149	834	> library(gridSVG)
 1	149	864	> grid.export("lattice.svg")
 1	149	1094	> library(grid)
 3	149	495	> text <- sample(c("goat", "goat", "car"))
 3	149	511	> cols <- hcl(c(0, 120, 240), 80, 80)
 3	149	541	> MontyHall <- function() {
-3	190	557	grid.newpage()
-3	190	573	grid.text(text, 1:3/4, gp = gpar(cex = 2), name = "prizes")
-3	190	590	for (i in 1:3) {
-3	217	606	grid.rect(i/4 - .1, width=.2, height=.8, just = "left",
-3	286	623	gp = gpar(fill = cols[i]), name = paste0("door", i))
-3	190	639	}
-3	163	656	}
+3	190	557	      grid.newpage()
+3	190	573	      grid.text(text, 1:3/4, gp = gpar(cex = 2), name = "prizes")
+3	190	590	      for (i in 1:3) {
+3	217	606	          grid.rect(i/4 - .1, width=.2, height=.8, just = "left",
+3	286	623	                    gp = gpar(fill = cols[i]), name = paste0("door", i))
+3	190	639	      }
+3	163	656	  }
 3	149	685	> MontyHall()
 3	149	797	> grid.ls(fullNames = TRUE)
 3	149	826	text[prizes]
@@ -24,12 +24,12 @@ page	left	top	code
 3	149	875	rect[door3]
 4	149	369	> library(gridSVG)
 4	149	396	> links <- c("http://www.google.com/search?q=car&tbm=isch",
-4	238	413	"http://www.google.com/search?q=goat&tbm=isch")
+4	238	413	             "http://www.google.com/search?q=goat&tbm=isch")
 4	149	429	> for (i in 1:3) {
-4	190	446	grid.hyperlink(paste0("door", i),
-4	293	462	href = links[match(text[i], c("car", "goat"))],
-4	293	479	show = "new")
-4	163	495	}
+4	190	446	      grid.hyperlink(paste0("door", i),
+4	293	462	                      href = links[match(text[i], c("car", "goat"))],
+4	293	479	                      show = "new")
+4	163	495	  }
 4	149	600	> grid.export("montyhall-hyper.svg")
 4	149	739	grid.animate() is the name of the object to animate. Subsequent arguments specify which feature of
 4	149	799	> MontyHall()
@@ -37,36 +37,36 @@ page	left	top	code
 4	149	832	> grid.animate(paste0("door", goatDoor), width = c(.2, 0), duration = 2)
 4	149	860	> grid.export("montyhall-anim.svg")
 5	149	633	> circleMask <- gTree(children = gList(rectGrob(gp = gpar(col = NA, fill = "white")),
-5	327	650	circleGrob(x = goatDoor/4, r=.15,
-5	403	666	gp = gpar(col = NA, fill = "grey")),
-5	327	683	polylineGrob(c(0, 1, .5, .5),
-5	416	699	c(.5, .5, 0, 1),
-5	416	715	id = rep(1:2, each = 2),
-5	416	732	gp = gpar(lwd = 10, col = "white"))))
+5	327	650	                          circleGrob(x = goatDoor/4, r=.15,
+5	403	666	                                      gp = gpar(col = NA, fill = "grey")),
+5	327	683	                          polylineGrob(c(0, 1, .5, .5),
+5	416	699	                                       c(.5, .5, 0, 1),
+5	416	715	                                       id = rep(1:2, each = 2),
+5	416	732	                                       gp = gpar(lwd = 10, col = "white"))))
 5	149	795	grid.mask() are from gridSVG. The mask() function takes a grid object (as generated above) and
 5	149	857	> MontyHall()
 5	149	874	> grid.mask(paste0("door", goatDoor), mask(circleMask))
 5	149	904	> grid.export("montyhall-masked.svg")
 6	149	599	> MontyHall()
 6	149	615	> for (i in 1:3) {
-6	190	632	grid.garnish(paste0("door", i), title = text[i])
-6	163	648	}
+6	190	632	      grid.garnish(paste0("door", i), title = text[i])
+6	163	648	  }
 6	149	678	> grid.export("montyhall-tooltip.svg")
 6	149	787	> MontyHall()
 6	149	804	> for (i in 1:3) {
-6	190	820	grid.garnish(paste0("door", i),
-6	279	837	onclick = paste0("alert('", text[i], "')"))
-6	163	853	}
+6	190	820	      grid.garnish(paste0("door", i),
+6	279	837	                   onclick = paste0("alert('", text[i], "')"))
+6	163	853	  }
 6	149	883	> grid.export("montyhall-alert.svg")
 6	149	1025	> MontyHall()
 6	149	1041	> for (i in 1:3) {
-6	190	1058	grid.garnish(paste0("door", i), onclick = "open(evt)")
-6	163	1074	}
+6	190	1058	      grid.garnish(paste0("door", i), onclick = "open(evt)")
+6	163	1074	  }
 6	149	1091	> grid.script(file = "MontyHall.js")
 6	149	1120	> grid.export("montyhall-js.svg")
 7	149	592	> dotplot(variety ~ yield | site, data = barley, groups = year,
-7	217	608	key = simpleKey(levels(barley$year), space = "right"),
-7	217	625	subset = as.numeric(site) < 4, layout = c(1, 3))
+7	217	608	          key = simpleKey(levels(barley$year), space = "right"),
+7	217	625	          subset = as.numeric(site) < 4, layout = c(1, 3))
 7	149	748	> grid.grep("xyplot.points", grep = TRUE, global = TRUE)
 7	149	777	[[1]]
 7	149	793	plot_01.xyplot.points.group.1.panel.1.1
@@ -82,9 +82,9 @@ page	left	top	code
 7	149	1040	plot_01.xyplot.points.group.2.panel.1.3
 8	149	667	> numPoints <- length(levels(barley$variety))
 8	149	683	> grid.garnish("xyplot.points", grep = TRUE, global = TRUE, group = FALSE,
-8	252	700	onmouseover = rep("highlight(evt)", numPoints),
-8	252	716	onmouseout = rep("unhighlight(evt)", numPoints),
-8	252	732	"pointer-events" = rep("all", numPoints))
+8	252	700	                onmouseover = rep("highlight(evt)", numPoints),
+8	252	716	                onmouseout = rep("unhighlight(evt)", numPoints),
+8	252	732	                "pointer-events" = rep("all", numPoints))
 8	149	795	"xyplot.points", should be treated as a regular expression and the garnish will affect all objects in the
 8	149	877	onmouseout, and pointer-events arguments.
 8	149	1015	> grid.script(file = "lattice-brush.js")

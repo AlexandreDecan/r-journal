@@ -1,123 +1,123 @@
 page	left	top	code
-3	89	414	ode(y, times, func, parms, method = c("lsoda",
-3	117	430	"lsode", "lsodes", "lsodar",
-3	117	447	"vode", "daspk", "euler", "rk4",
-3	117	463	"ode23", "ode45", "radau", "bdf",
-3	117	480	"bdf_d", "adams", "impAdams",
-3	117	496	"impAdams_d"), ...)
-4	89	347	vdpol <- function (t, y, mu) {
-4	103	364	list(c(
-4	117	380	y[2],
-4	117	397	mu * (1 - y[1]^2) * y[2] - y[1]
-4	103	413	))
-4	89	430	}
-4	89	654	library(deSolve)
-4	89	671	yini <- c(y1 = 2, y2 = 0)
-4	89	687	stiff <- ode(y = yini, func = vdpol,
-4	117	704	times = 0:3000, parms = 1000)
-4	89	741	nonstiff <- ode(y = yini, func = vdpol,
-4	117	757	times = seq(0, 30, by = 0.01),
-4	117	774	parms = 1)
-4	89	889	head(stiff, n = 3)
-4	117	926	time y1 y2
-4	82	942	[1,] 0 2.000000 0.0000000000
-4	82	959	[2,] 1 1.999333 -0.0006670373
-4	82	975	[3,] 2 1.998666 -0.0006674088
-4	89	1073	plot(stiff, type = "l", which = "y1",
-4	103	1089	lwd = 2, ylab = "y",
-4	103	1105	main = "IVP ODE, stiff")
-4	89	1142	plot(nonstiff, type = "l", which = "y1",
-4	103	1159	lwd = 2, ylab = "y",
-4	103	1175	main = "IVP ODE, nonstiff")
-5	89	607	Prob14 <- function(x, y, xi) {
-5	103	623	list(c(
-5	117	640	y[2],
-5	117	656	1/xi * (y[1] - (xi*pi*pi+1) * cos(pi*x))
-5	103	673	))
-5	89	689	}
-5	89	914	library(bvpSolve)
-5	89	930	x <- seq(-1, 1, by = 0.01)
-5	89	947	shoot <- bvpshoot(yini = c(0, NA),
-5	117	963	yend = c(0, NA), x = x, parms = 0.01,
-5	117	980	func = Prob14)
-5	89	1010	twp <- bvptwp(yini = c(0, NA), yend = c(0,
-5	117	1027	NA), x = x, parms = 0.0025,
-5	117	1043	func = Prob14)
-5	89	1074	coll <- bvpcol(yini = c(0, NA),
-5	117	1091	yend = c(0, NA), x = x, parms = 1e-04,
-5	117	1107	func = Prob14)
-5	466	127	xi <- 0.0025
-5	466	144	analytic <- cos(pi * x) + exp((x -
-5	493	160	1)/sqrt(xi)) + exp(-(x + 1)/sqrt(xi))
-5	466	177	max(abs(analytic - twp[, 2]))
+3	89	414	  ode(y, times, func, parms, method = c("lsoda",
+3	117	430	      "lsode", "lsodes", "lsodar",
+3	117	447	      "vode", "daspk", "euler", "rk4",
+3	117	463	      "ode23", "ode45", "radau", "bdf",
+3	117	480	      "bdf_d", "adams", "impAdams",
+3	117	496	      "impAdams_d"), ...)
+4	89	347	  vdpol <- function (t, y, mu) {
+4	103	364	    list(c(
+4	117	380	      y[2],
+4	117	397	      mu * (1 - y[1]^2) * y[2] - y[1]
+4	103	413	   ))
+4	89	430	 }
+4	89	654	  library(deSolve)
+4	89	671	  yini <- c(y1 = 2, y2 = 0)
+4	89	687	  stiff <- ode(y = yini, func = vdpol,
+4	117	704	      times = 0:3000, parms = 1000)
+4	89	741	  nonstiff <- ode(y = yini, func = vdpol,
+4	117	757	      times = seq(0, 30, by = 0.01),
+4	117	774	      parms = 1)
+4	89	889	  head(stiff, n = 3)
+4	117	926	      time        y1             y2
+4	82	942	[1,]     0 2.000000   0.0000000000
+4	82	959	[2,]     1 1.999333 -0.0006670373
+4	82	975	[3,]     2 1.998666 -0.0006674088
+4	89	1073	  plot(stiff, type = "l", which = "y1",
+4	103	1089	    lwd = 2, ylab = "y",
+4	103	1105	    main = "IVP ODE, stiff")
+4	89	1142	  plot(nonstiff, type = "l", which = "y1",
+4	103	1159	    lwd = 2, ylab = "y",
+4	103	1175	    main = "IVP ODE, nonstiff")
+5	89	607	  Prob14 <- function(x, y, xi)   {
+5	103	623	    list(c(
+5	117	640	      y[2],
+5	117	656	      1/xi * (y[1] - (xi*pi*pi+1) * cos(pi*x))
+5	103	673	   ))
+5	89	689	 }
+5	89	914	  library(bvpSolve)
+5	89	930	  x <- seq(-1, 1, by = 0.01)
+5	89	947	  shoot <- bvpshoot(yini = c(0, NA),
+5	117	963	      yend = c(0, NA), x = x, parms = 0.01,
+5	117	980	      func = Prob14)
+5	89	1010	  twp <- bvptwp(yini = c(0, NA), yend = c(0,
+5	117	1027	      NA), x = x, parms = 0.0025,
+5	117	1043	      func = Prob14)
+5	89	1074	  coll <- bvpcol(yini = c(0, NA),
+5	117	1091	      yend = c(0, NA), x = x, parms = 1e-04,
+5	117	1107	      func = Prob14)
+5	466	127	  xi <- 0.0025
+5	466	144	  analytic <- cos(pi * x) + exp((x -
+5	493	160	     1)/sqrt(xi)) + exp(-(x + 1)/sqrt(xi))
+5	466	177	  max(abs(analytic - twp[, 2]))
 5	459	208	[1] 7.788209e-10
-5	466	416	plot(shoot[, 1], shoot[, 2], type = "l", lwd = 2,
-5	479	433	ylim = c(-1, 1), col = "blue",
-5	479	449	xlab = "x", ylab = "y", main = "BVP ODE")
-5	466	466	lines(twp[, 1], twp[, 2], col = "red", lwd = 2)
-5	466	482	lines(coll[, 1], coll[, 2], col = "green", lwd = 2)
-5	466	498	legend("topright", legend = c("0.01", "0.0025",
-5	479	515	"0.0001"), col = c("blue", "red", "green"),
-5	479	531	title = expression(xi), lwd = 2)
-6	89	383	daefun<-function(t, y, dy, parms) {
-6	117	399	res1 <- - dy[1] - 0.04 * y[1] +
-6	185	415	1e4 * y[2] * y[3]
-6	117	432	res2 <- - dy[2] + 0.04 * y[1] -
-6	185	448	1e4 * y[2] * y[3] - 3e7 * y[2]^2
-6	117	465	res3 <- y[1] + y[2] + y[3] - 1
-6	117	481	list(c(res1, res2, res3),
-6	151	498	error = as.vector(y[1] + y[2] + y[3]) - 1)
-6	89	514	}
-6	89	546	yini <- c(y1 = 1, y2 = 0, y3 = 0)
-6	89	562	dyini <- c(-0.04, 0.04, 0)
-6	89	579	times <- 10 ^ seq(-6,6,0.1)
-6	89	841	library(deSolve)
-6	89	857	print(system.time(out <-daspk(y = yini,
-6	103	874	dy = dyini, times = times, res = daefun,
-6	103	890	parms = NULL)))
-6	103	922	user system elapsed
-6	103	938	0.07 0.00 0.11
-6	89	1021	plot(out, ylab = "conc.", xlab = "time",
-6	103	1038	type = "l", lwd = 2, log = "x")
-6	89	1054	mtext("IVP DAE", side = 3, outer = TRUE,
-6	103	1070	line = -1)
-7	89	423	library(ReacTran)
-7	89	439	Grid <- setup.grid.1D(N = 1000, L = 10)
-7	89	596	pde1D <-function(t, C, parms) {
-7	103	612	tran <- tran.1D(C = C, D = D,
-7	213	629	C.down = Cext, dx = Grid)$dC
-7	103	645	list(tran - Q) # return value: rate of change
-7	89	662	}
-7	89	729	D <- 1 # diffusion constant
-7	89	745	Q <- 1 # uptake rate
-7	89	762	Cext <- 20
-7	89	1108	library(rootSolve)
-7	89	1124	print(system.time(
-7	89	1141	std <- steady.1D(y = runif(Grid$N),
-7	103	1157	func = pde1D, parms = NULL, nspec = 1)
-7	89	1174	))
-7	479	127	user system elapsed
-7	479	144	0.02 0.00 0.02
-7	466	249	plot (Grid$x.mid, std$y, type = "l",
-7	479	265	lwd = 2, main = "steady-state PDE",
-7	479	282	xlab = "x", ylab = "C", col = "red")
-7	466	667	analytical <- Q/2/D*(Grid$x.mid^2 - 10^2) + Cext
-7	466	684	max(abs(analytical - std$y))
+5	466	416	  plot(shoot[, 1], shoot[, 2], type = "l", lwd = 2,
+5	479	433	   ylim = c(-1, 1), col = "blue",
+5	479	449	   xlab = "x", ylab = "y", main = "BVP ODE")
+5	466	466	  lines(twp[, 1], twp[, 2], col = "red", lwd = 2)
+5	466	482	  lines(coll[, 1], coll[, 2], col = "green", lwd = 2)
+5	466	498	  legend("topright", legend = c("0.01", "0.0025",
+5	479	515	   "0.0001"), col = c("blue", "red", "green"),
+5	479	531	   title = expression(xi), lwd = 2)
+6	89	383	  daefun<-function(t, y, dy, parms) {
+6	117	399	      res1 <- - dy[1] - 0.04 * y[1] +
+6	185	415	               1e4 * y[2] * y[3]
+6	117	432	      res2 <- - dy[2] + 0.04 * y[1] -
+6	185	448	                1e4 * y[2] * y[3] - 3e7 * y[2]^2
+6	117	465	      res3 <- y[1] + y[2] + y[3] - 1
+6	117	481	      list(c(res1, res2, res3),
+6	151	498	           error = as.vector(y[1] + y[2] + y[3]) - 1)
+6	89	514	 }
+6	89	546	  yini   <- c(y1 = 1, y2 = 0, y3 = 0)
+6	89	562	  dyini <- c(-0.04, 0.04, 0)
+6	89	579	  times <- 10 ^ seq(-6,6,0.1)
+6	89	841	  library(deSolve)
+6	89	857	  print(system.time(out <-daspk(y = yini,
+6	103	874	    dy = dyini, times = times, res = daefun,
+6	103	890	    parms = NULL)))
+6	103	922	    user   system elapsed
+6	103	938	    0.07     0.00     0.11
+6	89	1021	  plot(out, ylab = "conc.", xlab = "time",
+6	103	1038	    type = "l", lwd = 2, log = "x")
+6	89	1054	  mtext("IVP DAE", side = 3, outer = TRUE,
+6	103	1070	    line = -1)
+7	89	423	  library(ReacTran)
+7	89	439	  Grid <- setup.grid.1D(N = 1000, L = 10)
+7	89	596	  pde1D <-function(t, C, parms)   {
+7	103	612	    tran <- tran.1D(C = C, D = D,
+7	213	629	                    C.down = Cext, dx = Grid)$dC
+7	103	645	    list(tran - Q)   # return value: rate of change
+7	89	662	 }
+7	89	729	 D    <- 1    # diffusion constant
+7	89	745	 Q    <- 1    # uptake rate
+7	89	762	  Cext <- 20
+7	89	1108	  library(rootSolve)
+7	89	1124	  print(system.time(
+7	89	1141	 std   <- steady.1D(y = runif(Grid$N),
+7	103	1157	    func = pde1D, parms = NULL, nspec = 1)
+7	89	1174	 ))
+7	479	127	   user   system elapsed
+7	479	144	   0.02     0.00     0.02
+7	466	249	  plot (Grid$x.mid, std$y, type = "l",
+7	479	265	   lwd = 2, main = "steady-state PDE",
+7	479	282	   xlab = "x", ylab = "C", col = "red")
+7	466	667	  analytical <- Q/2/D*(Grid$x.mid^2 - 10^2) + Cext
+7	466	684	  max(abs(analytical - std$y))
 7	459	717	[1] 1.250003e-05
-7	466	822	require(deSolve)
-7	466	838	times <- seq(0, 100, by = 1)
-7	466	855	system.time(
-7	479	871	out <- ode.1D(y = rep(1, Grid$N),
-7	493	887	times = times, func = pde1D,
-7	493	904	parms = NULL, nspec = 1)
-7	466	920	)
-7	479	954	user system elapsed
-7	479	970	0.61 0.02 0.63
-7	466	1093	tail(out[, 1:4], n = 3)
-7	507	1126	time 1 2 3
-7	459	1142	[99,] 98 -27.55783 -27.55773 -27.55754
-7	459	1159	[100,] 99 -27.61735 -27.61725 -27.61706
-7	459	1175	[101,] 100 -27.67542 -27.67532 -27.67513
-8	89	252	image(out, xlab = "time, days",
-8	131	269	ylab = "Distance, cm",
-8	131	285	main = "PDE", add.contour = TRUE)
+7	466	822	  require(deSolve)
+7	466	838	  times <- seq(0, 100, by = 1)
+7	466	855	  system.time(
+7	479	871	   out <- ode.1D(y = rep(1, Grid$N),
+7	493	887	     times = times, func = pde1D,
+7	493	904	     parms = NULL, nspec = 1)
+7	466	920	 )
+7	479	954	   user   system elapsed
+7	479	970	   0.61     0.02     0.63
+7	466	1093	  tail(out[, 1:4], n = 3)
+7	507	1126	        time          1          2          3
+7	459	1142	[99,]     98 -27.55783 -27.55773 -27.55754
+7	459	1159	[100,]    99 -27.61735 -27.61725 -27.61706
+7	459	1175	[101,]   100 -27.67542 -27.67532 -27.67513
+8	89	252	  image(out, xlab = "time, days",
+8	131	269	        ylab = "Distance, cm",
+8	131	285	        main = "PDE", add.contour = TRUE)

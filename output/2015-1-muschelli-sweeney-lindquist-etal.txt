@@ -5,52 +5,52 @@ page	left	top	code
 2	149	443	options(fsl.path = "/usr/local/fsl")
 2	149	460	options(fsl.outputtype = "NIFTI_GZ")
 2	149	916	fsl_biascorrect(file = "01-Baseline_T1.nii.gz",
-2	259	932	outfile = "01-Baseline_T1_FSL_BiasCorrect",
-2	259	948	opts = "-v")
+2	259	932	                 outfile = "01-Baseline_T1_FSL_BiasCorrect",
+2	259	948	                 opts = "-v")
 3	149	701	flirt(reffile = "01-Baseline_T1_FSL_BiasCorrect",
-3	190	718	infile = "01-Baseline_T2_FSL_BiasCorrect",
-3	190	734	omat = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1.mat",
-3	190	751	dof = 6,
-3	190	767	outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1",
-3	190	783	opts = "-v")
+3	190	718	      infile = "01-Baseline_T2_FSL_BiasCorrect",
+3	190	734	      omat = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1.mat",
+3	190	751	      dof = 6,
+3	190	767	      outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1",
+3	190	783	      opts = "-v")
 3	149	984	flirt has options for different cost functions to optimize over, interpolation operators to estimate
 4	149	1061	flirt(reffile = "01-Baseline_T1_FSL_BiasCorrect",
-4	190	1078	infile = "01-Followup_T1_FSL_BiasCorrect",
-4	190	1094	omat = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1.mat",
-4	190	1111	dof = 6,
-4	190	1127	outfile = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1",
-4	190	1144	opts = "-v")
+4	190	1078	      infile = "01-Followup_T1_FSL_BiasCorrect",
+4	190	1094	      omat = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1.mat",
+4	190	1111	      dof = 6,
+4	190	1127	      outfile = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1",
+4	190	1144	      opts = "-v")
 5	149	643	flirt_apply(reffile = "01-Baseline_T1_FSL_BiasCorrect", # register to this
-5	231	659	infile = "01-Followup_T2_FSL_BiasCorrect_rigid_to_T1", # reg to Followup T1
-5	231	676	initmat = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1.mat", #transform
-5	231	692	outfile = "01-Followup_T2_FSL_BiasCorrect_rigid_to_BaseT1" # output file
-5	231	709	)
+5	231	659	            infile = "01-Followup_T2_FSL_BiasCorrect_rigid_to_T1", # reg to Followup T1
+5	231	676	            initmat = "01-Followup_T1_FSL_BiasCorrect_rigid_to_BaseT1.mat", #transform
+5	231	692	            outfile = "01-Followup_T2_FSL_BiasCorrect_rigid_to_BaseT1" # output file
+5	231	709	            )
 5	149	1032	fslbet(infile = "01-Baseline_T1",
-5	197	1048	outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain",
-5	197	1065	opts = "-B -f 0.1 -v", # from Popescu et al.
-5	197	1081	betcmd = "bet",
-5	197	1098	intern = FALSE)
+5	197	1048	       outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain",
+5	197	1065	       opts = "-B -f 0.1 -v", # from Popescu et al.
+5	197	1081	       betcmd = "bet",
+5	197	1098	       intern = FALSE)
 7	149	328	mask <- fslmask(file = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1",
-7	259	345	mask = "01-Baseline_T1_FSL_BiasCorrect_Brain_mask",
-7	259	361	outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain",
-7	259	378	retimg = TRUE)
+7	259	345	                 mask = "01-Baseline_T1_FSL_BiasCorrect_Brain_mask",
+7	259	361	                 outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain",
+7	259	378	                 retimg = TRUE)
 7	149	756	fnirt_with_affine will register using flirt with an affine transformation and then non-linearly
 7	149	789	fnirt, the image will not achieve the necessary scaling into the template space.
 7	149	818	fnirt_with_affine(infile = "01-Baseline_T1_FSL_BiasCorrect_Brain",
-7	272	835	reffile = file.path(fsldir(), "data", "standard",
-7	409	851	"MNI152_T1_1mm_brain"),
-7	272	868	flirt.omat = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI.mat",
-7	272	884	flirt.outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI",
-7	272	901	outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_toMNI")
+7	272	835	                  reffile = file.path(fsldir(), "data", "standard",
+7	409	851	                                      "MNI152_T1_1mm_brain"),
+7	272	868	                  flirt.omat = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI.mat",
+7	272	884	                  flirt.outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI",
+7	272	901	                  outfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_toMNI")
 7	149	1103	fsl_applywarp, which calls the FSL applywarp function.
 8	149	517	flirt_apply(infile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain",
-8	231	533	reffile = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain"),
-8	231	550	initmat = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI.mat",
-8	231	566	outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain_toMNI")
+8	231	533	            reffile = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain"),
+8	231	550	            initmat = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI.mat",
+8	231	566	            outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain_toMNI")
 8	149	583	fsl_applywarp(infile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain_toMNI",
-8	245	599	reffile = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain"),
-8	245	616	warpfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI_warpcoef",
-8	245	632	outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain_toMNI")
+8	245	599	              reffile = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain"),
+8	245	616	              warpfile = "01-Baseline_T1_FSL_BiasCorrect_Brain_affine_toMNI_warpcoef",
+8	245	632	              outfile = "01-Baseline_T2_FSL_BiasCorrect_rigid_to_T1_Brain_toMNI")
 9	149	355	t1_to_temp <- readNIfTI("01-Baseline_T1_FSL_BiasCorrect_Brain_toMNI", reorient = FALSE)
 9	149	415	smooth <- fslsmooth(t1_to_temp, sigma = 3, retimg = TRUE)
 9	149	565	binned <- fslbin(t1_to_temp, retimg = TRUE)
@@ -64,7 +64,7 @@ page	left	top	code
 10	149	495	[1] "51.264791"
 10	149	781	base_t1 <- readNIfTI("01-Baseline_T1_FSL_BiasCorrect", reorient = FALSE)
 10	149	798	base_t1_mask <- readNIfTI("01-Baseline_T1_FSL_BiasCorrect_Brain_mask",
-10	163	814	reorient = FALSE)
+10	163	814	   reorient = FALSE)
 10	149	871	base_t1_1 <- base_t1 * base_t1_mask
 10	149	887	class(base_t1_1)
 10	149	917	[1] "array"
@@ -80,11 +80,11 @@ page	left	top	code
 11	149	221	attr(,"package")
 11	149	237	[1] "oro.nifti"
 11	149	412	range(base_t1_2)
-11	149	441	[1] 0.0000 409.3908
+11	149	441	[1]   0.0000 409.3908
 11	149	470	c(base_t1_2@cal_min, base_t1_2@cal_max)
 11	149	499	[1] 0 0
 11	149	571	base_t1_2 <- cal_img(base_t1_2)
 11	149	587	c(base_t1_2@cal_min, base_t1_2@cal_max)
-11	149	616	[1] 0.0000 409.3908
+11	149	616	[1]   0.0000 409.3908
 11	149	671	identical(base_t1_1, base_t1_2)
 11	149	700	[1] TRUE

@@ -1,5 +1,7 @@
 page	left	top	code
-2	684	116	TOS2D. We
+2	684	116	       TOS2D. We
+2	573	272	
+2	465	342	
 2	149	402	> library("LS2Wstat")
 2	149	419	> set.seed(1)
 2	149	435	> X <- simTexture(n = 512, K = 1, imtype = "NS5", sd = 1.6, prop = 0.25)[[1]]
@@ -8,17 +10,21 @@ page	left	top	code
 3	149	820	> TSvalue <- avespecvar(cddews(X, smooth = FALSE))
 3	149	837	> TSvalue
 3	149	853	[1] 0.2044345
+3	570	967	
 3	149	1010	image: The image you want to analyse.
 3	149	1032	detrend: A binary value indicating whether the image should be detrended before applying the
 3	149	1071	nsamples: The number of bootstrap simulations to carry out. This is the value B in the pseudocode
 3	149	1110	theTS: This specifies the test statistic function to be used within the testing procedure to measure
 4	149	434	verbose: A binary value indicating whether informative messages should be printed.
 4	149	455	...: Any optional arguments to be passed to the LS2W function cddews. See the documentation for
+4	581	514	
 4	149	530	"TOS2D", which describes pertinent quantities associated with the bootstrap test of stationarity. The
 4	149	572	data.name: The name of the image tested for stationarity.
 4	149	593	samples: A vector of length nsamples + 1 containing each of the test statistics calculated in the
 4	149	647	statistic: The statistic used in the test.
 4	149	669	p.value: The bootstrap p-value associated with the test.
+4	625	694	
+4	504	711	
 4	149	757	> Xbstest <- TOS2D(X, nsamples = 100)
 4	149	799	getpval, which returns the parametric bootstrap p-value for the test from the bootstrap test statistics
 4	149	858	> pval <- getpval(Xbstest$samples)
@@ -26,7 +32,7 @@ page	left	top	code
 4	149	891	p-value is 0.00990099
 4	149	979	> summary(Xbstest)
 4	149	1012	2D bootstrap test of stationarity
-4	190	1028	object of class TOS2D
+4	190	1028	      object of class TOS2D
 4	149	1045	----------------------------------
 4	149	1078	summary
 4	149	1094	=======
@@ -34,7 +40,7 @@ page	left	top	code
 4	149	1127	Observed test statistic: 0.204
 4	149	1144	bootstrap p-value: 0.01
 5	149	142	2D bootstrap test of stationarity
-5	190	158	object of class TOS2D
+5	190	158	      object of class TOS2D
 5	149	175	----------------------------------
 5	149	208	summary
 5	149	224	=======
@@ -44,10 +50,12 @@ page	left	top	code
 5	149	306	Number of bootstrap realizations: 100
 5	149	323	spectral statistic used: avespecvar
 5	149	471	> Haarimage <- simTexture(512, K = 1, imtype = "S5")[[1]]
+5	501	777	
+5	626	813	
 5	149	871	> Haarimtest <- TOS2D(Haarimage, smooth = FALSE, nsamples = 100)
 5	149	888	> summary(Haarimtest)
 5	149	921	2D bootstrap test of stationarity
-5	190	937	object of class TOS2D
+5	190	937	      object of class TOS2D
 5	149	953	----------------------------------
 5	149	986	summary
 5	149	1003	=======
@@ -62,7 +70,7 @@ page	left	top	code
 6	149	546	> montage1zmtest <- TOS2D(montage1zm, smooth = FALSE, nsamples = 100)
 6	149	563	> summary(montage1zmtest)
 6	149	596	2D bootstrap test of stationarity
-6	190	612	object of class TOS2D
+6	190	612	      object of class TOS2D
 6	149	628	----------------------------------
 6	149	661	summary
 6	149	678	=======
@@ -71,6 +79,7 @@ page	left	top	code
 6	149	727	bootstrap p-value: 0.01
 6	149	760	Number of bootstrap realizations: 100
 6	149	776	spectral statistic used: avespecvar
+7	591	442	
 7	149	485	image: The image to be decomposed with the quadtree algorithm.
 7	149	507	test: A function for assessing regions of spatial homogeneity, for example TOS2D.
 7	149	529	minsize: The testing size of sub-images below which we should not apply the function test.
@@ -78,11 +87,12 @@ page	left	top	code
 7	149	676	> QTdecX <- imageQT(X, test = TOS2D, nsamples = 100)
 7	149	729	indl: The index representation of the non-stationary images in the quadtree decomposition.
 7	149	751	resl: The results of the stationarity testing (from the test argument) during the quadtree decomposi-
-7	186	784	indl component and the results giving TRUE correspond to the stationary sub-images, i.e. those
+7	186	784	       indl component and the results giving TRUE correspond to the stationary sub-images, i.e. those
 7	149	823	indS: The index representation of the stationary images in the quadtree decomposition.
+7	476	969	
 7	149	1012	> print(QTdecX)
 7	149	1045	2D quadtree decomposition
-7	156	1061	object of class imageQT
+7	156	1061	  object of class imageQT
 7	149	1078	-------------------------
 7	149	1111	summary
 7	149	1127	=======
@@ -98,31 +108,35 @@ page	left	top	code
 8	149	638	[[2]]
 8	149	654	[1] FALSE FALSE FALSE FALSE
 8	149	671	[[3]]
-8	156	687	[1] TRUE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE
+8	156	687	 [1] TRUE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE
 8	149	704	[13] FALSE TRUE TRUE TRUE
 8	149	720	[[4]]
-8	156	736	[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+8	156	736	  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 8	149	753	[16] TRUE
+8	620	929	
 8	149	971	x: A quadtree decomposition object, such as output from imageQT.
 8	149	991	cires: Vector of class labels associated to the subimages produced by the quadtree decomposition.
 8	149	1012	unclassval: A value for any unclassified values in a quadtree decomposition.
 8	149	1032	class: A Boolean value indicating whether to plot the classification of the quadtree subimages.
 8	149	1053	QT: A Boolean value indicating whether to plot the quadtree decomposition.
+8	470	1094	
 9	149	100	> texclass <- c(rep(1, times = 15), rep(c(2, 1, 1), times = 4), 1)
 9	149	116	> texclass
-9	156	133	[1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 2 1 1 2 1 1 1
+9	156	133	  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 2 1 1 2 1 1 1
+9	472	162	
 9	149	178	texclass, we can use the quadtree plotting function for "imageQT" objects as follows:
 9	149	205	> plot(QTdecX, texclass, class = TRUE, QT = TRUE)
 9	149	221	> plot(QTdecX, texclass, class = TRUE, QT = FALSE)
-9	724	597	Y is
+9	503	545	
+9	724	597	                 Y is
 9	149	640	> data(textures)
 9	149	656	> Y <- cbind(A[1:512, 1:256], rbind(B[1:256, 1:256], C[1:256, 1:256]))
 9	149	672	> Yzm <- medpolish(Y)$residuals
-9	648	1016	Y:
+9	648	1016	  Y:
 9	149	1045	> QTdecYzm <- imageQT(Yzm, test = TOS2D, nsamples = 100)
 9	149	1061	> print(QTdecYzm)
 9	149	1094	2D quadtree decomposition
-9	156	1111	object of class imageQT
+9	156	1111	  object of class imageQT
 9	149	1127	-------------------------
 10	149	100	summary
 10	149	116	=======

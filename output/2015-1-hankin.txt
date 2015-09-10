@@ -4,7 +4,7 @@ page	left	top	code
 2	149	195	> cm <- c(1, 1i)
 2	149	212	> cv <- matrix(c(2, 1i, -1i, 2), 2, 2)
 2	149	228	> (z <- rcmvnorm(6, mean = cm, sigma = cv))
-2	293	258	[,1] [,2]
+2	293	258	                      [,1]                   [,2]
 2	149	274	[1,] 0.9680986+0.5525419i 0.0165969+2.9770976i
 2	149	291	[2,] 0.2044744-1.4994889i 1.8320765+0.8271259i
 2	149	307	[3,] 1.0739973+0.2279914i -0.7967020+0.1736071i
@@ -15,14 +15,14 @@ page	left	top	code
 2	149	443	[1] 5.103754e-04 1.809636e-05 2.981718e-03 1.172242e-03 4.466836e-03 6.803356e-07
 2	149	517	> helper <- function(x) c(x[1] + 1i * x[2], x[3] + 1i * x[4])
 2	149	533	> objective <- function(x, cv)
-2	149	549	+ -sum(dcmvnorm(z, mean = helper(x), sigma = cv, log = TRUE))
+2	149	549	+   -sum(dcmvnorm(z, mean = helper(x), sigma = cv, log = TRUE))
 2	149	566	> helper(optim(c(1, 0, 1, 0), objective, cv = cv)$par)
 2	149	596	[1] 1.315409-0.447863i 0.385704+1.372762i
 2	149	685	> colMeans(z)
 2	149	715	[1] 1.315426-0.447472i 0.386068+1.372784i
 4	149	500	> val <- latin.hypercube(40, 2, names = c("a", "b"), complex = TRUE)
 4	149	517	> head(val)
-4	272	546	a b
+4	272	546	                  a              b
 4	149	563	[1,] 0.7375+0.2375i 0.2375+0.7125i
 4	149	579	[2,] 0.6875+0.5875i 0.1375+0.3375i
 4	149	596	[3,] 0.4625+0.5375i 0.9875+0.5875i
@@ -33,7 +33,7 @@ page	left	top	code
 4	149	755	> true_means <- c(1, 1i)
 4	149	771	> A <- corr_complex(val, means = true_means, scales = true_scales)
 4	149	788	> round(A[1:4, 1:4], 2)
-4	224	818	[,1] [,2] [,3] [,4]
+4	224	818	            [,1]        [,2]        [,3]        [,4]
 4	149	834	[1,] 1.00+0.00i 0.59-0.27i 0.25-0.10i 0.89+0.11i
 4	149	851	[2,] 0.59+0.27i 1.00+0.00i 0.20+0.00i 0.42+0.26i
 4	149	867	[3,] 0.25+0.10i 0.20+0.00i 1.00+0.00i 0.10+0.06i
@@ -45,12 +45,14 @@ page	left	top	code
 4	149	1076	> head(d)
 4	149	1106	[1] 3.212719+1.594901i 1.874278+0.345517i 3.008503-0.767618i 3.766526+2.071882i
 4	149	1123	[5] 3.712913+0.800983i 3.944167+0.924833i
+5	524	116	
 5	149	164	> betahat.fun(val, solve(A), d)
-5	245	194	const a b
+5	245	194	               const                    a                    b
 5	149	210	0.593632-0.0128655i 0.843608+1.0920437i 1.140372-2.5053751i
+5	514	240	
 5	149	273	interpolant.quick() of package emulator.
 5	149	337	> interpolant.quick.complex(rbind(c(0.5, 0.3+0.1i)), d, val, solve(A),
-5	149	354	+ scales = true_scales, means = true_means, give.Z = TRUE)
+5	149	354	+   scales = true_scales, means = true_means, give.Z = TRUE)
 5	149	383	$mstar.star
 5	149	400	[1] 1.706402-1.008601i
 5	149	433	$Z
@@ -59,9 +61,9 @@ page	left	top	code
 5	149	499	[1] 1.608085-0.104419i
 5	149	770	> library("elliptic")
 5	149	786	> valsigma <- 2 + 1i + round(latin.hypercube(30, 3,
-5	149	803	+ names = c("z", "g1", "g2"), complex = TRUE)/4, 2)
+5	149	803	+   names = c("z", "g1", "g2"), complex = TRUE)/4, 2)
 5	149	819	> head(valsigma)
-5	245	849	z g1 g2
+5	245	849	              z         g1         g2
 5	149	865	[1,] 2.17+1.15i 2.09+1.22i 2.21+1.09i
 5	149	882	[2,] 2.11+1.01i 2.04+1.03i 2.25+1.15i
 5	149	898	[3,] 2.10+1.04i 2.15+1.00i 2.22+1.20i
@@ -70,34 +72,34 @@ page	left	top	code
 5	149	948	[6,] 2.05+1.10i 2.19+1.04i 2.11+1.03i
 5	149	1021	> dsigma <- apply(valsigma, 1, function(u) sigma(u[1], g = u[2:3]))
 6	149	713	> scales.likelihood.complex(scales = c(1, 1, 2), means = c(1, 1+1i, 1-2i),
-6	149	729	+ zold = valsigma, z = dsigma, give_log = TRUE)
+6	149	729	+   zold = valsigma, z = dsigma, give_log = TRUE)
 6	149	759	[1] 144.5415
 6	149	847	> scales <- function(x) exp(x[c(1, 2, 2)])
 6	149	864	> means <- function(x) x[c(3, 4, 4)] + 1i * x[c(5, 6, 6)]
 6	149	933	> objective <- function(x, valsigma, dsigma)
-6	149	950	+ -scales.likelihood.complex(scales = scales(x), means = means(x),
-6	149	966	+ zold = valsigma, z = dsigma)
+6	149	950	+   -scales.likelihood.complex(scales = scales(x), means = means(x),
+6	149	966	+     zold = valsigma, z = dsigma)
 6	149	983	> start <- c(-0.538, -5.668, 0.6633, -0.0084, -1.73, -0.028)
 6	149	999	> jj <- optim(start, objective, valsigma = valsigma, dsigma = dsigma,
-6	149	1015	+ method = "SANN", control = list(maxit = 100))
+6	149	1015	+   method = "SANN", control = list(maxit = 100))
 6	149	1032	> (u <- jj$par)
 6	149	1061	[1] -0.5380 -5.6680 0.6633 -0.0084 -1.7300 -0.0280
 6	149	1117	> Asigma <- corr_complex(z1 = valsigma, scales = scales(u), means = means(u))
 7	149	713	> interpolant.quick.complex(rbind(c(2+1i, 2+1i, 2+1i)), zold = valsigma,
-7	149	730	+ d = dsigma, Ainv = solve(Asigma), scales = scales(u), means = means(u))
+7	149	730	+   d = dsigma, Ainv = solve(Asigma), scales = scales(u), means = means(u))
 7	149	759	[1] 3.078956+1.259993i
 7	149	789	> sigma(2 + 1i, g = c(2 + 1i, 2 + 1i))
 7	149	818	[1] 3.078255+1.257819i
 7	149	910	> ob2 <- function(x, valsigma, dsigma)
-7	149	926	+ -scales.likelihood.complex(scales = scales(x), means = c(0, 0, 0),
-7	149	943	+ zold = valsigma, z = dsigma)
+7	149	926	+   -scales.likelihood.complex(scales = scales(x), means = c(0, 0, 0),
+7	149	943	+     zold = valsigma, z = dsigma)
 7	149	959	> jjr <- optim(u[1:2], ob2, method = "SANN", control = list(maxit = 1000),
-7	149	976	+ valsigma = valsigma, dsigma = dsigma)
+7	149	976	+   valsigma = valsigma, dsigma = dsigma)
 7	149	992	> (ur <- jjr$par)
 7	149	1022	[1] 0.2136577 -4.2640825
 7	149	1078	> LR <- scales.likelihood.complex(scales = scales(ur), means = c(0, 0, 0),
-7	149	1094	+ zold = valsigma, z = dsigma)
+7	149	1094	+   zold = valsigma, z = dsigma)
 7	149	1111	> LC <- scales.likelihood.complex(scales = scales(u), means = means(u),
-7	149	1127	+ zold = valsigma, z = dsigma)
+7	149	1127	+   zold = valsigma, z = dsigma)
 7	149	1144	> (D <- 2 * (LC - LR))
 8	149	100	[1] 22.17611

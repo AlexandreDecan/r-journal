@@ -1,14 +1,14 @@
 page	left	top	code
 1	149	905	library(fmri)
 1	149	922	t <- seq(0, 30, 0.1) # from 0 to 30 secs, in increments of 100ms
-1	149	938	h <- fmri.stimulus(301, durations = c(0), # h(t) for instantaneous event at t=0,
-1	279	955	onsets = c(1), rt = 0.1), # Sampled at TR = 0.1 secs
+1	149	938	h <- fmri.stimulus(301, durations = c(0),     # h(t) for instantaneous event at t=0,
+1	279	955	                   onsets = c(1), rt = 0.1), # Sampled at TR = 0.1 secs
 1	149	971	plot(t, h, type = "l", lwd = 2, col = "red",
-1	183	988	xlab = "Time (secs)", ylab = "h(t)", main = "Hemodynamic Response Function")
+1	183	988	     xlab = "Time (secs)", ylab = "h(t)", main = "Hemodynamic Response Function")
 4	149	816	library(oro.nifti)
 4	149	832	temp <- file.path(tempdir(), "mni_colin27_1998_nifti.zip")
 4	149	848	colin.url <-
-4	163	865	"http://packages.bic.mni.mcgill.ca/mni-models/colin27/mni_colin27_1998_nifti.zip"
+4	163	865	   "http://packages.bic.mni.mcgill.ca/mni-models/colin27/mni_colin27_1998_nifti.zip"
 4	149	881	download.file(colin.url, dest = temp)
 4	149	898	unzip(temp, exdir = tempdir())
 4	149	914	colin <- readNIfTI(file.path(tempdir(), "colin27_t1_tal_lin.nii"))
@@ -20,8 +20,8 @@ page	left	top	code
 5	149	705	mni2xyz <- function(x) sweep(x, 2, as.double(origin), "+")
 5	149	722	xyz2mni <- function(x) sweep(x, 2, as.double(origin), "-")
 5	149	981	layout(matrix(1:4, ncol = 2, byrow = TRUE),
-5	197	997	heights = c(181, 217),
-5	197	1014	widths = c(181, 217))
+5	197	997	       heights = c(181, 217),
+5	197	1014	       widths = c(181, 217))
 5	149	1030	layout.show(4)
 6	149	124	center <- origin
 6	149	141	greys <- grey(1:max(colin) / max(colin))
@@ -32,18 +32,18 @@ page	left	top	code
 6	149	223	plot.new() # Empty quadrant
 6	149	452	foci.
 6	149	477	> foci
-6	183	493	x y z Study Type
-6	149	510	1 -30 35 8 Cole Words
+6	183	493	    x y z   Study    Type
+6	149	510	1 -30 35 8    Cole    Words
 6	149	526	2 -46 7 21 Harstra Objects
-6	149	543	3 -40 8 36 Ruge Shapes
-6	149	559	4 36 12 54 Ruge Shapes
-6	149	576	5 -48 28 32 Ruge Shapes
-6	149	592	6 44 32 32 Ruge Shapes
-6	149	608	7 -40 32 16 Ruge Shapes
-6	149	625	8 -40 44 8 Ruge Shapes
-6	149	641	9 40 40 16 Ruge Shapes
-6	149	658	10 -32 20 -4 Ruge Shapes
-6	149	674	11 32 28 -4 Ruge Shapes
+6	149	543	3 -40 8 36    Ruge   Shapes
+6	149	559	4   36 12 54    Ruge   Shapes
+6	149	576	5 -48 28 32    Ruge   Shapes
+6	149	592	6   44 32 32    Ruge   Shapes
+6	149	608	7 -40 32 16    Ruge   Shapes
+6	149	625	8 -40 44 8    Ruge   Shapes
+6	149	641	9   40 40 16    Ruge   Shapes
+6	149	658	10 -32 20 -4     Ruge    Shapes
+6	149	674	11 32 28 -4    Ruge   Shapes
 6	149	691	12 -44 48 -8 Stocco Numbers
 6	149	1127	# Transforms the coordinates
 6	149	1144	im.foci <- mni2xyz(foci[1:3])
@@ -75,19 +75,19 @@ page	left	top	code
 7	149	1144	ticks <- cbind(x = labels, y = labels, z = labels)
 8	149	100	ticks <- sweep(mni2xyz(ticks), 2, dim(colin), "/")
 8	149	263	= ...)) of each view, so that the outside margins are larger than the inside margins to make room for
-8	149	306	par(mar = c(0.1, 2, 2, 0.1)) # Coronal
+8	149	306	par(mar = c(0.1, 2, 2, 0.1))   # Coronal
 8	149	322	image(colin[, center["y"], ], ann = FALSE, axes = FALSE, col = greys)
 8	149	339	axis(2, pos = 0, at = ticks[,"z"], labels = labels)
 8	149	355	axis(3, pos = 1, at = ticks[,"x"], labels = labels)
 8	149	372	abline(v = CF["x"], h = CF["z"], lty = 2, lwd = 2, col = "white")
 8	149	388	points(x = im.foci[,"x"], y = im.foci[,"z"], lwd = 2, col = "red")
-8	149	421	par(mar = c(0.1, 0.1, 2, 2)) # Sagittal
+8	149	421	par(mar = c(0.1, 0.1, 2, 2))   # Sagittal
 8	149	437	image(colin[center["x"], , ], ann = FALSE, axes = FALSE, col = greys)
 8	149	454	axis(3, pos = 1, at = ticks[,"y"], labels = labels)
 8	149	470	axis(4, pos = 1, at = ticks[,"z"], labels = labels)
 8	149	487	abline(v = CF["y"], h = CF["z"], lty = 2, lwd = 2, col = "white")
 8	149	503	points(x = im.foci[,"y"], y = im.foci[,"z"], lwd = 2, col = "red")
-8	149	536	par(mar = c(2, 2, 0.1, 0.1)) # Axial
+8	149	536	par(mar = c(2, 2, 0.1, 0.1))   # Axial
 8	149	553	image(colin[, , center["z"]], ann = FALSE, axes = FALSE, col = greys)
 8	149	569	axis(1, pos = 0, at = ticks[,"x"], labels = labels)
 8	149	585	axis(2, pos = 0, at = ticks[,"y"], labels = labels)
@@ -100,19 +100,19 @@ page	left	top	code
 8	149	1010	# Coronal view code
 8	149	1026	...
 8	149	1043	points(x = im.foci[, "x"], y = im.foci[,"z"], lwd = 2, pch = foci.marks,
-8	197	1059	col = foci.colors)
+8	197	1059	        col = foci.colors)
 8	149	1092	# Sagittal view code
 8	149	1108	...
 8	149	1125	points(x = im.foci[, "y"], y = im.foci[,"z"], lwd = 2, pch = foci.marks,
-8	197	1141	col = foci.colors)
+8	197	1141	        col = foci.colors)
 9	149	116	# Axial view code
 9	149	133	...
 9	149	149	points(x = im.foci[, "x"], y = im.foci[,"y"], lwd = 2, pch = foci.marks,
-9	197	165	col = foci.colors)
+9	197	165	        col = foci.colors)
 9	149	288	# Last quadrant
 9	149	304	plot.new()
 9	149	321	l.args <- data.frame(col = foci.colors, pch = foci.marks,
-9	293	337	stringsAsFactors = FALSE)
+9	293	337	                      stringsAsFactors = FALSE)
 9	149	354	l.args$legend <- paste(foci$Learning, foci$Rule)
 9	149	370	l.args <- unique(l.args)
 9	149	387	legend(x = "center", legend = l.args$legend, col = l.args$col, pch = l.args$pch)
