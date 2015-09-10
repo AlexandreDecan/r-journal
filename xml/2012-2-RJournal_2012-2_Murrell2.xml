@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="13" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#000000"/>
+	<fontspec id="7" size="12" family="Times" color="#00004c"/>
+	<fontspec id="8" size="9" family="Times" color="#00004c"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="10" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">13</text>
+<text top="121" left="82" width="410" height="36" font="2"><b>It’s Not What You Draw,</b></text>
+<text top="166" left="82" width="437" height="36" font="2"><b>It’s What You Don’t Draw</b></text>
+<text top="218" left="82" width="279" height="15" font="3"><b>Drawing Paths with Holes in R Graphics</b></text>
+<text top="257" left="82" width="98" height="15" font="0">by Paul Murrell</text>
+<text top="295" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="295" left="169" width="246" height="15" font="0">The R graphics engine has new sup-</text>
+<text top="313" left="96" width="319" height="15" font="0">port for drawing complex paths via the func-</text>
+<text top="331" left="96" width="319" height="15" font="0">tions polypath() and grid.path(). This article</text>
+<text top="349" left="96" width="319" height="15" font="0">explains what is meant by a complex path and</text>
+<text top="367" left="96" width="319" height="15" font="0">demonstrates the usefulness of complex paths</text>
+<text top="385" left="96" width="319" height="15" font="0">in drawing non-trivial shapes, logos, customised</text>
+<text top="403" left="96" width="164" height="15" font="0">data symbols, and maps.</text>
+<text top="469" left="82" width="346" height="15" font="0">One of the design goals of the R graphics system is</text>
+<text top="487" left="82" width="346" height="15" font="0">to allow fine control over the small details of plots.</text>
+<text top="505" left="82" width="346" height="15" font="0">One way that the R graphics system does this is by</text>
+<text top="523" left="82" width="346" height="15" font="0">providing access to low-level generic graphics facili-</text>
+<text top="541" left="82" width="346" height="15" font="0">ties, such as the ability to draw basic shapes and the</text>
+<text top="559" left="82" width="346" height="15" font="0">ability to control apparently esoteric, but still useful,</text>
+<text top="577" left="82" width="346" height="15" font="0">features of those shapes, such as the line end style</text>
+<text top="595" left="82" width="153" height="15" font="0">used for drawing lines.</text>
+<text top="616" left="105" width="324" height="15" font="0">In R version 2.12.0, another low-level graphics fa-</text>
+<text top="634" left="82" width="346" height="15" font="0">cility was added to R: the ability to draw complex</text>
+<text top="652" left="82" width="169" height="15" font="0">paths (not just polygons).</text>
+<text top="674" left="105" width="324" height="15" font="0">This article describes this new facility and</text>
+<text top="692" left="82" width="346" height="15" font="0">presents some examples that show how complex</text>
+<text top="709" left="82" width="147" height="15" font="0">paths might be useful.</text>
+<text top="777" left="82" width="255" height="21" font="4"><b>Drawing paths with holes</b></text>
+<text top="822" left="82" width="346" height="15" font="0">The concept of a path is similar to the concept of a</text>
+<text top="840" left="82" width="271" height="15" font="0">polygon: a path is defined by a series of</text>
+<text top="840" left="359" width="6" height="14" font="5">(</text>
+<text top="840" left="365" width="21" height="15" font="0">x, y</text>
+<text top="840" left="386" width="6" height="14" font="5">)</text>
+<text top="840" left="397" width="32" height="15" font="0">loca-</text>
+<text top="858" left="82" width="293" height="15" font="0">tions that describe the boundary of the path.</text>
+<text top="880" left="105" width="324" height="15" font="0">For example, the following code defines a set of</text>
+<text top="898" left="83" width="6" height="14" font="5">(</text>
+<text top="898" left="89" width="21" height="15" font="0">x, y</text>
+<text top="898" left="111" width="6" height="14" font="5">)</text>
+<text top="898" left="121" width="265" height="15" font="0">locations that describe a simple triangle.</text>
+<text top="946" left="82" width="137" height="10" font="6">&gt; x &lt;- c(.1, .5, .9)</text>
+<text top="962" left="82" width="137" height="10" font="6">&gt; y &lt;- c(.1, .8, .1)</text>
+<text top="1007" left="105" width="324" height="15" font="0">A triangle can be drawn from these locations us-</text>
+<text top="1025" left="82" width="346" height="15" font="0">ing either the polypath() function from the <b>graphics</b></text>
+<text top="1043" left="82" width="288" height="15" font="0">package or, as shown below and in Figure</text>
+<text top="1043" left="375" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#1">1</a></text>
+<text top="1043" left="383" width="46" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#1">, </a>using</text>
+<text top="1061" left="82" width="321" height="15" font="0">the grid.path() function from the <b>grid </b>package.</text>
+<text top="1109" left="82" width="103" height="10" font="6">&gt; library(grid)</text>
+<text top="1151" left="82" width="268" height="10" font="6">&gt; grid.path(x, y, gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="418" left="459" width="346" height="15" font="0">Figure 1: A triangle drawn by the grid.path() func-</text>
+<text top="436" left="459" width="149" height="15" font="0">tion from a set of three</text>
+<text top="436" left="612" width="6" height="14" font="5">(</text>
+<text top="436" left="619" width="21" height="15" font="0">x, y</text>
+<text top="436" left="640" width="6" height="14" font="5">)</text>
+<text top="436" left="650" width="63" height="15" font="0">locations.</text>
+<text top="478" left="481" width="324" height="15" font="0">As for any basic shape, it is possible to control</text>
+<text top="496" left="459" width="346" height="15" font="0">the colour and thickness of the path border and the</text>
+<text top="514" left="459" width="272" height="15" font="0">colour used to fill the interior of the path.</text>
+<text top="538" left="481" width="284" height="15" font="0">We can also provide more than one set of</text>
+<text top="538" left="771" width="6" height="14" font="5">(</text>
+<text top="538" left="778" width="21" height="15" font="0">x, y</text>
+<text top="538" left="799" width="6" height="14" font="5">)</text>
+<text top="556" left="459" width="346" height="15" font="0">locations when drawing a path. The following code</text>
+<text top="574" left="459" width="346" height="15" font="0">provides an example, defining a new set of six lo-</text>
+<text top="592" left="459" width="346" height="15" font="0">cations along with an id vector that can be used to</text>
+<text top="610" left="459" width="291" height="15" font="0">break the locations into two groups of three.</text>
+<text top="668" left="459" width="137" height="10" font="6">&gt; x &lt;- c(.1, .5, .9,</text>
+<text top="684" left="459" width="7" height="10" font="6">+</text>
+<text top="684" left="521" width="75" height="10" font="6">.1, .2, .3)</text>
+<text top="701" left="459" width="137" height="10" font="6">&gt; y &lt;- c(.1, .8, .1,</text>
+<text top="717" left="459" width="7" height="10" font="6">+</text>
+<text top="717" left="521" width="75" height="10" font="6">.7, .6, .7)</text>
+<text top="734" left="459" width="165" height="10" font="6">&gt; id &lt;- rep(1:2, each=3)</text>
+<text top="783" left="459" width="117" height="10" font="6">&gt; cbind(x, y, id)</text>
+<text top="833" left="507" width="7" height="10" font="6">x</text>
+<text top="833" left="534" width="27" height="10" font="6">y id</text>
+<text top="850" left="459" width="82" height="10" font="6">[1,] 0.1 0.1</text>
+<text top="850" left="555" width="7" height="10" font="6">1</text>
+<text top="866" left="459" width="82" height="10" font="6">[2,] 0.5 0.8</text>
+<text top="866" left="555" width="7" height="10" font="6">1</text>
+<text top="883" left="459" width="82" height="10" font="6">[3,] 0.9 0.1</text>
+<text top="883" left="555" width="7" height="10" font="6">1</text>
+<text top="899" left="459" width="82" height="10" font="6">[4,] 0.1 0.7</text>
+<text top="899" left="555" width="7" height="10" font="6">2</text>
+<text top="915" left="459" width="82" height="10" font="6">[5,] 0.2 0.6</text>
+<text top="915" left="555" width="7" height="10" font="6">2</text>
+<text top="932" left="459" width="82" height="10" font="6">[6,] 0.3 0.7</text>
+<text top="932" left="555" width="7" height="10" font="6">2</text>
+<text top="987" left="481" width="324" height="15" font="0">These locations can be used to describe a path</text>
+<text top="1005" left="459" width="346" height="15" font="0">that consists of two distinct triangles. The following</text>
+<text top="1023" left="459" width="346" height="15" font="0">code draws such a path using grid.path(). The id</text>
+<text top="1041" left="459" width="346" height="15" font="0">argument is used to identify distinct groups of loca-</text>
+<text top="1059" left="459" width="207" height="15" font="0">tions when using grid.path()<a href="2012-2-RJournal_2012-2_Murrell2.html#1">.</a></text>
+<text top="1056" left="666" width="6" height="11" font="8"><a href="2012-2-RJournal_2012-2_Murrell2.html#1">1</a></text>
+<text top="1059" left="679" width="43" height="15" font="0">Figure</text>
+<text top="1059" left="726" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">2</a></text>
+<text top="1059" left="738" width="67" height="15" font="0">shows the</text>
+<text top="1077" left="459" width="180" height="15" font="0">result of drawing this path.</text>
+<text top="1135" left="459" width="165" height="10" font="6">&gt; grid.path(x, y, id=id,</text>
+<text top="1151" left="459" width="7" height="10" font="6">+</text>
+<text top="1151" left="541" width="144" height="10" font="6">gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="1173" left="99" width="4" height="9" font="9">1</text>
+<text top="1175" left="104" width="418" height="12" font="1">When using polypath(), NA values must be inserted between distinct groups of</text>
+<text top="1175" left="525" width="5" height="11" font="10">(</text>
+<text top="1175" left="530" width="17" height="12" font="1">x, y</text>
+<text top="1175" left="547" width="5" height="11" font="10">)</text>
+<text top="1175" left="555" width="37" height="12" font="1">values.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="15" family="Times" color="#000000"/>
+	<fontspec id="12" size="7" family="Times" color="#bebebe"/>
+	<fontspec id="13" size="16" family="Times" color="#ffffff"/>
+<text top="67" left="82" width="15" height="15" font="0">14</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="326" left="82" width="346" height="15" font="0">Figure 2: Two triangles drawn by the grid.path()</text>
+<text top="344" left="82" width="165" height="15" font="0">function from a set of six</text>
+<text top="344" left="251" width="6" height="14" font="5">(</text>
+<text top="344" left="258" width="21" height="15" font="0">x, y</text>
+<text top="344" left="279" width="6" height="14" font="5">)</text>
+<text top="344" left="290" width="139" height="15" font="0">locations broken into</text>
+<text top="362" left="82" width="196" height="15" font="0">two groups of three locations.</text>
+<text top="400" left="105" width="324" height="15" font="0">This output looks exactly the same as the out-</text>
+<text top="418" left="82" width="346" height="15" font="0">put we would get from drawing the two groups</text>
+<text top="436" left="82" width="346" height="15" font="0">of locations as polygons, using grid.polygon() or</text>
+<text top="455" left="82" width="69" height="12" font="0">polygon()</text>
+<text top="454" left="151" width="278" height="15" font="0">, but conceptually there is a difference be-</text>
+<text top="472" left="82" width="346" height="15" font="0">cause the path treats the two groups of locations as</text>
+<text top="490" left="82" width="346" height="15" font="0">defining a single shape. We can see the difference</text>
+<text top="508" left="82" width="346" height="15" font="0">more clearly if we move the smaller triangle so that</text>
+<text top="526" left="82" width="280" height="15" font="0">it lies within the larger triangle (see Figure</text>
+<text top="526" left="366" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">3</a></text>
+<text top="526" left="374" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">).</a></text>
+<text top="572" left="82" width="137" height="10" font="6">&gt; x &lt;- c(.1, .5, .9,</text>
+<text top="588" left="82" width="7" height="10" font="6">+</text>
+<text top="588" left="144" width="75" height="10" font="6">.4, .5, .6)</text>
+<text top="605" left="82" width="137" height="10" font="6">&gt; y &lt;- c(.1, .8, .1,</text>
+<text top="621" left="82" width="7" height="10" font="6">+</text>
+<text top="621" left="144" width="75" height="10" font="6">.5, .4, .5)</text>
+<text top="662" left="82" width="165" height="10" font="6">&gt; grid.path(x, y, id=id,</text>
+<text top="678" left="82" width="7" height="10" font="6">+</text>
+<text top="678" left="165" width="144" height="10" font="6">gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="919" left="82" width="63" height="15" font="0">Figure 3:</text>
+<text top="919" left="162" width="267" height="15" font="0">On the left is a path drawn by the</text>
+<text top="938" left="82" width="84" height="12" font="0">grid.path()</text>
+<text top="937" left="174" width="255" height="15" font="0">function where the boundary of the</text>
+<text top="955" left="82" width="346" height="15" font="0">path consists of two distinct triangles (one within the</text>
+<text top="973" left="82" width="346" height="15" font="0">other). The result is a single shape with a hole in it.</text>
+<text top="991" left="82" width="346" height="15" font="0">On the right is the result of drawing the two bound-</text>
+<text top="1009" left="82" width="346" height="15" font="0">aries with the grid.polygon() function, which treats</text>
+<text top="1027" left="82" width="346" height="15" font="0">the boundaries as two separate shapes. In this case,</text>
+<text top="1045" left="82" width="346" height="15" font="0">the smaller triangle is drawn (filled in) on top of the</text>
+<text top="1063" left="82" width="97" height="15" font="0">larger triangle.</text>
+<text top="1101" left="105" width="324" height="15" font="0">This example demonstrates that the two triangles</text>
+<text top="1119" left="82" width="346" height="15" font="0">together define a single shape, which is a triangular</text>
+<text top="1137" left="82" width="346" height="15" font="0">region with a triangular hole in it. The interior of the</text>
+<text top="1155" left="82" width="346" height="15" font="0">shape—the area that is shaded—does not include the</text>
+<text top="1173" left="82" width="225" height="15" font="0">region within the smaller triangle.</text>
+<text top="123" left="459" width="73" height="17" font="11"><b>Fill rules</b></text>
+<text top="159" left="459" width="346" height="15" font="0">There are two ways to determine the interior of a</text>
+<text top="177" left="459" width="346" height="15" font="0">path like this. The default is called the non-zero</text>
+<text top="195" left="459" width="346" height="15" font="0">winding rule. This draws an imaginary straight line</text>
+<text top="213" left="459" width="346" height="15" font="0">and looks at where the straight line intersects the</text>
+<text top="231" left="459" width="346" height="15" font="0">boundary of the shape. A count is made of how</text>
+<text top="249" left="459" width="346" height="15" font="0">many times the boundary is running left-to-right at</text>
+<text top="266" left="459" width="346" height="15" font="0">the intersection and how many times the boundary is</text>
+<text top="284" left="459" width="346" height="15" font="0">running right-to-left; if the two counts are the same</text>
+<text top="302" left="459" width="346" height="15" font="0">then we are outside the shape and if the counts are</text>
+<text top="320" left="459" width="222" height="15" font="0">different, we are inside the shape.</text>
+<text top="341" left="481" width="208" height="15" font="0">To see this more clearly, Figure</text>
+<text top="341" left="694" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">4</a></text>
+<text top="341" left="706" width="99" height="15" font="0">uses lines with</text>
+<text top="359" left="459" width="346" height="15" font="0">arrows to show the directions on the boundaries of</text>
+<text top="377" left="459" width="137" height="15" font="0">the path from Figure</text>
+<text top="377" left="599" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">3</a></text>
+<text top="377" left="607" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">.</a></text>
+<text top="547" left="559" width="7" height="9" font="12">●</text>
+<text top="478" left="611" width="7" height="9" font="12">●</text>
+<text top="543" left="555" width="15" height="18" font="13">●</text>
+<text top="474" left="607" width="15" height="18" font="13">●</text>
+<text top="601" left="459" width="346" height="15" font="0">Figure 4: The direction of the boundaries for the path</text>
+<text top="619" left="459" width="60" height="15" font="0">in Figure</text>
+<text top="619" left="522" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">3</a></text>
+<text top="619" left="530" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#2">.</a></text>
+<text top="657" left="481" width="324" height="15" font="0">The outer triangle boundary is clockwise and the</text>
+<text top="675" left="459" width="346" height="15" font="0">inner triangle boundary is anti-clockwise, so, using</text>
+<text top="693" left="459" width="346" height="15" font="0">the non-zero winding rule, the region within the in-</text>
+<text top="711" left="459" width="346" height="15" font="0">ner triangle is actually outside the path. A straight</text>
+<text top="729" left="459" width="346" height="15" font="0">line from inside the inner triangle to outside the</text>
+<text top="747" left="459" width="346" height="15" font="0">outer triangle intersects two boundaries, one going</text>
+<text top="765" left="459" width="259" height="15" font="0">right-to-left and one going left-to-right.</text>
+<text top="786" left="481" width="324" height="15" font="0">To further demonstrate this rule, the following</text>
+<text top="804" left="459" width="346" height="15" font="0">code defines a more complex path, this time consist-</text>
+<text top="821" left="459" width="346" height="15" font="0">ing of three triangles: one large clockwise triangle,</text>
+<text top="839" left="459" width="346" height="15" font="0">with two smaller triangles inside, one clockwise and</text>
+<text top="857" left="459" width="126" height="15" font="0">one anti-clockwise.</text>
+<text top="902" left="459" width="137" height="10" font="6">&gt; x &lt;- c(.1, .5, .9,</text>
+<text top="919" left="459" width="7" height="10" font="6">+</text>
+<text top="919" left="521" width="75" height="10" font="6">.4, .5, .6,</text>
+<text top="935" left="459" width="7" height="10" font="6">+</text>
+<text top="935" left="521" width="75" height="10" font="6">.4, .6, .5)</text>
+<text top="951" left="459" width="137" height="10" font="6">&gt; y &lt;- c(.1, .8, .1,</text>
+<text top="968" left="459" width="7" height="10" font="6">+</text>
+<text top="968" left="521" width="75" height="10" font="6">.5, .4, .5,</text>
+<text top="984" left="459" width="7" height="10" font="6">+</text>
+<text top="984" left="521" width="75" height="10" font="6">.3, .3, .2)</text>
+<text top="1001" left="459" width="165" height="10" font="6">&gt; id &lt;- rep(1:3, each=3)</text>
+<text top="1042" left="481" width="43" height="15" font="0">Figure</text>
+<text top="1042" left="528" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">5</a></text>
+<text top="1042" left="539" width="266" height="15" font="0">shows a diagram of the boundary direc-</text>
+<text top="1060" left="459" width="346" height="15" font="0">tions and the result of drawing this path. Because</text>
+<text top="1078" left="459" width="346" height="15" font="0">the second smaller triangle is clockwise, the region</text>
+<text top="1096" left="459" width="346" height="15" font="0">inside that triangle is still part of the interior of the</text>
+<text top="1114" left="459" width="300" height="15" font="0">path, according to the non-zero winding rule.</text>
+<text top="1159" left="459" width="165" height="10" font="6">&gt; grid.path(x, y, id=id,</text>
+<text top="1175" left="459" width="7" height="10" font="6">+</text>
+<text top="1175" left="541" width="144" height="10" font="6">gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="16" size="10" family="Helvetica" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">15</text>
+<text top="269" left="97" width="7" height="9" font="12">●</text>
+<text top="201" left="148" width="7" height="9" font="12">●</text>
+<text top="235" left="148" width="7" height="9" font="12">●</text>
+<text top="265" left="94" width="15" height="18" font="13">●</text>
+<text top="197" left="145" width="15" height="18" font="13">●</text>
+<text top="231" left="145" width="15" height="18" font="13">●</text>
+<text top="322" left="82" width="346" height="15" font="0">Figure 5: A path where the boundary consists of</text>
+<text top="340" left="82" width="346" height="15" font="0">three triangles (two smaller ones within one larger</text>
+<text top="358" left="82" width="346" height="15" font="0">one). The diagram on the left shows the direction of</text>
+<text top="376" left="82" width="346" height="15" font="0">the boundaries for the path. On the right, the path is</text>
+<text top="394" left="82" width="346" height="15" font="0">drawn by the grid.path() function, with the interior</text>
+<text top="412" left="82" width="346" height="15" font="0">of the path determined using the non-zero winding</text>
+<text top="430" left="82" width="30" height="15" font="0">rule.</text>
+<text top="466" left="105" width="324" height="15" font="0">The other rule for determining the interior of a</text>
+<text top="483" left="82" width="346" height="15" font="0">path is called the even-odd rule. This just draws an</text>
+<text top="501" left="82" width="346" height="15" font="0">imaginary straight line through the shape and counts</text>
+<text top="519" left="82" width="346" height="15" font="0">how many times the straight line crosses the bound-</text>
+<text top="537" left="82" width="346" height="15" font="0">ary of the shape. Each time a boundary is crossed,</text>
+<text top="555" left="82" width="320" height="15" font="0">we toggle between outside and inside the shape.</text>
+<text top="573" left="105" width="324" height="15" font="0">The following code draws the same path as in</text>
+<text top="591" left="82" width="43" height="15" font="0">Figure</text>
+<text top="591" left="129" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">5</a></text>
+<text top="591" left="136" width="293" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">, </a>but uses the even-odd rule to determine the</text>
+<text top="609" left="82" width="346" height="15" font="0">shape’s interior. This time, the result is a larger trian-</text>
+<text top="627" left="82" width="346" height="15" font="0">gle with two smaller triangular holes punched out of</text>
+<text top="645" left="82" width="85" height="15" font="0">it (see Figure</text>
+<text top="645" left="171" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">6</a></text>
+<text top="645" left="179" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">).</a></text>
+<text top="676" left="82" width="165" height="10" font="6">&gt; grid.path(x, y, id=id,</text>
+<text top="693" left="82" width="7" height="10" font="6">+</text>
+<text top="693" left="165" width="103" height="10" font="6">rule=&#34;evenodd&#34;,</text>
+<text top="709" left="82" width="7" height="10" font="6">+</text>
+<text top="709" left="165" width="144" height="10" font="6">gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="939" left="82" width="215" height="15" font="0">Figure 6: The path from Figure</text>
+<text top="939" left="303" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">5</a></text>
+<text top="939" left="316" width="112" height="15" font="0">drawn using the</text>
+<text top="957" left="82" width="118" height="15" font="0">even-odd fill rule.</text>
+<text top="992" left="105" width="25" height="15" font="0">The</text>
+<text top="993" left="136" width="28" height="12" font="6">SVG</text>
+<text top="992" left="171" width="258" height="15" font="0">language specification contains a nice</text>
+<text top="1010" left="82" width="346" height="15" font="0">simple explanation and demonstration of these</text>
+<text top="1028" left="82" width="83" height="15" font="0">fill rules; see</text>
+<text top="1029" left="170" width="259" height="12" font="7"><a href="http://www.w3.org/TR/SVG/painting.html#FillRuleProperty">http://www.w3.org/TR/SVG/painting.</a></text>
+<text top="1047" left="82" width="160" height="12" font="7"><a href="http://www.w3.org/TR/SVG/painting.html#FillRuleProperty">html#FillRuleProperty</a></text>
+<text top="1046" left="243" width="4" height="15" font="0"><a href="http://www.w3.org/TR/SVG/painting.html#FillRuleProperty">.</a></text>
+<text top="1093" left="82" width="127" height="21" font="4"><b>Applications</b></text>
+<text top="1131" left="82" width="346" height="15" font="0">So what can these complex paths be used for? The</text>
+<text top="1149" left="82" width="346" height="15" font="0">possibilities are endless, but this section describes a</text>
+<text top="125" left="459" width="346" height="15" font="0">couple of concrete examples. The R code for these</text>
+<text top="143" left="459" width="346" height="15" font="0">examples can be obtained from the online resources</text>
+<text top="161" left="459" width="181" height="15" font="0">that accompany this <a href="2012-2-RJournal_2012-2_Murrell2.html#3">article.</a></text>
+<text top="158" left="640" width="6" height="11" font="8"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">2</a></text>
+<text top="179" left="481" width="324" height="15" font="0">A trivial observation is that complex paths allow</text>
+<text top="197" left="459" width="346" height="15" font="0">us to draw complex shapes. The triangle with trian-</text>
+<text top="215" left="459" width="346" height="15" font="0">gular holes from the previous section is an example</text>
+<text top="233" left="459" width="346" height="15" font="0">of a complex shape; it is not possible to describe this</text>
+<text top="251" left="459" width="178" height="15" font="0">shape as a simple polygon.</text>
+<text top="269" left="481" width="324" height="15" font="0">Another way that paths can be useful for draw-</text>
+<text top="287" left="459" width="346" height="15" font="0">ing complex shapes is that they allow us to combine</text>
+<text top="305" left="459" width="346" height="15" font="0">several simpler shapes to construct a more complex</text>
+<text top="323" left="459" width="92" height="15" font="0">whole. Figure</text>
+<text top="323" left="555" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">7</a></text>
+<text top="323" left="566" width="240" height="15" font="0">shows an example of this, where the</text>
+<text top="340" left="459" width="346" height="15" font="0">overall shape shape has a very complex outline, but</text>
+<text top="358" left="459" width="346" height="15" font="0">it can be constructed as a path simply by combining</text>
+<text top="376" left="459" width="135" height="15" font="0">circles and triangles.</text>
+<text top="594" left="459" width="346" height="15" font="0">Figure 7: A complex shape constructed from simple</text>
+<text top="612" left="459" width="279" height="15" font="0">shapes combined together to make a path.</text>
+<text top="648" left="481" width="43" height="15" font="0">Figure</text>
+<text top="648" left="531" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#3">8</a></text>
+<text top="648" left="545" width="261" height="15" font="0">shows how this shape might be used</text>
+<text top="666" left="459" width="346" height="15" font="0">to dramatically highlight a point of interest within</text>
+<text top="684" left="459" width="346" height="15" font="0">a graph (in this case, to bring attention to the data for</text>
+<text top="702" left="459" width="255" height="15" font="0">the Ferrari Dino in the mtcars data set).</text>
+<text top="1039" left="631" width="26" height="13" font="14">disp</text>
+<text top="885" left="476" width="0" height="13" font="15">mpg</text>
+<text top="987" left="490" width="13" height="11" font="16">10</text>
+<text top="942" left="490" width="13" height="11" font="16">15</text>
+<text top="896" left="490" width="13" height="11" font="16">20</text>
+<text top="851" left="490" width="13" height="11" font="16">25</text>
+<text top="805" left="490" width="13" height="11" font="16">30</text>
+<text top="760" left="490" width="13" height="11" font="16">35</text>
+<text top="1016" left="539" width="20" height="11" font="16">100</text>
+<text top="1016" left="594" width="20" height="11" font="16">200</text>
+<text top="1016" left="650" width="20" height="11" font="16">300</text>
+<text top="1016" left="705" width="20" height="11" font="16">400</text>
+<text top="888" left="579" width="6" height="8" font="9">●</text>
+<text top="888" left="579" width="6" height="8" font="9">●</text>
+<text top="871" left="550" width="6" height="8" font="9">●</text>
+<text top="884" left="633" width="6" height="8" font="9">●</text>
+<text top="908" left="690" width="6" height="8" font="9">●</text>
+<text top="914" left="615" width="6" height="8" font="9">●</text>
+<text top="948" left="690" width="6" height="8" font="9">●</text>
+<text top="857" left="572" width="6" height="8" font="9">●</text>
+<text top="871" left="568" width="6" height="8" font="9">●</text>
+<text top="904" left="583" width="6" height="8" font="9">●</text>
+<text top="917" left="583" width="6" height="8" font="9">●</text>
+<text top="929" left="643" width="6" height="8" font="9">●</text>
+<text top="921" left="643" width="6" height="8" font="9">●</text>
+<text top="940" left="643" width="6" height="8" font="9">●</text>
+<text top="984" left="752" width="6" height="8" font="9">●</text>
+<text top="984" left="745" width="6" height="8" font="9">●</text>
+<text top="945" left="734" width="6" height="8" font="9">●</text>
+<text top="784" left="534" width="6" height="8" font="9">●</text>
+<text top="802" left="532" width="6" height="8" font="9">●</text>
+<text top="770" left="530" width="6" height="8" font="9">●</text>
+<text top="883" left="557" width="6" height="8" font="9">●</text>
+<text top="938" left="666" width="6" height="8" font="9">●</text>
+<text top="940" left="659" width="6" height="8" font="9">●</text>
+<text top="957" left="684" width="6" height="8" font="9">●</text>
+<text top="904" left="712" width="6" height="8" font="9">●</text>
+<text top="830" left="534" width="6" height="8" font="9">●</text>
+<text top="842" left="557" width="6" height="8" font="9">●</text>
+<text top="802" left="543" width="6" height="8" font="9">●</text>
+<text top="935" left="685" width="6" height="8" font="9">●</text>
+<text top="899" left="571" width="6" height="8" font="9">●</text>
+<text top="942" left="657" width="6" height="8" font="9">●</text>
+<text top="884" left="557" width="6" height="8" font="9">●</text>
+<text top="1095" left="459" width="346" height="15" font="0">Figure 8: A plot with a complex path used to high-</text>
+<text top="1113" left="459" width="203" height="15" font="0">light a special point of interest.</text>
+<text top="1149" left="481" width="324" height="15" font="0">Another situation where the ability to draw com-</text>
+<text top="1173" left="99" width="4" height="9" font="9"><a href="http://www.stat.auckland.ac.nz/~paul/R/Paths/">2</a></text>
+<text top="1176" left="104" width="274" height="9" font="8"><a href="http://www.stat.auckland.ac.nz/~paul/R/Paths/">http://www.stat.auckland.ac.nz/~paul/R/Paths/</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="17" size="14" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="10" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">16</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">plex paths can be useful is if we are trying to draw</text>
+<text top="143" left="82" width="346" height="15" font="0">a shape that someone else has created. For example,</text>
+<text top="161" left="82" width="346" height="15" font="0">we might want to draw the logo of a company or an</text>
+<text top="179" left="82" width="212" height="15" font="0">organisation as a label on a plot.</text>
+<text top="236" left="105" width="43" height="15" font="0">Figure</text>
+<text top="236" left="153" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">9</a></text>
+<text top="236" left="166" width="263" height="15" font="0">shows the GNU logo. This image con-</text>
+<text top="254" left="82" width="346" height="15" font="0">sists of a single complex path, so we must be able to</text>
+<text top="272" left="82" width="307" height="15" font="0">draw such paths in order to render it correctly.</text>
+<text top="533" left="82" width="346" height="15" font="0">Figure 9: A complex path that describes the GNU</text>
+<text top="551" left="82" width="33" height="15" font="0">logo.</text>
+<text top="626" left="105" width="43" height="15" font="0">Figure</text>
+<text top="626" left="153" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">10</a></text>
+<text top="626" left="174" width="255" height="15" font="0">shows the GNU logo being used as a</text>
+<text top="644" left="82" width="300" height="15" font="0">background watermark for a <b>lattice </b>barchart <a href="2012-2-RJournal_2012-2_Murrell2.html#6">(</a></text>
+<text top="644" left="382" width="43" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Sarkar</a></text>
+<text top="644" left="425" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">,</a></text>
+<text top="662" left="82" width="30" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">2008</a></text>
+<text top="662" left="112" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">).</a></text>
+<text top="724" left="140" width="232" height="16" font="17"><b>Number of Citations per Year</b></text>
+<text top="912" left="104" width="27" height="11" font="16">1998</text>
+<text top="897" left="104" width="27" height="11" font="16">1999</text>
+<text top="882" left="104" width="27" height="11" font="16">2000</text>
+<text top="867" left="104" width="27" height="11" font="16">2001</text>
+<text top="852" left="104" width="27" height="11" font="16">2002</text>
+<text top="836" left="104" width="27" height="11" font="16">2003</text>
+<text top="821" left="104" width="27" height="11" font="16">2004</text>
+<text top="806" left="104" width="27" height="11" font="16">2005</text>
+<text top="791" left="104" width="27" height="11" font="16">2006</text>
+<text top="776" left="104" width="27" height="11" font="16">2007</text>
+<text top="939" left="150" width="7" height="11" font="16">0</text>
+<text top="939" left="200" width="20" height="11" font="16">500</text>
+<text top="939" left="255" width="27" height="11" font="16">1000</text>
+<text top="939" left="312" width="27" height="11" font="16">1500</text>
+<text top="939" left="370" width="27" height="11" font="16">2000</text>
+<text top="1008" left="82" width="334" height="15" font="0">Figure 10: A plot with the GNU logo from Figure</text>
+<text top="1008" left="421" width="7" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">9</a></text>
+<text top="1026" left="82" width="189" height="15" font="0">as a background watermark.</text>
+<text top="1101" left="105" width="324" height="15" font="0">Another way that we might use external complex</text>
+<text top="1119" left="82" width="282" height="15" font="0">shapes is as data symbols on a plot. Figure</text>
+<text top="1119" left="368" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">11</a></text>
+<text top="1119" left="387" width="42" height="15" font="0">shows</text>
+<text top="1137" left="82" width="346" height="15" font="0">a bus icon. Again, this bus icon is a single path so it</text>
+<text top="1155" left="82" width="346" height="15" font="0">must be drawn using grid.path() or polypath() in</text>
+<text top="1173" left="82" width="199" height="15" font="0">order for it to render correctly.</text>
+<text top="326" left="490" width="284" height="15" font="0">Figure 11: A path that describes a bus icon.</text>
+<text top="364" left="481" width="43" height="15" font="0">Figure</text>
+<text top="364" left="528" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">12</a></text>
+<text top="364" left="547" width="258" height="15" font="0">shows this bus icon being used as data</text>
+<text top="382" left="459" width="346" height="15" font="0">symbols on a <b>lattice </b>scatterplot of daily bus ridership</text>
+<text top="400" left="459" width="33" height="15" font="0">data.</text>
+<text top="736" left="633" width="28" height="13" font="14">date</text>
+<text top="589" left="476" width="0" height="13" font="15">b</text>
+<text top="581" left="476" width="0" height="13" font="15">us/1000</text>
+<text top="663" left="490" width="20" height="11" font="16">300</text>
+<text top="630" left="490" width="20" height="11" font="16">400</text>
+<text top="596" left="490" width="20" height="11" font="16">500</text>
+<text top="563" left="490" width="20" height="11" font="16">600</text>
+<text top="529" left="490" width="20" height="11" font="16">700</text>
+<text top="496" left="490" width="20" height="11" font="16">800</text>
+<text top="462" left="490" width="20" height="11" font="16">900</text>
+<text top="709" left="510" width="247" height="11" font="18">Jan 01 Jan 02 Jan 03 Jan 04 Jan 05 Jan 06 Jan 07</text>
+<text top="792" left="459" width="326" height="15" font="0">Figure 12: A plot with the bus icon from Figure</text>
+<text top="792" left="790" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">11</a></text>
+<text top="810" left="459" width="149" height="15" font="0">used as a data symbol.</text>
+<text top="848" left="481" width="324" height="15" font="0">Another general area where complex paths arise</text>
+<text top="866" left="459" width="346" height="15" font="0">is the drawing of maps. The outline of a country’s</text>
+<text top="884" left="459" width="256" height="15" font="0">borders or coastline represents a set of</text>
+<text top="884" left="720" width="6" height="14" font="5">(</text>
+<text top="884" left="726" width="21" height="15" font="0">x, y</text>
+<text top="884" left="748" width="6" height="14" font="5">)</text>
+<text top="884" left="758" width="47" height="15" font="0">coordi-</text>
+<text top="902" left="459" width="346" height="15" font="0">nates, often in a very complicated arrangement. One</text>
+<text top="920" left="459" width="346" height="15" font="0">situation where it can be useful to treat the map out-</text>
+<text top="938" left="459" width="346" height="15" font="0">line as a path is the case where a country contains</text>
+<text top="956" left="459" width="346" height="15" font="0">a lake; the lake can be thought of as a hole in the</text>
+<text top="974" left="459" width="346" height="15" font="0">country shape. Things can get quite complicated if</text>
+<text top="991" left="459" width="346" height="15" font="0">the lake then contains an island, and the island has a</text>
+<text top="1009" left="459" width="346" height="15" font="0">lake, and so on. If the map is treated as a path to fill</text>
+<text top="1027" left="459" width="318" height="15" font="0">then all of these cases are dealt with quite easily.</text>
+<text top="1048" left="481" width="43" height="15" font="0">Figure</text>
+<text top="1048" left="530" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">13</a></text>
+<text top="1048" left="551" width="255" height="15" font="0">shows a map of part of the South Is-</text>
+<text top="1065" left="459" width="346" height="15" font="0">land of New Zealand. The lake in the lower right</text>
+<text top="1083" left="459" width="346" height="15" font="0">quadrant of this map is Lake Te Anau and at the base</text>
+<text top="1101" left="459" width="346" height="15" font="0">of one of the westerly spurs of this lake is an island.</text>
+<text top="1119" left="459" width="346" height="15" font="0">This map outline has been drawn as a path with a</text>
+<text top="1137" left="459" width="346" height="15" font="0">green fill colour used to indicate land area and an</text>
+<text top="1155" left="459" width="346" height="15" font="0">appropriate fill rule ensures that the lake is not filled</text>
+<text top="1173" left="459" width="205" height="15" font="0">in, but the island on the lake is.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="12" family="Times" color="#00004c"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">17</text>
+<text top="430" left="82" width="346" height="15" font="0">Figure 13: A map showing an island in a lake on an</text>
+<text top="448" left="82" width="44" height="15" font="0">island.</text>
+<text top="485" left="105" width="324" height="15" font="0">Although R provides many low-level graphics fa-</text>
+<text top="503" left="82" width="346" height="15" font="0">cilities, such as the ability to draw complex paths,</text>
+<text top="521" left="82" width="346" height="15" font="0">there are still some basic tricks that it does not yet</text>
+<text top="539" left="82" width="346" height="15" font="0">support. One example is the ability to clip output to</text>
+<text top="557" left="82" width="346" height="15" font="0">an arbitrary region on the page (it is currently only</text>
+<text top="575" left="82" width="304" height="15" font="0">possible to clip to rectangular regions with R).</text>
+<text top="595" left="105" width="324" height="15" font="0">Sometimes, a missing feature like this can be</text>
+<text top="613" left="82" width="346" height="15" font="0">worked around by making inventive use of the ex-</text>
+<text top="631" left="82" width="149" height="15" font="0">isting facilities. Figure</text>
+<text top="631" left="236" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">14</a></text>
+<text top="631" left="256" width="173" height="15" font="0">shows an example of this,</text>
+<text top="649" left="82" width="346" height="15" font="0">where a contour of earthquake events has been over-</text>
+<text top="667" left="82" width="346" height="15" font="0">laid on a map of New Zealand, but the contours are</text>
+<text top="685" left="82" width="185" height="15" font="0">only visible over land areas.</text>
+<text top="1082" left="82" width="346" height="15" font="0">Figure 14: A map with an overlaid contour. A path</text>
+<text top="1099" left="82" width="346" height="15" font="0">has been used to obscure the contour where it does</text>
+<text top="1117" left="82" width="147" height="15" font="0">not overlap with land.</text>
+<text top="1155" left="105" width="324" height="15" font="0">This result was achieved using complex paths</text>
+<text top="1173" left="82" width="73" height="15" font="0">(see Figure</text>
+<text top="1173" left="160" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">15</a></text>
+<text top="1173" left="175" width="254" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">). </a>The starting point is the entire con-</text>
+<text top="125" left="459" width="346" height="15" font="0">tour overlaid on a New Zealand map (left). A path</text>
+<text top="143" left="459" width="346" height="15" font="0">is constructed from the New Zealand coastline (mid-</text>
+<text top="161" left="459" width="346" height="15" font="0">dle), and then a bounding rectangle is added to the</text>
+<text top="179" left="459" width="346" height="15" font="0">path (right). This combined path allows us to fill a</text>
+<text top="197" left="459" width="346" height="15" font="0">region that is everything outside of the New Zealand</text>
+<text top="215" left="459" width="346" height="15" font="0">coastline and that can be drawn on top of the original</text>
+<text top="233" left="459" width="346" height="15" font="0">image to obscure those parts of the contour that are</text>
+<text top="251" left="459" width="92" height="15" font="0">not over land.</text>
+<text top="296" left="459" width="77" height="21" font="4"><b>Caveats</b></text>
+<text top="335" left="459" width="346" height="15" font="0">The polypath() and grid.path() functions are</text>
+<text top="353" left="459" width="234" height="15" font="0">only supported on the pdf(),</text>
+<text top="354" left="710" width="91" height="12" font="0">postscript()</text>
+<text top="353" left="802" width="4" height="15" font="0">,</text>
+<text top="372" left="459" width="130" height="12" font="0">x11(type=&#34;cairo&#34;)</text>
+<text top="371" left="588" width="4" height="15" font="0">,</text>
+<text top="372" left="611" width="69" height="12" font="0">windows()</text>
+<text top="371" left="680" width="4" height="15" font="0">,</text>
+<text top="371" left="703" width="25" height="15" font="0">and</text>
+<text top="372" left="744" width="61" height="12" font="0">quartz()</text>
+<text top="389" left="459" width="320" height="15" font="0">graphics devices (and associated raster formats).</text>
+<text top="407" left="481" width="39" height="15" font="0">These</text>
+<text top="407" left="539" width="62" height="15" font="0">functions</text>
+<text top="407" left="620" width="20" height="15" font="0">are</text>
+<text top="407" left="660" width="22" height="15" font="0">not</text>
+<text top="407" left="701" width="69" height="15" font="0">supported</text>
+<text top="407" left="788" width="17" height="15" font="0">on</text>
+<text top="426" left="459" width="122" height="12" font="0">x11(type=&#34;Xlib&#34;)</text>
+<text top="425" left="581" width="225" height="15" font="0">, xfig(), or pictex() and support</text>
+<text top="443" left="459" width="346" height="15" font="0">is not guaranteed on graphics devices provided by</text>
+<text top="461" left="459" width="131" height="15" font="0">extension packages.</text>
+<text top="507" left="459" width="96" height="21" font="4"><b>Summary</b></text>
+<text top="545" left="459" width="38" height="15" font="0">There</text>
+<text top="545" left="515" width="20" height="15" font="0">are</text>
+<text top="545" left="553" width="28" height="15" font="0">new</text>
+<text top="545" left="599" width="65" height="15" font="0">functions,</text>
+<text top="546" left="686" width="76" height="12" font="0">polypath()</text>
+<text top="545" left="780" width="25" height="15" font="0">and</text>
+<text top="564" left="459" width="84" height="12" font="0">grid.path()</text>
+<text top="563" left="548" width="257" height="15" font="0">for drawing complex paths, including</text>
+<text top="581" left="459" width="346" height="15" font="0">paths with holes, in R graphics output. These func-</text>
+<text top="599" left="459" width="346" height="15" font="0">tions can be useful for drawing non-trivial shapes,</text>
+<text top="617" left="459" width="259" height="15" font="0">logos, custom data symbols, and maps.</text>
+<text top="663" left="459" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="701" left="459" width="346" height="15" font="0">The following material and data were used in this ar-</text>
+<text top="719" left="459" width="31" height="15" font="0">ticle:</text>
+<text top="747" left="480" width="326" height="15" font="0">• The GNU logo was created by Aurelio A. Heck-</text>
+<text top="765" left="496" width="160" height="15" font="0">ert and is available from</text>
+<text top="766" left="661" width="145" height="12" font="7"><a href="http://www.gnu.org/graphics/heckert_gnu.html">http://www.gnu.org/</a></text>
+<text top="784" left="496" width="191" height="12" font="7"><a href="http://www.gnu.org/graphics/heckert_gnu.html">graphics/heckert_gnu.html</a></text>
+<text top="783" left="687" width="4" height="15" font="0"><a href="http://www.gnu.org/graphics/heckert_gnu.html">.</a></text>
+<text top="811" left="480" width="326" height="15" font="0">• The bus icon was created by the Geographics</text>
+<text top="829" left="496" width="309" height="15" font="0">Unit, School of Environment, The University of</text>
+<text top="847" left="496" width="69" height="15" font="0">Auckland.</text>
+<text top="874" left="480" width="326" height="15" font="0">• Both the GNU logo and the bus icon shape in-</text>
+<text top="892" left="496" width="309" height="15" font="0">formation were imported into R and drawn us-</text>
+<text top="910" left="496" width="46" height="15" font="0">ing the</text>
+<text top="910" left="546" width="61" height="15" font="19"><a href="http://cran.r-project.org/package=grImport"><b>grImport</b></a></text>
+<text top="910" left="611" width="63" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell2.html#6">(</a></text>
+<text top="910" left="674" width="51" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Murrell</a></text>
+<text top="910" left="725" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">,</a></text>
+<text top="910" left="732" width="30" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">2009</a></text>
+<text top="910" left="762" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">).</a></text>
+<text top="938" left="480" width="326" height="15" font="0">• The bus data were obtained from the</text>
+<text top="956" left="496" width="28" height="15" font="0">City</text>
+<text top="956" left="542" width="13" height="15" font="0">of</text>
+<text top="956" left="573" width="54" height="15" font="0">Chicago</text>
+<text top="956" left="645" width="31" height="15" font="0">Data</text>
+<text top="956" left="694" width="40" height="15" font="0">Portal</text>
+<text top="957" left="752" width="53" height="12" font="7"><a href="http://data.cityofchicago.org/Transportation/CTA-Ridership-Daily-Boarding-Totals/">http://</a></text>
+<text top="975" left="496" width="290" height="12" font="7"><a href="http://data.cityofchicago.org/Transportation/CTA-Ridership-Daily-Boarding-Totals/">data.cityofchicago.org/Transportation/</a></text>
+<text top="993" left="496" width="277" height="12" font="7"><a href="http://data.cityofchicago.org/Transportation/CTA-Ridership-Daily-Boarding-Totals/">CTA-Ridership-Daily-Boarding-Totals/</a></text>
+<text top="992" left="774" width="4" height="15" font="0"><a href="http://data.cityofchicago.org/Transportation/CTA-Ridership-Daily-Boarding-Totals/">.</a></text>
+<text top="1020" left="480" width="326" height="15" font="0">• The detailed map of the South Island of</text>
+<text top="1038" left="496" width="309" height="15" font="0">New Zealand came from the Global Self-</text>
+<text top="1056" left="496" width="70" height="15" font="0">consistent,</text>
+<text top="1056" left="591" width="85" height="15" font="0">Hierarchical,</text>
+<text top="1056" left="700" width="105" height="15" font="0">High-resolution</text>
+<text top="1074" left="496" width="223" height="15" font="0">Shoreline Database (version 2.0;</text>
+<text top="1074" left="727" width="78" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Wessel and</a></text>
+<text top="1091" left="496" width="39" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Smith</a></text>
+<text top="1091" left="535" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">,</a></text>
+<text top="1091" left="544" width="30" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">1996</a></text>
+<text top="1091" left="574" width="231" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">) </a>and was loaded into R using the</text>
+<text top="1109" left="496" width="63" height="15" font="19"><a href="http://cran.r-project.org/package=maptools"><b>maptools</b></a></text>
+<text top="1109" left="568" width="68" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell2.html#6">(</a></text>
+<text top="1109" left="637" width="165" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Lewin-Koh and Bivand</a></text>
+<text top="1109" left="802" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">,</a></text>
+<text top="1127" left="496" width="30" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">2011</a></text>
+<text top="1127" left="526" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">).</a></text>
+<text top="1155" left="480" width="326" height="15" font="0">• The earthquake data came from the GeoNet</text>
+<text top="1173" left="496" width="49" height="15" font="0">Project:</text>
+<text top="1174" left="550" width="191" height="12" font="7"><a href="http://www.geonet.org.nz/">http://www.geonet.org.nz/</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">18</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="369" left="226" width="436" height="15" font="0">Figure 15: A map with a path used to obscure unwanted drawing.</text>
+<text top="420" left="103" width="326" height="15" font="0">• The New Zealand coastline information for</text>
+<text top="438" left="120" width="49" height="15" font="0">Figures</text>
+<text top="438" left="172" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">14</a></text>
+<text top="438" left="191" width="25" height="15" font="0">and</text>
+<text top="438" left="219" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">15</a></text>
+<text top="438" left="238" width="94" height="15" font="0">came from the</text>
+<text top="438" left="335" width="37" height="15" font="19"><a href="http://cran.r-project.org/package=maps"><b>maps</b></a></text>
+<text top="438" left="375" width="54" height="15" font="0">package</text>
+<text top="455" left="120" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">(</a></text>
+<text top="455" left="125" width="147" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">Brownrigg and Minka</a></text>
+<text top="455" left="272" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">,</a></text>
+<text top="455" left="279" width="30" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">2011</a></text>
+<text top="455" left="309" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">).</a></text>
+<text top="489" left="105" width="324" height="15" font="0">Many thanks also to the anonymous reviewers</text>
+<text top="507" left="82" width="346" height="15" font="0">who suggested several useful improvements to this</text>
+<text top="525" left="82" width="44" height="15" font="0">article.</text>
+<text top="572" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="611" left="82" width="346" height="15" font="0">R. Brownrigg and T. P. Minka. maps: Draw Geographi-</text>
+<text top="628" left="97" width="129" height="15" font="0">cal Maps, 2011. URL</text>
+<text top="630" left="230" width="199" height="12" font="7"><a href="http://CRAN.R-project.org/package=maps">http://CRAN.R-project.org/</a></text>
+<text top="648" left="97" width="91" height="12" font="7"><a href="http://CRAN.R-project.org/package=maps">package=maps</a></text>
+<text top="646" left="189" width="188" height="15" font="0"><a href="http://CRAN.R-project.org/package=maps">. </a>R package version 2.1-6. <a href="2012-2-RJournal_2012-2_Murrell2.html#6">[p</a></text>
+<text top="646" left="377" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">18</a></text>
+<text top="646" left="392" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#6">]</a></text>
+<text top="677" left="82" width="346" height="15" font="0">N. J. Lewin-Koh and R. Bivand. maptools: Tools for</text>
+<text top="694" left="97" width="290" height="15" font="0">reading and handling spatial objects, 2011. URL</text>
+<text top="696" left="391" width="38" height="12" font="7"><a href="http://CRAN.R-project.org/package=maptools">http:</a></text>
+<text top="714" left="97" width="283" height="12" font="7"><a href="http://CRAN.R-project.org/package=maptools">//CRAN.R-project.org/package=maptools</a></text>
+<text top="712" left="380" width="4" height="15" font="0"><a href="http://CRAN.R-project.org/package=maptools">.</a></text>
+<text top="712" left="419" width="10" height="15" font="0">R</text>
+<text top="730" left="97" width="165" height="15" font="0">package version 0.8-6. <a href="2012-2-RJournal_2012-2_Murrell2.html#5">[p</a></text>
+<text top="730" left="262" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">17</a></text>
+<text top="730" left="277" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">]</a></text>
+<text top="761" left="82" width="346" height="15" font="0">P. Murrell. Importing vector graphics: The grImport</text>
+<text top="420" left="474" width="332" height="15" font="0">package for R. Journal of Statistical Software, 30(4):</text>
+<text top="438" left="474" width="107" height="15" font="0">1–37, 2009. URL</text>
+<text top="439" left="584" width="221" height="12" font="7"><a href="http://www.jstatsoft.org/v30/i04/">http://www.jstatsoft.org/v30/</a></text>
+<text top="457" left="474" width="30" height="12" font="7"><a href="http://www.jstatsoft.org/v30/i04/">i04/</a></text>
+<text top="455" left="504" width="23" height="15" font="0"><a href="http://www.jstatsoft.org/v30/i04/">. </a><a href="2012-2-RJournal_2012-2_Murrell2.html#5">[p</a></text>
+<text top="455" left="527" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">17</a></text>
+<text top="455" left="542" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">]</a></text>
+<text top="490" left="459" width="346" height="15" font="0">D. Sarkar. Lattice: Multivariate Data Visualization with</text>
+<text top="508" left="474" width="229" height="15" font="0">R. Springer, New York, 2008. URL</text>
+<text top="510" left="706" width="99" height="12" font="7"><a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.</a></text>
+<text top="528" left="474" width="162" height="12" font="7"><a href="http://lmdvr.r-forge.r-project.org">r-forge.r-project.org</a></text>
+<text top="526" left="635" width="170" height="15" font="0"><a href="http://lmdvr.r-forge.r-project.org">. </a>ISBN 978-0-387-75968-5.</text>
+<text top="544" left="474" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">[p</a></text>
+<text top="544" left="488" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">16</a></text>
+<text top="544" left="503" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#4">]</a></text>
+<text top="579" left="459" width="346" height="15" font="0">P. Wessel and W. H. F. Smith. A global self-consistent,</text>
+<text top="597" left="474" width="332" height="15" font="0">hierarchical, high-resolution shoreline database.</text>
+<text top="615" left="474" width="332" height="15" font="0">Journal of Geophysical Research, pages 8741–8743,</text>
+<text top="633" left="474" width="53" height="15" font="0">1996. <a href="2012-2-RJournal_2012-2_Murrell2.html#5">[p</a></text>
+<text top="633" left="527" width="15" height="15" font="7"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">17</a></text>
+<text top="633" left="542" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell2.html#5">]</a></text>
+<text top="689" left="459" width="80" height="15" font="0">Paul Murrell</text>
+<text top="707" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="725" left="459" width="168" height="15" font="0">The University of Auckland</text>
+<text top="743" left="459" width="81" height="15" font="0">New Zealand</text>
+<text top="762" left="459" width="183" height="12" font="7"><a href="mailto:paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

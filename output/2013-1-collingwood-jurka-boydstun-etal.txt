@@ -1,0 +1,48 @@
+page	left	top	code
+2	149	414	data(USCongress)
+2	149	447	# CREATE THE DOCUMENT-TERM MATRIX
+2	149	464	doc_matrix <- create_matrix(USCongress$text, language="english", removeNumbers=TRUE,
+2	341	480	stemWords=TRUE, removeSparseTerms=.998)
+2	149	775	container <- create_container(doc_matrix, USCongress$major, trainSize=1:4000,
+2	355	791	testSize=4001:4449, virgin=FALSE)
+3	149	150	SVM <- train_model(container,"SVM")
+3	149	166	GLMNET <- train_model(container,"GLMNET")
+3	149	183	MAXENT <- train_model(container,"MAXENT")
+3	149	199	SLDA <- train_model(container,"SLDA")
+3	149	216	BOOSTING <- train_model(container,"BOOSTING")
+3	149	232	BAGGING <- train_model(container,"BAGGING")
+3	149	249	RF <- train_model(container,"RF")
+3	149	265	NNET <- train_model(container,"NNET")
+3	149	282	TREE <- train_model(container,"TREE")
+3	149	428	SVM_CLASSIFY <- classify_model(container, SVM)
+3	149	444	GLMNET_CLASSIFY <- classify_model(container, GLMNET)
+3	149	461	MAXENT_CLASSIFY <- classify_model(container, MAXENT)
+3	149	477	SLDA_CLASSIFY <- classify_model(container, SLDA)
+3	149	494	BOOSTING_CLASSIFY <- classify_model(container, BOOSTING)
+3	149	510	BAGGING_CLASSIFY <- classify_model(container, BAGGING)
+3	149	527	RF_CLASSIFY <- classify_model(container, RF)
+3	149	543	NNET_CLASSIFY <- classify_model(container, NNET)
+3	149	559	TREE_CLASSIFY <- classify_model(container, TREE)
+4	149	204	analytics <- create_analytics(container,
+4	355	220	cbind(SVM_CLASSIFY, SLDA_CLASSIFY,
+4	396	237	BOOSTING_CLASSIFY, BAGGING_CLASSIFY,
+4	396	253	RF_CLASSIFY, GLMNET_CLASSIFY,
+4	396	270	NNET_CLASSIFY, TREE_CLASSIFY,
+4	396	286	MAXENT_CLASSIFY))
+4	149	302	summary(analytics)
+4	149	335	# CREATE THE data.frame SUMMARIES
+4	149	352	topic_summary <- analytics@label_summary
+4	149	368	alg_summary <- analytics@algorithm_summary
+4	149	385	ens_summary <-analytics@ensemble_summary
+4	149	401	doc_summary <- analytics@document_summary
+5	149	575	create_ensembleSummary(analytics@document_summary)
+5	149	1035	SVM <- cross_validate(container, 4, "SVM")
+5	149	1052	GLMNET <- cross_validate(container, 4, "GLMNET")
+5	149	1068	MAXENT <- cross_validate(container, 4, "MAXENT")
+5	149	1085	SLDA <- cross_validate(container, 4, "SLDA")
+5	149	1101	BAGGING <- cross_validate(container, 4, "BAGGING")
+5	149	1118	BOOSTING <- cross_validate(container, 4, "BOOSTING")
+6	149	104	RF <- cross_validate(container, 4, "RF")
+6	149	120	NNET <- cross_validate(container, 4, "NNET")
+6	149	137	TREE <- cross_validate(container, 4, "TREE")
+6	149	299	write.csv(analytics@document_summary, "DocumentSummary.csv")

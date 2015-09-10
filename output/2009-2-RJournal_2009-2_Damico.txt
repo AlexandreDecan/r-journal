@@ -1,0 +1,199 @@
+page	left	top	code
+1	459	953	> library(foreign)
+1	459	970	> h105 <- read.xport("h105.ssp")
+1	459	1122	> h105 <- read.table("h105.dat", header=TRUE )
+2	82	518	> #limit to specified fields
+2	82	534	> meps06 <- subset(h105,
+2	82	551	+ select = c(DUPERSID, PANEL, PERWT06F, VARSTR,
+2	82	567	+ VARPSU, AGE06X, TOTEXP06, REGION06, RTHLTH53))
+2	82	600	> #clear memory of full data frame
+2	82	616	> rm(h105)
+2	82	753	> #recode linear to categorical
+2	82	769	> # below 25 ; 25-34 ; 35-44 ; 45-54 ;
+2	82	786	> # 55-64 ; 65-74 ; 75-84 ; 85+
+2	82	802	> meps06[, "AGECAT"] <- cut(meps06[, "AGE06X"],
+2	82	818	+ br = c(-1, 24 + 10*0:6, Inf), labels = 1:8)
+2	82	937	> #alternate character labels
+2	82	953	> meps06[, "cAGECAT"] <- cut(meps06[, "AGE06X"],
+2	82	970	+ br = c(-1, 24+10*0:6, Inf),
+2	459	127	> #combine ex (1) & vg health (2)
+2	459	144	> # into the same response option
+2	459	160	> meps06[, "RTHLTH53"] <- meps06[ ,"RTHLTH53"] - 1
+2	459	177	> meps06[meps06[ ,"RTHLTH53"] == 0, "RTHLTH53"] <-
+2	459	193	+ 1
+2	459	226	> #recode negatives to missing (NA)
+2	459	242	> meps06[meps06[ , "RTHLTH53"] < 0, "RTHLTH53"] <-
+2	459	259	+ NA
+2	459	508	> #char vars for region & health stat.
+2	459	525	> meps06 <- transform(meps06,
+2	459	541	+ cRTHLTH53 = as.character(RTHLTH53))
+2	459	558	> meps06 <- transform(meps06,
+2	459	574	+ cREGION06 = as.character(REGION06))
+2	459	892	> library(survey)
+2	459	925	> #create main tsl survey design obj.
+2	459	942	> meps.tsl.dsgn <- svydesign(id = ~ VARPSU,
+2	459	958	+ strata = ~ VARSTR, weights = ~ PERWT06F,
+2	459	974	+ data = meps06, nest = TRUE)
+3	82	289	> #total adult expendure mean & se
+3	82	306	> svymean(~ TOTEXP06,
+3	82	322	+ subset(meps.tsl.dsgn, AGE06X > 17))
+3	82	355	> #total nonelderly adult expenditure
+3	82	371	> svymean(~ TOTEXP06 ,
+3	82	388	+ subset(meps.tsl.dsgn, AGE06X > 17
+3	82	404	+ & AGE06X < 65))
+3	82	678	> x <- subset(meps.tsl.dsgn, AGE06X > 17)
+3	82	1105	> #load the half-sample data
+3	82	1122	> library(foreign)
+3	459	127	> brr <- read.xport("h36b06.ssp")
+3	459	160	> #merge half-sample with main file
+3	459	177	> meps.brr <- merge(meps06, brr,
+3	486	193	by.x = c("DUPERSID", "PANEL"),
+3	459	210	+ by.y = c("DUPERSID", "PANEL"),
+3	459	226	+ all=FALSE)
+3	459	353	> meps.brr.sub <- subset(meps.brr,
+3	459	369	+ select = c(DUPERSID, PANEL, PERWT06F,
+3	459	386	+ VARSTR, VARPSU, AGE06X, AGECAT,
+3	459	402	+ TOTEXP06, REGION06, cREGION06,
+3	459	419	+ RTHLTH53, cRTHLTH5, BRR1:BRR64))
+3	459	779	> #create meps brr survey design obj.
+3	459	795	> meps.brr.dsgn <-svrepdesign(data = meps.brr,
+3	459	812	+ repweights =
+3	459	828	+ meps.brr[ ,grep("^BRR", colnames(meps.brr))],
+3	459	844	+ type = "BRR", combined.weights = FALSE,
+3	459	861	+ weights = meps.brr$PERWT06F)
+3	459	1089	> #brr method: total $ mean & se
+3	459	1105	> svymean(~ TOTEXP06,
+3	459	1122	+ subset(meps.brr.dsgn, AGE06X > 17))
+4	214	514	meps.tsl.dsgn, stratum varstr;
+4	214	531	AGE06X > 17)) cluster varpsu;
+4	360	547	weight perwt06f;
+4	360	564	var totexp06;
+4	506	481	svyset proc descript
+4	506	498	[pweight=PERWT06F], data="adult"
+4	506	514	strata(VARSTR) filetype=sasxport
+4	506	531	psu(VARPSU) svy: design=wr
+4	506	547	mean TOTEXP06 notsorted; nest
+4	652	564	varstr varpsu;
+4	652	580	weight perwt06f;
+4	652	597	var totexp06;
+4	214	738	AGE06X > 17 & stratum varstr;
+4	214	754	AGE06X < 65)) cluster varpsu;
+4	360	771	weight perwt06f;
+4	360	787	var totexp06;
+4	506	688	svyset proc descript
+4	506	705	[pweight=PERWT06F], data = "adult"
+4	506	721	strata(VARSTR) filetype=sasxport
+4	506	738	psu(VARPSU) svy: design=wr
+4	506	754	mean TOTEXP06 if notsorted; nest
+4	506	771	AGE06X < 65 varstr varpsu;
+4	652	787	weight perwt06f;
+4	652	803	var totexp06;
+4	652	820	subpopn age06x <
+4	652	836	65;
+5	82	930	> #calculate unweighted cell size
+5	82	947	> xtabs( ~ RTHLTH53 + REGION06,
+5	82	963	+ subset(meps06, AGE06X > 7))
+5	82	1159	> #percent distribution w/ svymean
+5	82	1175	> #determine % adults in each state
+5	459	127	> # (ex. poor health 3.26%)
+5	459	144	> a <- svymean(~ cRTHLTH53,
+5	459	160	+ subset(meps.tsl.dsgn, AGE06X > 17),
+5	459	177	+ na.rm = TRUE)
+5	459	193	> a
+5	459	381	> #label & format health status
+5	459	398	> ftable(a,
+5	459	414	+ list(c("Excellent / Very good",
+5	459	431	+ "Good", "Fair", "Poor")))
+5	459	583	# % adults living in census regions
+5	459	599	# (ex. northeastern 18.64%)
+5	459	616	> svymean(~ as.character(REGION06),
+5	459	632	+ subset(meps.tsl.dsgn, AGE06X > 17))
+5	459	771	> #total 2006 health expenditures
+5	459	787	> #all non-institutionalized adults
+5	459	804	> # ($892 billion)
+5	459	820	> svytotal(~ TOTEXP06,
+5	459	837	+ subset(meps.tsl.dsgn, AGE06X > 17))
+5	459	869	> #num adults in census regions
+5	459	886	> # (ex. northeastern 41.47 million)
+5	459	902	> svytable(~ REGION06,
+5	459	919	+ subset(meps.tsl.dsgn, AGE06X > 17))
+5	459	952	> #alternate method
+5	459	968	> svytotal(~ as.character(REGION06),
+5	459	985	+ subset(meps.tsl.dsgn, AGE06X > 17))
+5	459	1159	> #median 2006 health expenditure
+5	459	1175	> svyquantile(~ TOTEXP06,
+6	214	515	meps.brr.dsgn, brrweight(BRR*x)
+6	360	531	vce(brr) svy:
+6	360	547	mean TOTEXP06
+6	506	482	svyset proc descript
+6	506	515	brrweight(BRR*x) filetype=sasxport
+6	506	531	vce(brr) mse svy: design=brr
+6	652	498	data = "adult"
+6	652	547	notsorted; repwgt
+6	652	564	BRR1 - BRR64 ;
+6	360	738	vce(brr) svy:
+6	360	754	mean TOTEXP06 if
+6	360	771	AGE06X < 65
+6	506	689	svyset proc descript
+6	506	721	brrweight(BRR*x)
+6	506	738	vce(brr) mse svy: design=brr
+6	652	754	notsorted; repwgt
+6	652	771	BRR1 - BRR64 ;
+6	652	804	var totexp06;
+7	82	127	+ subset(meps.tsl.dsgn, AGE06X > 17), 0.5)
+7	82	160	> #calculate expenditure percentiles
+7	82	177	> svyquantile(~ TOTEXP06,
+7	82	193	+ subset(meps.tsl.dsgn, AGE06X > 17),
+7	82	210	+ c(0.1, 0.25, 0.5, 0.75, 0.9))
+7	82	381	> #brr method: median health $
+7	82	398	> svyquantile(~ TOTEXP06,
+7	82	414	+ subset(meps.brr.dsgn, AGE06X > 17), 0.5)
+7	82	514	> #convert tsl to jackknife design
+7	82	531	> meps.jackknife.dsgn <-
+7	82	547	+ as.svrepdesign(meps.tsl.dsgn, "auto")
+7	82	580	> #jackknife method: median health $
+7	82	597	> svyquantile(~ TOTEXP06,
+7	82	613	+ subset(meps.jackknife.dsgn, AGE06X > 17), 0.5)
+7	82	1021	> #health spending by census region
+7	82	1038	> # (ex. northeast $173 billion)
+7	82	1054	> svyby(~ TOTEXP06, ~ REGION06,
+7	82	1071	+ subset(meps.tsl.dsgn, AGE06X > 17), svytotal)
+7	82	1104	> #regional mean spending on health
+7	82	1120	> # (ex. northeast $4,171)
+7	82	1137	> svyby(~ TOTEXP06, ~ REGION06,
+7	459	127	+ subset(meps.tsl.dsgn, AGE06X > 17), svymean)
+7	459	160	> #stratified by health status
+7	459	177	> # (ex. northeast poor hlth $18,038)
+7	459	193	> svyby(~ TOTEXP06, ~ REGION06 + RTHLTH53,
+7	486	210	subset(meps.tsl.dsgn, AGE06X > 17), svymean)
+7	459	242	> #top quartile by health status
+7	459	259	> # (ex. poor health $19,130)
+7	459	275	> svyby(~ TOTEXP06, ~ RTHLTH53,
+7	459	292	+ design = subset(meps.tsl.dsgn, AGE06X > 17),
+7	459	308	+ FUN = svyquantile, quantiles = 0.75, ci = TRUE)
+7	459	481	> #dist of hlth stat by census region
+7	459	498	> svyby(~ cREGION06, ~cRTHLTH53,
+7	459	514	+ subset(meps.tsl.dsgn, AGE06X > 17), svymean)
+7	459	547	> #dist of census region by hlth stat
+7	459	563	> svyby(~ cRTHLTH53, ~cREGION06,
+7	459	580	+ subset(meps.tsl.dsgn, AGE06X > 17), svymean,
+7	459	596	+ na.rm = TRUE)
+7	459	779	> #total % in each hlth stat & region
+7	459	795	> svymean(~ interaction(cRTHLTH53, cREGION06),
+7	486	812	subset(meps.tsl.dsgn, AGE06X > 17),
+7	486	828	na.rm = TRUE)
+7	459	861	> #repeat above with weighted counts
+7	459	878	> svytotal(~ interaction(cRTHLTH53, cREGION06),
+7	459	894	+ subset(meps.tsl.dsgn, AGE06X > 17),
+7	459	911	+ na.rm = TRUE)
+8	82	127	> #spending in northeast vs. others
+8	82	144	> svyttest(TOTEXP06 ~ (cREGION06 == 1),
+8	82	160	+ subset(meps.tsl.dsgn, AGE06X > 17 ))
+8	82	193	> #spending in midwest vs. others
+8	82	210	> svyttest(TOTEXP06 ~ (cREGION06 == 2),
+8	82	226	+ subset(meps.tsl.dsgn, AGE06X > 17 ))
+8	82	392	> #test 45-54 vs. all others
+8	82	408	> svyttest(TOTEXP06 ~ (AGECAT == 4),
+8	82	425	+ subset(meps.tsl.dsgn, AGE06X > 17))
+8	82	458	> #test 55-64 vs. all others
+8	82	491	+ subset(meps.tsl.dsgn, AGE06X > 17 ))

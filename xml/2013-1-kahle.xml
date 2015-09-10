@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">162</text>
+<text top="98" left="149" width="538" height="30" font="2"><b>mpoly: Multivariate Polynomials in R</b></text>
+<text top="134" left="149" width="93" height="15" font="0">by David Kahle</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="207" width="537" height="13" font="4">The <b>mpoly </b>package is a general purpose collection of tools for symbolic computing with</text>
+<text top="192" left="149" width="598" height="13" font="4">multivariate polynomials in R. In addition to basic arithmetic, <b>mpoly </b>can take derivatives of polyno-</text>
+<text top="208" left="149" width="595" height="13" font="4">mials, compute Gröbner bases of collections of polynomials, and convert polynomials into a functional</text>
+<text top="224" left="149" width="595" height="13" font="4">form to be evaluated. Among other things, it is hoped that <b>mpoly </b>will provide an R-based foundation</text>
+<text top="241" left="149" width="316" height="13" font="4">for the computational needs of algebraic statisticians.</text>
+<text top="286" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="325" left="148" width="596" height="13" font="4">At a basic level, R is not designed for symbolic computing. Unlike computer algebra systems founded</text>
+<text top="341" left="149" width="375" height="13" font="4">on rational arithmetic and representations like Mathematica <a href="2013-1-kahle.html#9">(</a></text>
+<text top="341" left="524" width="111" height="13" font="6"><a href="2013-1-kahle.html#9">Wolfram Research</a></text>
+<text top="341" left="635" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="341" left="642" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2012</a></text>
+<text top="341" left="670" width="74" height="13" font="4"><a href="2013-1-kahle.html#9">) </a>and Maple</text>
+<text top="357" left="148" width="5" height="13" font="4"><a href="2013-1-kahle.html#9">(</a></text>
+<text top="357" left="153" width="60" height="13" font="6"><a href="2013-1-kahle.html#9">Maplesoft</a></text>
+<text top="357" left="213" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="357" left="220" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2012</a></text>
+<text top="357" left="247" width="500" height="13" font="4"><a href="2013-1-kahle.html#9">), </a>R’s dependence on floating-point arithmetic naturally lends itself to its purpose—</text>
+<text top="374" left="149" width="595" height="13" font="4">data analysis, numerical optimization, large(ish) data and so on. Nevertheless, the advent of algebraic</text>
+<text top="390" left="149" width="598" height="13" font="4">statistics and its contributions to asymptotic theory in statistical models, experimental design, multi-</text>
+<text top="407" left="148" width="596" height="13" font="4">way contingency tables, and disclosure limitation has increased the need for R – as a practical tool for</text>
+<text top="423" left="149" width="595" height="13" font="4">applied statistics – to be able to do some relatively basic operations and routines with multivariate</text>
+<text top="440" left="148" width="84" height="13" font="4">polynomials <a href="2013-1-kahle.html#8">(</a></text>
+<text top="440" left="232" width="142" height="13" font="6"><a href="2013-1-kahle.html#8">Diaconis and Sturmfels</a></text>
+<text top="440" left="374" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">,</a></text>
+<text top="440" left="382" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">1998</a></text>
+<text top="440" left="409" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">;</a></text>
+<text top="440" left="416" width="69" height="13" font="6"><a href="2013-1-kahle.html#8">Drton et al.</a></text>
+<text top="440" left="485" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">,</a></text>
+<text top="440" left="492" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">2009</a></text>
+<text top="440" left="520" width="8" height="13" font="4"><a href="2013-1-kahle.html#8">).</a></text>
+<text top="440" left="533" width="40" height="13" font="7"><a href="http://CRAN.R-project.org/package=mpoly"><b>mpoly</b></a></text>
+<text top="440" left="576" width="168" height="13" font="4">is designed to try to fill this</text>
+<text top="456" left="148" width="147" height="13" font="4">void entirely within R <a href="2013-1-kahle.html#9">(</a></text>
+<text top="456" left="295" width="35" height="13" font="6"><a href="2013-1-kahle.html#9">Kahle</a></text>
+<text top="456" left="331" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="456" left="339" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2012</a></text>
+<text top="456" left="366" width="378" height="13" font="4"><a href="2013-1-kahle.html#9">). </a>This article is intended to demonstrate its capabilities to a</text>
+<text top="472" left="149" width="226" height="13" font="4">discipline/specialty-neutral audience.</text>
+<text top="493" left="171" width="573" height="13" font="4">A bit more specifically, the <b>mpoly </b>package is a general purpose collection of tools for symbolic</text>
+<text top="510" left="149" width="595" height="13" font="4">computing with multivariate polynomials in R. While new, it is not the first package proposed to deal</text>
+<text top="526" left="148" width="596" height="13" font="4">with multivariate polynomials. We therefore begin with a discussion of the current package intended</text>
+<text top="543" left="149" width="113" height="13" font="4">to fulfill this need,</text>
+<text top="543" left="266" width="54" height="13" font="7"><a href="http://CRAN.R-project.org/package=multipol"><b>multipol</b></a></text>
+<text top="543" left="319" width="377" height="13" font="4"><a href="http://CRAN.R-project.org/package=multipol">, </a>in order to motivate the need for and capabilities of <b>mpoly </b><a href="2013-1-kahle.html#9">(</a></text>
+<text top="543" left="696" width="46" height="13" font="6"><a href="2013-1-kahle.html#9">Hankin</a></text>
+<text top="543" left="742" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="559" left="149" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2010</a></text>
+<text top="559" left="176" width="8" height="13" font="4"><a href="2013-1-kahle.html#9">).</a></text>
+<text top="604" left="149" width="283" height="17" font="5"><b>Background: the multipol package</b></text>
+<text top="643" left="149" width="378" height="13" font="4">R currently has three packages which deal with polynomials –</text>
+<text top="643" left="530" width="55" height="13" font="7"><a href="http://CRAN.R-project.org/package=polynom"><b>polynom</b></a></text>
+<text top="643" left="586" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=polynom">,</a></text>
+<text top="643" left="593" width="63" height="13" font="7"><a href="http://CRAN.R-project.org/package=PolynomF"><b>PolynomF</b></a></text>
+<text top="643" left="655" width="91" height="13" font="4"><a href="http://CRAN.R-project.org/package=PolynomF">, </a>and <b>multipol</b>.</text>
+<text top="659" left="148" width="596" height="13" font="4">The first two (the second being a reboot of the first) deal exclusively with univariate polynomials and</text>
+<text top="676" left="149" width="475" height="13" font="4">as such are not suitable for the general purpose needs cited in the introduction <a href="2013-1-kahle.html#9">(</a></text>
+<text top="676" left="624" width="85" height="13" font="6"><a href="2013-1-kahle.html#9">Venables et al.</a></text>
+<text top="676" left="709" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="676" left="715" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2009</a></text>
+<text top="676" left="742" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">;</a></text>
+<text top="692" left="148" width="53" height="13" font="6"><a href="2013-1-kahle.html#9">Venables</a></text>
+<text top="692" left="201" width="3" height="13" font="4"><a href="2013-1-kahle.html#9">,</a></text>
+<text top="692" left="208" width="27" height="13" font="6"><a href="2013-1-kahle.html#9">2010</a></text>
+<text top="692" left="235" width="509" height="13" font="4"><a href="2013-1-kahle.html#9">). </a>The third, <b>multipol</b>, implements multivariate polynomials in a natural way suitable</text>
+<text top="709" left="149" width="595" height="13" font="4">for some traditional applications (e.g. simple interactions in generalized linear models) but exhibits</text>
+<text top="725" left="149" width="595" height="13" font="4">two limitations which impede its more general use and suggest a fresh re-envisioning of multivariate</text>
+<text top="741" left="148" width="175" height="13" font="4">polynomials in R is needed <a href="2013-1-kahle.html#8">(</a></text>
+<text top="741" left="323" width="46" height="13" font="6"><a href="2013-1-kahle.html#8">Hankin</a></text>
+<text top="741" left="369" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">,</a></text>
+<text top="741" left="376" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">2008</a></text>
+<text top="741" left="404" width="341" height="13" font="4"><a href="2013-1-kahle.html#8">). </a>The first limitation has to do with the impossibility of</text>
+<text top="758" left="148" width="485" height="13" font="4">polynomial arithmetic, and the second has to do with storing sparse polynomials.</text>
+<text top="779" left="171" width="54" height="13" font="3"><b>multipol</b></text>
+<text top="779" left="228" width="518" height="13" font="4">is an implementation of multivariate polynomials based on the S3 class object &#34;multipol&#34;,</text>
+<text top="795" left="149" width="595" height="13" font="4">an unnamed multidimensional array. Consequently, <b>multipol </b>is fundamentally dependent on arrays</text>
+<text top="812" left="149" width="497" height="13" font="4">as its basic data structure. This is evident in the construction of a &#34;multipol&#34; object:</text>
+<text top="842" left="149" width="144" height="11" font="4">&gt; library(&#34;multipol&#34;)</text>
+<text top="859" left="149" width="213" height="11" font="4">Loading required package: abind</text>
+<text top="891" left="149" width="199" height="11" font="4">Attaching package: ’multipol’</text>
+<text top="924" left="149" width="268" height="11" font="4">The following object(s) are masked from</text>
+<text top="941" left="163" width="103" height="11" font="4">’package:base’:</text>
+<text top="974" left="176" width="41" height="11" font="4">single</text>
+<text top="1007" left="149" width="281" height="11" font="4">&gt; a &lt;- as.multipol(array(1:12, c(2,3,2)))</text>
+<text top="1023" left="149" width="21" height="11" font="4">&gt; a</text>
+<text top="1039" left="149" width="48" height="11" font="4">, , z^0</text>
+<text top="1072" left="176" width="75" height="11" font="4">y^0 y^1 y^2</text>
+<text top="1089" left="149" width="21" height="11" font="4">x^0</text>
+<text top="1089" left="190" width="7" height="11" font="4">1</text>
+<text top="1089" left="217" width="7" height="11" font="4">3</text>
+<text top="1089" left="245" width="7" height="11" font="4">5</text>
+<text top="1105" left="149" width="21" height="11" font="4">x^1</text>
+<text top="1105" left="190" width="7" height="11" font="4">2</text>
+<text top="1105" left="217" width="7" height="11" font="4">4</text>
+<text top="1105" left="245" width="7" height="11" font="4">6</text>
+<text top="1138" left="149" width="48" height="11" font="4">, , z^1</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">163</text>
+<text top="120" left="176" width="75" height="11" font="4">y^0 y^1 y^2</text>
+<text top="137" left="149" width="21" height="11" font="4">x^0</text>
+<text top="137" left="190" width="7" height="11" font="4">7</text>
+<text top="137" left="217" width="7" height="11" font="4">9</text>
+<text top="137" left="238" width="14" height="11" font="4">11</text>
+<text top="153" left="149" width="21" height="11" font="4">x^1</text>
+<text top="153" left="190" width="7" height="11" font="4">8</text>
+<text top="153" left="211" width="14" height="11" font="4">10</text>
+<text top="153" left="238" width="14" height="11" font="4">12</text>
+<text top="181" left="149" width="538" height="13" font="4">In normal notation, a moment’s consideration reveals that the polynomial defined above is</text>
+<text top="212" left="224" width="7" height="13" font="4">1</text>
+<text top="212" left="234" width="11" height="12" font="0">+</text>
+<text top="212" left="247" width="14" height="13" font="4">2x</text>
+<text top="212" left="264" width="11" height="12" font="0">+</text>
+<text top="212" left="278" width="14" height="13" font="4">3y</text>
+<text top="212" left="294" width="11" height="12" font="0">+</text>
+<text top="212" left="308" width="21" height="13" font="4">4xy</text>
+<text top="212" left="332" width="11" height="12" font="0">+</text>
+<text top="212" left="346" width="14" height="13" font="4">5y</text>
+<text top="208" left="360" width="5" height="10" font="8">2</text>
+<text top="212" left="368" width="11" height="12" font="0">+</text>
+<text top="212" left="382" width="21" height="13" font="4">6xy</text>
+<text top="208" left="403" width="5" height="10" font="8">2</text>
+<text top="212" left="412" width="11" height="12" font="0">+</text>
+<text top="212" left="426" width="13" height="13" font="4">7z</text>
+<text top="212" left="441" width="11" height="12" font="0">+</text>
+<text top="212" left="455" width="20" height="13" font="4">8xz</text>
+<text top="212" left="478" width="11" height="12" font="0">+</text>
+<text top="212" left="492" width="20" height="13" font="4">9yz</text>
+<text top="212" left="515" width="11" height="12" font="0">+</text>
+<text top="212" left="529" width="34" height="13" font="4">10xyz</text>
+<text top="212" left="566" width="11" height="12" font="0">+</text>
+<text top="212" left="579" width="20" height="13" font="4">11y</text>
+<text top="208" left="600" width="5" height="10" font="8">2</text>
+<text top="212" left="606" width="6" height="13" font="4">z</text>
+<text top="212" left="615" width="11" height="12" font="0">+</text>
+<text top="212" left="629" width="28" height="13" font="4">12xy</text>
+<text top="208" left="657" width="5" height="10" font="8">2</text>
+<text top="212" left="663" width="6" height="13" font="4">z</text>
+<text top="241" left="149" width="72" height="13" font="4">in the ring R</text>
+<text top="241" left="221" width="4" height="12" font="0">[</text>
+<text top="241" left="226" width="31" height="14" font="4">x, y, z</text>
+<text top="241" left="257" width="4" height="12" font="0">]</text>
+<text top="241" left="261" width="484" height="13" font="4">. (A similar pretty printing can be enabled by setting options(showchars = TRUE).)</text>
+<text top="257" left="148" width="596" height="13" font="4">Thus, the elements of the array are the coefficients on the terms appearing in the polynomial. From</text>
+<text top="274" left="149" width="284" height="13" font="4">here, the limitations are immediately accessible.</text>
+<text top="295" left="171" width="573" height="13" font="4">1. Notice that the definition of a multivariate polynomial in the example above makes no reference</text>
+<text top="311" left="149" width="597" height="13" font="4">to the variable names x and y—they are determined when the print method is called. In other words,</text>
+<text top="328" left="149" width="595" height="13" font="4">a &#34;multipol&#34; object has no notion of variables whatsoever, the variables are only generated when</text>
+<text top="344" left="149" width="595" height="13" font="4">asked for via the print method for class &#34;multipol&#34;. This has profound implications on polynomial</text>
+<text top="361" left="149" width="595" height="13" font="4">arithmetic in <b>multipol</b>. In particular, arithmetic is only possible if two polynomials have the same</text>
+<text top="377" left="149" width="595" height="13" font="4">number of dimensions (variables), and is only meaningful if those dimensions represent the same</text>
+<text top="393" left="148" width="596" height="13" font="4">variables in the same order, the latter of which is never checked because there are no names specified</text>
+<text top="410" left="148" width="133" height="13" font="4">which can be checked.</text>
+<text top="431" left="171" width="406" height="13" font="4">For example, suppose one wants to add or multiply the polynomials</text>
+<text top="460" left="382" width="6" height="13" font="4">a</text>
+<text top="460" left="392" width="11" height="12" font="0">=</text>
+<text top="460" left="406" width="7" height="13" font="4">1</text>
+<text top="460" left="416" width="11" height="12" font="0">+</text>
+<text top="460" left="430" width="14" height="13" font="4">2x</text>
+<text top="460" left="447" width="11" height="12" font="0">+</text>
+<text top="460" left="460" width="14" height="13" font="4">3y</text>
+<text top="460" left="477" width="11" height="12" font="0">+</text>
+<text top="460" left="490" width="21" height="13" font="4">4xy</text>
+<text top="460" left="728" width="16" height="13" font="4">(1)</text>
+<text top="489" left="149" width="23" height="13" font="4">and</text>
+<text top="505" left="306" width="6" height="13" font="4">b</text>
+<text top="505" left="317" width="11" height="12" font="0">=</text>
+<text top="506" left="331" width="7" height="13" font="4">1</text>
+<text top="505" left="341" width="11" height="12" font="0">+</text>
+<text top="506" left="354" width="14" height="13" font="4">2x</text>
+<text top="505" left="371" width="11" height="12" font="0">+</text>
+<text top="506" left="385" width="14" height="13" font="4">3y</text>
+<text top="505" left="402" width="11" height="12" font="0">+</text>
+<text top="506" left="415" width="21" height="13" font="4">4xy</text>
+<text top="505" left="439" width="11" height="12" font="0">+</text>
+<text top="506" left="453" width="13" height="13" font="4">5z</text>
+<text top="505" left="469" width="11" height="12" font="0">+</text>
+<text top="506" left="483" width="20" height="13" font="4">6xz</text>
+<text top="505" left="506" width="11" height="12" font="0">+</text>
+<text top="506" left="519" width="20" height="13" font="4">7yz</text>
+<text top="505" left="542" width="11" height="12" font="0">+</text>
+<text top="506" left="556" width="31" height="13" font="4">8xyz,</text>
+<text top="506" left="728" width="16" height="13" font="4">(2)</text>
+<text top="528" left="149" width="55" height="13" font="4">both in R</text>
+<text top="528" left="204" width="4" height="12" font="0">[</text>
+<text top="528" left="208" width="31" height="14" font="4">x, y, z</text>
+<text top="528" left="240" width="4" height="12" font="0">]</text>
+<text top="528" left="244" width="502" height="13" font="4">. Mathematically speaking, it is obvious that the sums and products are well-defined.</text>
+<text top="544" left="149" width="514" height="13" font="4">However, they cannot be computed because they have a different number of variables:</text>
+<text top="571" left="149" width="254" height="11" font="4">&gt; a &lt;- multipol( array(1:4, c(2,2)) )</text>
+<text top="588" left="149" width="268" height="11" font="4">&gt; b &lt;- multipol( array(1:8, c(2,2,2)) )</text>
+<text top="604" left="149" width="48" height="11" font="4">&gt; a + b</text>
+<text top="620" left="149" width="322" height="11" font="4">Error: length(dima) == length(dimb) is not TRUE</text>
+<text top="637" left="149" width="48" height="11" font="4">&gt; a * b</text>
+<text top="653" left="149" width="350" height="11" font="4">Error: length(dim(a)) == length(dim(b)) is not TRUE</text>
+<text top="679" left="149" width="595" height="13" font="4">If the polynomials have the same number of variables, the arithmetic may be incorrect if those variables</text>
+<text top="695" left="149" width="76" height="13" font="4">are different:</text>
+<text top="722" left="149" width="185" height="11" font="4">&gt; options(showchars = TRUE)</text>
+<text top="738" left="149" width="384" height="11" font="4">&gt; ( a &lt;- multipol( as.array( c(&#34;x^0&#34; = 0, &#34;x^1&#34; = 1) )))</text>
+<text top="755" left="149" width="62" height="11" font="4">[1] 1*x^1</text>
+<text top="771" left="149" width="384" height="11" font="4">&gt; ( b &lt;- multipol( as.array( c(&#34;y^0&#34; = 0, &#34;y^1&#34; = 1) )))</text>
+<text top="788" left="149" width="62" height="11" font="4">[1] 1*x^1</text>
+<text top="804" left="149" width="48" height="11" font="4">&gt; a + b</text>
+<text top="821" left="149" width="62" height="11" font="4">[1] 2*x^1</text>
+<text top="846" left="148" width="242" height="13" font="4">The result would seem to indicate that a</text>
+<text top="846" left="394" width="11" height="12" font="0">+</text>
+<text top="846" left="407" width="6" height="13" font="4">b</text>
+<text top="846" left="418" width="11" height="12" font="0">=</text>
+<text top="846" left="433" width="7" height="13" font="4">x</text>
+<text top="846" left="443" width="11" height="12" font="0">+</text>
+<text top="846" left="457" width="7" height="13" font="4">y</text>
+<text top="846" left="468" width="11" height="12" font="0">=</text>
+<text top="846" left="483" width="262" height="13" font="4">2x, which is clearly in error. The location of</text>
+<text top="863" left="149" width="595" height="13" font="4">the problem can easily be found however since we printed the polynomials at each step—regardless</text>
+<text top="879" left="149" width="595" height="13" font="4">of our attempt to force (in a simple way) the labeling of the variables, we achieve the same incorrect</text>
+<text top="895" left="149" width="37" height="13" font="4">result.</text>
+<text top="916" left="171" width="573" height="13" font="4">2. The array representation does not allow for sparse polynomials. For our purposes, a sparse</text>
+<text top="935" left="148" width="459" height="13" font="4">(multivariate) polynomial of multidegree <b>d </b>is one which has &#34;few&#34; terms c</text>
+<text top="940" left="607" width="6" height="10" font="9"><b>d</b></text>
+<text top="938" left="613" width="2" height="9" font="10">0</text>
+<text top="934" left="617" width="7" height="13" font="3"><b>x</b></text>
+<text top="932" left="624" width="6" height="10" font="9"><b>d</b></text>
+<text top="930" left="630" width="2" height="9" font="10">0</text>
+<text top="935" left="638" width="106" height="13" font="4">with multidegree</text>
+<text top="951" left="149" width="7" height="13" font="3"><b>d</b></text>
+<text top="947" left="157" width="3" height="13" font="8">0</text>
+<text top="950" left="165" width="11" height="16" font="0">≤</text>
+<text top="951" left="180" width="498" height="14" font="3"><b>d </b>(element-wise) with nonzero coefficients. As an example, consider the polynomial</text>
+<text top="982" left="348" width="13" height="13" font="4">ab</text>
+<text top="978" left="361" width="5" height="10" font="8">2</text>
+<text top="982" left="370" width="11" height="12" font="0">+</text>
+<text top="982" left="384" width="12" height="13" font="4">bc</text>
+<text top="978" left="396" width="5" height="10" font="8">2</text>
+<text top="982" left="404" width="11" height="12" font="0">+</text>
+<text top="982" left="418" width="13" height="13" font="4">cd</text>
+<text top="978" left="431" width="5" height="10" font="8">2</text>
+<text top="982" left="440" width="11" height="12" font="0">+</text>
+<text top="981" left="454" width="31" height="16" font="0">· · · +</text>
+<text top="982" left="487" width="13" height="13" font="4">yz</text>
+<text top="978" left="500" width="5" height="10" font="8">2</text>
+<text top="982" left="509" width="11" height="12" font="0">+</text>
+<text top="982" left="523" width="12" height="13" font="4">za</text>
+<text top="978" left="536" width="5" height="10" font="8">2</text>
+<text top="982" left="542" width="3" height="13" font="4">.</text>
+<text top="982" left="728" width="16" height="13" font="4">(3)</text>
+<text top="1011" left="149" width="595" height="13" font="4">Since <b>multipol </b>represents multivariate polynomials with arrays, the representation requires a 26</text>
+<text top="1027" left="149" width="595" height="13" font="4">dimensional array (a dimension for each variable) each with three levels (e.g. a^0, a^1, a^2). This</text>
+<text top="1044" left="149" width="158" height="13" font="4">amounts to an array with 3</text>
+<text top="1041" left="307" width="10" height="10" font="8">26</text>
+<text top="1044" left="322" width="11" height="12" font="0">=</text>
+<text top="1044" left="337" width="407" height="13" font="4">2, 541, 865, 828, 329 cells, all but 26 of which are nonzero—a whopping</text>
+<text top="1060" left="149" width="524" height="13" font="4">20.33TB of space if the coefficients are stored in a double-precision floating point format.</text>
+<text top="1081" left="171" width="573" height="13" font="4">This section has introduced two shortcomings of <b>multipol </b>which significantly limit its potential</text>
+<text top="1098" left="149" width="596" height="13" font="4">use for most practical applications. It should be noted, however, that <b>multipol </b>was not intended for</text>
+<text top="1114" left="149" width="596" height="13" font="4">use with &#34;large&#34; polynomials. It was built with enumerative combinatorics in mind, and its inefficiency</text>
+<text top="1130" left="148" width="335" height="13" font="4">with larger polynomials was readily acknowledged in</text>
+<text top="1130" left="488" width="46" height="13" font="6"><a href="2013-1-kahle.html#8">Hankin</a></text>
+<text top="1130" left="539" width="5" height="13" font="4"><a href="2013-1-kahle.html#8">(</a></text>
+<text top="1130" left="544" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">2008</a></text>
+<text top="1130" left="571" width="173" height="13" font="4"><a href="2013-1-kahle.html#8">), </a>where it is suggested that</text>
+<text top="1147" left="148" width="596" height="13" font="4">perhaps a sparse array representation (as is available in Mathematica) or outsourcing to C++ routines</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="12" size="6" family="Times" color="#000000"/>
+	<fontspec id="13" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">164</text>
+<text top="103" left="149" width="595" height="13" font="4">could alleviate the burdens of the array representation. Its inefficiency for different purposes should</text>
+<text top="120" left="149" width="595" height="13" font="4">therefore not be considered a flaw so much as outside the package’s scope. Nevertheless, the arithmetic</text>
+<text top="136" left="149" width="595" height="13" font="4">and storage problems caused by the array representation are fatal limitations for any problem which</text>
+<text top="152" left="149" width="475" height="13" font="4">deals with large polynomial rings (i.e., ones with many variables). Enter <b>mpoly</b>.</text>
+<text top="197" left="149" width="151" height="17" font="5"><b>mpoly – the basics</b></text>
+<text top="235" left="149" width="40" height="13" font="3"><b>mpoly</b></text>
+<text top="235" left="192" width="552" height="13" font="4">is a complete reenvisioning of how multivariate polynomials and symbolic computing with</text>
+<text top="252" left="149" width="595" height="13" font="4">multivariate polynomials should be implemented in R. Unlike <b>multipol</b>, <b>mpoly </b>uses as its most basic</text>
+<text top="268" left="149" width="595" height="13" font="4">data structure the list. This fundamental change allows us to dispense of both issues with <b>multipol</b></text>
+<text top="285" left="149" width="220" height="13" font="4">discussed in the previous subsection.</text>
+<text top="306" left="171" width="573" height="13" font="4">In <b>mpoly</b>, an &#34;mpoly&#34; object is an S3 class object which is a list. The elements of the list are each</text>
+<text top="322" left="149" width="595" height="13" font="4">named numeric vectors, with unique names including coef. Naturally, each element of an &#34;mpoly&#34;</text>
+<text top="338" left="149" width="597" height="13" font="4">object corresponds to a term in the polynomial. The names of the elements correspond to the variables,</text>
+<text top="355" left="149" width="595" height="13" font="4">and the values to the degrees; coef is the coefficient of the term. Constructing an &#34;mpoly&#34; object in</text>
+<text top="371" left="149" width="362" height="13" font="4">this way is very straightforward using the constructor mpoly.</text>
+<text top="399" left="149" width="123" height="11" font="4">&gt; library(&#34;mpoly&#34;)</text>
+<text top="416" left="149" width="130" height="11" font="4">&gt; termList &lt;- list(</text>
+<text top="432" left="149" width="7" height="11" font="4">+</text>
+<text top="432" left="176" width="82" height="11" font="4">c(coef = 1),</text>
+<text top="449" left="149" width="7" height="11" font="4">+</text>
+<text top="449" left="176" width="137" height="11" font="4">c(x = 10, coef = 2),</text>
+<text top="465" left="149" width="7" height="11" font="4">+</text>
+<text top="465" left="176" width="130" height="11" font="4">c(x = 2, coef = 3),</text>
+<text top="481" left="149" width="7" height="11" font="4">+</text>
+<text top="481" left="176" width="130" height="11" font="4">c(y = 5, coef = 4),</text>
+<text top="498" left="149" width="7" height="11" font="4">+</text>
+<text top="498" left="176" width="178" height="11" font="4">c(x = 1, y = 1, coef = 5))</text>
+<text top="514" left="149" width="69" height="11" font="4">&gt; termList</text>
+<text top="531" left="149" width="34" height="11" font="4">[[1]]</text>
+<text top="547" left="149" width="27" height="11" font="4">coef</text>
+<text top="564" left="169" width="7" height="11" font="4">1</text>
+<text top="580" left="149" width="34" height="11" font="4">[[2]]</text>
+<text top="597" left="169" width="41" height="11" font="4">x coef</text>
+<text top="613" left="163" width="14" height="11" font="4">10</text>
+<text top="613" left="204" width="7" height="11" font="4">2</text>
+<text top="629" left="149" width="34" height="11" font="4">[[3]]</text>
+<text top="646" left="169" width="41" height="11" font="4">x coef</text>
+<text top="662" left="169" width="7" height="11" font="4">2</text>
+<text top="662" left="204" width="7" height="11" font="4">3</text>
+<text top="679" left="149" width="34" height="11" font="4">[[4]]</text>
+<text top="695" left="169" width="41" height="11" font="4">y coef</text>
+<text top="712" left="169" width="7" height="11" font="4">5</text>
+<text top="712" left="204" width="7" height="11" font="4">4</text>
+<text top="728" left="149" width="34" height="11" font="4">[[5]]</text>
+<text top="744" left="169" width="7" height="11" font="4">x</text>
+<text top="744" left="204" width="41" height="11" font="4">y coef</text>
+<text top="761" left="169" width="7" height="11" font="4">1</text>
+<text top="761" left="204" width="7" height="11" font="4">1</text>
+<text top="761" left="238" width="7" height="11" font="4">5</text>
+<text top="777" left="149" width="171" height="11" font="4">&gt; poly &lt;- mpoly(termList)</text>
+<text top="794" left="149" width="89" height="11" font="4">&gt; class(poly)</text>
+<text top="810" left="149" width="75" height="11" font="4">[1] &#34;mpoly&#34;</text>
+<text top="837" left="171" width="573" height="13" font="4">Unlike multivariate polynomials in <b>multipol</b>, those in <b>mpoly </b>not only have variable names but</text>
+<text top="853" left="149" width="595" height="13" font="4">also an intrinsic variable order which is taken to be the unique names of elements of the &#34;mpoly&#34; object</text>
+<text top="870" left="149" width="72" height="13" font="4">minus coef<a href="2013-1-kahle.html#0">.</a></text>
+<text top="867" left="220" width="5" height="10" font="11"><a href="2013-1-kahle.html#0">1</a></text>
+<text top="870" left="231" width="237" height="13" font="4">This can be seen with the vars function.</text>
+<text top="896" left="149" width="82" height="11" font="4">&gt; vars(poly)</text>
+<text top="912" left="149" width="75" height="11" font="4">[1] &#34;x&#34; &#34;y&#34;</text>
+<text top="937" left="171" width="573" height="13" font="4">Viewing a multivariate polynomial as a list is a cumbersome task. To make things easier, a print</text>
+<text top="953" left="149" width="519" height="13" font="4">method for &#34;mpoly&#34; objects exists and is dispatched when the object is queried by itself.</text>
+<text top="979" left="149" width="41" height="11" font="4">&gt; poly</text>
+<text top="995" left="149" width="7" height="11" font="4">1</text>
+<text top="995" left="169" width="7" height="11" font="4">+</text>
+<text top="995" left="190" width="41" height="11" font="4">2 x^10</text>
+<text top="995" left="245" width="7" height="11" font="4">+</text>
+<text top="995" left="265" width="34" height="11" font="4">3 x^2</text>
+<text top="995" left="313" width="7" height="11" font="4">+</text>
+<text top="995" left="334" width="34" height="11" font="4">4 y^5</text>
+<text top="995" left="382" width="7" height="11" font="4">+</text>
+<text top="995" left="403" width="34" height="11" font="4">5 x y</text>
+<text top="1020" left="171" width="573" height="13" font="4">One of the important considerations in polynomial algebra is the ordering of the terms of a</text>
+<text top="1036" left="149" width="595" height="13" font="4">multivariate polynomial. Notice the order of the terms presented in the printed version of the &#34;mpoly&#34;</text>
+<text top="1053" left="149" width="595" height="13" font="4">object; it is the order in which the terms are coded in the &#34;mpoly&#34; object itself. This can be changed in</text>
+<text top="1069" left="149" width="114" height="13" font="4">either of two ways.</text>
+<text top="1090" left="171" width="573" height="13" font="4">First, it can be changed via the print method, which accepts arguments order for the total order</text>
+<text top="1107" left="149" width="595" height="13" font="4">used (lexicographic, graded lexicographic, and graded reverse lexicographic) and varorder for a</text>
+<text top="1132" left="165" width="4" height="9" font="12">1</text>
+<text top="1134" left="170" width="124" height="12" font="1">To be clear, this is in the</text>
+<text top="1134" left="297" width="171" height="10" font="13">unique(names(unlist(mpoly)))</text>
+<text top="1134" left="471" width="276" height="12" font="1">sense; the order of the terms matters when determin-</text>
+<text top="1148" left="149" width="117" height="12" font="1">ing the intrinsic order.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="16" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">165</text>
+<text top="103" left="148" width="596" height="13" font="4">variable order different than the intrinsic order. When an order is requested but a variable order is not</text>
+<text top="120" left="149" width="565" height="13" font="4">specified, the method messages the user to alert them to the intrinsic variable order being <a href="2013-1-kahle.html#0">used.</a></text>
+<text top="117" left="714" width="5" height="10" font="11"><a href="2013-1-kahle.html#0">2</a></text>
+<text top="147" left="149" width="192" height="11" font="4">&gt; print(poly, order = &#34;lex&#34;)</text>
+<text top="163" left="149" width="206" height="11" font="4">using variable ordering - x, y</text>
+<text top="180" left="149" width="41" height="11" font="4">2 x^10</text>
+<text top="180" left="204" width="7" height="11" font="4">+</text>
+<text top="180" left="224" width="34" height="11" font="4">3 x^2</text>
+<text top="180" left="272" width="7" height="11" font="4">+</text>
+<text top="180" left="293" width="34" height="11" font="4">5 x y</text>
+<text top="180" left="341" width="7" height="11" font="4">+</text>
+<text top="180" left="361" width="34" height="11" font="4">4 y^5</text>
+<text top="180" left="409" width="7" height="11" font="4">+</text>
+<text top="180" left="430" width="7" height="11" font="4">1</text>
+<text top="196" left="149" width="206" height="11" font="4">&gt; print(poly, order = &#34;grlex&#34;)</text>
+<text top="213" left="149" width="206" height="11" font="4">using variable ordering - x, y</text>
+<text top="229" left="149" width="41" height="11" font="4">2 x^10</text>
+<text top="229" left="204" width="7" height="11" font="4">+</text>
+<text top="229" left="224" width="34" height="11" font="4">4 y^5</text>
+<text top="229" left="272" width="7" height="11" font="4">+</text>
+<text top="229" left="293" width="34" height="11" font="4">3 x^2</text>
+<text top="229" left="341" width="7" height="11" font="4">+</text>
+<text top="229" left="361" width="34" height="11" font="4">5 x y</text>
+<text top="229" left="409" width="7" height="11" font="4">+</text>
+<text top="229" left="430" width="7" height="11" font="4">1</text>
+<text top="246" left="149" width="357" height="11" font="4">&gt; print(poly, order = &#34;lex&#34;, varorder = c(&#34;y&#34;, &#34;x&#34;))</text>
+<text top="262" left="149" width="34" height="11" font="4">4 y^5</text>
+<text top="262" left="197" width="7" height="11" font="4">+</text>
+<text top="262" left="217" width="34" height="11" font="4">5 y x</text>
+<text top="262" left="265" width="7" height="11" font="4">+</text>
+<text top="262" left="286" width="41" height="11" font="4">2 x^10</text>
+<text top="262" left="341" width="7" height="11" font="4">+</text>
+<text top="262" left="361" width="34" height="11" font="4">3 x^2</text>
+<text top="262" left="409" width="7" height="11" font="4">+</text>
+<text top="262" left="430" width="7" height="11" font="4">1</text>
+<text top="279" left="149" width="364" height="11" font="4">&gt; print(poly, order = &#34;glex&#34;, varorder = c(&#34;y&#34;, &#34;x&#34;))</text>
+<text top="295" left="149" width="41" height="11" font="4">2 x^10</text>
+<text top="295" left="204" width="7" height="11" font="4">+</text>
+<text top="295" left="224" width="34" height="11" font="4">4 y^5</text>
+<text top="295" left="272" width="7" height="11" font="4">+</text>
+<text top="295" left="293" width="34" height="11" font="4">5 y x</text>
+<text top="295" left="341" width="7" height="11" font="4">+</text>
+<text top="295" left="361" width="34" height="11" font="4">3 x^2</text>
+<text top="295" left="409" width="7" height="11" font="4">+</text>
+<text top="295" left="430" width="7" height="11" font="4">1</text>
+<text top="321" left="171" width="573" height="13" font="4">Second, the elements of the &#34;mpoly&#34; object can be reordered to create a new &#34;mpoly&#34; object using</text>
+<text top="338" left="149" width="123" height="13" font="4">the reorder method.</text>
+<text top="365" left="149" width="41" height="11" font="4">&gt; poly</text>
+<text top="382" left="149" width="7" height="11" font="4">1</text>
+<text top="382" left="169" width="7" height="11" font="4">+</text>
+<text top="382" left="190" width="41" height="11" font="4">2 x^10</text>
+<text top="382" left="245" width="7" height="11" font="4">+</text>
+<text top="382" left="265" width="34" height="11" font="4">3 x^2</text>
+<text top="382" left="313" width="7" height="11" font="4">+</text>
+<text top="382" left="334" width="34" height="11" font="4">4 y^5</text>
+<text top="382" left="382" width="7" height="11" font="4">+</text>
+<text top="382" left="403" width="34" height="11" font="4">5 x y</text>
+<text top="398" left="149" width="281" height="11" font="4">&gt; (poly2 &lt;- reorder(poly, order = &#34;lex&#34;))</text>
+<text top="415" left="149" width="206" height="11" font="4">using variable ordering - x, y</text>
+<text top="431" left="149" width="41" height="11" font="4">2 x^10</text>
+<text top="431" left="204" width="7" height="11" font="4">+</text>
+<text top="431" left="224" width="34" height="11" font="4">3 x^2</text>
+<text top="431" left="272" width="7" height="11" font="4">+</text>
+<text top="431" left="293" width="34" height="11" font="4">5 x y</text>
+<text top="431" left="341" width="7" height="11" font="4">+</text>
+<text top="431" left="361" width="34" height="11" font="4">4 y^5</text>
+<text top="431" left="409" width="7" height="11" font="4">+</text>
+<text top="431" left="430" width="7" height="11" font="4">1</text>
+<text top="447" left="149" width="110" height="11" font="4">&gt; unclass(poly2)</text>
+<text top="464" left="149" width="34" height="11" font="4">[[1]]</text>
+<text top="480" left="169" width="41" height="11" font="4">x coef</text>
+<text top="497" left="163" width="14" height="11" font="4">10</text>
+<text top="497" left="204" width="7" height="11" font="4">2</text>
+<text top="513" left="149" width="34" height="11" font="4">[[2]]</text>
+<text top="530" left="169" width="41" height="11" font="4">x coef</text>
+<text top="546" left="169" width="7" height="11" font="4">2</text>
+<text top="546" left="204" width="7" height="11" font="4">3</text>
+<text top="562" left="149" width="34" height="11" font="4">[[3]]</text>
+<text top="579" left="169" width="7" height="11" font="4">x</text>
+<text top="579" left="204" width="41" height="11" font="4">y coef</text>
+<text top="595" left="169" width="7" height="11" font="4">1</text>
+<text top="595" left="204" width="7" height="11" font="4">1</text>
+<text top="595" left="238" width="7" height="11" font="4">5</text>
+<text top="612" left="149" width="34" height="11" font="4">[[4]]</text>
+<text top="628" left="169" width="41" height="11" font="4">y coef</text>
+<text top="645" left="169" width="7" height="11" font="4">5</text>
+<text top="645" left="204" width="7" height="11" font="4">4</text>
+<text top="661" left="149" width="34" height="11" font="4">[[5]]</text>
+<text top="678" left="149" width="27" height="11" font="4">coef</text>
+<text top="694" left="169" width="7" height="11" font="4">1</text>
+<text top="738" left="149" width="184" height="17" font="5"><b>Defining polynomials:</b></text>
+<text top="739" left="339" width="46" height="15" font="14">mpoly</text>
+<text top="738" left="389" width="18" height="17" font="5"><b>vs</b></text>
+<text top="739" left="411" width="18" height="15" font="14">mp</text>
+<text top="777" left="148" width="596" height="13" font="4">The major workhorse of the package is the constructor mpoly itself. In particular, polynomial reduction</text>
+<text top="794" left="148" width="597" height="13" font="4">(combining of like terms) and regularization (combining of coefficients and like variables within terms)</text>
+<text top="810" left="149" width="495" height="13" font="4">are both performed when the multivariate polynomials are constructed with mpoly.</text>
+<text top="837" left="149" width="412" height="11" font="4">&gt; termList &lt;- list( c(x = 1, coef = 1), c(x = 1, coef = 2) )</text>
+<text top="854" left="149" width="178" height="11" font="4">&gt; mpoly(termList) # x + 2x</text>
+<text top="870" left="149" width="21" height="11" font="4">3 x</text>
+<text top="887" left="149" width="439" height="11" font="4">&gt; termList &lt;- list( c(x = 5, x = 2, coef = 5, coef = 6, y = 0) )</text>
+<text top="903" left="149" width="295" height="11" font="4">&gt; mpoly(termList) # x^5 * x^2 * 5 * 6 * y^0</text>
+<text top="920" left="149" width="41" height="11" font="4">30 x^7</text>
+<text top="946" left="171" width="573" height="13" font="4">While the constructor mpoly is nice, it is inconvenient to have to keep specifying lists in order to</text>
+<text top="962" left="149" width="595" height="13" font="4">define polynomials. The mp function was designed for this purpose and is intended to make defining</text>
+<text top="979" left="149" width="595" height="13" font="4">multivariate polynomials quick and easy by taking them in as character strings and parsing them into</text>
+<text top="996" left="149" width="48" height="11" font="4">&#34;mpoly&#34;</text>
+<text top="995" left="200" width="44" height="13" font="4">objects.</text>
+<text top="1023" left="149" width="268" height="11" font="4">&gt; ( p &lt;- mp(&#34;10 x + 2 y 3 + x^2 5 y&#34;) )</text>
+<text top="1039" left="149" width="27" height="11" font="4">10 x</text>
+<text top="1039" left="190" width="7" height="11" font="4">+</text>
+<text top="1039" left="211" width="21" height="11" font="4">6 y</text>
+<text top="1039" left="245" width="7" height="11" font="4">+</text>
+<text top="1039" left="265" width="48" height="11" font="4">5 x^2 y</text>
+<text top="1056" left="149" width="110" height="11" font="4">&gt; is(p, &#34;mpoly&#34;)</text>
+<text top="1072" left="149" width="55" height="11" font="4">[1] TRUE</text>
+<text top="1088" left="149" width="82" height="11" font="4">&gt; unclass(p)</text>
+<text top="1113" left="165" width="4" height="9" font="12">2</text>
+<text top="1115" left="170" width="376" height="12" font="1">This is a subtle point. It is very possible that a polynomial in the ring R</text>
+<text top="1115" left="547" width="3" height="11" font="13">[</text>
+<text top="1115" left="551" width="17" height="12" font="1">x, y</text>
+<text top="1115" left="568" width="3" height="11" font="13">]</text>
+<text top="1115" left="575" width="170" height="12" font="1">is coded with the intrinsic order</text>
+<text top="1129" left="149" width="6" height="12" font="1">y</text>
+<text top="1129" left="159" width="10" height="11" font="13">&gt;</text>
+<text top="1129" left="172" width="572" height="12" font="1">x and that, as a consequence, the typical lexicographic order will not be the one intended. The messaging is</text>
+<text top="1144" left="149" width="236" height="12" font="1">used to make clear what order is being used.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">166</text>
+<text top="104" left="149" width="34" height="11" font="4">[[1]]</text>
+<text top="120" left="169" width="41" height="11" font="4">x coef</text>
+<text top="137" left="169" width="7" height="11" font="4">1</text>
+<text top="137" left="197" width="14" height="11" font="4">10</text>
+<text top="153" left="149" width="34" height="11" font="4">[[2]]</text>
+<text top="169" left="169" width="41" height="11" font="4">y coef</text>
+<text top="186" left="169" width="7" height="11" font="4">1</text>
+<text top="186" left="204" width="7" height="11" font="4">6</text>
+<text top="202" left="149" width="34" height="11" font="4">[[3]]</text>
+<text top="219" left="169" width="7" height="11" font="4">x</text>
+<text top="219" left="204" width="41" height="11" font="4">y coef</text>
+<text top="235" left="169" width="7" height="11" font="4">2</text>
+<text top="235" left="204" width="7" height="11" font="4">1</text>
+<text top="235" left="238" width="7" height="11" font="4">5</text>
+<text top="260" left="148" width="596" height="13" font="4">This parsing is a nontrivial process and depends heavily on the specification of the polynomial in</text>
+<text top="277" left="149" width="595" height="13" font="4">the string. The mp function must first determine the variables that the user is specifying (which must</text>
+<text top="293" left="149" width="595" height="13" font="4">be separated by spaces for disambiguation) and then construct the list to send to mpoly to construct</text>
+<text top="310" left="149" width="595" height="13" font="4">the object. Because it is passed through mpoly, the &#34;mpoly&#34; object returned by mp is reduced and</text>
+<text top="326" left="149" width="72" height="13" font="4">regularized.</text>
+<text top="353" left="149" width="268" height="11" font="4">&gt; mp(&#34;x^2 + 10 x 6 x + 10 x 6 x y y 2&#34;)</text>
+<text top="369" left="149" width="41" height="11" font="4">61 x^2</text>
+<text top="369" left="204" width="7" height="11" font="4">+</text>
+<text top="369" left="224" width="75" height="11" font="4">120 x^2 y^2</text>
+<text top="413" left="149" width="269" height="17" font="5"><b>Arithmetic, calculus, and algebra</b></text>
+<text top="452" left="149" width="40" height="13" font="3"><b>mpoly</b></text>
+<text top="452" left="192" width="554" height="13" font="4">has much more to offer than simply defining polynomials. Methods are available for addition,</text>
+<text top="468" left="149" width="595" height="13" font="4">subtraction, multiplication, exponentiation and equality as well. Moreover, since &#34;mpoly&#34; objects</text>
+<text top="484" left="149" width="595" height="13" font="4">know their variable names intrinsically, we can perform arithmetic with whichever polynomials we</text>
+<text top="501" left="149" width="309" height="13" font="4">like. For example, the arithmetic with a and b from <a href="2013-1-kahle.html#2">(</a></text>
+<text top="501" left="458" width="7" height="13" font="6"><a href="2013-1-kahle.html#2">1</a></text>
+<text top="501" left="465" width="38" height="13" font="4"><a href="2013-1-kahle.html#2">) </a>and <a href="2013-1-kahle.html#2">(</a></text>
+<text top="501" left="503" width="7" height="13" font="6"><a href="2013-1-kahle.html#2">2</a></text>
+<text top="501" left="510" width="57" height="13" font="4"><a href="2013-1-kahle.html#2">) </a>is easy –</text>
+<text top="527" left="149" width="233" height="11" font="4">&gt; a &lt;- mp(&#34;1 + 2 x + 3 y + 4 x y&#34;)</text>
+<text top="544" left="149" width="453" height="11" font="4">&gt; b &lt;- mp(&#34;1 + 2 x + 3 y + 4 x y + 5 z + 6 x z + 7 y z + 8 x y z&#34;)</text>
+<text top="560" left="149" width="48" height="11" font="4">&gt; a + b</text>
+<text top="577" left="149" width="7" height="11" font="4">2</text>
+<text top="577" left="169" width="7" height="11" font="4">+</text>
+<text top="577" left="190" width="21" height="11" font="4">4 x</text>
+<text top="577" left="224" width="7" height="11" font="4">+</text>
+<text top="577" left="245" width="21" height="11" font="4">6 y</text>
+<text top="577" left="279" width="7" height="11" font="4">+</text>
+<text top="577" left="300" width="34" height="11" font="4">8 x y</text>
+<text top="577" left="348" width="7" height="11" font="4">+</text>
+<text top="577" left="368" width="21" height="11" font="4">5 z</text>
+<text top="577" left="403" width="7" height="11" font="4">+</text>
+<text top="577" left="423" width="34" height="11" font="4">6 x z</text>
+<text top="577" left="471" width="7" height="11" font="4">+</text>
+<text top="577" left="492" width="34" height="11" font="4">7 y z</text>
+<text top="577" left="540" width="7" height="11" font="4">+</text>
+<text top="577" left="560" width="48" height="11" font="4">8 x y z</text>
+<text top="593" left="149" width="48" height="11" font="4">&gt; b - a</text>
+<text top="609" left="149" width="21" height="11" font="4">5 z</text>
+<text top="609" left="183" width="7" height="11" font="4">+</text>
+<text top="609" left="204" width="34" height="11" font="4">6 x z</text>
+<text top="609" left="252" width="7" height="11" font="4">+</text>
+<text top="609" left="272" width="34" height="11" font="4">7 y z</text>
+<text top="609" left="320" width="7" height="11" font="4">+</text>
+<text top="609" left="341" width="48" height="11" font="4">8 x y z</text>
+<text top="626" left="149" width="48" height="11" font="4">&gt; a * b</text>
+<text top="642" left="149" width="7" height="11" font="4">1</text>
+<text top="642" left="169" width="7" height="11" font="4">+</text>
+<text top="642" left="190" width="21" height="11" font="4">4 x</text>
+<text top="642" left="224" width="7" height="11" font="4">+</text>
+<text top="642" left="245" width="21" height="11" font="4">6 y</text>
+<text top="642" left="279" width="7" height="11" font="4">+</text>
+<text top="642" left="300" width="41" height="11" font="4">20 x y</text>
+<text top="642" left="355" width="7" height="11" font="4">+</text>
+<text top="642" left="375" width="21" height="11" font="4">5 z</text>
+<text top="642" left="409" width="55" height="11" font="4">+ 16 x z</text>
+<text top="642" left="478" width="7" height="11" font="4">+</text>
+<text top="642" left="499" width="41" height="11" font="4">22 y z</text>
+<text top="642" left="554" width="7" height="11" font="4">+</text>
+<text top="642" left="574" width="55" height="11" font="4">60 x y z</text>
+<text top="642" left="643" width="7" height="11" font="4">+</text>
+<text top="642" left="663" width="34" height="11" font="4">4 x^2</text>
+<text top="659" left="156" width="7" height="11" font="4">+</text>
+<text top="659" left="176" width="55" height="11" font="4">16 x^2 y</text>
+<text top="659" left="245" width="7" height="11" font="4">+</text>
+<text top="659" left="265" width="55" height="11" font="4">12 x^2 z</text>
+<text top="659" left="334" width="7" height="11" font="4">+</text>
+<text top="659" left="355" width="69" height="11" font="4">40 x^2 y z</text>
+<text top="659" left="437" width="7" height="11" font="4">+</text>
+<text top="659" left="457" width="34" height="11" font="4">9 y^2</text>
+<text top="659" left="506" width="7" height="11" font="4">+</text>
+<text top="659" left="526" width="55" height="11" font="4">24 x y^2</text>
+<text top="659" left="595" width="7" height="11" font="4">+</text>
+<text top="659" left="615" width="55" height="11" font="4">21 y^2 z</text>
+<text top="675" left="156" width="7" height="11" font="4">+</text>
+<text top="675" left="176" width="69" height="11" font="4">52 x y^2 z</text>
+<text top="675" left="259" width="7" height="11" font="4">+</text>
+<text top="675" left="279" width="69" height="11" font="4">16 x^2 y^2</text>
+<text top="675" left="361" width="7" height="11" font="4">+</text>
+<text top="675" left="382" width="82" height="11" font="4">32 x^2 y^2 z</text>
+<text top="700" left="149" width="278" height="13" font="4">Exponentiation and equality are also available.</text>
+<text top="727" left="149" width="34" height="11" font="4">&gt; a^2</text>
+<text top="743" left="149" width="7" height="11" font="4">1</text>
+<text top="743" left="169" width="7" height="11" font="4">+</text>
+<text top="743" left="190" width="21" height="11" font="4">4 x</text>
+<text top="743" left="224" width="7" height="11" font="4">+</text>
+<text top="743" left="245" width="21" height="11" font="4">6 y</text>
+<text top="743" left="279" width="7" height="11" font="4">+</text>
+<text top="743" left="300" width="41" height="11" font="4">20 x y</text>
+<text top="743" left="355" width="7" height="11" font="4">+</text>
+<text top="743" left="375" width="34" height="11" font="4">4 x^2</text>
+<text top="743" left="423" width="7" height="11" font="4">+</text>
+<text top="743" left="444" width="55" height="11" font="4">16 x^2 y</text>
+<text top="743" left="512" width="7" height="11" font="4">+</text>
+<text top="743" left="533" width="34" height="11" font="4">9 y^2</text>
+<text top="743" left="581" width="7" height="11" font="4">+</text>
+<text top="743" left="602" width="55" height="11" font="4">24 x y^2</text>
+<text top="760" left="156" width="7" height="11" font="4">+</text>
+<text top="760" left="176" width="69" height="11" font="4">16 x^2 y^2</text>
+<text top="776" left="149" width="55" height="11" font="4">&gt; a == b</text>
+<text top="792" left="149" width="62" height="11" font="4">[1] FALSE</text>
+<text top="809" left="149" width="295" height="11" font="4">&gt; ( c &lt;- mpoly(a[c(2,1,4,3)]) ) # reorder a</text>
+<text top="825" left="149" width="34" height="11" font="4">4 y x</text>
+<text top="825" left="197" width="7" height="11" font="4">+</text>
+<text top="825" left="217" width="21" height="11" font="4">3 y</text>
+<text top="825" left="252" width="7" height="11" font="4">+</text>
+<text top="825" left="272" width="21" height="11" font="4">2 x</text>
+<text top="825" left="307" width="7" height="11" font="4">+</text>
+<text top="825" left="327" width="7" height="11" font="4">1</text>
+<text top="842" left="149" width="55" height="11" font="4">&gt; a == c</text>
+<text top="858" left="149" width="55" height="11" font="4">[1] TRUE</text>
+<text top="883" left="149" width="595" height="13" font="4">Here also each of the results are reduced and regularized. While the computations are done entirely in</text>
+<text top="900" left="149" width="489" height="13" font="4">R, they are quite efficient; each of the above calculations is virtually instantaneous.</text>
+<text top="921" left="171" width="575" height="13" font="4">But <b>mpoly </b>does not stop there. The basic operations of the differential calculus, partial differentia-</text>
+<text top="937" left="149" width="595" height="13" font="4">tion and gradients, are also available to the user and are efficient. A deriv method exists for &#34;mpoly&#34;</text>
+<text top="954" left="149" width="194" height="13" font="4">objects which can be <a href="2013-1-kahle.html#0">dispatched,</a></text>
+<text top="951" left="343" width="5" height="10" font="11"><a href="2013-1-kahle.html#0">3</a></text>
+<text top="954" left="352" width="390" height="13" font="4">and the gradient function is built on deriv to compute gradients.</text>
+<text top="980" left="149" width="103" height="11" font="4">&gt; deriv(b, &#34;x&#34;)</text>
+<text top="996" left="149" width="34" height="11" font="4">8 y z</text>
+<text top="996" left="197" width="7" height="11" font="4">+</text>
+<text top="996" left="217" width="21" height="11" font="4">4 y</text>
+<text top="996" left="252" width="7" height="11" font="4">+</text>
+<text top="996" left="272" width="21" height="11" font="4">6 z</text>
+<text top="996" left="307" width="7" height="11" font="4">+</text>
+<text top="996" left="327" width="7" height="11" font="4">2</text>
+<text top="1013" left="149" width="89" height="11" font="4">&gt; gradient(b)</text>
+<text top="1029" left="149" width="34" height="11" font="4">8 y z</text>
+<text top="1029" left="197" width="7" height="11" font="4">+</text>
+<text top="1029" left="217" width="21" height="11" font="4">4 y</text>
+<text top="1029" left="252" width="7" height="11" font="4">+</text>
+<text top="1029" left="272" width="21" height="11" font="4">6 z</text>
+<text top="1029" left="307" width="7" height="11" font="4">+</text>
+<text top="1029" left="327" width="7" height="11" font="4">2</text>
+<text top="1046" left="149" width="34" height="11" font="4">8 x z</text>
+<text top="1046" left="197" width="7" height="11" font="4">+</text>
+<text top="1046" left="217" width="21" height="11" font="4">4 x</text>
+<text top="1046" left="252" width="7" height="11" font="4">+</text>
+<text top="1046" left="272" width="21" height="11" font="4">7 z</text>
+<text top="1046" left="307" width="7" height="11" font="4">+</text>
+<text top="1046" left="327" width="7" height="11" font="4">3</text>
+<text top="1062" left="149" width="34" height="11" font="4">8 x y</text>
+<text top="1062" left="197" width="7" height="11" font="4">+</text>
+<text top="1062" left="217" width="21" height="11" font="4">6 x</text>
+<text top="1062" left="252" width="7" height="11" font="4">+</text>
+<text top="1062" left="272" width="21" height="11" font="4">7 y</text>
+<text top="1062" left="307" width="7" height="11" font="4">+</text>
+<text top="1062" left="327" width="7" height="11" font="4">5</text>
+<text top="1087" left="171" width="575" height="13" font="4">The gradient is a good example of another class object in the <b>mpoly </b>package, the &#34;mpolyList&#34;.</text>
+<text top="1104" left="149" width="75" height="11" font="4">&#34;mpolyList&#34;</text>
+<text top="1104" left="228" width="516" height="13" font="4">objects are simply lists of &#34;mpoly&#34; objects and are used to hold vectors of multivariate</text>
+<text top="1120" left="148" width="565" height="13" font="4">polynomials. They can be easily specified using the mp function on a vector of character strings.</text>
+<text top="1146" left="165" width="4" height="9" font="12">3</text>
+<text top="1148" left="170" width="30" height="10" font="13">deriv</text>
+<text top="1148" left="204" width="229" height="12" font="1">does not call the default method from <b>stats</b>.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">167</text>
+<text top="104" left="149" width="281" height="11" font="4">&gt; ( ps &lt;- mp(c(&#34;x + y + z&#34;, &#34;x + z^2&#34;)) )</text>
+<text top="120" left="149" width="7" height="11" font="4">x</text>
+<text top="120" left="169" width="7" height="11" font="4">+</text>
+<text top="120" left="190" width="7" height="11" font="4">y</text>
+<text top="120" left="211" width="7" height="11" font="4">+</text>
+<text top="120" left="231" width="7" height="11" font="4">z</text>
+<text top="137" left="149" width="7" height="11" font="4">x</text>
+<text top="137" left="169" width="7" height="11" font="4">+</text>
+<text top="137" left="190" width="21" height="11" font="4">z^2</text>
+<text top="153" left="149" width="82" height="11" font="4">&gt; str(ps, 1)</text>
+<text top="169" left="149" width="62" height="11" font="4">List of 2</text>
+<text top="186" left="156" width="82" height="11" font="4">$ :List of 3</text>
+<text top="202" left="163" width="226" height="11" font="4">..- attr(*, &#34;class&#34;)= chr &#34;mpoly&#34;</text>
+<text top="219" left="156" width="82" height="11" font="4">$ :List of 2</text>
+<text top="235" left="163" width="226" height="11" font="4">..- attr(*, &#34;class&#34;)= chr &#34;mpoly&#34;</text>
+<text top="252" left="156" width="240" height="11" font="4">- attr(*, &#34;class&#34;)= chr &#34;mpolyList&#34;</text>
+<text top="276" left="148" width="596" height="13" font="4">The viewing of &#34;mpolyList&#34; objects is made possible by a print method for &#34;mpolyList&#34; objects</text>
+<text top="293" left="149" width="596" height="13" font="4">just like for &#34;mpoly&#34; objects. Moreover addition, subtraction, and multiplication are defined for</text>
+<text top="310" left="149" width="75" height="11" font="4">&#34;mpolyList&#34;</text>
+<text top="309" left="228" width="282" height="13" font="4">objects as well; they each operate element-wise.</text>
+<text top="330" left="171" width="575" height="13" font="4">In algebraic geometry, a Gröbner basis of a polynomial ideal (or collection of polynomials gener-</text>
+<text top="347" left="149" width="595" height="13" font="4">ating an ideal) is a collection of polynomials which generates the same ideal and exhibits other nice</text>
+<text top="363" left="148" width="596" height="13" font="4">properties, such as zero remainders for polynomials in the ideal and unique remainders for those</text>
+<text top="380" left="149" width="598" height="13" font="4">outside it. They are foundational to the study of polynomial ideals and their associated varieties.</text>
+<text top="396" left="149" width="595" height="13" font="4">In addition to differentiation, <b>mpoly </b>can also compute Gröbner bases of collections of multivariate</text>
+<text top="412" left="148" width="492" height="13" font="4">polynomials (&#34;mpolyList&#34;) by passing the proper objects in the proper syntax to the</text>
+<text top="413" left="644" width="49" height="13" font="7"><a href="http://CRAN.R-project.org/package=rSymPy"><b>rSymPy</b></a></text>
+<text top="412" left="696" width="48" height="13" font="4">package</text>
+<text top="429" left="148" width="356" height="13" font="4">which has an implementation of Buchberger’s algorithm <a href="2013-1-kahle.html#8">(</a></text>
+<text top="429" left="504" width="162" height="13" font="6"><a href="2013-1-kahle.html#8">Grothendieck and Bellosta</a></text>
+<text top="429" left="666" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">,</a></text>
+<text top="429" left="673" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">2010</a></text>
+<text top="429" left="701" width="8" height="13" font="4"><a href="2013-1-kahle.html#8">).</a></text>
+<text top="426" left="709" width="5" height="10" font="11"><a href="2013-1-kahle.html#0">4</a></text>
+<text top="429" left="721" width="23" height="13" font="4">The</text>
+<text top="445" left="149" width="595" height="13" font="4">computations are performed by a Java based Python implementation and are quite fast once the Java</text>
+<text top="462" left="148" width="596" height="13" font="4">Virtual Machine (JVM) has been initialized. The Gröbner basis is then returned as an &#34;mpolyList&#34;</text>
+<text top="478" left="149" width="38" height="13" font="4">object.</text>
+<text top="504" left="149" width="336" height="11" font="4">&gt; polys &lt;- mp(c(&#34;t^4 - x&#34;, &#34;t^3 - y&#34;, &#34;t^2 - z&#34;))</text>
+<text top="521" left="149" width="151" height="11" font="4">&gt; gb &lt;- grobner(polys)</text>
+<text top="537" left="149" width="247" height="11" font="4">using variable ordering - t, x, y, z</text>
+<text top="553" left="149" width="213" height="11" font="4">Loading required package: rJava</text>
+<text top="570" left="149" width="27" height="11" font="4">&gt; gb</text>
+<text top="586" left="149" width="27" height="11" font="4">-1 z</text>
+<text top="586" left="190" width="7" height="11" font="4">+</text>
+<text top="586" left="211" width="21" height="11" font="4">t^2</text>
+<text top="603" left="149" width="21" height="11" font="4">t y</text>
+<text top="603" left="183" width="7" height="11" font="4">-</text>
+<text top="603" left="204" width="21" height="11" font="4">z^2</text>
+<text top="619" left="149" width="27" height="11" font="4">-1 y</text>
+<text top="619" left="190" width="7" height="11" font="4">+</text>
+<text top="619" left="211" width="21" height="11" font="4">z t</text>
+<text top="636" left="149" width="7" height="11" font="4">x</text>
+<text top="636" left="169" width="7" height="11" font="4">-</text>
+<text top="636" left="190" width="21" height="11" font="4">z^2</text>
+<text top="652" left="149" width="21" height="11" font="4">y^2</text>
+<text top="652" left="183" width="7" height="11" font="4">-</text>
+<text top="652" left="204" width="21" height="11" font="4">z^3</text>
+<text top="669" left="149" width="75" height="11" font="4">&gt; class(gb)</text>
+<text top="685" left="149" width="103" height="11" font="4">[1] &#34;mpolyList&#34;</text>
+<text top="710" left="149" width="596" height="13" font="4">Moreover, grobner can calculate Gröbner bases with respect to various monomial orders and any</text>
+<text top="726" left="148" width="106" height="13" font="4">variable ordering.</text>
+<text top="752" left="149" width="288" height="11" font="4">&gt; polys &lt;- mp(c(&#34;x^2 - 2 y^2&#34;, &#34;x y - 3&#34;))</text>
+<text top="769" left="149" width="274" height="11" font="4">&gt; grobner(polys, varorder = c(&#34;x&#34;, &#34;y&#34;))</text>
+<text top="785" left="149" width="21" height="11" font="4">3 x</text>
+<text top="785" left="183" width="7" height="11" font="4">-</text>
+<text top="785" left="204" width="34" height="11" font="4">2 y^3</text>
+<text top="801" left="149" width="14" height="11" font="4">-9</text>
+<text top="801" left="176" width="7" height="11" font="4">+</text>
+<text top="801" left="197" width="34" height="11" font="4">2 y^4</text>
+<text top="818" left="149" width="391" height="11" font="4">&gt; grobner(polys, varorder = c(&#34;x&#34;, &#34;y&#34;), order = &#34;grlex&#34;)</text>
+<text top="834" left="149" width="27" height="11" font="4">-3 x</text>
+<text top="834" left="190" width="7" height="11" font="4">+</text>
+<text top="834" left="211" width="34" height="11" font="4">2 y^3</text>
+<text top="851" left="149" width="21" height="11" font="4">x^2</text>
+<text top="851" left="183" width="7" height="11" font="4">-</text>
+<text top="851" left="204" width="34" height="11" font="4">2 y^2</text>
+<text top="867" left="149" width="14" height="11" font="4">-3</text>
+<text top="867" left="176" width="7" height="11" font="4">+</text>
+<text top="867" left="197" width="21" height="11" font="4">x y</text>
+<text top="892" left="148" width="596" height="13" font="4">The task of computing Gröbner bases is the only job <b>mpoly </b>outsources from R. This is because</text>
+<text top="908" left="149" width="595" height="13" font="4">implementations of Gröbner bases algorithms are (1) complex and highly prone to error, (2) scarce</text>
+<text top="925" left="149" width="595" height="13" font="4">and therefore difficult to emulate, and (3) highly iterative; thus it was thought best to leave the</text>
+<text top="941" left="149" width="595" height="13" font="4">routine to more expert programmers and frameworks outside R. Unfortunately, there is currently no</text>
+<text top="958" left="149" width="596" height="13" font="4">Gröbner walk algorithm available to convert a Gröbner basis in one monomial order to a Gröbner</text>
+<text top="974" left="149" width="595" height="13" font="4">basis in another, a technique often used to quickly compute Gröbner bases in more difficult orders</text>
+<text top="991" left="148" width="596" height="13" font="4">(e.g. lexicographic) from &#34;easier&#34; ones (e.g. graded reverse lexicographic), so there are still a number of</text>
+<text top="1007" left="149" width="208" height="13" font="4">improvements which can be made.</text>
+<text top="1051" left="149" width="196" height="17" font="5"><b>Evaluating polynomials</b></text>
+<text top="1090" left="148" width="598" height="13" font="4">Apart from being interesting algebraic objects, polynomials can of course be thought of as functions.</text>
+<text top="1106" left="148" width="596" height="13" font="4">To access this functional perspective, we can convert an &#34;mpoly&#34; or &#34;mpolyList&#34; object to a function</text>
+<text top="1132" left="165" width="4" height="9" font="12">4</text>
+<text top="1134" left="170" width="574" height="12" font="1">Buchberger’s algorithm is the standard method of calculating Gröbner bases, however, faster methods are</text>
+<text top="1148" left="149" width="40" height="12" font="1">known.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="9" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">168</text>
+<text top="103" left="149" width="595" height="13" font="4">using the &#34;mpoly&#34; method of as.function. This is particularly suited to R’s strengths since R is geared</text>
+<text top="120" left="149" width="284" height="13" font="4">towards evaluation and numerical optimization</text>
+<text top="145" left="149" width="295" height="11" font="4">&gt; library(&#34;ggplot2&#34;); theme_set(theme_bw())</text>
+<text top="162" left="149" width="281" height="11" font="4">&gt; ( p &lt;- mp(&#34;x&#34;) * mp(&#34;x - .5&#34;) * mp(&#34;x -</text>
+<text top="162" left="444" width="137" height="11" font="4">1&#34;) ) # x(x-.5)(x-1)</text>
+<text top="178" left="149" width="21" height="11" font="4">x^3</text>
+<text top="178" left="183" width="7" height="11" font="4">-</text>
+<text top="178" left="204" width="48" height="11" font="4">1.5 x^2</text>
+<text top="178" left="265" width="7" height="11" font="4">+</text>
+<text top="178" left="286" width="34" height="11" font="4">0.5 x</text>
+<text top="195" left="149" width="144" height="11" font="4">&gt; f &lt;- as.function(p)</text>
+<text top="211" left="149" width="27" height="11" font="4">f(x)</text>
+<text top="228" left="149" width="21" height="11" font="4">&gt; f</text>
+<text top="244" left="149" width="110" height="11" font="4">function(x){x**3</text>
+<text top="244" left="272" width="7" height="11" font="4">-</text>
+<text top="244" left="293" width="69" height="11" font="4">1.5 * x**2</text>
+<text top="244" left="375" width="7" height="11" font="4">+</text>
+<text top="244" left="396" width="55" height="11" font="4">0.5 * x}</text>
+<text top="261" left="149" width="178" height="11" font="4">&lt;environment: 0x1218bc270&gt;</text>
+<text top="277" left="149" width="48" height="11" font="4">&gt; f(10)</text>
+<text top="293" left="149" width="48" height="11" font="4">[1] 855</text>
+<text top="310" left="149" width="261" height="11" font="4">&gt; s &lt;- seq(-.1, 1.1, length.out = 201)</text>
+<text top="326" left="149" width="240" height="11" font="4">&gt; df &lt;- data.frame(x = s, y = f(s))</text>
+<text top="343" left="149" width="597" height="11" font="4">&gt; qplot(x, y, data = df, geom = &#34;path&#34;) + geom_hline(yintercept = 0, colour = I(&#34;red&#34;))</text>
+<text top="367" left="148" width="241" height="13" font="4">The plot generated is included in Figure</text>
+<text top="367" left="392" width="7" height="13" font="6"><a href="2013-1-kahle.html#7">1</a></text>
+<text top="367" left="399" width="347" height="13" font="4"><a href="2013-1-kahle.html#7">, </a>where one can see that the function has the correct zeros.</text>
+<text top="384" left="149" width="595" height="13" font="4">For multivariate polynomials the syntax is the same, and as.function can provide the function with</text>
+<text top="588" left="286" width="22" height="8" font="16">−0.06</text>
+<text top="563" left="286" width="22" height="8" font="16">−0.04</text>
+<text top="537" left="286" width="22" height="8" font="16">−0.02</text>
+<text top="512" left="291" width="17" height="8" font="16">0.00</text>
+<text top="486" left="291" width="17" height="8" font="16">0.02</text>
+<text top="461" left="291" width="17" height="8" font="16">0.04</text>
+<text top="435" left="291" width="17" height="8" font="16">0.06</text>
+<text top="612" left="343" width="12" height="8" font="16">0.0</text>
+<text top="612" left="389" width="12" height="8" font="16">0.2</text>
+<text top="612" left="435" width="12" height="8" font="16">0.4</text>
+<text top="612" left="480" width="12" height="8" font="16">0.6</text>
+<text top="612" left="526" width="12" height="8" font="16">0.8</text>
+<text top="612" left="572" width="12" height="8" font="16">1.0</text>
+<text top="620" left="461" width="6" height="10" font="17">x</text>
+<text top="510" left="284" width="0" height="10" font="18">y</text>
+<text top="645" left="283" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="645" left="340" width="270" height="13" font="4">The as.function method for &#34;mpoly&#34; objects.</text>
+<text top="679" left="148" width="596" height="13" font="4">(1) a vector argument (ideal for passing to optimization routines such as optim) or (2) a sequence of</text>
+<text top="695" left="149" width="67" height="13" font="4">arguments.</text>
+<text top="721" left="149" width="233" height="11" font="4">&gt; mpoly &lt;- mp(&#34;x + 3 x y + z^2 x&#34;)</text>
+<text top="738" left="149" width="7" height="11" font="4">&gt;</text>
+<text top="754" left="149" width="171" height="11" font="4">&gt; f &lt;- as.function(mpoly)</text>
+<text top="771" left="149" width="158" height="11" font="4">f(.) with . = (x, y, z)</text>
+<text top="787" left="149" width="55" height="11" font="4">&gt; f(1:3)</text>
+<text top="804" left="149" width="41" height="11" font="4">[1] 16</text>
+<text top="820" left="149" width="7" height="11" font="4">&gt;</text>
+<text top="836" left="149" width="281" height="11" font="4">&gt; f &lt;- as.function(mpoly, vector = FALSE)</text>
+<text top="853" left="149" width="69" height="11" font="4">f(x, y, z)</text>
+<text top="869" left="149" width="82" height="11" font="4">&gt; f(1, 2, 3)</text>
+<text top="886" left="149" width="41" height="11" font="4">[1] 16</text>
+<text top="911" left="149" width="75" height="11" font="4">&#34;mpolyList&#34;</text>
+<text top="910" left="228" width="517" height="13" font="4">objects can be converted into functions in the same way. Note that in both cases the user</text>
+<text top="927" left="149" width="396" height="13" font="4">is messaged with the appropriate syntax for the resulting function.</text>
+<text top="953" left="149" width="247" height="11" font="4">&gt; polys &lt;- mp(c(&#34;x + 1&#34;, &#34;y^2 + z&#34;))</text>
+<text top="969" left="149" width="171" height="11" font="4">&gt; f &lt;- as.function(polys)</text>
+<text top="986" left="149" width="158" height="11" font="4">f(.) with . = (x, y, z)</text>
+<text top="1002" left="149" width="55" height="11" font="4">&gt; f(1:3)</text>
+<text top="1018" left="149" width="48" height="11" font="4">[1] 2 7</text>
+<text top="1043" left="148" width="525" height="13" font="4">Another neat example for illustrating this is visualizing Rosenbrock’s &#34;banana&#34; function,</text>
+<text top="1074" left="348" width="4" height="13" font="4">f</text>
+<text top="1074" left="354" width="5" height="12" font="0">(</text>
+<text top="1074" left="360" width="20" height="14" font="4">x, y</text>
+<text top="1074" left="380" width="30" height="12" font="0">) = (</text>
+<text top="1074" left="410" width="7" height="13" font="4">1</text>
+<text top="1073" left="419" width="11" height="16" font="0">−</text>
+<text top="1074" left="434" width="7" height="13" font="4">x</text>
+<text top="1074" left="441" width="5" height="12" font="0">)</text>
+<text top="1070" left="446" width="5" height="10" font="8">2</text>
+<text top="1074" left="455" width="11" height="12" font="0">+</text>
+<text top="1074" left="469" width="20" height="13" font="4">100</text>
+<text top="1074" left="489" width="5" height="12" font="0">(</text>
+<text top="1074" left="495" width="7" height="13" font="4">y</text>
+<text top="1073" left="505" width="11" height="16" font="0">−</text>
+<text top="1074" left="519" width="7" height="13" font="4">x</text>
+<text top="1070" left="526" width="5" height="10" font="8">2</text>
+<text top="1074" left="532" width="5" height="12" font="0">)</text>
+<text top="1070" left="537" width="5" height="10" font="8">2</text>
+<text top="1074" left="543" width="3" height="13" font="4">,</text>
+<text top="1103" left="148" width="392" height="13" font="4">which is a common test example for optimization routines (Figure</text>
+<text top="1103" left="544" width="7" height="13" font="6"><a href="2013-1-kahle.html#8">2</a></text>
+<text top="1103" left="551" width="8" height="13" font="4"><a href="2013-1-kahle.html#8">).</a></text>
+<text top="1131" left="149" width="398" height="11" font="4">&gt; f &lt;- mp(&#34;1 - 2 x + x^2 + 100 x^4 - 200 x^2 y + 100 y^2&#34;)</text>
+<text top="1147" left="149" width="144" height="11" font="4">&gt; f &lt;- as.function(f)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="8" family="Helvetica" color="#000000"/>
+	<fontspec id="20" size="8" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">169</text>
+<text top="104" left="149" width="418" height="11" font="4">&gt; df &lt;- expand.grid(x = seq(-2, 2, .01), y = seq(-1, 3, .01))</text>
+<text top="120" left="149" width="171" height="11" font="4">&gt; df$f &lt;- apply(df, 1, f)</text>
+<text top="137" left="149" width="130" height="11" font="4">&gt; library(&#34;scales&#34;)</text>
+<text top="153" left="149" width="377" height="11" font="4">&gt; qplot(x, y, data = df, geom = c(&#34;raster&#34;, &#34;contour&#34;),</text>
+<text top="169" left="149" width="7" height="11" font="4">+</text>
+<text top="169" left="183" width="384" height="11" font="4">fill = f + .001, z = f, colour = I(&#34;white&#34;), bins = 6) +</text>
+<text top="186" left="149" width="7" height="11" font="4">+</text>
+<text top="186" left="169" width="144" height="11" font="4">scale_fill_gradient2(</text>
+<text top="202" left="149" width="7" height="11" font="4">+</text>
+<text top="202" left="183" width="288" height="11" font="4">low = &#34;blue&#34;, mid = &#34;green&#34;, high = &#34;red&#34;,</text>
+<text top="219" left="149" width="7" height="11" font="4">+</text>
+<text top="219" left="183" width="213" height="11" font="4">trans = &#34;log10&#34;, guide = &#34;none&#34;</text>
+<text top="235" left="149" width="7" height="11" font="4">+</text>
+<text top="235" left="169" width="7" height="11" font="4">)</text>
+<text top="451" left="290" width="10" height="8" font="16">−1</text>
+<text top="410" left="295" width="5" height="8" font="16">0</text>
+<text top="370" left="295" width="5" height="8" font="16">1</text>
+<text top="329" left="295" width="5" height="8" font="16">2</text>
+<text top="288" left="295" width="5" height="8" font="16">3</text>
+<text top="467" left="313" width="10" height="8" font="16">−2</text>
+<text top="467" left="383" width="10" height="8" font="16">−1</text>
+<text top="467" left="455" width="5" height="8" font="16">0</text>
+<text top="467" left="524" width="5" height="8" font="16">1</text>
+<text top="467" left="594" width="5" height="8" font="16">2</text>
+<text top="475" left="455" width="5" height="10" font="19">x</text>
+<text top="367" left="288" width="0" height="10" font="20">y</text>
+<text top="500" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="500" left="205" width="539" height="13" font="4">The Rosenbrock function plotted by evaluating an &#34;mpoly&#34; object via as.function and apply</text>
+<text top="516" left="148" width="138" height="13" font="4">with vector arguments.</text>
+<text top="577" left="149" width="270" height="17" font="5"><b>Conclusion and future directions</b></text>
+<text top="616" left="148" width="596" height="13" font="4">While other functionality is also provided (such as a terms method, a function to compute least</text>
+<text top="632" left="149" width="595" height="13" font="4">common multiples, and some combinatorial functions), the presented ones are the main contributions</text>
+<text top="649" left="149" width="597" height="13" font="4">of the <b>mpoly </b>package. Put together, they provide a package which is not only user-friendly, efficient,</text>
+<text top="665" left="149" width="595" height="13" font="4">and useful for polynomial algebra, but also a solid foundation upon which further developments can</text>
+<text top="682" left="149" width="596" height="13" font="4">be made to make polynomials more accessible in R. In particular, it provides a nice starting point for</text>
+<text top="698" left="149" width="308" height="13" font="4">any future package dealing with algebraic statistics.</text>
+<text top="719" left="171" width="573" height="13" font="4">There are, however, several improvements which can be made. First, the primary constructor</text>
+<text top="735" left="149" width="595" height="13" font="4">function mpoly can be made significantly faster by outsourcing its job to C++, as previously suggested</text>
+<text top="752" left="148" width="4" height="13" font="4"><a href="2013-1-kahle.html#8">(</a></text>
+<text top="752" left="153" width="45" height="13" font="6"><a href="2013-1-kahle.html#8">Hankin</a></text>
+<text top="752" left="198" width="3" height="13" font="4"><a href="2013-1-kahle.html#8">,</a></text>
+<text top="752" left="205" width="27" height="13" font="6"><a href="2013-1-kahle.html#8">2008</a></text>
+<text top="752" left="231" width="513" height="13" font="4"><a href="2013-1-kahle.html#8">). </a>Second, improvements can be made to speed up some of the arithmetic, for example</text>
+<text top="768" left="149" width="598" height="13" font="4">addition-chain exponentiation for polynomial exponents (as opposed to iterative multiplication).</text>
+<text top="785" left="149" width="597" height="13" font="4">Last, improvements can be made into the flexibility of the facilitated constructor mp. In particular,</text>
+<text top="801" left="148" width="518" height="13" font="4">parenthetical expressions are not currently handled but would be of great practical use.</text>
+<text top="846" left="149" width="154" height="17" font="5"><b>Acknowledgments</b></text>
+<text top="885" left="148" width="596" height="13" font="4">The author would like to thank Martyn Plummer and two anonymous reviewers for useful suggestions</text>
+<text top="901" left="148" width="240" height="13" font="4">which made this and future work better.</text>
+<text top="946" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="985" left="149" width="595" height="13" font="4">P. Diaconis and B. Sturmfels. Algebraic algorithms for sampling from conditional distributions. The</text>
+<text top="1001" left="163" width="247" height="14" font="4">Annals of Statistics, 26(1):363–397, 1998. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="1001" left="410" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="1001" left="430" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="1030" left="149" width="540" height="13" font="4">M. Drton, B. Sturmfels, and S. Sullivant. Lectures on Algebraic Statistics. Birkhäuser, 2009. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="1030" left="689" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="1030" left="709" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="1058" left="149" width="598" height="13" font="4">G. Grothendieck and C. J. G. Bellosta. rSymPy: R Interface to SymPy Computer Algebra System, 2010.</text>
+<text top="1074" left="164" width="28" height="13" font="4">URL</text>
+<text top="1075" left="195" width="275" height="11" font="6"><a href="http://CRAN.R-project.org/package=rSymPy">http://CRAN.R-project.org/package=rSymPy</a></text>
+<text top="1074" left="470" width="179" height="13" font="4"><a href="http://CRAN.R-project.org/package=rSymPy">. </a>R package version 0.2-1.1. <a href="2013-1-kahle.html#6">[p</a></text>
+<text top="1074" left="649" width="20" height="13" font="6"><a href="2013-1-kahle.html#6">167</a></text>
+<text top="1074" left="669" width="4" height="13" font="4"><a href="2013-1-kahle.html#6">]</a></text>
+<text top="1103" left="149" width="574" height="13" font="4">R. K. S. Hankin. Programmers’ niche: Multivariate polynomials in R. R News, 8(1):41–45, 2008. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="1103" left="722" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="1103" left="742" width="3" height="13" font="4"><a href="2013-1-kahle.html#1">,</a></text>
+<text top="1119" left="163" width="20" height="13" font="6"><a href="2013-1-kahle.html#2">163</a></text>
+<text top="1119" left="183" width="3" height="13" font="4"><a href="2013-1-kahle.html#2">,</a></text>
+<text top="1119" left="190" width="20" height="13" font="6"><a href="2013-1-kahle.html#8">169</a></text>
+<text top="1119" left="210" width="4" height="13" font="4"><a href="2013-1-kahle.html#8">]</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">170</text>
+<text top="103" left="149" width="358" height="13" font="4">R. K. S. Hankin. multipol: Multivariate Polynomials, 2010. URL</text>
+<text top="104" left="510" width="234" height="11" font="6"><a href="http://CRAN.R-project.org/package=multipol">http://CRAN.R-project.org/package=</a></text>
+<text top="120" left="164" width="55" height="11" font="6"><a href="http://CRAN.R-project.org/package=multipol">multipol</a></text>
+<text top="120" left="219" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=multipol">. </a>R package version 1.0-4. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="120" left="388" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="120" left="408" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="148" left="149" width="559" height="13" font="4">D. Kahle. mpoly: Symbolic Computation and More with Multivariate Polynomials, 2012. URL</text>
+<text top="149" left="713" width="34" height="11" font="6"><a href="http://CRAN.R-project.org/package=mpoly">http:</a></text>
+<text top="165" left="163" width="234" height="11" font="6"><a href="http://CRAN.R-project.org/package=mpoly">//CRAN.R-project.org/package=mpoly</a></text>
+<text top="164" left="397" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=mpoly">. </a>R package version 0.0.1. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="164" left="565" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="164" left="585" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="193" left="149" width="303" height="13" font="4">Maplesoft. Maple 16. Waterloo, Canada, 2012. URL</text>
+<text top="193" left="455" width="171" height="11" font="6"><a href="http://www.maplesoft.com/">http://www.maplesoft.com/</a></text>
+<text top="193" left="627" width="21" height="13" font="4"><a href="http://www.maplesoft.com/">. </a><a href="2013-1-kahle.html#1">[p</a></text>
+<text top="193" left="647" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="193" left="668" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="221" left="149" width="302" height="13" font="4">B. Venables. PolynomF: Polynomials in R, 2010. URL</text>
+<text top="222" left="454" width="289" height="11" font="6"><a href="http://CRAN.R-project.org/package=PolynomF">http://CRAN.R-project.org/package=PolynomF</a></text>
+<text top="221" left="743" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=PolynomF">.</a></text>
+<text top="238" left="164" width="156" height="13" font="4">R package version 0.94. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="238" left="320" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="238" left="340" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="266" left="149" width="595" height="13" font="4">B. Venables, K. Hornik, and M. Maechler. polynom: A Collection of Functions to Implement a Class for</text>
+<text top="282" left="163" width="278" height="14" font="4">Univariate Polynomial Manipulations, 2009. URL</text>
+<text top="283" left="445" width="282" height="11" font="6"><a href="http://CRAN.R-project.org/package=polynom">http://CRAN.R-project.org/package=polynom</a></text>
+<text top="282" left="727" width="17" height="13" font="4"><a href="http://CRAN.R-project.org/package=polynom">. </a>R</text>
+<text top="299" left="163" width="149" height="13" font="4">package version 1.3-6. <a href="2013-1-kahle.html#1">[p</a></text>
+<text top="299" left="312" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="299" left="332" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="327" left="149" width="356" height="13" font="4">Wolfram Research. Mathematica 9.0. Champaign, 2012. URL</text>
+<text top="328" left="508" width="158" height="11" font="6"><a href="http://www.wolfram.com/">http://www.wolfram.com/</a></text>
+<text top="327" left="666" width="21" height="13" font="4"><a href="http://www.wolfram.com/">. </a><a href="2013-1-kahle.html#1">[p</a></text>
+<text top="327" left="686" width="20" height="13" font="6"><a href="2013-1-kahle.html#1">162</a></text>
+<text top="327" left="707" width="4" height="13" font="4"><a href="2013-1-kahle.html#1">]</a></text>
+<text top="374" left="148" width="68" height="13" font="4">David Kahle</text>
+<text top="390" left="148" width="98" height="13" font="4">Baylor University</text>
+<text top="406" left="148" width="180" height="13" font="4">Department of Statistical Science</text>
+<text top="423" left="148" width="127" height="13" font="4">One Bear Place #97140</text>
+<text top="439" left="148" width="91" height="13" font="4">Waco, TX 76798</text>
+<text top="456" left="149" width="151" height="11" font="6"><a href="mailto:david_kahle@baylor.edu">david_kahle@baylor.edu</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,76 @@
+page	left	top	code
+1	149	996	> ## Setup
+1	149	1013	> mu <- 1:2 # mean vector of X
+1	149	1029	> Sigma <- matrix(c(4, 2, 2, 3), ncol=2) # covariance matrix of X
+1	149	1046	> n <- 1000 # sample size
+1	149	1062	> d <- 2 # dimension
+1	149	1078	> ## Step 1: Compute the Cholesky factor of Sigma
+1	149	1095	> L <- t(chol(Sigma)) # t() as chol() returns an upper triangular matrix
+1	149	1111	> ## Step 2: Generate iid standard normal random variates
+2	149	104	> set.seed(271) # set seed for reproducibility
+2	149	120	> Z <- matrix(rnorm(n*d), nrow=d, ncol=n) # (d,n)-matrix
+2	149	137	> ## Step 3: Reconstruct the stochastic representation
+2	149	153	> X <- mu + L %*% Z # (d,n)-matrix of realizations N_d(mu, Sigma)
+2	149	207	> require(mvtnorm)
+2	149	223	> set.seed(271)
+2	149	240	> X. <- rmvnorm(n, mean=mu, sigma=Sigma, method="chol") # (n,d)-matrix
+2	149	256	> stopifnot(identical(t(X), X.)) # check equality of the random numbers
+2	149	392	> require(MASS)
+2	149	409	> X.. <- mvrnorm(n, mu=mu, Sigma=Sigma) # (n,d)-matrix
+3	149	688	> require(QRM)
+3	149	704	> fit <- fit.mst(X, method = "BFGS") # fit a multivariate t distribution
+3	149	721	> mu <- fit$mu # estimated location vector
+3	149	737	> Sigma <- as.matrix(fit$Sigma) # estimated scale matrix
+3	149	753	> nu <- fit$df # estimated degrees of freedom
+3	149	1125	> require(mvtnorm)
+3	149	1141	> n <- 1000
+4	149	497	> mu <- 1:2
+4	149	513	> Sigma <- matrix(c(4, 2, 2, 3), ncol=2)
+4	149	530	> nu <- 3
+4	149	546	> set.seed(271)
+4	149	563	> X1 <- try(rmvt(n, mean=mu, sigma=Sigma, df=nu)) # error; ’mean’ not allowed anymore
+5	149	255	> set.seed(271)
+5	149	271	> ## exactly the random variates drawn by rmvt(n, mean=mu, sigma=Sigma, df=nu)
+5	149	288	> ## in versions of mvtnorm before 0.9-9996:
+5	149	304	> X12 <- rmvt(n, sigma=Sigma, df=nu, delta=mu, type="Kshirsagar")
+5	149	321	> colMeans(X12) # => wrong (sample) mean
+5	149	347	[1] 1.5380 2.7955
+5	149	588	> X2 <- mu + rmvt(n, sigma=Sigma, df=nu)
+5	149	654	> set.seed(271)
+5	149	670	> X2 <- 20*mu + rmvt(n, sigma=Sigma, df=nu)
+5	149	753	> head(matrix(20*mu, nrow=n, ncol=d))
+5	183	779	[,1] [,2]
+5	149	796	[1,] 20 20
+5	149	812	[2,] 40 40
+5	149	829	[3,] 20 20
+5	149	845	[4,] 40 40
+5	149	862	[5,] 20 20
+5	149	878	[6,] 40 40
+5	149	1032	> set.seed(271)
+5	149	1049	> X21 <- matrix(mu, nrow=n, ncol=d, byrow=TRUE) + rmvt(n, sigma=Sigma, df=nu)
+5	149	1065	> set.seed(271)
+5	149	1082	> X22 <- rep(mu, each=n) + rmvt(n, sigma=Sigma, df=nu)
+5	149	1098	> set.seed(271)
+5	149	1115	> X23 <- sweep(rmvt(n, sigma=Sigma, df=nu), MARGIN=2, STATS=mu, FUN="+")
+5	149	1131	> stopifnot(identical(X21, X22),
+5	231	1147	identical(X21, X23)) # check equality of the random numbers
+6	149	147	> set.seed(271)
+6	149	163	> X24 <- rmvt(n, sigma=Sigma, df=nu, delta=mu)
+6	149	180	> stopifnot(identical(X21, X24))
+6	149	281	> set.seed(271)
+6	149	297	> X3 <- rmvt(n, sigma=Sigma, df=nu, delta=mu)
+6	149	314	> cov(X3)
+6	197	343	[,1] [,2]
+6	149	360	[1,] 9.8843 4.9204
+6	149	376	[2,] 4.9204 7.6861
+7	149	337	> set.seed(271)
+7	149	354	> ## sample correlation matrix of a t3 sample with scale matrix Sigma
+7	149	370	> cor(rmvt(1e6, sigma=Sigma, df=3, delta=mu))
+7	204	400	[,1] [,2]
+7	149	416	[1,] 1.00000 0.57667
+7	149	433	[2,] 0.57667 1.00000
+7	149	463	> ## correlation matrix corresponding to Sigma
+7	149	479	> cov2cor(Sigma)
+7	204	509	[,1] [,2]
+7	149	525	[1,] 1.00000 0.57735
+7	149	542	[2,] 0.57735 1.00000

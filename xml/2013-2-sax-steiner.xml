@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+	<fontspec id="11" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">80</text>
+<text top="98" left="149" width="570" height="30" font="2"><b>Temporal Disaggregation of Time Series</b></text>
+<text top="134" left="149" width="212" height="15" font="0">by Christoph Sax and Peter Steiner</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="207" width="537" height="13" font="4">Temporal disaggregation methods are used to disaggregate low frequency time series to</text>
+<text top="192" left="149" width="595" height="13" font="4">higher frequency series, where either the sum, the average, the first or the last value of the resulting</text>
+<text top="208" left="149" width="595" height="13" font="4">high frequency series is consistent with the low frequency series. Temporal disaggregation can be</text>
+<text top="224" left="148" width="596" height="13" font="4">performed with or without one or more high frequency indicator series. The package <b>tempdisagg </b>is a</text>
+<text top="241" left="149" width="346" height="13" font="4">collection of several methods for temporal disaggregation.</text>
+<text top="286" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="325" left="149" width="598" height="13" font="4">Not having a time series at the desired frequency is a common problem for researchers and analysts.</text>
+<text top="341" left="149" width="595" height="13" font="4">For example, instead of quarterly sales, they only have annual sales. Instead of a daily stock market</text>
+<text top="357" left="149" width="597" height="13" font="4">index, they only have a weekly index. While there is no way to fully make up for the missing data,</text>
+<text top="374" left="149" width="596" height="13" font="4">there are useful workarounds: with the help of one or more high frequency indicator series, the low</text>
+<text top="390" left="149" width="595" height="13" font="4">frequency series may be disaggregated into a high frequency series. For example, quarterly exports</text>
+<text top="407" left="149" width="595" height="13" font="4">could help disaggregating annual sales, and a foreign stock market index could help disaggregating</text>
+<text top="423" left="149" width="190" height="13" font="4">the stock market index at home.</text>
+<text top="444" left="171" width="573" height="13" font="4">Even when there is no high frequency indicator series, one still may want to disaggregate a low</text>
+<text top="461" left="149" width="595" height="13" font="4">frequency series. While the accuracy of the resulting high frequency series will be low, it may still be</text>
+<text top="477" left="148" width="596" height="13" font="4">worth doing so. For example, estimating a vector-autoregressive model requires all variables to have</text>
+<text top="493" left="149" width="595" height="13" font="4">the same frequency. Having one bad high frequency series could still be preferable to the switch to a</text>
+<text top="510" left="149" width="99" height="13" font="4">lower frequency.</text>
+<text top="531" left="171" width="74" height="13" font="4">The package</text>
+<text top="531" left="249" width="72" height="13" font="6"><a href="http://CRAN.R-project.org/package=tempdisagg"><b>tempdisagg</b></a></text>
+<text top="531" left="324" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="531" left="328" width="91" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Sax and Steiner</a></text>
+<text top="531" left="420" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="531" left="426" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2013</a></text>
+<text top="531" left="453" width="291" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>implements the following standard methods for</text>
+<text top="547" left="149" width="595" height="13" font="4">temporal disaggregation: Denton, Denton-Cholette, Chow-Lin, Fernandez and Litterman. On the one</text>
+<text top="564" left="149" width="93" height="13" font="4">hand, <b>Denton </b><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="564" left="242" width="45" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Denton</a></text>
+<text top="564" left="287" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="564" left="295" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1971</a></text>
+<text top="564" left="322" width="168" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>and <b>Denton-Cholette </b>(e.g.</text>
+<text top="564" left="494" width="128" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Dagum and Cholette</a></text>
+<text top="564" left="621" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="564" left="629" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2006</a></text>
+<text top="564" left="656" width="88" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>are primarily</text>
+<text top="580" left="149" width="595" height="13" font="4">concerned with movement preservation, generating a series that is similar to the indicator series</text>
+<text top="597" left="148" width="596" height="13" font="4">whether or not the indicator is correlated with the low frequency series. Alternatively, these methods</text>
+<text top="613" left="149" width="595" height="13" font="4">can disaggregate a series without an indicator. On the other hand, Chow-Lin, Fernandez and Litterman</text>
+<text top="629" left="149" width="560" height="13" font="4">use one or several indicators and perform a regression on the low frequency series. <b>Chow-Lin </b><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="629" left="709" width="35" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Chow</a></text>
+<text top="646" left="149" width="46" height="13" font="7"><a href="2013-2-sax-steiner.html#7">and Lin</a></text>
+<text top="646" left="195" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="646" left="202" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1971</a></text>
+<text top="646" left="229" width="388" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>is suited for stationary or cointegrated series, while <b>Fernandez </b><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="646" left="617" width="63" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Fernández</a></text>
+<text top="646" left="680" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="646" left="686" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1981</a></text>
+<text top="646" left="713" width="31" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>and</text>
+<text top="662" left="149" width="61" height="13" font="3"><b>Litterman</b></text>
+<text top="662" left="213" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="662" left="217" width="59" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Litterman</a></text>
+<text top="662" left="276" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="662" left="283" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1983</a></text>
+<text top="662" left="310" width="209" height="13" font="4"><a href="2013-2-sax-steiner.html#7">) </a>deal with non-cointegrated series.</text>
+<text top="683" left="171" width="573" height="13" font="4">All disaggregation methods ensure that either the sum, the average, the first or the last value of</text>
+<text top="700" left="149" width="595" height="13" font="4">the resulting high frequency series is consistent with the low frequency series. They can deal with</text>
+<text top="716" left="149" width="597" height="13" font="4">situations where the high frequency is an integer multiple of the low frequency (e.g. years to quarters,</text>
+<text top="733" left="148" width="436" height="13" font="4">weeks to days), but not with irregular frequencies (e.g. weeks to months).</text>
+<text top="753" left="171" width="575" height="13" font="4">Temporal disaggregation methods are widely used in official statistics. For example, in France,</text>
+<text top="770" left="149" width="595" height="13" font="4">Italy and other European countries, quarterly figures of Gross Domestic Product (GDP) are computed</text>
+<text top="786" left="149" width="595" height="13" font="4">using disaggregation methods. Outside of R, there are several software packages to perform temporal</text>
+<text top="803" left="149" width="165" height="13" font="4">disaggregation: Ecotrim by</text>
+<text top="803" left="317" width="88" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Barcellan et al.</a></text>
+<text top="803" left="409" width="5" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="803" left="413" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2003</a></text>
+<text top="803" left="441" width="145" height="13" font="4"><a href="2013-2-sax-steiner.html#7">); </a>a Matlab extension by</text>
+<text top="803" left="589" width="37" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Quilis</a></text>
+<text top="803" left="629" width="5" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="803" left="634" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2012</a></text>
+<text top="803" left="661" width="83" height="13" font="4"><a href="2013-2-sax-steiner.html#7">); </a>and a RATS</text>
+<text top="819" left="149" width="75" height="13" font="4">extension by</text>
+<text top="819" left="227" width="32" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Doan</a></text>
+<text top="819" left="262" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="819" left="267" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2008</a></text>
+<text top="819" left="293" width="451" height="13" font="4"><a href="2013-2-sax-steiner.html#7">). </a>An overview of the capabilities of the different software programs is given</text>
+<text top="836" left="149" width="47" height="13" font="4">in Table</text>
+<text top="836" left="199" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#2">1</a></text>
+<text top="836" left="206" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#2">.</a></text>
+<text top="833" left="209" width="5" height="10" font="8"><a href="2013-2-sax-steiner.html#0">1</a></text>
+<text top="857" left="171" width="573" height="13" font="4">The first section discusses the standard methods for temporal disaggregation and summarizes</text>
+<text top="873" left="149" width="595" height="13" font="4">them in a unifying framework. Section 2 discusses the working and implementation of the <b>tempdisagg</b></text>
+<text top="889" left="148" width="305" height="13" font="4">package. Section 3 presents an illustrative example.</text>
+<text top="934" left="149" width="264" height="17" font="5"><b>A framework for disaggregation</b></text>
+<text top="973" left="148" width="597" height="13" font="4">The aim of temporal disaggregation is to find an unknown high frequency series y, whose sums,</text>
+<text top="989" left="149" width="490" height="13" font="4">averages, first or last values are consistent with a known low frequency series y</text>
+<text top="995" left="640" width="3" height="10" font="9">l</text>
+<text top="989" left="648" width="96" height="13" font="4">(The subscript l</text>
+<text top="1006" left="149" width="596" height="13" font="4">denotes low frequency variables). In order to estimate y, one or more other high frequency indicator</text>
+<text top="1022" left="148" width="596" height="13" font="4">variables can be used. We collect these high frequency series in a matrix X. For the ease of exposition</text>
+<text top="1039" left="149" width="596" height="13" font="4">and without loss of generality, the terms annual and quarterly will be used instead of low frequency</text>
+<text top="1055" left="149" width="175" height="13" font="4">and high frequency hereafter.</text>
+<text top="1076" left="171" width="573" height="13" font="4">The diversity of temporal disaggregation methods can be narrowed by putting the methods in</text>
+<text top="1093" left="149" width="595" height="13" font="4">a two-step framework: First, a preliminary quarterly series p has to be determined; second, the</text>
+<text top="1119" left="165" width="4" height="9" font="10">1</text>
+<text top="1121" left="170" width="574" height="12" font="1">Currently, there is no support for temporal disaggreation methods with a contemporaneous constraint</text>
+<text top="1136" left="148" width="4" height="12" font="1"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="1136" left="152" width="48" height="12" font="11"><a href="2013-2-sax-steiner.html#7">Di Fonzo</a></text>
+<text top="1136" left="201" width="3" height="12" font="1"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="1136" left="207" width="24" height="12" font="11"><a href="2013-2-sax-steiner.html#7">1994</a></text>
+<text top="1136" left="231" width="7" height="12" font="1"><a href="2013-2-sax-steiner.html#7">).</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="12" family="Times" color="#000000"/>
+	<fontspec id="13" size="11" family="Times" color="#000000"/>
+	<fontspec id="14" size="5" family="Times" color="#000000"/>
+	<fontspec id="15" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">81</text>
+<text top="105" left="156" width="58" height="15" font="0">Methods</text>
+<text top="105" left="366" width="52" height="15" font="0">Ecotrim</text>
+<text top="105" left="436" width="98" height="15" font="0">Matlab add-on</text>
+<text top="105" left="552" width="89" height="15" font="0">RATS add-on</text>
+<text top="105" left="659" width="78" height="15" font="0">tempdisagg</text>
+<text top="130" left="156" width="137" height="15" font="0">Chow-Lin (max. log)</text>
+<text top="130" left="386" width="12" height="17" font="0">H</text>
+<text top="130" left="386" width="12" height="17" font="0">#</text>
+<text top="130" left="479" width="12" height="17" font="0"> </text>
+<text top="130" left="591" width="12" height="17" font="0"> </text>
+<text top="130" left="692" width="12" height="17" font="0"> </text>
+<text top="150" left="156" width="140" height="15" font="0">Chow-Lin (min. RSS)</text>
+<text top="150" left="386" width="12" height="17" font="0"> </text>
+<text top="150" left="479" width="12" height="17" font="0"> </text>
+<text top="150" left="591" width="12" height="17" font="0">#</text>
+<text top="150" left="692" width="12" height="17" font="0"> </text>
+<text top="169" left="156" width="70" height="15" font="0">Fernández</text>
+<text top="169" left="386" width="12" height="17" font="0"> </text>
+<text top="169" left="479" width="12" height="17" font="0"> </text>
+<text top="169" left="591" width="12" height="17" font="0"> </text>
+<text top="169" left="692" width="12" height="17" font="0"> </text>
+<text top="189" left="156" width="136" height="15" font="0">Litterman (max. log)</text>
+<text top="188" left="386" width="12" height="17" font="0">H</text>
+<text top="188" left="386" width="12" height="17" font="0">#</text>
+<text top="188" left="479" width="12" height="17" font="0"> </text>
+<text top="188" left="591" width="12" height="17" font="0"> </text>
+<text top="188" left="692" width="12" height="17" font="0"> </text>
+<text top="208" left="156" width="139" height="15" font="0">Litterman (min. RSS)</text>
+<text top="208" left="386" width="12" height="17" font="0"> </text>
+<text top="208" left="479" width="12" height="17" font="0"> </text>
+<text top="208" left="591" width="12" height="17" font="0">#</text>
+<text top="208" left="692" width="12" height="17" font="0"> </text>
+<text top="228" left="156" width="110" height="15" font="0">Denton-Cholette</text>
+<text top="227" left="386" width="12" height="17" font="0">G</text>
+<text top="227" left="386" width="12" height="17" font="0">#</text>
+<text top="227" left="479" width="12" height="17" font="0">H</text>
+<text top="227" left="479" width="12" height="17" font="0">#</text>
+<text top="227" left="591" width="12" height="17" font="0">#</text>
+<text top="227" left="692" width="12" height="17" font="0"> </text>
+<text top="247" left="156" width="49" height="15" font="0">Denton</text>
+<text top="247" left="386" width="12" height="17" font="0">#</text>
+<text top="247" left="479" width="12" height="17" font="0">G</text>
+<text top="247" left="479" width="12" height="17" font="0">#</text>
+<text top="247" left="591" width="12" height="17" font="0">#</text>
+<text top="247" left="692" width="12" height="17" font="0"> </text>
+<text top="266" left="156" width="192" height="15" font="0">Contemporaneous constraint</text>
+<text top="266" left="386" width="12" height="17" font="0">G</text>
+<text top="266" left="386" width="12" height="17" font="0">#</text>
+<text top="266" left="479" width="12" height="17" font="0">G</text>
+<text top="266" left="479" width="12" height="17" font="0">#</text>
+<text top="266" left="591" width="12" height="17" font="0">#</text>
+<text top="266" left="692" width="12" height="17" font="0">#</text>
+<text top="303" left="191" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="303" left="243" width="119" height="13" font="4">Software packages (</text>
+<text top="303" left="361" width="30" height="15" font="4"> /G</text>
+<text top="303" left="380" width="30" height="15" font="4">#/H</text>
+<text top="303" left="399" width="302" height="15" font="4">#/#: full/partial/erroneous/no implementation).</text>
+<text top="353" left="149" width="595" height="13" font="4">differences between the annual values of the preliminary series and the annual values of the observed</text>
+<text top="369" left="149" width="596" height="13" font="4">series have to be distributed among the preliminary quarterly series. The sum of the preliminary</text>
+<text top="386" left="148" width="597" height="13" font="4">quarterly series and the distributed annual residuals yields the final estimation of the quarterly series,</text>
+<text top="402" left="151" width="68" height="14" font="4">ˆy. Formally,</text>
+<text top="418" left="409" width="5" height="13" font="4">ˆy</text>
+<text top="419" left="418" width="11" height="12" font="0">=</text>
+<text top="419" left="434" width="7" height="13" font="4">p</text>
+<text top="419" left="443" width="11" height="12" font="0">+</text>
+<text top="419" left="457" width="18" height="13" font="4">Du</text>
+<text top="424" left="476" width="3" height="10" font="9">l</text>
+<text top="419" left="483" width="3" height="13" font="4">.</text>
+<text top="419" left="728" width="16" height="13" font="4">(1)</text>
+<text top="441" left="149" width="45" height="14" font="4">D is a n</text>
+<text top="440" left="197" width="11" height="13" font="0">×</text>
+<text top="441" left="211" width="7" height="13" font="4">n</text>
+<text top="446" left="219" width="3" height="10" font="9">l</text>
+<text top="441" left="226" width="198" height="13" font="4">distribution matrix, with n and n</text>
+<text top="446" left="425" width="3" height="10" font="9">l</text>
+<text top="441" left="432" width="314" height="13" font="4">denoting the number of quarterly and annual obser-</text>
+<text top="458" left="148" width="137" height="13" font="4">vations, respectively. u</text>
+<text top="463" left="286" width="3" height="10" font="9">l</text>
+<text top="458" left="293" width="129" height="13" font="4">is a vector of length n</text>
+<text top="463" left="422" width="3" height="10" font="9">l</text>
+<text top="458" left="429" width="315" height="13" font="4">and contains the differences between the annualized</text>
+<text top="474" left="148" width="252" height="13" font="4">values of p and the actual annual values, y</text>
+<text top="479" left="401" width="3" height="10" font="9">l</text>
+<text top="474" left="405" width="3" height="13" font="4">:</text>
+<text top="503" left="404" width="7" height="13" font="4">u</text>
+<text top="508" left="412" width="3" height="10" font="9">l</text>
+<text top="502" left="420" width="11" height="13" font="0">≡</text>
+<text top="503" left="438" width="7" height="13" font="4">y</text>
+<text top="508" left="445" width="3" height="10" font="9">l</text>
+<text top="502" left="452" width="11" height="13" font="0">−</text>
+<text top="503" left="466" width="23" height="14" font="4">Cp .</text>
+<text top="503" left="728" width="16" height="13" font="4">(2)</text>
+<text top="532" left="149" width="103" height="13" font="4">Multiplying the n</text>
+<text top="537" left="252" width="3" height="10" font="9">l</text>
+<text top="531" left="259" width="11" height="13" font="0">×</text>
+<text top="532" left="272" width="472" height="14" font="4">n conversion matrix, C, with a quarterly series performs annualization. With two</text>
+<text top="549" left="148" width="597" height="13" font="4">years and eight quarters, and annual values representing the sum of the quarterly values (e.g. GDP),</text>
+<text top="565" left="149" width="350" height="13" font="4">the conversion matrix, C, is constructed the following <a href="2013-2-sax-steiner.html#0">way:</a></text>
+<text top="562" left="499" width="5" height="10" font="8"><a href="2013-2-sax-steiner.html#0">2</a></text>
+<text top="603" left="342" width="9" height="13" font="4">C</text>
+<text top="603" left="355" width="11" height="12" font="0">=</text>
+<text top="593" left="370" width="166" height="15" font="4">1 1 1 1 0 0 0 0</text>
+<text top="611" left="377" width="7" height="13" font="4">0</text>
+<text top="611" left="399" width="7" height="13" font="4">0</text>
+<text top="611" left="421" width="7" height="13" font="4">0</text>
+<text top="611" left="442" width="7" height="13" font="4">0</text>
+<text top="611" left="464" width="7" height="13" font="4">1</text>
+<text top="611" left="486" width="7" height="13" font="4">1</text>
+<text top="611" left="507" width="7" height="13" font="4">1</text>
+<text top="611" left="529" width="7" height="13" font="4">1</text>
+<text top="593" left="536" width="7" height="6" font="4"></text>
+<text top="603" left="548" width="3" height="13" font="4">.</text>
+<text top="603" left="728" width="16" height="13" font="4">(3)</text>
+<text top="644" left="171" width="61" height="13" font="4">Equation <a href="2013-2-sax-steiner.html#2">(</a></text>
+<text top="644" left="232" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#2">1</a></text>
+<text top="644" left="239" width="505" height="13" font="4"><a href="2013-2-sax-steiner.html#2">) </a>constitutes a unifying framework for all disaggregation methods. The methods differ</text>
+<text top="661" left="149" width="509" height="13" font="4">in how they determine the preliminary series, p, and the distribution matrix, D. Table</text>
+<text top="661" left="661" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#3">2</a></text>
+<text top="661" left="671" width="73" height="13" font="4">summarizes</text>
+<text top="677" left="149" width="440" height="13" font="4">the differences in the calculation of p and D. We will discuss them in turn.</text>
+<text top="720" left="149" width="124" height="15" font="12"><b>Preliminary series</b></text>
+<text top="751" left="148" width="566" height="13" font="4">The methods of <b>Denton </b>and <b>Denton-Cholette </b>use a single indicator as their preliminary series:</text>
+<text top="780" left="426" width="7" height="13" font="4">p</text>
+<text top="780" left="437" width="11" height="12" font="0">=</text>
+<text top="780" left="452" width="16" height="14" font="4">X ,</text>
+<text top="780" left="728" width="16" height="13" font="4">(4)</text>
+<text top="809" left="148" width="89" height="13" font="4">where X is a n</text>
+<text top="809" left="241" width="11" height="13" font="0">×</text>
+<text top="809" left="255" width="490" height="13" font="4">1 matrix. As a special case, a constant (e.g. a series consisting of only 1s in each</text>
+<text top="826" left="148" width="596" height="13" font="4">quarter) can be embodied as an indicator, allowing for temporal disaggregation without high frequency</text>
+<text top="842" left="149" width="94" height="13" font="4">indicator series.</text>
+<text top="863" left="171" width="573" height="13" font="4">The regression-based methods <b>Chow-Lin</b>, <b>Fernandez </b>and <b>Litterman </b>perform a Generalized Least</text>
+<text top="880" left="149" width="294" height="13" font="4">Squares Regression (GLS) of the annual values, y</text>
+<text top="885" left="443" width="3" height="10" font="9">l</text>
+<text top="880" left="447" width="300" height="13" font="4">, on the annualized quarterly indicator series, CX.</text>
+<text top="896" left="149" width="177" height="13" font="4">In this case, X represents a n</text>
+<text top="895" left="329" width="11" height="13" font="0">×</text>
+<text top="896" left="343" width="401" height="14" font="4">m matrix, where m denotes the number of indicators (including a</text>
+<text top="913" left="148" width="343" height="13" font="4">possible constant). For a given variance-covariance matrix,</text>
+<text top="909" left="494" width="250" height="17" font="4">Σ, the GLS estimator, ˆ<i>β</i>, is calculated in the</text>
+<text top="929" left="149" width="189" height="13" font="4">standard way (the estimation of</text>
+<text top="926" left="342" width="131" height="17" font="4">Σ is discussed below):</text>
+<text top="962" left="306" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="966" left="311" width="5" height="12" font="0">(</text>
+<text top="963" left="317" width="9" height="17" font="4">Σ</text>
+<text top="966" left="326" width="20" height="12" font="0">) =</text>
+<text top="960" left="351" width="6" height="6" font="4">h</text>
+<text top="966" left="357" width="10" height="13" font="4">X</text>
+<text top="962" left="368" width="3" height="10" font="9">0</text>
+<text top="966" left="372" width="9" height="13" font="4">C</text>
+<text top="962" left="381" width="3" height="10" font="9">0</text>
+<text top="966" left="385" width="5" height="12" font="0">(</text>
+<text top="966" left="391" width="9" height="13" font="4">C</text>
+<text top="963" left="400" width="18" height="17" font="4">ΣC</text>
+<text top="962" left="419" width="3" height="10" font="9">0</text>
+<text top="966" left="423" width="5" height="12" font="0">)</text>
+<text top="962" left="429" width="14" height="11" font="9">−1</text>
+<text top="966" left="443" width="19" height="13" font="4">CX</text>
+<text top="960" left="463" width="6" height="6" font="4">i</text>
+<text top="956" left="470" width="14" height="11" font="9">−1</text>
+<text top="966" left="487" width="10" height="13" font="4">X</text>
+<text top="962" left="498" width="3" height="10" font="9">0</text>
+<text top="966" left="502" width="9" height="13" font="4">C</text>
+<text top="962" left="511" width="3" height="10" font="9">0</text>
+<text top="966" left="515" width="5" height="12" font="0">(</text>
+<text top="966" left="521" width="9" height="13" font="4">C</text>
+<text top="963" left="530" width="18" height="17" font="4">ΣC</text>
+<text top="962" left="549" width="3" height="10" font="9">0</text>
+<text top="966" left="553" width="5" height="12" font="0">)</text>
+<text top="962" left="559" width="14" height="11" font="9">−1</text>
+<text top="966" left="573" width="7" height="13" font="4">y</text>
+<text top="971" left="580" width="3" height="10" font="9">l</text>
+<text top="966" left="587" width="3" height="13" font="4">.</text>
+<text top="966" left="728" width="16" height="13" font="4">(5)</text>
+<text top="998" left="148" width="596" height="13" font="4">The critical assumption of the regression-based methods is that the linear relationship between the</text>
+<text top="1015" left="149" width="137" height="13" font="4">annual series CX and y</text>
+<text top="1020" left="286" width="3" height="10" font="9">l</text>
+<text top="1015" left="293" width="451" height="13" font="4">also holds between the quarterly series X and y. Thus, the preliminary series</text>
+<text top="1031" left="149" width="322" height="13" font="4">is calculated as the fitted values of the GLS regression:</text>
+<text top="1060" left="422" width="7" height="13" font="4">p</text>
+<text top="1060" left="433" width="11" height="12" font="0">=</text>
+<text top="1057" left="450" width="21" height="17" font="4">ˆ<i>β</i>X .</text>
+<text top="1060" left="728" width="16" height="13" font="4">(6)</text>
+<text top="1087" left="165" width="4" height="9" font="10">2</text>
+<text top="1089" left="170" width="502" height="12" font="1">Generally, for annual values representing the sum of the quarterly values, C is constructed as I</text>
+<text top="1093" left="672" width="5" height="9" font="10">n</text>
+<text top="1096" left="677" width="2" height="7" font="14">l</text>
+<text top="1088" left="684" width="16" height="12" font="15">⊗ [</text>
+<text top="1089" left="700" width="39" height="12" font="1">1, 1, 1, 1</text>
+<text top="1089" left="739" width="3" height="11" font="15">]</text>
+<text top="1089" left="743" width="3" height="12" font="1">,</text>
+<text top="1103" left="149" width="285" height="12" font="1">the Kronecker product of an identity matrix of size n</text>
+<text top="1108" left="434" width="2" height="9" font="10">l</text>
+<text top="1103" left="441" width="206" height="12" font="1">and a transposed vector of length n/n</text>
+<text top="1108" left="647" width="2" height="9" font="10">l</text>
+<text top="1103" left="654" width="90" height="12" font="1">(4, in the present</text>
+<text top="1118" left="149" width="595" height="12" font="1">case). If instead of sums, annual values are averages of the quarterly values, the transposed vector becomes</text>
+<text top="1132" left="149" width="3" height="11" font="15">[</text>
+<text top="1132" left="153" width="100" height="12" font="1">0.25, 0.25, 0.25, 0.25</text>
+<text top="1132" left="253" width="3" height="11" font="15">]</text>
+<text top="1132" left="257" width="422" height="12" font="1">. If annual values are equal to the first or the last quarterly value, the vector is</text>
+<text top="1132" left="683" width="3" height="11" font="15">[</text>
+<text top="1132" left="686" width="40" height="12" font="1">1, 0, 0, 0</text>
+<text top="1132" left="726" width="3" height="11" font="15">]</text>
+<text top="1132" left="733" width="11" height="12" font="1">or</text>
+<text top="1146" left="149" width="3" height="11" font="15">[</text>
+<text top="1146" left="153" width="39" height="12" font="1">0, 0, 0, 1</text>
+<text top="1146" left="192" width="3" height="11" font="15">]</text>
+<text top="1146" left="195" width="71" height="12" font="1">, respectively.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="13" family="Times" color="#000000"/>
+	<fontspec id="17" size="12" family="Times" color="#000000"/>
+	<fontspec id="18" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">82</text>
+<text top="105" left="186" width="58" height="15" font="0">Methods</text>
+<text top="105" left="506" width="7" height="15" font="0">p</text>
+<text top="105" left="544" width="12" height="15" font="0">D</text>
+<text top="102" left="658" width="10" height="19" font="0">Σ</text>
+<text top="132" left="186" width="46" height="13" font="16">denton</text>
+<text top="131" left="505" width="11" height="15" font="0">X</text>
+<text top="128" left="544" width="23" height="19" font="0">Σ C</text>
+<text top="128" left="567" width="3" height="11" font="1">0</text>
+<text top="131" left="571" width="6" height="14" font="16">(</text>
+<text top="131" left="578" width="10" height="15" font="0">C</text>
+<text top="128" left="590" width="23" height="19" font="0">Σ C</text>
+<text top="128" left="614" width="3" height="11" font="1">0</text>
+<text top="131" left="618" width="6" height="14" font="16">)</text>
+<text top="128" left="624" width="15" height="12" font="1">−1</text>
+<text top="128" left="658" width="10" height="19" font="0">Σ</text>
+<text top="137" left="670" width="9" height="11" font="1">D</text>
+<text top="154" left="186" width="114" height="13" font="16">denton-cholette</text>
+<text top="154" left="505" width="11" height="15" font="0">X</text>
+<text top="154" left="544" width="12" height="15" font="0">D</text>
+<text top="159" left="555" width="19" height="11" font="1">D C</text>
+<text top="178" left="186" width="114" height="13" font="16">chow-lin-maxlog</text>
+<text top="177" left="300" width="4" height="15" font="0">,</text>
+<text top="178" left="308" width="175" height="13" font="16">chow-lin-minrss-ecotrim</text>
+<text top="177" left="483" width="4" height="15" font="0">,</text>
+<text top="174" left="508" width="17" height="18" font="0">ˆ<i>β</i>X</text>
+<text top="174" left="544" width="23" height="19" font="0">Σ C</text>
+<text top="174" left="567" width="3" height="11" font="1">0</text>
+<text top="177" left="571" width="6" height="14" font="16">(</text>
+<text top="177" left="578" width="10" height="15" font="0">C</text>
+<text top="174" left="590" width="23" height="19" font="0">Σ C</text>
+<text top="174" left="614" width="3" height="11" font="1">0</text>
+<text top="177" left="618" width="6" height="14" font="16">)</text>
+<text top="174" left="624" width="15" height="12" font="1">−1</text>
+<text top="174" left="658" width="10" height="19" font="0">Σ</text>
+<text top="183" left="670" width="15" height="11" font="1">CL</text>
+<text top="177" left="686" width="6" height="14" font="16">(</text>
+<text top="181" left="693" width="7" height="11" font="17"><i>ρ</i></text>
+<text top="177" left="701" width="6" height="14" font="16">)</text>
+<text top="193" left="186" width="168" height="13" font="16">chow-lin-minrss-quilis</text>
+<text top="216" left="186" width="122" height="13" font="16">litterman-maxlog</text>
+<text top="216" left="308" width="4" height="15" font="0">,</text>
+<text top="216" left="316" width="122" height="13" font="16">litterman-minrss</text>
+<text top="212" left="508" width="17" height="18" font="0">ˆ<i>β</i>X</text>
+<text top="212" left="544" width="23" height="19" font="0">Σ C</text>
+<text top="212" left="567" width="3" height="11" font="1">0</text>
+<text top="216" left="571" width="6" height="14" font="16">(</text>
+<text top="216" left="578" width="10" height="15" font="0">C</text>
+<text top="212" left="590" width="23" height="19" font="0">Σ C</text>
+<text top="212" left="614" width="3" height="11" font="1">0</text>
+<text top="216" left="618" width="6" height="14" font="16">)</text>
+<text top="212" left="624" width="15" height="12" font="1">−1</text>
+<text top="212" left="658" width="10" height="19" font="0">Σ</text>
+<text top="221" left="670" width="7" height="11" font="1">L</text>
+<text top="216" left="678" width="6" height="14" font="16">(</text>
+<text top="219" left="685" width="7" height="11" font="17"><i>ρ</i></text>
+<text top="216" left="692" width="6" height="14" font="16">)</text>
+<text top="240" left="186" width="69" height="13" font="16">fernandez</text>
+<text top="236" left="508" width="17" height="18" font="0">ˆ<i>β</i>X</text>
+<text top="236" left="544" width="23" height="19" font="0">Σ C</text>
+<text top="236" left="567" width="3" height="11" font="1">0</text>
+<text top="239" left="571" width="6" height="14" font="16">(</text>
+<text top="239" left="578" width="10" height="15" font="0">C</text>
+<text top="236" left="590" width="23" height="19" font="0">Σ C</text>
+<text top="236" left="614" width="3" height="11" font="1">0</text>
+<text top="239" left="618" width="6" height="14" font="16">)</text>
+<text top="236" left="624" width="15" height="12" font="1">−1</text>
+<text top="236" left="658" width="10" height="19" font="0">Σ</text>
+<text top="245" left="670" width="7" height="11" font="1">L</text>
+<text top="239" left="678" width="6" height="14" font="16">(</text>
+<text top="239" left="684" width="7" height="15" font="0">0</text>
+<text top="239" left="692" width="6" height="14" font="16">)</text>
+<text top="276" left="308" width="47" height="13" font="3"><b>Table 2:</b></text>
+<text top="276" left="359" width="226" height="13" font="4">Methods for temporal disaggregation.</text>
+<text top="325" left="149" width="133" height="15" font="12"><b>Distribution matrix</b></text>
+<text top="356" left="148" width="596" height="13" font="4">With the exception of Denton-Cholette, the distribution matrix of all temporal disaggregation methods</text>
+<text top="373" left="149" width="278" height="13" font="4">is a function of the variance-covariance matrix,</text>
+<text top="369" left="431" width="13" height="17" font="4">Σ:</text>
+<text top="402" left="385" width="10" height="13" font="4">D</text>
+<text top="402" left="400" width="11" height="12" font="0">=</text>
+<text top="399" left="415" width="20" height="17" font="4">Σ C</text>
+<text top="398" left="436" width="3" height="10" font="9">0</text>
+<text top="402" left="440" width="5" height="12" font="0">(</text>
+<text top="402" left="446" width="9" height="13" font="4">C</text>
+<text top="399" left="457" width="20" height="17" font="4">Σ C</text>
+<text top="398" left="478" width="3" height="10" font="9">0</text>
+<text top="402" left="482" width="5" height="12" font="0">)</text>
+<text top="398" left="488" width="14" height="11" font="9">−1</text>
+<text top="402" left="505" width="3" height="13" font="4">.</text>
+<text top="402" left="728" width="16" height="13" font="4">(7)</text>
+<text top="435" left="171" width="574" height="13" font="4">The <b>Denton </b>methods minimize the squared absolute or relative deviations from a (differenced)</text>
+<text top="452" left="149" width="595" height="13" font="4">indicator series, where the parameter h defines the degree of differencing. For the additive Denton</text>
+<text top="468" left="149" width="112" height="13" font="4">methods and for h</text>
+<text top="468" left="266" width="11" height="12" font="0">=</text>
+<text top="468" left="281" width="463" height="13" font="4">0, the sum of the squared absolute deviations between the indicator and the</text>
+<text top="485" left="149" width="186" height="13" font="4">final series is minimized. For h</text>
+<text top="485" left="339" width="11" height="12" font="0">=</text>
+<text top="485" left="354" width="338" height="13" font="4">1, the deviations of first differences are minimized, for h</text>
+<text top="485" left="696" width="11" height="12" font="0">=</text>
+<text top="485" left="711" width="33" height="13" font="4">2, the</text>
+<text top="501" left="149" width="597" height="13" font="4">deviations of the differences of the first differences, and so forth. For the proportional Denton methods,</text>
+<text top="518" left="149" width="249" height="13" font="4">deviations are measured in relative terms.</text>
+<text top="538" left="171" width="240" height="13" font="4">For the additive Denton method with h</text>
+<text top="538" left="416" width="11" height="12" font="0">=</text>
+<text top="538" left="432" width="312" height="13" font="4">1, the variance-covariance matrix has the following</text>
+<text top="555" left="149" width="57" height="13" font="4">structure:</text>
+<text top="595" left="339" width="9" height="17" font="4">Σ</text>
+<text top="603" left="349" width="8" height="10" font="9">D</text>
+<text top="598" left="362" width="20" height="12" font="0">= (</text>
+<text top="595" left="383" width="9" height="17" font="4">∆</text>
+<text top="594" left="392" width="3" height="10" font="9">0</text>
+<text top="595" left="396" width="9" height="17" font="4">∆</text>
+<text top="598" left="406" width="5" height="12" font="0">)</text>
+<text top="594" left="412" width="14" height="11" font="9">−1</text>
+<text top="598" left="430" width="11" height="12" font="0">=</text>
+<text top="568" left="445" width="9" height="6" font="4"></text>
+<text top="592" left="445" width="9" height="6" font="4"></text>
+<text top="600" left="445" width="9" height="6" font="4"></text>
+<text top="608" left="445" width="9" height="6" font="4"></text>
+<text top="617" left="445" width="9" height="6" font="4"></text>
+<text top="568" left="454" width="7" height="13" font="4">1</text>
+<text top="568" left="476" width="7" height="13" font="4">1</text>
+<text top="567" left="498" width="17" height="13" font="0">· · ·</text>
+<text top="568" left="530" width="7" height="13" font="4">1</text>
+<text top="585" left="454" width="7" height="13" font="4">1</text>
+<text top="585" left="476" width="7" height="13" font="4">2</text>
+<text top="584" left="498" width="17" height="13" font="0">· · ·</text>
+<text top="585" left="530" width="7" height="13" font="4">2</text>
+<text top="600" left="456" width="3" height="19" font="4">..</text>
+<text top="612" left="456" width="3" height="13" font="4">.</text>
+<text top="600" left="477" width="3" height="19" font="4">..</text>
+<text top="612" left="477" width="3" height="13" font="4">.</text>
+<text top="602" left="499" width="8" height="18" font="4">. .</text>
+<text top="611" left="509" width="3" height="13" font="4">.</text>
+<text top="600" left="532" width="3" height="19" font="4">..</text>
+<text top="612" left="532" width="3" height="13" font="4">.</text>
+<text top="629" left="454" width="7" height="13" font="4">1</text>
+<text top="629" left="476" width="7" height="13" font="4">2</text>
+<text top="628" left="498" width="17" height="13" font="0">· · ·</text>
+<text top="628" left="530" width="7" height="13" font="4">n</text>
+<text top="568" left="538" width="9" height="6" font="4"></text>
+<text top="592" left="538" width="9" height="6" font="4"></text>
+<text top="600" left="538" width="9" height="6" font="4"></text>
+<text top="608" left="538" width="9" height="6" font="4"></text>
+<text top="617" left="538" width="9" height="6" font="4"></text>
+<text top="598" left="551" width="3" height="13" font="4">,</text>
+<text top="598" left="728" width="16" height="13" font="4">(8)</text>
+<text top="651" left="148" width="38" height="13" font="4">where</text>
+<text top="647" left="190" width="45" height="17" font="4">∆ is a n</text>
+<text top="650" left="238" width="11" height="13" font="0">×</text>
+<text top="651" left="252" width="290" height="14" font="4">n difference matrix with 1 on its main diagonal,</text>
+<text top="650" left="545" width="11" height="13" font="0">−</text>
+<text top="651" left="556" width="188" height="13" font="4">1 on its first subdiagonal and 0</text>
+<text top="667" left="149" width="99" height="13" font="4">elsewhere. For h</text>
+<text top="667" left="252" width="11" height="12" font="0">=</text>
+<text top="667" left="267" width="10" height="13" font="4">2,</text>
+<text top="664" left="280" width="9" height="17" font="4">∆</text>
+<text top="664" left="290" width="3" height="10" font="9">0</text>
+<text top="664" left="294" width="121" height="17" font="4">∆ is multiplied by ∆</text>
+<text top="664" left="415" width="3" height="10" font="9">0</text>
+<text top="667" left="422" width="101" height="13" font="4">from the left and</text>
+<text top="664" left="527" width="163" height="17" font="4">∆ from the right side. For h</text>
+<text top="667" left="694" width="11" height="12" font="0">=</text>
+<text top="667" left="709" width="35" height="13" font="4">0, it is</text>
+<text top="684" left="149" width="167" height="13" font="4">the identity matrix of size n.</text>
+<text top="705" left="171" width="103" height="13" font="3"><b>Denton-Cholette</b></text>
+<text top="704" left="278" width="466" height="13" font="4">is a modification of the original approach and removes the spurious transient</text>
+<text top="721" left="149" width="595" height="13" font="4">movement at the beginning of the resulting series. While generally preferable, the calculation of the</text>
+<text top="737" left="149" width="131" height="13" font="4">distribution matrix, D</text>
+<text top="742" left="279" width="17" height="10" font="9">D C</text>
+<text top="737" left="297" width="261" height="13" font="4">, does not fit into the simple framework (see</text>
+<text top="737" left="562" width="124" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Dagum and Cholette</a></text>
+<text top="737" left="687" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="737" left="693" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">2006</a></text>
+<text top="737" left="720" width="26" height="13" font="4"><a href="2013-2-sax-steiner.html#7">, </a>pp.</text>
+<text top="754" left="148" width="199" height="13" font="4">136, for an extensive description).</text>
+<text top="775" left="171" width="62" height="13" font="3"><b>Chow-Lin</b></text>
+<text top="775" left="237" width="509" height="13" font="4">assumes that the quarterly residuals follow an autoregressive process of order 1 (AR1),</text>
+<text top="791" left="149" width="31" height="13" font="4">i.e., u</text>
+<text top="795" left="180" width="3" height="10" font="9">t</text>
+<text top="791" left="188" width="11" height="12" font="0">=</text>
+<text top="794" left="203" width="15" height="10" font="13"><i>ρ</i>u</text>
+<text top="796" left="218" width="18" height="11" font="9">t−1</text>
+<text top="791" left="239" width="11" height="12" font="0">+</text>
+<text top="794" left="253" width="6" height="10" font="13"><i>e</i></text>
+<text top="795" left="259" width="3" height="10" font="9">t</text>
+<text top="791" left="263" width="93" height="13" font="4">, where <i>e </i>is WN</text>
+<text top="791" left="356" width="5" height="12" font="0">(</text>
+<text top="791" left="362" width="20" height="13" font="4">0, <i>σ</i></text>
+<text top="798" left="381" width="5" height="8" font="18"><i>e</i></text>
+<text top="791" left="387" width="5" height="12" font="0">)</text>
+<text top="791" left="396" width="220" height="13" font="4">(with WN denoting White Noise) and</text>
+<text top="790" left="619" width="4" height="13" font="0">|</text>
+<text top="794" left="623" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="790" left="630" width="19" height="13" font="0">| &lt;</text>
+<text top="791" left="653" width="91" height="13" font="4">1. The resulting</text>
+<text top="808" left="149" width="249" height="13" font="4">covariance matrix has the following form:</text>
+<text top="865" left="305" width="9" height="17" font="4">Σ</text>
+<text top="873" left="315" width="14" height="10" font="9">CL</text>
+<text top="868" left="330" width="5" height="12" font="0">(</text>
+<text top="871" left="336" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="868" left="343" width="20" height="12" font="0">) =</text>
+<text top="862" left="380" width="8" height="10" font="13"><i>σ</i></text>
+<text top="856" left="388" width="5" height="10" font="9">2</text>
+<text top="867" left="387" width="5" height="8" font="18"><i>e</i></text>
+<text top="878" left="369" width="7" height="13" font="4">1</text>
+<text top="877" left="379" width="11" height="13" font="0">−</text>
+<text top="881" left="392" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="876" left="399" width="5" height="10" font="9">2</text>
+<text top="867" left="410" width="4" height="13" font="0">·</text>
+<text top="838" left="417" width="9" height="6" font="4"></text>
+<text top="862" left="417" width="9" height="6" font="4"></text>
+<text top="870" left="417" width="9" height="6" font="4"></text>
+<text top="878" left="417" width="9" height="6" font="4"></text>
+<text top="887" left="417" width="9" height="6" font="4"></text>
+<text top="838" left="436" width="7" height="13" font="4">1</text>
+<text top="841" left="479" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="837" left="512" width="17" height="13" font="0">· · ·</text>
+<text top="841" left="544" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="835" left="551" width="20" height="11" font="9">n−1</text>
+<text top="858" left="436" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="855" left="479" width="7" height="13" font="4">1</text>
+<text top="854" left="512" width="17" height="13" font="0">· · ·</text>
+<text top="858" left="544" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="852" left="551" width="20" height="11" font="9">n−2</text>
+<text top="870" left="438" width="3" height="19" font="4">..</text>
+<text top="882" left="438" width="3" height="13" font="4">.</text>
+<text top="870" left="481" width="3" height="19" font="4">..</text>
+<text top="882" left="481" width="3" height="13" font="4">.</text>
+<text top="872" left="513" width="8" height="18" font="4">. .</text>
+<text top="881" left="523" width="3" height="13" font="4">.</text>
+<text top="870" left="556" width="3" height="19" font="4">..</text>
+<text top="882" left="556" width="3" height="13" font="4">.</text>
+<text top="902" left="426" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="896" left="433" width="20" height="11" font="9">n−1</text>
+<text top="902" left="469" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="896" left="476" width="20" height="11" font="9">n−2</text>
+<text top="898" left="512" width="17" height="13" font="0">· · ·</text>
+<text top="899" left="554" width="7" height="13" font="4">1</text>
+<text top="838" left="572" width="9" height="6" font="4"></text>
+<text top="862" left="572" width="9" height="6" font="4"></text>
+<text top="870" left="572" width="9" height="6" font="4"></text>
+<text top="878" left="572" width="9" height="6" font="4"></text>
+<text top="887" left="572" width="9" height="6" font="4"></text>
+<text top="868" left="585" width="3" height="13" font="4">.</text>
+<text top="868" left="728" width="16" height="13" font="4">(9)</text>
+<text top="928" left="148" width="102" height="13" font="4">The estimation of</text>
+<text top="925" left="254" width="9" height="17" font="4">Σ</text>
+<text top="933" left="265" width="14" height="10" font="9">CL</text>
+<text top="928" left="283" width="461" height="13" font="4">thus requires the estimation of an AR1 parameter <i>ρ</i>, which will be discussed in</text>
+<text top="945" left="149" width="191" height="13" font="4">the next section. The variance, <i>σ</i></text>
+<text top="942" left="340" width="5" height="10" font="9">2</text>
+<text top="952" left="339" width="5" height="8" font="18"><i>e</i></text>
+<text top="945" left="346" width="392" height="13" font="4">, cancels out and does not affect the calculation of neither D nor ˆ<i>β</i>.</text>
+<text top="965" left="171" width="573" height="13" font="4">The remaining methods deal with cases when the quarterly indicators and the annual series</text>
+<text top="982" left="149" width="598" height="13" font="4">are not cointegrated. <b>Fernandez </b>and <b>Litterman </b>assume that the quarterly residuals follow a non-</text>
+<text top="998" left="149" width="147" height="13" font="4">stationary process, i.e. u</text>
+<text top="1003" left="296" width="3" height="10" font="9">t</text>
+<text top="998" left="306" width="11" height="12" font="0">=</text>
+<text top="998" left="323" width="7" height="13" font="4">u</text>
+<text top="1003" left="330" width="18" height="11" font="9">t−1</text>
+<text top="998" left="352" width="11" height="12" font="0">+</text>
+<text top="998" left="366" width="7" height="13" font="4">v</text>
+<text top="1003" left="373" width="3" height="10" font="9">t</text>
+<text top="998" left="377" width="120" height="13" font="4">, where v is an AR1</text>
+<text top="998" left="502" width="5" height="12" font="0">(</text>
+<text top="998" left="508" width="7" height="13" font="4">v</text>
+<text top="1003" left="515" width="3" height="10" font="9">t</text>
+<text top="998" left="525" width="11" height="12" font="0">=</text>
+<text top="1001" left="541" width="14" height="10" font="13"><i>ρ</i>v</text>
+<text top="1003" left="555" width="18" height="11" font="9">t−1</text>
+<text top="998" left="576" width="11" height="12" font="0">+</text>
+<text top="1001" left="591" width="6" height="10" font="13"><i>e</i></text>
+<text top="1003" left="597" width="3" height="10" font="9">t</text>
+<text top="998" left="601" width="99" height="13" font="4">, where <i>e </i>is WN</text>
+<text top="998" left="701" width="5" height="12" font="0">(</text>
+<text top="998" left="706" width="20" height="13" font="4">0, <i>σ</i></text>
+<text top="1005" left="726" width="5" height="8" font="18"><i>e</i></text>
+<text top="998" left="732" width="11" height="12" font="0">))</text>
+<text top="998" left="743" width="3" height="13" font="4">.</text>
+<text top="1015" left="149" width="292" height="13" font="4">Fernandez is a special case of Litterman, where <i>ρ</i></text>
+<text top="1015" left="445" width="11" height="12" font="0">=</text>
+<text top="1015" left="460" width="284" height="13" font="4">0, and, therefore, u follows a random walk. The</text>
+<text top="1031" left="148" width="333" height="13" font="4">variance-covariance matrix can be calculated as follows:</text>
+<text top="1057" left="351" width="9" height="17" font="4">Σ</text>
+<text top="1065" left="360" width="6" height="10" font="9">L</text>
+<text top="1060" left="367" width="5" height="12" font="0">(</text>
+<text top="1063" left="373" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="1060" left="380" width="20" height="12" font="0">) =</text>
+<text top="1063" left="404" width="8" height="10" font="13"><i>σ</i></text>
+<text top="1057" left="412" width="5" height="10" font="9">2</text>
+<text top="1068" left="411" width="5" height="8" font="18"><i>e</i></text>
+<text top="1059" left="421" width="6" height="6" font="4"></text>
+<text top="1057" left="427" width="9" height="17" font="4">∆</text>
+<text top="1056" left="436" width="3" height="10" font="9">0</text>
+<text top="1060" left="441" width="10" height="13" font="4">H</text>
+<text top="1060" left="452" width="5" height="12" font="0">(</text>
+<text top="1063" left="457" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="1060" left="465" width="5" height="12" font="0">)</text>
+<text top="1056" left="470" width="3" height="10" font="9">0</text>
+<text top="1060" left="475" width="10" height="13" font="4">H</text>
+<text top="1060" left="486" width="5" height="12" font="0">(</text>
+<text top="1063" left="492" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="1060" left="499" width="5" height="12" font="0">)</text>
+<text top="1057" left="505" width="15" height="17" font="4">∆</text>
+<text top="1054" left="520" width="14" height="11" font="9">−1</text>
+<text top="1060" left="539" width="3" height="13" font="4">,</text>
+<text top="1060" left="722" width="22" height="13" font="4">(10)</text>
+<text top="1089" left="148" width="36" height="13" font="4">where</text>
+<text top="1086" left="188" width="88" height="17" font="4">∆ is the same n</text>
+<text top="1089" left="280" width="11" height="13" font="0">×</text>
+<text top="1089" left="293" width="256" height="14" font="4">n difference matrix as in the Denton case; H</text>
+<text top="1089" left="550" width="5" height="12" font="0">(</text>
+<text top="1093" left="556" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="1089" left="563" width="5" height="12" font="0">)</text>
+<text top="1089" left="572" width="30" height="13" font="4">is a n</text>
+<text top="1089" left="605" width="11" height="13" font="0">×</text>
+<text top="1089" left="619" width="125" height="14" font="4">n matrix with 1 on its</text>
+<text top="1106" left="149" width="91" height="13" font="4">main diagonal,</text>
+<text top="1105" left="243" width="11" height="13" font="0">−</text>
+<text top="1109" left="254" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="1106" left="264" width="480" height="13" font="4">on its first subdiagonal and 0 elsewhere. For the special case of Fernandez, with</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">83</text>
+<text top="106" left="149" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="103" left="160" width="11" height="12" font="0">=</text>
+<text top="103" left="175" width="340" height="13" font="4">0, the resulting covariance matrix has the following form:</text>
+<text top="131" left="350" width="9" height="17" font="4">Σ</text>
+<text top="139" left="360" width="6" height="10" font="9">L</text>
+<text top="134" left="368" width="5" height="12" font="0">(</text>
+<text top="134" left="373" width="7" height="13" font="4">0</text>
+<text top="134" left="380" width="20" height="12" font="0">) =</text>
+<text top="137" left="405" width="8" height="10" font="13"><i>σ</i></text>
+<text top="131" left="413" width="5" height="10" font="9">2</text>
+<text top="142" left="412" width="5" height="8" font="18"><i>e</i></text>
+<text top="133" left="421" width="12" height="13" font="0">· (</text>
+<text top="131" left="434" width="9" height="17" font="4">∆</text>
+<text top="130" left="443" width="3" height="10" font="9">0</text>
+<text top="131" left="447" width="9" height="17" font="4">∆</text>
+<text top="134" left="457" width="5" height="12" font="0">)</text>
+<text top="130" left="462" width="14" height="11" font="9">−1</text>
+<text top="134" left="481" width="11" height="12" font="0">=</text>
+<text top="137" left="496" width="8" height="10" font="13"><i>σ</i></text>
+<text top="131" left="504" width="5" height="10" font="9">2</text>
+<text top="142" left="503" width="5" height="8" font="18"><i>e</i></text>
+<text top="133" left="512" width="4" height="13" font="0">·</text>
+<text top="131" left="519" width="9" height="17" font="4">Σ</text>
+<text top="139" left="529" width="8" height="10" font="9">D</text>
+<text top="134" left="540" width="3" height="13" font="4">.</text>
+<text top="134" left="722" width="22" height="13" font="4">(11)</text>
+<text top="176" left="149" width="274" height="15" font="12"><b>Estimating the autoregressive parameter</b></text>
+<text top="208" left="148" width="596" height="13" font="4">There are several ways to estimate the autoregressive parameter <i>ρ </i>in the Chow-Lin and Litterman</text>
+<text top="224" left="149" width="327" height="13" font="4">methods. An iterative procedure has been proposed by</text>
+<text top="224" left="480" width="85" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Chow and Lin</a></text>
+<text top="224" left="568" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="224" left="573" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1971</a></text>
+<text top="224" left="600" width="145" height="13" font="4"><a href="2013-2-sax-steiner.html#7">). </a>It infers the parameter</text>
+<text top="241" left="149" width="400" height="13" font="4">from the observed autocorrelation of the low frequency residuals, u</text>
+<text top="246" left="549" width="3" height="10" font="9">l</text>
+<text top="241" left="553" width="3" height="13" font="4">.</text>
+<text top="262" left="171" width="147" height="13" font="4">In a different approach,</text>
+<text top="262" left="323" width="136" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Bournay and Laroque</a></text>
+<text top="262" left="464" width="5" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="262" left="468" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1979</a></text>
+<text top="262" left="496" width="248" height="13" font="4"><a href="2013-2-sax-steiner.html#7">, </a>p. 23) suggest the maximization of the</text>
+<text top="278" left="149" width="195" height="13" font="4">likelihood of the GLS-regression:</text>
+<text top="325" left="326" width="7" height="13" font="4">L</text>
+<text top="325" left="333" width="5" height="12" font="0">(</text>
+<text top="329" left="339" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="326" left="346" width="13" height="13" font="4">, <i>σ</i></text>
+<text top="322" left="360" width="5" height="10" font="9">2</text>
+<text top="333" left="359" width="5" height="8" font="18"><i>e</i></text>
+<text top="326" left="366" width="13" height="13" font="4">, <i>β</i></text>
+<text top="325" left="379" width="20" height="12" font="0">) =</text>
+<text top="312" left="406" width="21" height="13" font="4">exp</text>
+<text top="306" left="430" width="6" height="6" font="4">h</text>
+<text top="311" left="437" width="11" height="13" font="0">−</text>
+<text top="308" left="450" width="5" height="10" font="9">1</text>
+<text top="318" left="450" width="5" height="10" font="9">2</text>
+<text top="311" left="457" width="7" height="13" font="4">u</text>
+<text top="308" left="465" width="3" height="10" font="9">0</text>
+<text top="319" left="465" width="3" height="10" font="9">l</text>
+<text top="312" left="474" width="5" height="12" font="0">(</text>
+<text top="311" left="479" width="9" height="13" font="4">C</text>
+<text top="308" left="491" width="20" height="17" font="4">Σ C</text>
+<text top="308" left="512" width="3" height="10" font="9">0</text>
+<text top="312" left="516" width="5" height="12" font="0">)</text>
+<text top="306" left="522" width="14" height="11" font="9">−1</text>
+<text top="311" left="541" width="7" height="13" font="4">u</text>
+<text top="317" left="549" width="3" height="10" font="9">l</text>
+<text top="306" left="553" width="6" height="6" font="4">i</text>
+<text top="338" left="406" width="5" height="12" font="0">(</text>
+<text top="338" left="411" width="16" height="13" font="4">2<i>π</i></text>
+<text top="338" left="428" width="5" height="12" font="0">)</text>
+<text top="334" left="434" width="6" height="10" font="9">n</text>
+<text top="338" left="440" width="2" height="7" font="14">l</text>
+<text top="334" left="443" width="12" height="10" font="9">/2</text>
+<text top="337" left="458" width="11" height="13" font="0">· [</text>
+<text top="338" left="469" width="19" height="13" font="4">det</text>
+<text top="338" left="491" width="5" height="12" font="0">(</text>
+<text top="338" left="496" width="9" height="13" font="4">C</text>
+<text top="335" left="508" width="20" height="17" font="4">Σ C</text>
+<text top="336" left="529" width="3" height="10" font="9">0</text>
+<text top="338" left="533" width="10" height="12" font="0">)]</text>
+<text top="334" left="543" width="17" height="10" font="9">1/2</text>
+<text top="326" left="565" width="3" height="13" font="4">,</text>
+<text top="326" left="722" width="22" height="13" font="4">(12)</text>
+<text top="368" left="148" width="48" height="13" font="4">where u</text>
+<text top="373" left="197" width="3" height="10" font="9">l</text>
+<text top="368" left="204" width="96" height="13" font="4">is given by Eq. <a href="2013-2-sax-steiner.html#2">(</a></text>
+<text top="368" left="300" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#2">2</a></text>
+<text top="368" left="307" width="39" height="13" font="4"><a href="2013-2-sax-steiner.html#2">) </a>and <a href="2013-2-sax-steiner.html#2">(</a></text>
+<text top="368" left="345" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#2">6</a></text>
+<text top="368" left="352" width="285" height="13" font="4"><a href="2013-2-sax-steiner.html#2">)</a>. ˆ<i>β </i>turns out to be the GLS estimator from Eq. <a href="2013-2-sax-steiner.html#2">(</a></text>
+<text top="368" left="637" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#2">5</a></text>
+<text top="368" left="644" width="100" height="13" font="4"><a href="2013-2-sax-steiner.html#2">)</a>. The maximum</text>
+<text top="385" left="149" width="595" height="13" font="4">likelihood estimator of the autoregressive parameter, ˆ<i>ρ</i>, is a consistent estimator of the true value, thus</text>
+<text top="401" left="149" width="595" height="13" font="4">it has been chosen as the default estimator. However, in some cases, ˆ<i>ρ </i>turns out to be negative even if</text>
+<text top="417" left="149" width="595" height="13" font="4">the true <i>ρ </i>is positive. Thus, by default, <b>tempdisagg </b>constrains the optimization space for <i>ρ </i>to positive</text>
+<text top="434" left="148" width="42" height="13" font="4">values.</text>
+<text top="455" left="171" width="573" height="13" font="4">A final approach is the minimization of the weighted residual sum of squares, as it has been</text>
+<text top="471" left="149" width="78" height="13" font="4">suggested by</text>
+<text top="471" left="230" width="81" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Barbone et al.</a></text>
+<text top="471" left="315" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="471" left="319" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1981</a></text>
+<text top="471" left="346" width="8" height="13" font="4"><a href="2013-2-sax-steiner.html#7">):</a></text>
+<text top="509" left="350" width="25" height="13" font="4">RSS</text>
+<text top="509" left="375" width="5" height="12" font="0">(</text>
+<text top="512" left="381" width="7" height="10" font="13"><i>ρ</i></text>
+<text top="509" left="387" width="13" height="13" font="4">, <i>σ</i></text>
+<text top="505" left="401" width="5" height="10" font="9">2</text>
+<text top="517" left="400" width="5" height="8" font="18"><i>e</i></text>
+<text top="509" left="407" width="13" height="13" font="4">, <i>β</i></text>
+<text top="509" left="421" width="20" height="12" font="0">) =</text>
+<text top="509" left="445" width="7" height="13" font="4">u</text>
+<text top="505" left="453" width="3" height="10" font="9">0</text>
+<text top="515" left="453" width="3" height="10" font="9">l</text>
+<text top="509" left="466" width="9" height="13" font="4">C</text>
+<text top="505" left="478" width="20" height="17" font="4">Σ C</text>
+<text top="505" left="499" width="3" height="10" font="9">0</text>
+<text top="507" left="503" width="6" height="6" font="4"></text>
+<text top="503" left="509" width="14" height="11" font="9">−1</text>
+<text top="509" left="526" width="7" height="13" font="4">u</text>
+<text top="514" left="534" width="3" height="10" font="9">l</text>
+<text top="509" left="540" width="3" height="13" font="4">.</text>
+<text top="509" left="722" width="22" height="13" font="4">(13)</text>
+<text top="533" left="149" width="286" height="13" font="4">Contrary to the maximum likelihood approach, <i>σ</i></text>
+<text top="530" left="435" width="5" height="10" font="9">2</text>
+<text top="541" left="434" width="5" height="8" font="18"><i>e</i></text>
+<text top="533" left="444" width="300" height="13" font="4">does not cancel out. The results are thus sensitive to</text>
+<text top="549" left="149" width="110" height="13" font="4">the specification of</text>
+<text top="546" left="262" width="482" height="17" font="4">Σ, with different implementations leading to different but inconsistent estimations</text>
+<text top="566" left="149" width="26" height="13" font="4">of <i>ρ</i>.</text>
+<text top="611" left="149" width="203" height="17" font="5"><b>The tempdisagg package</b></text>
+<text top="649" left="148" width="596" height="13" font="4">The selection of a temporal disaggregation model is similar to the selection of a linear regression</text>
+<text top="666" left="149" width="595" height="13" font="4">model. Thus, td, the main function of the package, closely mirrors the working of the lm function</text>
+<text top="682" left="148" width="406" height="13" font="4">(package <b>stats</b>), including taking advantage of the formula <a href="2013-2-sax-steiner.html#0">interface.</a></text>
+<text top="679" left="555" width="5" height="10" font="8"><a href="2013-2-sax-steiner.html#0">3</a></text>
+<text top="710" left="149" width="528" height="11" font="4">td(formula, conversion = &#34;sum&#34;, to = &#34;quarterly&#34;, method = &#34;chow-lin-maxlog&#34;,</text>
+<text top="726" left="169" width="480" height="11" font="4">truncated.rho = 0, fixed.rho = 0.5, criterion = &#34;proportional&#34;, h = 1,</text>
+<text top="743" left="169" width="206" height="11" font="4">start = NULL, end = NULL, ...)</text>
+<text top="769" left="148" width="598" height="13" font="4">The left hand side of the formula denotes the low frequency series, the right hand side the indicators.</text>
+<text top="785" left="149" width="595" height="13" font="4">If no indicator is specified, the right hand side must be set equal to 1. The variables can be entered</text>
+<text top="802" left="149" width="595" height="13" font="4">as time series objects of class &#34;ts&#34; or as standard vectors or matrices. If entered as &#34;ts&#34; objects, the</text>
+<text top="818" left="149" width="256" height="13" font="4">resulting series will be &#34;ts&#34; objects as well.</text>
+<text top="839" left="171" width="573" height="13" font="4">The conversion argument indicates whether the low frequency values are sums, averages, first or</text>
+<text top="856" left="149" width="598" height="13" font="4">last values of the high frequency values (&#34;sum&#34; (default), &#34;average&#34;, &#34;first&#34; or &#34;last&#34;, respectively).</text>
+<text top="872" left="148" width="535" height="13" font="4">The method argument indicates the method of temporal disaggregation, as shown in Table</text>
+<text top="872" left="687" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#3">2</a></text>
+<text top="872" left="697" width="47" height="13" font="4">(see ?td</text>
+<text top="888" left="149" width="595" height="13" font="4">for a complete listing of methods). The to argument indicates the high frequency destination as a</text>
+<text top="905" left="149" width="596" height="13" font="4">character string (&#34;quarterly&#34; (default) or &#34;monthly&#34;) or as a scalar (e.g. 2, 7, for year-semester or</text>
+<text top="921" left="148" width="596" height="13" font="4">week-day conversion). It is only required if no indicator series is specified (Denton methods), or if</text>
+<text top="938" left="149" width="595" height="13" font="4">standard vectors are used instead of time series objects. Finally, you can set an optional start or end</text>
+<text top="954" left="149" width="406" height="13" font="4">date. This is identical to pre-processing the input series with window.</text>
+<text top="976" left="171" width="14" height="11" font="4">td</text>
+<text top="975" left="188" width="557" height="13" font="4">returns an object of class &#34;td&#34;. The function predict computes the disaggregated high frequency</text>
+<text top="992" left="149" width="595" height="13" font="4">series, ˆy. If the high frequency indicator series are longer than the low frequency series, the resulting</text>
+<text top="1008" left="149" width="159" height="13" font="4">series will be extrapolated.</text>
+<text top="1029" left="171" width="573" height="13" font="4">The implementation of <b>tempdisagg </b>follows the same notation and modular structure as the</text>
+<text top="1045" left="149" width="595" height="13" font="4">exposure in the previous section. Internally, td uses the optimize function (package <b>stats</b>) to solve</text>
+<text top="1062" left="149" width="598" height="13" font="4">the one-dimensional optimization problem at the core of the Chow-Lin and Litterman methods.</text>
+<text top="1078" left="149" width="595" height="13" font="4">For GLS estimation, td uses an efficient and nummerically stable algorithm that is based on the</text>
+<text top="1095" left="149" width="112" height="14" font="4">qr-decomposition <a href="2013-2-sax-steiner.html#7">(</a></text>
+<text top="1095" left="261" width="33" height="13" font="7"><a href="2013-2-sax-steiner.html#7">Paige</a></text>
+<text top="1095" left="294" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#7">,</a></text>
+<text top="1095" left="300" width="27" height="13" font="7"><a href="2013-2-sax-steiner.html#7">1979</a></text>
+<text top="1095" left="327" width="8" height="13" font="4"><a href="2013-2-sax-steiner.html#7">).</a></text>
+<text top="1121" left="165" width="4" height="9" font="10">3</text>
+<text top="1124" left="170" width="56" height="12" font="1">There is no</text>
+<text top="1124" left="229" width="24" height="10" font="15">data</text>
+<text top="1124" left="256" width="63" height="12" font="1">argument in</text>
+<text top="1124" left="322" width="12" height="10" font="15">td</text>
+<text top="1124" left="334" width="98" height="12" font="1">, however. Because</text>
+<text top="1124" left="435" width="12" height="10" font="15">td</text>
+<text top="1124" left="450" width="296" height="12" font="1">is working with series of different length and frequencies,</text>
+<text top="1138" left="149" width="234" height="12" font="1">it is not possible to combine them in a single</text>
+<text top="1138" left="386" width="73" height="10" font="15">&#34;data.frame&#34;</text>
+<text top="1138" left="459" width="3" height="12" font="1">.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">84</text>
+<text top="100" left="149" width="98" height="17" font="5"><b>An example</b></text>
+<text top="139" left="149" width="598" height="13" font="4">Suppose we have an annual series and want to create quarterly values that sum up to the annual values.</text>
+<text top="155" left="149" width="87" height="13" font="4">Panel 1 of Fig.</text>
+<text top="155" left="240" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="155" left="250" width="496" height="13" font="4">depicts annual sales of the pharmaceutical and chemical industry in Switzerland,</text>
+<text top="172" left="149" width="48" height="11" font="4">sales.a</text>
+<text top="172" left="197" width="547" height="13" font="4">, from which we want to create a quarterly series. The following example demonstrates the</text>
+<text top="188" left="149" width="388" height="13" font="4">basic use of <b>tempdisagg</b>. It can also be run by demo(tempdisagg).</text>
+<text top="209" left="171" width="573" height="13" font="4">The most simple method is &#34;denton-cholette&#34; without an indicator series. It performs a simple</text>
+<text top="226" left="149" width="597" height="13" font="4">interpolation that meets the temporal additivity constraint. In R, this can be done the following way:</text>
+<text top="253" left="149" width="144" height="11" font="4">&gt; library(tempdisagg)</text>
+<text top="269" left="149" width="130" height="11" font="4">&gt; data(swisspharma)</text>
+<text top="286" left="149" width="473" height="11" font="4">&gt; m1 &lt;- td(sales.a ~ 1, to = &#34;quarterly&#34;, method = &#34;denton-cholette&#34;)</text>
+<text top="302" left="149" width="89" height="11" font="4">&gt; predict(m1)</text>
+<text top="329" left="149" width="14" height="11" font="4">td</text>
+<text top="329" left="167" width="578" height="13" font="4">produces an object of class &#34;td&#34;. The formula, sales.a ~ 1, indicates that our low frequency</text>
+<text top="345" left="148" width="596" height="13" font="4">variable, sales.a, will be disaggregated with a constant, 1 (see ?formula for the handling of the</text>
+<text top="362" left="149" width="595" height="13" font="4">intercept in the formula interface). The resulting quarterly values of sales can be extracted with the</text>
+<text top="379" left="149" width="48" height="11" font="4">predict</text>
+<text top="378" left="200" width="544" height="13" font="4">function. As there is no additional information on quarterly movements, the resulting series</text>
+<text top="394" left="149" width="179" height="13" font="4">is very smooth (Panel 2 of Fig.</text>
+<text top="394" left="332" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="394" left="338" width="8" height="13" font="4"><a href="2013-2-sax-steiner.html#6">).</a></text>
+<text top="415" left="171" width="573" height="13" font="4">While this purely mathematical approach is easy to perform and does not need any other data</text>
+<text top="432" left="149" width="596" height="13" font="4">series, the economic value of the resulting series may be limited. There might be a related quarterly</text>
+<text top="448" left="149" width="595" height="13" font="4">series that follows a similar movement than sales. For example, we may use quarterly exports of</text>
+<text top="465" left="148" width="391" height="13" font="4">pharmaceutical and chemical products, exports.q (Panel 3 of Fig.</text>
+<text top="465" left="542" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="465" left="549" width="8" height="13" font="4"><a href="2013-2-sax-steiner.html#6">):</a></text>
+<text top="492" left="149" width="432" height="11" font="4">&gt; m2 &lt;- td(sales.a ~ 0 + exports.q, method = &#34;denton-cholette&#34;)</text>
+<text top="518" left="149" width="597" height="13" font="4">Because we cannot use more than one indicator with the &#34;denton-cholette&#34; (or &#34;denton&#34;) method,</text>
+<text top="535" left="149" width="595" height="13" font="4">the intercept must be specified as missing in the formula (0). Contrary to the first example, the to</text>
+<text top="551" left="149" width="595" height="13" font="4">argument is redundant, because the destination frequency can be interfered from the time series</text>
+<text top="568" left="148" width="596" height="13" font="4">properties of exports.q. Applying the predict function to the resulting model leads to a much more</text>
+<text top="584" left="149" width="261" height="13" font="4">interesting series, as shown in Panel 4 of Fig.</text>
+<text top="584" left="413" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="584" left="420" width="326" height="13" font="4"><a href="2013-2-sax-steiner.html#6">. </a>As the indicator series is longer than the annual series,</text>
+<text top="601" left="149" width="425" height="13" font="4">there is an extrapolation period, in which quarterly sales are forecasted.</text>
+<text top="622" left="171" width="573" height="13" font="4">With an indicator, the &#34;denton-cholette&#34; method simply transfers the movement of the indicator</text>
+<text top="638" left="149" width="595" height="13" font="4">to the resulting series. Even if in fact there were no correlation between the two series, there would be a</text>
+<text top="654" left="149" width="595" height="13" font="4">strong similarity between the indicator and the resulting series. In contrast, regression based methods</text>
+<text top="671" left="149" width="595" height="13" font="4">transfer the movement only if the indicator series and the resulting series are actually correlated on</text>
+<text top="687" left="149" width="595" height="13" font="4">the annual level. For example, a Chow-Lin regression of the same problem as above can be performed</text>
+<text top="704" left="149" width="112" height="13" font="4">the following way:</text>
+<text top="731" left="149" width="213" height="11" font="4">&gt; m3 &lt;- td(sales.a ~ exports.q)</text>
+<text top="758" left="148" width="598" height="13" font="4">As &#34;chow-lin-maxlog&#34; is the default method, it does not need to be specified. Like with the corre-</text>
+<text top="774" left="149" width="418" height="13" font="4">sponding lm method, summary produces an overview of the regression:</text>
+<text top="801" left="149" width="89" height="11" font="4">&gt; summary(m3)</text>
+<text top="834" left="149" width="34" height="11" font="4">Call:</text>
+<text top="851" left="149" width="226" height="11" font="4">td(formula = sales.a ~ exports.q)</text>
+<text top="884" left="149" width="69" height="11" font="4">Residuals:</text>
+<text top="900" left="176" width="21" height="11" font="4">Min</text>
+<text top="900" left="238" width="14" height="11" font="4">1Q</text>
+<text top="900" left="265" width="41" height="11" font="4">Median</text>
+<text top="900" left="348" width="14" height="11" font="4">3Q</text>
+<text top="900" left="396" width="21" height="11" font="4">Max</text>
+<text top="917" left="149" width="48" height="11" font="4">-77.892</text>
+<text top="917" left="211" width="41" height="11" font="4">-7.711</text>
+<text top="917" left="265" width="41" height="11" font="4">-4.628</text>
+<text top="917" left="327" width="34" height="11" font="4">9.647</text>
+<text top="917" left="375" width="41" height="11" font="4">36.448</text>
+<text top="949" left="149" width="89" height="11" font="4">Coefficients:</text>
+<text top="966" left="238" width="247" height="11" font="4">Estimate Std. Error t value Pr(&gt;|t|)</text>
+<text top="982" left="149" width="144" height="11" font="4">(Intercept) 1.241e+01</text>
+<text top="982" left="307" width="62" height="11" font="4">1.493e+00</text>
+<text top="982" left="389" width="123" height="11" font="4">8.311 1.06e-09 ***</text>
+<text top="999" left="149" width="62" height="11" font="4">exports.q</text>
+<text top="999" left="231" width="62" height="11" font="4">1.339e-02</text>
+<text top="999" left="307" width="62" height="11" font="4">1.672e-04</text>
+<text top="999" left="382" width="41" height="11" font="4">80.111</text>
+<text top="999" left="437" width="75" height="11" font="4">&lt; 2e-16 ***</text>
+<text top="1015" left="149" width="21" height="11" font="4">---</text>
+<text top="1032" left="149" width="96" height="11" font="4">Signif. codes:</text>
+<text top="1032" left="259" width="316" height="11" font="4">0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</text>
+<text top="1064" left="149" width="370" height="11" font="4">’chow-lin-maxlog’ disaggregation with ’sum’ conversion</text>
+<text top="1081" left="149" width="343" height="11" font="4">36 low-freq. obs. converted to 146 high-freq. obs.</text>
+<text top="1097" left="149" width="178" height="11" font="4">Adjusted R-squared: 0.9946</text>
+<text top="1097" left="341" width="96" height="11" font="4">AR1-Parameter:</text>
+<text top="1097" left="471" width="89" height="11" font="4">0 (truncated)</text>
+<text top="1124" left="148" width="596" height="13" font="4">There is indeed a strong correlation between exports and sales, as it has been assumed in the</text>
+<text top="1141" left="149" width="117" height="11" font="4">&#34;denton-cholette&#34;</text>
+<text top="1140" left="269" width="476" height="13" font="4">example above. The coefficient of exports.q is highly significant, and the very</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="20" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="21" size="6" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">85</text>
+<text top="207" left="269" width="87" height="8" font="19"><b>Panel 1: annual series</b></text>
+<text top="366" left="164" width="0" height="8" font="20">ann</text>
+<text top="352" left="164" width="0" height="8" font="20">ual sales</text>
+<text top="320" left="164" width="0" height="8" font="20">, inde</text>
+<text top="300" left="164" width="0" height="8" font="20">x</text>
+<text top="457" left="185" width="18" height="8" font="21">1975</text>
+<text top="457" left="219" width="18" height="8" font="21">1980</text>
+<text top="457" left="253" width="18" height="8" font="21">1985</text>
+<text top="457" left="286" width="18" height="8" font="21">1990</text>
+<text top="457" left="320" width="18" height="8" font="21">1995</text>
+<text top="457" left="354" width="18" height="8" font="21">2000</text>
+<text top="457" left="388" width="18" height="8" font="21">2005</text>
+<text top="457" left="422" width="18" height="8" font="21">2010</text>
+<text top="427" left="176" width="0" height="8" font="20">200</text>
+<text top="381" left="176" width="0" height="8" font="20">400</text>
+<text top="336" left="176" width="0" height="8" font="20">600</text>
+<text top="290" left="176" width="0" height="8" font="20">800</text>
+<text top="247" left="176" width="0" height="8" font="20">1000</text>
+<text top="207" left="476" width="269" height="8" font="19"><b>Panel 2: Denton−Cholette disaggregation without an indicator series</b></text>
+<text top="370" left="461" width="0" height="8" font="20">quar</text>
+<text top="353" left="461" width="0" height="8" font="20">ter</text>
+<text top="343" left="461" width="0" height="8" font="20">ly sales</text>
+<text top="316" left="461" width="0" height="8" font="20">, inde</text>
+<text top="296" left="461" width="0" height="8" font="20">x</text>
+<text top="457" left="482" width="18" height="8" font="21">1975</text>
+<text top="457" left="516" width="18" height="8" font="21">1980</text>
+<text top="457" left="549" width="18" height="8" font="21">1985</text>
+<text top="457" left="582" width="18" height="8" font="21">1990</text>
+<text top="457" left="615" width="18" height="8" font="21">1995</text>
+<text top="457" left="648" width="18" height="8" font="21">2000</text>
+<text top="457" left="681" width="18" height="8" font="21">2005</text>
+<text top="457" left="714" width="18" height="8" font="21">2010</text>
+<text top="424" left="474" width="0" height="8" font="20">50</text>
+<text top="381" left="474" width="0" height="8" font="20">100</text>
+<text top="336" left="474" width="0" height="8" font="20">150</text>
+<text top="291" left="474" width="0" height="8" font="20">200</text>
+<text top="246" left="474" width="0" height="8" font="20">250</text>
+<text top="484" left="246" width="133" height="8" font="19"><b>Panel 3: quarterly indicator series</b></text>
+<text top="678" left="164" width="0" height="8" font="20">quar</text>
+<text top="662" left="164" width="0" height="8" font="20">ter</text>
+<text top="652" left="164" width="0" height="8" font="20">ly e</text>
+<text top="639" left="164" width="0" height="8" font="20">xpor</text>
+<text top="623" left="164" width="0" height="8" font="20">ts in mio</text>
+<text top="592" left="164" width="0" height="8" font="20">. Swiss Fr</text>
+<text top="556" left="164" width="0" height="8" font="20">ancs</text>
+<text top="735" left="185" width="18" height="8" font="21">1975</text>
+<text top="735" left="218" width="18" height="8" font="21">1980</text>
+<text top="735" left="251" width="18" height="8" font="21">1985</text>
+<text top="735" left="284" width="18" height="8" font="21">1990</text>
+<text top="735" left="316" width="18" height="8" font="21">1995</text>
+<text top="735" left="349" width="18" height="8" font="21">2000</text>
+<text top="735" left="382" width="18" height="8" font="21">2005</text>
+<text top="735" left="415" width="18" height="8" font="21">2010</text>
+<text top="683" left="176" width="0" height="8" font="20">5000</text>
+<text top="629" left="176" width="0" height="8" font="20">10000</text>
+<text top="572" left="176" width="0" height="8" font="20">15000</text>
+<text top="515" left="176" width="0" height="8" font="20">20000</text>
+<text top="484" left="482" width="256" height="8" font="19"><b>Panel 4: Denton−Cholette disaggregation with an indicator series</b></text>
+<text top="648" left="461" width="0" height="8" font="20">quar</text>
+<text top="631" left="461" width="0" height="8" font="20">ter</text>
+<text top="621" left="461" width="0" height="8" font="20">ly sales</text>
+<text top="594" left="461" width="0" height="8" font="20">, inde</text>
+<text top="574" left="461" width="0" height="8" font="20">x</text>
+<text top="735" left="482" width="18" height="8" font="21">1975</text>
+<text top="735" left="515" width="18" height="8" font="21">1980</text>
+<text top="735" left="548" width="18" height="8" font="21">1985</text>
+<text top="735" left="581" width="18" height="8" font="21">1990</text>
+<text top="735" left="614" width="18" height="8" font="21">1995</text>
+<text top="735" left="647" width="18" height="8" font="21">2000</text>
+<text top="735" left="680" width="18" height="8" font="21">2005</text>
+<text top="735" left="713" width="18" height="8" font="21">2010</text>
+<text top="701" left="474" width="0" height="8" font="20">50</text>
+<text top="660" left="474" width="0" height="8" font="20">100</text>
+<text top="617" left="474" width="0" height="8" font="20">150</text>
+<text top="573" left="474" width="0" height="8" font="20">200</text>
+<text top="530" left="474" width="0" height="8" font="20">250</text>
+<text top="762" left="245" width="135" height="8" font="19"><b>Panel 5: Chow−Lin disaggregation</b></text>
+<text top="925" left="164" width="0" height="8" font="20">quar</text>
+<text top="909" left="164" width="0" height="8" font="20">ter</text>
+<text top="899" left="164" width="0" height="8" font="20">ly sales</text>
+<text top="871" left="164" width="0" height="8" font="20">, inde</text>
+<text top="851" left="164" width="0" height="8" font="20">x</text>
+<text top="1013" left="185" width="18" height="8" font="21">1975</text>
+<text top="1013" left="218" width="18" height="8" font="21">1980</text>
+<text top="1013" left="251" width="18" height="8" font="21">1985</text>
+<text top="1013" left="284" width="18" height="8" font="21">1990</text>
+<text top="1013" left="316" width="18" height="8" font="21">1995</text>
+<text top="1013" left="349" width="18" height="8" font="21">2000</text>
+<text top="1013" left="382" width="18" height="8" font="21">2005</text>
+<text top="1013" left="415" width="18" height="8" font="21">2010</text>
+<text top="980" left="176" width="0" height="8" font="20">50</text>
+<text top="940" left="176" width="0" height="8" font="20">100</text>
+<text top="897" left="176" width="0" height="8" font="20">150</text>
+<text top="854" left="176" width="0" height="8" font="20">200</text>
+<text top="812" left="176" width="0" height="8" font="20">250</text>
+<text top="762" left="554" width="113" height="8" font="19"><b>Panel 6: true quarterly series</b></text>
+<text top="925" left="461" width="0" height="8" font="20">quar</text>
+<text top="909" left="461" width="0" height="8" font="20">ter</text>
+<text top="899" left="461" width="0" height="8" font="20">ly sales</text>
+<text top="871" left="461" width="0" height="8" font="20">, inde</text>
+<text top="851" left="461" width="0" height="8" font="20">x</text>
+<text top="1013" left="482" width="18" height="8" font="21">1975</text>
+<text top="1013" left="515" width="18" height="8" font="21">1980</text>
+<text top="1013" left="548" width="18" height="8" font="21">1985</text>
+<text top="1013" left="581" width="18" height="8" font="21">1990</text>
+<text top="1013" left="614" width="18" height="8" font="21">1995</text>
+<text top="1013" left="647" width="18" height="8" font="21">2000</text>
+<text top="1013" left="680" width="18" height="8" font="21">2005</text>
+<text top="1013" left="713" width="18" height="8" font="21">2010</text>
+<text top="978" left="474" width="0" height="8" font="20">50</text>
+<text top="938" left="474" width="0" height="8" font="20">100</text>
+<text top="896" left="474" width="0" height="8" font="20">150</text>
+<text top="853" left="474" width="0" height="8" font="20">200</text>
+<text top="811" left="474" width="0" height="8" font="20">250</text>
+<text top="1045" left="172" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="1045" left="233" width="488" height="13" font="4">Disaggregating an annual series to quarterly series with no or one indicator series.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">86</text>
+<text top="103" left="149" width="96" height="13" font="4">high adjusted R</text>
+<text top="100" left="245" width="5" height="10" font="9">2</text>
+<text top="103" left="254" width="490" height="13" font="4">points to a strong relationship between the two variables. The coefficients are the</text>
+<text top="120" left="149" width="595" height="13" font="4">result of a GLS regression between the annual series. The AR1 parameter, <i>ρ</i>, was estimated to be</text>
+<text top="136" left="149" width="595" height="13" font="4">negative; in order to avoid the undesirable side-effects of a negative <i>ρ</i>, it has been truncated to 0 (This</text>
+<text top="152" left="149" width="596" height="13" font="4">feature can be turned off). Again, with the predict function, we can extract the resulting quarterly</text>
+<text top="169" left="149" width="175" height="13" font="4">series of sales (Panel 5 of Fig.</text>
+<text top="169" left="327" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="169" left="334" width="410" height="13" font="4"><a href="2013-2-sax-steiner.html#6">). </a>Like all regression based methods, &#34;chow-lin-maxlog&#34; can also be</text>
+<text top="185" left="149" width="246" height="13" font="4">used with more than one indicator series:</text>
+<text top="213" left="149" width="364" height="11" font="4">&gt; m4 &lt;- td(formula = sales.a ~ exports.q + imports.q)</text>
+<text top="239" left="171" width="573" height="13" font="4">In our example, we actually know the true data on quarterly sales, so we can compare the estimated</text>
+<text top="256" left="148" width="596" height="13" font="4">values to the true values. With an indicator series, both the Denton method and Chow-Lin produce</text>
+<text top="272" left="149" width="323" height="13" font="4">a series that is close to the true series (Panel 6 of Fig.</text>
+<text top="272" left="476" width="7" height="13" font="7"><a href="2013-2-sax-steiner.html#6">1</a></text>
+<text top="272" left="483" width="261" height="13" font="4"><a href="2013-2-sax-steiner.html#6">). </a>This is, of course, due to fact that in this</text>
+<text top="288" left="149" width="595" height="13" font="4">example, exports are a good indicator for sales. If the indicator is less close to the series of interest, the</text>
+<text top="305" left="149" width="296" height="13" font="4">resulting series will be less close to the true series.</text>
+<text top="350" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="389" left="149" width="72" height="13" font="3"><b>tempdisagg</b></text>
+<text top="389" left="224" width="522" height="13" font="4">implements the standard methods for temporal disaggregation. It offers a way to disag-</text>
+<text top="405" left="149" width="597" height="13" font="4">gregate a low frequency time series into a higher frequency series, while either the sum, the average,</text>
+<text top="421" left="149" width="596" height="13" font="4">the first or the last value of the resulting high frequency series is consistent with the low frequency</text>
+<text top="438" left="149" width="595" height="13" font="4">series. Temporal disaggregation can be performed with or without the help of one or more high</text>
+<text top="454" left="149" width="598" height="13" font="4">frequency indicators. If good indicators are at hand, the resulting series may be close to the true series.</text>
+<text top="499" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="538" left="149" width="595" height="13" font="4">L. Barbone, G. Bodo, and I. Visco. Costi e profitti nell’industria in senso stretto: Un’analisi su serie</text>
+<text top="554" left="164" width="439" height="13" font="4">trimestrali, 1970–1980. Bolletino della Banca d’Italia, pages 467–510, 1981. <a href="2013-2-sax-steiner.html#4">[p</a></text>
+<text top="554" left="603" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#4">83</a></text>
+<text top="554" left="617" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#4">]</a></text>
+<text top="583" left="149" width="595" height="13" font="4">R. Barcellan, T. Di Fonzo, D. Raffaele, V. Staplehurst, and D. Buono. Ecotrim: A Program for Temporal</text>
+<text top="599" left="163" width="242" height="14" font="4">Disaggregation of Time Series, 2003. URL</text>
+<text top="600" left="410" width="337" height="11" font="7"><a href="https://circabc.europa.eu/w/browse/c6049bc0-c633-4cab-9811-b476ffe08370">https://circabc.europa.eu/w/browse/c6049bc0-c633-</a></text>
+<text top="616" left="163" width="152" height="11" font="7"><a href="https://circabc.europa.eu/w/browse/c6049bc0-c633-4cab-9811-b476ffe08370">4cab-9811-b476ffe08370</a></text>
+<text top="616" left="316" width="101" height="13" font="4"><a href="https://circabc.europa.eu/w/browse/c6049bc0-c633-4cab-9811-b476ffe08370">. </a>Version 1.01. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="616" left="416" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="616" left="430" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="644" left="149" width="595" height="13" font="4">J. Bournay and G. Laroque. Réflexions sur la méthode d’élaboration des comptes trimestriels. Annales</text>
+<text top="660" left="164" width="166" height="14" font="4">de l’INSÉÉ, 36:3–30, 1979. <a href="2013-2-sax-steiner.html#4">[p</a></text>
+<text top="660" left="330" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#4">83</a></text>
+<text top="660" left="344" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#4">]</a></text>
+<text top="689" left="149" width="595" height="13" font="4">G. C. Chow and A.-L. Lin. Best linear unbiased interpolation, distribution, and extrapolation of time</text>
+<text top="705" left="164" width="528" height="13" font="4">series by related series. The Review of Economics and Statistics, 53(4):372–375, Nov. 1971. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="705" left="692" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="705" left="705" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#1">,</a></text>
+<text top="705" left="712" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#4">83</a></text>
+<text top="705" left="726" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#4">]</a></text>
+<text top="734" left="149" width="595" height="13" font="4">E. B. Dagum and P. A. Cholette. Benchmarking, Temporal Distribution, and Reconciliation Methods for Time</text>
+<text top="750" left="163" width="416" height="14" font="4">Series. Lecture Notes in Statistics. Springer-Verlag, New York, 2006. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="750" left="579" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="750" left="593" width="3" height="13" font="4"><a href="2013-2-sax-steiner.html#1">,</a></text>
+<text top="750" left="599" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#3">82</a></text>
+<text top="750" left="613" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#3">]</a></text>
+<text top="779" left="149" width="595" height="13" font="4">F. T. Denton. Adjustment of monthly or quarterly series to annual totals: An approach based on</text>
+<text top="795" left="163" width="552" height="13" font="4">quadratic minimization. Journal of the American Statistical Association, 66:99–102, Mar. 1971. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="795" left="715" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="795" left="729" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="823" left="149" width="595" height="13" font="4">T. Di Fonzo. Temporal disaggregation of a system of time series when the aggregate is known: Optimal</text>
+<text top="840" left="163" width="583" height="13" font="4">vs. adjustment methods. In Workshop on Quarterly National Accounts, pages 63–77, Paris, Dec. 1994.</text>
+<text top="856" left="164" width="71" height="13" font="4">Eurostat. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="856" left="234" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="856" left="248" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="885" left="149" width="415" height="13" font="4">T. Doan. Disaggregate: A General Procedure for Interpolation, 2008. URL</text>
+<text top="885" left="567" width="178" height="11" font="7"><a href="http://www.estima.com/procs_perl/disaggregate.src">www.estima.com/procs_perl/</a></text>
+<text top="902" left="164" width="110" height="11" font="7"><a href="http://www.estima.com/procs_perl/disaggregate.src">disaggregate.src</a></text>
+<text top="901" left="274" width="234" height="13" font="4"><a href="http://www.estima.com/procs_perl/disaggregate.src">. </a>RATS library version Apr. 07, 2008. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="901" left="507" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="901" left="521" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="929" left="149" width="595" height="13" font="4">R. B. Fernández. A methodological note on the estimation of time series. The Review of Economics and</text>
+<text top="946" left="163" width="191" height="14" font="4">Statistics, 63(3):471–476, 1981. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="946" left="354" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="946" left="368" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="974" left="149" width="595" height="13" font="4">R. B. Litterman. A random walk, Markov model for the distribution of time series. Journal of Business</text>
+<text top="991" left="163" width="254" height="14" font="4">&amp; Economic Statistics, 1(2):169–173, 1983. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="991" left="417" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="991" left="431" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="1019" left="149" width="595" height="13" font="4">C. C. Paige. Fast numerically stable computations for generalized linear least squares problems. SIAM</text>
+<text top="1035" left="164" width="310" height="14" font="4">Journal on Numerical Analysis, 16(1):165–171, 1979. <a href="2013-2-sax-steiner.html#4">[p</a></text>
+<text top="1036" left="474" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#4">83</a></text>
+<text top="1036" left="487" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#4">]</a></text>
+<text top="1064" left="149" width="81" height="13" font="4">E. M. Quilis.</text>
+<text top="1064" left="245" width="232" height="14" font="4">Temporal Disaggregation Library, 2012.</text>
+<text top="1064" left="491" width="28" height="13" font="4">URL</text>
+<text top="1065" left="526" width="219" height="11" font="7"><a href="http://www.mathworks.com/matlabcentral/fileexchange/24438-">www.mathworks.com/matlabcentral/</a></text>
+<text top="1081" left="164" width="130" height="11" font="7"><a href="http://www.mathworks.com/matlabcentral/fileexchange/24438-">fileexchange/24438-</a></text>
+<text top="1080" left="295" width="243" height="13" font="4"><a href="http://www.mathworks.com/matlabcentral/fileexchange/24438-">. </a>Matlab library version May 08, 2012. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="1080" left="537" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="1080" left="551" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="1109" left="149" width="597" height="13" font="4">C. Sax and P. Steiner. tempdisagg: Methods for Temporal Disaggregation and Interpolation of Time Series,</text>
+<text top="1125" left="164" width="63" height="13" font="4">2013. URL</text>
+<text top="1126" left="230" width="303" height="11" font="7"><a href="http://CRAN.R-project.org/package=tempdisagg">http://CRAN.R-project.org/package=tempdisagg</a></text>
+<text top="1125" left="532" width="165" height="13" font="4"><a href="http://CRAN.R-project.org/package=tempdisagg">. </a>R package version 0.22. <a href="2013-2-sax-steiner.html#1">[p</a></text>
+<text top="1125" left="697" width="13" height="13" font="7"><a href="2013-2-sax-steiner.html#1">80</a></text>
+<text top="1125" left="711" width="4" height="13" font="4"><a href="2013-2-sax-steiner.html#1">]</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">87</text>
+<text top="103" left="148" width="77" height="13" font="4">Christoph Sax</text>
+<text top="119" left="148" width="237" height="13" font="4">State Secretariat of Economic Affaires, Bern</text>
+<text top="136" left="148" width="104" height="13" font="4">University of Basel</text>
+<text top="152" left="148" width="66" height="13" font="4">Switzerland</text>
+<text top="169" left="149" width="158" height="11" font="7"><a href="mailto:christoph.sax@gmail.com">christoph.sax@gmail.com</a></text>
+<text top="206" left="148" width="71" height="13" font="4">Peter Steiner</text>
+<text top="223" left="148" width="207" height="13" font="4">Federal Finance Administration, Bern</text>
+<text top="239" left="148" width="102" height="13" font="4">University of Bern</text>
+<text top="255" left="148" width="66" height="13" font="4">Switzerland</text>
+<text top="273" left="149" width="137" height="11" font="7"><a href="mailto:pete.steiner@gmx.net">pete.steiner@gmx.net</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

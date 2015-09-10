@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">53</text>
+<text top="98" left="149" width="422" height="30" font="2"><b>osmar: OpenStreetMap and R</b></text>
+<text top="134" left="149" width="297" height="15" font="0">by Manuel J. A. Eugster and Thomas Schlesinger</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="203" width="541" height="13" font="4">OpenStreetMap provides freely accessible and editable geographic data. The <b>osmar </b>package</text>
+<text top="192" left="149" width="595" height="13" font="4">smoothly integrates the OpenStreetMap project into the R ecosystem. The <b>osmar </b>package provides</text>
+<text top="208" left="149" width="595" height="13" font="4">infrastructure to access OpenStreetMap data from different sources, to enable working with the OSM</text>
+<text top="224" left="149" width="595" height="13" font="4">data in the familiar R idiom, and to convert the data into objects based on classes provided by existing</text>
+<text top="241" left="149" width="595" height="13" font="4">R packages. This paper explains the package’s concept and shows how to use it. As an application we</text>
+<text top="257" left="148" width="210" height="13" font="4">present a simple navigation device.</text>
+<text top="302" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="341" left="147" width="600" height="13" font="4">“OpenStreetMap creates and provides free geographic data such as street maps to anyone who wants them”</text>
+<text top="357" left="149" width="284" height="13" font="4">announces the OpenStreetMap wiki main page <a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="357" left="433" width="102" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">OSM Foundation</a></text>
+<text top="357" left="535" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="357" left="542" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="357" left="569" width="176" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>– and we think R users want</text>
+<text top="374" left="149" width="310" height="13" font="4">free geographic data. Therefore, the add-on package</text>
+<text top="374" left="462" width="37" height="13" font="7"><a href="http://CRAN.R-project.org/package=osmar"><b>osmar</b></a></text>
+<text top="374" left="503" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="374" left="507" width="143" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Schlesinger and Eugster</a></text>
+<text top="374" left="650" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="374" left="657" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2012</a></text>
+<text top="374" left="684" width="60" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>provides</text>
+<text top="390" left="149" width="548" height="13" font="4">extensible infrastructure for integrating the OpenStreetMap project (OSM) into the R project.</text>
+<text top="411" left="171" width="573" height="13" font="4">The aim of the OpenStreetMap project is to create a free editable map of the world. The project</text>
+<text top="428" left="149" width="595" height="13" font="4">maintains a database of geographic elements (nodes, ways and relations) and features (such as</text>
+<text top="444" left="149" width="595" height="13" font="4">streets, buildings and landmarks). These data are collected and provided by volunteers using GPS</text>
+<text top="461" left="149" width="595" height="13" font="4">devices, aerial imagery, and local knowledge. The most prominent application is the rendering of</text>
+<text top="477" left="149" width="598" height="13" font="4">the geographic data and features into raster images (for example, for the OSM map on the website).</text>
+<text top="493" left="149" width="595" height="13" font="4">However, the project also provides an application programming interface (API) for fetching raw data</text>
+<text top="510" left="149" width="227" height="13" font="4">from and saving to the OSM database.</text>
+<text top="531" left="171" width="573" height="13" font="4">The OpenStreetMap project provides data in the OSM XML format, which consists of three basic</text>
+<text top="547" left="149" width="56" height="13" font="4">elements:</text>
+<text top="574" left="149" width="37" height="13" font="3"><b>Node:</b></text>
+<text top="574" left="193" width="410" height="13" font="4">The basic element. It consists of the attributes latitude and longitude.</text>
+<text top="597" left="149" width="30" height="13" font="3"><b>Way:</b></text>
+<text top="597" left="186" width="559" height="13" font="4">An ordered interconnection of nodes to describe a linear feature (e.g., a street). Areas (e.g.,</text>
+<text top="613" left="186" width="251" height="13" font="4">buildings) are represented as closed ways.</text>
+<text top="635" left="149" width="56" height="13" font="3"><b>Relation:</b></text>
+<text top="635" left="212" width="533" height="13" font="4">A grouping of elements (nodes, ways, and relations), which are somehow geographically</text>
+<text top="652" left="186" width="205" height="13" font="4">related (e.g., bus and cycle routes).</text>
+<text top="679" left="149" width="595" height="13" font="4">Each element has further attributes like the element ID (unique within the corresponding element</text>
+<text top="695" left="149" width="595" height="13" font="4">group) and timestamp. Furthermore, each element may have an arbitrary number of tags (key-value</text>
+<text top="712" left="148" width="598" height="13" font="4">pairs) which describe the element. Ways and relations, in addition, have references to their members’</text>
+<text top="728" left="149" width="24" height="13" font="4">IDs.</text>
+<text top="749" left="171" width="573" height="13" font="4">In order to access the data, OSM provides an application programming interface (API) over the</text>
+<text top="765" left="149" width="598" height="13" font="4">hypertext transfer protocol (HTTP) for getting raw data from and putting it to the OSM database.</text>
+<text top="782" left="148" width="596" height="13" font="4">The main API (currently in version 0.6) has calls to get elements (and all other elements referenced</text>
+<text top="798" left="149" width="597" height="13" font="4">by it) by, among other things, their ID and a bounding box. However, the requests are limited (e.g.,</text>
+<text top="815" left="149" width="595" height="13" font="4">currently only an area of 0.25 square degrees can be queried). An (unlimited) alternative is provided</text>
+<text top="831" left="149" width="597" height="13" font="4">by planet files. These are compressed OSM XML files containing different OSM database extracts (e.g.,</text>
+<text top="848" left="149" width="595" height="13" font="4">the entire world or an individual country or area). Planet files can be downloaded from the OSM wiki</text>
+<text top="864" left="149" width="351" height="13" font="4">and processed using the command-line Java tool Osmosis <a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="864" left="499" width="66" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Henderson</a></text>
+<text top="864" left="566" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="864" left="572" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="864" left="599" width="8" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">).</a></text>
+<text top="885" left="171" width="573" height="13" font="4">For a complete introduction into the OSM project, the OSM API, and the OSM XML file format we</text>
+<text top="901" left="149" width="219" height="13" font="4">refer to the project’s wiki available at</text>
+<text top="902" left="371" width="206" height="11" font="6"><a href="http://wiki.openstreetmap.org/">http://wiki.openstreetmap.org/</a></text>
+<text top="901" left="577" width="3" height="13" font="4"><a href="http://wiki.openstreetmap.org/">.</a></text>
+<text top="922" left="171" width="140" height="13" font="4">The aim of the package</text>
+<text top="922" left="315" width="37" height="13" font="7"><a href="http://CRAN.R-project.org/package=osmar"><b>osmar</b></a></text>
+<text top="922" left="356" width="388" height="13" font="4">is to provide extensible infrastructure to get and to represent the</text>
+<text top="939" left="149" width="595" height="13" font="4">above described OSM data within R, to enable working with the OSM data in the familiar R idiom, and</text>
+<text top="955" left="149" width="523" height="13" font="4">to convert the OSM data to objects based on classes provided by other packages. Figure</text>
+<text top="955" left="675" width="7" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#2">1</a></text>
+<text top="955" left="685" width="59" height="13" font="4">visualizes</text>
+<text top="972" left="149" width="437" height="13" font="4">the package’s concept. This is a different idea than existing packages like</text>
+<text top="972" left="589" width="99" height="13" font="7"><a href="http://CRAN.R-project.org/package=OpenStreetMap"><b>OpenStreetMap</b></a></text>
+<text top="972" left="691" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="972" left="696" width="47" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Fellows</a></text>
+<text top="972" left="742" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="988" left="149" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2012</a></text>
+<text top="988" left="176" width="8" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">),</a></text>
+<text top="988" left="187" width="85" height="13" font="7"><a href="http://CRAN.R-project.org/package=RgoogleMaps"><b>RgoogleMaps</b></a></text>
+<text top="988" left="276" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="988" left="280" width="48" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Loecher</a></text>
+<text top="988" left="328" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="988" left="335" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2012</a></text>
+<text top="988" left="362" width="34" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">), </a>and</text>
+<text top="988" left="400" width="42" height="13" font="7"><a href="http://CRAN.R-project.org/package=ggmap"><b>ggmap</b></a></text>
+<text top="988" left="445" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="988" left="449" width="122" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Kahle and Wickham</a></text>
+<text top="988" left="571" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="988" left="578" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2012</a></text>
+<text top="988" left="605" width="139" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>follow. Whereas these</text>
+<text top="1004" left="148" width="596" height="13" font="4">packages provide access to the already rendered data (i.e., raster images), <b>osmar </b>enables the usage of</text>
+<text top="1021" left="149" width="112" height="13" font="4">the raw OSM data.</text>
+<text top="1042" left="171" width="573" height="13" font="4">In the following section we present the package’s implementation and usage. Note that we try</text>
+<text top="1058" left="149" width="595" height="13" font="4">to increase readability by only showing the relevant arguments of plot statements. We refer to the</text>
+<text top="1075" left="147" width="418" height="13" font="4">“navigator” demo in the <b>osmar </b>package for the actual plot statements.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="10" family="Times" color="#000000"/>
+	<fontspec id="9" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">54</text>
+<text top="149" left="165" width="53" height="12" font="1">Planet file</text>
+<text top="234" left="169" width="45" height="12" font="1">API v0.6</text>
+<text top="192" left="340" width="43" height="10" font="8">OSM-XML</text>
+<text top="191" left="516" width="30" height="10" font="8">osmar</text>
+<text top="105" left="684" width="36" height="12" font="9"><b>igraph</b></text>
+<text top="189" left="695" width="13" height="12" font="9"><b>sp</b></text>
+<text top="273" left="695" width="14" height="12" font="1">. . .</text>
+<text top="170" left="234" width="85" height="10" font="8">get_osm_data()</text>
+<text top="212" left="234" width="85" height="10" font="8">get_osm_data()</text>
+<text top="191" left="416" width="61" height="10" font="8">as_osmar()</text>
+<text top="149" left="583" width="67" height="10" font="8">as_igraph()</text>
+<text top="191" left="595" width="43" height="10" font="8">as_sp()</text>
+<text top="234" left="594" width="18" height="10" font="8">as_</text>
+<text top="233" left="613" width="14" height="12" font="1">. . .</text>
+<text top="234" left="627" width="12" height="10" font="8">()</text>
+<text top="215" left="504" width="55" height="10" font="8">summary()</text>
+<text top="229" left="513" width="37" height="10" font="8">find()</text>
+<text top="244" left="507" width="49" height="10" font="8">subset()</text>
+<text top="257" left="525" width="14" height="12" font="1">. . .</text>
+<text top="116" left="328" width="55" height="10" font="8">get_osm()</text>
+<text top="312" left="287" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="311" left="344" width="261" height="13" font="4">Schematic description of the <b>osmar </b>concept.</text>
+<text top="356" left="149" width="132" height="17" font="5"><b>Getting the data</b></text>
+<text top="395" left="148" width="596" height="13" font="4">We begin with defining the data source. Currently two sources, HTTP-API and planet files, are</text>
+<text top="412" left="149" width="558" height="13" font="4">supported. In this section we use the API of the OSM project with the default URL url =</text>
+<text top="412" left="713" width="34" height="11" font="6"><a href="http://api.openstreetmap.org/api/0.6/">http:</a></text>
+<text top="429" left="148" width="219" height="11" font="6"><a href="http://api.openstreetmap.org/api/0.6/">//api.openstreetmap.org/api/0.6/</a></text>
+<text top="428" left="368" width="3" height="13" font="4"><a href="http://api.openstreetmap.org/api/0.6/">:</a></text>
+<text top="455" left="149" width="123" height="11" font="4">&gt; library(&#34;osmar&#34;)</text>
+<text top="483" left="149" width="199" height="11" font="4">Loading required package: XML</text>
+<text top="500" left="149" width="213" height="11" font="4">Loading required package: RCurl</text>
+<text top="516" left="149" width="219" height="11" font="4">Loading required package: bitops</text>
+<text top="533" left="149" width="219" height="11" font="4">Loading required package: gtools</text>
+<text top="549" left="149" width="240" height="11" font="4">Loading required package: geosphere</text>
+<text top="566" left="149" width="192" height="11" font="4">Loading required package: sp</text>
+<text top="599" left="149" width="178" height="11" font="4">Attaching package: ’osmar’</text>
+<text top="631" left="149" width="233" height="11" font="4">The following object(s) are masked</text>
+<text top="648" left="149" width="144" height="11" font="4">from ’package:utils’:</text>
+<text top="681" left="176" width="27" height="11" font="4">find</text>
+<text top="709" left="149" width="165" height="11" font="4">&gt; src &lt;- osmsource_api()</text>
+<text top="737" left="148" width="596" height="13" font="4">We can retrieve elements by using the IDs of the elements. The IDs in these examples have been</text>
+<text top="754" left="149" width="595" height="13" font="4">extracted by hand from the OpenStreetMap website (via its export functionality). For example, one</text>
+<text top="770" left="149" width="33" height="13" font="4">node:</text>
+<text top="797" left="149" width="268" height="11" font="4">&gt; get_osm(node(18961430), source = src)</text>
+<text top="826" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="842" left="149" width="192" height="11" font="4">1 nodes, 0 ways, 0 relations</text>
+<text top="870" left="149" width="595" height="13" font="4">Or, one way with the way-related data only or with the data for all referenced elements (nodes and</text>
+<text top="887" left="149" width="59" height="13" font="4">relations):</text>
+<text top="913" left="149" width="254" height="11" font="4">&gt; get_osm(way(3810479), source = src)</text>
+<text top="942" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="958" left="149" width="192" height="11" font="4">0 nodes, 1 ways, 0 relations</text>
+<text top="987" left="149" width="343" height="11" font="4">&gt; get_osm(way(3810479), source = src, full = TRUE)</text>
+<text top="1016" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="1032" left="149" width="199" height="11" font="4">11 nodes, 1 ways, 0 relations</text>
+<text top="1060" left="148" width="598" height="13" font="4">The first statement retrieves the way only (because the default value of the full argument is FALSE).</text>
+<text top="1077" left="148" width="596" height="13" font="4">The second statement additionally retrieves all nodes that are members of the way (i.e., all nodes that</text>
+<text top="1093" left="149" width="96" height="13" font="4">define the way).</text>
+<text top="1114" left="171" width="575" height="13" font="4">The second possibility to retrieve elements is to specify a bounding box by defining the left,</text>
+<text top="1130" left="149" width="595" height="13" font="4">bottom, right, and top coordinates (corner_bbox()), or the center point and width and height in</text>
+<text top="1147" left="149" width="145" height="13" font="4">meters (center_bbox()):</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">55</text>
+<text top="104" left="149" width="350" height="11" font="4">&gt; bb &lt;- center_bbox(174.76778, -36.85056, 700, 700)</text>
+<text top="120" left="149" width="226" height="11" font="4">&gt; ua &lt;- get_osm(bb, source = src)</text>
+<text top="137" left="149" width="27" height="11" font="4">&gt; ua</text>
+<text top="166" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="183" left="149" width="233" height="11" font="4">2427 nodes, 428 ways, 70 relations</text>
+<text top="212" left="171" width="573" height="13" font="4">The use of planet files via Osmosis as source works analogously. The source is specified by the</text>
+<text top="229" left="149" width="597" height="13" font="4">function osmsource_osmosis(). The function’s two arguments are the path to the planet file (file)</text>
+<text top="245" left="149" width="595" height="13" font="4">and the path to the ‘osmosis’ tool (osmosis = &#34;osmosis&#34;). Note that per default it is assumed that the</text>
+<text top="262" left="149" width="595" height="13" font="4">Osmosis executable is in your ‘PATH’ environment variable. The navigator example demonstrates the</text>
+<text top="278" left="149" width="121" height="13" font="4">usage of planet files.</text>
+<text top="323" left="149" width="183" height="17" font="5"><b>Working with the data</b></text>
+<text top="362" left="148" width="596" height="13" font="4">The retrieved osmar object is a list with the three elements nodes, ways, and relations. Each element</text>
+<text top="378" left="149" width="595" height="13" font="4">again is a list containing data.frames for the attributes (the attrs list element) and meta-data (the</text>
+<text top="395" left="149" width="27" height="11" font="4">tags</text>
+<text top="394" left="179" width="565" height="13" font="4">list element) of the OSM elements. Ways and relations additionally have a data.frame containing</text>
+<text top="411" left="149" width="223" height="13" font="4">their members (the refs list element).</text>
+<text top="453" left="149" width="74" height="13" font="3"><b>Summarize.</b></text>
+<text top="453" left="237" width="507" height="13" font="4">For each element nodes, ways, and relations of an osmar object an individual summary</text>
+<text top="469" left="149" width="595" height="13" font="4">method is available. The overall summary method for an osmar object shows the three individual</text>
+<text top="486" left="149" width="132" height="13" font="4">summaries all at once.</text>
+<text top="513" left="149" width="130" height="11" font="4">&gt; summary(ua$nodes)</text>
+<text top="543" left="149" width="123" height="11" font="4">osmar$nodes object</text>
+<text top="559" left="149" width="137" height="11" font="4">2427 nodes, 771 tags</text>
+<text top="592" left="149" width="137" height="11" font="4">..$attrs data.frame:</text>
+<text top="609" left="176" width="288" height="11" font="4">id, lat, lon, user, uid, visible, version,</text>
+<text top="625" left="176" width="137" height="11" font="4">changeset, timestamp</text>
+<text top="642" left="149" width="130" height="11" font="4">..$tags data.frame:</text>
+<text top="658" left="176" width="55" height="11" font="4">id, k, v</text>
+<text top="691" left="149" width="89" height="11" font="4">Bounding box:</text>
+<text top="707" left="217" width="21" height="11" font="4">lat</text>
+<text top="707" left="279" width="21" height="11" font="4">lon</text>
+<text top="724" left="149" width="151" height="11" font="4">min -36.85661 174.7627</text>
+<text top="740" left="149" width="151" height="11" font="4">max -36.84472 174.7753</text>
+<text top="773" left="149" width="192" height="11" font="4">Key-Value contingency table:</text>
+<text top="790" left="238" width="21" height="11" font="4">Key</text>
+<text top="790" left="389" width="69" height="11" font="4">Value Freq</text>
+<text top="806" left="149" width="7" height="11" font="4">1</text>
+<text top="806" left="197" width="62" height="11" font="4">addr:city</text>
+<text top="806" left="368" width="55" height="11" font="4">Auckland</text>
+<text top="806" left="437" width="21" height="11" font="4">101</text>
+<text top="822" left="149" width="7" height="11" font="4">2</text>
+<text top="822" left="183" width="75" height="11" font="4">addr:street</text>
+<text top="822" left="341" width="82" height="11" font="4">Queen Street</text>
+<text top="822" left="444" width="14" height="11" font="4">61</text>
+<text top="839" left="149" width="7" height="11" font="4">3</text>
+<text top="839" left="176" width="82" height="11" font="4">addr:country</text>
+<text top="839" left="409" width="14" height="11" font="4">NZ</text>
+<text top="839" left="444" width="14" height="11" font="4">40</text>
+<text top="855" left="149" width="7" height="11" font="4">4</text>
+<text top="855" left="169" width="89" height="11" font="4">addr:postcode</text>
+<text top="855" left="396" width="27" height="11" font="4">1010</text>
+<text top="855" left="444" width="14" height="11" font="4">39</text>
+<text top="872" left="149" width="7" height="11" font="4">5</text>
+<text top="872" left="211" width="213" height="11" font="4">comment Determined via Keypa...</text>
+<text top="872" left="444" width="14" height="11" font="4">29</text>
+<text top="888" left="149" width="7" height="11" font="4">6</text>
+<text top="888" left="183" width="75" height="11" font="4">addr:street</text>
+<text top="888" left="327" width="96" height="11" font="4">Symonds Street</text>
+<text top="888" left="444" width="14" height="11" font="4">27</text>
+<text top="905" left="149" width="7" height="11" font="4">7</text>
+<text top="905" left="211" width="48" height="11" font="4">highway</text>
+<text top="905" left="320" width="103" height="11" font="4">traffic_signals</text>
+<text top="905" left="444" width="14" height="11" font="4">23</text>
+<text top="921" left="149" width="7" height="11" font="4">8</text>
+<text top="921" left="183" width="75" height="11" font="4">addr:street</text>
+<text top="921" left="341" width="82" height="11" font="4">Lorne Street</text>
+<text top="921" left="444" width="14" height="11" font="4">19</text>
+<text top="938" left="149" width="7" height="11" font="4">9</text>
+<text top="938" left="211" width="48" height="11" font="4">highway</text>
+<text top="938" left="368" width="55" height="11" font="4">bus_stop</text>
+<text top="938" left="444" width="14" height="11" font="4">15</text>
+<text top="954" left="149" width="14" height="11" font="4">10</text>
+<text top="954" left="211" width="48" height="11" font="4">amenity</text>
+<text top="954" left="396" width="27" height="11" font="4">cafe</text>
+<text top="954" left="444" width="14" height="11" font="4">11</text>
+<text top="983" left="149" width="595" height="13" font="4">In the case of the summary for nodes, the number of elements and tags, as well as the available</text>
+<text top="1000" left="148" width="596" height="13" font="4">variables for each corresponding data.frame are shown. The bounding box of the coordinates and a</text>
+<text top="1016" left="149" width="509" height="13" font="4">contingency table of the top ten most frequently available key-value pairs are printed.</text>
+<text top="1037" left="171" width="573" height="13" font="4">The summaries for the other two elements ways and relations are similar. Note that these methods</text>
+<text top="1054" left="149" width="595" height="13" font="4">in fact return the contingency table of all available key-value pairs and, in addition, further information</text>
+<text top="1070" left="148" width="598" height="13" font="4">which is not printed but may be useful for a descriptive analysis. We refer to the help pages (e.g.,</text>
+<text top="1087" left="149" width="96" height="11" font="4">?summary.nodes</text>
+<text top="1086" left="245" width="280" height="13" font="4">) for a detailed description of the return values.</text>
+<text top="1128" left="149" width="32" height="13" font="3"><b>Find.</b></text>
+<text top="1128" left="196" width="549" height="13" font="4">In order to find specific elements within the osmar object, the find() function allows the object</text>
+<text top="1145" left="149" width="595" height="13" font="4">to be queried with a given condition. As the basis of osmar objects are data.frames, the condition</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">56</text>
+<text top="103" left="148" width="596" height="13" font="4">principally is a logical expression indicating the rows to keep. In addition, one has to specify to which</text>
+<text top="120" left="149" width="597" height="13" font="4">element (nodes, node(); ways, way(); or relations, relation()) and to which data (attributes, attrs();</text>
+<text top="136" left="149" width="370" height="13" font="4">meta-data, tags(); or members, refs()) the condition applies.</text>
+<text top="157" left="171" width="573" height="13" font="4">If, for example, we want to find all traffic signal nodes, we know from the object’s summary</text>
+<text top="173" left="149" width="595" height="13" font="4">that the corresponding value in the attrs data.frame is &#34;traffic_signals&#34;. We can express this</text>
+<text top="190" left="149" width="123" height="13" font="4">condition as follows:</text>
+<text top="217" left="149" width="384" height="11" font="4">&gt; ts_ids &lt;- find(ua, node(tags(v == &#34;traffic_signals&#34;)))</text>
+<text top="233" left="149" width="55" height="11" font="4">&gt; ts_ids</text>
+<text top="262" left="149" width="233" height="11" font="4">[1] 25769635 25769637 25769641 ...</text>
+<text top="291" left="148" width="596" height="13" font="4">The result is a vector with node IDs (in this case 25 traffic signal nodes) or NA. If the correct spelling is</text>
+<text top="307" left="149" width="596" height="13" font="4">unknown, the defined binary operators %agrep% for approximate matches (see ?agrep) and %grep% for</text>
+<text top="324" left="148" width="247" height="13" font="4">pattern matches (see ?grepl) can be used:</text>
+<text top="350" left="149" width="364" height="11" font="4">&gt; bs_ids &lt;- find(ua, node(tags(v %agrep% &#34;busstop&#34;)))</text>
+<text top="367" left="149" width="55" height="11" font="4">&gt; bs_ids</text>
+<text top="396" left="149" width="89" height="11" font="4">[1] 678301119</text>
+<text top="396" left="252" width="62" height="11" font="4">737159091</text>
+<text top="396" left="327" width="96" height="11" font="4">1318401034 ...</text>
+<text top="424" left="148" width="338" height="13" font="4">This returns 15 bus stops available in the ua osmar object.</text>
+<text top="445" left="171" width="573" height="13" font="4">We use the functions find_down() and find_up() to find all related elements for given element</text>
+<text top="462" left="149" width="286" height="13" font="4">IDs. The OSM basic elements define a hierarchy,</text>
+<text top="491" left="373" width="30" height="13" font="4">node</text>
+<text top="490" left="406" width="14" height="16" font="0">←</text>
+<text top="491" left="424" width="25" height="13" font="4">way</text>
+<text top="490" left="453" width="14" height="16" font="0">←</text>
+<text top="491" left="471" width="49" height="13" font="4">relation,</text>
+<text top="520" left="149" width="596" height="13" font="4">and these two functions enable us to find the related elements up and down the hierarchy. For</text>
+<text top="536" left="149" width="595" height="13" font="4">example, find_up() on a node returns all related nodes, ways, and relations; find_down() on a node</text>
+<text top="553" left="149" width="597" height="13" font="4">returns only the node itself. On the other hand, find_up() on a relation returns only the relation itself;</text>
+<text top="570" left="149" width="75" height="11" font="4">find_down()</text>
+<text top="569" left="228" width="383" height="13" font="4">on a relation returns the relation and all related ways and nodes.</text>
+<text top="596" left="149" width="322" height="11" font="4">&gt; hw_ids &lt;- find(ua, way(tags(k == &#34;highway&#34;)))</text>
+<text top="613" left="149" width="261" height="11" font="4">&gt; hw_ids &lt;- find_down(ua, way(hw_ids))</text>
+<text top="638" left="149" width="595" height="13" font="4">In this example we find all ways that have a tag with the k attribute set to &#34;highway&#34;. These contain</text>
+<text top="655" left="149" width="597" height="13" font="4">hardened and recognised land routes between two places used by motorised vehicles, pedestrians,</text>
+<text top="671" left="149" width="569" height="13" font="4">cyclists, etc. The return value of find_down() and find_up() is a list containing the element IDs:</text>
+<text top="698" left="149" width="89" height="11" font="4">&gt; str(hw_ids)</text>
+<text top="727" left="149" width="62" height="11" font="4">List of 3</text>
+<text top="744" left="156" width="69" height="11" font="4">$ node_ids</text>
+<text top="744" left="252" width="185" height="11" font="4">: num [1:1321] 25769641 ...</text>
+<text top="760" left="156" width="62" height="11" font="4">$ way_ids</text>
+<text top="760" left="252" width="171" height="11" font="4">: num [1:253] 4309608 ...</text>
+<text top="777" left="156" width="137" height="11" font="4">$ relation_ids: NULL</text>
+<text top="818" left="149" width="45" height="13" font="3"><b>Subset.</b></text>
+<text top="818" left="209" width="537" height="13" font="4">The return value of the find functions then can be used to create subsets of osmar objects.</text>
+<text top="834" left="148" width="596" height="13" font="4">The subset() method for osmar objects takes element IDs and returns the corresponding data as osmar</text>
+<text top="850" left="149" width="555" height="13" font="4">objects. For example, the two subsets based on the traffic signal and bus stop element IDs are:</text>
+<text top="877" left="149" width="254" height="11" font="4">&gt; ts &lt;- subset(ua, node_ids = ts_ids)</text>
+<text top="894" left="149" width="27" height="11" font="4">&gt; ts</text>
+<text top="923" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="939" left="149" width="199" height="11" font="4">25 nodes, 0 ways, 0 relations</text>
+<text top="968" left="149" width="254" height="11" font="4">&gt; bs &lt;- subset(ua, node_ids = bs_ids)</text>
+<text top="985" left="149" width="27" height="11" font="4">&gt; bs</text>
+<text top="1014" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="1030" left="149" width="199" height="11" font="4">15 nodes, 0 ways, 0 relations</text>
+<text top="1059" left="148" width="289" height="13" font="4">The subset based on the highway element IDs is:</text>
+<text top="1086" left="149" width="219" height="11" font="4">&gt; hw &lt;- subset(ua, ids = hw_ids)</text>
+<text top="1102" left="149" width="27" height="11" font="4">&gt; hw</text>
+<text top="1131" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="1147" left="149" width="226" height="11" font="4">1321 nodes, 253 ways, 0 relations</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">57</text>
+<text top="103" left="149" width="595" height="13" font="4">Note that the subsetting of osmar objects is divided into the two steps “finding” and “subsetting” to</text>
+<text top="120" left="149" width="597" height="13" font="4">have more flexibility in handling the related elements (here with using find_down() and find_up(),</text>
+<text top="136" left="149" width="297" height="13" font="4">but more sophisticated routines can be imagined).</text>
+<text top="178" left="149" width="28" height="13" font="3"><b>Plot.</b></text>
+<text top="178" left="192" width="553" height="13" font="4">The visualization of osmar objects is possible if nodes are available in the object (as only</text>
+<text top="194" left="149" width="595" height="13" font="4">these OSM elements contain latitude and longitude information). The functions plot_nodes() and</text>
+<text top="211" left="149" width="75" height="11" font="4">plot_ways()</text>
+<text top="211" left="228" width="516" height="13" font="4">plot the available nodes as dots and ways as lines, respectively. The plot() method</text>
+<text top="227" left="149" width="595" height="13" font="4">combines these two function calls. Note that this is a plot of the raw data and no projection is done</text>
+<text top="244" left="148" width="328" height="13" font="4">(see the following section for a projected visualization).</text>
+<text top="271" left="149" width="69" height="11" font="4">&gt; plot(ua)</text>
+<text top="288" left="149" width="288" height="11" font="4">&gt; plot_ways(hw, add = TRUE, col = &#34;green&#34;)</text>
+<text top="304" left="149" width="281" height="11" font="4">&gt; plot_nodes(ts, add = TRUE, col = &#34;red&#34;)</text>
+<text top="320" left="149" width="288" height="11" font="4">&gt; plot_nodes(bs, add = TRUE, col = &#34;blue&#34;)</text>
+<text top="697" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="697" left="206" width="538" height="13" font="4">University of Auckland; roads are green lines; bus stops are blue and traffic signals are red</text>
+<text top="713" left="148" width="41" height="13" font="4">points.</text>
+<text top="774" left="149" width="162" height="17" font="5"><b>Converting the data</b></text>
+<text top="813" left="149" width="595" height="13" font="4">In order to use the complete power of R on OpenStreetMap data, it is essential to be able to convert</text>
+<text top="830" left="149" width="34" height="11" font="4">osmar</text>
+<text top="829" left="187" width="559" height="13" font="4">objects into commonly used objects based on classes provided by other packages. Currently,</text>
+<text top="846" left="149" width="37" height="13" font="3"><b>osmar</b></text>
+<text top="846" left="191" width="216" height="13" font="4">provides two converters – into the</text>
+<text top="846" left="413" width="14" height="13" font="7"><a href="http://CRAN.R-project.org/package=sp"><b>sp</b></a></text>
+<text top="846" left="432" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="846" left="437" width="79" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Bivand et al.</a></text>
+<text top="846" left="516" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="846" left="525" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2008</a></text>
+<text top="846" left="552" width="57" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>and the</text>
+<text top="846" left="615" width="40" height="13" font="7"><a href="http://CRAN.R-project.org/package=igraph"><b>igraph</b></a></text>
+<text top="846" left="660" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="846" left="665" width="40" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Csardi</a></text>
+<text top="846" left="705" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="846" left="713" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="846" left="741" width="5" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">)</a></text>
+<text top="862" left="148" width="596" height="13" font="4">packages. In this section we show the conversion to sp objects, the navigation device example shows</text>
+<text top="878" left="149" width="194" height="13" font="4">the conversion to igraph objects.</text>
+<text top="899" left="171" width="573" height="13" font="4">The <b>sp </b>package provides special data structures and utility functions for spatial data. Spatial data</text>
+<text top="916" left="149" width="405" height="13" font="4">classes are available for points, lines, and polygons and others (see</text>
+<text top="916" left="557" width="76" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Bivand et al.</a></text>
+<text top="916" left="633" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="916" left="640" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2008</a></text>
+<text top="916" left="668" width="77" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">). </a>The <b>osmar</b></text>
+<text top="932" left="148" width="235" height="13" font="4">package provides the as_sp() function,</text>
+<text top="960" left="149" width="89" height="11" font="4">&gt; args(as_sp)</text>
+<text top="990" left="149" width="370" height="11" font="4">function(obj, what = c(&#34;points&#34;, &#34;lines&#34;, &#34;polygons&#34;),</text>
+<text top="1006" left="211" width="226" height="11" font="4">crs = osm_crs(), simplify = TRUE)</text>
+<text top="1022" left="149" width="27" height="11" font="4">NULL</text>
+<text top="1052" left="149" width="596" height="13" font="4">to convert an osmar object into the corresponding classes for points, lines, and polygons in the <b>sp</b></text>
+<text top="1068" left="148" width="596" height="13" font="4">package (given the required data are available). Note that the appropriate WGS84 coordinate reference</text>
+<text top="1085" left="149" width="367" height="13" font="4">system (CRS) for OpenStreetMap data is used (cf. osm_crs()).</text>
+<text top="1127" left="149" width="60" height="13" font="3"><b>Polygons.</b></text>
+<text top="1126" left="224" width="523" height="13" font="4">Polygons are used to represent areas, which OpenStreetMap represents as closed ways.</text>
+<text top="1143" left="149" width="510" height="13" font="4">Buildings, for example, are closed ways and can be converted to an sp polygon object:</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">58</text>
+<text top="104" left="149" width="329" height="11" font="4">&gt; bg_ids &lt;- find(ua, way(tags(k == &#34;building&#34;)))</text>
+<text top="120" left="149" width="261" height="11" font="4">&gt; bg_ids &lt;- find_down(ua, way(bg_ids))</text>
+<text top="137" left="149" width="219" height="11" font="4">&gt; bg &lt;- subset(ua, ids = bg_ids)</text>
+<text top="153" left="149" width="27" height="11" font="4">&gt; bg</text>
+<text top="183" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="199" left="149" width="219" height="11" font="4">991 nodes, 110 ways, 0 relations</text>
+<text top="229" left="149" width="233" height="11" font="4">&gt; bg_poly &lt;- as_sp(bg, &#34;polygons&#34;)</text>
+<text top="259" left="148" width="596" height="13" font="4">The result is a SpatialPolygonsDataFrame with the osmar object’s attributes (the attrs element) as</text>
+<text top="275" left="149" width="597" height="13" font="4">its data. Functionality provided by the <b>sp </b>package can now be used to analyze the OSM data; e.g.,</text>
+<text top="291" left="149" width="595" height="13" font="4">the summary() method or the spplot() method—the latter one, for example, to see how often each</text>
+<text top="308" left="149" width="139" height="13" font="4">building was modified:</text>
+<text top="335" left="149" width="213" height="11" font="4">&gt; spplot(bg_poly, c(&#34;version&#34;))</text>
+<text top="652" left="302" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="652" left="360" width="231" height="13" font="4">Number of modifications per building.</text>
+<text top="689" left="149" width="595" height="13" font="4">Meta-data (the tags element) and members (the refs element) are not automatically converted to a</text>
+<text top="706" left="149" width="165" height="11" font="4">SpatialPolygonsDataFrame</text>
+<text top="705" left="313" width="42" height="13" font="4">’s data.</text>
+<text top="747" left="149" width="106" height="13" font="3"><b>Lines and points.</b></text>
+<text top="747" left="269" width="304" height="13" font="4">The conversion of lines and points works similarly:</text>
+<text top="775" left="149" width="213" height="11" font="4">&gt; hw_line &lt;- as_sp(hw, &#34;lines&#34;)</text>
+<text top="791" left="149" width="233" height="11" font="4">&gt; bs_points &lt;- as_sp(bs, &#34;points&#34;)</text>
+<text top="817" left="148" width="538" height="13" font="4">The results are SpatialLinesDataFrame and SpatialPointsDataFrame objects, respectively.</text>
+<text top="856" left="171" width="573" height="13" font="4">In order to finalize the University of Auckland example we create a bus route map and visualize</text>
+<text top="873" left="149" width="595" height="13" font="4">the available bus routes belonging to the bus stops. Therefore, we find all bus relations available in the</text>
+<text top="889" left="149" width="595" height="13" font="4">object, retrieve the corresponding data from the OSM API, and convert the data into lines (note that</text>
+<text top="906" left="149" width="208" height="13" font="4">this computation takes some time):</text>
+<text top="933" left="149" width="336" height="11" font="4">&gt; bus_ids &lt;- find(ua, relation(tags(v == &#34;bus&#34;)))</text>
+<text top="949" left="149" width="165" height="11" font="4">&gt; bus &lt;- lapply(bus_ids,</text>
+<text top="966" left="149" width="7" height="11" font="4">+</text>
+<text top="966" left="176" width="89" height="11" font="4">function(i) {</text>
+<text top="982" left="149" width="7" height="11" font="4">+</text>
+<text top="982" left="190" width="274" height="11" font="4">raw &lt;- get_osm(relation(i), full = TRUE)</text>
+<text top="999" left="149" width="7" height="11" font="4">+</text>
+<text top="999" left="190" width="130" height="11" font="4">as_sp(raw, &#34;lines&#34;)</text>
+<text top="1015" left="149" width="7" height="11" font="4">+</text>
+<text top="1015" left="176" width="14" height="11" font="4">})</text>
+<text top="1042" left="148" width="598" height="13" font="4">We use the argument full = TRUE to retrieve the relation itself and all related members. In detail,</text>
+<text top="1058" left="149" width="597" height="13" font="4">this means we retrieve all nodes, ways, and relations that are members of the specified relation; and,</text>
+<text top="1074" left="149" width="364" height="13" font="4">recursively, all nodes that are members of the retrieved ways.</text>
+<text top="1095" left="171" width="392" height="13" font="4">We then use the <b>sp </b>plot methods to create the final bus route map:</text>
+<text top="1123" left="149" width="199" height="11" font="4">&gt; plot(bg_poly, col = &#34;gray&#34;)</text>
+<text top="1139" left="149" width="288" height="11" font="4">&gt; plot(hw_line, add = TRUE, col = &#34;green&#34;)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">59</text>
+<text top="104" left="149" width="295" height="11" font="4">&gt; plot(bs_points, add = TRUE, col = &#34;blue&#34;)</text>
+<text top="120" left="149" width="226" height="11" font="4">&gt; for ( i in seq(along = bus) ) {</text>
+<text top="137" left="149" width="7" height="11" font="4">+</text>
+<text top="137" left="176" width="274" height="11" font="4">plot(bus[[i]], add = TRUE, col = &#34;blue&#34;)</text>
+<text top="153" left="149" width="21" height="11" font="4">+ }</text>
+<text top="525" left="149" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="525" left="206" width="538" height="13" font="4">Bus route map of the University of Auckland; roads are green lines; bus stops and bus routes</text>
+<text top="542" left="149" width="145" height="13" font="4">are blue points and lines</text>
+<text top="559" left="442" width="4" height="15" font="0">.</text>
+<text top="613" left="149" width="117" height="17" font="5"><b>R as navigator</b></text>
+<text top="652" left="148" width="596" height="13" font="4">We always wanted to know how a navigation device works. Now with <b>osmar</b>, R provides the necessary</text>
+<text top="668" left="149" width="595" height="13" font="4">components and this serves as nice example on how to use <b>osmar</b>. The general idea is to (1) get the</text>
+<text top="685" left="149" width="595" height="13" font="4">data, (2) extract all highways, (3) create a graph of all highway nodes with the distance between the</text>
+<text top="701" left="149" width="595" height="13" font="4">highway nodes as edge weights, (4) compute the shortest path on the graph, and (5) trace the path on</text>
+<text top="718" left="149" width="84" height="13" font="4">the highways.</text>
+<text top="759" left="149" width="79" height="13" font="3"><b>Get the data.</b></text>
+<text top="759" left="243" width="432" height="13" font="4">We use a planet file from Munich as the data source and use Osmosis <a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="759" left="675" width="68" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Henderson</a></text>
+<text top="759" left="742" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="775" left="149" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="775" left="176" width="517" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>to process the data. Note that ‘osmosis’ has to be in your ‘PATH’ environment variable.</text>
+<text top="803" left="149" width="123" height="11" font="4">&gt; library(&#34;osmar&#34;)</text>
+<text top="819" left="149" width="316" height="11" font="4">&gt; url &lt;- &#34;http://osmar.r-forge.r-project.org/&#34;</text>
+<text top="836" left="149" width="185" height="11" font="4">&gt; file &lt;- &#34;muenchen.osm.gz&#34;</text>
+<text top="852" left="149" width="336" height="11" font="4">&gt; download.file(sprintf(&#34;%s%s&#34;, url, file), file)</text>
+<text top="868" left="149" width="240" height="11" font="4">&gt; system(&#34;gzip -d muenchen.osm.gz&#34;)</text>
+<text top="895" left="149" width="218" height="13" font="4">Get the center of Munich with a 3km</text>
+<text top="894" left="370" width="11" height="16" font="0">×</text>
+<text top="895" left="383" width="116" height="13" font="4">3km bounding box:</text>
+<text top="920" left="149" width="336" height="11" font="4">&gt; src &lt;- osmsource_osmosis(file = &#34;muenchen.osm&#34;)</text>
+<text top="937" left="149" width="405" height="11" font="4">&gt; muc_bbox &lt;- center_bbox(11.575278, 48.137222, 3000, 3000)</text>
+<text top="953" left="149" width="213" height="11" font="4">&gt; muc &lt;- get_osm(muc_bbox, src)</text>
+<text top="970" left="149" width="34" height="11" font="4">&gt; muc</text>
+<text top="997" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="1013" left="149" width="247" height="11" font="4">13713 nodes, 3156 ways, 76 relations</text>
+<text top="1040" left="149" width="595" height="13" font="4">For the navigation device we only need streets. This means, we have to find all ways that are tagged as</text>
+<text top="1056" left="149" width="597" height="13" font="4">highways and have a name tag, then find the associated nodes, and finally subset the full osmar object:</text>
+<text top="1082" left="149" width="508" height="11" font="4">&gt; hways_muc &lt;- subset(muc, way_ids = find(muc, way(tags(k == &#34;highway&#34;))))</text>
+<text top="1098" left="149" width="343" height="11" font="4">&gt; hways &lt;- find(hways_muc, way(tags(k == &#34;name&#34;)))</text>
+<text top="1115" left="149" width="254" height="11" font="4">&gt; hways &lt;- find_down(muc, way(hways))</text>
+<text top="1131" left="149" width="268" height="11" font="4">&gt; hways_muc &lt;- subset(muc, ids = hways)</text>
+<text top="1147" left="149" width="75" height="11" font="4">&gt; hways_muc</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">60</text>
+<text top="104" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="120" left="149" width="226" height="11" font="4">3889 nodes, 995 ways, 0 relations</text>
+<text top="149" left="149" width="595" height="13" font="4">Suppose we want to start our route at the “Sendlinger Tor”. This means we first have to find a node</text>
+<text top="166" left="149" width="491" height="13" font="4">that is tagged with the name “Sendlinger Tor” and then the nearest highway node:</text>
+<text top="193" left="149" width="192" height="11" font="4">&gt; hway_start_node &lt;- local({</text>
+<text top="210" left="149" width="7" height="11" font="4">+</text>
+<text top="210" left="176" width="364" height="11" font="4">id &lt;- find(muc, node(tags(v == &#34;Sendlinger Tor&#34;)))[1]</text>
+<text top="226" left="149" width="7" height="11" font="4">+</text>
+<text top="226" left="176" width="364" height="11" font="4">find_nearest_node(muc, id, way(tags(k == &#34;highway&#34;)))</text>
+<text top="243" left="149" width="27" height="11" font="4">+ })</text>
+<text top="259" left="149" width="343" height="11" font="4">&gt; hway_start &lt;- subset(muc, node(hway_start_node))</text>
+<text top="285" left="149" width="595" height="13" font="4">For a given node (by its ID), the function find_nearest_node() finds the nearest node with the</text>
+<text top="302" left="149" width="201" height="13" font="4">specified conditions (the package</text>
+<text top="302" left="353" width="63" height="13" font="7"><a href="http://CRAN.R-project.org/package=geosphere"><b>geosphere</b></a></text>
+<text top="302" left="416" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=geosphere">,</a></text>
+<text top="302" left="422" width="83" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Hijmans et al.</a></text>
+<text top="302" left="506" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="302" left="512" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="302" left="543" width="203" height="13" font="4">is used to compute the distances).</text>
+<text top="318" left="148" width="596" height="13" font="4">The end of the route should be in the northeast part of Munich; so we find nodes that are in the</text>
+<text top="335" left="149" width="228" height="13" font="4">northeast and take one highway node:</text>
+<text top="362" left="149" width="178" height="11" font="4">&gt; hway_end_node &lt;- local({</text>
+<text top="379" left="149" width="7" height="11" font="4">+</text>
+<text top="379" left="176" width="405" height="11" font="4">id &lt;- find(muc, node(attrs(lon &gt; 11.59 &amp; lat &gt; 48.150)))[1]</text>
+<text top="395" left="149" width="7" height="11" font="4">+</text>
+<text top="395" left="176" width="364" height="11" font="4">find_nearest_node(muc, id, way(tags(k == &#34;highway&#34;)))</text>
+<text top="412" left="149" width="27" height="11" font="4">+ })</text>
+<text top="428" left="149" width="316" height="11" font="4">&gt; hway_end &lt;- subset(muc, node(hway_end_node))</text>
+<text top="454" left="149" width="240" height="13" font="4">Finally, we visualize the initial situation:</text>
+<text top="482" left="149" width="213" height="11" font="4">&gt; plot_nodes(muc, col = &#34;gray&#34;)</text>
+<text top="498" left="149" width="233" height="11" font="4">&gt; plot_ways(hways_muc, add = TRUE)</text>
+<text top="515" left="149" width="343" height="11" font="4">&gt; plot_nodes(hways_muc, add = TRUE, col = &#34;black&#34;)</text>
+<text top="531" left="149" width="336" height="11" font="4">&gt; plot_nodes(hway_start, add = TRUE, col = &#34;red&#34;)</text>
+<text top="548" left="149" width="329" height="11" font="4">&gt; plot_nodes(hway_end, add = TRUE, col = &#34;blue&#34;)</text>
+<text top="924" left="321" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="924" left="379" width="193" height="13" font="4">Highway map of Munich center.</text>
+<text top="961" left="148" width="596" height="13" font="4">The gray nodes are all nodes available in the full osmar object, the black nodes and lines are the road</text>
+<text top="977" left="149" width="595" height="13" font="4">networks available in the highway-osmar object, the red and blue dots denote the starting and ending</text>
+<text top="994" left="149" width="167" height="13" font="4">nodes of the searched route.</text>
+<text top="1035" left="149" width="118" height="13" font="3"><b>Compute the route.</b></text>
+<text top="1035" left="282" width="462" height="13" font="4">In order to compute the shortest route between the defined starting and ending</text>
+<text top="1052" left="149" width="595" height="13" font="4">nodes, we convert the highway-osmar object into a graph. R provides a set of packages to work with</text>
+<text top="1068" left="149" width="202" height="13" font="4">graphs, we decided to use <b>igraph</b>:</text>
+<text top="1096" left="149" width="137" height="11" font="4">&gt; library(&#34;igraph0&#34;)</text>
+<text top="1112" left="149" width="219" height="11" font="4">&gt; gr_muc &lt;- as_igraph(hways_muc)</text>
+<text top="1129" left="149" width="117" height="11" font="4">&gt; summary(gr_muc)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">61</text>
+<text top="104" left="149" width="96" height="11" font="4">Vertices: 2381</text>
+<text top="120" left="149" width="75" height="11" font="4">Edges: 2888</text>
+<text top="137" left="149" width="96" height="11" font="4">Directed: TRUE</text>
+<text top="153" left="149" width="137" height="11" font="4">No graph attributes.</text>
+<text top="169" left="149" width="165" height="11" font="4">Vertex attributes: name.</text>
+<text top="186" left="149" width="206" height="11" font="4">Edge attributes: weight, name.</text>
+<text top="215" left="148" width="596" height="13" font="4">The osmar object nodes define the nodes of the graph (node IDs are used as graph node names). The</text>
+<text top="232" left="149" width="34" height="11" font="4">osmar</text>
+<text top="231" left="186" width="558" height="13" font="4">object ways define the edges (way IDs are used as edge names), and the weights of the edges</text>
+<text top="248" left="149" width="291" height="13" font="4">are the geographical distance between the nodes.</text>
+<text top="269" left="171" width="574" height="13" font="4">The <b>igraph </b>package provides different shortest path algorithms (e.g., Dijkstra and Bellman-Ford)</text>
+<text top="285" left="148" width="512" height="13" font="4">via the function get.shortest.paths(). The shortest route (not necessarily unique) is:</text>
+<text top="313" left="149" width="254" height="11" font="4">&gt; route &lt;- get.shortest.paths(gr_muc,</text>
+<text top="329" left="149" width="7" height="11" font="4">+</text>
+<text top="329" left="176" width="254" height="11" font="4">from = as.character(hway_start_node),</text>
+<text top="345" left="149" width="7" height="11" font="4">+</text>
+<text top="345" left="176" width="261" height="11" font="4">to = as.character(hway_end_node))[[1]]</text>
+<text top="362" left="149" width="343" height="11" font="4">&gt; route_nodes &lt;- as.numeric(V(gr_muc)[route]$name)</text>
+<text top="388" left="148" width="578" height="13" font="4">We construct a new osmar object containing only elements related to the nodes defining the route:</text>
+<text top="415" left="149" width="357" height="11" font="4">&gt; route_ids &lt;- find_up(hways_muc, node(route_nodes))</text>
+<text top="432" left="149" width="336" height="11" font="4">&gt; route_muc &lt;- subset(hways_muc, ids = route_ids)</text>
+<text top="448" left="149" width="75" height="11" font="4">&gt; route_muc</text>
+<text top="478" left="149" width="82" height="11" font="4">osmar object</text>
+<text top="494" left="149" width="213" height="11" font="4">101 nodes, 83 ways, 0 relations</text>
+<text top="523" left="148" width="394" height="13" font="4">And add the route to the highway map of Munich center in Figure</text>
+<text top="523" left="546" width="7" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#8">5</a></text>
+<text top="523" left="553" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#8">:</a></text>
+<text top="551" left="149" width="343" height="11" font="4">&gt; plot_nodes(route_muc, add = TRUE, col = &#34;green&#34;)</text>
+<text top="567" left="149" width="336" height="11" font="4">&gt; plot_ways(route_muc, add = TRUE, col = &#34;green&#34;)</text>
+<text top="943" left="271" width="53" height="13" font="3"><b>Figure 6:</b></text>
+<text top="943" left="328" width="295" height="13" font="4">Shortest route on highway map of Munich center.</text>
+<text top="1001" left="149" width="84" height="13" font="3"><b>Route details.</b></text>
+<text top="1001" left="248" width="496" height="13" font="4">In order to present route details like street names, distances, and directions we have</text>
+<text top="1017" left="149" width="313" height="13" font="4">to work directly on the internals of the osmar objects.</text>
+<text top="1038" left="171" width="573" height="13" font="4">We start by extracting the route’s node IDs (which are in the correct order) and the way IDs (which</text>
+<text top="1054" left="148" width="290" height="13" font="4">we have to order) where the nodes are members:</text>
+<text top="1082" left="149" width="261" height="11" font="4">&gt; node_ids &lt;- route_muc$nodes$attrs$id</text>
+<text top="1098" left="149" width="137" height="11" font="4">&gt; way_ids &lt;- local({</text>
+<text top="1115" left="149" width="7" height="11" font="4">+</text>
+<text top="1115" left="176" width="309" height="11" font="4">w &lt;- match(node_ids, route_muc$ways$refs$ref)</text>
+<text top="1131" left="149" width="7" height="11" font="4">+</text>
+<text top="1131" left="176" width="171" height="11" font="4">route_muc$ways$refs$id[w]</text>
+<text top="1147" left="149" width="27" height="11" font="4">+ })</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">62</text>
+<text top="103" left="148" width="351" height="13" font="4">Then we extract the names of the ways in the correct order:</text>
+<text top="130" left="149" width="151" height="11" font="4">&gt; way_names &lt;- local({</text>
+<text top="146" left="149" width="7" height="11" font="4">+</text>
+<text top="146" left="176" width="309" height="11" font="4">n &lt;- subset(route_muc$ways$tags, k == &#34;name&#34;)</text>
+<text top="163" left="149" width="7" height="11" font="4">+</text>
+<text top="163" left="176" width="192" height="11" font="4">n[match(way_ids, n$id), &#34;v&#34;]</text>
+<text top="179" left="149" width="27" height="11" font="4">+ })</text>
+<text top="205" left="148" width="291" height="13" font="4">The next step is to extract the nodes’ coordinates,</text>
+<text top="232" left="149" width="391" height="11" font="4">&gt; node_coords &lt;- route_muc$nodes$attrs[, c(&#34;lon&#34;, &#34;lat&#34;)]</text>
+<text top="257" left="149" width="595" height="13" font="4">and to compute the distances (meters) and the bearings (degrees) between successive nodes (using the</text>
+<text top="274" left="148" width="123" height="13" font="4">package <b>geosphere</b>):</text>
+<text top="301" left="149" width="151" height="11" font="4">&gt; node_dirs &lt;- local({</text>
+<text top="317" left="149" width="7" height="11" font="4">+</text>
+<text top="317" left="176" width="151" height="11" font="4">n &lt;- nrow(node_coords)</text>
+<text top="334" left="149" width="7" height="11" font="4">+</text>
+<text top="334" left="176" width="103" height="11" font="4">from &lt;- 1:(n-1)</text>
+<text top="350" left="149" width="7" height="11" font="4">+</text>
+<text top="350" left="176" width="62" height="11" font="4">to &lt;- 2:n</text>
+<text top="366" left="149" width="7" height="11" font="4">+</text>
+<text top="383" left="149" width="7" height="11" font="4">+</text>
+<text top="383" left="176" width="117" height="11" font="4">cbind(dist = c(0,</text>
+<text top="399" left="149" width="7" height="11" font="4">+</text>
+<text top="399" left="217" width="377" height="11" font="4">distHaversine(node_coords[from, ], node_coords[to, ])),</text>
+<text top="416" left="149" width="7" height="11" font="4">+</text>
+<text top="416" left="217" width="75" height="11" font="4">bear = c(0,</text>
+<text top="432" left="149" width="7" height="11" font="4">+</text>
+<text top="432" left="217" width="192" height="11" font="4">bearing(node_coords[from, ],</text>
+<text top="449" left="149" width="7" height="11" font="4">+</text>
+<text top="449" left="272" width="137" height="11" font="4">node_coords[to, ])))</text>
+<text top="465" left="149" width="27" height="11" font="4">+ })</text>
+<text top="491" left="149" width="595" height="13" font="4">Finally, we pack together all the information, and additionally compute the cumulative distance and a</text>
+<text top="507" left="148" width="596" height="13" font="4">16-point compass rose direction (the compass() function is available in the “navigator” demo from the</text>
+<text top="524" left="149" width="37" height="13" font="3"><b>osmar</b></text>
+<text top="524" left="190" width="57" height="13" font="4">package):</text>
+<text top="550" left="149" width="350" height="11" font="4">&gt; route_details &lt;- data.frame(way_names, node_dirs)</text>
+<text top="567" left="149" width="350" height="11" font="4">&gt; route_details$cdist &lt;- cumsum(route_details$dist)</text>
+<text top="583" left="149" width="343" height="11" font="4">&gt; route_details$dir &lt;- compass(route_details$bear)</text>
+<text top="609" left="148" width="596" height="13" font="4">The result is a data.frame with a row for each node of the route. The row shows the name of the</text>
+<text top="625" left="149" width="595" height="13" font="4">associated way, the distance (meters) and bearing (degrees and compass rose) to the successive node</text>
+<text top="642" left="149" width="246" height="13" font="4">of the route, and the cumulative distance:</text>
+<text top="669" left="149" width="144" height="11" font="4">&gt; head(route_details)</text>
+<text top="698" left="252" width="199" height="11" font="4">way_names dist bear cdist dir</text>
+<text top="714" left="149" width="7" height="11" font="4">1</text>
+<text top="714" left="176" width="137" height="11" font="4">Sendlinger-Tor-Platz</text>
+<text top="714" left="341" width="7" height="11" font="4">0</text>
+<text top="714" left="375" width="7" height="11" font="4">0</text>
+<text top="714" left="416" width="7" height="11" font="4">0</text>
+<text top="714" left="444" width="7" height="11" font="4">N</text>
+<text top="730" left="149" width="7" height="11" font="4">2</text>
+<text top="730" left="245" width="75" height="11" font="4">WallstraÃ§e</text>
+<text top="730" left="341" width="14" height="11" font="4">65</text>
+<text top="730" left="375" width="14" height="11" font="4">62</text>
+<text top="730" left="416" width="41" height="11" font="4">65 ENE</text>
+<text top="747" left="149" width="7" height="11" font="4">3</text>
+<text top="747" left="169" width="151" height="11" font="4">Herzog-Wilhelm-StraÃ§e</text>
+<text top="747" left="341" width="14" height="11" font="4">29</text>
+<text top="747" left="375" width="14" height="11" font="4">75</text>
+<text top="747" left="416" width="41" height="11" font="4">94 ENE</text>
+<text top="763" left="149" width="7" height="11" font="4">4</text>
+<text top="763" left="252" width="62" height="11" font="4">Oberanger</text>
+<text top="763" left="334" width="14" height="11" font="4">10</text>
+<text top="763" left="368" width="14" height="11" font="4">78</text>
+<text top="763" left="403" width="48" height="11" font="4">104 ENE</text>
+<text top="780" left="149" width="7" height="11" font="4">5</text>
+<text top="780" left="252" width="62" height="11" font="4">Oberanger</text>
+<text top="780" left="334" width="14" height="11" font="4">69</text>
+<text top="780" left="368" width="14" height="11" font="4">94</text>
+<text top="780" left="403" width="21" height="11" font="4">173</text>
+<text top="780" left="444" width="7" height="11" font="4">E</text>
+<text top="796" left="149" width="7" height="11" font="4">6</text>
+<text top="796" left="190" width="123" height="11" font="4">Nikolaus-Gradl-Weg</text>
+<text top="796" left="334" width="14" height="11" font="4">25</text>
+<text top="796" left="368" width="14" height="11" font="4">76</text>
+<text top="796" left="403" width="48" height="11" font="4">198 ENE</text>
+<text top="824" left="171" width="573" height="13" font="4">Needless to say that this navigation device can be made much more sophisticated. The <b>osmar</b></text>
+<text top="841" left="148" width="596" height="13" font="4">package contains the complete source code of the basic navigation device as a demo and we invite</text>
+<text top="857" left="149" width="234" height="13" font="4">everybody to improve R as a navigator.</text>
+<text top="902" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="941" left="148" width="598" height="13" font="4">The <b>osmar </b>package extends the R ecosystem with infrastructure to work together with the Open-</text>
+<text top="957" left="149" width="595" height="13" font="4">StreetMap project. So far, functionality is available to get data from different sources (e.g., planet</text>
+<text top="974" left="149" width="597" height="13" font="4">file and API v0.6), to consolidate the data as an R osmar object, to work with the osmar object (e.g.,</text>
+<text top="990" left="149" width="597" height="13" font="4">subsetting and plotting), and to convert it to objects based on classes provided by other packages (e.g.,</text>
+<text top="1006" left="149" width="151" height="13" font="4">to igraph and sp objects).</text>
+<text top="1027" left="171" width="573" height="13" font="4">Future work includes the implementation of further converters; e.g., a converter from osmar objects</text>
+<text top="1044" left="149" width="595" height="13" font="4">to raster image objects via the <b>OpenStreetMap </b>package. We are also interested in implementing</text>
+<text top="1060" left="149" width="595" height="13" font="4">converters from objects provided by other R packages to osmar objects and in saving these objects in</text>
+<text top="1077" left="149" width="595" height="13" font="4">different OpenStreetMap sources via a put_osm() function. This would be, in fact, the completion of</text>
+<text top="1093" left="149" width="230" height="13" font="4">the <b>osmar </b>concept illustrated in Figure</text>
+<text top="1093" left="382" width="7" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#2">1</a></text>
+<text top="1093" left="392" width="263" height="13" font="4">with arrows from the right to the left blocks.</text>
+<text top="1114" left="171" width="573" height="13" font="4">Furthermore, we would like to incorporate tools originated in the OpenStreetMap ecosystem. One</text>
+<text top="1130" left="149" width="595" height="13" font="4">idea is the implementation of a rule-based rendering tool for generating SVG images of OSM data</text>
+<text top="1147" left="149" width="186" height="13" font="4">along the lines of Osmarender <a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="1147" left="335" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Topf</a></text>
+<text top="1147" left="361" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="1147" left="368" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="1147" left="395" width="349" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">). </a>Another interesting project is Osmium, a fast and flexible</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">63</text>
+<text top="103" left="149" width="435" height="13" font="4">C++ and Javascript toolkit and framework for working with OSM data <a href="2013-1-eugster-schlesinger.html#11">(</a></text>
+<text top="103" left="584" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Topf</a></text>
+<text top="103" left="611" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="103" left="618" width="27" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2012</a></text>
+<text top="103" left="645" width="99" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">). </a>An R interface</text>
+<text top="120" left="148" width="88" height="13" font="4">(potentially via</text>
+<text top="120" left="240" width="32" height="13" font="7"><a href="http://CRAN.R-project.org/package=Rcpp"><b>Rcpp</b></a></text>
+<text top="120" left="275" width="54" height="13" font="4">modules;</text>
+<text top="120" left="332" width="152" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">Eddelbuettel and François</a></text>
+<text top="120" left="484" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">,</a></text>
+<text top="120" left="490" width="26" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">2011</a></text>
+<text top="120" left="517" width="228" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">) </a>would provide a very fast and flexible</text>
+<text top="136" left="148" width="231" height="13" font="4">way to work with large OSM data sets.</text>
+<text top="181" left="149" width="146" height="17" font="5"><b>Acknowledgment</b></text>
+<text top="220" left="148" width="596" height="13" font="4">The authors thank two anonymous reviewers and Joe Sakshaug for their constructive comments to</text>
+<text top="236" left="149" width="147" height="13" font="4">improve the manuscript.</text>
+<text top="281" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="320" left="149" width="597" height="13" font="4">R. S. Bivand, E. J. Pebesma, and V. Gomez-Rubio. Applied Spatial Data Analysis with R. Springer, NY,</text>
+<text top="336" left="164" width="63" height="13" font="4">2008. URL</text>
+<text top="337" left="230" width="179" height="11" font="6"><a href="http://www.asdar-book.org/">http://www.asdar-book.org/</a></text>
+<text top="336" left="409" width="21" height="13" font="4"><a href="http://www.asdar-book.org/">. </a><a href="2013-1-eugster-schlesinger.html#5">[p</a></text>
+<text top="336" left="430" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#5">57</a></text>
+<text top="336" left="443" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#5">]</a></text>
+<text top="365" left="149" width="412" height="13" font="4">G. Csardi. <b>igraph</b>: Network Analysis and Visualization, 2011. URL</text>
+<text top="365" left="566" width="179" height="11" font="6"><a href="http://cran.r-project.org/package=igraph">http://cran.r-project.org/</a></text>
+<text top="382" left="164" width="96" height="11" font="6"><a href="http://cran.r-project.org/package=igraph">package=igraph</a></text>
+<text top="381" left="260" width="179" height="13" font="4"><a href="http://cran.r-project.org/package=igraph">. </a>R package version 0.5.5-2. <a href="2013-1-eugster-schlesinger.html#5">[p</a></text>
+<text top="381" left="439" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#5">57</a></text>
+<text top="381" left="452" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#5">]</a></text>
+<text top="409" left="149" width="597" height="13" font="4">D. Eddelbuettel and R. François. <b>Rcpp</b>: Seamless R and C++ integration. Journal of Statistical Software,</text>
+<text top="426" left="164" width="129" height="13" font="4">40(8):1–18, 2011. URL</text>
+<text top="426" left="296" width="226" height="11" font="6"><a href="http://www.jstatsoft.org/v40/i08/">http://www.jstatsoft.org/v40/i08/</a></text>
+<text top="426" left="522" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v40/i08/">. </a><a href="2013-1-eugster-schlesinger.html#11">[p</a></text>
+<text top="426" left="543" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">63</a></text>
+<text top="426" left="557" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">]</a></text>
+<text top="454" left="149" width="497" height="13" font="4">I. Fellows. <b>OpenStreetMap</b>: Access to OpenStreetMap Raster Images, 2012. URL</text>
+<text top="455" left="651" width="96" height="11" font="6"><a href="http://CRAN.R-project.org/package=OpenStreetMap">http://CRAN.R-</a></text>
+<text top="471" left="164" width="226" height="11" font="6"><a href="http://CRAN.R-project.org/package=OpenStreetMap">project.org/package=OpenStreetMap</a></text>
+<text top="471" left="390" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=OpenStreetMap">. </a>R package version 0.2. <a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="471" left="548" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="471" left="561" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">]</a></text>
+<text top="499" left="149" width="200" height="13" font="4">B. Henderson. osmosis, 2011. URL</text>
+<text top="500" left="352" width="288" height="11" font="6"><a href="http://wiki.openstreetmap.org/wiki/Osmosis">http://wiki.openstreetmap.org/wiki/Osmosis</a></text>
+<text top="499" left="640" width="104" height="13" font="4"><a href="http://wiki.openstreetmap.org/wiki/Osmosis">. </a>Java application</text>
+<text top="515" left="163" width="92" height="13" font="4">version 0.39. <a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="515" left="255" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="515" left="269" width="3" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">,</a></text>
+<text top="515" left="275" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#7">59</a></text>
+<text top="515" left="289" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#7">]</a></text>
+<text top="544" left="149" width="559" height="13" font="4">R. J. Hijmans, E. Williams, and C. Vennes. <b>geosphere</b>: Spherical Trigonometry, 2011. URL</text>
+<text top="544" left="713" width="34" height="11" font="6"><a href="http://CRAN.R-project.org/package=geosphere">http:</a></text>
+<text top="561" left="163" width="261" height="11" font="6"><a href="http://CRAN.R-project.org/package=geosphere">//CRAN.R-project.org/package=geosphere</a></text>
+<text top="560" left="424" width="176" height="13" font="4"><a href="http://CRAN.R-project.org/package=geosphere">. </a>R package version 1.2-24. <a href="2013-1-eugster-schlesinger.html#8">[p</a></text>
+<text top="560" left="600" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#8">60</a></text>
+<text top="560" left="614" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#8">]</a></text>
+<text top="589" left="149" width="598" height="13" font="4">D. Kahle and H. Wickham. <b>ggmap</b>: A Package for Spatial Visualization with Google Maps and Open-</text>
+<text top="605" left="163" width="127" height="14" font="4">StreetMap, 2012. URL</text>
+<text top="606" left="294" width="268" height="11" font="6"><a href="http://CRAN.R-project.org/package=ggmap">http://CRAN.R-project.org/package=ggmap</a></text>
+<text top="605" left="562" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=ggmap">. </a>R package version 2.1. <a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="605" left="720" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="605" left="733" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">]</a></text>
+<text top="634" left="149" width="444" height="13" font="4">M. Loecher. <b>RgoogleMaps</b>: Overlays on Google Map Tiles in R, 2012. URL</text>
+<text top="634" left="597" width="152" height="11" font="6"><a href="http://CRAN.R-project.org/package=RgoogleMaps">http://CRAN.R-project.</a></text>
+<text top="651" left="164" width="158" height="11" font="6"><a href="http://CRAN.R-project.org/package=RgoogleMaps">org/package=RgoogleMaps</a></text>
+<text top="650" left="322" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=RgoogleMaps">. </a>R package version 1.2.0. <a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="650" left="490" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="650" left="503" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">]</a></text>
+<text top="678" left="149" width="333" height="13" font="4">OSM Foundation. The OpenStreetMap Project, 2011. URL</text>
+<text top="679" left="485" width="165" height="11" font="6"><a href="http://openstreetmap.org">http://openstreetmap.org</a></text>
+<text top="678" left="650" width="21" height="13" font="4"><a href="http://openstreetmap.org">. </a><a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="678" left="670" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="678" left="684" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">]</a></text>
+<text top="707" left="149" width="445" height="13" font="4">T. Schlesinger and M. J. A. Eugster. <b>osmar</b>: OpenStreetMap and R, 2012. URL</text>
+<text top="707" left="597" width="152" height="11" font="6"><a href="http://cran.r-project.org/package=osmar">http://cran.r-project.</a></text>
+<text top="724" left="164" width="117" height="11" font="6"><a href="http://cran.r-project.org/package=osmar">org/package=osmar</a></text>
+<text top="723" left="280" width="158" height="13" font="4"><a href="http://cran.r-project.org/package=osmar">. </a>R package version 1.1. <a href="2013-1-eugster-schlesinger.html#1">[p</a></text>
+<text top="723" left="438" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#1">53</a></text>
+<text top="723" left="452" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#1">]</a></text>
+<text top="752" left="149" width="175" height="13" font="4">J. Topf. osmarender, 2011. URL</text>
+<text top="752" left="327" width="309" height="11" font="6"><a href="http://wiki.openstreetmap.org/wiki/Osmarender">http://wiki.openstreetmap.org/wiki/Osmarender</a></text>
+<text top="752" left="635" width="111" height="13" font="4"><a href="http://wiki.openstreetmap.org/wiki/Osmarender">. </a>XSLT transforma-</text>
+<text top="768" left="164" width="87" height="13" font="4">tion scripts. <a href="2013-1-eugster-schlesinger.html#10">[p</a></text>
+<text top="768" left="250" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#10">62</a></text>
+<text top="768" left="264" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#10">]</a></text>
+<text top="796" left="149" width="172" height="13" font="4">J. Topf. Osmium, 2012. URL</text>
+<text top="797" left="324" width="281" height="11" font="6"><a href="http://wiki.openstreetmap.org/wiki/Osmium">http://wiki.openstreetmap.org/wiki/Osmium</a></text>
+<text top="796" left="606" width="140" height="13" font="4"><a href="http://wiki.openstreetmap.org/wiki/Osmium">. </a>Fast and flexible C++</text>
+<text top="813" left="164" width="412" height="13" font="4">and Javascript toolkit and framework for working with OSM data. <a href="2013-1-eugster-schlesinger.html#11">[p</a></text>
+<text top="813" left="576" width="13" height="13" font="6"><a href="2013-1-eugster-schlesinger.html#11">63</a></text>
+<text top="813" left="589" width="4" height="13" font="4"><a href="2013-1-eugster-schlesinger.html#11">]</a></text>
+<text top="859" left="149" width="116" height="13" font="4">Manuel J. A. Eugster</text>
+<text top="876" left="149" width="111" height="13" font="4">Institut für Statistik</text>
+<text top="892" left="148" width="239" height="13" font="4">Ludwig-Maximilians-Universität München</text>
+<text top="908" left="148" width="183" height="13" font="4">Ludwigstrasse 33, 80539 Munich</text>
+<text top="925" left="148" width="51" height="13" font="4">Germany</text>
+<text top="942" left="149" width="240" height="11" font="6"><a href="mailto:manuel.eugster@stat.uni-muenchen.de">manuel.eugster@stat.uni-muenchen.de</a></text>
+<text top="979" left="148" width="108" height="13" font="4">Thomas Schlesinger</text>
+<text top="995" left="149" width="111" height="13" font="4">Institut für Statistik</text>
+<text top="1012" left="148" width="239" height="13" font="4">Ludwig-Maximilians-Universität München</text>
+<text top="1028" left="148" width="183" height="13" font="4">Ludwigstrasse 33, 80539 Munich</text>
+<text top="1044" left="148" width="51" height="13" font="4">Germany</text>
+<text top="1062" left="149" width="206" height="11" font="6"><a href="mailto:tho.schlesinger@googlemail.com">tho.schlesinger@googlemail.com</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

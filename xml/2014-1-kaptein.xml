@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">123</text>
+<text top="98" left="149" width="465" height="30" font="2"><b>RStorm: Developing and Testing</b></text>
+<text top="137" left="149" width="383" height="30" font="2"><b>Streaming Algorithms in R</b></text>
+<text top="173" left="149" width="119" height="15" font="0">by Maurits Kaptein</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="538" height="13" font="4">Streaming data, consisting of indefinitely evolving sequences, are becoming ubiquitous in</text>
+<text top="231" left="149" width="595" height="13" font="4">many branches of science and in various applications. Computer scientists have developed streaming</text>
+<text top="247" left="149" width="480" height="13" font="4">applications such as Storm and the S4 distributed stream computing <a href="2014-1-kaptein.html#0">platform</a></text>
+<text top="245" left="628" width="5" height="10" font="5"><a href="2014-1-kaptein.html#0">1</a></text>
+<text top="247" left="639" width="105" height="13" font="4">to deal with data</text>
+<text top="264" left="149" width="595" height="13" font="4">streams. However, in current production packages testing and evaluating streaming algorithms is</text>
+<text top="280" left="149" width="595" height="13" font="4">cumbersome. This paper presents <b>RStorm </b>for the development and evaluation of streaming algorithms</text>
+<text top="297" left="149" width="595" height="13" font="4">analogous to these production packages, but implemented fully in R. <b>RStorm </b>allows developers of</text>
+<text top="313" left="149" width="595" height="13" font="4">streaming algorithms to quickly test, iterate, and evaluate various implementations of streaming</text>
+<text top="329" left="149" width="597" height="13" font="4">algorithms. The paper provides both a canonical computer science example, the streaming word count,</text>
+<text top="346" left="149" width="347" height="13" font="4">and examples of several statistical applications of <b>RStorm</b>.</text>
+<text top="391" left="149" width="104" height="17" font="6"><b>Introduction</b></text>
+<text top="430" left="149" width="598" height="13" font="4">Streaming data, consisting of indefinitely and possibly time-evolving sequences, are becoming ubiq-</text>
+<text top="446" left="149" width="224" height="13" font="4">uitous in many branches of science <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="446" left="373" width="60" height="13" font="7"><a href="2014-1-kaptein.html#9">Chu et al.</a></text>
+<text top="446" left="433" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="446" left="441" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2007</a></text>
+<text top="446" left="468" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">;</a></text>
+<text top="446" left="476" width="90" height="13" font="7"><a href="2014-1-kaptein.html#9">Michalak et al.</a></text>
+<text top="446" left="566" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="446" left="574" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2012</a></text>
+<text top="446" left="601" width="143" height="13" font="4"><a href="2014-1-kaptein.html#9">). </a>The omnipresence of</text>
+<text top="462" left="149" width="596" height="13" font="4">streaming data poses new challenges for statistics and machine learning. To enable user friendly</text>
+<text top="479" left="149" width="541" height="13" font="4">development and evaluation of algorithms dealing with data streams this paper introduces</text>
+<text top="479" left="693" width="47" height="13" font="8"><a href="http://CRAN.R-project.org/package=RStorm"><b>RStorm</b></a></text>
+<text top="479" left="740" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=RStorm">.</a></text>
+<text top="500" left="171" width="576" height="13" font="4">Streaming learning algorithms can informally be described as algorithms which never “look back”</text>
+<text top="516" left="149" width="154" height="13" font="4">to earlier data arriving at t</text>
+<text top="515" left="307" width="11" height="14" font="0">&lt;</text>
+<text top="516" left="322" width="4" height="13" font="4">t</text>
+<text top="513" left="327" width="3" height="10" font="9">0</text>
+<text top="516" left="331" width="414" height="13" font="4">. Streaming algorithms provide a computationally efficient way to deal</text>
+<text top="533" left="148" width="596" height="13" font="4">with continuous data streams by summarizing all historic data into a limited set of parameters. With</text>
+<text top="549" left="149" width="596" height="13" font="4">the current growth of available data the development of reliable streaming algorithms whose behavior</text>
+<text top="566" left="149" width="249" height="13" font="4">is well understood is highly important <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="566" left="398" width="91" height="13" font="7"><a href="2014-1-kaptein.html#9">Michalak et al.</a></text>
+<text top="566" left="489" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="566" left="497" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2012</a></text>
+<text top="566" left="525" width="220" height="13" font="4"><a href="2014-1-kaptein.html#9">). </a>For a more formal description of</text>
+<text top="582" left="149" width="196" height="13" font="4">streaming (or online) learning see</text>
+<text top="582" left="348" width="39" height="13" font="7"><a href="2014-1-kaptein.html#9">Bottou</a></text>
+<text top="582" left="390" width="4" height="13" font="4"><a href="2014-1-kaptein.html#9">(</a></text>
+<text top="582" left="395" width="26" height="13" font="7"><a href="2014-1-kaptein.html#9">1998</a></text>
+<text top="582" left="421" width="323" height="13" font="4"><a href="2014-1-kaptein.html#9">). </a>Streaming analysis however provides both numerical</text>
+<text top="598" left="149" width="597" height="13" font="4">as well as estimation challenges. Already for simple estimators, such as sample means and variances,</text>
+<text top="615" left="149" width="595" height="13" font="4">multiple streaming algorithms can be deployed. For more complex statistical models, closed forms to</text>
+<text top="631" left="149" width="439" height="13" font="4">exactly minimize popular cost functions in a stream are often unavailable.</text>
+<text top="652" left="171" width="573" height="13" font="4">Computer scientists recently developed a series of software packages for the streaming processing</text>
+<text top="669" left="149" width="434" height="13" font="4">of data in production environments. Frameworks such as S4 by Yahoo! <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="669" left="583" width="121" height="13" font="7"><a href="2014-1-kaptein.html#9">Gopalakrishna et al.</a></text>
+<text top="669" left="704" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="669" left="711" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2013</a></text>
+<text top="669" left="738" width="8" height="13" font="4"><a href="2014-1-kaptein.html#9">),</a></text>
+<text top="685" left="149" width="134" height="13" font="4">and Twitter’s Storm <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="685" left="283" width="115" height="13" font="7"><a href="2014-1-kaptein.html#9">Storm User Group</a></text>
+<text top="685" left="399" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="685" left="407" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2013</a></text>
+<text top="685" left="435" width="309" height="13" font="4"><a href="2014-1-kaptein.html#9">) </a>provide an infrastructure for real-time streaming</text>
+<text top="701" left="149" width="236" height="13" font="4">computation of event-driven data (e.g.,</text>
+<text top="701" left="389" width="82" height="13" font="7"><a href="2014-1-kaptein.html#9">Babcock et al.</a></text>
+<text top="701" left="471" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="701" left="478" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2002</a></text>
+<text top="701" left="505" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">;</a></text>
+<text top="701" left="512" width="140" height="13" font="7"><a href="2014-1-kaptein.html#9">Anagnostopoulos et al.</a></text>
+<text top="701" left="651" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="701" left="658" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2012</a></text>
+<text top="701" left="686" width="59" height="13" font="4"><a href="2014-1-kaptein.html#9">) </a>which is</text>
+<text top="718" left="149" width="124" height="13" font="4">scalable and reliable.</text>
+<text top="739" left="171" width="573" height="13" font="4">Recently, efforts have been made to facilitate easy testing and development of streaming processes</text>
+<text top="755" left="148" width="181" height="13" font="4">within R for example with the</text>
+<text top="755" left="332" width="41" height="13" font="8"><a href="http://CRAN.R-project.org/package=stream"><b>stream</b></a></text>
+<text top="755" left="373" width="371" height="13" font="4"><a href="http://CRAN.R-project.org/package=stream">. </a><b>stream </b>allows users of R to setup (or simulate) a data stream</text>
+<text top="772" left="149" width="321" height="13" font="4">and specify data stream tasks to analyze the stream <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="772" left="470" width="81" height="13" font="7"><a href="2014-1-kaptein.html#9">Hahsler et al.</a></text>
+<text top="772" left="551" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="772" left="558" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2014</a></text>
+<text top="772" left="585" width="159" height="13" font="4"><a href="2014-1-kaptein.html#9">). </a>While <b>stream </b>allows for</text>
+<text top="788" left="149" width="595" height="13" font="4">the development and testing of streaming analysis in R, it does not have a strong link to current</text>
+<text top="805" left="148" width="596" height="13" font="4">production environments in which streams can be utilized. Implementations of data streams in</text>
+<text top="821" left="149" width="595" height="13" font="4">R analogous to production environments such as Twitter’s Storm are currently lacking. <b>RStorm</b></text>
+<text top="837" left="149" width="308" height="13" font="4">models the topology structure introduced by <a href="2014-1-kaptein.html#0">Storm</a></text>
+<text top="835" left="457" width="5" height="10" font="5"><a href="2014-1-kaptein.html#0">2</a></text>
+<text top="837" left="463" width="281" height="13" font="4"><a href="2014-1-kaptein.html#0">, </a>to enable development, testing, and graphical</text>
+<text top="854" left="149" width="595" height="13" font="4">representation of streaming algorithms. <b>RStorm </b>is intended as a research and development package</text>
+<text top="870" left="149" width="595" height="13" font="4">for those wishing to implement the analysis of data streams in frameworks outside of R, but who</text>
+<text top="887" left="148" width="596" height="13" font="4">want to utilize R’s extensive plotting and data generating abilities to test their implementations. By</text>
+<text top="903" left="148" width="596" height="13" font="4">providing an implementation of a data stream that is extremely comparable to the production code</text>
+<text top="920" left="149" width="556" height="13" font="4">used in Storm, algorithms tested in R can easily be implemented in production environments.</text>
+<text top="965" left="149" width="277" height="17" font="6"><b>Package RStorm: Counting words</b></text>
+<text top="1003" left="149" width="598" height="13" font="4">In this section <b>RStorm </b>is introduced using the canonical streaming example used often for the introduc-</text>
+<text top="1020" left="149" width="589" height="13" font="4">tion of Storm: a streaming word count. For <b>RStorm </b>the basic terminology and concepts from <a href="2014-1-kaptein.html#0">Storm</a></text>
+<text top="1017" left="738" width="5" height="10" font="5"><a href="2014-1-kaptein.html#0">3</a></text>
+<text top="1036" left="149" width="595" height="13" font="4">are adapted, which are briefly explained before discussing the implementation of a streaming word</text>
+<text top="1053" left="149" width="597" height="13" font="4">count in <b>RStorm</b>. The aim of the streaming word count algorithm is to, given a stream of sentences –</text>
+<text top="1069" left="149" width="597" height="13" font="4">such as posts to a web service like Twitter – count the frequency of occurrence of each word. In Storm,</text>
+<text top="1096" left="165" width="4" height="9" font="10">1</text>
+<text top="1098" left="170" width="292" height="12" font="1">Not to be confused with the S4 object system used in R.</text>
+<text top="1111" left="165" width="4" height="9" font="10">2</text>
+<text top="1113" left="170" width="328" height="12" font="1">This structure is very similar to the functioning of Yahoo!’s S4.</text>
+<text top="1125" left="165" width="4" height="9" font="10">3</text>
+<text top="1128" left="170" width="574" height="12" font="1">The terms differ from those used by the S4 distributed stream computing platform, despite many similarities</text>
+<text top="1142" left="149" width="83" height="12" font="1">in functionality.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="12" family="Times" color="#000000"/>
+	<fontspec id="12" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">124</text>
+<text top="116" left="302" width="26" height="12" font="9">Spout	  </text>
+<text top="128" left="291" width="50" height="12" font="9">(sentences)	  </text>
+<text top="116" left="416" width="19" height="12" font="9">Bolt	  </text>
+<text top="128" left="390" width="71" height="12" font="9">(SplitSentence())	  </text>
+<text top="116" left="512" width="19" height="12" font="9">Bolt	  </text>
+<text top="128" left="489" width="66" height="12" font="9">(CountWords())	  </text>
+<text top="122" left="585" width="28" height="12" font="9">Result	  </text>
+<text top="176" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="176" left="206" width="538" height="13" font="4">Graphical representation of the word count topology. This topology describes the stream</text>
+<text top="192" left="149" width="411" height="13" font="4">that can be used to count words given an input of separate sentences.</text>
+<text top="232" left="158" width="61" height="15" font="11"><b>Function</b></text>
+<text top="232" left="374" width="81" height="15" font="11"><b>Description</b></text>
+<text top="254" left="158" width="191" height="20" font="12">Bolt(FUNC,listen = 0,...)</text>
+<text top="258" left="374" width="364" height="15" font="0">Used to create a new bolt. A bolt consists of an R func-</text>
+<text top="275" left="374" width="361" height="15" font="0">tion, and a specification of the bolt / spouts from which</text>
+<text top="293" left="374" width="144" height="15" font="0">it receives tuples. The</text>
+<text top="290" left="522" width="46" height="20" font="12">listen</text>
+<text top="293" left="571" width="167" height="15" font="0">argument is used to indi-</text>
+<text top="311" left="374" width="147" height="15" font="0">cate the order of bolts.</text>
+<text top="325" left="158" width="84" height="20" font="12">Emit(x,...)</text>
+<text top="329" left="374" width="253" height="15" font="0">Used to emit tuples from inside a bolt.</text>
+<text top="343" left="158" width="152" height="20" font="12">RStorm(topology,...)</text>
+<text top="347" left="374" width="361" height="15" font="0">Used to run a stream once a full topology has been</text>
+<text top="365" left="374" width="63" height="15" font="0">specified.</text>
+<text top="379" left="158" width="130" height="20" font="12">GetHash(name,...)</text>
+<text top="383" left="374" width="359" height="15" font="0">Used to retrieve, inside a bolt, values from a hashmap.</text>
+<text top="397" left="158" width="137" height="20" font="12">SetHash(name,data)</text>
+<text top="401" left="374" width="322" height="15" font="0">Used to store, inside a bolt, values in a hashmap.</text>
+<text top="415" left="158" width="145" height="20" font="12">Topology(spout,...)</text>
+<text top="419" left="374" width="361" height="15" font="0">Used to create a topology by specifying the datasource</text>
+<text top="437" left="373" width="12" height="15" font="0">(a</text>
+<text top="433" left="390" width="76" height="20" font="12">data.frame</text>
+<text top="437" left="466" width="122" height="15" font="0">) as the first spout.</text>
+<text top="451" left="158" width="198" height="20" font="12">AddBolt(topology,bolt,...)</text>
+<text top="455" left="374" width="361" height="15" font="0">Used to add a bolt to a stream. Once a bolt is added it</text>
+<text top="473" left="374" width="364" height="15" font="0">receives an ID, which can be used in subsequent speci-</text>
+<text top="491" left="374" width="114" height="15" font="0">fication of bolts (</text>
+<text top="487" left="488" width="69" height="20" font="12">listen=ID</text>
+<text top="491" left="556" width="179" height="15" font="0">) to determine the order of</text>
+<text top="509" left="374" width="73" height="15" font="0">the stream.</text>
+<text top="523" left="158" width="91" height="20" font="12">Tuple(x,...)</text>
+<text top="527" left="374" width="90" height="15" font="0">A single row</text>
+<text top="523" left="469" width="76" height="20" font="12">data.frame</text>
+<text top="527" left="545" width="190" height="15" font="0">. Used as the primary data</text>
+<text top="544" left="374" width="247" height="15" font="0">format to be passed along the stream.</text>
+<text top="581" left="205" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="581" left="256" width="432" height="13" font="4">Overview of the core functions and their primary parameters of <b>RStorm</b>.</text>
+<text top="631" left="149" width="595" height="13" font="4">a data stream consists of a spout – the data source – from which tuples are passed along a topology. The</text>
+<text top="647" left="149" width="595" height="13" font="4">topology is a description of the spout and a series of bolts, which themselves are functional blocks of</text>
+<text top="664" left="149" width="598" height="13" font="4">code. A bolt performs operations on tuples, the data objects that are passed between bolts in the stream.</text>
+<text top="680" left="149" width="595" height="13" font="4">Bolts can store the results of their operations in a local hashmap (or database) and emit results (again</text>
+<text top="697" left="149" width="595" height="13" font="4">tuples) to other bolts further down the topology. The topology, the bolts, the spout, the tuples, and the</text>
+<text top="713" left="149" width="595" height="13" font="4">hashmap(s) together compose the most important concepts to understand a stream implemented in</text>
+<text top="730" left="149" width="47" height="13" font="3"><b>RStorm</b></text>
+<text top="730" left="196" width="3" height="13" font="4">.</text>
+<text top="750" left="171" width="573" height="13" font="4">The topology is a description of the whole streaming process, and a solution to the word-count</text>
+<text top="767" left="148" width="490" height="13" font="4">problem is given by the simple topology that is graphically presented in Figure</text>
+<text top="767" left="642" width="7" height="13" font="7"><a href="2014-1-kaptein.html#2">1</a></text>
+<text top="767" left="649" width="95" height="13" font="4"><a href="2014-1-kaptein.html#2">. </a>This topology</text>
+<text top="783" left="149" width="595" height="13" font="4">describes that sentences (tuples) are emitted by the spout. These tuples – containing a full sentence</text>
+<text top="800" left="147" width="349" height="13" font="4">– are analyzed by the first processing bolt. This first bolt,</text>
+<text top="796" left="500" width="244" height="18" font="4">SplitSentence(tuple), splits a sentence</text>
+<text top="816" left="149" width="595" height="13" font="4">up into individual words and emits these single words as tuples. Next, these individual words are</text>
+<text top="833" left="149" width="87" height="13" font="4">counted by the</text>
+<text top="829" left="239" width="338" height="18" font="4">CountWords(tuple) bolt. The topology depicted in Figure</text>
+<text top="833" left="581" width="7" height="13" font="7"><a href="2014-1-kaptein.html#2">1</a></text>
+<text top="833" left="591" width="154" height="13" font="4">contains the core elements</text>
+<text top="849" left="149" width="595" height="13" font="4">needed to understand the functioning of <b>RStorm </b>for a general streaming process. A topology consists</text>
+<text top="866" left="149" width="595" height="13" font="4">of a description of the ordering of spouts and bolts in a stream. Tuples are the main data format to</text>
+<text top="882" left="148" width="243" height="13" font="4">pass information between bolts. A call to</text>
+<text top="879" left="394" width="350" height="18" font="4">Emit(tuple,...) within a bolt will make the emitted tuple</text>
+<text top="898" left="149" width="179" height="13" font="4">available for other bolts. Table</text>
+<text top="898" left="331" width="7" height="13" font="7"><a href="2014-1-kaptein.html#2">1</a></text>
+<text top="898" left="341" width="403" height="13" font="4">summarizes the most important functions of the <b>RStorm </b>package to</text>
+<text top="915" left="149" width="338" height="13" font="4">facilitate a stream and briefly explains their functionality.</text>
+<text top="957" left="149" width="284" height="15" font="11"><b>Word count in RStorm and Java &amp; Python</b></text>
+<text top="989" left="149" width="595" height="13" font="4">In <b>RStorm </b>the emulation of a streaming word count can be setup as follows: First, one loads <b>RStorm</b></text>
+<text top="1005" left="149" width="304" height="13" font="4">and opens a datafile containing multiple sentences:</text>
+<text top="1029" left="149" width="281" height="18" font="4">library(RStorm) # Include package RStorm</text>
+<text top="1045" left="149" width="103" height="18" font="4">data(sentences)</text>
+<text top="1075" left="148" width="116" height="13" font="4">The data, which is a</text>
+<text top="1072" left="268" width="476" height="18" font="4">data.frame, will function as the spout by emitting data from it row-by-row. After</text>
+<text top="1092" left="149" width="386" height="13" font="4">defining the spout, the functional bolts need to be specified. Table</text>
+<text top="1092" left="538" width="7" height="13" font="7"><a href="2014-1-kaptein.html#3">2</a></text>
+<text top="1092" left="548" width="196" height="13" font="4">presents both the <b>RStorm </b>as well</text>
+<text top="1108" left="149" width="596" height="13" font="4">as the Storm implementation of the first processing bolt. The Storm implementation is done partly</text>
+<text top="1125" left="149" width="597" height="13" font="4">in Java and partly in Python. For the <b>RStorm </b>implementation the full functional code is provided,</text>
+<text top="1141" left="148" width="596" height="13" font="4">while for the Storm implementation a number of details are omitted. However, it is easy to see how an</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">125</text>
+<text top="105" left="149" width="52" height="15" font="11"><b>RStorm</b></text>
+<text top="105" left="455" width="29" height="15" font="11"><b>Java</b></text>
+<text top="152" left="149" width="259" height="20" font="12"># R function that receives a tuple</text>
+<text top="170" left="149" width="206" height="20" font="12"># (a sentence in this case)</text>
+<text top="188" left="149" width="206" height="20" font="12"># and splits it into words:</text>
+<text top="206" left="149" width="282" height="20" font="12">SplitSentence &lt;- function(tuple, ...)</text>
+<text top="224" left="149" width="8" height="20" font="12">{</text>
+<text top="242" left="164" width="236" height="20" font="12"># Split the sentence into words</text>
+<text top="260" left="164" width="122" height="20" font="12">words &lt;- unlist(</text>
+<text top="278" left="179" width="168" height="20" font="12">strsplit(as.character(</text>
+<text top="295" left="195" width="152" height="20" font="12">tuple$sentence), &#34; &#34;</text>
+<text top="313" left="179" width="15" height="20" font="12">))</text>
+<text top="349" left="164" width="213" height="20" font="12"># For each word emit a tuple</text>
+<text top="367" left="164" width="145" height="20" font="12">for (word in words)</text>
+<text top="385" left="179" width="84" height="20" font="12">Emit(Tuple(</text>
+<text top="403" left="195" width="191" height="20" font="12">data.frame(word = word)),</text>
+<text top="421" left="195" width="30" height="20" font="12">...)</text>
+<text top="439" left="149" width="8" height="20" font="12">}</text>
+<text top="152" left="455" width="23" height="20" font="12">/**</text>
+<text top="170" left="455" width="221" height="20" font="12">* A Java function which makes</text>
+<text top="188" left="455" width="198" height="20" font="12">* a call from the topology</text>
+<text top="205" left="455" width="259" height="20" font="12">* to an external Python script: */</text>
+<text top="223" left="455" width="168" height="20" font="12">public SplitSentence()</text>
+<text top="241" left="455" width="8" height="20" font="12">{</text>
+<text top="259" left="471" width="114" height="20" font="12">super(&#34;Python&#34;,</text>
+<text top="277" left="486" width="145" height="20" font="12">&#34;splitsentence.py&#34;)</text>
+<text top="295" left="455" width="8" height="20" font="12">}</text>
+<text top="331" left="455" width="229" height="20" font="12">/* The Python script (.py) */</text>
+<text top="349" left="455" width="91" height="20" font="12">import storm</text>
+<text top="367" left="455" width="175" height="20" font="12">class SplitSentenceBolt</text>
+<text top="385" left="471" width="137" height="20" font="12">(storm.BasicBolt):</text>
+<text top="403" left="471" width="183" height="20" font="12">def process(self, tuple)</text>
+<text top="421" left="486" width="53" height="20" font="12">words =</text>
+<text top="439" left="501" width="198" height="20" font="12">tuple.values[0].split(&#34; &#34;)</text>
+<text top="457" left="486" width="137" height="20" font="12">for word in words:</text>
+<text top="474" left="501" width="137" height="20" font="12">storm.emit([word])</text>
+<text top="533" left="148" width="47" height="13" font="3"><b>Table 2:</b></text>
+<text top="533" left="200" width="235" height="13" font="4">Description of the first functional bolt (</text>
+<text top="529" left="435" width="309" height="18" font="4">SplitSentence()) of the word count stream in both</text>
+<text top="549" left="149" width="47" height="13" font="3"><b>RStorm</b></text>
+<text top="549" left="199" width="131" height="13" font="4">(left), and Java (right).</text>
+<text top="597" left="149" width="397" height="13" font="4">actual Storm implementation maps to implementations in <b>RStorm</b>.</text>
+<text top="618" left="171" width="102" height="13" font="4">In both cases the</text>
+<text top="614" left="277" width="469" height="18" font="4">SplitSentence() function receives tuples, each of which contains a sentence.</text>
+<text top="634" left="149" width="529" height="13" font="4">Each sentence is split into words which are emitted further down the stream using the</text>
+<text top="631" left="682" width="63" height="18" font="4">Emit() (or</text>
+<text top="647" left="149" width="141" height="18" font="4">storm.emit()) <a href="2014-1-kaptein.html#0">function</a></text>
+<text top="648" left="290" width="5" height="10" font="5"><a href="2014-1-kaptein.html#0">4</a></text>
+<text top="651" left="296" width="139" height="13" font="4"><a href="2014-1-kaptein.html#0">. </a>The second bolt is the</text>
+<text top="647" left="438" width="306" height="18" font="4">CountWords() bolt, for which the <b>RStorm </b>code and</text>
+<text top="667" left="149" width="277" height="13" font="4">the analogous Java code are presented in Table</text>
+<text top="667" left="429" width="7" height="13" font="7"><a href="2014-1-kaptein.html#4">3</a></text>
+<text top="667" left="436" width="3" height="13" font="4"><a href="2014-1-kaptein.html#4">.</a></text>
+<text top="688" left="171" width="22" height="13" font="4">The</text>
+<text top="684" left="197" width="547" height="18" font="4">CountWords() bolt receives tuples containing individual words. The <b>RStorm </b>implementation</text>
+<text top="704" left="149" width="75" height="13" font="4">first uses the</text>
+<text top="701" left="228" width="517" height="18" font="4">GetHash() function to get the entries of a hashmap / local-store called &#34;wordcount&#34;. In</text>
+<text top="721" left="148" width="596" height="13" font="4">production systems this often is a hashmap, or, if need be, some kind of database system. In <b>RStorm</b></text>
+<text top="737" left="149" width="234" height="13" font="4">this functionality is implemented using</text>
+<text top="734" left="387" width="357" height="18" font="4">GetHash and SetHash as methods to easily store and retrieve</text>
+<text top="754" left="149" width="595" height="13" font="4">objects. If the hashmap exists, the function subsequently checks whether the word is already in the</text>
+<text top="770" left="149" width="595" height="13" font="4">hashmap. If the word is not found, the new word is added to the hashmap with a count of 1, otherwise</text>
+<text top="787" left="149" width="225" height="13" font="4">the current count is incremented by 1.</text>
+<text top="807" left="171" width="573" height="13" font="4">After specifying the two bolts the topology needs to be specified. The topology determines the</text>
+<text top="824" left="148" width="288" height="13" font="4">processing order of the streaming process. Table</text>
+<text top="824" left="440" width="7" height="13" font="7"><a href="2014-1-kaptein.html#4">4</a></text>
+<text top="824" left="450" width="294" height="13" font="4">presents how this is implemented in <b>RStorm </b>and</text>
+<text top="840" left="149" width="26" height="13" font="4"><a href="2014-1-kaptein.html#0">Java</a></text>
+<text top="838" left="175" width="5" height="10" font="5"><a href="2014-1-kaptein.html#0">5</a></text>
+<text top="840" left="181" width="563" height="13" font="4"><a href="2014-1-kaptein.html#0">. </a>Each time a bolt is added to a topology in <b>RStorm </b>the user is alerted to the position of that</text>
+<text top="857" left="149" width="195" height="13" font="4">bolt within in the stream, and the</text>
+<text top="853" left="347" width="397" height="18" font="4">listen argument can be used to specify which emitted tuples a bolt</text>
+<text top="873" left="149" width="585" height="13" font="4">should receive. Once the topology is fully specified, the stream can be run using the following call:</text>
+<text top="896" left="149" width="117" height="18" font="4"># Run the stream:</text>
+<text top="912" left="149" width="178" height="18" font="4">result &lt;- RStorm(topology)</text>
+<text top="928" left="149" width="261" height="18" font="4"># Obtain results stored in &#34;wordcount&#34;</text>
+<text top="945" left="149" width="261" height="18" font="4">counts &lt;- GetHash(&#34;wordcount&#34;, result)</text>
+<text top="974" left="148" width="78" height="13" font="4">The function</text>
+<text top="971" left="231" width="513" height="18" font="4">GetHash() is overloaded for when the stream has finished and the function is used</text>
+<text top="990" left="149" width="68" height="13" font="4">outside of a</text>
+<text top="987" left="220" width="524" height="18" font="4">Bolt. It can be used to retrieve a hashmap once the result of a streaming process is passed</text>
+<text top="1007" left="149" width="241" height="13" font="4">to it as a second argument. The returned</text>
+<text top="1003" left="393" width="351" height="18" font="4">counts object is a data.frame containing columns of words</text>
+<text top="1023" left="149" width="453" height="13" font="4">and their associated counts and can be used to create a table of word counts.</text>
+<text top="1044" left="171" width="573" height="13" font="4">The word count example shows the direct analogy between the implementation of a data stream</text>
+<text top="1061" left="149" width="595" height="13" font="4">in <b>RStorm </b>and in Storm. However, by focusing on an implementation that is analogous to the Storm</text>
+<text top="1077" left="149" width="571" height="13" font="4">implementation, a number of desirable R specific properties are lost. For example, the use of</text>
+<text top="1074" left="724" width="21" height="18" font="4">for</text>
+<text top="1103" left="165" width="4" height="9" font="10">4</text>
+<text top="1105" left="170" width="574" height="12" font="1">Note that the . . . argument in the <b>RStorm </b>implementation is used to manage the stream and should thus</text>
+<text top="1119" left="149" width="221" height="12" font="1">always be supplied to the processing bolt.</text>
+<text top="1132" left="165" width="4" height="9" font="10">5</text>
+<text top="1134" left="170" width="574" height="12" font="1">The . . . arguments in the Java implementation provide additional arguments used for managing parallelism in</text>
+<text top="1148" left="149" width="158" height="12" font="1">actual streaming applications.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">126</text>
+<text top="105" left="149" width="52" height="15" font="11"><b>RStorm</b></text>
+<text top="105" left="455" width="29" height="15" font="11"><b>Java</b></text>
+<text top="152" left="149" width="206" height="20" font="12"># R word counting function:</text>
+<text top="170" left="149" width="267" height="20" font="12">CountWord &lt;- function(tuple, ...) {</text>
+<text top="188" left="164" width="229" height="20" font="12"># Get the hashmap &#34;word count&#34;</text>
+<text top="206" left="164" width="221" height="20" font="12">words &lt;- GetHash(&#34;wordcount&#34;)</text>
+<text top="224" left="164" width="252" height="20" font="12">if (tuple$word %in% words$word) {</text>
+<text top="242" left="179" width="206" height="20" font="12"># Increment the word count:</text>
+<text top="260" left="179" width="244" height="20" font="12">words[words$word == tuple$word,]</text>
+<text top="278" left="195" width="69" height="20" font="12">$count &lt;-</text>
+<text top="295" left="195" width="244" height="20" font="12">words[words$word == tuple$word,]</text>
+<text top="313" left="210" width="76" height="20" font="12">$count + 1</text>
+<text top="331" left="164" width="282" height="20" font="12">} else { # If the word does not exist</text>
+<text top="349" left="179" width="206" height="20" font="12"># Add the word with count 1</text>
+<text top="367" left="179" width="252" height="20" font="12">words &lt;- rbind(words, data.frame(</text>
+<text top="385" left="195" width="229" height="20" font="12">word = tuple$word, count = 1))</text>
+<text top="403" left="164" width="8" height="20" font="12">}</text>
+<text top="439" left="164" width="145" height="20" font="12"># Store the hashmap</text>
+<text top="457" left="164" width="206" height="20" font="12">SetHash(&#34;wordcount&#34;, words)</text>
+<text top="475" left="149" width="8" height="20" font="12">}</text>
+<text top="152" left="455" width="23" height="20" font="12">/**</text>
+<text top="170" left="455" width="229" height="20" font="12">* A Java function which stores</text>
+<text top="188" left="455" width="152" height="20" font="12">* the word count. */</text>
+<text top="205" left="455" width="84" height="20" font="12">public void</text>
+<text top="223" left="471" width="191" height="20" font="12">execute(Tuple tuple, ...)</text>
+<text top="241" left="455" width="8" height="20" font="12">{</text>
+<text top="259" left="471" width="252" height="20" font="12">/* collect word from the tuple */</text>
+<text top="277" left="471" width="252" height="20" font="12">String word = tuple.getString(0);</text>
+<text top="313" left="471" width="221" height="20" font="12">/* get counts from hashmap */</text>
+<text top="331" left="471" width="252" height="20" font="12">Integer count = counts.get(word);</text>
+<text top="349" left="471" width="221" height="20" font="12">if (count == null) count = 0;</text>
+<text top="385" left="471" width="168" height="20" font="12">/* increment counts */</text>
+<text top="403" left="471" width="61" height="20" font="12">count++;</text>
+<text top="439" left="471" width="137" height="20" font="12">/* store counts */</text>
+<text top="457" left="471" width="183" height="20" font="12">counts.put(word, count);</text>
+<text top="474" left="455" width="8" height="20" font="12">}</text>
+<text top="533" left="148" width="48" height="13" font="3"><b>Table 3:</b></text>
+<text top="533" left="201" width="257" height="13" font="4">Description of the second functional bolt (</text>
+<text top="530" left="458" width="286" height="18" font="4">CountWord()) of the word count stream in both</text>
+<text top="550" left="149" width="47" height="13" font="3"><b>RStorm</b></text>
+<text top="550" left="199" width="131" height="13" font="4">(left), and Java (right).</text>
+<text top="589" left="149" width="52" height="15" font="11"><b>RStorm</b></text>
+<text top="589" left="455" width="29" height="15" font="11"><b>Java</b></text>
+<text top="636" left="149" width="206" height="20" font="12"># Setting up the R topology</text>
+<text top="654" left="149" width="137" height="20" font="12"># Create topology:</text>
+<text top="672" left="149" width="236" height="20" font="12">topology &lt;- Topology(sentences)</text>
+<text top="708" left="149" width="122" height="20" font="12"># Add the bolts:</text>
+<text top="726" left="149" width="152" height="20" font="12">topology &lt;- AddBolt(</text>
+<text top="744" left="164" width="114" height="20" font="12">topology, Bolt(</text>
+<text top="762" left="187" width="191" height="20" font="12">SplitSentence, listen = 0</text>
+<text top="779" left="172" width="8" height="20" font="12">)</text>
+<text top="797" left="149" width="8" height="20" font="12">)</text>
+<text top="815" left="149" width="152" height="20" font="12">topology &lt;- AddBolt(</text>
+<text top="833" left="172" width="114" height="20" font="12">topology, Bolt(</text>
+<text top="851" left="195" width="160" height="20" font="12">CountWord, listen = 1</text>
+<text top="869" left="179" width="8" height="20" font="12">)</text>
+<text top="887" left="149" width="8" height="20" font="12">)</text>
+<text top="636" left="455" width="23" height="20" font="12">/**</text>
+<text top="654" left="455" width="290" height="20" font="12">* Java core topology implementation */</text>
+<text top="672" left="455" width="160" height="20" font="12">/* Create topology */</text>
+<text top="690" left="455" width="191" height="20" font="12">TopologyBuilder builder =</text>
+<text top="708" left="478" width="168" height="20" font="12">new TopologyBuilder();</text>
+<text top="744" left="455" width="145" height="20" font="12">/* Add the spout */</text>
+<text top="762" left="455" width="267" height="20" font="12">builder.setSpout(&#34;sentences&#34;, ...);</text>
+<text top="779" left="455" width="145" height="20" font="12">/* Add the bolts */</text>
+<text top="797" left="455" width="183" height="20" font="12">builder.setBolt(&#34;split&#34;,</text>
+<text top="815" left="478" width="198" height="20" font="12">new SplitSentence(), ... ,</text>
+<text top="833" left="478" width="206" height="20" font="12">.Grouping(&#34;sentences&#34;, ...)</text>
+<text top="851" left="455" width="183" height="20" font="12">builder.setBolt(&#34;count&#34;,</text>
+<text top="869" left="478" width="168" height="20" font="12">new WordCount(), ... ,</text>
+<text top="887" left="478" width="191" height="20" font="12">.Grouping(&#34;split&#34;), ... )</text>
+<text top="946" left="148" width="47" height="13" font="3"><b>Table 4:</b></text>
+<text top="945" left="200" width="544" height="13" font="4">Specification of the topology using <b>RStorm </b>and Java. Note: The Java code is incomplete, but</text>
+<text top="962" left="149" width="430" height="13" font="4">used only to illustrate the similarities between the two implementations.</text>
+<text top="1008" left="147" width="597" height="18" font="4">(word in words) {...} in the word count example defies the efficient vectorisation of R, and thus</text>
+<text top="1028" left="149" width="597" height="13" font="4">is relatively slow. In R one would approach the word count problem (non streaming) differently:</text>
+<text top="1045" left="149" width="24" height="13" font="4">e.g.,</text>
+<text top="1041" left="176" width="568" height="18" font="4">table(unlist(strsplit(as.character(sentences$sentence),&#34; &#34;))). The latter is much faster</text>
+<text top="1061" left="149" width="598" height="13" font="4">since it uses R properly, but the implementation in a data stream based on this code is not at all evident.</text>
+<text top="1077" left="149" width="595" height="13" font="4">Further note that while <b>RStorm </b>is modeled specifically after Storm, many other emergent streaming</text>
+<text top="1094" left="148" width="596" height="13" font="4">production packages – such as Yahoo!’s S4 – have a comparable structure. In all cases, the machinery</text>
+<text top="1110" left="149" width="595" height="13" font="4">to setup the stream can be separated from a number of functional pieces of code that update a set of</text>
+<text top="1127" left="148" width="596" height="13" font="4">parameters. These functional blocks of code are implemented in the <b>RStorm </b>bolts, and these can, after</text>
+<text top="1143" left="149" width="421" height="13" font="4">development in R, easily be implemented in production environments.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">127</text>
+<text top="105" left="149" width="164" height="15" font="11"><b>Sum of Squares method</b></text>
+<text top="105" left="455" width="121" height="15" font="11"><b>Welford’s method</b></text>
+<text top="152" left="149" width="213" height="20" font="12">var.SS &lt;- function(x, ...) {</text>
+<text top="170" left="172" width="229" height="20" font="12"># Get values stored in hashmap</text>
+<text top="188" left="172" width="213" height="20" font="12">params &lt;- GetHash(&#34;params1&#34;)</text>
+<text top="206" left="172" width="221" height="20" font="12">if (!is.data.frame(params)) {</text>
+<text top="224" left="187" width="259" height="20" font="12"># If no hashmap exists initialise:</text>
+<text top="242" left="187" width="122" height="20" font="12">params &lt;- list()</text>
+<text top="260" left="187" width="191" height="20" font="12">params$n &lt;- params$sum &lt;-</text>
+<text top="278" left="202" width="122" height="20" font="12">params$sum2 &lt;- 0</text>
+<text top="295" left="172" width="8" height="20" font="12">}</text>
+<text top="331" left="172" width="137" height="20" font="12"># Perform updates:</text>
+<text top="349" left="172" width="130" height="20" font="12">n &lt;- params$n + 1</text>
+<text top="367" left="172" width="259" height="20" font="12">S &lt;- params$sum + as.numeric(x[1])</text>
+<text top="385" left="172" width="145" height="20" font="12">SS &lt;- params$sum2 +</text>
+<text top="403" left="187" width="137" height="20" font="12">as.numeric(x[1]^2)</text>
+<text top="439" left="172" width="152" height="20" font="12"># Store the hashmap:</text>
+<text top="457" left="172" width="137" height="20" font="12">SetHash(&#34;params1&#34;,</text>
+<text top="475" left="187" width="198" height="20" font="12">data.frame(n = n, sum = S,</text>
+<text top="493" left="202" width="84" height="20" font="12">sum2 = SS))</text>
+<text top="529" left="172" width="236" height="20" font="12"># Track the variance at time t:</text>
+<text top="547" left="172" width="282" height="20" font="12">var &lt;- 1/(n * (n-1)) * (n * SS - S^2)</text>
+<text top="564" left="172" width="137" height="20" font="12">TrackRow(&#34;var.SS&#34;,</text>
+<text top="582" left="187" width="168" height="20" font="12">data.frame(var = var))</text>
+<text top="600" left="156" width="8" height="20" font="12">}</text>
+<text top="152" left="455" width="252" height="20" font="12">var.Welford &lt;- function(x, ...) {</text>
+<text top="170" left="478" width="160" height="20" font="12">x &lt;- as.numeric(x[1])</text>
+<text top="188" left="478" width="213" height="20" font="12">params &lt;- GetHash(&#34;params2&#34;)</text>
+<text top="206" left="478" width="221" height="20" font="12">if (!is.data.frame(params)) {</text>
+<text top="224" left="494" width="122" height="20" font="12">params &lt;- list()</text>
+<text top="242" left="494" width="175" height="20" font="12">params$M &lt;- params$S &lt;-</text>
+<text top="260" left="509" width="99" height="20" font="12">params$n &lt;- 0</text>
+<text top="278" left="478" width="8" height="20" font="12">}</text>
+<text top="295" left="478" width="130" height="20" font="12">n &lt;- params$n + 1</text>
+<text top="313" left="478" width="114" height="20" font="12">M &lt;- params$M +</text>
+<text top="331" left="494" width="183" height="20" font="12">(x - params$M) / (n + 1)</text>
+<text top="349" left="478" width="114" height="20" font="12">S &lt;- params$S +</text>
+<text top="367" left="494" width="183" height="20" font="12">(x - params$M) * (x - M)</text>
+<text top="403" left="478" width="137" height="20" font="12">SetHash(&#34;params2&#34;,</text>
+<text top="421" left="494" width="244" height="20" font="12">data.frame(n = n, M = M, S = S))</text>
+<text top="457" left="478" width="152" height="20" font="12">var &lt;- ifelse(n &gt; 1,</text>
+<text top="475" left="494" width="114" height="20" font="12">S / (n - 1), 0)</text>
+<text top="511" left="478" width="175" height="20" font="12">TrackRow(&#34;var.Welford&#34;,</text>
+<text top="529" left="494" width="168" height="20" font="12">data.frame(var = var))</text>
+<text top="547" left="463" width="8" height="20" font="12">}</text>
+<text top="659" left="219" width="47" height="13" font="3"><b>Table 5:</b></text>
+<text top="659" left="271" width="402" height="13" font="4">Comparison of two different bolts to compute a streaming variance.</text>
+<text top="705" left="149" width="144" height="17" font="6"><b>RStorm examples</b></text>
+<text top="744" left="148" width="596" height="13" font="4">The following section shows a number of streaming examples and demonstrates some of <b>RStorm</b>’s</text>
+<text top="761" left="149" width="115" height="13" font="4">additional features.</text>
+<text top="803" left="149" width="59" height="15" font="11"><b>Example</b></text>
+<text top="803" left="211" width="335" height="15" font="0">1<b>: Comparisons of streaming variance algorithms</b></text>
+<text top="835" left="148" width="598" height="13" font="4">This first example compares two bolts for the streaming computation of a sample variance. It intro-</text>
+<text top="851" left="149" width="58" height="13" font="4">duces the</text>
+<text top="848" left="210" width="534" height="18" font="4">TrackRow(data) functionality implemented in <b>RStorm </b>which can be used to monitor the</text>
+<text top="867" left="148" width="381" height="13" font="4">progress of parameters at each time point in the stream. Table</text>
+<text top="867" left="533" width="7" height="13" font="7"><a href="2014-1-kaptein.html#5">5</a></text>
+<text top="867" left="544" width="200" height="13" font="4">shows two bolts with competing</text>
+<text top="884" left="149" width="595" height="13" font="4">implementations of streaming variance algorithms. The first bolt uses the standard Sum of Squares</text>
+<text top="900" left="149" width="313" height="13" font="4">algorithm, while the second uses Welford’s method <a href="2014-1-kaptein.html#10">(</a></text>
+<text top="900" left="462" width="48" height="13" font="7"><a href="2014-1-kaptein.html#10">Welford</a></text>
+<text top="900" left="509" width="3" height="13" font="4"><a href="2014-1-kaptein.html#10">,</a></text>
+<text top="900" left="516" width="27" height="13" font="7"><a href="2014-1-kaptein.html#10">1962</a></text>
+<text top="900" left="543" width="8" height="13" font="4"><a href="2014-1-kaptein.html#10">).</a></text>
+<text top="921" left="171" width="573" height="13" font="4">After specifying the functional bolts, the topology can be specified. Creating a topology object</text>
+<text top="938" left="149" width="189" height="13" font="4">starts with the specification of a</text>
+<text top="934" left="342" width="402" height="18" font="4">data.frame. This dataframe will be iterated through row-by-row to</text>
+<text top="954" left="149" width="100" height="13" font="4">emulate a steam.</text>
+<text top="978" left="149" width="62" height="18" font="4">t &lt;- 1000</text>
+<text top="994" left="149" width="151" height="18" font="4">x &lt;- rnorm(t, 10^8, 1)</text>
+<text top="1010" left="149" width="268" height="18" font="4">topology &lt;- Topology(data.frame(x = x))</text>
+<text top="1041" left="148" width="189" height="13" font="4">The spout defined in the object</text>
+<text top="1037" left="341" width="403" height="18" font="4">topology now contains a dataframe with a single column x, which</text>
+<text top="1057" left="149" width="426" height="13" font="4">contains 1000 draws from a Gaussian distribution with a large mean, <i>µ</i></text>
+<text top="1056" left="579" width="11" height="14" font="0">=</text>
+<text top="1057" left="594" width="14" height="13" font="4">10</text>
+<text top="1054" left="608" width="5" height="10" font="9">8</text>
+<text top="1057" left="614" width="131" height="13" font="4">, and a comparatively</text>
+<text top="1074" left="149" width="100" height="13" font="4">small variance, <i>σ</i></text>
+<text top="1071" left="250" width="5" height="10" font="9">2</text>
+<text top="1073" left="259" width="11" height="14" font="0">=</text>
+<text top="1074" left="274" width="311" height="13" font="4">1. Subsequently, the bolts are added to the topology:</text>
+<text top="1097" left="149" width="377" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(var.SS, listen = 0))</text>
+<text top="1114" left="149" width="412" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(var.Welford, listen = 0))</text>
+<text top="1130" left="149" width="178" height="18" font="4">result &lt;- RStorm(topology)</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="7" family="Times" color="#000000"/>
+	<fontspec id="16" size="7" family="Times" color="#000000"/>
+	<fontspec id="17" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">128</text>
+<text top="264" left="224" width="5" height="10" font="15">0</text>
+<text top="264" left="311" width="15" height="10" font="15">200</text>
+<text top="264" left="403" width="15" height="10" font="15">400</text>
+<text top="264" left="496" width="15" height="10" font="15">600</text>
+<text top="264" left="588" width="15" height="10" font="15">800</text>
+<text top="264" left="678" width="20" height="10" font="15">1000</text>
+<text top="233" left="195" width="0" height="10" font="16">-1</text>
+<text top="225" left="195" width="0" height="10" font="16">0</text>
+<text top="202" left="195" width="0" height="10" font="16">0</text>
+<text top="179" left="195" width="0" height="10" font="16">10</text>
+<text top="152" left="195" width="0" height="10" font="16">20</text>
+<text top="126" left="195" width="0" height="10" font="16">30</text>
+<text top="286" left="427" width="60" height="10" font="15">Time in stream</text>
+<text top="218" left="174" width="0" height="10" font="16">Est</text>
+<text top="205" left="174" width="0" height="10" font="16">ima</text>
+<text top="190" left="174" width="0" height="10" font="16">te</text>
+<text top="182" left="174" width="0" height="10" font="16">d </text>
+<text top="175" left="174" width="0" height="10" font="16">Va</text>
+<text top="163" left="174" width="0" height="10" font="16">ria</text>
+<text top="153" left="174" width="0" height="10" font="16">nce</text>
+<text top="147" left="248" width="79" height="8" font="17">Sum of Squares method</text>
+<text top="156" left="248" width="55" height="8" font="17">Welfords Method</text>
+<text top="322" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="322" left="206" width="538" height="13" font="4">Comparison of two streaming variance algorithms. The sums of squares method (black) is</text>
+<text top="338" left="149" width="173" height="13" font="4">numerically unstable when <i>µ</i></text>
+<text top="337" left="326" width="14" height="13" font="0"></text>
+<text top="341" left="344" width="8" height="10" font="14"><i>σ</i></text>
+<text top="335" left="352" width="5" height="10" font="9">2</text>
+<text top="338" left="358" width="3" height="13" font="4">.</text>
+<text top="431" left="331" width="22" height="7" font="17">Data!</text>
+<text top="395" left="443" width="26" height="7" font="17">SGD_1!</text>
+<text top="395" left="528" width="44" height="7" font="17">Weights_1!</text>
+<text top="470" left="439" width="35" height="7" font="17">SGD_100!</text>
+<text top="470" left="524" width="52" height="7" font="17">Weights_100!</text>
+<text top="428" left="446" width="9" height="11" font="15">…	  </text>
+<text top="428" left="545" width="9" height="11" font="15">…	  </text>
+<text top="519" left="341" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="519" left="399" width="153" height="13" font="4">The DoNB SGD topology.</text>
+<text top="569" left="148" width="22" height="13" font="4">The</text>
+<text top="566" left="174" width="570" height="18" font="4">TrackRow() function called within both functional bolts allows for inspection of the two variances</text>
+<text top="585" left="149" width="175" height="13" font="4">at each point in time: using</text>
+<text top="582" left="329" width="416" height="18" font="4">TrackRow() the values are stored for each time point. Using (e.g.,)</text>
+<text top="598" left="149" width="595" height="18" font="4">GetTrack(&#34;var.SS&#34;,result) on the result object after running the topology allows for the creation</text>
+<text top="618" left="149" width="54" height="13" font="4">of Figure</text>
+<text top="618" left="206" width="7" height="13" font="7"><a href="2014-1-kaptein.html#6">2</a></text>
+<text top="618" left="213" width="3" height="13" font="4"><a href="2014-1-kaptein.html#6">.</a></text>
+<text top="661" left="149" width="59" height="15" font="11"><b>Example</b></text>
+<text top="661" left="211" width="180" height="15" font="0">2<b>: Online gradient descent</b></text>
+<text top="692" left="148" width="596" height="13" font="4">This example provides an implementation in <b>RStorm </b>of an logistic regression using stochastic gradient</text>
+<text top="709" left="149" width="115" height="13" font="4">descent (SGD; e.g.,</text>
+<text top="709" left="268" width="95" height="13" font="7"><a href="2014-1-kaptein.html#10">Zinkevich et al.</a></text>
+<text top="709" left="363" width="3" height="13" font="4"><a href="2014-1-kaptein.html#10">,</a></text>
+<text top="709" left="371" width="27" height="13" font="7"><a href="2014-1-kaptein.html#10">2010</a></text>
+<text top="709" left="398" width="277" height="13" font="4"><a href="2014-1-kaptein.html#10">), </a>together with a Double or Nothing (DoNB;</text>
+<text top="709" left="680" width="64" height="13" font="7"><a href="2014-1-kaptein.html#9">Owen and</a></text>
+<text top="725" left="149" width="37" height="13" font="7"><a href="2014-1-kaptein.html#9">Eckles</a></text>
+<text top="725" left="186" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="725" left="192" width="26" height="13" font="7"><a href="2014-1-kaptein.html#9">2012</a></text>
+<text top="725" left="218" width="526" height="13" font="4"><a href="2014-1-kaptein.html#9">) </a>bootstrap to estimate the uncertainty of the parameters. The functional bolt first performs</text>
+<text top="741" left="149" width="595" height="13" font="4">the sampling needed for the DoNB bootstrap and subsequently computes the update of the feature</text>
+<text top="758" left="148" width="37" height="13" font="4">vector</text>
+<text top="757" left="189" width="7" height="14" font="0">~</text>
+<text top="758" left="189" width="10" height="13" font="4">w</text>
+<text top="762" left="199" width="3" height="10" font="9">t</text>
+<text top="758" left="203" width="3" height="13" font="4">:</text>
+<text top="781" left="149" width="487" height="18" font="4">StochasticGradientDescent &lt;- function(tuple, learn = .5, boltID, ...) {</text>
+<text top="798" left="163" width="501" height="18" font="4">if (rbinom(1, 1, .5) == 1) { # Only add the observation half of the times</text>
+<text top="814" left="176" width="261" height="18" font="4"># get the set up weights for this bolt</text>
+<text top="831" left="176" width="377" height="18" font="4">weights &lt;- GetHash(paste(&#34;Weights_&#34;, boltID, sep = &#34;&#34;))</text>
+<text top="847" left="176" width="206" height="18" font="4">if (!is.data.frame(weights)) {</text>
+<text top="864" left="190" width="261" height="18" font="4">weights &lt;- data.frame(beta = c(-1, 2))</text>
+<text top="880" left="176" width="7" height="18" font="4">}</text>
+<text top="896" left="176" width="281" height="18" font="4">w &lt;- weights$beta # get weights-vector w</text>
+<text top="913" left="176" width="274" height="18" font="4">y &lt;- as.double(tuple[1]) # get scalar y</text>
+<text top="929" left="176" width="343" height="18" font="4">X &lt;- as.double(tuple[2:3]) # get feature-vector X</text>
+<text top="946" left="176" width="432" height="18" font="4">grad &lt;- (1 / ( 1 + exp(-t(w) %*% X)) - as.double(tuple[1])) * X</text>
+<text top="962" left="176" width="302" height="18" font="4">SetHash(paste(&#34;Weights_&#34;, boltID, sep = &#34;&#34;),</text>
+<text top="979" left="231" width="357" height="18" font="4">data.frame(beta = w - learn * grad)) # save weights</text>
+<text top="995" left="163" width="137" height="18" font="4">} # otherwise ignore</text>
+<text top="1012" left="149" width="7" height="18" font="4">}</text>
+<text top="1042" left="148" width="570" height="13" font="4">The dataset for this example contains 1000 dichotomous outcomes using only a single predictor:</text>
+<text top="1065" left="149" width="62" height="18" font="4">n &lt;- 1000</text>
+<text top="1082" left="149" width="350" height="18" font="4">X &lt;- matrix(c(rep(1, n), rnorm(n, 0, 1)), ncol = 2)</text>
+<text top="1098" left="149" width="103" height="18" font="4">beta &lt;- c(1, 2)</text>
+<text top="1115" left="149" width="254" height="18" font="4">y &lt;- rbinom(n, 1, plogis(X %*% beta))</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">129</text>
+<text top="103" left="148" width="596" height="13" font="4">The DoNB is implemented by specifying within the functional bolt whether or not a datapoint in</text>
+<text top="120" left="149" width="424" height="13" font="4">the stream should contribute to the update of the weights. Using the</text>
+<text top="116" left="577" width="167" height="18" font="4">boltID parameter the same</text>
+<text top="136" left="149" width="595" height="13" font="4">functional bolt can be used multiple times in the stream, each with its own local store. The topology is</text>
+<text top="152" left="149" width="119" height="13" font="4">specified as follows:</text>
+<text top="175" left="149" width="384" height="18" font="4">topology &lt;- Topology(data.frame(data), .verbose = FALSE)</text>
+<text top="192" left="149" width="123" height="18" font="4">for (i in 1:100) {</text>
+<text top="208" left="163" width="418" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(StochasticGradientDescent,</text>
+<text top="224" left="300" width="288" height="18" font="4">listen = 0, boltID = i), .verbose = FALSE)</text>
+<text top="241" left="149" width="7" height="18" font="4">}</text>
+<text top="270" left="148" width="300" height="13" font="4">This topology is represented graphically in Figure</text>
+<text top="270" left="451" width="7" height="13" font="7"><a href="2014-1-kaptein.html#6">3</a></text>
+<text top="270" left="458" width="195" height="13" font="4"><a href="2014-1-kaptein.html#6">. </a>After running the topology, the</text>
+<text top="267" left="656" width="89" height="18" font="4">GetHashList()</text>
+<text top="287" left="149" width="366" height="13" font="4">function can be used to retrieve all of the objects saved using</text>
+<text top="283" left="519" width="225" height="18" font="4">SetHash() at once. This object is a list</text>
+<text top="303" left="149" width="595" height="13" font="4">containing all the dataframes that are stored during the stream. It can be used derive the estimates of</text>
+<text top="323" left="149" width="7" height="10" font="14"><i>β</i></text>
+<text top="320" left="160" width="201" height="13" font="4">and the 95% confidence interval: <i>β</i></text>
+<text top="324" left="362" width="5" height="10" font="9">0</text>
+<text top="319" left="372" width="11" height="14" font="0">=</text>
+<text top="320" left="387" width="23" height="13" font="4">1.33</text>
+<text top="319" left="413" width="4" height="14" font="0">[</text>
+<text top="320" left="417" width="45" height="13" font="4">.50, 2.08</text>
+<text top="319" left="463" width="4" height="14" font="0">]</text>
+<text top="320" left="470" width="33" height="13" font="4">and <i>β</i></text>
+<text top="324" left="504" width="5" height="10" font="9">1</text>
+<text top="319" left="514" width="11" height="14" font="0">=</text>
+<text top="320" left="529" width="23" height="13" font="4">2.02</text>
+<text top="319" left="555" width="4" height="14" font="0">[</text>
+<text top="320" left="559" width="52" height="13" font="4">1.34, 2.76</text>
+<text top="319" left="611" width="4" height="14" font="0">]</text>
+<text top="320" left="618" width="126" height="13" font="4">which are close to the</text>
+<text top="338" left="149" width="148" height="13" font="4">estimates obtained using</text>
+<text top="335" left="300" width="24" height="18" font="4">glm:</text>
+<text top="334" left="327" width="7" height="14" font="0">~</text>
+<text top="341" left="328" width="7" height="10" font="14"><i>β</i></text>
+<text top="337" left="340" width="22" height="14" font="0">= {</text>
+<text top="338" left="362" width="53" height="13" font="4">1.25, 2.04</text>
+<text top="337" left="415" width="7" height="13" font="0">}</text>
+<text top="338" left="422" width="3" height="13" font="4">.</text>
+<text top="380" left="149" width="59" height="15" font="11"><b>Example</b></text>
+<text top="380" left="211" width="133" height="15" font="0">3<b>: The </b>k<b>-arm bandit</b></text>
+<text top="411" left="148" width="597" height="13" font="4">The last example presents a situation in which streaming data naturally arises: bandit problems (e.g.,</text>
+<text top="428" left="148" width="43" height="13" font="7"><a href="2014-1-kaptein.html#10">Whittle</a></text>
+<text top="428" left="192" width="3" height="13" font="4"><a href="2014-1-kaptein.html#10">,</a></text>
+<text top="428" left="198" width="26" height="13" font="7"><a href="2014-1-kaptein.html#10">1980</a></text>
+<text top="428" left="224" width="520" height="13" font="4"><a href="2014-1-kaptein.html#10">). </a>In the canonical bandit problem, the two-armed Bernoulli bandit problem, the data stream</text>
+<text top="444" left="149" width="122" height="13" font="4">consists of rewards r</text>
+<text top="449" left="271" width="5" height="10" font="9">1</text>
+<text top="444" left="276" width="34" height="13" font="4">, . . . , r</text>
+<text top="449" left="311" width="3" height="10" font="9">t</text>
+<text top="444" left="319" width="231" height="13" font="4">which are observed after playing arm a</text>
+<text top="443" left="554" width="20" height="13" font="0">∈ {</text>
+<text top="444" left="575" width="19" height="13" font="4">1, 2</text>
+<text top="443" left="594" width="7" height="13" font="0">}</text>
+<text top="444" left="605" width="49" height="13" font="4">at time t</text>
+<text top="441" left="654" width="3" height="10" font="9">0</text>
+<text top="444" left="658" width="87" height="13" font="4">. The goal is to</text>
+<text top="461" left="149" width="286" height="13" font="4">find a policy to decide between the two arms at t</text>
+<text top="460" left="439" width="11" height="14" font="0">=</text>
+<text top="461" left="454" width="4" height="13" font="4">t</text>
+<text top="457" left="459" width="3" height="10" font="9">0</text>
+<text top="461" left="466" width="191" height="13" font="4">such that the cumulative reward</text>
+<text top="460" left="660" width="27" height="14" font="0">R =</text>
+<text top="459" left="691" width="10" height="17" font="4">∑</text>
+<text top="457" left="702" width="3" height="10" font="9">t</text>
+<text top="467" left="702" width="17" height="11" font="9">i=1</text>
+<text top="461" left="722" width="5" height="13" font="4">r</text>
+<text top="466" left="727" width="3" height="10" font="9">i</text>
+<text top="461" left="735" width="10" height="13" font="4">is</text>
+<text top="477" left="149" width="116" height="13" font="4">as large as possible.</text>
+<text top="498" left="171" width="47" height="13" font="3"><b>RStorm</b></text>
+<text top="498" left="222" width="524" height="13" font="4">can be used to compare competing solutions to the k-armed Bernoulli bandit problem.</text>
+<text top="515" left="148" width="428" height="13" font="4">The data is composed of the reward r at time t for each of the actions a</text>
+<text top="519" left="577" width="5" height="10" font="9">1</text>
+<text top="515" left="582" width="30" height="13" font="4">, . . . a</text>
+<text top="520" left="613" width="5" height="10" font="9">k</text>
+<text top="515" left="618" width="126" height="13" font="4">. The function below</text>
+<text top="531" left="149" width="492" height="13" font="4">creates such a dataframe for usage in multiple simulation runs of different policies:</text>
+<text top="554" left="149" width="528" height="18" font="4">createCounterFactuals &lt;- function(k = 2, t = 100, p.max = .5, epsilon = .1) {</text>
+<text top="570" left="163" width="288" height="18" font="4">p &lt;- c(p.max, rep(p.max - epsilon, k - 1))</text>
+<text top="587" left="163" width="480" height="18" font="4">obs &lt;- data.frame(matrix(rbinom(t * k, 1, p), ncol = k, byrow = TRUE))</text>
+<text top="603" left="149" width="7" height="18" font="4">}</text>
+<text top="632" left="148" width="507" height="13" font="4">This function creates a dataframe with k arms, where arm 1 has an expected payoff of</text>
+<text top="629" left="658" width="86" height="18" font="4">p.max, and the</text>
+<text top="649" left="149" width="40" height="13" font="4">other k</text>
+<text top="648" left="192" width="11" height="13" font="0">−</text>
+<text top="649" left="206" width="200" height="13" font="4">1 arms have an expected payoff of</text>
+<text top="645" left="409" width="335" height="18" font="4">p.max-epsilon. Here we compare playing the best action</text>
+<text top="665" left="148" width="458" height="13" font="4">(optimal play – typically unknown) to a policy called Thompson sampling <a href="2014-1-kaptein.html#9">(</a></text>
+<text top="665" left="606" width="66" height="13" font="7"><a href="2014-1-kaptein.html#9">Thompson</a></text>
+<text top="665" left="672" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="665" left="678" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">1933</a></text>
+<text top="665" left="706" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">;</a></text>
+<text top="665" left="713" width="30" height="13" font="7"><a href="2014-1-kaptein.html#9">Scott</a></text>
+<text top="665" left="742" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="682" left="149" width="27" height="13" font="7"><a href="2014-1-kaptein.html#9">2010</a></text>
+<text top="682" left="176" width="114" height="13" font="4"><a href="2014-1-kaptein.html#9">). </a>Each datapoint z</text>
+<text top="686" left="290" width="3" height="10" font="9">t</text>
+<text top="682" left="298" width="446" height="13" font="4">emitted by the spout is a vector with the possible outcome of playing arm</text>
+<text top="698" left="148" width="98" height="13" font="4">1, . . . , k at time t.</text>
+<text top="719" left="171" width="573" height="13" font="4">For optimal play, the first bolt emits the reward observed by playing arm 1, and the second bolt</text>
+<text top="736" left="149" width="295" height="13" font="4">uses a hashmap to compute the cumulative reward</text>
+<text top="735" left="447" width="12" height="13" font="0">R</text>
+<text top="740" left="459" width="19" height="10" font="9">max</text>
+<text top="736" left="479" width="267" height="13" font="4">. The implementation of Thompson sampling,</text>
+<text top="752" left="149" width="279" height="13" font="4">or Randomized Probability Matching (RPM, see</text>
+<text top="752" left="434" width="29" height="13" font="7"><a href="2014-1-kaptein.html#9">Scott</a></text>
+<text top="752" left="463" width="3" height="13" font="4"><a href="2014-1-kaptein.html#9">,</a></text>
+<text top="752" left="470" width="26" height="13" font="7"><a href="2014-1-kaptein.html#9">2010</a></text>
+<text top="752" left="496" width="183" height="13" font="4"><a href="2014-1-kaptein.html#9">) </a>uses three bolts: the first bolt (</text>
+<text top="749" left="679" width="66" height="18" font="4">selectRPM)</text>
+<text top="768" left="149" width="595" height="13" font="4">determines which arm to play given a set of estimates of the success for each arm and emits the</text>
+<text top="785" left="149" width="218" height="13" font="4">observed reward. The second bolt (</text>
+<text top="781" left="367" width="377" height="18" font="4">updateRPM) updates the estimated success of the arm that was</text>
+<text top="801" left="148" width="381" height="13" font="4">played (using a simple beta-Bernoulli model), and the last bolt (</text>
+<text top="798" left="530" width="214" height="18" font="4">countRPM) computes the cumulative</text>
+<text top="818" left="149" width="43" height="13" font="4">reward</text>
+<text top="817" left="195" width="12" height="13" font="0">R</text>
+<text top="822" left="207" width="19" height="10" font="9">rpm</text>
+<text top="818" left="227" width="310" height="13" font="4">. Both of the implementations are presented in Table</text>
+<text top="818" left="540" width="7" height="13" font="7"><a href="2014-1-kaptein.html#8">6</a></text>
+<text top="818" left="547" width="3" height="13" font="4"><a href="2014-1-kaptein.html#8">.</a></text>
+<text top="839" left="171" width="291" height="13" font="4">The topology is graphically presented in Figure</text>
+<text top="839" left="467" width="7" height="13" font="7"><a href="2014-1-kaptein.html#9">4</a></text>
+<text top="839" left="473" width="271" height="13" font="4"><a href="2014-1-kaptein.html#9">. </a>The topology is initially specified using an</text>
+<text top="855" left="149" width="345" height="13" font="4">empty dataset to enable the setup of multiple simulations:</text>
+<text top="878" left="149" width="233" height="18" font="4">topology &lt;- Topology(data.frame())</text>
+<text top="894" left="149" width="398" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(selectMax, listen = 0))</text>
+<text top="911" left="149" width="391" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(countMax, listen = 1))</text>
+<text top="927" left="149" width="398" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(selectRPM, listen = 0))</text>
+<text top="943" left="149" width="398" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(updateRPM, listen = 3))</text>
+<text top="960" left="149" width="391" height="18" font="4">topology &lt;- AddBolt(topology, Bolt(countRPM, listen = 3))</text>
+<text top="989" left="148" width="170" height="13" font="4">After specifying the bolts, the</text>
+<text top="986" left="321" width="423" height="18" font="4">ChangeSpout() function is used to run the same topology with a different</text>
+<text top="1006" left="149" width="428" height="13" font="4">datasource. At each simulation run the spout is changed, and the regret,</text>
+<text top="1005" left="580" width="12" height="13" font="0">R</text>
+<text top="1010" left="592" width="19" height="10" font="9">max</text>
+<text top="1005" left="615" width="26" height="13" font="0">− R</text>
+<text top="1010" left="641" width="19" height="10" font="9">rpm</text>
+<text top="1006" left="661" width="47" height="13" font="4">, stored:</text>
+<text top="1028" left="149" width="75" height="18" font="4">sims &lt;- 100</text>
+<text top="1045" left="149" width="158" height="18" font="4">regret &lt;- rep(NA, sims)</text>
+<text top="1061" left="149" width="130" height="18" font="4">for (i in 1:sims) {</text>
+<text top="1078" left="163" width="398" height="18" font="4">obs &lt;- createCounterFactuals(k = 5, t = 10000, p.max = .5)</text>
+<text top="1094" left="163" width="261" height="18" font="4">topology &lt;- ChangeSpout(topology, obs)</text>
+<text top="1111" left="163" width="178" height="18" font="4">result &lt;- RStorm(topology)</text>
+<text top="1127" left="163" width="508" height="18" font="4">regret[i] &lt;- GetHash(&#34;maxSum&#34;, result)$sum - GetHash(&#34;rpmSum&#34;, result)$sum</text>
+<text top="1144" left="149" width="7" height="18" font="4">}</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">130</text>
+<text top="105" left="149" width="87" height="15" font="11"><b>Play optimal</b></text>
+<text top="105" left="455" width="108" height="15" font="11"><b>Play Thompson</b></text>
+<text top="152" left="149" width="259" height="20" font="12"># bolt which always selects arm 1:</text>
+<text top="170" left="149" width="274" height="20" font="12">selectMax &lt;- function(x, k.best = 1,</text>
+<text top="188" left="316" width="46" height="20" font="12">...) {</text>
+<text top="205" left="164" width="221" height="20" font="12"># Always select the first arm</text>
+<text top="223" left="164" width="84" height="20" font="12"># and emit:</text>
+<text top="241" left="164" width="61" height="20" font="12">tuple &lt;-</text>
+<text top="259" left="179" width="130" height="20" font="12">Tuple(data.frame(</text>
+<text top="277" left="195" width="145" height="20" font="12">best = x[,k.best]))</text>
+<text top="295" left="164" width="122" height="20" font="12">Emit(tuple, ...)</text>
+<text top="313" left="149" width="8" height="20" font="12">}</text>
+<text top="349" left="149" width="244" height="20" font="12"># bolt which counts the rewards:</text>
+<text top="367" left="149" width="221" height="20" font="12">countMax &lt;- function(x, ...){</text>
+<text top="385" left="164" width="206" height="20" font="12">maxSum &lt;- GetHash(&#34;maxSum&#34;)</text>
+<text top="403" left="164" width="221" height="20" font="12">if (!is.data.frame(maxSum)) {</text>
+<text top="421" left="179" width="221" height="20" font="12">maxSum &lt;- data.frame(sum = 0)</text>
+<text top="439" left="164" width="8" height="20" font="12">}</text>
+<text top="457" left="164" width="198" height="20" font="12">sum &lt;- maxSum$sum + x$best</text>
+<text top="474" left="164" width="130" height="20" font="12">SetHash(&#34;maxSum&#34;,</text>
+<text top="492" left="179" width="168" height="20" font="12">data.frame(sum = sum))</text>
+<text top="510" left="149" width="8" height="20" font="12">}</text>
+<text top="152" left="455" width="206" height="20" font="12"># bolt to select the action</text>
+<text top="170" left="455" width="236" height="20" font="12">selectRPM &lt;- function(x, ...) {</text>
+<text top="188" left="471" width="130" height="20" font="12">arms &lt;- length(x)</text>
+<text top="205" left="471" width="213" height="20" font="12">rpmCoefs &lt;- GetHash(&#34;coefs&#34;)</text>
+<text top="241" left="471" width="259" height="20" font="12"># if no estimates set beta priors:</text>
+<text top="259" left="471" width="236" height="20" font="12">if (!is.data.frame(rpmCoefs)) {</text>
+<text top="277" left="486" width="175" height="20" font="12">rpmCoefs &lt;- data.frame(</text>
+<text top="295" left="501" width="99" height="20" font="12">arm = 1:arms,</text>
+<text top="313" left="501" width="130" height="20" font="12">a = rep(1, arms),</text>
+<text top="331" left="501" width="130" height="20" font="12">b = rep(1, arms))</text>
+<text top="349" left="486" width="198" height="20" font="12">SetHash(&#34;coefs&#34;, rpmCoefs)</text>
+<text top="367" left="471" width="8" height="20" font="12">}</text>
+<text top="385" left="471" width="152" height="20" font="12"># Get a random draw:</text>
+<text top="403" left="471" width="236" height="20" font="12">draw &lt;- daply(rpmCoefs, .(arm),</text>
+<text top="421" left="486" width="137" height="20" font="12">.fun = function(x)</text>
+<text top="439" left="501" width="206" height="20" font="12">return(rbeta(1, x$a, x$b)))</text>
+<text top="457" left="471" width="229" height="20" font="12"># Determine which arm to play:</text>
+<text top="474" left="471" width="252" height="20" font="12">rpm &lt;- which.max(as.vector(draw))</text>
+<text top="492" left="471" width="198" height="20" font="12">tuple &lt;- Tuple(data.frame(</text>
+<text top="510" left="486" width="198" height="20" font="12">arm = rpm, rpm = x[,rpm]))</text>
+<text top="528" left="471" width="122" height="20" font="12">Emit(tuple, ...)</text>
+<text top="546" left="455" width="8" height="20" font="12">}</text>
+<text top="582" left="455" width="229" height="20" font="12"># bolt to update the estimates</text>
+<text top="600" left="455" width="236" height="20" font="12">updateRPM &lt;- function(x, ...) {</text>
+<text top="618" left="471" width="213" height="20" font="12">rpmCoefs &lt;- GetHash(&#34;coefs&#34;)</text>
+<text top="636" left="471" width="152" height="20" font="12"># update posteriors:</text>
+<text top="654" left="471" width="168" height="20" font="12">rpmCoefs[x$arm, ]$a &lt;-</text>
+<text top="672" left="486" width="206" height="20" font="12">rpmCoefs[x$arm, ]$a + x$rpm</text>
+<text top="690" left="471" width="168" height="20" font="12">rpmCoefs[x$arm, ]$b &lt;-</text>
+<text top="708" left="486" width="252" height="20" font="12">rpmCoefs[x$arm, ]$b + (1 - x$rpm)</text>
+<text top="726" left="471" width="198" height="20" font="12">SetHash(&#34;coefs&#34;, rpmCoefs)</text>
+<text top="743" left="455" width="8" height="20" font="12">}</text>
+<text top="779" left="455" width="198" height="20" font="12"># bolt to count the reward</text>
+<text top="797" left="455" width="229" height="20" font="12">countRPM &lt;- function(x, ...) {</text>
+<text top="815" left="471" width="168" height="20" font="12"># See &#34;countMax()&#34; for</text>
+<text top="833" left="471" width="130" height="20" font="12"># implementation.</text>
+<text top="851" left="471" width="267" height="20" font="12"># Values stored in hashmap &#34;rpmSum&#34;</text>
+<text top="869" left="455" width="8" height="20" font="12">}</text>
+<text top="927" left="148" width="48" height="13" font="3"><b>Table 6:</b></text>
+<text top="927" left="203" width="541" height="13" font="4">Comparison of optimal play and Thompson sampling for the k-armed Bernoulli bandit</text>
+<text top="944" left="148" width="54" height="13" font="4">problem.</text>
+<text top="994" left="148" width="238" height="13" font="4">After running 100 simulation runs with</text>
+<text top="990" left="390" width="101" height="18" font="4">p.max = .5 for T</text>
+<text top="993" left="495" width="11" height="14" font="0">=</text>
+<text top="994" left="510" width="234" height="13" font="4">10.000 the average regret of Thompson</text>
+<text top="1010" left="149" width="367" height="13" font="4">sampling is 74.3, with an empirical 95% confidence interval of</text>
+<text top="1009" left="520" width="4" height="14" font="0">[</text>
+<text top="1010" left="524" width="59" height="13" font="4">43.9, 104.5</text>
+<text top="1009" left="583" width="4" height="14" font="0">]</text>
+<text top="1010" left="587" width="3" height="13" font="4">.</text>
+<text top="1055" left="149" width="231" height="17" font="6"><b>Conclusions and limitations</b></text>
+<text top="1094" left="149" width="598" height="13" font="4">Datasets in all areas of science are growing increasingly large, and they are often collected continuously.</text>
+<text top="1110" left="148" width="596" height="13" font="4">There is a need for novel analysis methods which synchronize current methodological advances with</text>
+<text top="1127" left="149" width="595" height="13" font="4">the emerging opportunities of streaming data. Streaming algorithms provide opportunities to deal</text>
+<text top="1143" left="148" width="596" height="13" font="4">with extremely large and ever growing data sets in (near) real time. However, the development of</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">131</text>
+<text top="163" left="265" width="29" height="8" font="10">Spout!</text>
+<text top="196" left="351" width="48" height="8" font="10">SelectRPM!</text>
+<text top="246" left="416" width="43" height="8" font="10">rpmCoefs!</text>
+<text top="126" left="350" width="48" height="8" font="10">SelectMax!</text>
+<text top="126" left="589" width="34" height="8" font="10">maxSum!</text>
+<text top="182" left="431" width="43" height="8" font="10">countRPM!</text>
+<text top="212" left="501" width="48" height="8" font="10">updateRPM!</text>
+<text top="182" left="589" width="34" height="8" font="10">rpmSum!</text>
+<text top="126" left="431" width="43" height="8" font="10">countMax!</text>
+<text top="300" left="330" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="300" left="387" width="176" height="13" font="4">The k-armed bandit topology.</text>
+<text top="349" left="149" width="595" height="13" font="4">streaming algorithms for complex models is often cumbersome: the software packages that facilitate</text>
+<text top="366" left="149" width="597" height="13" font="4">streaming processing in production environments do not provide statisticians with the simulation,</text>
+<text top="382" left="149" width="595" height="13" font="4">estimation, and plotting tools they are used to. <b>RStorm </b>implements a streaming architecture modeled</text>
+<text top="399" left="149" width="433" height="13" font="4">on Storm for easy development and testing of streaming algorithms in R.</text>
+<text top="420" left="171" width="575" height="13" font="4">In the future we intend to further develop the <b>RStorm </b>package to include a) default implementa-</text>
+<text top="436" left="149" width="596" height="13" font="4">tions of often occurring bolts (such as streaming means and variances of variables), and b) the ability</text>
+<text top="453" left="149" width="595" height="13" font="4">to use, one-to-one, the bolts developed in <b>RStorm </b>in Storm. Storm provides the ability to write bolts in</text>
+<text top="469" left="149" width="595" height="13" font="4">languages other than Java (for example Python, as demonstrated in the word count example). We hope</text>
+<text top="485" left="149" width="595" height="13" font="4">to further develop <b>RStorm </b>such that true data streams in Storm can use functional bolts developed in</text>
+<text top="502" left="149" width="595" height="13" font="4">R. <b>RStorm </b>is not designed as a scalable tool for production processing of data streams, and we do not</text>
+<text top="518" left="149" width="595" height="13" font="4">believe that this is R’s core strength. However, by providing the ability to test and develop functional</text>
+<text top="535" left="149" width="595" height="13" font="4">bolts in R, and use these bolts directly in production streaming processing applications, <b>RStorm </b>aims</text>
+<text top="551" left="149" width="554" height="13" font="4">to support users of R to quickly implement scalable and fault tolerant streaming applications.</text>
+<text top="596" left="149" width="109" height="17" font="6"><b>Bibliography</b></text>
+<text top="635" left="149" width="595" height="13" font="4">C. Anagnostopoulos, D. K. Tasoulis, N. M. Adams, N. G. Pavlidis, and D. J. Hand. Online linear and</text>
+<text top="651" left="163" width="581" height="13" font="4">quadratic discriminant analysis with adaptive forgetting for streaming classification. Statistical</text>
+<text top="668" left="163" width="281" height="14" font="4">Analysis and Data Mining, 5(2):139–166, 2012. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="668" left="444" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="668" left="464" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="696" left="149" width="598" height="13" font="4">B. Babcock, S. Babu, M. Datar, R. Motwani, and J. Widom. Models and issues in data stream systems.</text>
+<text top="713" left="164" width="580" height="13" font="4">In Proceedings of the Twenty-First ACM SIGMOD-SIGACT-SIGART Symposium on Principles of Database</text>
+<text top="729" left="163" width="413" height="14" font="4">Systems – PODS’02, pages 1–16, New York, USA, 2002. ACM Press. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="729" left="577" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="729" left="597" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="757" left="149" width="595" height="13" font="4">L. Bottou. Online algorithms and stochastic approximations. In D. Saad, editor, Online Learning and</text>
+<text top="774" left="164" width="423" height="14" font="4">Neural Networks. Cambridge University Press, Cambridge, UK, 1998. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="774" left="587" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="774" left="607" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="802" left="149" width="595" height="13" font="4">C.-T. Chu, S. K. Kim, Y.-A. Lin, Y. Yu, G. Bradski, A. Y. Ng, and K. Olukotun. Map-reduce for machine</text>
+<text top="819" left="164" width="556" height="13" font="4">learning on multicore. Advances in Neural Information Processing Systems, 19(23):281–288, 2007. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="819" left="720" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="819" left="740" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="847" left="149" width="596" height="13" font="4">K. Gopalakrishna, F. Junqueira, M. Morel, L. Neumeyer, B. Robbins, and D. G. Ferro. S4, 2013. URL</text>
+<text top="860" left="164" width="247" height="18" font="7"><a href="http://incubator.apache.org/s4/team/">http://incubator.apache.org/s4/team/</a></text>
+<text top="864" left="411" width="21" height="13" font="4"><a href="http://incubator.apache.org/s4/team/">. </a><a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="864" left="431" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="864" left="452" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="892" left="149" width="596" height="13" font="4">M. Hahsler, M. Bolanos, and J. Forrest. stream: Infrastructure for Data Stream Mining, 2014. URL</text>
+<text top="905" left="164" width="275" height="18" font="7"><a href="http://CRAN.R-project.org/package=stream">http://CRAN.R-project.org/package=stream</a></text>
+<text top="908" left="439" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=stream">. </a>R package version 1.0-0. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="908" left="608" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="908" left="628" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="937" left="149" width="595" height="13" font="4">S. Michalak, A. DuBois, D. DuBois, S. V. Wiel, and J. Hogden. Developing systems for real-time</text>
+<text top="953" left="164" width="532" height="13" font="4">streaming analysis. Journal of Computational and Graphical Statistics, 21(3):561–580, 2012. <a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="953" left="695" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="953" left="716" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="982" left="149" width="597" height="13" font="4">A. B. Owen and D. Eckles. Bootstrapping data arrays of arbitrary order. The Annals of Applied Statistics,</text>
+<text top="998" left="164" width="127" height="13" font="4">6(3):895–927, 2012. <a href="2014-1-kaptein.html#6">[p</a></text>
+<text top="998" left="291" width="20" height="13" font="7"><a href="2014-1-kaptein.html#6">128</a></text>
+<text top="998" left="311" width="4" height="13" font="4"><a href="2014-1-kaptein.html#6">]</a></text>
+<text top="1026" left="149" width="595" height="13" font="4">S. L. Scott. A modern Bayesian look at the multi-armed bandit. Applied Stochastic Models in Business</text>
+<text top="1043" left="164" width="212" height="14" font="4">and Industry, 26(6):639–658, 2010. <a href="2014-1-kaptein.html#7">[p</a></text>
+<text top="1043" left="376" width="20" height="13" font="7"><a href="2014-1-kaptein.html#7">129</a></text>
+<text top="1043" left="396" width="4" height="13" font="4"><a href="2014-1-kaptein.html#7">]</a></text>
+<text top="1071" left="149" width="560" height="13" font="4">Storm User Group. Storm. Distributed and fault-tolerant realtime ccomputations, 2013. URL</text>
+<text top="1068" left="712" width="34" height="18" font="7"><a href="http://storm-project.net">http:</a></text>
+<text top="1084" left="163" width="131" height="18" font="7"><a href="http://storm-project.net">//storm-project.net</a></text>
+<text top="1088" left="294" width="21" height="13" font="4"><a href="http://storm-project.net">. </a><a href="2014-1-kaptein.html#1">[p</a></text>
+<text top="1088" left="315" width="20" height="13" font="7"><a href="2014-1-kaptein.html#1">123</a></text>
+<text top="1088" left="335" width="4" height="13" font="4"><a href="2014-1-kaptein.html#1">]</a></text>
+<text top="1116" left="149" width="595" height="13" font="4">W. R. Thompson. On the likelihood that one unknown probability exceeds another in view of the</text>
+<text top="1132" left="164" width="368" height="13" font="4">evidence of two samples. Biometrika, 25(3–4):285–294, 1933. <a href="2014-1-kaptein.html#7">[p</a></text>
+<text top="1132" left="531" width="20" height="13" font="7"><a href="2014-1-kaptein.html#7">129</a></text>
+<text top="1132" left="551" width="4" height="13" font="4"><a href="2014-1-kaptein.html#7">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">132</text>
+<text top="103" left="149" width="597" height="13" font="4">B. P. Welford. Note on a method for calculating corrected sums of squares and products. Technometrics,</text>
+<text top="120" left="164" width="127" height="13" font="4">4(3):419–420, 1962. <a href="2014-1-kaptein.html#5">[p</a></text>
+<text top="120" left="291" width="20" height="13" font="7"><a href="2014-1-kaptein.html#5">127</a></text>
+<text top="120" left="311" width="4" height="13" font="4"><a href="2014-1-kaptein.html#5">]</a></text>
+<text top="148" left="149" width="597" height="13" font="4">P. Whittle. Multi-armed bandits and the Gittins index. Journal of the Royal Statistical Society B, 42(2):</text>
+<text top="164" left="163" width="101" height="13" font="4">143–149, 1980. <a href="2014-1-kaptein.html#7">[p</a></text>
+<text top="164" left="265" width="20" height="13" font="7"><a href="2014-1-kaptein.html#7">129</a></text>
+<text top="164" left="285" width="4" height="13" font="4"><a href="2014-1-kaptein.html#7">]</a></text>
+<text top="193" left="149" width="595" height="13" font="4">M. A. Zinkevich, A. Smola, and M. Weimer. Parallelized stochastic gradient descent. Advances in</text>
+<text top="209" left="164" width="330" height="14" font="4">Neural Information Processing Systems, 23(6):1–9, 2010. <a href="2014-1-kaptein.html#6">[p</a></text>
+<text top="209" left="494" width="20" height="13" font="7"><a href="2014-1-kaptein.html#6">128</a></text>
+<text top="209" left="514" width="4" height="13" font="4"><a href="2014-1-kaptein.html#6">]</a></text>
+<text top="255" left="149" width="91" height="13" font="4">Maurits Kaptein</text>
+<text top="272" left="148" width="230" height="13" font="4">Department of Methodology and Statistics</text>
+<text top="288" left="148" width="242" height="13" font="4">Tilburg University, Tilburg, the Netherlands</text>
+<text top="305" left="148" width="95" height="13" font="4">Archipelstraat 13</text>
+<text top="321" left="149" width="193" height="13" font="4">6524LK Nijmegen, the Netherlands</text>
+<text top="338" left="148" width="89" height="13" font="4">+31 6 21262211</text>
+<text top="351" left="149" width="178" height="18" font="7"><a href="mailto:maurits@mauritskaptein.com">maurits@mauritskaptein.com</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

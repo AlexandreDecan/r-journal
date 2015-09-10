@@ -1,0 +1,1790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">114</text>
+<text top="98" left="149" width="411" height="30" font="2"><b>bshazard: A Flexible Tool for</b></text>
+<text top="137" left="149" width="579" height="30" font="2"><b>Nonparametric Smoothing of the Hazard</b></text>
+<text top="177" left="149" width="126" height="30" font="2"><b>Function</b></text>
+<text top="213" left="149" width="281" height="15" font="0">by Paola Rebora, Agus Salim and Marie Reilly</text>
+<text top="254" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="254" left="207" width="538" height="13" font="4">The hazard function is a key component in the inferential process in survival analysis and</text>
+<text top="270" left="149" width="595" height="13" font="4">relevant for describing the pattern of failures. However, it is rarely shown in research papers due</text>
+<text top="286" left="149" width="595" height="13" font="4">to the difficulties in nonparametric estimation. We developed the <b>bshazard </b>package to facilitate the</text>
+<text top="303" left="149" width="595" height="13" font="4">computation of a nonparametric estimate of the hazard function, with data-driven smoothing. The</text>
+<text top="319" left="149" width="595" height="13" font="4">method accounts for left truncation, right censoring and possible covariates. B-splines are used to</text>
+<text top="336" left="149" width="595" height="13" font="4">estimate the shape of the hazard within the generalized linear mixed models framework. Smoothness is</text>
+<text top="352" left="149" width="595" height="13" font="4">controlled by imposing an autoregressive structure on the baseline hazard coefficients. This perspective</text>
+<text top="369" left="149" width="595" height="13" font="4">allows an ‘automatic’ smoothing by avoiding the need to choose the smoothing parameter, which is</text>
+<text top="385" left="149" width="596" height="13" font="4">estimated from the data as a dispersion parameter. A simulation study demonstrates the capability</text>
+<text top="402" left="149" width="595" height="13" font="4">of our software and an application to estimate the hazard of Non-Hodgkin’s lymphoma in Swedish</text>
+<text top="418" left="148" width="213" height="13" font="4">population data shows its potential.</text>
+<text top="463" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="502" left="148" width="596" height="13" font="4">The hazard function is the basis of the inferential process in survival analysis, and although relevant</text>
+<text top="518" left="149" width="598" height="13" font="4">for describing the pattern of failures, is often neglected in favor of survival curves in clinical papers.</text>
+<text top="534" left="148" width="596" height="13" font="4">The most widely applied model in survival analysis (the Cox model) allows valid comparisons in</text>
+<text top="551" left="149" width="597" height="13" font="4">terms of hazard ratios without distributional assumptions concerning the baseline hazard function,</text>
+<text top="567" left="148" width="596" height="13" font="4">whose nonparametric estimate is rarely shown. Thus the reference against which the relative hazard</text>
+<text top="584" left="149" width="595" height="13" font="4">is estimated is usually ignored and a crude measure of absolute risk is sometimes provided by the</text>
+<text top="600" left="149" width="500" height="13" font="4">Kaplan-Meier estimator that is indirectly related to the shape of the hazard function.</text>
+<text top="621" left="171" width="573" height="13" font="4">In the methodological literature, some methods have been developed to obtain a nonparametric</text>
+<text top="638" left="149" width="247" height="13" font="4">hazard estimate, including kernel-based <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="638" left="396" width="104" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Müller and Wang</a></text>
+<text top="638" left="500" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="638" left="507" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1994</a></text>
+<text top="638" left="534" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="638" left="540" width="61" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Hess et al.</a></text>
+<text top="638" left="601" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="638" left="608" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1999</a></text>
+<text top="638" left="635" width="109" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">) </a>and spline-based</text>
+<text top="654" left="149" width="73" height="13" font="4">estimators <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="654" left="222" width="65" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">O’Sullivan</a></text>
+<text top="654" left="286" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="654" left="295" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1988</a></text>
+<text top="654" left="323" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="654" left="331" width="57" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Cai et al.</a></text>
+<text top="654" left="388" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="654" left="397" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">2002</a></text>
+<text top="654" left="424" width="320" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>However, specific statistical software commands</text>
+<text top="670" left="149" width="550" height="13" font="4">accounting for the characteristics of survival data are lacking. An exception is the R package</text>
+<text top="671" left="702" width="42" height="13" font="7"><a href="http://CRAN.R-project.org/package=muhaz"><b>muhaz</b></a></text>
+<text top="687" left="148" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="687" left="153" width="123" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Hess and Gentleman</a></text>
+<text top="687" left="275" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="687" left="282" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">2010</a></text>
+<text top="687" left="309" width="438" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">) </a>that estimates the hazard function from right-censored data using kernel-</text>
+<text top="703" left="149" width="596" height="13" font="4">based methods, but this package does not accommodate left-truncated data nor does it allow for</text>
+<text top="720" left="149" width="595" height="13" font="4">adjustment for possible covariates. Flexible parametric survival models can also be used to describe</text>
+<text top="736" left="149" width="199" height="13" font="4">and explore the hazard function <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="736" left="348" width="123" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Royston and Parmar</a></text>
+<text top="736" left="471" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="736" left="478" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2002</a></text>
+<text top="736" left="505" width="239" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">) </a>and in R these have been implemented</text>
+<text top="753" left="149" width="87" height="13" font="4">in the package</text>
+<text top="753" left="239" width="49" height="13" font="7"><a href="http://CRAN.R-project.org/package=flexsurv"><b>flexsurv</b></a></text>
+<text top="753" left="291" width="5" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="753" left="296" width="46" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Jackson</a></text>
+<text top="753" left="342" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="753" left="349" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2014</a></text>
+<text top="753" left="376" width="368" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">). </a>In these models a transformation of the survival function is</text>
+<text top="769" left="149" width="598" height="13" font="4">modeled as a natural cubic spline function of the logarithm of time (plus linear effects of covariates).</text>
+<text top="786" left="149" width="597" height="13" font="4">However this approach relies on an appropriate choice of the number of knots to be used in the spline.</text>
+<text top="806" left="171" width="142" height="13" font="4">We have developed the</text>
+<text top="807" left="317" width="56" height="13" font="7"><a href="http://CRAN.R-project.org/package=bshazard"><b>bshazard</b></a></text>
+<text top="806" left="376" width="368" height="13" font="4">package to obtain a nonparametric smoothed estimate of the</text>
+<text top="823" left="149" width="595" height="13" font="4">hazard function based on B-splines and generalized linear mixed models (GLMM). This perspective</text>
+<text top="839" left="149" width="595" height="13" font="4">enables ‘automatic’ smoothing, as the smoothing parameter can be estimated from the data as a</text>
+<text top="856" left="149" width="138" height="13" font="4">dispersion parameter <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="856" left="287" width="54" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="856" left="341" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="856" left="348" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="856" left="376" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="856" left="383" width="50" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Pawitan</a></text>
+<text top="856" left="433" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="856" left="440" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2001</a></text>
+<text top="856" left="467" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="856" left="474" width="97" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Eilers and Marx</a></text>
+<text top="856" left="571" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="856" left="579" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1996</a></text>
+<text top="856" left="606" width="138" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>Our implementation</text>
+<text top="872" left="149" width="595" height="13" font="4">accommodates the typical characteristics of survival data (left truncation, right censoring) and also</text>
+<text top="889" left="148" width="596" height="13" font="4">possible covariates. In the following sections we briefly review the methodology and demonstrate</text>
+<text top="905" left="149" width="595" height="13" font="4">the performance of the package in numerical examples using simulated data. We illustrate the use</text>
+<text top="922" left="149" width="595" height="13" font="4">of the package in an application to Swedish population data, where we estimate the incidence of</text>
+<text top="938" left="149" width="330" height="13" font="4">Non-Hodgkin’s lymphoma (NHL) in sisters of patients.</text>
+<text top="983" left="149" width="233" height="17" font="5"><b>Methodological background</b></text>
+<text top="1022" left="149" width="558" height="13" font="4">In this section we briefly review the methodology for smoothing the hazard rate inspired by</text>
+<text top="1022" left="710" width="34" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Eilers</a></text>
+<text top="1038" left="149" width="58" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">and Marx</a></text>
+<text top="1038" left="210" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="1038" left="214" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1996</a></text>
+<text top="1038" left="241" width="184" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">) </a>and described in Chapter 9 of</text>
+<text top="1038" left="428" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="1038" left="484" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1038" left="489" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="1038" left="516" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="1059" left="171" width="573" height="13" font="4">Let T denote the possibly right censored failure time random variable; we are interested in the</text>
+<text top="1075" left="149" width="249" height="13" font="4">estimate of the hazard function defined as</text>
+<text top="1108" left="322" width="7" height="13" font="4">h</text>
+<text top="1108" left="329" width="5" height="12" font="0">(</text>
+<text top="1108" left="334" width="4" height="13" font="4">t</text>
+<text top="1108" left="339" width="20" height="12" font="0">) =</text>
+<text top="1108" left="371" width="20" height="13" font="4">lim</text>
+<text top="1118" left="364" width="27" height="14" font="8">∆t→0</text>
+<text top="1119" left="391" width="6" height="7" font="9">+</text>
+<text top="1099" left="406" width="7" height="13" font="4">1</text>
+<text top="1114" left="402" width="14" height="17" font="4">∆t</text>
+<text top="1108" left="421" width="4" height="13" font="0">·</text>
+<text top="1108" left="428" width="8" height="13" font="4">P</text>
+<text top="1108" left="437" width="5" height="12" font="0">(</text>
+<text top="1108" left="442" width="4" height="13" font="4">t</text>
+<text top="1108" left="451" width="11" height="12" font="0">&lt;</text>
+<text top="1108" left="466" width="8" height="13" font="4">T</text>
+<text top="1108" left="479" width="11" height="13" font="0">≤</text>
+<text top="1108" left="494" width="4" height="13" font="4">t</text>
+<text top="1108" left="501" width="11" height="12" font="0">+</text>
+<text top="1105" left="515" width="14" height="17" font="4">∆t</text>
+<text top="1108" left="529" width="4" height="13" font="0">|</text>
+<text top="1108" left="534" width="8" height="13" font="4">T</text>
+<text top="1108" left="546" width="11" height="13" font="0">≥</text>
+<text top="1108" left="561" width="4" height="13" font="4">t</text>
+<text top="1108" left="566" width="5" height="12" font="0">)</text>
+<text top="1145" left="149" width="51" height="13" font="4">so that h</text>
+<text top="1144" left="200" width="5" height="12" font="0">(</text>
+<text top="1144" left="206" width="4" height="13" font="4">t</text>
+<text top="1144" left="211" width="5" height="12" font="0">)</text>
+<text top="1141" left="216" width="358" height="17" font="4">∆t is the probability of an event in the infinitesimal interval</text>
+<text top="1144" left="578" width="5" height="12" font="0">(</text>
+<text top="1144" left="583" width="15" height="14" font="4">t, t</text>
+<text top="1144" left="601" width="11" height="12" font="0">+</text>
+<text top="1141" left="615" width="14" height="17" font="4">∆t</text>
+<text top="1144" left="629" width="5" height="12" font="0">)</text>
+<text top="1145" left="635" width="109" height="13" font="4">, given survival to</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">115</text>
+<text top="103" left="149" width="38" height="13" font="4">time t.</text>
+<text top="124" left="171" width="575" height="13" font="4">Consider a sample of subjects that are observed from a common origin (e.g. start of exposure,</text>
+<text top="141" left="149" width="595" height="13" font="4">time of diagnosis) to the occurrence of the event of interest. Observation can be right censored if</text>
+<text top="157" left="149" width="595" height="13" font="4">the last follow-up time is before the occurrence of the event and/or left truncated if the observation</text>
+<text top="173" left="149" width="595" height="13" font="4">starts after the origin (time 0). By partitioning the time axis into very small intervals, the number of</text>
+<text top="190" left="149" width="371" height="13" font="4">events in each interval is approximately Poisson with mean <i>µ</i></text>
+<text top="190" left="521" width="5" height="12" font="0">(</text>
+<text top="190" left="526" width="4" height="13" font="4">t</text>
+<text top="190" left="531" width="21" height="12" font="0">) =</text>
+<text top="190" left="556" width="7" height="13" font="4">h</text>
+<text top="190" left="563" width="5" height="12" font="0">(</text>
+<text top="190" left="569" width="4" height="13" font="4">t</text>
+<text top="190" left="574" width="5" height="12" font="0">)</text>
+<text top="190" left="580" width="8" height="13" font="4">P</text>
+<text top="190" left="588" width="5" height="12" font="0">(</text>
+<text top="190" left="594" width="4" height="13" font="4">t</text>
+<text top="190" left="599" width="5" height="12" font="0">)</text>
+<text top="190" left="604" width="57" height="13" font="4">, where P</text>
+<text top="190" left="661" width="5" height="12" font="0">(</text>
+<text top="190" left="667" width="4" height="13" font="4">t</text>
+<text top="190" left="672" width="5" height="12" font="0">)</text>
+<text top="190" left="681" width="63" height="13" font="4">is the total</text>
+<text top="206" left="148" width="419" height="13" font="4">person-time in the interval (in the simplest case without censoring P</text>
+<text top="206" left="568" width="5" height="12" font="0">(</text>
+<text top="206" left="574" width="4" height="13" font="4">t</text>
+<text top="206" left="579" width="5" height="12" font="0">)</text>
+<text top="206" left="588" width="156" height="13" font="4">will be the product of the</text>
+<text top="223" left="149" width="595" height="13" font="4">number of individuals at risk at the beginning of the interval and the length of the interval). The</text>
+<text top="239" left="149" width="597" height="13" font="4">time at risk of each subject can thus be split into n bins or time intervals (common to all subjects),</text>
+<text top="256" left="149" width="595" height="13" font="4">similar to the life-table approach to survival analysis. For a data set with one record per individual</text>
+<text top="272" left="149" width="596" height="13" font="4">including entry time, exit time and censoring indicator, this splitting of time can be implemented easily</text>
+<text top="288" left="149" width="38" height="13" font="4">by the</text>
+<text top="285" left="190" width="161" height="18" font="4">splitLexis function in the</text>
+<text top="289" left="354" width="21" height="13" font="7"><a href="http://CRAN.R-project.org/package=Epi"><b>Epi</b></a></text>
+<text top="288" left="378" width="368" height="13" font="4">package. Using (common) break points supplied by the user,</text>
+<text top="305" left="149" width="595" height="13" font="4">the function divides each data record into disjoint follow-up intervals each with an entry time, exit</text>
+<text top="321" left="149" width="595" height="13" font="4">time and censoring indicator, stacking these as separate ‘observations’ in the new data set. The bins</text>
+<text top="338" left="149" width="196" height="13" font="4">should be small enough so that h</text>
+<text top="338" left="345" width="5" height="12" font="0">(</text>
+<text top="338" left="351" width="4" height="13" font="4">t</text>
+<text top="338" left="355" width="5" height="12" font="0">)</text>
+<text top="338" left="364" width="376" height="13" font="4">can be considered approximately constant within each interval.</text>
+<text top="359" left="171" width="408" height="13" font="4">We will use t to denote the vector of the midpoints of all bins, with t</text>
+<text top="364" left="579" width="3" height="10" font="8">i</text>
+<text top="359" left="587" width="158" height="13" font="4">representing the midpoint</text>
+<text top="375" left="149" width="47" height="13" font="4">for the i</text>
+<text top="372" left="196" width="9" height="10" font="8">th</text>
+<text top="375" left="209" width="31" height="13" font="4">bin (i</text>
+<text top="375" left="244" width="11" height="12" font="0">=</text>
+<text top="375" left="259" width="135" height="13" font="4">1, . . . , n). The vectors y</text>
+<text top="375" left="395" width="5" height="12" font="0">(</text>
+<text top="375" left="400" width="4" height="13" font="4">t</text>
+<text top="375" left="405" width="5" height="12" font="0">)</text>
+<text top="375" left="414" width="35" height="13" font="4">and P</text>
+<text top="375" left="450" width="5" height="12" font="0">(</text>
+<text top="375" left="455" width="4" height="13" font="4">t</text>
+<text top="375" left="460" width="5" height="12" font="0">)</text>
+<text top="375" left="469" width="275" height="13" font="4">represent the total number of events observed</text>
+<text top="392" left="149" width="595" height="13" font="4">and the total person-time in each interval. Using the Poisson likelihood to approximate the general</text>
+<text top="408" left="149" width="172" height="13" font="4">likelihood for survival data <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="408" left="321" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="408" left="374" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="408" left="380" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="408" left="407" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="408" left="414" width="114" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lambert and Eilers</a></text>
+<text top="408" left="529" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="408" left="535" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2005</a></text>
+<text top="408" left="563" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="408" left="569" width="66" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Whitehead</a></text>
+<text top="408" left="635" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="408" left="642" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1980</a></text>
+<text top="408" left="669" width="75" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">), </a>the hazard</text>
+<text top="424" left="149" width="396" height="13" font="4">can be estimated by modeling the expected number of events, <i>µ</i></text>
+<text top="424" left="545" width="5" height="12" font="0">(</text>
+<text top="424" left="551" width="4" height="13" font="4">t</text>
+<text top="424" left="555" width="5" height="12" font="0">)</text>
+<text top="424" left="561" width="183" height="13" font="4">, in each interval as a Poisson</text>
+<text top="441" left="148" width="115" height="13" font="4">variable by using P</text>
+<text top="441" left="264" width="5" height="12" font="0">(</text>
+<text top="441" left="269" width="4" height="13" font="4">t</text>
+<text top="441" left="274" width="5" height="12" font="0">)</text>
+<text top="441" left="283" width="101" height="13" font="4">as an offset term:</text>
+<text top="470" left="363" width="19" height="13" font="4">log</text>
+<text top="470" left="382" width="4" height="12" font="0">[</text>
+<text top="473" left="386" width="8" height="10" font="10"><i>µ</i></text>
+<text top="470" left="394" width="5" height="12" font="0">(</text>
+<text top="470" left="400" width="4" height="13" font="4">t</text>
+<text top="470" left="405" width="25" height="12" font="0">)] =</text>
+<text top="470" left="435" width="4" height="13" font="4">f</text>
+<text top="470" left="441" width="5" height="12" font="0">(</text>
+<text top="470" left="447" width="4" height="13" font="4">t</text>
+<text top="470" left="452" width="19" height="12" font="0">) +</text>
+<text top="470" left="474" width="19" height="13" font="4">log</text>
+<text top="470" left="493" width="4" height="12" font="0">[</text>
+<text top="470" left="497" width="8" height="13" font="4">P</text>
+<text top="470" left="506" width="5" height="12" font="0">(</text>
+<text top="470" left="512" width="4" height="13" font="4">t</text>
+<text top="470" left="517" width="10" height="12" font="0">)]</text>
+<text top="470" left="526" width="3" height="13" font="4">,</text>
+<text top="499" left="148" width="47" height="13" font="4">where f</text>
+<text top="499" left="198" width="5" height="12" font="0">(</text>
+<text top="499" left="203" width="4" height="13" font="4">t</text>
+<text top="499" left="208" width="5" height="12" font="0">)</text>
+<text top="499" left="217" width="527" height="13" font="4">denotes the logarithm of the hazard. In this context it is straightforward to account for</text>
+<text top="516" left="148" width="596" height="13" font="4">possible covariates in a proportional hazards scheme. After the splitting, data can be aggregated</text>
+<text top="532" left="149" width="595" height="13" font="4">according to the bin (time) and also to the covariate values for each subject, so that the final data is</text>
+<text top="548" left="149" width="596" height="13" font="4">organised with one record for each bin and covariate combination. Denoting by X the design matrix</text>
+<text top="565" left="148" width="598" height="13" font="4">which contains the covariate values (fixed in time) and by <i>β </i>the corresponding vector of coefficients,</text>
+<text top="581" left="149" width="118" height="13" font="4">the model becomes:</text>
+<text top="598" left="346" width="19" height="13" font="4">log</text>
+<text top="598" left="365" width="4" height="12" font="0">[</text>
+<text top="601" left="369" width="8" height="10" font="10"><i>µ</i></text>
+<text top="598" left="377" width="5" height="12" font="0">(</text>
+<text top="598" left="383" width="4" height="13" font="4">t</text>
+<text top="598" left="388" width="25" height="12" font="0">)] =</text>
+<text top="598" left="416" width="18" height="13" font="4">X<i>β</i></text>
+<text top="598" left="437" width="11" height="12" font="0">+</text>
+<text top="598" left="453" width="4" height="13" font="4">f</text>
+<text top="598" left="459" width="5" height="12" font="0">(</text>
+<text top="598" left="465" width="4" height="13" font="4">t</text>
+<text top="598" left="469" width="19" height="12" font="0">) +</text>
+<text top="598" left="492" width="19" height="13" font="4">log</text>
+<text top="598" left="510" width="4" height="12" font="0">[</text>
+<text top="598" left="515" width="8" height="13" font="4">P</text>
+<text top="598" left="523" width="5" height="12" font="0">(</text>
+<text top="598" left="529" width="4" height="13" font="4">t</text>
+<text top="598" left="534" width="10" height="12" font="0">)]</text>
+<text top="598" left="544" width="3" height="13" font="4">.</text>
+<text top="625" left="171" width="573" height="13" font="4">Note that the coefficients <i>β </i>do not vary with time, so that subjects with different values of the</text>
+<text top="641" left="149" width="307" height="13" font="4">covariates X have proportional hazard rates, i.e. log</text>
+<text top="641" left="456" width="4" height="12" font="0">[</text>
+<text top="641" left="460" width="7" height="13" font="4">h</text>
+<text top="641" left="468" width="5" height="12" font="0">(</text>
+<text top="641" left="473" width="20" height="14" font="4">t, X</text>
+<text top="641" left="498" width="11" height="12" font="0">=</text>
+<text top="641" left="513" width="7" height="13" font="4">x</text>
+<text top="646" left="520" width="5" height="10" font="8">1</text>
+<text top="641" left="526" width="25" height="12" font="0">)] =</text>
+<text top="641" left="555" width="19" height="13" font="4">log</text>
+<text top="641" left="574" width="4" height="12" font="0">[</text>
+<text top="641" left="578" width="7" height="13" font="4">h</text>
+<text top="641" left="585" width="5" height="12" font="0">(</text>
+<text top="641" left="591" width="20" height="14" font="4">t, X</text>
+<text top="641" left="615" width="11" height="12" font="0">=</text>
+<text top="641" left="631" width="7" height="13" font="4">x</text>
+<text top="646" left="638" width="5" height="10" font="8">0</text>
+<text top="641" left="644" width="32" height="12" font="0">)] + (</text>
+<text top="641" left="676" width="7" height="13" font="4">x</text>
+<text top="646" left="683" width="5" height="10" font="8">1</text>
+<text top="640" left="692" width="11" height="13" font="0">−</text>
+<text top="641" left="706" width="7" height="13" font="4">x</text>
+<text top="646" left="713" width="5" height="10" font="8">0</text>
+<text top="641" left="719" width="5" height="12" font="0">)</text>
+<text top="644" left="725" width="7" height="10" font="10"><i>β</i></text>
+<text top="641" left="732" width="3" height="13" font="4">.</text>
+<text top="662" left="171" width="442" height="13" font="4">Smoothers, such as regression splines, can be used to estimate the function f</text>
+<text top="662" left="615" width="5" height="12" font="0">(</text>
+<text top="662" left="621" width="4" height="13" font="4">t</text>
+<text top="662" left="626" width="20" height="12" font="0">) =</text>
+<text top="662" left="650" width="18" height="13" font="4">log</text>
+<text top="662" left="669" width="4" height="12" font="0">[</text>
+<text top="662" left="673" width="7" height="13" font="4">h</text>
+<text top="662" left="680" width="5" height="12" font="0">(</text>
+<text top="662" left="686" width="4" height="13" font="4">t</text>
+<text top="662" left="691" width="10" height="12" font="0">)]</text>
+<text top="662" left="700" width="44" height="13" font="4">, and in</text>
+<text top="678" left="148" width="450" height="13" font="4">particular B-splines provide a numerically efficient choice of basis functions <a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="678" left="598" width="48" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">De Boor</a></text>
+<text top="678" left="646" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="678" left="652" width="26" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1978</a></text>
+<text top="678" left="679" width="65" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>B-splines</text>
+<text top="695" left="149" width="595" height="13" font="4">consist of polynomial pieces of degree m, joined at a number of positions, called knots, along the time</text>
+<text top="711" left="149" width="596" height="13" font="4">axis. The total number of knots (k) and their positions are arbitrarily chosen and are quite crucial for</text>
+<text top="728" left="149" width="595" height="13" font="4">the final estimate, since the function can have an inflection at these locations. By using B-splines to</text>
+<text top="744" left="149" width="59" height="13" font="4">estimate f</text>
+<text top="744" left="210" width="5" height="12" font="0">(</text>
+<text top="744" left="216" width="4" height="13" font="4">t</text>
+<text top="744" left="220" width="5" height="12" font="0">)</text>
+<text top="744" left="226" width="347" height="13" font="4">, the expected number of events above can be rewritten as:</text>
+<text top="773" left="350" width="19" height="13" font="4">log</text>
+<text top="773" left="369" width="4" height="12" font="0">[</text>
+<text top="777" left="374" width="8" height="10" font="10"><i>µ</i></text>
+<text top="773" left="382" width="5" height="12" font="0">(</text>
+<text top="773" left="388" width="4" height="13" font="4">t</text>
+<text top="773" left="392" width="25" height="12" font="0">)] =</text>
+<text top="773" left="421" width="18" height="13" font="4">X<i>β</i></text>
+<text top="773" left="442" width="11" height="12" font="0">+</text>
+<text top="773" left="456" width="16" height="13" font="4">Zv</text>
+<text top="773" left="475" width="11" height="12" font="0">+</text>
+<text top="773" left="489" width="19" height="13" font="4">log</text>
+<text top="773" left="508" width="4" height="12" font="0">[</text>
+<text top="773" left="512" width="8" height="13" font="4">P</text>
+<text top="773" left="521" width="5" height="12" font="0">(</text>
+<text top="773" left="527" width="4" height="13" font="4">t</text>
+<text top="773" left="532" width="10" height="12" font="0">)]</text>
+<text top="773" left="541" width="3" height="13" font="4">,</text>
+<text top="773" left="728" width="16" height="13" font="4">(1)</text>
+<text top="803" left="148" width="596" height="13" font="4">where Z is the matrix whose q columns are the B-splines, i.e. the values of the basis functions at the</text>
+<text top="819" left="149" width="595" height="13" font="4">midpoints of the time bins (that will be repeated for each covariate combination) and v is a vector of</text>
+<text top="835" left="149" width="598" height="13" font="4">length q of coefficients whose magnitude determines the amount of inflection at the knot locations.</text>
+<text top="852" left="148" width="184" height="13" font="4">The number of basis functions q</text>
+<text top="852" left="337" width="11" height="12" font="0">=</text>
+<text top="852" left="352" width="6" height="13" font="4">k</text>
+<text top="852" left="360" width="11" height="12" font="0">+</text>
+<text top="852" left="374" width="10" height="13" font="4">m</text>
+<text top="851" left="387" width="11" height="13" font="0">−</text>
+<text top="852" left="400" width="344" height="13" font="4">1, where k is the total number of knots, including minimum</text>
+<text top="868" left="149" width="595" height="13" font="4">and maximum, and m is the degree of the polynomial splines. Thus the problem of estimating the</text>
+<text top="885" left="149" width="588" height="13" font="4">hazard function reduces to the estimation of coefficients in a Generalised Linear Model framework.</text>
+<text top="906" left="171" width="573" height="13" font="4">B-splines are advantageous because the smoothed estimate is determined only by values at</text>
+<text top="922" left="149" width="595" height="13" font="4">neighboring points and has no boundary effect. Nevertheless the major criticism of this approach is</text>
+<text top="939" left="149" width="595" height="13" font="4">the arbitrary choice of the knots which determine the locations at which the smoothed function can</text>
+<text top="955" left="149" width="427" height="13" font="4">bend and this has been subject to various investigations and discussions <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="955" left="575" width="130" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Kooperberg and Stone</a></text>
+<text top="955" left="706" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="955" left="712" width="26" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1992</a></text>
+<text top="955" left="739" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="971" left="148" width="596" height="13" font="4">With a small number of knots, a B-spline may not be appealing because it is not smooth at the knots</text>
+<text top="988" left="148" width="598" height="13" font="4">(this problem may be avoided by higher-degree B-splines) and can lead to underfitting of the data.</text>
+<text top="1004" left="148" width="596" height="13" font="4">The number of knots can be increased to provide a smoother estimate, but a large number of knots</text>
+<text top="1021" left="149" width="595" height="13" font="4">may lead to serious overfitting. O’Sullivan proposed using a relatively large number of knots and</text>
+<text top="1037" left="148" width="497" height="13" font="4">preventing overfitting by a penalty term to restrict the flexibility of the fitted curve <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1037" left="646" width="63" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">O’Sullivan</a></text>
+<text top="1037" left="709" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1037" left="716" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1986</a></text>
+<text top="1037" left="742" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1054" left="148" width="26" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1988</a></text>
+<text top="1054" left="175" width="385" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">), </a>which is analogous to likelihood-based mixed effects modeling <a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="1054" left="559" width="93" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Eilers and Marx</a></text>
+<text top="1054" left="652" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="1054" left="658" width="26" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1996</a></text>
+<text top="1054" left="685" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">;</a></text>
+<text top="1054" left="691" width="51" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="1054" left="742" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1070" left="149" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="1070" left="175" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="1070" left="182" width="48" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Pawitan</a></text>
+<text top="1070" left="230" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1070" left="237" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2001</a></text>
+<text top="1070" left="264" width="481" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">). </a>In fact, the penalized least squares equation for a quadratic penalty corresponds</text>
+<text top="1086" left="149" width="595" height="13" font="4">to a mixed model log-likelihood, where the set of second-order differences of the coefficients of the</text>
+<text top="1103" left="149" width="110" height="13" font="4">B-splines (denoted</text>
+<text top="1100" left="263" width="9" height="17" font="4">∆</text>
+<text top="1100" left="272" width="5" height="10" font="8">2</text>
+<text top="1103" left="278" width="466" height="14" font="4">v) have autoregressive structure and are normally distributed with mean 0 and</text>
+<text top="1119" left="148" width="62" height="13" font="4">variance <i>σ</i></text>
+<text top="1117" left="211" width="5" height="10" font="8">2</text>
+<text top="1125" left="210" width="5" height="10" font="8">v</text>
+<text top="1119" left="218" width="4" height="13" font="4">I</text>
+<text top="1124" left="222" width="19" height="11" font="8">q−2</text>
+<text top="1119" left="245" width="46" height="13" font="4">where I</text>
+<text top="1124" left="292" width="19" height="11" font="8">q−2</text>
+<text top="1119" left="315" width="234" height="13" font="4">is the identity matrix with dimension q</text>
+<text top="1118" left="552" width="11" height="13" font="0">−</text>
+<text top="1119" left="566" width="179" height="13" font="4">2 and q is the number of basis</text>
+<text top="1136" left="149" width="63" height="13" font="4">functions <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1136" left="212" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="1136" left="265" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1136" left="272" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="1136" left="299" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="16" family="Times" color="#000000"/>
+	<fontspec id="12" size="10" family="Times" color="#000000"/>
+	<fontspec id="13" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">116</text>
+<text top="103" left="171" width="573" height="13" font="4">Intuitively, since the coefficients v of the B-splines determine the change at knot locations (if the</text>
+<text top="120" left="149" width="595" height="13" font="4">B-splines are of degree 1, they determine the change in slope) they also determine the amount of</text>
+<text top="136" left="149" width="595" height="13" font="4">smoothing. Assuming the coefficients are normally distributed with mean 0 helps to control the</text>
+<text top="152" left="149" width="595" height="13" font="4">amount of smoothing and has the advantage of allowing an automatic smoothing in the sense that</text>
+<text top="169" left="149" width="561" height="13" font="4">the smoothing parameter can be estimated directly from the data as a dispersion parameter <a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="169" left="710" width="34" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Eilers</a></text>
+<text top="185" left="149" width="57" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">and Marx</a></text>
+<text top="185" left="206" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="185" left="213" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">1996</a></text>
+<text top="185" left="239" width="505" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>Thus the main criticism of the use of B-splines is overcome: the choice of knots is no</text>
+<text top="202" left="149" width="595" height="13" font="4">longer crucial for the final estimate and in fact a large number of equally spaced knots can be chosen</text>
+<text top="218" left="148" width="495" height="13" font="4">(more than 40 knots are rarely needed) and overfitting is prevented by the penalty <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="218" left="643" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="218" left="696" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="218" left="703" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="218" left="730" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="239" left="171" width="164" height="13" font="4">More formally, for model <a href="2014-2-rebora-salim-reilly.html#2">(</a></text>
+<text top="239" left="335" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">1</a></text>
+<text top="239" left="342" width="90" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">) </a>the element z</text>
+<text top="244" left="432" width="7" height="10" font="8">ij</text>
+<text top="239" left="444" width="171" height="13" font="4">represents the value of the j</text>
+<text top="236" left="615" width="9" height="10" font="8">th</text>
+<text top="239" left="629" width="98" height="13" font="4">basis function (j</text>
+<text top="239" left="733" width="11" height="12" font="0">=</text>
+<text top="259" left="148" width="196" height="13" font="4">1, . . . , q) at the midpoint of the i</text>
+<text top="256" left="344" width="9" height="10" font="8">th</text>
+<text top="259" left="359" width="32" height="13" font="4">bin (i</text>
+<text top="259" left="397" width="11" height="12" font="0">=</text>
+<text top="259" left="414" width="110" height="13" font="4">1, . . . , n) and the q</text>
+<text top="258" left="528" width="11" height="13" font="0">−</text>
+<text top="259" left="542" width="202" height="13" font="4">2 second-order differences of the</text>
+<text top="275" left="149" width="88" height="13" font="4">coefficients are</text>
+<text top="323" left="353" width="9" height="17" font="4">∆</text>
+<text top="323" left="363" width="5" height="10" font="8">2</text>
+<text top="326" left="369" width="7" height="13" font="4">v</text>
+<text top="326" left="380" width="11" height="12" font="0">=</text>
+<text top="300" left="394" width="12" height="6" font="4"></text>
+<text top="324" left="394" width="12" height="6" font="4"></text>
+<text top="332" left="394" width="12" height="6" font="4"></text>
+<text top="341" left="394" width="12" height="6" font="4"></text>
+<text top="301" left="428" width="7" height="13" font="4">v</text>
+<text top="306" left="435" width="5" height="10" font="8">3</text>
+<text top="300" left="443" width="11" height="13" font="0">−</text>
+<text top="301" left="457" width="14" height="13" font="4">2v</text>
+<text top="306" left="471" width="5" height="10" font="8">2</text>
+<text top="301" left="480" width="11" height="12" font="0">+</text>
+<text top="301" left="494" width="7" height="13" font="4">v</text>
+<text top="306" left="500" width="5" height="10" font="8">1</text>
+<text top="318" left="428" width="7" height="13" font="4">v</text>
+<text top="323" left="435" width="5" height="10" font="8">4</text>
+<text top="317" left="443" width="11" height="13" font="0">−</text>
+<text top="318" left="457" width="14" height="13" font="4">2v</text>
+<text top="322" left="471" width="5" height="10" font="8">3</text>
+<text top="318" left="480" width="11" height="12" font="0">+</text>
+<text top="318" left="494" width="7" height="13" font="4">v</text>
+<text top="322" left="500" width="5" height="10" font="8">2</text>
+<text top="334" left="459" width="15" height="13" font="4">. . .</text>
+<text top="350" left="414" width="7" height="13" font="4">v</text>
+<text top="355" left="421" width="5" height="10" font="8">q</text>
+<text top="350" left="430" width="11" height="13" font="0">−</text>
+<text top="351" left="443" width="14" height="13" font="4">2v</text>
+<text top="355" left="457" width="19" height="11" font="8">q−1</text>
+<text top="350" left="480" width="11" height="12" font="0">+</text>
+<text top="350" left="493" width="7" height="13" font="4">v</text>
+<text top="355" left="501" width="19" height="11" font="8">q−2</text>
+<text top="300" left="528" width="12" height="6" font="4"></text>
+<text top="324" left="528" width="12" height="6" font="4"></text>
+<text top="332" left="528" width="12" height="6" font="4"></text>
+<text top="341" left="528" width="12" height="6" font="4"></text>
+<text top="382" left="148" width="437" height="13" font="4">Assuming these to be normally distributed with mean 0 and variance <i>σ</i></text>
+<text top="380" left="585" width="5" height="10" font="8">2</text>
+<text top="388" left="584" width="5" height="10" font="8">v</text>
+<text top="382" left="592" width="4" height="13" font="4">I</text>
+<text top="387" left="596" width="19" height="11" font="8">q−2</text>
+<text top="382" left="620" width="124" height="13" font="4">and conditioning on</text>
+<text top="399" left="149" width="595" height="13" font="4">these random effects, the number of observed events y is assumed to follow a Poisson distribution</text>
+<text top="415" left="148" width="136" height="13" font="4">with overdispersion: E</text>
+<text top="415" left="284" width="5" height="12" font="0">(</text>
+<text top="415" left="290" width="7" height="13" font="4">y</text>
+<text top="420" left="297" width="3" height="10" font="8">i</text>
+<text top="414" left="301" width="4" height="13" font="0">|</text>
+<text top="415" left="305" width="7" height="13" font="4">v</text>
+<text top="415" left="312" width="20" height="12" font="0">) =</text>
+<text top="418" left="337" width="8" height="10" font="10"><i>µ</i></text>
+<text top="420" left="345" width="3" height="10" font="8">i</text>
+<text top="415" left="352" width="36" height="13" font="4">and V</text>
+<text top="415" left="389" width="5" height="12" font="0">(</text>
+<text top="415" left="395" width="7" height="13" font="4">y</text>
+<text top="420" left="402" width="3" height="10" font="8">i</text>
+<text top="414" left="406" width="4" height="13" font="0">|</text>
+<text top="415" left="410" width="7" height="13" font="4">v</text>
+<text top="415" left="417" width="20" height="12" font="0">) =</text>
+<text top="418" left="441" width="8" height="10" font="10"><i>µ</i></text>
+<text top="420" left="449" width="3" height="10" font="8">i</text>
+<text top="418" left="453" width="8" height="10" font="10"><i>φ</i></text>
+<text top="415" left="462" width="275" height="13" font="4">, where <i>φ </i>represents the dispersion parameter.</text>
+<text top="436" left="171" width="292" height="13" font="4">The Extended Quasi-Likelihood approximation <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="436" left="463" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="436" left="516" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="436" left="523" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="436" left="550" width="194" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">) </a>facilitates an explicit likelihood</text>
+<text top="453" left="149" width="298" height="13" font="4">formulation (also for overdispersed Poisson data):</text>
+<text top="490" left="156" width="29" height="13" font="4">log L</text>
+<text top="490" left="186" width="5" height="12" font="0">(</text>
+<text top="493" left="192" width="8" height="10" font="10"><i>φ</i></text>
+<text top="490" left="200" width="13" height="13" font="4">, <i>σ</i></text>
+<text top="487" left="213" width="5" height="10" font="8">2</text>
+<text top="495" left="212" width="5" height="10" font="8">v</text>
+<text top="490" left="219" width="12" height="13" font="4">, v</text>
+<text top="490" left="232" width="20" height="12" font="0">) =</text>
+<text top="485" left="256" width="14" height="24" font="11">∑</text>
+<text top="480" left="274" width="10" height="6" font="4"></text>
+<text top="489" left="284" width="11" height="13" font="0">−</text>
+<text top="481" left="297" width="7" height="13" font="4">1</text>
+<text top="499" left="297" width="7" height="13" font="4">2</text>
+<text top="490" left="308" width="19" height="13" font="4">log</text>
+<text top="490" left="329" width="4" height="12" font="0">[</text>
+<text top="490" left="333" width="35" height="13" font="4">2<i>πφ</i>V</text>
+<text top="490" left="368" width="5" height="12" font="0">(</text>
+<text top="490" left="374" width="7" height="13" font="4">y</text>
+<text top="490" left="381" width="5" height="12" font="0">(</text>
+<text top="490" left="387" width="4" height="13" font="4">t</text>
+<text top="495" left="391" width="3" height="10" font="8">i</text>
+<text top="490" left="396" width="29" height="13" font="0">))] −</text>
+<text top="481" left="433" width="7" height="13" font="4">1</text>
+<text top="499" left="429" width="15" height="13" font="4">2<i>φ</i></text>
+<text top="490" left="446" width="7" height="13" font="4">d</text>
+<text top="490" left="453" width="4" height="12" font="0">[</text>
+<text top="490" left="458" width="7" height="13" font="4">y</text>
+<text top="490" left="465" width="5" height="12" font="0">(</text>
+<text top="490" left="470" width="4" height="13" font="4">t</text>
+<text top="495" left="475" width="3" height="10" font="8">i</text>
+<text top="490" left="479" width="5" height="12" font="0">)</text>
+<text top="490" left="485" width="14" height="13" font="4">, <i>µ</i></text>
+<text top="490" left="499" width="5" height="12" font="0">(</text>
+<text top="490" left="504" width="4" height="13" font="4">t</text>
+<text top="495" left="509" width="3" height="10" font="8">i</text>
+<text top="490" left="513" width="10" height="12" font="0">)]</text>
+<text top="480" left="523" width="10" height="6" font="4"></text>
+<text top="489" left="536" width="11" height="13" font="0">−</text>
+<text top="481" left="552" width="6" height="13" font="4">q</text>
+<text top="480" left="561" width="11" height="13" font="0">−</text>
+<text top="481" left="575" width="7" height="13" font="4">2</text>
+<text top="499" left="563" width="7" height="13" font="4">2</text>
+<text top="490" left="585" width="19" height="13" font="4">log</text>
+<text top="490" left="604" width="5" height="12" font="0">(</text>
+<text top="490" left="610" width="24" height="13" font="4">2<i>πσ</i></text>
+<text top="487" left="634" width="5" height="10" font="8">2</text>
+<text top="495" left="634" width="5" height="10" font="8">v</text>
+<text top="490" left="641" width="19" height="12" font="0">) −</text>
+<text top="481" left="671" width="7" height="13" font="4">1</text>
+<text top="500" left="664" width="14" height="13" font="4">2<i>σ</i></text>
+<text top="498" left="679" width="5" height="10" font="8">2</text>
+<text top="505" left="678" width="5" height="10" font="8">v</text>
+<text top="490" left="687" width="7" height="13" font="4">v</text>
+<text top="487" left="694" width="6" height="10" font="8">T</text>
+<text top="490" left="702" width="9" height="13" font="4">R</text>
+<text top="486" left="712" width="14" height="11" font="8">−1</text>
+<text top="490" left="726" width="10" height="14" font="4">v,</text>
+<text top="530" left="148" width="50" height="13" font="4">where R</text>
+<text top="526" left="198" width="14" height="11" font="8">−1</text>
+<text top="529" left="217" width="20" height="12" font="0">= (</text>
+<text top="526" left="238" width="9" height="17" font="4">∆</text>
+<text top="527" left="247" width="5" height="10" font="8">2</text>
+<text top="529" left="253" width="5" height="12" font="0">(</text>
+<text top="529" left="259" width="4" height="13" font="4">I</text>
+<text top="529" left="265" width="11" height="12" font="0">))</text>
+<text top="527" left="276" width="6" height="10" font="8">T</text>
+<text top="526" left="284" width="9" height="17" font="4">∆</text>
+<text top="527" left="293" width="5" height="10" font="8">2</text>
+<text top="529" left="299" width="5" height="12" font="0">(</text>
+<text top="529" left="306" width="4" height="13" font="4">I</text>
+<text top="529" left="311" width="5" height="12" font="0">)</text>
+<text top="530" left="317" width="17" height="13" font="4">, A</text>
+<text top="527" left="335" width="6" height="10" font="8">T</text>
+<text top="530" left="345" width="237" height="13" font="4">denotes the transpose matrix of A and d</text>
+<text top="529" left="583" width="4" height="12" font="0">[</text>
+<text top="529" left="587" width="7" height="13" font="4">y</text>
+<text top="529" left="594" width="5" height="12" font="0">(</text>
+<text top="529" left="600" width="4" height="13" font="4">t</text>
+<text top="534" left="605" width="3" height="10" font="8">i</text>
+<text top="529" left="609" width="5" height="12" font="0">)</text>
+<text top="530" left="614" width="14" height="13" font="4">, <i>µ</i></text>
+<text top="529" left="628" width="5" height="12" font="0">(</text>
+<text top="529" left="634" width="4" height="13" font="4">t</text>
+<text top="534" left="639" width="3" height="10" font="8">i</text>
+<text top="529" left="643" width="10" height="12" font="0">)]</text>
+<text top="530" left="656" width="88" height="13" font="4">is the deviance</text>
+<text top="546" left="149" width="120" height="13" font="4">function defined by:</text>
+<text top="572" left="339" width="7" height="13" font="4">d</text>
+<text top="572" left="346" width="4" height="12" font="0">[</text>
+<text top="572" left="351" width="7" height="13" font="4">y</text>
+<text top="572" left="358" width="5" height="12" font="0">(</text>
+<text top="572" left="363" width="4" height="13" font="4">t</text>
+<text top="577" left="368" width="3" height="10" font="8">i</text>
+<text top="572" left="372" width="5" height="12" font="0">)</text>
+<text top="572" left="378" width="14" height="13" font="4">, <i>µ</i></text>
+<text top="572" left="392" width="5" height="12" font="0">(</text>
+<text top="572" left="397" width="4" height="13" font="4">t</text>
+<text top="577" left="402" width="3" height="10" font="8">i</text>
+<text top="572" left="406" width="25" height="12" font="0">)] =</text>
+<text top="572" left="435" width="7" height="13" font="4">2</text>
+<text top="565" left="444" width="7" height="5" font="12">Z</text>
+<text top="561" left="456" width="13" height="10" font="8">y(t</text>
+<text top="565" left="470" width="2" height="7" font="9">i</text>
+<text top="561" left="473" width="4" height="10" font="8">)</text>
+<text top="587" left="451" width="14" height="8" font="13"><i>µ</i>(t</text>
+<text top="589" left="465" width="2" height="7" font="9">i</text>
+<text top="585" left="468" width="4" height="10" font="8">)</text>
+<text top="563" left="482" width="7" height="13" font="4">y</text>
+<text top="563" left="489" width="5" height="12" font="0">(</text>
+<text top="563" left="495" width="4" height="13" font="4">t</text>
+<text top="568" left="500" width="3" height="10" font="8">i</text>
+<text top="563" left="504" width="19" height="12" font="0">) −</text>
+<text top="563" left="526" width="7" height="13" font="4">u</text>
+<text top="581" left="493" width="10" height="13" font="4">V</text>
+<text top="581" left="504" width="5" height="12" font="0">(</text>
+<text top="581" left="509" width="7" height="13" font="4">u</text>
+<text top="581" left="517" width="5" height="12" font="0">)</text>
+<text top="572" left="536" width="18" height="14" font="4">du.</text>
+<text top="610" left="171" width="435" height="13" font="4">This log-likelihood can be seen as a penalized likelihood where the term v</text>
+<text top="607" left="606" width="6" height="10" font="8">T</text>
+<text top="610" left="614" width="9" height="13" font="4">R</text>
+<text top="606" left="624" width="14" height="11" font="8">−1</text>
+<text top="610" left="638" width="106" height="14" font="4">v is the roughness</text>
+<text top="629" left="148" width="318" height="13" font="4">penalty; the smoothing parameter is determined by <i>λ</i></text>
+<text top="629" left="470" width="11" height="12" font="0">=</text>
+<text top="626" left="489" width="6" height="8" font="13"><i>φ</i></text>
+<text top="639" left="487" width="6" height="8" font="13"><i>σ</i></text>
+<text top="636" left="493" width="4" height="7" font="9">2</text>
+<text top="641" left="492" width="4" height="7" font="9">v</text>
+<text top="629" left="503" width="241" height="13" font="4">with a large <i>λ </i>implying more smoothing</text>
+<text top="648" left="149" width="352" height="13" font="4">and a small <i>λ </i>denoting rough v. The extreme situation of <i>λ</i></text>
+<text top="648" left="505" width="11" height="12" font="0">=</text>
+<text top="648" left="520" width="224" height="13" font="4">0 corresponds to no smoothing and is</text>
+<text top="665" left="149" width="329" height="13" font="4">analogous to consider v as a vector of fixed parameters.</text>
+<text top="686" left="171" width="573" height="13" font="4">The parameter <i>φ</i>, representing the dispersion parameter in the Poisson model, is usually assumed</text>
+<text top="702" left="149" width="173" height="13" font="4">to be 1. However, if we use <i>φ</i></text>
+<text top="702" left="326" width="11" height="12" font="0">=</text>
+<text top="702" left="340" width="95" height="13" font="4">1 when in fact <i>φ</i></text>
+<text top="702" left="439" width="11" height="12" font="0">&gt;</text>
+<text top="702" left="454" width="290" height="13" font="4">1 (overdispersion), we are likely to undersmooth</text>
+<text top="719" left="149" width="393" height="13" font="4">the data, while the estimate is not influenced by underdispersion <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="719" left="542" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="719" left="595" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="719" left="601" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="719" left="628" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="740" left="171" width="575" height="13" font="4">The advantage of the mixed model approach is that we have an established procedure for esti-</text>
+<text top="756" left="149" width="595" height="13" font="4">mating <i>λ</i>, equivalent to estimating variance components in mixed models. In this setting the Iterative</text>
+<text top="772" left="148" width="598" height="13" font="4">Weighted Least Squares (IWLS) numerical algorithm works reliably and is usually used. This algo-</text>
+<text top="789" left="149" width="595" height="13" font="4">rithm uses a Taylor approximation to the extended likelihood and the application to mixed models is</text>
+<text top="805" left="149" width="250" height="13" font="4">described in detail in Chapters 6 and 17 in</text>
+<text top="805" left="403" width="49" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Pawitan</a></text>
+<text top="805" left="455" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="805" left="459" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2001</a></text>
+<text top="805" left="486" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">).</a></text>
+<text top="826" left="171" width="356" height="13" font="4">In our application, the following iterative algorithm is used:</text>
+<text top="853" left="169" width="303" height="13" font="4">1. Given initial/last estimated values of <i>λ</i>, <i>φ </i>and <i>µ</i></text>
+<text top="853" left="472" width="5" height="12" font="0">(</text>
+<text top="853" left="478" width="4" height="13" font="4">t</text>
+<text top="858" left="483" width="3" height="10" font="8">i</text>
+<text top="853" left="487" width="5" height="12" font="0">)</text>
+<text top="853" left="492" width="108" height="13" font="4">, estimate v and <i>β</i>.</text>
+<text top="876" left="169" width="54" height="13" font="4">2. Given</text>
+<text top="885" left="226" width="7" height="6" font="4">b</text>
+<text top="876" left="226" width="45" height="14" font="4">v and b</text>
+<text top="880" left="263" width="7" height="10" font="10"><i>β</i></text>
+<text top="876" left="270" width="198" height="13" font="4">, update the estimates of <i>λ </i>and <i>φ</i>.</text>
+<text top="898" left="169" width="268" height="13" font="4">3. Iterate between 1 and 2 until convergence.</text>
+<text top="925" left="148" width="596" height="13" font="4">We begin by implementing step 1 of the IWLS algorithm as follows. Given a fixed value of <i>λ </i>(starting</text>
+<text top="941" left="148" width="39" height="13" font="4">with <i>λ</i></text>
+<text top="941" left="191" width="11" height="12" font="0">=</text>
+<text top="941" left="206" width="369" height="13" font="4">10 is a good starting value), we compute the working vector Y</text>
+<text top="980" left="306" width="9" height="13" font="4">Y</text>
+<text top="985" left="314" width="3" height="10" font="8">i</text>
+<text top="980" left="322" width="11" height="12" font="0">=</text>
+<text top="980" left="337" width="6" height="13" font="4">z</text>
+<text top="977" left="343" width="6" height="10" font="8">T</text>
+<text top="987" left="343" width="3" height="10" font="8">i</text>
+<text top="980" left="351" width="7" height="13" font="4">v</text>
+<text top="977" left="358" width="5" height="10" font="8">0</text>
+<text top="980" left="366" width="11" height="12" font="0">+</text>
+<text top="980" left="381" width="7" height="13" font="4">x</text>
+<text top="977" left="388" width="6" height="10" font="8">T</text>
+<text top="987" left="388" width="3" height="10" font="8">i</text>
+<text top="984" left="396" width="7" height="10" font="10"><i>β</i></text>
+<text top="977" left="403" width="5" height="10" font="8">0</text>
+<text top="980" left="412" width="11" height="12" font="0">+</text>
+<text top="981" left="426" width="19" height="13" font="4">log</text>
+<text top="980" left="445" width="5" height="12" font="0">(</text>
+<text top="980" left="451" width="8" height="13" font="4">P</text>
+<text top="980" left="459" width="5" height="12" font="0">(</text>
+<text top="980" left="465" width="4" height="13" font="4">t</text>
+<text top="985" left="470" width="3" height="10" font="8">i</text>
+<text top="980" left="474" width="25" height="12" font="0">)) +</text>
+<text top="971" left="504" width="7" height="13" font="4">y</text>
+<text top="971" left="511" width="5" height="12" font="0">(</text>
+<text top="971" left="516" width="4" height="13" font="4">t</text>
+<text top="976" left="521" width="3" height="10" font="8">i</text>
+<text top="971" left="525" width="19" height="12" font="0">) −</text>
+<text top="975" left="547" width="8" height="10" font="10"><i>µ</i></text>
+<text top="971" left="556" width="5" height="12" font="0">(</text>
+<text top="971" left="561" width="4" height="13" font="4">t</text>
+<text top="976" left="566" width="3" height="10" font="8">i</text>
+<text top="971" left="570" width="5" height="12" font="0">)</text>
+<text top="969" left="576" width="5" height="10" font="8">0</text>
+<text top="993" left="525" width="8" height="10" font="10"><i>µ</i></text>
+<text top="990" left="534" width="5" height="12" font="0">(</text>
+<text top="990" left="539" width="4" height="13" font="4">t</text>
+<text top="995" left="544" width="3" height="10" font="8">i</text>
+<text top="990" left="548" width="5" height="12" font="0">)</text>
+<text top="988" left="554" width="5" height="10" font="8">0</text>
+<text top="981" left="583" width="3" height="13" font="4">,</text>
+<text top="1020" left="148" width="45" height="13" font="4">where z</text>
+<text top="1025" left="194" width="3" height="10" font="8">i</text>
+<text top="1020" left="201" width="37" height="13" font="4">is the i</text>
+<text top="1018" left="238" width="9" height="10" font="8">th</text>
+<text top="1020" left="251" width="64" height="13" font="4">row of Z, y</text>
+<text top="1020" left="315" width="5" height="12" font="0">(</text>
+<text top="1020" left="321" width="4" height="13" font="4">t</text>
+<text top="1025" left="326" width="3" height="10" font="8">i</text>
+<text top="1020" left="330" width="5" height="12" font="0">)</text>
+<text top="1020" left="338" width="34" height="13" font="4">and P</text>
+<text top="1020" left="372" width="5" height="12" font="0">(</text>
+<text top="1020" left="378" width="4" height="13" font="4">t</text>
+<text top="1025" left="383" width="3" height="10" font="8">i</text>
+<text top="1020" left="387" width="5" height="12" font="0">)</text>
+<text top="1020" left="396" width="349" height="13" font="4">are the number of observed events and the total person-time</text>
+<text top="1037" left="149" width="40" height="13" font="4">in the i</text>
+<text top="1034" left="189" width="9" height="10" font="8">th</text>
+<text top="1037" left="203" width="81" height="13" font="4">interval and x</text>
+<text top="1042" left="284" width="3" height="10" font="8">i</text>
+<text top="1037" left="291" width="74" height="13" font="4">denotes the i</text>
+<text top="1034" left="365" width="9" height="10" font="8">th</text>
+<text top="1037" left="379" width="115" height="13" font="4">row of the matrix X</text>
+<text top="1041" left="493" width="4" height="10" font="8">c</text>
+<text top="1037" left="502" width="242" height="13" font="4">of covariate values centered at their mean</text>
+<text top="1053" left="148" width="195" height="13" font="4">values. For the starting values <i>µ</i></text>
+<text top="1053" left="344" width="5" height="12" font="0">(</text>
+<text top="1053" left="350" width="4" height="13" font="4">t</text>
+<text top="1058" left="355" width="3" height="10" font="8">i</text>
+<text top="1053" left="359" width="5" height="12" font="0">)</text>
+<text top="1051" left="364" width="5" height="10" font="8">0</text>
+<text top="1053" left="374" width="372" height="13" font="4">we take the average over all time intervals of the raw hazard,</text>
+<text top="1074" left="149" width="500" height="13" font="4">computed as the number of events divided by the person-time at risk in the interval,</text>
+<text top="1069" left="654" width="13" height="10" font="8">y(t</text>
+<text top="1073" left="668" width="2" height="7" font="9">i</text>
+<text top="1069" left="671" width="4" height="10" font="8">)</text>
+<text top="1082" left="654" width="15" height="10" font="8">P(t</text>
+<text top="1085" left="669" width="2" height="7" font="9">i</text>
+<text top="1082" left="672" width="4" height="10" font="8">)</text>
+<text top="1074" left="678" width="66" height="13" font="4">. As for the</text>
+<text top="1096" left="149" width="128" height="13" font="4">coefficients, we take v</text>
+<text top="1093" left="277" width="5" height="10" font="8">0</text>
+<text top="1096" left="287" width="11" height="12" font="0">=</text>
+<text top="1096" left="302" width="19" height="13" font="4">log</text>
+<text top="1096" left="321" width="4" height="12" font="0">[</text>
+<text top="1099" left="325" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1096" left="333" width="5" height="12" font="0">(</text>
+<text top="1096" left="339" width="4" height="13" font="4">t</text>
+<text top="1096" left="343" width="5" height="12" font="0">)</text>
+<text top="1093" left="349" width="5" height="10" font="8">0</text>
+<text top="1096" left="355" width="4" height="12" font="0">]</text>
+<text top="1096" left="363" width="34" height="13" font="4">and <i>β</i></text>
+<text top="1093" left="396" width="5" height="10" font="8">0</text>
+<text top="1096" left="406" width="11" height="12" font="0">=</text>
+<text top="1096" left="421" width="324" height="13" font="4">0. Defining W as the variance of the working vector (Y)</text>
+<text top="1112" left="148" width="97" height="13" font="4">with elements w</text>
+<text top="1117" left="245" width="3" height="10" font="8">i</text>
+<text top="1112" left="253" width="11" height="12" font="0">=</text>
+<text top="1115" left="268" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1112" left="276" width="5" height="12" font="0">(</text>
+<text top="1112" left="282" width="4" height="13" font="4">t</text>
+<text top="1117" left="287" width="3" height="10" font="8">i</text>
+<text top="1112" left="291" width="5" height="12" font="0">)</text>
+<text top="1109" left="296" width="5" height="10" font="8">0</text>
+<text top="1112" left="302" width="371" height="13" font="4">, the updating formula for the random effects is the solution to</text>
+<text top="1140" left="297" width="8" height="6" font="4"></text>
+<text top="1146" left="305" width="9" height="13" font="4">Z</text>
+<text top="1142" left="315" width="6" height="10" font="8">T</text>
+<text top="1146" left="322" width="23" height="13" font="4">WZ</text>
+<text top="1146" left="348" width="11" height="12" font="0">+</text>
+<text top="1149" left="362" width="18" height="10" font="10"><i>λ</i>R</text>
+<text top="1142" left="380" width="14" height="11" font="8">−1</text>
+<text top="1140" left="395" width="8" height="6" font="4"></text>
+<text top="1146" left="405" width="7" height="13" font="4">v</text>
+<text top="1146" left="416" width="11" height="12" font="0">=</text>
+<text top="1146" left="431" width="9" height="13" font="4">Z</text>
+<text top="1142" left="441" width="6" height="10" font="8">T</text>
+<text top="1146" left="448" width="13" height="13" font="4">W</text>
+<text top="1146" left="464" width="5" height="12" font="0">(</text>
+<text top="1146" left="470" width="9" height="13" font="4">Y</text>
+<text top="1145" left="482" width="11" height="13" font="0">−</text>
+<text top="1146" left="495" width="19" height="13" font="4">log</text>
+<text top="1146" left="514" width="5" height="12" font="0">(</text>
+<text top="1146" left="520" width="8" height="13" font="4">P</text>
+<text top="1146" left="529" width="5" height="12" font="0">(</text>
+<text top="1146" left="535" width="4" height="13" font="4">t</text>
+<text top="1146" left="540" width="25" height="12" font="0">)) −</text>
+<text top="1146" left="568" width="10" height="13" font="4">X</text>
+<text top="1150" left="578" width="4" height="10" font="8">c</text>
+<text top="1149" left="583" width="7" height="10" font="10"><i>β</i></text>
+<text top="1146" left="591" width="5" height="12" font="0">)</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">117</text>
+<text top="103" left="148" width="50" height="13" font="4">where R</text>
+<text top="100" left="198" width="14" height="11" font="8">−1</text>
+<text top="103" left="217" width="11" height="12" font="0">=</text>
+<text top="100" left="238" width="9" height="17" font="4">∆</text>
+<text top="101" left="248" width="5" height="10" font="8">2</text>
+<text top="103" left="254" width="5" height="12" font="0">(</text>
+<text top="103" left="260" width="4" height="13" font="4">I</text>
+<text top="103" left="265" width="5" height="12" font="0">)</text>
+<text top="102" left="271" width="6" height="6" font="4"></text>
+<text top="97" left="278" width="6" height="10" font="8">T</text>
+<text top="100" left="288" width="9" height="17" font="4">∆</text>
+<text top="101" left="297" width="5" height="10" font="8">2</text>
+<text top="103" left="303" width="5" height="12" font="0">(</text>
+<text top="103" left="310" width="4" height="13" font="4">I</text>
+<text top="103" left="315" width="5" height="12" font="0">)</text>
+<text top="103" left="324" width="136" height="13" font="4">and <i>β </i>is the solution to</text>
+<text top="132" left="318" width="8" height="6" font="4"></text>
+<text top="138" left="326" width="10" height="13" font="4">X</text>
+<text top="134" left="337" width="6" height="10" font="8">T</text>
+<text top="143" left="336" width="4" height="10" font="8">c</text>
+<text top="138" left="344" width="24" height="13" font="4">WX</text>
+<text top="142" left="368" width="4" height="10" font="8">c</text>
+<text top="132" left="373" width="8" height="6" font="4"></text>
+<text top="141" left="384" width="7" height="10" font="10"><i>β</i></text>
+<text top="138" left="395" width="11" height="12" font="0">=</text>
+<text top="138" left="410" width="10" height="13" font="4">X</text>
+<text top="134" left="421" width="6" height="10" font="8">T</text>
+<text top="143" left="420" width="4" height="10" font="8">c</text>
+<text top="138" left="428" width="13" height="13" font="4">W</text>
+<text top="138" left="444" width="5" height="12" font="0">(</text>
+<text top="138" left="450" width="9" height="13" font="4">Y</text>
+<text top="137" left="462" width="11" height="13" font="0">−</text>
+<text top="138" left="476" width="19" height="13" font="4">log</text>
+<text top="138" left="494" width="5" height="12" font="0">(</text>
+<text top="138" left="501" width="8" height="13" font="4">P</text>
+<text top="138" left="509" width="5" height="12" font="0">(</text>
+<text top="138" left="515" width="4" height="13" font="4">t</text>
+<text top="138" left="520" width="25" height="12" font="0">)) −</text>
+<text top="138" left="548" width="16" height="13" font="4">Zv</text>
+<text top="138" left="564" width="5" height="12" font="0">)</text>
+<text top="138" left="572" width="3" height="13" font="4">.</text>
+<text top="170" left="149" width="537" height="13" font="4">Note that if <i>λ </i>is set to 0, v is estimated as a vector of fixed parameters as mentioned above.</text>
+<text top="191" left="171" width="573" height="13" font="4">At this point we can introduce a quantity to describe the complexity of the smoothing, that is the</text>
+<text top="208" left="149" width="597" height="13" font="4">effective number of parameters (or degrees of freedom) associated with v, denoted by df and given by:</text>
+<text top="245" left="320" width="10" height="13" font="4">df</text>
+<text top="245" left="336" width="11" height="12" font="0">=</text>
+<text top="245" left="351" width="29" height="13" font="4">trace</text>
+<text top="235" left="383" width="10" height="6" font="4"></text>
+<text top="239" left="393" width="8" height="6" font="4"></text>
+<text top="245" left="402" width="9" height="13" font="4">Z</text>
+<text top="242" left="411" width="6" height="10" font="8">T</text>
+<text top="245" left="418" width="23" height="13" font="4">WZ</text>
+<text top="245" left="444" width="11" height="12" font="0">+</text>
+<text top="248" left="458" width="18" height="10" font="10"><i>λ</i>R</text>
+<text top="241" left="476" width="14" height="11" font="8">−1</text>
+<text top="239" left="491" width="8" height="6" font="4"></text>
+<text top="235" left="499" width="14" height="11" font="8">−1</text>
+<text top="245" left="517" width="9" height="13" font="4">Z</text>
+<text top="242" left="526" width="6" height="10" font="8">T</text>
+<text top="245" left="533" width="23" height="13" font="4">WZ</text>
+<text top="235" left="557" width="10" height="6" font="4"></text>
+<text top="245" left="569" width="3" height="13" font="4">.</text>
+<text top="282" left="148" width="596" height="13" font="4">When <i>λ </i>is set to 0, df is equal to the number of basis functions q, while it decreases with increasing</text>
+<text top="299" left="148" width="76" height="13" font="4">penalisation.</text>
+<text top="321" left="171" width="106" height="13" font="4">For step 2, given</text>
+<text top="330" left="283" width="7" height="6" font="4">b</text>
+<text top="321" left="283" width="49" height="14" font="4">v and b</text>
+<text top="324" left="324" width="7" height="10" font="10"><i>β</i></text>
+<text top="321" left="331" width="413" height="13" font="4">, the dispersion parameter is updated by the method of moments</text>
+<text top="338" left="148" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="338" left="153" width="76" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Wedderburn</a></text>
+<text top="338" left="228" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="338" left="235" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">1974</a></text>
+<text top="338" left="262" width="71" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">) </a>as follows:</text>
+<text top="376" left="373" width="7" height="6" font="4">b</text>
+<text top="373" left="372" width="8" height="10" font="10"><i>φ</i></text>
+<text top="369" left="384" width="11" height="12" font="0">=</text>
+<text top="370" left="399" width="20" height="13" font="4">var</text>
+<text top="352" left="421" width="9" height="6" font="4"></text>
+<text top="376" left="421" width="9" height="6" font="4"></text>
+<text top="360" left="432" width="7" height="13" font="4">y</text>
+<text top="360" left="439" width="5" height="12" font="0">(</text>
+<text top="360" left="445" width="4" height="13" font="4">t</text>
+<text top="365" left="450" width="3" height="10" font="8">i</text>
+<text top="360" left="454" width="50" height="12" font="0">) − [</text>
+<text top="364" left="476" width="8" height="10" font="10"><i>µ</i></text>
+<text top="360" left="484" width="5" height="12" font="0">(</text>
+<text top="360" left="490" width="4" height="13" font="4">t</text>
+<text top="365" left="495" width="3" height="10" font="8">i</text>
+<text top="360" left="499" width="5" height="12" font="0">)</text>
+<text top="378" left="447" width="13" height="6" font="4">q</text>
+<text top="386" left="462" width="26" height="11" font="0">[</text>
+<text top="390" left="461" width="8" height="10" font="10"><i>µ</i></text>
+<text top="387" left="469" width="5" height="12" font="0">(</text>
+<text top="387" left="475" width="4" height="13" font="4">t</text>
+<text top="392" left="480" width="3" height="10" font="8">i</text>
+<text top="387" left="484" width="5" height="12" font="0">)</text>
+<text top="352" left="506" width="9" height="6" font="4"></text>
+<text top="376" left="506" width="9" height="6" font="4"></text>
+<text top="370" left="518" width="3" height="13" font="4">.</text>
+<text top="410" left="148" width="596" height="13" font="4">An estimated variance greater than 1 would suggest overdispersion in the data. When we believe</text>
+<text top="426" left="149" width="596" height="13" font="4">overdispersion is not present (<i>φ </i>close to 1), we suggest fixing <i>φ </i>at 1, especially when adjusting for</text>
+<text top="443" left="149" width="313" height="13" font="4">covariates where there is a greater risk of overfitting.</text>
+<text top="464" left="171" width="87" height="13" font="4">The quantity <i>σ</i></text>
+<text top="461" left="259" width="5" height="10" font="8">2</text>
+<text top="469" left="258" width="5" height="10" font="8">v</text>
+<text top="464" left="268" width="99" height="13" font="4">can be updated <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="464" left="367" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="464" left="420" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="464" left="427" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2006</a></text>
+<text top="464" left="454" width="26" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">) </a>by:</text>
+<text top="512" left="404" width="7" height="6" font="4">b</text>
+<text top="506" left="404" width="8" height="10" font="10"><i>σ</i></text>
+<text top="500" left="412" width="5" height="10" font="8">2</text>
+<text top="509" left="411" width="5" height="10" font="8">v</text>
+<text top="503" left="421" width="11" height="12" font="0">=</text>
+<text top="503" left="439" width="7" height="6" font="4">b</text>
+<text top="494" left="438" width="7" height="13" font="4">v</text>
+<text top="491" left="445" width="6" height="10" font="8">T</text>
+<text top="494" left="453" width="9" height="13" font="4">R</text>
+<text top="491" left="463" width="14" height="11" font="8">−1</text>
+<text top="503" left="478" width="7" height="6" font="4">b</text>
+<text top="494" left="477" width="7" height="13" font="4">v</text>
+<text top="512" left="443" width="10" height="13" font="4">df</text>
+<text top="511" left="458" width="11" height="13" font="0">−</text>
+<text top="512" left="472" width="7" height="13" font="4">2</text>
+<text top="503" left="486" width="3" height="13" font="4">.</text>
+<text top="544" left="171" width="573" height="13" font="4">Once convergence is reached, a point-wise confidence band for the smooth estimate is computed</text>
+<text top="561" left="149" width="159" height="13" font="4">for the linear predictor log</text>
+<text top="561" left="308" width="4" height="12" font="0">[</text>
+<text top="570" left="313" width="7" height="6" font="4">b</text>
+<text top="564" left="312" width="8" height="10" font="10"><i>µ</i></text>
+<text top="561" left="320" width="5" height="12" font="0">(</text>
+<text top="561" left="326" width="4" height="13" font="4">t</text>
+<text top="561" left="330" width="10" height="12" font="0">)]</text>
+<text top="561" left="344" width="400" height="13" font="4">with variance matrix (assuming the fixed parameters are known at</text>
+<text top="577" left="149" width="141" height="13" font="4">the estimated values) H</text>
+<text top="577" left="294" width="11" height="12" font="0">=</text>
+<text top="577" left="309" width="9" height="13" font="4">Z</text>
+<text top="577" left="319" width="5" height="12" font="0">(</text>
+<text top="577" left="325" width="9" height="13" font="4">Z</text>
+<text top="575" left="334" width="6" height="10" font="8">T</text>
+<text top="577" left="342" width="23" height="13" font="4">WZ</text>
+<text top="577" left="368" width="11" height="12" font="0">+</text>
+<text top="580" left="381" width="18" height="10" font="10"><i>λ</i>R</text>
+<text top="574" left="400" width="14" height="11" font="8">−1</text>
+<text top="577" left="414" width="5" height="12" font="0">)</text>
+<text top="574" left="420" width="14" height="11" font="8">−1</text>
+<text top="577" left="435" width="9" height="13" font="4">Z</text>
+<text top="575" left="444" width="6" height="10" font="8">T</text>
+<text top="577" left="452" width="289" height="13" font="4">. This is then transformed to the hazard scale by:</text>
+<text top="611" left="365" width="21" height="13" font="4">exp</text>
+<text top="605" left="389" width="9" height="6" font="4">n</text>
+<text top="611" left="398" width="19" height="13" font="4">log</text>
+<text top="611" left="417" width="4" height="12" font="0">[</text>
+<text top="620" left="422" width="7" height="6" font="4">b</text>
+<text top="614" left="421" width="8" height="10" font="10"><i>µ</i></text>
+<text top="611" left="430" width="5" height="12" font="0">(</text>
+<text top="611" left="435" width="4" height="13" font="4">t</text>
+<text top="611" left="440" width="24" height="12" font="0">)] ±</text>
+<text top="611" left="467" width="6" height="13" font="4">z</text>
+<text top="618" left="473" width="6" height="8" font="13"><i>α</i></text>
+<text top="616" left="479" width="12" height="10" font="8">/2</text>
+<text top="598" left="491" width="12" height="13" font="0">√</text>
+<text top="611" left="504" width="10" height="13" font="4">H</text>
+<text top="605" left="515" width="9" height="6" font="4">o</text>
+<text top="634" left="433" width="8" height="13" font="4">P</text>
+<text top="634" left="441" width="5" height="12" font="0">(</text>
+<text top="634" left="447" width="4" height="13" font="4">t</text>
+<text top="634" left="452" width="5" height="12" font="0">)</text>
+<text top="625" left="526" width="3" height="13" font="4">,</text>
+<text top="662" left="148" width="47" height="13" font="4">where z</text>
+<text top="670" left="195" width="6" height="8" font="13"><i>α</i></text>
+<text top="667" left="201" width="12" height="10" font="8">/2</text>
+<text top="662" left="217" width="32" height="13" font="4">is the</text>
+<text top="662" left="252" width="5" height="12" font="0">(</text>
+<text top="662" left="257" width="7" height="13" font="4">1</text>
+<text top="661" left="267" width="11" height="13" font="0">−</text>
+<text top="665" left="281" width="7" height="10" font="10"><i>α</i></text>
+<text top="662" left="288" width="15" height="13" font="4">/2</text>
+<text top="662" left="303" width="5" height="12" font="0">)</text>
+<text top="662" left="312" width="264" height="13" font="4">percentile of a standard normal distribution.</text>
+<text top="707" left="149" width="123" height="17" font="5"><b>Getting started</b></text>
+<text top="746" left="148" width="596" height="13" font="4">This section provides explanations of the input data and output data of the package <b>bshazard</b>, which</text>
+<text top="762" left="149" width="595" height="13" font="4">estimates the hazard function nonparametrically. In order to use package <b>bshazard</b>, the following</text>
+<text top="779" left="149" width="193" height="13" font="4">R packages need to be installed:</text>
+<text top="779" left="346" width="50" height="13" font="7"><a href="http://CRAN.R-project.org/package=survival"><b>survival</b></a></text>
+<text top="779" left="396" width="54" height="13" font="4"><a href="http://CRAN.R-project.org/package=survival">, </a><b>Epi </b>and</text>
+<text top="779" left="454" width="44" height="13" font="7"><a href="http://CRAN.R-project.org/package=splines"><b>splines</b></a></text>
+<text top="779" left="501" width="5" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="779" left="506" width="58" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Therneau</a></text>
+<text top="779" left="564" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="779" left="571" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2014</a></text>
+<text top="779" left="598" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">;</a></text>
+<text top="779" left="605" width="99" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Carstensen et al.</a></text>
+<text top="779" left="704" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="779" left="711" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">2011</a></text>
+<text top="779" left="738" width="8" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">).</a></text>
+<text top="795" left="148" width="315" height="13" font="4">After installation, the main function can be called by:</text>
+<text top="819" left="149" width="117" height="18" font="4">library(bshazard)</text>
+<text top="835" left="149" width="542" height="18" font="4">bshazard(formula, data, nbin, nk, degree, l0, lambda, phi, alpha, err, verbose)</text>
+<text top="865" left="148" width="203" height="13" font="4">The only mandatory argument is</text>
+<text top="862" left="355" width="389" height="18" font="4">formula, which should contain a survival object (interpreted by</text>
+<text top="882" left="149" width="595" height="13" font="4">the <b>survival </b>package) with the time of event (possibly in a counting process format), the censoring</text>
+<text top="898" left="149" width="399" height="13" font="4">indicator and (optionally) the covariates. For example, the function</text>
+<text top="922" left="149" width="425" height="18" font="4">output &lt;- bshazard(formula = Surv(time_of_entry, time_of_exit,</text>
+<text top="938" left="163" width="233" height="18" font="4">censoring_indicator ~ covariates))</text>
+<text top="969" left="148" width="367" height="13" font="4">will produce a smoothed estimate of the hazard accounting for</text>
+<text top="965" left="519" width="225" height="18" font="4">covariates with the following default</text>
+<text top="985" left="149" width="49" height="13" font="4">settings:</text>
+<text top="1012" left="171" width="493" height="13" font="4">• the time axis split at each distinct observed time in the data (censoring or event);</text>
+<text top="1034" left="171" width="157" height="13" font="4">• B-splines with 31 knots;</text>
+<text top="1057" left="171" width="142" height="13" font="4">• degree of B-splines 1;</text>
+<text top="1079" left="171" width="434" height="13" font="4">• smoothing parameter estimated from the data (with starting value 10);</text>
+<text top="1102" left="171" width="318" height="13" font="4">• overdispersion parameter estimated from the data;</text>
+<text top="1124" left="171" width="166" height="13" font="4">• 95% confidence intervals.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">118</text>
+<text top="103" left="149" width="595" height="13" font="4">By providing various arguments in the function call, the user can override the default settings for the</text>
+<text top="120" left="149" width="350" height="13" font="4">data format (e.g. specify a data frame), the number of bins (</text>
+<text top="116" left="499" width="245" height="18" font="4">nbin), the number of knots (nk), degree of</text>
+<text top="136" left="149" width="48" height="13" font="4">splines (</text>
+<text top="133" left="197" width="548" height="18" font="4">degree), smoothing and overdispersion parameters (lambda and phi), confidence level (alpha)</text>
+<text top="152" left="149" width="162" height="13" font="4">and convergence criterion (</text>
+<text top="149" left="311" width="397" height="18" font="4">err). Detailed explanations are provided in the function’s help file.</text>
+<text top="173" left="171" width="23" height="13" font="4">The</text>
+<text top="170" left="198" width="546" height="18" font="4">output of the bshazard function includes a data frame with the original data split in time</text>
+<text top="190" left="149" width="58" height="13" font="4">intervals (</text>
+<text top="186" left="207" width="537" height="18" font="4">raw.data), vectors containing the estimated hazard and confidence limits and the parameter</text>
+<text top="206" left="149" width="244" height="13" font="4">estimates (coefficients of the covariates, ˆ</text>
+<text top="209" left="386" width="8" height="10" font="10"><i>φ</i></text>
+<text top="206" left="394" width="14" height="13" font="4">, ˆ<i>σ</i></text>
+<text top="204" left="409" width="5" height="10" font="8">2</text>
+<text top="212" left="408" width="5" height="10" font="8">v</text>
+<text top="206" left="415" width="27" height="13" font="4">, df ).</text>
+<text top="227" left="171" width="300" height="13" font="4">The package also includes the following functions:</text>
+<text top="252" left="171" width="8" height="13" font="4">•</text>
+<text top="249" left="186" width="558" height="18" font="4">summary(output) prints the values of the estimated hazard, with confidence limits, for each</text>
+<text top="269" left="186" width="260" height="13" font="4">observed time and the parameter estimates;</text>
+<text top="290" left="171" width="8" height="13" font="4">•</text>
+<text top="286" left="186" width="437" height="18" font="4">plot(output) and lines(output) plot the hazard, with confidence limits.</text>
+<text top="334" left="149" width="168" height="17" font="5"><b>Numerical examples</b></text>
+<text top="373" left="149" width="595" height="13" font="4">In order to test the flexibility of the proposed algorithm we simulated data from a non monotone</text>
+<text top="389" left="149" width="443" height="13" font="4">function that could represent, for example, the seasonality of flu incidence:</text>
+<text top="423" left="255" width="7" height="13" font="4">h</text>
+<text top="423" left="262" width="5" height="12" font="0">(</text>
+<text top="423" left="268" width="4" height="13" font="4">t</text>
+<text top="423" left="273" width="20" height="12" font="0">) =</text>
+<text top="423" left="297" width="6" height="13" font="4">b</text>
+<text top="422" left="306" width="4" height="13" font="0">·</text>
+<text top="417" left="313" width="6" height="6" font="4">h</text>
+<text top="423" left="320" width="7" height="13" font="4">h</text>
+<text top="417" left="327" width="5" height="10" font="8">p</text>
+<text top="421" left="333" width="4" height="7" font="9">1</text>
+<text top="430" left="327" width="5" height="10" font="8">1</text>
+<text top="423" left="339" width="7" height="13" font="4">p</text>
+<text top="427" left="346" width="5" height="10" font="8">1</text>
+<text top="423" left="352" width="4" height="13" font="4">t</text>
+<text top="419" left="357" width="5" height="10" font="8">p</text>
+<text top="423" left="363" width="4" height="7" font="9">1</text>
+<text top="419" left="367" width="14" height="11" font="8">−1</text>
+<text top="423" left="382" width="5" height="13" font="4">e</text>
+<text top="419" left="388" width="19" height="11" font="8">−(h</text>
+<text top="423" left="406" width="4" height="7" font="9">1</text>
+<text top="419" left="411" width="11" height="11" font="8">·t)</text>
+<text top="417" left="423" width="8" height="10" font="9">p1</text>
+<text top="417" left="433" width="6" height="6" font="4">i</text>
+<text top="423" left="442" width="19" height="12" font="0">+ (</text>
+<text top="423" left="461" width="7" height="13" font="4">1</text>
+<text top="422" left="471" width="11" height="13" font="0">−</text>
+<text top="423" left="485" width="6" height="13" font="4">b</text>
+<text top="423" left="491" width="12" height="12" font="0">) ·</text>
+<text top="417" left="507" width="6" height="6" font="4">h</text>
+<text top="423" left="513" width="7" height="13" font="4">h</text>
+<text top="417" left="521" width="5" height="10" font="8">p</text>
+<text top="421" left="526" width="4" height="7" font="9">2</text>
+<text top="429" left="520" width="5" height="10" font="8">2</text>
+<text top="423" left="532" width="7" height="13" font="4">p</text>
+<text top="427" left="539" width="5" height="10" font="8">2</text>
+<text top="423" left="545" width="4" height="13" font="4">t</text>
+<text top="419" left="551" width="5" height="10" font="8">p</text>
+<text top="423" left="556" width="4" height="7" font="9">2</text>
+<text top="419" left="561" width="14" height="11" font="8">−1</text>
+<text top="423" left="575" width="5" height="13" font="4">e</text>
+<text top="419" left="581" width="19" height="11" font="8">−(h</text>
+<text top="423" left="600" width="4" height="7" font="9">2</text>
+<text top="419" left="604" width="11" height="11" font="8">·t)</text>
+<text top="417" left="616" width="8" height="10" font="9">p2</text>
+<text top="417" left="626" width="6" height="6" font="4">i</text>
+<text top="423" left="635" width="3" height="13" font="4">,</text>
+<text top="423" left="728" width="16" height="13" font="4">(2)</text>
+<text top="456" left="148" width="46" height="13" font="4">where h</text>
+<text top="456" left="195" width="5" height="12" font="0">(</text>
+<text top="456" left="200" width="4" height="13" font="4">t</text>
+<text top="456" left="205" width="5" height="12" font="0">)</text>
+<text top="456" left="214" width="442" height="13" font="4">is the hazard function, b is a Bernoulli random variable with parameter 0.6, h</text>
+<text top="461" left="656" width="5" height="10" font="8">1</text>
+<text top="456" left="666" width="11" height="12" font="0">=</text>
+<text top="456" left="681" width="30" height="13" font="4">1.2, p</text>
+<text top="461" left="711" width="5" height="10" font="8">1</text>
+<text top="456" left="721" width="11" height="12" font="0">=</text>
+<text top="456" left="736" width="10" height="13" font="4">2,</text>
+<text top="472" left="149" width="7" height="13" font="4">h</text>
+<text top="477" left="156" width="5" height="10" font="8">2</text>
+<text top="472" left="166" width="11" height="12" font="0">=</text>
+<text top="473" left="181" width="31" height="13" font="4">0.3, p</text>
+<text top="477" left="212" width="5" height="10" font="8">2</text>
+<text top="472" left="222" width="11" height="12" font="0">=</text>
+<text top="473" left="237" width="319" height="13" font="4">5. The choice of the parameter values was inspired by</text>
+<text top="473" left="559" width="52" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Cai et al.</a></text>
+<text top="473" left="614" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="473" left="618" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">2002</a></text>
+<text top="473" left="645" width="99" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>We considered</text>
+<text top="489" left="149" width="494" height="13" font="4">samples of 500 subjects and for each subject we also simulated a censoring time as U</text>
+<text top="489" left="644" width="5" height="12" font="0">(</text>
+<text top="489" left="649" width="19" height="13" font="4">0, 5</text>
+<text top="489" left="668" width="5" height="12" font="0">)</text>
+<text top="489" left="674" width="70" height="13" font="4">. Under this</text>
+<text top="505" left="149" width="597" height="13" font="4">model we simulated 500 random samples and, for each sample, we estimated the hazard function by:</text>
+<text top="527" left="149" width="460" height="18" font="4">fit &lt;- bshazard(Surv(exit_time, cens) ~ 1, data = dati, nbin = 100)</text>
+<text top="556" left="148" width="596" height="13" font="4">The choice to pre-bin the data in 100 time intervals was for simplicity of comparison of different</text>
+<text top="572" left="149" width="598" height="13" font="4">estimates of hazard from different simulations at the same time point. The hazard function esti-</text>
+<text top="589" left="149" width="595" height="13" font="4">mate did not change when using different numbers of bins or different numbers of knots (data not</text>
+<text top="605" left="149" width="393" height="13" font="4">shown). The results of this simulation are summarised in Figure</text>
+<text top="605" left="546" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#6">1</a></text>
+<text top="605" left="553" width="193" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#6">. </a>The mean estimate of the haz-</text>
+<text top="622" left="149" width="595" height="13" font="4">ard function is very close to the true hazard. For comparison, we also estimated the hazard using</text>
+<text top="635" left="149" width="595" height="18" font="4">muhaz(exit_time, cens, max.time = 3, bw.method = &#34;g&#34;, n.est.grid = 100) and plotted its</text>
+<text top="655" left="149" width="145" height="13" font="4">mean estimate in Figure</text>
+<text top="655" left="298" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#6">1</a></text>
+<text top="655" left="304" width="440" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#6">, </a>where it can be seen to be very close to the true hazard. Under the same</text>
+<text top="671" left="149" width="355" height="13" font="4">distribution we also simulated a left truncation time l as U</text>
+<text top="671" left="505" width="17" height="12" font="0">(−</text>
+<text top="671" left="522" width="19" height="13" font="4">1, 1</text>
+<text top="671" left="541" width="5" height="12" font="0">)</text>
+<text top="671" left="547" width="43" height="13" font="4">, with l</text>
+<text top="671" left="595" width="11" height="12" font="0">&lt;</text>
+<text top="671" left="610" width="134" height="13" font="4">0 considered as 0 (late</text>
+<text top="688" left="149" width="596" height="13" font="4">entry for half of the subjects). In this simulation, only subjects with event/censoring times greater</text>
+<text top="704" left="149" width="595" height="13" font="4">than the left truncation time were valid for analysis. This setting provided results very similar to the</text>
+<text top="720" left="148" width="204" height="13" font="4">previous setting (data not shown).</text>
+<text top="741" left="171" width="573" height="13" font="4">In a second simulation, we included a covariate X generated as a standard normal random variable</text>
+<text top="758" left="149" width="326" height="13" font="4">that influenced the hazard rate according to the model:</text>
+<text top="787" left="387" width="7" height="13" font="4">h</text>
+<text top="787" left="394" width="5" height="12" font="0">(</text>
+<text top="787" left="399" width="4" height="13" font="4">t</text>
+<text top="787" left="404" width="20" height="12" font="0">) =</text>
+<text top="787" left="429" width="21" height="13" font="4">0.5t</text>
+<text top="786" left="453" width="4" height="13" font="0">·</text>
+<text top="787" left="460" width="21" height="13" font="4">exp</text>
+<text top="787" left="481" width="5" height="12" font="0">(</text>
+<text top="787" left="487" width="10" height="13" font="4">X</text>
+<text top="787" left="498" width="5" height="12" font="0">)</text>
+<text top="787" left="503" width="3" height="13" font="4">.</text>
+<text top="816" left="149" width="595" height="13" font="4">Under this model we again simulated 500 random samples and, for each sample, estimated the hazard</text>
+<text top="832" left="149" width="71" height="13" font="4">function by:</text>
+<text top="854" left="149" width="535" height="18" font="4">fit &lt;- bshazard(Surv(entry_time, exit_time, cens) ~ x, data = dati, nbin = 30)</text>
+<text top="883" left="149" width="169" height="13" font="4">Results are shown in Figure</text>
+<text top="883" left="322" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#6">2</a></text>
+<text top="883" left="329" width="415" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#6">. </a>The mean estimate of the hazard function is again very close to the</text>
+<text top="900" left="149" width="595" height="13" font="4">true hazard. Note that when adjusting for continuous covariates, the hazard is estimated under the</text>
+<text top="916" left="149" width="595" height="13" font="4">assumption of a linear effect of the covariates centered at their mean values. In this case, a comparison</text>
+<text top="932" left="148" width="49" height="13" font="4">with the</text>
+<text top="929" left="200" width="539" height="18" font="4">muhaz function was not possible given that it does not accommodate covariates or late entry.</text>
+<text top="977" left="149" width="366" height="17" font="5"><b>Results from non-Hodgkin’s lymphoma data</b></text>
+<text top="1015" left="149" width="595" height="13" font="4">In this section we use the <b>bshazard </b>package to estimate the hazard of cancer diagnosis using data from</text>
+<text top="1032" left="149" width="595" height="13" font="4">Swedish population registers. For all individuals born in Sweden since 1932, the Multi-Generation</text>
+<text top="1048" left="149" width="257" height="13" font="4">Register maintained by Statistics Sweden <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1048" left="406" width="105" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Statistics Sweden</a></text>
+<text top="1048" left="511" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1048" left="517" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2009</a></text>
+<text top="1048" left="545" width="201" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">) </a>identifies the biological parents,</text>
+<text top="1065" left="149" width="595" height="13" font="4">thus enabling the construction of kinships within families. Using the individually unique national</text>
+<text top="1081" left="149" width="595" height="13" font="4">registration number, individuals in this register can be linked to the National Cancer Register, which</text>
+<text top="1098" left="149" width="500" height="13" font="4">records all malignancies diagnosed since 1958. In our application we use data from</text>
+<text top="1098" left="652" width="53" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="1098" left="709" width="5" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1098" left="714" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2013</a></text>
+<text top="1098" left="741" width="5" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">)</a></text>
+<text top="1114" left="148" width="596" height="13" font="4">who analyzed 3,015 sisters of 1,902 non-Hodgkin’s lymphoma (NHL) female patients and 15,697 sisters</text>
+<text top="1130" left="149" width="595" height="13" font="4">of 3,836 matched controls who were cancer free at the time of diagnosis of the corresponding case and</text>
+<text top="1147" left="148" width="501" height="13" font="4">who matched the case with respect to age, year of birth, sex and county of residence.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="4" family="Times" color="#000000"/>
+	<fontspec id="15" size="4" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">119</text>
+<text top="353" left="184" width="10" height="7" font="14">0.0</text>
+<text top="353" left="222" width="10" height="7" font="14">0.5</text>
+<text top="353" left="260" width="10" height="7" font="14">1.0</text>
+<text top="353" left="298" width="10" height="7" font="14">1.5</text>
+<text top="353" left="336" width="10" height="7" font="14">2.0</text>
+<text top="353" left="374" width="10" height="7" font="14">2.5</text>
+<text top="353" left="412" width="10" height="7" font="14">3.0</text>
+<text top="337" left="173" width="0" height="7" font="15">0.0</text>
+<text top="260" left="173" width="0" height="7" font="15">0.5</text>
+<text top="183" left="173" width="0" height="7" font="15">1.0</text>
+<text top="107" left="173" width="0" height="7" font="15">1.5</text>
+<text top="365" left="295" width="15" height="7" font="14">Time</text>
+<text top="245" left="160" width="0" height="7" font="15">Rate/person−y</text>
+<text top="200" left="160" width="0" height="7" font="15">ear</text>
+<text top="395" left="149" width="54" height="13" font="3"><b>Figure 1:</b></text>
+<text top="394" left="213" width="215" height="13" font="4">Numerical example; estimated and</text>
+<text top="413" left="149" width="139" height="13" font="4">true hazard function (h</text>
+<text top="413" left="288" width="5" height="12" font="0">(</text>
+<text top="413" left="293" width="4" height="13" font="4">t</text>
+<text top="413" left="298" width="20" height="12" font="0">) =</text>
+<text top="413" left="323" width="6" height="13" font="4">b</text>
+<text top="413" left="329" width="4" height="12" font="0">[</text>
+<text top="413" left="333" width="17" height="13" font="4">1.2</text>
+<text top="411" left="350" width="5" height="10" font="8">2</text>
+<text top="413" left="356" width="17" height="13" font="4">2te</text>
+<text top="410" left="374" width="34" height="11" font="8">−(1.2t)</text>
+<text top="409" left="408" width="4" height="7" font="9">2</text>
+<text top="413" left="414" width="18" height="12" font="0">] +</text>
+<text top="432" left="148" width="5" height="12" font="0">(</text>
+<text top="432" left="154" width="7" height="13" font="4">1</text>
+<text top="431" left="163" width="11" height="13" font="0">−</text>
+<text top="432" left="177" width="6" height="13" font="4">b</text>
+<text top="432" left="184" width="10" height="12" font="0">)[</text>
+<text top="432" left="193" width="16" height="13" font="4">0.3</text>
+<text top="430" left="210" width="5" height="10" font="8">5</text>
+<text top="432" left="216" width="11" height="13" font="4">5t</text>
+<text top="430" left="227" width="5" height="10" font="8">4</text>
+<text top="432" left="233" width="5" height="13" font="4">e</text>
+<text top="429" left="239" width="34" height="11" font="8">−(0.3t)</text>
+<text top="428" left="273" width="4" height="7" font="9">5</text>
+<text top="432" left="279" width="4" height="12" font="0">]</text>
+<text top="432" left="283" width="146" height="13" font="4">) with right censoring for</text>
+<text top="449" left="149" width="7" height="13" font="4">n</text>
+<text top="449" left="163" width="11" height="12" font="0">=</text>
+<text top="449" left="180" width="251" height="13" font="4">500. The solid black line is the true haz-</text>
+<text top="465" left="149" width="280" height="13" font="4">ard function, the dashed gray lines are the mean</text>
+<text top="482" left="149" width="80" height="13" font="4">estimate from</text>
+<text top="478" left="232" width="199" height="18" font="4">bshazard and the empirical point-</text>
+<text top="498" left="148" width="280" height="13" font="4">wise 95% confidence interval. Squares represent</text>
+<text top="514" left="149" width="162" height="13" font="4">the mean estimate from the</text>
+<text top="511" left="314" width="91" height="18" font="4">muhaz function.</text>
+<text top="353" left="493" width="10" height="7" font="14">0.0</text>
+<text top="353" left="531" width="10" height="7" font="14">0.5</text>
+<text top="353" left="569" width="10" height="7" font="14">1.0</text>
+<text top="353" left="606" width="10" height="7" font="14">1.5</text>
+<text top="353" left="644" width="10" height="7" font="14">2.0</text>
+<text top="353" left="682" width="10" height="7" font="14">2.5</text>
+<text top="353" left="720" width="10" height="7" font="14">3.0</text>
+<text top="337" left="481" width="0" height="7" font="15">0.0</text>
+<text top="279" left="481" width="0" height="7" font="15">0.5</text>
+<text top="222" left="481" width="0" height="7" font="15">1.0</text>
+<text top="164" left="481" width="0" height="7" font="15">1.5</text>
+<text top="107" left="481" width="0" height="7" font="15">2.0</text>
+<text top="365" left="604" width="15" height="7" font="14">Time</text>
+<text top="245" left="469" width="0" height="7" font="15">Rate/person−y</text>
+<text top="200" left="469" width="0" height="7" font="15">ear</text>
+<text top="395" left="457" width="54" height="13" font="3"><b>Figure 2:</b></text>
+<text top="394" left="522" width="215" height="13" font="4">Numerical example; estimated and</text>
+<text top="411" left="457" width="140" height="13" font="4">true hazard function (h</text>
+<text top="411" left="598" width="5" height="12" font="0">(</text>
+<text top="411" left="603" width="4" height="13" font="4">t</text>
+<text top="411" left="608" width="21" height="12" font="0">) =</text>
+<text top="411" left="633" width="46" height="13" font="4">0.5t exp</text>
+<text top="411" left="679" width="5" height="12" font="0">(</text>
+<text top="411" left="685" width="10" height="13" font="4">X</text>
+<text top="411" left="695" width="5" height="12" font="0">)</text>
+<text top="411" left="701" width="36" height="13" font="4">) with</text>
+<text top="427" left="457" width="239" height="13" font="4">left truncation and right censoring for n</text>
+<text top="427" left="701" width="11" height="12" font="0">=</text>
+<text top="427" left="715" width="24" height="13" font="4">500.</text>
+<text top="444" left="457" width="280" height="13" font="4">The solid black line represents the true hazard</text>
+<text top="460" left="457" width="280" height="13" font="4">function, and the dashed gray lines are the mean</text>
+<text top="477" left="457" width="282" height="13" font="4">estimate and the empirical pointwise 95% confi-</text>
+<text top="493" left="457" width="88" height="13" font="4">dence interval.</text>
+<text top="564" left="171" width="573" height="13" font="4">Sisters are at risk from birth to the age at NHL diagnosis or censoring due to death, emigration or</text>
+<text top="581" left="149" width="595" height="13" font="4">end of study (2007). Individuals born before the start of the cancer register (1958) were considered at</text>
+<text top="597" left="149" width="595" height="13" font="4">risk from their age at the start of the cancer register, resulting in delayed entry. In the study period, 32</text>
+<text top="614" left="149" width="595" height="13" font="4">NHL diagnoses were observed in the exposed group (sisters of subjects with a diagnosis of NHL) and</text>
+<text top="630" left="149" width="345" height="13" font="4">39 in the unexposed group (sisters of cancer-free subjects).</text>
+<text top="651" left="171" width="573" height="13" font="4">In order to illustrate the automatic smoothing, we first concentrated on sisters of cancer-free</text>
+<text top="667" left="149" width="595" height="13" font="4">subjects and computed the smoothed hazard using the usual B-splines (i.e. setting the smoothing</text>
+<text top="684" left="148" width="73" height="13" font="4">parameter <i>λ</i></text>
+<text top="684" left="225" width="11" height="12" font="0">=</text>
+<text top="684" left="240" width="15" height="13" font="4">0):</text>
+<text top="707" left="149" width="508" height="18" font="4">fit_notexp_l0 &lt;- bshazard(Surv(entry_age, exit_age, cens) ~ 1, lambda = 0,</text>
+<text top="724" left="163" width="123" height="18" font="4">data = sis[nexpo])</text>
+<text top="754" left="148" width="37" height="13" font="4">where</text>
+<text top="751" left="189" width="296" height="18" font="4">[nexpo] selects only the sisters of control subjects.</text>
+<text top="775" left="171" width="277" height="13" font="4">The resulting hazard function, plotted in Figure</text>
+<text top="775" left="452" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">3</a></text>
+<text top="775" left="458" width="286" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#7">, </a>has several bumps, so we proceeded to estimate</text>
+<text top="791" left="149" width="558" height="13" font="4">the smoothing parameter from the data, again using the same number of knots (31 as default):</text>
+<text top="815" left="149" width="535" height="18" font="4">fit_notexp &lt;- bshazard(Surv(entry_age, exit_age, cens) ~ 1, data = sis[nexpo])</text>
+<text top="845" left="148" width="462" height="13" font="4">The resulting estimate of <i>λ </i>was 11,311.84 with 2.40 degrees of freedom and b</text>
+<text top="848" left="602" width="8" height="10" font="10"><i>φ</i></text>
+<text top="845" left="614" width="11" height="12" font="0">=</text>
+<text top="845" left="629" width="115" height="13" font="4">0.82 and the dotted</text>
+<text top="862" left="149" width="79" height="13" font="4">line in Figure</text>
+<text top="862" left="231" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">3</a></text>
+<text top="862" left="241" width="503" height="13" font="4">presents the corresponding hazard estimate. The estimate of the hazard function was</text>
+<text top="878" left="149" width="595" height="13" font="4">unchanged when using different numbers of knots or by setting the overdispersion parameter to 1 (in</text>
+<text top="894" left="149" width="211" height="13" font="4">fact no overdispersion was found b</text>
+<text top="898" left="351" width="8" height="10" font="10"><i>φ</i></text>
+<text top="894" left="363" width="11" height="12" font="0">=</text>
+<text top="894" left="378" width="31" height="13" font="4">0.82).</text>
+<text top="915" left="171" width="57" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="915" left="237" width="508" height="13" font="4">found that sisters of female NHL patients have hazard ratio of NHL of 4.36 (95%</text>
+<text top="932" left="149" width="374" height="13" font="4">confidence interval [2.74; 6.94]) compared to sisters of controls <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="932" left="523" width="52" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="932" left="575" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="932" left="582" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2013</a></text>
+<text top="932" left="609" width="135" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">). </a>For comparison with</text>
+<text top="948" left="149" width="596" height="13" font="4">their results we estimated the risk of NHL adjusting for ‘exposure’ (i.e. being a sister of a case rather</text>
+<text top="965" left="149" width="90" height="13" font="4">than a control):</text>
+<text top="988" left="149" width="514" height="18" font="4">fit_adj_exp &lt;- bshazard(Surv(entry_age, exit_age, cens) ~ case, data = sis)</text>
+<text top="1019" left="148" width="111" height="13" font="4">where the variable</text>
+<text top="1015" left="262" width="482" height="18" font="4">case indicates whether the subject is a sister of a case. We obtained a very similar</text>
+<text top="1037" left="149" width="102" height="13" font="4">hazard ratio, exp</text>
+<text top="1037" left="251" width="5" height="12" font="0">(</text>
+<text top="1043" left="258" width="7" height="6" font="4">b</text>
+<text top="1040" left="257" width="7" height="10" font="10"><i>β</i></text>
+<text top="1037" left="265" width="21" height="12" font="0">) =</text>
+<text top="1037" left="290" width="454" height="13" font="4">4.35, as expected. Note that the code provides the hazard for a subject with</text>
+<text top="1053" left="149" width="287" height="13" font="4">covariate value equal to the mean of all subjects:</text>
+<text top="1106" left="308" width="7" height="6" font="4">b</text>
+<text top="1101" left="309" width="7" height="13" font="4">h</text>
+<text top="1101" left="316" width="5" height="12" font="0">(</text>
+<text top="1101" left="321" width="17" height="14" font="4">t; x</text>
+<text top="1101" left="339" width="20" height="12" font="0">) =</text>
+<text top="1100" left="366" width="7" height="6" font="4">b</text>
+<text top="1095" left="366" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1091" left="374" width="5" height="12" font="0">(</text>
+<text top="1091" left="379" width="17" height="14" font="4">t, x</text>
+<text top="1091" left="397" width="5" height="12" font="0">)</text>
+<text top="1110" left="372" width="8" height="13" font="4">P</text>
+<text top="1110" left="381" width="5" height="12" font="0">(</text>
+<text top="1110" left="386" width="4" height="13" font="4">t</text>
+<text top="1110" left="391" width="5" height="12" font="0">)</text>
+<text top="1101" left="409" width="11" height="12" font="0">=</text>
+<text top="1087" left="425" width="21" height="13" font="4">exp</text>
+<text top="1081" left="449" width="6" height="6" font="4">h</text>
+<text top="1087" left="456" width="16" height="13" font="4">x b</text>
+<text top="1090" left="464" width="7" height="10" font="10"><i>β</i></text>
+<text top="1087" left="474" width="11" height="12" font="0">+</text>
+<text top="1087" left="488" width="6" height="13" font="4">z</text>
+<text top="1096" left="495" width="7" height="6" font="4">b</text>
+<text top="1087" left="494" width="7" height="13" font="4">v</text>
+<text top="1087" left="504" width="11" height="12" font="0">+</text>
+<text top="1087" left="517" width="19" height="13" font="4">log</text>
+<text top="1087" left="536" width="5" height="12" font="0">(</text>
+<text top="1087" left="542" width="8" height="13" font="4">P</text>
+<text top="1087" left="551" width="5" height="12" font="0">(</text>
+<text top="1087" left="557" width="4" height="13" font="4">t</text>
+<text top="1087" left="561" width="11" height="12" font="0">))</text>
+<text top="1081" left="573" width="6" height="6" font="4">i</text>
+<text top="1110" left="490" width="8" height="13" font="4">P</text>
+<text top="1110" left="499" width="5" height="12" font="0">(</text>
+<text top="1110" left="504" width="4" height="13" font="4">t</text>
+<text top="1110" left="509" width="5" height="12" font="0">)</text>
+<text top="1101" left="581" width="3" height="13" font="4">.</text>
+<text top="1142" left="171" width="573" height="13" font="4">Since this estimate is not meaningful for categorical variables, we obtained separate hazard</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">120</text>
+<text top="345" left="192" width="4" height="6" font="14">0</text>
+<text top="345" left="221" width="8" height="6" font="14">10</text>
+<text top="345" left="251" width="8" height="6" font="14">20</text>
+<text top="345" left="281" width="8" height="6" font="14">30</text>
+<text top="345" left="312" width="8" height="6" font="14">40</text>
+<text top="345" left="342" width="8" height="6" font="14">50</text>
+<text top="345" left="372" width="8" height="6" font="14">60</text>
+<text top="345" left="402" width="8" height="6" font="14">70</text>
+<text top="334" left="176" width="0" height="6" font="15">0.0000</text>
+<text top="271" left="176" width="0" height="6" font="15">0.0005</text>
+<text top="208" left="176" width="0" height="6" font="15">0.0010</text>
+<text top="145" left="176" width="0" height="6" font="15">0.0015</text>
+<text top="362" left="294" width="12" height="6" font="14">Age</text>
+<text top="256" left="160" width="0" height="6" font="15">Rate/person−y</text>
+<text top="211" left="160" width="0" height="6" font="15">ear</text>
+<text top="137" left="280" width="49" height="6" font="14">Lambda set to 0</text>
+<text top="146" left="280" width="64" height="6" font="14">Automatic smoothing</text>
+<text top="395" left="152" width="54" height="13" font="3"><b>Figure 3:</b></text>
+<text top="394" left="219" width="213" height="13" font="4">Hazard estimate of NHL in sisters</text>
+<text top="411" left="152" width="280" height="13" font="4">of controls with smoothing parameter set to 0</text>
+<text top="427" left="152" width="280" height="13" font="4">(continuous line) and smoothing estimated from</text>
+<text top="444" left="152" width="280" height="13" font="4">the data (dashed line). Dots represent the raw</text>
+<text top="460" left="152" width="45" height="13" font="4">hazard.</text>
+<text top="345" left="501" width="4" height="6" font="14">0</text>
+<text top="345" left="529" width="8" height="6" font="14">10</text>
+<text top="345" left="560" width="8" height="6" font="14">20</text>
+<text top="345" left="590" width="8" height="6" font="14">30</text>
+<text top="345" left="620" width="8" height="6" font="14">40</text>
+<text top="345" left="650" width="8" height="6" font="14">50</text>
+<text top="345" left="681" width="8" height="6" font="14">60</text>
+<text top="345" left="711" width="8" height="6" font="14">70</text>
+<text top="334" left="485" width="0" height="6" font="15">0.0000</text>
+<text top="271" left="485" width="0" height="6" font="15">0.0005</text>
+<text top="208" left="485" width="0" height="6" font="15">0.0010</text>
+<text top="145" left="485" width="0" height="6" font="15">0.0015</text>
+<text top="362" left="603" width="12" height="6" font="14">Age</text>
+<text top="256" left="468" width="0" height="6" font="15">Rate/person−y</text>
+<text top="211" left="468" width="0" height="6" font="15">ear</text>
+<text top="137" left="603" width="34" height="6" font="14">Unexposed</text>
+<text top="146" left="603" width="27" height="6" font="14">Exposed</text>
+<text top="395" left="461" width="54" height="13" font="3"><b>Figure 4:</b></text>
+<text top="394" left="526" width="216" height="13" font="4">Smoothed hazard of NHL in unex-</text>
+<text top="411" left="460" width="280" height="13" font="4">posed (continuous line) and exposed (dashed</text>
+<text top="427" left="461" width="282" height="13" font="4">line) sisters obtained from the model with ex-</text>
+<text top="444" left="460" width="280" height="13" font="4">posure as a covariate. Dotted lines represent</text>
+<text top="460" left="461" width="280" height="13" font="4">confidence intervals. For reference, the stratified</text>
+<text top="477" left="461" width="282" height="13" font="4">estimates obtained from separate models for ex-</text>
+<text top="493" left="460" width="280" height="13" font="4">posed and unexposed sisters are presented in</text>
+<text top="509" left="461" width="28" height="13" font="4">grey.</text>
+<text top="559" left="149" width="309" height="13" font="4">estimates for unexposed and exposed subjects from:</text>
+<text top="612" left="261" width="7" height="6" font="4">b</text>
+<text top="607" left="261" width="7" height="13" font="4">h</text>
+<text top="607" left="268" width="5" height="12" font="0">(</text>
+<text top="607" left="274" width="17" height="14" font="4">t; x</text>
+<text top="607" left="292" width="20" height="12" font="0">) =</text>
+<text top="593" left="318" width="21" height="13" font="4">exp</text>
+<text top="587" left="342" width="6" height="6" font="4">h</text>
+<text top="593" left="349" width="16" height="13" font="4">x b</text>
+<text top="596" left="356" width="7" height="10" font="10"><i>β</i></text>
+<text top="593" left="366" width="11" height="12" font="0">+</text>
+<text top="593" left="380" width="6" height="13" font="4">z</text>
+<text top="602" left="387" width="7" height="6" font="4">b</text>
+<text top="593" left="387" width="7" height="13" font="4">v</text>
+<text top="593" left="396" width="11" height="12" font="0">+</text>
+<text top="593" left="410" width="19" height="13" font="4">log</text>
+<text top="593" left="429" width="5" height="12" font="0">(</text>
+<text top="593" left="435" width="8" height="13" font="4">P</text>
+<text top="593" left="443" width="5" height="12" font="0">(</text>
+<text top="593" left="449" width="4" height="13" font="4">t</text>
+<text top="593" left="454" width="11" height="12" font="0">))</text>
+<text top="587" left="466" width="6" height="6" font="4">i</text>
+<text top="616" left="383" width="8" height="13" font="4">P</text>
+<text top="616" left="391" width="5" height="12" font="0">(</text>
+<text top="616" left="397" width="4" height="13" font="4">t</text>
+<text top="616" left="402" width="5" height="12" font="0">)</text>
+<text top="607" left="478" width="11" height="12" font="0">=</text>
+<text top="612" left="492" width="7" height="6" font="4">b</text>
+<text top="607" left="493" width="7" height="13" font="4">h</text>
+<text top="607" left="500" width="5" height="12" font="0">(</text>
+<text top="607" left="506" width="17" height="14" font="4">t; x</text>
+<text top="607" left="523" width="12" height="12" font="0">) ·</text>
+<text top="607" left="539" width="21" height="13" font="4">exp</text>
+<text top="601" left="562" width="6" height="6" font="4">h</text>
+<text top="607" left="569" width="5" height="12" font="0">(</text>
+<text top="607" left="575" width="7" height="13" font="4">x</text>
+<text top="606" left="585" width="11" height="13" font="0">−</text>
+<text top="607" left="599" width="7" height="13" font="4">x</text>
+<text top="607" left="606" width="5" height="12" font="0">)</text>
+<text top="613" left="613" width="7" height="6" font="4">b</text>
+<text top="610" left="612" width="7" height="10" font="10"><i>β</i></text>
+<text top="601" left="620" width="6" height="6" font="4">i</text>
+<text top="607" left="629" width="3" height="13" font="4">.</text>
+<text top="648" left="171" width="77" height="13" font="4">The function</text>
+<text top="644" left="252" width="492" height="18" font="4">plot in the package <b>bshazard </b>calls an object of class ‘bahazard’ and allows one to</text>
+<text top="664" left="149" width="551" height="13" font="4">easily plot separate curves for each set of covariate values. The estimates plotted in Figure</text>
+<text top="664" left="704" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">4</a></text>
+<text top="664" left="714" width="30" height="13" font="4">were</text>
+<text top="681" left="149" width="91" height="13" font="4">obtained using</text>
+<text top="677" left="244" width="500" height="18" font="4">plot(fit_adj_exp, overall = FALSE) and assume proportionality of the hazard</text>
+<text top="697" left="149" width="595" height="13" font="4">in exposed and unexposed sisters. As a reference, we also performed stratified analyses obtaining</text>
+<text top="714" left="149" width="583" height="13" font="4">estimates separately for exposed and unexposed sisters and these are plotted in grey in Figure</text>
+<text top="714" left="736" width="7" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">4</a></text>
+<text top="714" left="743" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#7">.</a></text>
+<text top="730" left="148" width="596" height="13" font="4">As expected, the hazard estimates are similar to the separate estimates, but are constrained by the</text>
+<text top="746" left="149" width="595" height="13" font="4">assumption of proportionality. This is especially evident in the exposed group: the hazard increase</text>
+<text top="763" left="149" width="595" height="13" font="4">seems to level off after age 55, but this is not detected by the hazard estimate obtained under the joint</text>
+<text top="779" left="149" width="95" height="13" font="4">adjusted model.</text>
+<text top="800" left="171" width="573" height="13" font="4">The adjustment to the hazard estimate is particularly advantageous for continuous variables. The</text>
+<text top="817" left="148" width="596" height="13" font="4">proposed method allows inclusion of more than one covariate, so in the NHL application the hazard</text>
+<text top="833" left="149" width="490" height="13" font="4">of exposed and unexposed subjects could be further adjusted for calendar time by:</text>
+<text top="857" left="149" width="590" height="18" font="4">fit_adj_exp_caly &lt;- bshazard(Surv(entry_age, exit_age, cens) ~ case + yob, data = sis)</text>
+<text top="887" left="171" width="530" height="13" font="4">This yielded hazard estimates that were essentially unchanged and are not reported here.</text>
+<text top="932" left="149" width="91" height="17" font="5"><b>Discussion</b></text>
+<text top="971" left="148" width="596" height="13" font="4">We have implemented a software package in R to obtain a nonparametric smoothed estimate of the</text>
+<text top="987" left="149" width="595" height="13" font="4">hazard function based on B-splines from the perspective of generalized linear mixed models. The</text>
+<text top="1003" left="149" width="372" height="13" font="4">Poisson model leads to an elegant form for the log of the hazard <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="1003" left="521" width="110" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lambert and Eilers</a></text>
+<text top="1003" left="631" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="1003" left="637" width="26" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2005</a></text>
+<text top="1003" left="663" width="81" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">). </a>We adopted</text>
+<text top="1020" left="149" width="595" height="13" font="4">the discrete approach to survival analysis allowing staggered entry, intermittent risk periods and large</text>
+<text top="1036" left="149" width="595" height="13" font="4">data sets to be handled with ease. The code is easy to use and accommodates the typical characteristics</text>
+<text top="1053" left="149" width="596" height="13" font="4">of survival data (left truncation, right censoring) by using the <b>survival </b>package. It also accounts for</text>
+<text top="1069" left="148" width="596" height="13" font="4">possible covariates, but the user should be aware that covariates are assumed to have a constant effect</text>
+<text top="1086" left="149" width="595" height="13" font="4">on the hazard (proportional hazards). It is of note that the model is also valid for estimating the rate</text>
+<text top="1102" left="149" width="391" height="13" font="4">function over time where an individual can have repeated events <a href="2014-2-rebora-salim-reilly.html#8">(</a></text>
+<text top="1102" left="540" width="108" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">Cook and Lawless</a></text>
+<text top="1102" left="648" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">,</a></text>
+<text top="1102" left="655" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">2002</a></text>
+<text top="1102" left="681" width="63" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">). </a>For such</text>
+<text top="1119" left="149" width="595" height="13" font="4">applications, the code can be used without change and data should be included in a counting process</text>
+<text top="1135" left="149" width="284" height="13" font="4">format. The package <b>bshazard </b>is available from</text>
+<text top="1132" left="436" width="289" height="18" font="6"><a href="http://CRAN.R-project.org/package=bshazard">http://CRAN.R-project.org/package=bshazard</a></text>
+<text top="1135" left="725" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=bshazard">.</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">121</text>
+<text top="103" left="171" width="573" height="13" font="4">The main advantage of our function is that the user can obtain the estimated hazard by a simple</text>
+<text top="120" left="149" width="596" height="13" font="4">line of code and that the extent of smoothing is data-driven (i.e. the user does not need to specify any</text>
+<text top="136" left="149" width="595" height="13" font="4">smoothing parameter). The number of degrees of freedom gives an intuitive interpretation of the</text>
+<text top="152" left="149" width="560" height="13" font="4">amount of smoothing and is also useful for making comparisons between different smoothers.</text>
+<text top="173" left="171" width="325" height="13" font="4">To prepare the data for analysis the package uses the</text>
+<text top="170" left="500" width="244" height="18" font="4">splitLexis function (<b>Epi </b>package). The</text>
+<text top="190" left="149" width="595" height="13" font="4">choice of time intervals does not affect the smoothed estimate as long as the bins are small enough</text>
+<text top="206" left="149" width="595" height="13" font="4">for the assumption of constant hazard within the bin to be reasonably satisfied. For large numbers of</text>
+<text top="223" left="149" width="598" height="13" font="4">observations the splitting can be time consuming, especially when accounting for many covariates.</text>
+<text top="239" left="149" width="597" height="13" font="4">Nevertheless, in our relatively large data-set of NHL sisters, the most complex hazard estimate,</text>
+<text top="256" left="149" width="183" height="13" font="4">adjusting for two covariates (</text>
+<text top="252" left="332" width="412" height="18" font="4">fit_adj_exp_caly) was obtained in less than one minute. Interval</text>
+<text top="272" left="149" width="595" height="13" font="4">censored data are not included in the code at this time, but the package can still be used if the censored</text>
+<text top="288" left="149" width="596" height="13" font="4">intervals are relatively short. In this situation we could choose the bins in such a way that every</text>
+<text top="305" left="149" width="595" height="13" font="4">censored interval is completely included in one bin, avoiding the problem of the specification of the</text>
+<text top="321" left="149" width="595" height="13" font="4">exact event time, but some assumptions on person-time at risk will be needed. With small data sets</text>
+<text top="338" left="149" width="595" height="13" font="4">and in the presence of covariates, estimation of both smoothing and overdispersion parameters can</text>
+<text top="354" left="149" width="595" height="13" font="4">cause some convergence problem; in this case if there is not strong evidence of overdispersion we</text>
+<text top="371" left="149" width="122" height="13" font="4">suggest fixing <i>φ </i>at 1.</text>
+<text top="392" left="171" width="573" height="13" font="4">The possibility to estimate the hazard function with a simple command provides a useful tool</text>
+<text top="408" left="149" width="596" height="13" font="4">for a deeper understanding of the process being studied, both in terms of the magnitude of the risk</text>
+<text top="424" left="149" width="172" height="13" font="4">and the shape of the curve <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="424" left="321" width="77" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Rebora et al.</a></text>
+<text top="424" left="398" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="424" left="405" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2008</a></text>
+<text top="424" left="433" width="312" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">). </a>For example, in a previous paper, we found that</text>
+<text top="441" left="149" width="597" height="13" font="4">sisters of subjects diagnosed with NHL have a hazard ratio of 4.36 (95% confidence interval [2.74;</text>
+<text top="457" left="149" width="287" height="13" font="4">6.94]) for NHL compared to sisters of controls <a href="2014-2-rebora-salim-reilly.html#9">(</a></text>
+<text top="457" left="436" width="54" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">Lee et al.</a></text>
+<text top="457" left="490" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">,</a></text>
+<text top="457" left="497" width="27" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#9">2013</a></text>
+<text top="457" left="524" width="220" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#9">), </a>but did not show at which age the</text>
+<text top="474" left="149" width="595" height="13" font="4">risk was higher. Reanalyzing the data using <b>bshazard </b>revealed how the magnitude of the risk varied</text>
+<text top="490" left="148" width="596" height="13" font="4">with age. This important information is often neglected in epidemiological studies, in large part</text>
+<text top="507" left="149" width="595" height="13" font="4">due to the lack of simple and accessible software tools. An important area of application is in the</text>
+<text top="523" left="148" width="596" height="13" font="4">presence of time-dependent variables, when an absolute measure of risk cannot be obtained by the</text>
+<text top="540" left="149" width="595" height="13" font="4">Kaplan-Meier estimator. For example, in a comparison between the effect on disease-free survival of</text>
+<text top="556" left="149" width="595" height="13" font="4">chemotherapy and transplantation, which occur at different time points, the Kaplan-Meier method</text>
+<text top="572" left="148" width="596" height="13" font="4">will tend to overestimate the survival of the transplanted group, since these patients have to survive</text>
+<text top="589" left="149" width="596" height="13" font="4">until transplant (immortal time bias). In such situations, a hazard estimate is particularly useful for</text>
+<text top="605" left="148" width="596" height="13" font="4">presenting the instantaneous risk of an event over time given that it conditions on the subjects at risk</text>
+<text top="622" left="149" width="75" height="13" font="4">at each time.</text>
+<text top="643" left="171" width="573" height="13" font="4">In summary, the <b>bshazard </b>package can enhance the analysis of survival data in a wide range</text>
+<text top="659" left="149" width="544" height="13" font="4">of applications. The advantage of automatic smoothing and the close relationship with the</text>
+<text top="656" left="696" width="48" height="18" font="4">survfit</text>
+<text top="675" left="149" width="276" height="13" font="4">function make the package very simple to use.</text>
+<text top="720" left="149" width="154" height="17" font="5"><b>Acknowledgments</b></text>
+<text top="759" left="148" width="545" height="13" font="4">The authors would like to thank Yudi Pawitan who provided the initial code for smoothing.</text>
+<text top="804" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="843" left="149" width="595" height="13" font="4">T. Cai, R. J. Hyndman, and M. P. Wand. Mixed model-based hazard estimation. Journal of Computational</text>
+<text top="859" left="164" width="271" height="14" font="4">and Graphical Statistics, 11(4):784–798, 2002. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="859" left="435" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="859" left="455" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">,</a></text>
+<text top="859" left="462" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#5">118</a></text>
+<text top="859" left="482" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#5">]</a></text>
+<text top="888" left="149" width="595" height="13" font="4">B. Carstensen, M. Plummer, E. Laara, and M. H. e. al. Epi: A Package for Statistical Analysis in</text>
+<text top="904" left="163" width="153" height="14" font="4">Epidemiology, 2011. URL</text>
+<text top="901" left="322" width="255" height="18" font="6"><a href="http://CRAN.R-project.org/package=Epi">http://CRAN.R-project.org/package=Epi</a></text>
+<text top="904" left="576" width="170" height="13" font="4"><a href="http://CRAN.R-project.org/package=Epi">. </a>R package version 1.1.20.</text>
+<text top="920" left="164" width="13" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#4">[p</a></text>
+<text top="920" left="176" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#4">117</a></text>
+<text top="920" left="196" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#4">]</a></text>
+<text top="949" left="149" width="597" height="13" font="4">R. J. Cook and J. F. Lawless. Analysis of repeated events. Statistical Methods in Medical Research, 11(2):</text>
+<text top="965" left="163" width="101" height="13" font="4">141–166, 2002. <a href="2014-2-rebora-salim-reilly.html#7">[p</a></text>
+<text top="965" left="265" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">120</a></text>
+<text top="965" left="285" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#7">]</a></text>
+<text top="994" left="149" width="449" height="13" font="4">C. De Boor. A Practical Guide to Splines. New York: Springer Verlag, 1978. <a href="2014-2-rebora-salim-reilly.html#2">[p</a></text>
+<text top="994" left="598" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="994" left="618" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">]</a></text>
+<text top="1022" left="149" width="596" height="13" font="4">P. H. C. Eilers and B. D. Marx. Flexible Smoothing with B-splines and Penalties. Statistical Science, 11</text>
+<text top="1039" left="163" width="114" height="13" font="4">(2):89–102, 1996. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="1039" left="277" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="1039" left="297" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">,</a></text>
+<text top="1039" left="304" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="1039" left="324" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">,</a></text>
+<text top="1039" left="331" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#3">116</a></text>
+<text top="1039" left="351" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#3">]</a></text>
+<text top="1067" left="149" width="596" height="13" font="4">K. Hess and R. Gentleman. muhaz: Hazard Function Estimation in Survival Analysis, 2010. URL</text>
+<text top="1080" left="164" width="268" height="18" font="6"><a href="http://CRAN.R-project.org/package=muhaz">http://CRAN.R-project.org/package=muhaz</a></text>
+<text top="1083" left="432" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=muhaz">. </a>R package version 1.2.5. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="1083" left="600" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="1083" left="620" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">]</a></text>
+<text top="1112" left="149" width="598" height="13" font="4">K. R. Hess, D. M. Serachitopol, and B. W. Brown. Hazard function estimators: A simulation study.</text>
+<text top="1128" left="163" width="279" height="14" font="4">Statistics in Medicine, 18(22):3075–3088, 1999. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="1128" left="443" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="1128" left="463" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">]</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">122</text>
+<text top="103" left="149" width="498" height="13" font="4">C. Jackson. flexsurv: Flexible Parametric Survival and Multi-State Models, 2014. URL</text>
+<text top="100" left="651" width="96" height="18" font="6"><a href="http://CRAN.R-project.org/package=flexsurv">http://CRAN.R-</a></text>
+<text top="116" left="164" width="192" height="18" font="6"><a href="http://CRAN.R-project.org/package=flexsurv">project.org/package=flexsurv</a></text>
+<text top="120" left="356" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=flexsurv">. </a>R package version 0.5. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="120" left="514" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="120" left="534" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">]</a></text>
+<text top="148" left="149" width="595" height="13" font="4">C. Kooperberg and C. J. Stone. Logspline density estimation for censored data. Journal of Computational</text>
+<text top="164" left="164" width="264" height="14" font="4">and Graphical Statistics, 1(4):301–328, 1992. <a href="2014-2-rebora-salim-reilly.html#2">[p</a></text>
+<text top="164" left="428" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="164" left="448" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">]</a></text>
+<text top="193" left="149" width="595" height="13" font="4">P. Lambert and P. H. C. Eilers. Bayesian proportional hazards model with time-varying regression</text>
+<text top="209" left="164" width="583" height="13" font="4">coefficients: A penalized poisson regression approach. Statistics in Medicine, 24(24):3977–3989, 2005.</text>
+<text top="226" left="164" width="13" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">[p</a></text>
+<text top="226" left="176" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="226" left="196" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">,</a></text>
+<text top="226" left="203" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#7">120</a></text>
+<text top="226" left="223" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#7">]</a></text>
+<text top="254" left="149" width="595" height="13" font="4">M. Lee, P. Rebora, M. G. Valsecchi, K. Czene, and M. Reilly. A unified model for estimating and testing</text>
+<text top="271" left="164" width="407" height="13" font="4">familial aggregation. Statistics in Medicine, 32(30):5353–5365, 2013. <a href="2014-2-rebora-salim-reilly.html#5">[p</a></text>
+<text top="271" left="571" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#5">118</a></text>
+<text top="271" left="591" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#5">,</a></text>
+<text top="271" left="598" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#6">119</a></text>
+<text top="271" left="618" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#6">,</a></text>
+<text top="271" left="625" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">121</a></text>
+<text top="271" left="645" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">]</a></text>
+<text top="299" left="149" width="595" height="13" font="4">Y. Lee, J. A. Nelder, and Y. Pawitan. Generalized Linear Models with Random Effects: Unified Analysis via</text>
+<text top="315" left="163" width="346" height="14" font="4">H-Likelihood, volume 106. Chapman &amp; Hall/CRC, 2006. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="315" left="509" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="315" left="530" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">,</a></text>
+<text top="315" left="536" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="315" left="556" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">,</a></text>
+<text top="315" left="563" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#3">116</a></text>
+<text top="315" left="583" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#3">,</a></text>
+<text top="315" left="590" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#4">117</a></text>
+<text top="315" left="610" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#4">]</a></text>
+<text top="344" left="149" width="595" height="13" font="4">H.-G. Müller and J.-L. Wang. Hazard rate estimation under random censoring with varying kernels</text>
+<text top="360" left="164" width="291" height="13" font="4">and bandwidths. Biometrics, 50(1):61–76, 1994. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="360" left="455" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="360" left="475" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">]</a></text>
+<text top="389" left="149" width="597" height="13" font="4">F. O’Sullivan. A statistical perspective on ill-posed inverse problems. Statistical Science, 1(4):502–518,</text>
+<text top="405" left="163" width="48" height="13" font="4">1986. <a href="2014-2-rebora-salim-reilly.html#2">[p</a></text>
+<text top="405" left="211" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="405" left="231" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">]</a></text>
+<text top="433" left="149" width="595" height="13" font="4">F. O’Sullivan. Fast computation of fully automated log-density and log-hazard estimators. SIAM</text>
+<text top="450" left="164" width="392" height="14" font="4">Journal on Scientific and Statistical Computing, 9(2):363–379, 1988. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="450" left="556" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="450" left="576" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">,</a></text>
+<text top="450" left="582" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="450" left="603" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">]</a></text>
+<text top="478" left="149" width="597" height="13" font="4">Y. Pawitan. In All Likelihood: Statistical Modelling and Inference Using Likelihood. Oxford University Press,</text>
+<text top="495" left="164" width="48" height="13" font="4">2001. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="495" left="211" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="495" left="232" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">,</a></text>
+<text top="495" left="238" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="495" left="258" width="3" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">,</a></text>
+<text top="495" left="265" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#3">116</a></text>
+<text top="495" left="285" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#3">]</a></text>
+<text top="523" left="149" width="595" height="13" font="4">P. Rebora, K. Czene, and M. Reilly. Timing of familial breast cancer in sisters. Journal of the National</text>
+<text top="539" left="163" width="243" height="14" font="4">Cancer Institute, 100(10):721–727, 2008. <a href="2014-2-rebora-salim-reilly.html#8">[p</a></text>
+<text top="540" left="406" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#8">121</a></text>
+<text top="540" left="426" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#8">]</a></text>
+<text top="568" left="149" width="595" height="13" font="4">P. Royston and M. K. B. Parmar. Flexible parametric proportional-hazards and proportional-odds</text>
+<text top="584" left="164" width="580" height="13" font="4">models for censored survival data, with application to prognostic modelling and estimation of</text>
+<text top="601" left="164" width="386" height="13" font="4">treatment effects. Statistics in Medicine, 21(15):2175–2197, 2002. <a href="2014-2-rebora-salim-reilly.html#1">[p</a></text>
+<text top="601" left="550" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#1">114</a></text>
+<text top="601" left="570" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#1">]</a></text>
+<text top="629" left="149" width="598" height="13" font="4">Statistics Sweden. The Multi-Generation Register 2008. A Description of Contents and Quality, 2009.</text>
+<text top="646" left="164" width="13" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#5">[p</a></text>
+<text top="646" left="176" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#5">118</a></text>
+<text top="646" left="196" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#5">]</a></text>
+<text top="674" left="149" width="414" height="13" font="4">T. Therneau. survival: A Package for Survival Analysis in S, 2014. URL</text>
+<text top="671" left="566" width="179" height="18" font="6"><a href="http://CRAN.R-project.org/package=survival">http://CRAN.R-project.org/</a></text>
+<text top="687" left="164" width="110" height="18" font="6"><a href="http://CRAN.R-project.org/package=survival">package=survival</a></text>
+<text top="690" left="274" width="176" height="13" font="4"><a href="http://CRAN.R-project.org/package=survival">. </a>R package version 2.37-7. <a href="2014-2-rebora-salim-reilly.html#4">[p</a></text>
+<text top="690" left="449" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#4">117</a></text>
+<text top="690" left="470" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#4">]</a></text>
+<text top="719" left="149" width="595" height="13" font="4">R. W. M. Wedderburn. Quasi-likelihood functions, generalized linear models and the Gauss-Newton</text>
+<text top="735" left="164" width="254" height="13" font="4">method. Biometrika, 61(3):439–447, 1974. <a href="2014-2-rebora-salim-reilly.html#4">[p</a></text>
+<text top="735" left="418" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#4">117</a></text>
+<text top="735" left="438" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#4">]</a></text>
+<text top="764" left="149" width="597" height="13" font="4">J. Whitehead. Fitting Cox’s regression model to survival data using GLIM. Applied Statistics, 29(3):</text>
+<text top="780" left="164" width="101" height="13" font="4">268–275, 1980. <a href="2014-2-rebora-salim-reilly.html#2">[p</a></text>
+<text top="780" left="265" width="20" height="13" font="6"><a href="2014-2-rebora-salim-reilly.html#2">115</a></text>
+<text top="780" left="285" width="4" height="13" font="4"><a href="2014-2-rebora-salim-reilly.html#2">]</a></text>
+<text top="826" left="148" width="71" height="13" font="4">Paola Rebora</text>
+<text top="843" left="148" width="168" height="13" font="4">Department of Health Sciences</text>
+<text top="859" left="148" width="160" height="13" font="4">University of Milano-Bicocca</text>
+<text top="876" left="148" width="187" height="13" font="4">Via Cadore 48 20900 Monza, Italy</text>
+<text top="889" left="149" width="151" height="18" font="6"><a href="mailto:paola.rebora@unimib.it">paola.rebora@unimib.it</a></text>
+<text top="929" left="148" width="64" height="13" font="4">Agus Salim</text>
+<text top="946" left="148" width="220" height="13" font="4">Department of Mathematics &amp; Statistics</text>
+<text top="962" left="148" width="108" height="13" font="4">La Trobe University</text>
+<text top="979" left="148" width="111" height="13" font="4">Bundoora, Australia</text>
+<text top="992" left="149" width="151" height="18" font="6"><a href="mailto:a.salim@latrobe.edu.au">a.salim@latrobe.edu.au</a></text>
+<text top="1033" left="149" width="68" height="13" font="4">Marie Reilly</text>
+<text top="1049" left="148" width="296" height="13" font="4">Department of Medical Epidemiology and Biostatistics</text>
+<text top="1065" left="148" width="113" height="13" font="4">Karolinska Institutet</text>
+<text top="1082" left="148" width="204" height="13" font="4">BOX 281, 171 77 Stockholm, Sweden</text>
+<text top="1095" left="149" width="123" height="18" font="6"><a href="mailto:marie.reilly@ki.se">marie.reilly@ki.se</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

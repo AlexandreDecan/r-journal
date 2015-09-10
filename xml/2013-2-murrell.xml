@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="9" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">148</text>
+<text top="98" left="149" width="373" height="30" font="2"><b>Changes to grid for R 3.0.0</b></text>
+<text top="134" left="149" width="98" height="15" font="0">by Paul Murrell</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="210" width="536" height="13" font="4">From R 3.0.0, there is a new recommended way to develop new grob classes in <b>grid</b>.</text>
+<text top="192" left="149" width="595" height="13" font="4">In a nutshell, two new “hook” functions, makeContext() and makeContent() have been added to</text>
+<text top="208" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="208" left="178" width="567" height="13" font="4">to provide an alternative to the existing hook functions preDrawDetails(), drawDetails(), and</text>
+<text top="225" left="149" width="117" height="11" font="4">postDrawDetails()</text>
+<text top="224" left="265" width="479" height="13" font="4">. There is also a new function called grid.force(). This article discusses why</text>
+<text top="241" left="149" width="595" height="13" font="4">these changes have been made, provides a simple demonstration of the use of the new functions, and</text>
+<text top="257" left="149" width="395" height="13" font="4">discusses some of the implications for packages that build on <b>grid</b>.</text>
+<text top="302" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="341" left="148" width="167" height="13" font="4">The <b>grid </b>graphics package <a href="2013-2-murrell.html#13">(</a></text>
+<text top="341" left="316" width="46" height="13" font="6"><a href="2013-2-murrell.html#13">Murrell</a></text>
+<text top="341" left="362" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="341" left="369" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2011</a></text>
+<text top="341" left="396" width="348" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>provides a low-level graphics system as an alternative to</text>
+<text top="357" left="149" width="595" height="13" font="4">the default <b>graphics </b>package. Several high-level graphics packages build on <b>grid</b>; for example, if we</text>
+<text top="374" left="149" width="20" height="13" font="4">use</text>
+<text top="374" left="172" width="37" height="13" font="7"><a href="http://CRAN.R-project.org/package=lattice"><b>lattice</b></a></text>
+<text top="374" left="213" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">(</a></text>
+<text top="374" left="218" width="39" height="13" font="6"><a href="2013-2-murrell.html#13">Sarkar</a></text>
+<text top="374" left="256" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="374" left="263" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2008</a></text>
+<text top="374" left="290" width="20" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>or</text>
+<text top="374" left="314" width="46" height="13" font="7"><a href="http://CRAN.R-project.org/package=ggplot2"><b>ggplot2</b></a></text>
+<text top="374" left="363" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">(</a></text>
+<text top="374" left="368" width="57" height="13" font="6"><a href="2013-2-murrell.html#13">Wickham</a></text>
+<text top="374" left="424" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="374" left="431" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2009</a></text>
+<text top="374" left="458" width="263" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>to draw a plot, then we are also using <b>grid</b>.</text>
+<text top="395" left="171" width="573" height="13" font="4">This section shows a simple example of using <b>grid </b>that results in a problem, and this problem</text>
+<text top="411" left="148" width="443" height="13" font="4">provides the motivation for the changes that were made to <b>grid </b>for R 3.0.0.</text>
+<text top="432" left="171" width="345" height="13" font="4">The following code uses the <b>grid </b>package to draw an axis.</text>
+<text top="463" left="149" width="103" height="11" font="4">&gt; library(grid)</text>
+<text top="492" left="149" width="295" height="11" font="4">&gt; grid.xaxis(at=c(0, .5, 1), name=&#34;axis-1&#34;)</text>
+<text top="563" left="294" width="8" height="13" font="8">0</text>
+<text top="563" left="437" width="20" height="13" font="8">0.5</text>
+<text top="563" left="591" width="8" height="13" font="8">1</text>
+<text top="610" left="171" width="573" height="13" font="4">In addition to drawing the axis, <b>grid </b>keeps a list of graphical objects, or grobs, that contain</text>
+<text top="627" left="149" width="595" height="13" font="4">descriptions of what has been drawn. The following code lists the grobs in the current scene: there is</text>
+<text top="643" left="149" width="595" height="13" font="4">a parent grob called &#34;axis-1&#34; (this is actually a gTree, which is a grob that can have other grobs as</text>
+<text top="659" left="149" width="595" height="13" font="4">children), and several child grobs including a &#34;major&#34; line, several &#34;ticks&#34; line segments, and several</text>
+<text top="676" left="149" width="299" height="13" font="4">text &#34;labels&#34;, all collected together to make an axis.</text>
+<text top="706" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="736" left="149" width="89" height="11" font="4">xaxis[axis-1]</text>
+<text top="753" left="163" width="82" height="11" font="4">lines[major]</text>
+<text top="769" left="163" width="103" height="11" font="4">segments[ticks]</text>
+<text top="786" left="163" width="82" height="11" font="4">text[labels]</text>
+<text top="815" left="171" width="573" height="13" font="4">The <b>grid </b>package keeps a list of grobs because it can be useful to access, query, and modify the</text>
+<text top="831" left="149" width="595" height="13" font="4">grobs in a scene. For example, the following code uses the grid.edit() function to change the lines</text>
+<text top="848" left="149" width="231" height="13" font="4">on the axis to grey and the text to bold.</text>
+<text top="878" left="149" width="487" height="11" font="4">&gt; grid.edit(&#34;major|ticks&#34;, grep=TRUE, global=TRUE, gp=gpar(col=&#34;grey&#34;))</text>
+<text top="895" left="149" width="322" height="11" font="4">&gt; grid.edit(&#34;labels&#34;, gp=gpar(fontface=&#34;bold&#34;))</text>
+<text top="965" left="294" width="8" height="13" font="9"><b>0</b></text>
+<text top="965" left="437" width="20" height="13" font="9"><b>0.5</b></text>
+<text top="965" left="591" width="8" height="13" font="9"><b>1</b></text>
+<text top="1019" left="149" width="73" height="15" font="10"><b>A problem</b></text>
+<text top="1050" left="148" width="596" height="13" font="4">The next piece of code also draws an axis, but this time we do not specify where the tick marks should</text>
+<text top="1067" left="149" width="595" height="13" font="4">go on the axis. There is also code to show the grobs that <b>grid </b>has kept as a record of this scene. The</text>
+<text top="1083" left="149" width="595" height="13" font="4">important difference to note is that this time the grob listing only shows the &#34;axis-2&#34; gTree; there are</text>
+<text top="1100" left="149" width="371" height="13" font="4">no grobs representing the lines, segments, and text on the axis.</text>
+<text top="1130" left="149" width="185" height="11" font="4">&gt; grid.xaxis(name=&#34;axis-2&#34;)</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">149</text>
+<text top="136" left="294" width="8" height="13" font="8">0</text>
+<text top="136" left="347" width="20" height="13" font="8">0.2</text>
+<text top="136" left="407" width="20" height="13" font="8">0.4</text>
+<text top="136" left="466" width="20" height="13" font="8">0.6</text>
+<text top="136" left="526" width="20" height="13" font="8">0.8</text>
+<text top="136" left="591" width="8" height="13" font="8">1</text>
+<text top="178" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="207" left="149" width="89" height="11" font="4">xaxis[axis-2]</text>
+<text top="235" left="171" width="573" height="13" font="4">This lack of child grobs is a problem because it means that it is not possible to access (or query or</text>
+<text top="251" left="149" width="595" height="13" font="4">modify) the child grobs. The problem exists because, when the tick mark locations are not specified</text>
+<text top="268" left="149" width="595" height="13" font="4">for an axis, the axis decides which tick marks to draw every time the axis is drawn - no child grobs are</text>
+<text top="284" left="149" width="256" height="13" font="4">kept because they are recreated every time.</text>
+<text top="305" left="171" width="573" height="13" font="4">One of the reasons for the changes to <b>grid </b>in R 3.0.0 is to provide a solution for this problem. It is</text>
+<text top="322" left="149" width="596" height="13" font="4">important to point out that many <b>grid </b>grobs do not suffer from this issue at all. This problem only</text>
+<text top="338" left="149" width="595" height="13" font="4">occurs for a small set of <b>grid </b>grobs that decide what to draw at drawing time rather than at creation</text>
+<text top="355" left="149" width="595" height="13" font="4">time. On the other hand, the problem becomes more likely in packages that build on <b>grid </b>and define</text>
+<text top="371" left="149" width="585" height="13" font="4">new classes of <b>grid </b>grobs, so fixing the problem in <b>grid </b>has large flow-on effects to other packages.</text>
+<text top="392" left="171" width="573" height="13" font="4">One of the very visible changes to <b>grid </b>is the new function grid.force(). The following code</text>
+<text top="408" left="149" width="596" height="13" font="4">shows that the grid.force() function can be used to create permanent versions of the child grobs for</text>
+<text top="425" left="149" width="434" height="13" font="4">the axis, which then means that it is possible to modify those child grobs.</text>
+<text top="454" left="149" width="96" height="11" font="4">&gt; grid.force()</text>
+<text top="483" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="512" left="149" width="123" height="11" font="4">forcedgrob[axis-2]</text>
+<text top="529" left="163" width="82" height="11" font="4">lines[major]</text>
+<text top="545" left="163" width="103" height="11" font="4">segments[ticks]</text>
+<text top="562" left="163" width="82" height="11" font="4">text[labels]</text>
+<text top="591" left="149" width="487" height="11" font="4">&gt; grid.edit(&#34;major|ticks&#34;, grep=TRUE, global=TRUE, gp=gpar(col=&#34;grey&#34;))</text>
+<text top="607" left="149" width="322" height="11" font="4">&gt; grid.edit(&#34;labels&#34;, gp=gpar(fontface=&#34;bold&#34;))</text>
+<text top="676" left="294" width="8" height="13" font="9"><b>0</b></text>
+<text top="676" left="347" width="20" height="13" font="9"><b>0.2</b></text>
+<text top="676" left="407" width="20" height="13" font="9"><b>0.4</b></text>
+<text top="676" left="466" width="20" height="13" font="9"><b>0.6</b></text>
+<text top="676" left="526" width="20" height="13" font="9"><b>0.8</b></text>
+<text top="676" left="591" width="8" height="13" font="9"><b>1</b></text>
+<text top="722" left="171" width="573" height="13" font="4">The grid.force() function is just one of the changes to <b>grid </b>for R 3.0.0. This article describes the</text>
+<text top="738" left="149" width="596" height="13" font="4">full set of changes, including more about grid.force(), and explores some of the other reasons for</text>
+<text top="755" left="149" width="404" height="13" font="4">change and some of the other benefits that arise from these changes.</text>
+<text top="799" left="149" width="237" height="17" font="5"><b>A simple grid demonstration</b></text>
+<text top="838" left="149" width="595" height="13" font="4">In order to demonstrate the changes in <b>grid</b>, we will consider several different ways to develop a</text>
+<text top="854" left="149" width="595" height="13" font="4">function that draws a “text box” with <b>grid</b>. This function will draw a text label and surround the text</text>
+<text top="871" left="148" width="596" height="13" font="4">with a box (with rounded corners). In effect, we are going to create a new class of grob; one that draws</text>
+<text top="887" left="149" width="153" height="13" font="4">text surrounded by a box.</text>
+<text top="908" left="171" width="573" height="13" font="4">The simplest way to implement this sort of thing in <b>grid </b>is to write a function that makes several</text>
+<text top="925" left="149" width="595" height="13" font="4">calls to draw standard <b>grid </b>grobs. For example, the following code defines a textbox() function that</text>
+<text top="941" left="149" width="595" height="13" font="4">takes a single argument, a text label, and calls textGrob() to create a text grob, roundrectGrob() to</text>
+<text top="957" left="149" width="595" height="13" font="4">create a box around the label, and then grid.draw() to draw the two grobs. The stringWidth() and</text>
+<text top="974" left="149" width="96" height="11" font="4">stringHeight()</text>
+<text top="974" left="248" width="434" height="13" font="4">functions are used to make sure that the box is the right size for the label.</text>
+<text top="1003" left="149" width="103" height="11" font="4">&gt; library(grid)</text>
+<text top="1032" left="149" width="206" height="11" font="4">&gt; textbox &lt;- function(label) {</text>
+<text top="1049" left="149" width="7" height="11" font="4">+</text>
+<text top="1049" left="190" width="233" height="11" font="4">tg &lt;- textGrob(label, name=&#34;text&#34;)</text>
+<text top="1065" left="149" width="7" height="11" font="4">+</text>
+<text top="1065" left="190" width="336" height="11" font="4">rr &lt;- roundrectGrob(width=1.5*stringWidth(label),</text>
+<text top="1082" left="149" width="7" height="11" font="4">+</text>
+<text top="1082" left="327" width="213" height="11" font="4">height=1.5*stringHeight(label),</text>
+<text top="1098" left="149" width="7" height="11" font="4">+</text>
+<text top="1098" left="327" width="75" height="11" font="4">name=&#34;box&#34;)</text>
+<text top="1115" left="149" width="7" height="11" font="4">+</text>
+<text top="1115" left="190" width="89" height="11" font="4">grid.draw(tg)</text>
+<text top="1131" left="149" width="7" height="11" font="4">+</text>
+<text top="1131" left="190" width="89" height="11" font="4">grid.draw(rr)</text>
+<text top="1147" left="149" width="21" height="11" font="4">+ }</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="22" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">150</text>
+<text top="103" left="171" width="530" height="13" font="4">The following code shows the function in action and the output is shown below the code.</text>
+<text top="130" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="147" left="149" width="117" height="11" font="4">&gt; textbox(&#34;test&#34;)</text>
+<text top="202" left="426" width="40" height="23" font="11">test</text>
+<text top="269" left="171" width="544" height="13" font="4">The code and output below shows that <b>grid </b>has kept a record of the grobs that were drawn.</text>
+<text top="296" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="322" left="149" width="69" height="11" font="4">text[text]</text>
+<text top="339" left="149" width="96" height="11" font="4">roundrect[box]</text>
+<text top="365" left="171" width="573" height="13" font="4">One deficiency with the textbox() function is that there is no connection between the two grobs</text>
+<text top="381" left="149" width="595" height="13" font="4">that it creates. For example, if we modify the text (code below), the roundrect stays the same size and</text>
+<text top="398" left="149" width="370" height="13" font="4">becomes too small for the text (see the output below the code).</text>
+<text top="425" left="149" width="274" height="11" font="4">&gt; grid.edit(&#34;text&#34;, label=&#34;hello world&#34;)</text>
+<text top="480" left="387" width="119" height="23" font="11">hello world</text>
+<text top="547" left="171" width="573" height="13" font="4">An alternative implementation is to group the two grobs together by constructing a gTree to contain</text>
+<text top="563" left="149" width="595" height="13" font="4">them both. For example, the following code redefines the textbox() function so that it generates a</text>
+<text top="580" left="149" width="452" height="13" font="4">gTree containing a text grob and a roundrect grob and then draws the gTree.</text>
+<text top="607" left="149" width="206" height="11" font="4">&gt; textbox &lt;- function(label) {</text>
+<text top="623" left="149" width="7" height="11" font="4">+</text>
+<text top="623" left="190" width="233" height="11" font="4">tg &lt;- textGrob(label, name=&#34;text&#34;)</text>
+<text top="640" left="149" width="7" height="11" font="4">+</text>
+<text top="640" left="190" width="336" height="11" font="4">rr &lt;- roundrectGrob(width=1.5*stringWidth(label),</text>
+<text top="656" left="149" width="7" height="11" font="4">+</text>
+<text top="656" left="327" width="213" height="11" font="4">height=1.5*stringHeight(label),</text>
+<text top="673" left="149" width="7" height="11" font="4">+</text>
+<text top="673" left="327" width="75" height="11" font="4">name=&#34;box&#34;)</text>
+<text top="689" left="149" width="7" height="11" font="4">+</text>
+<text top="689" left="190" width="316" height="11" font="4">gt &lt;- gTree(children=gList(tg, rr), name=&#34;tb&#34;)</text>
+<text top="706" left="149" width="7" height="11" font="4">+</text>
+<text top="706" left="190" width="89" height="11" font="4">grid.draw(gt)</text>
+<text top="722" left="149" width="21" height="11" font="4">+ }</text>
+<text top="748" left="171" width="573" height="13" font="4">This version of the function produces the same output as the previous version, but the scene now</text>
+<text top="765" left="149" width="448" height="13" font="4">consists of a single gTree that contains the text grob and the roundrect grob.</text>
+<text top="792" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="808" left="149" width="117" height="11" font="4">&gt; textbox(&#34;test&#34;)</text>
+<text top="863" left="426" width="40" height="23" font="11">test</text>
+<text top="926" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="953" left="149" width="62" height="11" font="4">gTree[tb]</text>
+<text top="969" left="163" width="69" height="11" font="4">text[text]</text>
+<text top="986" left="163" width="96" height="11" font="4">roundrect[box]</text>
+<text top="1012" left="171" width="573" height="13" font="4">Unfortunately, the contents of the gTree are fixed at creation time, so if we modify the text grob</text>
+<text top="1028" left="149" width="341" height="13" font="4">child of the gTree, the roundrect child is still not updated.</text>
+<text top="1055" left="149" width="302" height="11" font="4">&gt; grid.edit(&#34;tb::text&#34;, label=&#34;hello world&#34;)</text>
+<text top="1110" left="387" width="119" height="23" font="11">hello world</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="16" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">151</text>
+<text top="100" left="149" width="63" height="17" font="5"><b>The old</b></text>
+<text top="101" left="217" width="119" height="15" font="12">drawDetails()</text>
+<text top="100" left="340" width="42" height="17" font="5"><b>hook</b></text>
+<text top="139" left="148" width="596" height="13" font="4">The behaviour of the text box can be made more coherent if we delay the construction of the box</text>
+<text top="155" left="149" width="596" height="13" font="4">until drawing time (i.e., recalculate the box every time that we draw the text box). That way, the box</text>
+<text top="172" left="148" width="596" height="13" font="4">will always be the right size for the text. This can be achieved in <b>grid </b>by creating a new class of grob</text>
+<text top="188" left="148" width="596" height="13" font="4">with the grob() function and then defining a drawDetails() method for this new grob class. For all</text>
+<text top="205" left="149" width="597" height="13" font="4">grobs, the drawDetails() hook is called whenever the grob is drawn (with the default drawDetails()</text>
+<text top="221" left="149" width="142" height="13" font="4">method doing nothing).</text>
+<text top="242" left="171" width="573" height="13" font="4">For example, the following code redefines the textbox() function so that it generates a grob with</text>
+<text top="258" left="149" width="212" height="13" font="4">the class &#34;textbox&#34; and draws that.</text>
+<text top="287" left="149" width="192" height="11" font="4">&gt; textbox &lt;- function(label,</text>
+<text top="304" left="149" width="7" height="11" font="4">+</text>
+<text top="304" left="300" width="206" height="11" font="4">name=NULL, gp=NULL, vp=NULL) {</text>
+<text top="320" left="149" width="7" height="11" font="4">+</text>
+<text top="320" left="190" width="151" height="11" font="4">g &lt;- grob(label=label,</text>
+<text top="337" left="149" width="7" height="11" font="4">+</text>
+<text top="337" left="259" width="165" height="11" font="4">name=name, gp=gp, vp=vp,</text>
+<text top="353" left="149" width="7" height="11" font="4">+</text>
+<text top="353" left="259" width="89" height="11" font="4">cl=&#34;textbox&#34;)</text>
+<text top="369" left="149" width="7" height="11" font="4">+</text>
+<text top="369" left="190" width="82" height="11" font="4">grid.draw(g)</text>
+<text top="386" left="149" width="21" height="11" font="4">+ }</text>
+<text top="414" left="171" width="573" height="13" font="4">Because we have created a new class of grob, <b>grid </b>does not know how to draw it. To tell <b>grid</b></text>
+<text top="430" left="149" width="595" height="13" font="4">how to draw a &#34;textbox&#34; grob, we can define a drawDetails() method for &#34;textbox&#34; grobs. Such a</text>
+<text top="446" left="149" width="595" height="13" font="4">method is shown in the code below, which is almost identical to the previous version of textbox(); all</text>
+<text top="463" left="149" width="579" height="13" font="4">that we have done is delay the generation of the text grob and roundrect grob until drawing time.</text>
+<text top="492" left="149" width="295" height="11" font="4">&gt; drawDetails.textbox &lt;- function(x, ...) {</text>
+<text top="508" left="149" width="7" height="11" font="4">+</text>
+<text top="508" left="190" width="247" height="11" font="4">tg &lt;- textGrob(x$label, name=&#34;text&#34;)</text>
+<text top="525" left="149" width="7" height="11" font="4">+</text>
+<text top="525" left="190" width="350" height="11" font="4">rr &lt;- roundrectGrob(width=1.5*stringWidth(x$label),</text>
+<text top="541" left="149" width="7" height="11" font="4">+</text>
+<text top="541" left="327" width="226" height="11" font="4">height=1.5*stringHeight(x$label),</text>
+<text top="557" left="149" width="7" height="11" font="4">+</text>
+<text top="557" left="327" width="75" height="11" font="4">name=&#34;box&#34;)</text>
+<text top="574" left="149" width="7" height="11" font="4">+</text>
+<text top="574" left="190" width="329" height="11" font="4">gt &lt;- gTree(children=gList(tg, rr), name=x$name)</text>
+<text top="590" left="149" width="7" height="11" font="4">+</text>
+<text top="590" left="190" width="89" height="11" font="4">grid.draw(gt)</text>
+<text top="607" left="149" width="21" height="11" font="4">+ }</text>
+<text top="634" left="171" width="573" height="13" font="4">The following code shows the new textbox() function in action and shows that it produces exactly</text>
+<text top="651" left="149" width="212" height="13" font="4">the same output as the first version.</text>
+<text top="680" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="696" left="149" width="192" height="11" font="4">&gt; textbox(&#34;test&#34;, name=&#34;tb&#34;)</text>
+<text top="754" left="426" width="40" height="23" font="11">test</text>
+<text top="824" left="171" width="573" height="13" font="4">One big difference is that only one &#34;textbox&#34; grob was generated, rather than separate text and</text>
+<text top="840" left="149" width="498" height="13" font="4">roundrect grobs. The latter are only generated at drawing time and are not retained.</text>
+<text top="869" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="897" left="149" width="75" height="11" font="4">textbox[tb]</text>
+<text top="925" left="171" width="573" height="13" font="4">The advantage that we get is that, if we modify that one grob, both the text and the box are</text>
+<text top="941" left="149" width="54" height="13" font="4">updated.</text>
+<text top="970" left="149" width="261" height="11" font="4">&gt; grid.edit(&#34;tb&#34;, label=&#34;hello world&#34;)</text>
+<text top="1028" left="387" width="119" height="23" font="11">hello world</text>
+<text top="1098" left="171" width="575" height="13" font="4">The disadvantage is that the individual text and box grobs are no longer visible as separate grobs,</text>
+<text top="1114" left="149" width="595" height="13" font="4">so it is not possible to access the individual text or roundrect grobs. In other words, we have a</text>
+<text top="1130" left="149" width="598" height="13" font="4">convenient high-level interface to the combined text and box, but we only have that high-level interface.</text>
+<text top="1147" left="148" width="482" height="13" font="4">This is the same problem that we had with the axis grob at the start of this article.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="14" size="6" family="Times" color="#000000"/>
+	<fontspec id="15" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">152</text>
+<text top="100" left="149" width="71" height="17" font="5"><b>The new</b></text>
+<text top="101" left="225" width="119" height="15" font="12">makeContent()</text>
+<text top="100" left="348" width="42" height="17" font="5"><b>hook</b></text>
+<text top="139" left="148" width="596" height="13" font="4">The new makeContent() function provides an alternative way to specify how to draw a new <b>grid</b></text>
+<text top="155" left="149" width="595" height="13" font="4">grob class (an alternative to writing a drawDetails() method). The main difference is that, whereas</text>
+<text top="172" left="149" width="595" height="13" font="4">a drawDetails() method typically calls <b>grid </b>functions to draw output, a makeContent() method calls</text>
+<text top="188" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="188" left="178" width="567" height="13" font="4">functions to generate grobs. The standard behaviour for grobs automatically takes care of drawing</text>
+<text top="205" left="149" width="70" height="13" font="4">the content.</text>
+<text top="226" left="171" width="573" height="13" font="4">To continue our example, the following code redefines textbox() yet again. This is very similar to</text>
+<text top="242" left="149" width="597" height="13" font="4">the previous version of textbox(). The one important difference in this new version is that the gTree()</text>
+<text top="258" left="149" width="595" height="13" font="4">function is used to generate a new gTree class, rather than calling the grob() function to generate a</text>
+<text top="275" left="149" width="595" height="13" font="4">new grob class. We do this because we are going to be writing a makeContent() method that creates</text>
+<text top="291" left="149" width="595" height="13" font="4">more than one grob to draw; we can only use a makeContent() method for a grob class if the method</text>
+<text top="308" left="149" width="268" height="13" font="4">only creates a single predefined grob to draw<a href="2013-2-murrell.html#0">.</a></text>
+<text top="305" left="417" width="5" height="10" font="13"><a href="2013-2-murrell.html#0">1</a></text>
+<text top="308" left="427" width="317" height="13" font="4">The gTree does not get any children when it is created</text>
+<text top="324" left="149" width="545" height="13" font="4">because the children will be built (and added) at drawing time by a makeContent() method.</text>
+<text top="352" left="149" width="192" height="11" font="4">&gt; textbox &lt;- function(label,</text>
+<text top="368" left="149" width="7" height="11" font="4">+</text>
+<text top="368" left="300" width="206" height="11" font="4">name=NULL, gp=NULL, vp=NULL) {</text>
+<text top="384" left="149" width="7" height="11" font="4">+</text>
+<text top="384" left="190" width="165" height="11" font="4">gt &lt;- gTree(label=label,</text>
+<text top="401" left="149" width="7" height="11" font="4">+</text>
+<text top="401" left="272" width="165" height="11" font="4">name=name, gp=gp, vp=vp,</text>
+<text top="417" left="149" width="7" height="11" font="4">+</text>
+<text top="417" left="272" width="117" height="11" font="4">cl=&#34;textboxtree&#34;)</text>
+<text top="434" left="149" width="7" height="11" font="4">+</text>
+<text top="434" left="190" width="89" height="11" font="4">grid.draw(gt)</text>
+<text top="450" left="149" width="21" height="11" font="4">+ }</text>
+<text top="476" left="171" width="573" height="13" font="4">To tell <b>grid </b>how to draw this new gTree class, instead of a drawDetails() method, we define a</text>
+<text top="494" left="149" width="89" height="11" font="4">makeContent()</text>
+<text top="493" left="241" width="503" height="13" font="4">method. This is similar to the drawDetails() method above because it generates a text</text>
+<text top="509" left="149" width="595" height="13" font="4">grob and a roundrect grob, but instead of drawing them, it simply adds these grobs as children of the</text>
+<text top="526" left="149" width="595" height="13" font="4">gTree. The modified gTree must be returned as the result of this function so that <b>grid </b>can draw the</text>
+<text top="542" left="149" width="110" height="13" font="4">generated content.</text>
+<text top="570" left="149" width="288" height="11" font="4">&gt; makeContent.textboxtree &lt;- function(x) {</text>
+<text top="586" left="149" width="7" height="11" font="4">+</text>
+<text top="586" left="190" width="151" height="11" font="4">t &lt;- textGrob(x$label,</text>
+<text top="603" left="149" width="7" height="11" font="4">+</text>
+<text top="603" left="286" width="82" height="11" font="4">name=&#34;text&#34;)</text>
+<text top="619" left="149" width="7" height="11" font="4">+</text>
+<text top="619" left="190" width="295" height="11" font="4">rr &lt;- roundrectGrob(width=1.5*grobWidth(t),</text>
+<text top="635" left="149" width="7" height="11" font="4">+</text>
+<text top="635" left="327" width="171" height="11" font="4">height=1.5*grobHeight(t),</text>
+<text top="652" left="149" width="7" height="11" font="4">+</text>
+<text top="652" left="327" width="75" height="11" font="4">name=&#34;box&#34;)</text>
+<text top="668" left="149" width="7" height="11" font="4">+</text>
+<text top="668" left="190" width="192" height="11" font="4">setChildren(x, gList(t, rr))</text>
+<text top="685" left="149" width="21" height="11" font="4">+ }</text>
+<text top="711" left="171" width="573" height="13" font="4">The following code shows that the new textbox() function produces exactly the same output as</text>
+<text top="727" left="149" width="41" height="13" font="4">before.</text>
+<text top="755" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="771" left="149" width="199" height="11" font="4">&gt; textbox(&#34;test&#34;, name=&#34;tbt&#34;)</text>
+<text top="827" left="426" width="40" height="23" font="11">test</text>
+<text top="894" left="171" width="574" height="13" font="4">As with the drawDetails() approach, the scene consists of only one grob, this time a &#34;textboxtree&#34;</text>
+<text top="911" left="149" width="31" height="13" font="4">grob.</text>
+<text top="938" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="965" left="149" width="110" height="11" font="4">textboxtree[tbt]</text>
+<text top="991" left="171" width="474" height="13" font="4">Furthermore, if we modify that one grob, both the text and the box are updated.</text>
+<text top="1019" left="149" width="268" height="11" font="4">&gt; grid.edit(&#34;tbt&#34;, label=&#34;hello world&#34;)</text>
+<text top="1074" left="387" width="119" height="23" font="11">hello world</text>
+<text top="1132" left="165" width="4" height="9" font="14">1</text>
+<text top="1134" left="170" width="261" height="12" font="1">We also create a different class than before, called</text>
+<text top="1134" left="434" width="79" height="10" font="15">&#34;textboxtree&#34;</text>
+<text top="1134" left="516" width="147" height="12" font="1">so that we do not have both</text>
+<text top="1134" left="666" width="79" height="10" font="15">drawDetails()</text>
+<text top="1148" left="149" width="20" height="12" font="1">and</text>
+<text top="1148" left="172" width="79" height="10" font="15">makeContent()</text>
+<text top="1148" left="254" width="188" height="12" font="1">methods defined for the same class.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">153</text>
+<text top="103" left="171" width="575" height="13" font="4">In summary, the makeContent() approach behaves exactly the same as the drawDetails() ap-</text>
+<text top="120" left="148" width="596" height="13" font="4">proach. The advantages of the makeContent() approach lie in the extra things that it allows us to</text>
+<text top="136" left="149" width="19" height="13" font="4">do.</text>
+<text top="181" left="149" width="32" height="17" font="5"><b>The</b></text>
+<text top="181" left="185" width="110" height="15" font="12">grid.force()</text>
+<text top="181" left="299" width="70" height="17" font="5"><b>function</b></text>
+<text top="220" left="148" width="596" height="13" font="4">The new function grid.force() affects any grobs that have a makeContent() method. This function</text>
+<text top="236" left="149" width="566" height="14" font="4">replaces the original grob with the modified grob that is returned by the makeContent() method.</text>
+<text top="257" left="171" width="573" height="13" font="4">For example, if we use grid.force() on a scene that contains a &#34;textboxtree&#34; grob, the output of</text>
+<text top="273" left="149" width="208" height="13" font="4">the scene is unaffected (see below).</text>
+<text top="304" left="149" width="96" height="11" font="4">&gt; grid.force()</text>
+<text top="365" left="387" width="119" height="23" font="11">hello world</text>
+<text top="437" left="171" width="573" height="13" font="4">However, the scene now consists of a gTree with a text grob and a roundrect grob as its children</text>
+<text top="453" left="148" width="283" height="13" font="4">(rather than just a single &#34;textboxtree&#34; object).</text>
+<text top="484" left="149" width="171" height="11" font="4">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="514" left="149" width="103" height="11" font="4">forcedgrob[tbt]</text>
+<text top="530" left="163" width="69" height="11" font="4">text[text]</text>
+<text top="547" left="163" width="103" height="11" font="4">forcedgrob[box]</text>
+<text top="576" left="171" width="575" height="13" font="4">Now that we can see the individual components of the text box, we can modify them independently.</text>
+<text top="592" left="149" width="595" height="13" font="4">For example, the following code just modifies the box component of the scene, but not the text</text>
+<text top="609" left="149" width="70" height="13" font="4">component.</text>
+<text top="639" left="149" width="268" height="11" font="4">&gt; grid.edit(&#34;box&#34;, gp=gpar(col=&#34;grey&#34;))</text>
+<text top="700" left="387" width="119" height="23" font="11">hello world</text>
+<text top="772" left="171" width="573" height="13" font="4">In other words, in addition to the convenient high-level interface to the text box, we can now</text>
+<text top="789" left="147" width="597" height="13" font="4">“force” the high-level gTree to produce a low-level interface to the individual components of the text</text>
+<text top="805" left="149" width="25" height="13" font="4">box.</text>
+<text top="847" left="149" width="88" height="15" font="10"><b>Forced grobs</b></text>
+<text top="879" left="149" width="598" height="13" font="4">In the list of grobs above, the &#34;tbt&#34; grob is labelled as a &#34;forcedgrob&#34; after the call to grid.force().</text>
+<text top="895" left="148" width="596" height="13" font="4">This is an additional class that is attached to grobs that have been forced. The &#34;tbt&#34; grob is still a</text>
+<text top="912" left="149" width="89" height="11" font="4">&#34;textboxtree&#34;</text>
+<text top="912" left="238" width="104" height="13" font="4">, as shown below.</text>
+<text top="942" left="149" width="165" height="11" font="4">&gt; class(grid.get(&#34;tbt&#34;))</text>
+<text top="972" left="149" width="110" height="11" font="4">[1] &#34;forcedgrob&#34;</text>
+<text top="972" left="272" width="144" height="11" font="4">&#34;textboxtree&#34; &#34;gTree&#34;</text>
+<text top="972" left="464" width="41" height="11" font="4">&#34;grob&#34;</text>
+<text top="972" left="560" width="48" height="11" font="4">&#34;gDesc&#34;</text>
+<text top="1002" left="171" width="573" height="13" font="4">The &#34;box&#34; grob in the example above has also been forced because <b>grid </b>&#34;roundrect&#34; grobs now</text>
+<text top="1018" left="149" width="595" height="13" font="4">have a makeContent() method. In this case, the forced grob is now a &#34;polygon&#34; grob (because the</text>
+<text top="1035" left="149" width="89" height="11" font="4">makeContent()</text>
+<text top="1034" left="243" width="501" height="13" font="4">method creates a &#34;polygon&#34; to draw based on the description in the &#34;roundrect&#34;</text>
+<text top="1051" left="149" width="35" height="13" font="4">grob).</text>
+<text top="1081" left="149" width="165" height="11" font="4">&gt; class(grid.get(&#34;box&#34;))</text>
+<text top="1111" left="149" width="178" height="11" font="4">[1] &#34;forcedgrob&#34; &#34;polygon&#34;</text>
+<text top="1111" left="355" width="41" height="11" font="4">&#34;grob&#34;</text>
+<text top="1111" left="444" width="48" height="11" font="4">&#34;gDesc&#34;</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">154</text>
+<text top="100" left="149" width="32" height="17" font="5"><b>The</b></text>
+<text top="101" left="185" width="119" height="15" font="12">grid.revert()</text>
+<text top="100" left="309" width="70" height="17" font="5"><b>function</b></text>
+<text top="139" left="149" width="596" height="13" font="4">One downside of calling grid.force() is that the convenient high-level interface to a grob is no longer</text>
+<text top="155" left="149" width="489" height="13" font="4">available. For example, changing the label on the text box no longer has any effect.</text>
+<text top="185" left="149" width="219" height="11" font="4">&gt; grid.edit(&#34;tbt&#34;, label=&#34;test&#34;)</text>
+<text top="244" left="387" width="119" height="23" font="11">hello world</text>
+<text top="316" left="171" width="573" height="13" font="4">The new grid.revert() function is provided to reverse the effect of grid.force() and replace the</text>
+<text top="332" left="149" width="595" height="13" font="4">individual components of the forced grob with the original grob. The following code and shows this</text>
+<text top="348" left="149" width="596" height="13" font="4">function in action. It also demonstrates that the reversion will lose any changes that were made to any</text>
+<text top="365" left="149" width="580" height="13" font="4">of the individual components. We return to the scene that we had before the call to grid.force().</text>
+<text top="395" left="149" width="103" height="11" font="4">&gt; grid.revert()</text>
+<text top="454" left="387" width="119" height="23" font="11">hello world</text>
+<text top="525" left="171" width="573" height="13" font="4">In other words, for grobs that generate content at drawing time, we can have either the high-level</text>
+<text top="542" left="149" width="330" height="13" font="4">interface or the low-level interface, but not both at once.</text>
+<text top="586" left="149" width="94" height="17" font="5"><b>A reminder</b></text>
+<text top="625" left="148" width="596" height="13" font="4">All of the discussion in this article applies to the situation where a new <b>grid </b>grob class is created that</text>
+<text top="641" left="149" width="595" height="14" font="4">needs to calculate what to draw at drawing time. If the entire content of a grob or gTree can be generated</text>
+<text top="658" left="149" width="595" height="13" font="4">at creation time, rather than having to wait until drawing time, then things are much easier, and it is</text>
+<text top="674" left="148" width="483" height="13" font="4">possible to have both a high-level interface and low-level access at the same time.</text>
+<text top="695" left="171" width="575" height="13" font="4">It is only when the content must be generated at drawing time, as is the case for <b>grid </b>axis grobs,</text>
+<text top="712" left="149" width="485" height="13" font="4">that the design decisions and functions described in this article become necessary.</text>
+<text top="756" left="149" width="62" height="17" font="5"><b>Review</b></text>
+<text top="795" left="148" width="596" height="13" font="4">To review the changes described so far, where once we might have written a drawDetails() method</text>
+<text top="812" left="149" width="595" height="13" font="4">for a new <b>grid </b>grob or gTree class, we can instead write a makeContent() method. If we do so, the</text>
+<text top="828" left="149" width="595" height="13" font="4">new grid.force() function can be used to gain access to low-level grobs that otherwise would not be</text>
+<text top="845" left="149" width="595" height="13" font="4">accessible. One example where this is useful is for <b>grid </b>axis grobs (with no tick location specified), in</text>
+<text top="861" left="149" width="436" height="13" font="4">order to gain access to the individual lines and text that make up the axis.</text>
+<text top="906" left="149" width="338" height="17" font="5"><b>Revisiting the simple grid demonstration</b></text>
+<text top="944" left="149" width="595" height="13" font="4">In order to demonstrate some of the other changes in <b>grid </b>for R 3.0.0, we will revisit the simple text</text>
+<text top="961" left="149" width="595" height="13" font="4">box example from before. In the implementations of the textbox() function so far, we have focused</text>
+<text top="977" left="149" width="596" height="13" font="4">our effort on what content to draw for the text box. In this section, we also consider the context for</text>
+<text top="994" left="149" width="357" height="13" font="4">drawing; the <b>grid </b>viewports that a text box is drawn within.</text>
+<text top="1015" left="171" width="573" height="13" font="4">In this next implementation, when a text box is drawn, we will set up a viewport to draw the text</text>
+<text top="1031" left="149" width="595" height="13" font="4">box within and then draw a text grob and roundrect grob within that viewport. This will simplify the</text>
+<text top="1048" left="149" width="238" height="13" font="4">creation of the text and roundrect grobs.</text>
+<text top="1068" left="171" width="574" height="13" font="4">This change only requires modifications to the methods for the &#34;textboxtree&#34; class; the textbox()</text>
+<text top="1085" left="149" width="217" height="13" font="4">function remains the same as before.</text>
+<text top="1115" left="149" width="192" height="11" font="4">&gt; textbox &lt;- function(label,</text>
+<text top="1131" left="149" width="7" height="11" font="4">+</text>
+<text top="1131" left="300" width="206" height="11" font="4">name=NULL, gp=NULL, vp=NULL) {</text>
+<text top="1147" left="149" width="7" height="11" font="4">+</text>
+<text top="1147" left="190" width="165" height="11" font="4">gt &lt;- gTree(label=label,</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">155</text>
+<text top="104" left="149" width="7" height="11" font="4">+</text>
+<text top="104" left="272" width="165" height="11" font="4">name=name, gp=gp, vp=vp,</text>
+<text top="120" left="149" width="7" height="11" font="4">+</text>
+<text top="120" left="272" width="117" height="11" font="4">cl=&#34;textboxtree&#34;)</text>
+<text top="137" left="149" width="7" height="11" font="4">+</text>
+<text top="137" left="190" width="89" height="11" font="4">grid.draw(gt)</text>
+<text top="153" left="149" width="21" height="11" font="4">+ }</text>
+<text top="196" left="149" width="63" height="17" font="5"><b>The old</b></text>
+<text top="197" left="217" width="146" height="15" font="12">preDrawDetails()</text>
+<text top="196" left="367" width="42" height="17" font="5"><b>hook</b></text>
+<text top="235" left="148" width="597" height="13" font="4">We can specify how to set up the drawing context for a grob class by defining a preDrawDetails()</text>
+<text top="252" left="149" width="596" height="13" font="4">method for the class. For all grobs, the preDrawDetails() hook is called before the makeContent() or</text>
+<text top="269" left="149" width="89" height="11" font="4">drawDetails()</text>
+<text top="268" left="241" width="503" height="13" font="4">hooks (with the default preDrawDetails() method doing nothing). The following code</text>
+<text top="285" left="149" width="595" height="13" font="4">defines a method for &#34;textboxtree&#34; grobs that pushes a viewport the appropriate size for drawing</text>
+<text top="301" left="149" width="73" height="13" font="4">the text box.</text>
+<text top="328" left="149" width="309" height="11" font="4">&gt; preDrawDetails.textboxtree &lt;- function(x) {</text>
+<text top="345" left="149" width="7" height="11" font="4">+</text>
+<text top="345" left="190" width="329" height="11" font="4">tbvp &lt;- viewport(width=1.5*stringWidth(x$label),</text>
+<text top="361" left="149" width="7" height="11" font="4">+</text>
+<text top="361" left="307" width="226" height="11" font="4">height=1.5*stringHeight(x$label))</text>
+<text top="378" left="149" width="7" height="11" font="4">+</text>
+<text top="378" left="190" width="123" height="11" font="4">pushViewport(tbvp)</text>
+<text top="394" left="149" width="21" height="11" font="4">+ }</text>
+<text top="420" left="171" width="573" height="13" font="4">With this method defined, the makeContent() method for &#34;textboxtree&#34; grobs becomes much</text>
+<text top="437" left="149" width="597" height="13" font="4">simpler because the roundrect grob just fills up the viewport that was created by the preDrawDetails()</text>
+<text top="453" left="149" width="595" height="13" font="4">method (we have already calculated the appropriate size when we created the viewport in the</text>
+<text top="470" left="149" width="110" height="11" font="4">preDrawDetails()</text>
+<text top="470" left="262" width="54" height="13" font="4">method).</text>
+<text top="497" left="149" width="288" height="11" font="4">&gt; makeContent.textboxtree &lt;- function(x) {</text>
+<text top="513" left="149" width="7" height="11" font="4">+</text>
+<text top="513" left="190" width="240" height="11" font="4">t &lt;- textGrob(x$label, name=&#34;text&#34;)</text>
+<text top="530" left="149" width="7" height="11" font="4">+</text>
+<text top="530" left="190" width="213" height="11" font="4">rr &lt;- roundrectGrob(name=&#34;box&#34;)</text>
+<text top="546" left="149" width="7" height="11" font="4">+</text>
+<text top="546" left="190" width="192" height="11" font="4">setChildren(x, gList(t, rr))</text>
+<text top="563" left="149" width="21" height="11" font="4">+ }</text>
+<text top="589" left="171" width="576" height="13" font="4">Whenever a preDrawDetails() method is defined, it must be accompanied by a postDrawDetails()</text>
+<text top="605" left="149" width="380" height="13" font="4">method, which must revert any changes to the drawing context.</text>
+<text top="633" left="149" width="316" height="11" font="4">&gt; postDrawDetails.textboxtree &lt;- function(x) {</text>
+<text top="649" left="149" width="7" height="11" font="4">+</text>
+<text top="649" left="190" width="89" height="11" font="4">popViewport()</text>
+<text top="666" left="149" width="21" height="11" font="4">+ }</text>
+<text top="692" left="171" width="575" height="13" font="4">The following code shows that the textbox() function produces exactly the same output as before.</text>
+<text top="719" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="736" left="149" width="199" height="11" font="4">&gt; textbox(&#34;test&#34;, name=&#34;tbt&#34;)</text>
+<text top="791" left="426" width="40" height="23" font="11">test</text>
+<text top="858" left="171" width="573" height="13" font="4">The drawing context is regenerated every time the text box is drawn, so modifying the text label</text>
+<text top="875" left="149" width="549" height="13" font="4">updates the viewport that both text and box are drawn in and the box expands with the text.</text>
+<text top="902" left="149" width="268" height="11" font="4">&gt; grid.edit(&#34;tbt&#34;, label=&#34;hello world&#34;)</text>
+<text top="957" left="387" width="119" height="23" font="11">hello world</text>
+<text top="1038" left="149" width="71" height="17" font="5"><b>The new</b></text>
+<text top="1039" left="225" width="119" height="15" font="12">makeContext()</text>
+<text top="1038" left="348" width="42" height="17" font="5"><b>hook</b></text>
+<text top="1077" left="149" width="597" height="13" font="4">In parallel with the change from drawDetails() to makeContent(), there is a new makeContext()</text>
+<text top="1093" left="149" width="490" height="13" font="4">generic function to replace the use of preDrawDetails() (and postDrawDetails()).</text>
+<text top="1114" left="171" width="573" height="13" font="4">The main difference is that a makeContext() method must create new viewports and add them to</text>
+<text top="1130" left="149" width="598" height="13" font="4">the vp slot of the grob (rather than pushing the new viewports), and it must return the modified grob.</text>
+<text top="1147" left="148" width="598" height="13" font="4">The following code demonstrates what a makeContext() method looks like for a &#34;textboxtree&#34; grob.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">156</text>
+<text top="104" left="149" width="288" height="11" font="4">&gt; makeContext.textboxtree &lt;- function(x) {</text>
+<text top="120" left="149" width="7" height="11" font="4">+</text>
+<text top="120" left="190" width="329" height="11" font="4">tbvp &lt;- viewport(width=1.5*stringWidth(x$label),</text>
+<text top="137" left="149" width="7" height="11" font="4">+</text>
+<text top="137" left="307" width="226" height="11" font="4">height=1.5*stringHeight(x$label))</text>
+<text top="153" left="149" width="7" height="11" font="4">+</text>
+<text top="153" left="190" width="123" height="11" font="4">if (is.null(x$vp))</text>
+<text top="169" left="149" width="7" height="11" font="4">+</text>
+<text top="169" left="217" width="82" height="11" font="4">x$vp &lt;- tbvp</text>
+<text top="186" left="149" width="7" height="11" font="4">+</text>
+<text top="186" left="190" width="27" height="11" font="4">else</text>
+<text top="202" left="149" width="7" height="11" font="4">+</text>
+<text top="202" left="217" width="185" height="11" font="4">x$vp &lt;- vpStack(x$vp, tbvp)</text>
+<text top="219" left="149" width="7" height="11" font="4">+</text>
+<text top="219" left="190" width="7" height="11" font="4">x</text>
+<text top="235" left="149" width="21" height="11" font="4">+ }</text>
+<text top="265" left="171" width="573" height="13" font="4">This is similar to the preDrawDetails() method, but it has additional code to combine the new</text>
+<text top="281" left="148" width="596" height="13" font="4">viewport with the current value of the vp slot for the grob. On the plus side, there is no need</text>
+<text top="297" left="149" width="595" height="13" font="4">for a postDrawDetails() method. In fact, it is essential that we remove the preDrawDetails() and</text>
+<text top="314" left="149" width="117" height="11" font="4">postDrawDetails()</text>
+<text top="314" left="269" width="411" height="13" font="4">methods for this class; we only need the makeContext() method now.</text>
+<text top="344" left="149" width="233" height="11" font="4">&gt; rm(&#34;preDrawDetails.textboxtree&#34;)</text>
+<text top="361" left="149" width="240" height="11" font="4">&gt; rm(&#34;postDrawDetails.textboxtree&#34;)</text>
+<text top="390" left="171" width="573" height="13" font="4">The following code shows that the textbox() function still works and that the box expands if we</text>
+<text top="407" left="149" width="126" height="13" font="4">modify the text label.</text>
+<text top="437" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="453" left="149" width="199" height="11" font="4">&gt; textbox(&#34;test&#34;, name=&#34;tbt&#34;)</text>
+<text top="514" left="426" width="40" height="23" font="11">test</text>
+<text top="583" left="149" width="268" height="11" font="4">&gt; grid.edit(&#34;tbt&#34;, label=&#34;hello world&#34;)</text>
+<text top="643" left="387" width="119" height="23" font="11">hello world</text>
+<text top="722" left="149" width="263" height="15" font="10"><b>Mixing viewports with viewport paths</b></text>
+<text top="754" left="148" width="596" height="13" font="4">The example in the previous section contains another subtle change in <b>grid </b>for R 3.0.0. Within</text>
+<text top="770" left="149" width="595" height="13" font="4">the makeContext() method there is the expression vpStack(x$vp,tbvp). The vpStack() function</text>
+<text top="786" left="149" width="597" height="13" font="4">combines two viewports into a viewport stack (one or more viewports that will be pushed in series,</text>
+<text top="803" left="149" width="595" height="13" font="4">one after the other). The second argument to the call, tbvp is a viewport, but the first argument to the</text>
+<text top="819" left="149" width="595" height="13" font="4">call is the vp slot of a grob, which could be a viewport or it could be a viewport path. The ability to</text>
+<text top="836" left="149" width="597" height="13" font="4">combine viewport paths with viewports like this is new in R 3.0.0 and is necessary for makeContext()</text>
+<text top="852" left="149" width="105" height="13" font="4">methods to work.</text>
+<text top="897" left="149" width="148" height="17" font="5"><b>Another reminder</b></text>
+<text top="936" left="149" width="595" height="13" font="4">Modifying the drawing context at drawing time is not always necessary. When creating a new grob</text>
+<text top="952" left="149" width="595" height="13" font="4">class, it is often simpler just to set up the drawing context at creation time by creating childrenvp</text>
+<text top="969" left="149" width="595" height="13" font="4">for the children of a gTree. It is only when the generation of drawing context has to be delayed until</text>
+<text top="985" left="149" width="377" height="13" font="4">drawing time that a makeContext() method becomes necessary.</text>
+<text top="1030" left="149" width="62" height="17" font="5"><b>Review</b></text>
+<text top="1069" left="149" width="596" height="13" font="4">In addition to the new makeContent() hook for generating content at drawing time, and the new</text>
+<text top="1086" left="149" width="82" height="11" font="4">grid.force()</text>
+<text top="1085" left="236" width="509" height="13" font="4">function for exposing content that is only created at drawing time, there is a new</text>
+<text top="1102" left="149" width="89" height="11" font="4">makeContext()</text>
+<text top="1102" left="241" width="266" height="13" font="4">hook for generating context at drawing time.</text>
+<text top="1123" left="171" width="573" height="13" font="4">The new makeContext() hook has been described, but it may not be clear what benefits accrue</text>
+<text top="1139" left="149" width="277" height="13" font="4">from it. That is the purpose of the next section.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">157</text>
+<text top="100" left="149" width="116" height="17" font="5"><b>Who benefits?</b></text>
+<text top="139" left="148" width="598" height="13" font="4">The problem with <b>grid </b>axes that was described at the start of this article has existed for many years.</text>
+<text top="155" left="149" width="596" height="13" font="4">Having a solution for that problem scratches a years-long itch, but it was not the main reason for</text>
+<text top="172" left="149" width="595" height="13" font="4">the changes in R 3.0.0. One of the motivations for changes to <b>grid </b>was provided by the difficulties</text>
+<text top="188" left="149" width="135" height="13" font="4">that the authors of the</text>
+<text top="188" left="288" width="38" height="13" font="7"><a href="http://CRAN.R-project.org/package=gtable"><b>gtable</b></a></text>
+<text top="188" left="329" width="58" height="13" font="4">package <a href="2013-2-murrell.html#13">(</a></text>
+<text top="188" left="388" width="58" height="13" font="6"><a href="2013-2-murrell.html#13">Wickham</a></text>
+<text top="188" left="445" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="188" left="452" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2012</a></text>
+<text top="188" left="480" width="264" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>had in implementing &#34;gtable&#34; grobs. The</text>
+<text top="205" left="149" width="38" height="13" font="3"><b>gtable</b></text>
+<text top="205" left="190" width="554" height="13" font="4">package is important because it is used by the popular <b>ggplot2 </b>package to arrange the different</text>
+<text top="221" left="149" width="124" height="13" font="4">components of plots.</text>
+<text top="242" left="171" width="573" height="13" font="4">The <b>gtable </b>authors had to write not just preDrawDetails() and postDrawDetails() methods, but</text>
+<text top="258" left="149" width="595" height="13" font="4">also grid.draw() methods to get the behaviour they desired for &#34;gtable&#34; grobs. This is undesirable</text>
+<text top="275" left="149" width="595" height="13" font="4">because having a grid.draw() method makes &#34;gtable&#34; grobs behave differently from standard <b>grid</b></text>
+<text top="291" left="149" width="596" height="13" font="4">grobs. A symptom of this problem is the fact that not all grobs from a &#34;gtable&#34; are accessible for</text>
+<text top="308" left="149" width="595" height="13" font="4">editing (similar to the axis problem at the start of this article). Having a special grid.draw() method</text>
+<text top="324" left="149" width="595" height="13" font="4">also causes problems for packages that rely on the behaviour of standard <b>grid </b>grobs (as we shall see</text>
+<text top="341" left="148" width="208" height="13" font="4">with the <b>gridSVG </b>package below).</text>
+<text top="362" left="171" width="573" height="13" font="4">The new makeContext() hook makes it possible to implement &#34;gtable&#34; grobs without resorting to</text>
+<text top="378" left="149" width="589" height="13" font="4">a grid.draw() method. A new implementation is available as a fork of the <b>gtable </b>package on <a href="2013-2-murrell.html#0">github.</a></text>
+<text top="375" left="738" width="5" height="10" font="13"><a href="2013-2-murrell.html#0">2</a></text>
+<text top="399" left="171" width="233" height="13" font="4">Another motivator for change was the</text>
+<text top="399" left="408" width="55" height="13" font="7"><a href="http://CRAN.R-project.org/package=gridSVG"><b>gridSVG</b></a></text>
+<text top="399" left="467" width="58" height="13" font="4">package <a href="2013-2-murrell.html#13">(</a></text>
+<text top="399" left="525" width="114" height="13" font="6"><a href="2013-2-murrell.html#13">Murrell and Potter</a></text>
+<text top="399" left="639" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="399" left="646" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2013</a></text>
+<text top="399" left="673" width="71" height="13" font="4"><a href="2013-2-murrell.html#13">). </a>The main</text>
+<text top="415" left="149" width="595" height="13" font="4">function of this package is to transform every grob in a <b>grid </b>scene into an SVG representation, but this</text>
+<text top="432" left="148" width="596" height="13" font="4">package could not transform grobs that were not accessible (such as the ticks and labels for an axis</text>
+<text top="448" left="149" width="595" height="13" font="4">grob). In fact, the package could not transform any grob that had a drawDetails() method because</text>
+<text top="465" left="149" width="597" height="13" font="4">the grobs produced by a drawDetails() method were not recorded anywhere. The new grid.force()</text>
+<text top="481" left="149" width="596" height="13" font="4">function (which depends on the new makeContent() hook) means that the <b>gridSVG </b>package can now</text>
+<text top="498" left="149" width="461" height="13" font="4">access all of the grobs in a scene by “forcing” the scene before transforming it.</text>
+<text top="518" left="171" width="573" height="13" font="4">A number of grobs within <b>grid </b>itself, such as &#34;roundrect&#34; grobs and &#34;curve&#34; grobs, and several</text>
+<text top="535" left="149" width="135" height="13" font="4">other packages, such as</text>
+<text top="535" left="286" width="55" height="13" font="7"><a href="http://CRAN.R-project.org/package=grImport"><b>grImport</b></a></text>
+<text top="535" left="344" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">(</a></text>
+<text top="535" left="348" width="45" height="13" font="6"><a href="2013-2-murrell.html#13">Murrell</a></text>
+<text top="535" left="393" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="535" left="399" width="26" height="13" font="6"><a href="2013-2-murrell.html#13">2009</a></text>
+<text top="535" left="425" width="29" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>and</text>
+<text top="535" left="457" width="84" height="13" font="7"><a href="http://CRAN.R-project.org/package=gridGraphviz"><b>gridGraphviz</b></a></text>
+<text top="535" left="543" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">(</a></text>
+<text top="535" left="548" width="45" height="13" font="6"><a href="2013-2-murrell.html#13">Murrell</a></text>
+<text top="535" left="592" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="535" left="598" width="26" height="13" font="6"><a href="2013-2-murrell.html#13">2013</a></text>
+<text top="535" left="625" width="119" height="13" font="4"><a href="2013-2-murrell.html#13">), </a>have also switched</text>
+<text top="551" left="149" width="567" height="13" font="4">to using makeContext() and makeContent() methods, with further flow-on effects for <b>gridSVG</b>.</text>
+<text top="596" left="149" width="102" height="17" font="5"><b>When to use</b></text>
+<text top="597" left="255" width="119" height="15" font="12">makeContent()</text>
+<text top="596" left="378" width="17" height="17" font="5"><b>or</b></text>
+<text top="597" left="400" width="119" height="15" font="12">makeContext()</text>
+<text top="635" left="148" width="596" height="13" font="4">The new functions in <b>grid </b>for R 3.0.0 are only necessary when it is not possible to determine either the</text>
+<text top="651" left="149" width="336" height="13" font="4">drawing context or the drawing content at creation time.</text>
+<text top="672" left="171" width="573" height="13" font="4">These functions may be used in other situations. The main text box example used in this article does</text>
+<text top="689" left="149" width="598" height="13" font="4">not strictly require using makeContent() because an editDetails() method could be used instead.</text>
+<text top="705" left="148" width="597" height="13" font="4">The editDetails() hook is called whenever a grob is modified by grid.edit(). In the main example,</text>
+<text top="722" left="149" width="595" height="13" font="4">the box around the text label could be recreated if the text label is modified. So a developer could</text>
+<text top="738" left="149" width="597" height="13" font="4">elect to use makeContent() in some cases just because it may be easier than writing an editDetails()</text>
+<text top="754" left="149" width="49" height="13" font="4">method.</text>
+<text top="775" left="171" width="573" height="13" font="4">Another alternative is to use an edits slot on a grob. This works a bit like a panel function</text>
+<text top="792" left="149" width="595" height="13" font="4">for <b>lattice </b>plots. The idea is that changes to the children of a gTree can be specified as part of the</text>
+<text top="808" left="149" width="595" height="13" font="4">description of the gTree and then only applied at drawing time, using applyEdits(), once the children</text>
+<text top="825" left="149" width="595" height="13" font="4">of the gTree have been created. This approach has actually been implemented for <b>grid </b>axis grobs, but</text>
+<text top="841" left="149" width="595" height="13" font="4">has not proven popular and has not been implemented anywhere else. One way to look at the changes</text>
+<text top="858" left="149" width="595" height="13" font="4">to <b>grid </b>for R 3.0.0 is as a replacement for that edits slot approach; one which will hopefully prove</text>
+<text top="874" left="149" width="259" height="13" font="4">more popular because it has wider benefits.</text>
+<text top="895" left="171" width="573" height="13" font="4">One reason why a grob may wish to delay construction of its content until drawing time is because</text>
+<text top="911" left="149" width="595" height="13" font="4">the grob is expected to undergo dramatic changes before drawing occurs. In this case, it is inefficient</text>
+<text top="928" left="149" width="595" height="13" font="4">to update the contents of the grob every time it is modified; it is better to wait until drawing time and</text>
+<text top="944" left="148" width="596" height="13" font="4">perform the construction only once. The &#34;gtable&#34; class from the <b>gtable </b>package is an example of this</text>
+<text top="961" left="149" width="72" height="13" font="4">sort of grob.</text>
+<text top="982" left="171" width="600" height="13" font="4">These are only examples of situations that might motivate the use of makeContext() and makeContent().</text>
+<text top="998" left="149" width="595" height="13" font="4">In some cases, the decision will be forced, but in other cases the choice may be deliberate, so there is</text>
+<text top="1015" left="149" width="360" height="13" font="4">no fixed rule for when we might need to use these functions.</text>
+<text top="1035" left="171" width="573" height="13" font="4">It is also important to remember that simpler options may exist because <b>grid </b>already delays many</text>
+<text top="1052" left="149" width="595" height="13" font="4">calculations until drawing time via the use of gp and vp slots on grobs and the use of units for locations</text>
+<text top="1068" left="149" width="595" height="13" font="4">and dimensions. While it would be wrong to characterise these functions as a “last resort”, developers</text>
+<text top="1085" left="149" width="553" height="13" font="4">of new grob classes should think at least twice before deciding that they are the best solution.</text>
+<text top="1111" left="165" width="4" height="9" font="14"><a href="https://github.com/pmur002/gtable">2</a></text>
+<text top="1114" left="170" width="201" height="10" font="16"><a href="https://github.com/pmur002/gtable">https://github.com/pmur002/gtable</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="17" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="19" size="6" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">158</text>
+<text top="100" left="149" width="176" height="17" font="5"><b>Other hook functions</b></text>
+<text top="139" left="149" width="598" height="13" font="4">In addition to the superceded drawDetails(), preDrawDetails(), and postDrawDetails() hook func-</text>
+<text top="155" left="149" width="596" height="13" font="4">tions, and the editDetails() hook that was mentioned in the previous section, there are several other</text>
+<text top="172" left="149" width="136" height="13" font="4">hook functions in <b>grid</b>.</text>
+<text top="193" left="171" width="573" height="13" font="4">The validDetails() function is called whenever a grob is created or edited. This can be used to</text>
+<text top="209" left="149" width="595" height="13" font="4">check that the slots of a grob contain valid values. It is unaffected by the changes to <b>grid </b>described in</text>
+<text top="226" left="149" width="65" height="13" font="4">this article.</text>
+<text top="246" left="171" width="573" height="13" font="4">The widthDetails() function is called when a &#34;grobwidth&#34; unit is evaluated, to determine the</text>
+<text top="263" left="148" width="596" height="13" font="4">width of a grob. There is a similar function heightDetails(), plus xDetails() and yDetails() for</text>
+<text top="279" left="149" width="596" height="13" font="4">determining locations on the boundary of a grob. Although these functions are not directly affected by</text>
+<text top="296" left="149" width="595" height="13" font="4">the changes to <b>grid</b>, there are likely to be opportunities for code sharing between methods for these</text>
+<text top="312" left="149" width="595" height="13" font="4">functions and makeContent() methods because grobs that have to calculate what to draw at drawing</text>
+<text top="329" left="149" width="596" height="13" font="4">time are likely to have to also calculate what to draw in order to determine widths and heights or</text>
+<text top="345" left="149" width="176" height="13" font="4">locations on a grob boundary.</text>
+<text top="390" left="149" width="195" height="17" font="5"><b>Who else could benefit?</b></text>
+<text top="429" left="148" width="596" height="13" font="4">A number of packages besides <b>ggplot2 </b>and <b>gridSVG </b>build on top of <b>grid </b>and therefore could take</text>
+<text top="445" left="149" width="431" height="13" font="4">advantage of the new changes to <b>grid</b>. One example is version 0.9.1 of the</text>
+<text top="445" left="583" width="57" height="13" font="7"><a href="http://CRAN.R-project.org/package=gridExtra"><b>gridExtra</b></a></text>
+<text top="445" left="643" width="56" height="13" font="4">package <a href="2013-2-murrell.html#13">(</a></text>
+<text top="445" left="699" width="44" height="13" font="6"><a href="2013-2-murrell.html#13">Auguie</a></text>
+<text top="445" left="742" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="462" left="149" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2012</a></text>
+<text top="462" left="176" width="8" height="13" font="4"><a href="2013-2-murrell.html#13">).</a></text>
+<text top="492" left="149" width="137" height="11" font="4">&gt; library(gridExtra)</text>
+<text top="521" left="171" width="573" height="13" font="4">The following code uses the grid.table() function from <b>gridExtra </b>to draw a tabular arrangement</text>
+<text top="538" left="149" width="167" height="13" font="4">of values from a data frame.</text>
+<text top="568" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="585" left="149" width="165" height="11" font="4">&gt; grid.table(head(iris),</text>
+<text top="601" left="149" width="7" height="11" font="4">+</text>
+<text top="601" left="238" width="219" height="11" font="4">v.even.alpha=0.3, v.odd.alpha=1)</text>
+<text top="678" left="313" width="4" height="6" font="17"><i>1</i></text>
+<text top="692" left="313" width="4" height="6" font="17"><i>2</i></text>
+<text top="705" left="313" width="4" height="6" font="17"><i>3</i></text>
+<text top="719" left="313" width="4" height="6" font="17"><i>4</i></text>
+<text top="733" left="313" width="4" height="6" font="17"><i>5</i></text>
+<text top="747" left="313" width="4" height="6" font="17"><i>6</i></text>
+<text top="664" left="324" width="52" height="8" font="18"><b>Sepal.Length</b></text>
+<text top="677" left="345" width="11" height="8" font="19">5.1</text>
+<text top="691" left="345" width="11" height="8" font="19">4.9</text>
+<text top="705" left="345" width="11" height="8" font="19">4.7</text>
+<text top="719" left="345" width="11" height="8" font="19">4.6</text>
+<text top="732" left="345" width="11" height="8" font="19">5.0</text>
+<text top="746" left="345" width="11" height="8" font="19">5.4</text>
+<text top="664" left="384" width="47" height="8" font="18"><b>Sepal.Width</b></text>
+<text top="677" left="402" width="11" height="8" font="19">3.5</text>
+<text top="691" left="402" width="11" height="8" font="19">3.0</text>
+<text top="705" left="402" width="11" height="8" font="19">3.2</text>
+<text top="719" left="402" width="11" height="8" font="19">3.1</text>
+<text top="732" left="402" width="11" height="8" font="19">3.6</text>
+<text top="746" left="402" width="11" height="8" font="19">3.9</text>
+<text top="664" left="439" width="49" height="8" font="18"><b>Petal.Length</b></text>
+<text top="677" left="458" width="11" height="8" font="19">1.4</text>
+<text top="691" left="458" width="11" height="8" font="19">1.4</text>
+<text top="705" left="458" width="11" height="8" font="19">1.3</text>
+<text top="719" left="458" width="11" height="8" font="19">1.5</text>
+<text top="732" left="458" width="11" height="8" font="19">1.4</text>
+<text top="746" left="458" width="11" height="8" font="19">1.7</text>
+<text top="664" left="496" width="45" height="8" font="18"><b>Petal.Width</b></text>
+<text top="677" left="513" width="11" height="8" font="19">0.2</text>
+<text top="691" left="513" width="11" height="8" font="19">0.2</text>
+<text top="705" left="513" width="11" height="8" font="19">0.2</text>
+<text top="719" left="513" width="11" height="8" font="19">0.2</text>
+<text top="732" left="513" width="11" height="8" font="19">0.2</text>
+<text top="746" left="513" width="11" height="8" font="19">0.4</text>
+<text top="664" left="549" width="31" height="8" font="18"><b>Species</b></text>
+<text top="677" left="552" width="24" height="8" font="19">setosa</text>
+<text top="691" left="552" width="24" height="8" font="19">setosa</text>
+<text top="705" left="552" width="24" height="8" font="19">setosa</text>
+<text top="719" left="552" width="24" height="8" font="19">setosa</text>
+<text top="732" left="552" width="24" height="8" font="19">setosa</text>
+<text top="746" left="552" width="24" height="8" font="19">setosa</text>
+<text top="809" left="171" width="573" height="13" font="4">The grid.table() function creates a &#34;table&#34; grob with a drawDetails() method that determines</text>
+<text top="825" left="149" width="595" height="13" font="4">how to arrange the contents of the table only at drawing time. Because of this, none of the grobs that</text>
+<text top="841" left="149" width="595" height="13" font="4">represent the actual table content are accessible. The call to grid.ls() below only reveals the overall</text>
+<text top="858" left="149" width="48" height="11" font="4">&#34;table&#34;</text>
+<text top="858" left="200" width="523" height="13" font="4">grob, but no other grobs, so there is no way to access or modify the contents of the table.</text>
+<text top="888" left="149" width="75" height="11" font="4">&gt; grid.ls()</text>
+<text top="918" left="149" width="82" height="11" font="4">GRID.table.2</text>
+<text top="948" left="171" width="573" height="13" font="4">A further consequence is that the <b>gridSVG </b>package, which attempts to transform all grobs in the</text>
+<text top="964" left="149" width="554" height="13" font="4">current scene to SVG, has nothing to transform; the code below produces a blank SVG image.</text>
+<text top="994" left="149" width="123" height="11" font="4">&gt; library(gridSVG)</text>
+<text top="1024" left="149" width="165" height="11" font="4">&gt; gridToSVG(&#34;blank.svg&#34;)</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">159</text>
+<text top="335" left="171" width="575" height="13" font="4">If there was a makeContent() method for &#34;table&#34; grobs, instead of a drawDetails() method,</text>
+<text top="351" left="149" width="595" height="13" font="4">the function grid.table() would produce the same drawing, but it would become possible to</text>
+<text top="368" left="149" width="82" height="11" font="4">grid.force()</text>
+<text top="368" left="236" width="508" height="13" font="4">a &#34;table&#34; to make the grobs representing the content of the table accessible. The</text>
+<text top="384" left="149" width="595" height="13" font="4">following code shows an example of how this could work, with grid.edit() used to modify the</text>
+<text top="401" left="149" width="298" height="13" font="4">background colour for one of the cells in the table.</text>
+<text top="429" left="149" width="110" height="11" font="4">&gt; grid.newpage()</text>
+<text top="445" left="149" width="165" height="11" font="4">&gt; grid.table(head(iris),</text>
+<text top="462" left="149" width="7" height="11" font="4">+</text>
+<text top="462" left="238" width="219" height="11" font="4">v.even.alpha=0.3, v.odd.alpha=1)</text>
+<text top="478" left="149" width="96" height="11" font="4">&gt; grid.force()</text>
+<text top="495" left="149" width="322" height="11" font="4">&gt; grid.edit(&#34;core-fill-1&#34;, gp=gpar(fill=&#34;red&#34;))</text>
+<text top="568" left="313" width="4" height="6" font="17"><i>1</i></text>
+<text top="581" left="313" width="4" height="6" font="17"><i>2</i></text>
+<text top="595" left="313" width="4" height="6" font="17"><i>3</i></text>
+<text top="609" left="313" width="4" height="6" font="17"><i>4</i></text>
+<text top="623" left="313" width="4" height="6" font="17"><i>5</i></text>
+<text top="636" left="313" width="4" height="6" font="17"><i>6</i></text>
+<text top="553" left="324" width="52" height="8" font="18"><b>Sepal.Length</b></text>
+<text top="567" left="345" width="11" height="8" font="19">5.1</text>
+<text top="581" left="345" width="11" height="8" font="19">4.9</text>
+<text top="595" left="345" width="11" height="8" font="19">4.7</text>
+<text top="608" left="345" width="11" height="8" font="19">4.6</text>
+<text top="622" left="345" width="11" height="8" font="19">5.0</text>
+<text top="636" left="345" width="11" height="8" font="19">5.4</text>
+<text top="553" left="384" width="47" height="8" font="18"><b>Sepal.Width</b></text>
+<text top="567" left="402" width="11" height="8" font="19">3.5</text>
+<text top="581" left="402" width="11" height="8" font="19">3.0</text>
+<text top="595" left="402" width="11" height="8" font="19">3.2</text>
+<text top="608" left="402" width="11" height="8" font="19">3.1</text>
+<text top="622" left="402" width="11" height="8" font="19">3.6</text>
+<text top="636" left="402" width="11" height="8" font="19">3.9</text>
+<text top="553" left="439" width="49" height="8" font="18"><b>Petal.Length</b></text>
+<text top="567" left="458" width="11" height="8" font="19">1.4</text>
+<text top="581" left="458" width="11" height="8" font="19">1.4</text>
+<text top="595" left="458" width="11" height="8" font="19">1.3</text>
+<text top="608" left="458" width="11" height="8" font="19">1.5</text>
+<text top="622" left="458" width="11" height="8" font="19">1.4</text>
+<text top="636" left="458" width="11" height="8" font="19">1.7</text>
+<text top="553" left="496" width="45" height="8" font="18"><b>Petal.Width</b></text>
+<text top="567" left="513" width="11" height="8" font="19">0.2</text>
+<text top="581" left="513" width="11" height="8" font="19">0.2</text>
+<text top="595" left="513" width="11" height="8" font="19">0.2</text>
+<text top="608" left="513" width="11" height="8" font="19">0.2</text>
+<text top="622" left="513" width="11" height="8" font="19">0.2</text>
+<text top="636" left="513" width="11" height="8" font="19">0.4</text>
+<text top="553" left="549" width="31" height="8" font="18"><b>Species</b></text>
+<text top="567" left="552" width="24" height="8" font="19">setosa</text>
+<text top="581" left="552" width="24" height="8" font="19">setosa</text>
+<text top="595" left="552" width="24" height="8" font="19">setosa</text>
+<text top="608" left="552" width="24" height="8" font="19">setosa</text>
+<text top="622" left="552" width="24" height="8" font="19">setosa</text>
+<text top="636" left="552" width="24" height="8" font="19">setosa</text>
+<text top="695" left="171" width="532" height="13" font="4">Furthermore, export to SVG via the <b>gridSVG </b>package would now work, as shown below.</text>
+<text top="723" left="149" width="185" height="11" font="4">&gt; gridToSVG(&#34;notblank.svg&#34;)</text>
+<text top="1001" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="1039" left="148" width="596" height="13" font="4">The functions makeContext() and makeContent() provide a new approach to developing a new <b>grid</b></text>
+<text top="1056" left="149" width="522" height="13" font="4">grob class (replacing the old approach based on drawDetails() and preDrawDetails()).</text>
+<text top="1077" left="171" width="573" height="13" font="4">The advantage of the new approach is that, for grobs that generate content at drawing time, it</text>
+<text top="1093" left="149" width="595" height="13" font="4">is possible to access and edit the low-level content that is generated at drawing time by calling the</text>
+<text top="1110" left="149" width="82" height="11" font="4">grid.force()</text>
+<text top="1110" left="234" width="53" height="13" font="4">function.</text>
+<text top="1130" left="171" width="573" height="13" font="4">Together, these new features allow for greater flexibility in the development of new <b>grid </b>grob</text>
+<text top="1147" left="149" width="503" height="13" font="4">classes and greater powers to access and modify the low-level details of a <b>grid </b>scene.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="13" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">160</text>
+<text top="100" left="149" width="97" height="17" font="5"><b>Availability</b></text>
+<text top="139" left="148" width="596" height="13" font="4">The new <b>grid </b>functions makeContext(), makeContent(), grid.force(), and grid.revert() are only</text>
+<text top="155" left="149" width="179" height="13" font="4">available from R version 3.0.0.</text>
+<text top="176" left="171" width="573" height="13" font="4">A number of higher-level graphics packages can potentially make use of these new facilities in</text>
+<text top="193" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="193" left="174" width="570" height="13" font="4">, but it may take time for the respective package maintainers to make the necessary changes (if</text>
+<text top="209" left="149" width="595" height="13" font="4">they elect to do so at all). For example, versions 0.9-0 of the <b>grImport </b>package and version 1.3-0 of</text>
+<text top="226" left="149" width="206" height="13" font="4">the <b>gridSVG </b>package on R-Forge <a href="2013-2-murrell.html#13">(</a></text>
+<text top="226" left="355" width="110" height="13" font="6"><a href="2013-2-murrell.html#13">Theußl and Zeileis</a></text>
+<text top="226" left="465" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="226" left="471" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2009</a></text>
+<text top="226" left="498" width="246" height="13" font="4"><a href="2013-2-murrell.html#13">) </a>have incorporated changes. An example</text>
+<text top="242" left="148" width="596" height="13" font="4">where future development may occur is &#34;gtable&#34; grobs from the <b>gtable </b>package, if changes from the</text>
+<text top="258" left="149" width="341" height="13" font="4">fork on github are merged back into the original package.</text>
+<text top="303" left="149" width="128" height="17" font="5"><b>Further reading</b></text>
+<text top="342" left="148" width="596" height="13" font="4">A more technical document describing the development and testing of these changes is available from</text>
+<text top="358" left="149" width="154" height="13" font="4">the R developer web site <a href="http://www.stat.auckland.ac.nz/~paul/R/customGridRedesign.pdf">(</a></text>
+<text top="359" left="303" width="418" height="11" font="6"><a href="http://www.stat.auckland.ac.nz/~paul/R/customGridRedesign.pdf">http://www.stat.auckland.ac.nz/~paul/R/customGridRedesign.pdf</a></text>
+<text top="358" left="722" width="8" height="13" font="4"><a href="http://www.stat.auckland.ac.nz/~paul/R/customGridRedesign.pdf">).</a></text>
+<text top="379" left="171" width="573" height="13" font="4">An earlier version of this article appeared as Technical Report 2012-9 on the Statistics Technical</text>
+<text top="396" left="149" width="398" height="13" font="4">Blog of the Department of Statistics at the University of Auckland <a href="2013-2-murrell.html#13">(</a></text>
+<text top="396" left="547" width="45" height="13" font="6"><a href="2013-2-murrell.html#13">Murrell</a></text>
+<text top="396" left="592" width="3" height="13" font="4"><a href="2013-2-murrell.html#13">,</a></text>
+<text top="396" left="599" width="27" height="13" font="6"><a href="2013-2-murrell.html#13">2012</a></text>
+<text top="396" left="626" width="8" height="13" font="4"><a href="2013-2-murrell.html#13">).</a></text>
+<text top="441" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="479" left="148" width="596" height="13" font="4">Thanks to the reviewers of early versions of this article, who provided many useful suggestions that</text>
+<text top="496" left="149" width="595" height="13" font="4">improved and expanded the article. Thanks also to the developers of <b>gtable </b>who provided the nudge</text>
+<text top="512" left="149" width="279" height="13" font="4">to finally tackle the <b>grid </b>axis problem properly.</text>
+<text top="557" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="596" left="149" width="357" height="13" font="4">B. Auguie. gridExtra: Functions in grid graphics, 2012. URL</text>
+<text top="597" left="510" width="234" height="11" font="6"><a href="http://CRAN.R-project.org/package=gridExtra">http://CRAN.R-project.org/package=</a></text>
+<text top="613" left="164" width="62" height="11" font="6"><a href="http://CRAN.R-project.org/package=gridExtra">gridExtra</a></text>
+<text top="612" left="225" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=gridExtra">. </a>R package version 0.9.1. <a href="2013-2-murrell.html#11">[p</a></text>
+<text top="612" left="393" width="20" height="13" font="6"><a href="2013-2-murrell.html#11">158</a></text>
+<text top="612" left="414" width="4" height="13" font="4"><a href="2013-2-murrell.html#11">]</a></text>
+<text top="641" left="149" width="597" height="13" font="4">P. Murrell. Importing vector graphics: The grImport package for R. Journal of Statistical Software, 30(4):</text>
+<text top="657" left="163" width="96" height="13" font="4">1–37, 2009. URL</text>
+<text top="658" left="263" width="226" height="11" font="6"><a href="http://www.jstatsoft.org/v30/i04/">http://www.jstatsoft.org/v30/i04/</a></text>
+<text top="657" left="489" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v30/i04/">. </a><a href="2013-2-murrell.html#10">[p</a></text>
+<text top="657" left="510" width="20" height="13" font="6"><a href="2013-2-murrell.html#10">157</a></text>
+<text top="657" left="530" width="4" height="13" font="4"><a href="2013-2-murrell.html#10">]</a></text>
+<text top="686" left="149" width="452" height="13" font="4">P. Murrell. R Graphics. CRC Press, 2 edition, 6 2011. ISBN 9781439831762. <a href="2013-2-murrell.html#1">[p</a></text>
+<text top="686" left="601" width="20" height="13" font="6"><a href="2013-2-murrell.html#1">148</a></text>
+<text top="686" left="621" width="4" height="13" font="4"><a href="2013-2-murrell.html#1">]</a></text>
+<text top="714" left="149" width="596" height="13" font="4">P. Murrell. Writing grid extensions. Technical Report 2012-9, Department of Statistics, The University</text>
+<text top="730" left="164" width="583" height="13" font="4">of Auckland, http://stattech.wordpress.fos.auckland.ac.nz/2012-9-writing-grid-extensions/, 2012.</text>
+<text top="747" left="164" width="13" height="13" font="4"><a href="2013-2-murrell.html#13">[p</a></text>
+<text top="747" left="176" width="20" height="13" font="6"><a href="2013-2-murrell.html#13">160</a></text>
+<text top="747" left="196" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">]</a></text>
+<text top="775" left="149" width="358" height="13" font="4">P. Murrell. gridGraphviz: Drawing graphs with grid, 2013. URL</text>
+<text top="776" left="510" width="234" height="11" font="6"><a href="http://CRAN.R-project.org/package=gridGraphviz">http://CRAN.R-project.org/package=</a></text>
+<text top="792" left="164" width="82" height="11" font="6"><a href="http://CRAN.R-project.org/package=gridGraphviz">gridGraphviz</a></text>
+<text top="792" left="246" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=gridGraphviz">. </a>R package version 0.2. <a href="2013-2-murrell.html#10">[p</a></text>
+<text top="792" left="404" width="20" height="13" font="6"><a href="2013-2-murrell.html#10">157</a></text>
+<text top="792" left="424" width="4" height="13" font="4"><a href="2013-2-murrell.html#10">]</a></text>
+<text top="820" left="149" width="561" height="13" font="4">P. Murrell and S. Potter. gridSVG: Export grid graphics as SVG, 2013. R package version 1.3-0. <a href="2013-2-murrell.html#10">[p</a></text>
+<text top="820" left="710" width="20" height="13" font="6"><a href="2013-2-murrell.html#10">157</a></text>
+<text top="820" left="730" width="4" height="13" font="4"><a href="2013-2-murrell.html#10">]</a></text>
+<text top="849" left="149" width="559" height="13" font="4">D. Sarkar. Lattice: Multivariate Data Visualization with R. Springer, New York, 2008. URL</text>
+<text top="849" left="713" width="34" height="11" font="6"><a href="http://lmdvr.r-forge.r-project.org">http:</a></text>
+<text top="866" left="163" width="200" height="11" font="6"><a href="http://lmdvr.r-forge.r-project.org">//lmdvr.r-forge.r-project.org</a></text>
+<text top="865" left="363" width="169" height="13" font="4"><a href="http://lmdvr.r-forge.r-project.org">. </a>ISBN 978-0-387-75968-5. <a href="2013-2-murrell.html#1">[p</a></text>
+<text top="865" left="532" width="20" height="13" font="6"><a href="2013-2-murrell.html#1">148</a></text>
+<text top="865" left="552" width="4" height="13" font="4"><a href="2013-2-murrell.html#1">]</a></text>
+<text top="893" left="149" width="597" height="13" font="4">S. Theußl and A. Zeileis. Collaborative Software Development Using R-Forge. The R Journal, 1(1):9–</text>
+<text top="910" left="163" width="114" height="13" font="4">14, May 2009. URL</text>
+<text top="910" left="280" width="469" height="11" font="6"><a href="http://journal.r-project.org/2009-1/RJournal_2009-1_Theussl+Zeileis.pdf">http://journal.r-project.org/2009-1/RJournal_2009-1_Theussl+Zeileis.</a></text>
+<text top="927" left="164" width="21" height="11" font="6"><a href="http://journal.r-project.org/2009-1/RJournal_2009-1_Theussl+Zeileis.pdf">pdf</a></text>
+<text top="926" left="184" width="21" height="13" font="4"><a href="http://journal.r-project.org/2009-1/RJournal_2009-1_Theussl+Zeileis.pdf">. </a><a href="2013-2-murrell.html#13">[p</a></text>
+<text top="926" left="205" width="20" height="13" font="6"><a href="2013-2-murrell.html#13">160</a></text>
+<text top="926" left="225" width="4" height="13" font="4"><a href="2013-2-murrell.html#13">]</a></text>
+<text top="955" left="149" width="598" height="13" font="4">H. Wickham. ggplot2: Elegant graphics for data analysis. Springer New York, 2009. ISBN 978-0-387-98140-</text>
+<text top="971" left="164" width="43" height="13" font="4">6. URL</text>
+<text top="972" left="210" width="199" height="11" font="6"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="971" left="409" width="21" height="13" font="4"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2013-2-murrell.html#1">[p</a></text>
+<text top="971" left="429" width="20" height="13" font="6"><a href="2013-2-murrell.html#1">148</a></text>
+<text top="971" left="450" width="4" height="13" font="4"><a href="2013-2-murrell.html#1">]</a></text>
+<text top="999" left="149" width="316" height="13" font="4">H. Wickham. gtable: Arrange grobs in tables., 2012. URL</text>
+<text top="1000" left="468" width="275" height="11" font="6"><a href="http://CRAN.R-project.org/package=gtable">http://CRAN.R-project.org/package=gtable</a></text>
+<text top="999" left="743" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=gtable">.</a></text>
+<text top="1016" left="164" width="160" height="13" font="4">R package version 0.1.2. <a href="2013-2-murrell.html#10">[p</a></text>
+<text top="1016" left="324" width="20" height="13" font="6"><a href="2013-2-murrell.html#10">157</a></text>
+<text top="1016" left="344" width="4" height="13" font="4"><a href="2013-2-murrell.html#10">]</a></text>
+<text top="1062" left="148" width="72" height="13" font="4">Paul Murrell</text>
+<text top="1079" left="148" width="132" height="13" font="4">Department of Statistics</text>
+<text top="1095" left="148" width="152" height="13" font="4">The University of Auckland</text>
+<text top="1111" left="149" width="73" height="13" font="4">New Zealand</text>
+<text top="1129" left="149" width="165" height="11" font="6"><a href="mailto:paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,1338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="8" family="Times" color="#000000"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">101</text>
+<text top="98" left="149" width="591" height="30" font="2"><b>Rankcluster: An R Package for Clustering</b></text>
+<text top="137" left="149" width="422" height="30" font="2"><b>Multivariate Partial Rankings</b></text>
+<text top="173" left="149" width="394" height="15" font="0">by Julien Jacques, Quentin Grimonprez and Christophe Biernacki</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="208" width="536" height="13" font="4">The <b>Rankcluster </b>package is the first R package proposing both modeling and clustering</text>
+<text top="231" left="149" width="595" height="13" font="4">tools for ranking data, potentially multivariate and partial. Ranking data are modeled by the Insertion</text>
+<text top="247" left="149" width="89" height="13" font="4">Sorting Rank (</text>
+<text top="249" left="238" width="18" height="11" font="5">ISR</text>
+<text top="247" left="257" width="488" height="13" font="4">) model, which is a meaningful model parametrized by a central ranking and a</text>
+<text top="264" left="149" width="595" height="13" font="4">dispersion parameter. A conditional independence assumption allows multivariate rankings to be</text>
+<text top="280" left="149" width="523" height="13" font="4">taken into account, and clustering is performed by means of mixtures of multivariate</text>
+<text top="282" left="676" width="18" height="11" font="5">ISR</text>
+<text top="280" left="699" width="48" height="13" font="4">models.</text>
+<text top="297" left="148" width="596" height="13" font="4">The parameters of the cluster (central rankings and dispersion parameters) help the practitioners</text>
+<text top="313" left="149" width="595" height="13" font="4">to interpret the clustering. Moreover, the <b>Rankcluster </b>package provides an estimate of the missing</text>
+<text top="329" left="149" width="573" height="13" font="4">ranking positions when rankings are partial. After an overview of the mixture of multivariate</text>
+<text top="331" left="726" width="18" height="11" font="5">ISR</text>
+<text top="346" left="149" width="595" height="13" font="4">models, the <b>Rankcluster </b>package is described and its use is illustrated through the analysis of two</text>
+<text top="362" left="149" width="77" height="13" font="4">real datasets.</text>
+<text top="407" left="149" width="104" height="17" font="6"><b>Introduction</b></text>
+<text top="446" left="149" width="596" height="13" font="4">Ranking data occur when a number of observers are asked to rank a list of objects according to their</text>
+<text top="462" left="148" width="597" height="13" font="4">personal preference order. Such data are of great interest in human activities involving preferences,</text>
+<text top="479" left="149" width="595" height="13" font="4">attitudes or choices like Psychology, Sociology, Politics, Marketing, etc. For instance, the voting system</text>
+<text top="495" left="149" width="595" height="14" font="4">single transferable vote, used in Ireland, Australia and New Zealand, is based on preferential voting</text>
+<text top="512" left="148" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="512" left="153" width="129" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Gormley and Murphy</a></text>
+<text top="512" left="282" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="512" left="289" width="26" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2008</a></text>
+<text top="512" left="315" width="430" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">). </a>In many applications, the study of ranking data discloses heterogeneity,</text>
+<text top="528" left="149" width="595" height="13" font="4">due for instance to different political meanings, different human preferences, etc. Clustering analysis</text>
+<text top="545" left="149" width="595" height="13" font="4">is then a useful tool for statistical exploration of such datasets, by characterizing the datasets in terms</text>
+<text top="561" left="149" width="595" height="13" font="4">of a reduced number of clusters within which rankings are similar. In the present work, the clusters</text>
+<text top="577" left="148" width="596" height="13" font="4">will be characterized by a median ranking (location parameter) and by a dispersion parameter. The</text>
+<text top="594" left="149" width="595" height="13" font="4">interpretation of these two parameters for each cluster will produce a comprehensive and synthetic</text>
+<text top="610" left="149" width="175" height="13" font="4">analysis of the whole dataset.</text>
+<text top="631" left="171" width="573" height="13" font="4">In the present paper we illustrate these ideas with two studies in sociology and in sport. In the</text>
+<text top="648" left="149" width="595" height="13" font="4">sociology study, several students were asked to rank five words according to strength of association</text>
+<text top="664" left="148" width="598" height="13" font="4">(least to most associated) with the target word &#34;Idea&#34;: Thought, Play, Theory, Dream and Attention.</text>
+<text top="681" left="148" width="596" height="13" font="4">The cluster analysis of the resulting rankings from this study allows the population of students to be</text>
+<text top="697" left="149" width="595" height="13" font="4">characterized in terms of three clusters that can be interpreted (thanks to the parameters specific to</text>
+<text top="713" left="149" width="595" height="13" font="4">each cluster) as follows: scientific students, literary-minded students and a third group of students in</text>
+<text top="730" left="149" width="595" height="13" font="4">an intermediate position between scientific and too literary-minded. The second study focuses on the</text>
+<text top="746" left="148" width="596" height="13" font="4">performance of English football clubs during the last two decades, and more particularly those of the</text>
+<text top="763" left="147" width="597" height="13" font="4">“Big Four” clubs: Manchester United, Liverpool, Arsenal and Chelsea. For this, the rankings of these</text>
+<text top="779" left="149" width="595" height="13" font="4">four clubs at the English championship (Premier League) and according to the UEFA coefficients are</text>
+<text top="796" left="149" width="595" height="13" font="4">analyzed. The cluster analysis exhibits two relatively similar clusters, reflecting a certain stability in</text>
+<text top="812" left="149" width="595" height="13" font="4">the hierarchy between these clubs, except for the position of Chelsea within the hierarchy: it appears</text>
+<text top="829" left="149" width="596" height="13" font="4">that Chelsea obtains better results in the second half of the period 1993-2013, which can be probably</text>
+<text top="845" left="149" width="413" height="13" font="4">explained by the acquisition of the club by a Russian investor in 2003.</text>
+<text top="866" left="171" width="54" height="13" font="4">Recently,</text>
+<text top="866" left="230" width="135" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="866" left="369" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="866" left="374" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="866" left="401" width="343" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>proposed a model-based clustering algorithm in order</text>
+<text top="882" left="149" width="595" height="13" font="4">to analyse and explore such ranking data. This algorithm is able to take into account multivariate</text>
+<text top="899" left="149" width="595" height="13" font="4">rankings (when several rankings are simultaneously observed, as for instance in the sport application</text>
+<text top="915" left="149" width="595" height="13" font="4">in which rankings at the Premier League and rankings according to the UEFA coefficient are observed</text>
+<text top="932" left="149" width="595" height="13" font="4">simultaneously each year) with potential partial rankings (when an observer did not rank all the</text>
+<text top="948" left="149" width="595" height="13" font="4">objects). To the best of our knowledge, this is the only clustering algorithm for ranking data with</text>
+<text top="965" left="149" width="595" height="13" font="4">such a wide application scope. This algorithm is based on an extension of the Insertion Sorting</text>
+<text top="981" left="149" width="39" height="13" font="4">Rank (</text>
+<text top="983" left="188" width="18" height="11" font="5">ISR</text>
+<text top="981" left="206" width="53" height="13" font="4">) model <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="981" left="259" width="130" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Biernacki and Jacques</a></text>
+<text top="981" left="389" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="981" left="396" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2013</a></text>
+<text top="981" left="423" width="321" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>for ranking data, which is a meaningful and effective</text>
+<text top="997" left="149" width="572" height="13" font="4">model obtained by assuming that the ranking generating process is a sorting algorithm. The</text>
+<text top="999" left="726" width="18" height="11" font="5">ISR</text>
+<text top="1014" left="149" width="595" height="13" font="4">model is parametrized by a location parameter, the modal ranking, and a dispersion parameter. The</text>
+<text top="1030" left="149" width="385" height="13" font="4">heterogeneity of the rank population is modeled by a mixture of</text>
+<text top="1032" left="538" width="18" height="11" font="5">ISR</text>
+<text top="1030" left="560" width="187" height="13" font="4">models and a conditional inde-</text>
+<text top="1047" left="148" width="596" height="13" font="4">pendence assumption allows the extension to multivariate rankings. Maximum likelihood estimation</text>
+<text top="1063" left="149" width="595" height="13" font="4">is performed through a SEM-Gibbs algorithm, in which partial rankings are considered as missing</text>
+<text top="1080" left="149" width="424" height="13" font="4">data, which allows them to be simulated during the estimation process.</text>
+<text top="1101" left="171" width="443" height="13" font="4">This algorithm has been implemented in C++ and is available through the</text>
+<text top="1101" left="617" width="74" height="13" font="8"><a href="http://CRAN.R-project.org/package=Rankcluster"><b>Rankcluster</b></a></text>
+<text top="1101" left="695" width="49" height="13" font="4">package</text>
+<text top="1117" left="149" width="523" height="13" font="4">for R, available on the CRAN website and presented in depth in the sequel of this paper.</text>
+<text top="1138" left="171" width="573" height="13" font="4">The paper is organized as follows: the next section briefly presents the clustering algorithm</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+	<fontspec id="10" size="5" family="Times" color="#000000"/>
+	<fontspec id="11" size="11" family="Times" color="#000000"/>
+	<fontspec id="12" size="16" family="Times" color="#000000"/>
+	<fontspec id="13" size="8" family="Times" color="#000000"/>
+	<fontspec id="14" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">102</text>
+<text top="103" left="148" width="69" height="13" font="4">proposed in</text>
+<text top="103" left="221" width="127" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="103" left="350" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="103" left="355" width="26" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="103" left="381" width="363" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">). </a>Then, the following sections describe the existing R packages</text>
+<text top="120" left="149" width="595" height="13" font="4">dedicated to ranking data, and the functionality of the <b>Rankcluster </b>package. The <b>Rankcluster </b>package</text>
+<text top="136" left="149" width="521" height="13" font="4">is then illustrated through the cluster analysis of two datasets: 1. The words dataset of</text>
+<text top="136" left="674" width="70" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Fligner and</a></text>
+<text top="152" left="148" width="53" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Verducci</a></text>
+<text top="152" left="206" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="152" left="210" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1986</a></text>
+<text top="152" left="238" width="506" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>featuring univariate rankings without any missing ranking positions, and 2. the</text>
+<text top="169" left="149" width="597" height="13" font="4">rankings of the Big Four English Football clubs (Manchester United, Liverpool, Arsenal and Chelsea)</text>
+<text top="185" left="149" width="597" height="13" font="4">according to the Premier League results and to their UEFA coefficients between 1993 and 2013,</text>
+<text top="202" left="149" width="392" height="13" font="4">featuring bivariate rankings with some missing ranking positions.</text>
+<text top="247" left="149" width="414" height="17" font="6"><b>Overview of the model-based clustering algorithm</b></text>
+<text top="285" left="148" width="596" height="13" font="4">This section gives an overview of the model-based clustering algorithm for multivariate partial</text>
+<text top="302" left="149" width="132" height="13" font="4">rankings proposed in</text>
+<text top="302" left="285" width="135" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="302" left="424" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="302" left="429" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="302" left="456" width="171" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">). </a>It relies on the univariate</text>
+<text top="304" left="632" width="18" height="11" font="5">ISR</text>
+<text top="302" left="655" width="89" height="13" font="4">model that we</text>
+<text top="318" left="149" width="88" height="13" font="4">introduce first.</text>
+<text top="361" left="149" width="176" height="15" font="9"><b>The univariate ISR model</b></text>
+<text top="392" left="149" width="447" height="13" font="4">Rank data arise when judges or observers are asked to rank several objects</text>
+<text top="391" left="599" width="11" height="13" font="0">O</text>
+<text top="397" left="611" width="5" height="10" font="5">1</text>
+<text top="392" left="617" width="27" height="13" font="4">, . . . ,</text>
+<text top="391" left="646" width="11" height="13" font="0">O</text>
+<text top="396" left="657" width="8" height="10" font="5">m</text>
+<text top="392" left="670" width="74" height="13" font="4">according to</text>
+<text top="409" left="149" width="595" height="13" font="4">a given order of preference. The resulting ranking can be designated by its ordering representation</text>
+<text top="425" left="149" width="7" height="13" font="4">x</text>
+<text top="424" left="160" width="20" height="14" font="0">= (</text>
+<text top="425" left="181" width="7" height="13" font="4">x</text>
+<text top="422" left="188" width="5" height="10" font="5">1</text>
+<text top="425" left="194" width="36" height="13" font="4">, . . . , x</text>
+<text top="422" left="231" width="8" height="10" font="5">m</text>
+<text top="424" left="240" width="33" height="14" font="0">) ∈ P</text>
+<text top="429" left="273" width="8" height="10" font="5">m</text>
+<text top="425" left="285" width="156" height="13" font="4">which signifies that Object</text>
+<text top="424" left="444" width="11" height="13" font="0">O</text>
+<text top="431" left="456" width="5" height="10" font="5">x</text>
+<text top="430" left="462" width="4" height="7" font="10">h</text>
+<text top="425" left="470" width="69" height="13" font="4">is the hth (h</text>
+<text top="424" left="543" width="11" height="14" font="0">=</text>
+<text top="425" left="558" width="94" height="13" font="4">1, . . . , m), where</text>
+<text top="424" left="656" width="10" height="13" font="0">P</text>
+<text top="429" left="666" width="8" height="10" font="5">m</text>
+<text top="425" left="678" width="66" height="13" font="4">is the set of</text>
+<text top="443" left="149" width="433" height="13" font="4">the permutations of the first m integers, or by its ranking representation x</text>
+<text top="440" left="582" width="14" height="11" font="5">−1</text>
+<text top="442" left="601" width="20" height="14" font="0">= (</text>
+<text top="443" left="622" width="7" height="13" font="4">x</text>
+<text top="439" left="629" width="14" height="11" font="5">−1</text>
+<text top="450" left="629" width="5" height="10" font="5">1</text>
+<text top="443" left="644" width="36" height="13" font="4">, . . . , x</text>
+<text top="440" left="680" width="14" height="11" font="5">−1</text>
+<text top="449" left="680" width="8" height="10" font="5">m</text>
+<text top="442" left="695" width="5" height="14" font="0">)</text>
+<text top="443" left="700" width="44" height="13" font="4">, which</text>
+<text top="463" left="149" width="349" height="13" font="4">contains the ranks assigned to the objects and means that</text>
+<text top="462" left="502" width="11" height="13" font="0">O</text>
+<text top="467" left="513" width="3" height="10" font="5">i</text>
+<text top="463" left="521" width="37" height="13" font="4">is in x</text>
+<text top="458" left="558" width="14" height="11" font="5">−1</text>
+<text top="470" left="558" width="3" height="10" font="5">i</text>
+<text top="463" left="573" width="78" height="13" font="4">th position (i</text>
+<text top="462" left="656" width="11" height="14" font="0">=</text>
+<text top="463" left="671" width="73" height="13" font="4">1, . . . , m). In</text>
+<text top="479" left="149" width="595" height="13" font="4">the <b>Rankcluster </b>package, the ranking representation is used, but users working with the ordering</text>
+<text top="495" left="149" width="595" height="13" font="4">representation can use a function implemented in the package in order to convert their data from one</text>
+<text top="512" left="149" width="160" height="13" font="4">representation to the other.</text>
+<text top="533" left="171" width="573" height="13" font="4">Based on the assumption that a rank datum is the result of a sorting algorithm based on paired</text>
+<text top="549" left="149" width="598" height="13" font="4">comparisons, and that the judge who ranks the objects uses insertion sort because of its optimal-</text>
+<text top="566" left="149" width="352" height="13" font="4">ity properties (minimum number of paired comparisons),</text>
+<text top="566" left="505" width="134" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Biernacki and Jacques</a></text>
+<text top="566" left="644" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="566" left="648" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2013</a></text>
+<text top="566" left="676" width="68" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>stated the</text>
+<text top="582" left="149" width="114" height="13" font="4">following so-called</text>
+<text top="584" left="266" width="18" height="11" font="5">ISR</text>
+<text top="582" left="288" width="41" height="13" font="4">model:</text>
+<text top="619" left="226" width="8" height="13" font="4">p</text>
+<text top="618" left="234" width="5" height="14" font="0">(</text>
+<text top="618" left="240" width="36" height="14" font="4">x; <i>µ</i>, <i>π</i></text>
+<text top="618" left="277" width="20" height="14" font="0">) =</text>
+<text top="609" left="307" width="7" height="13" font="4">1</text>
+<text top="628" left="303" width="15" height="14" font="4">m!</text>
+<text top="613" left="328" width="14" height="24" font="12">∑</text>
+<text top="635" left="322" width="21" height="10" font="5">y∈P</text>
+<text top="639" left="343" width="6" height="7" font="10">m</text>
+<text top="619" left="351" width="8" height="13" font="4">p</text>
+<text top="618" left="360" width="5" height="14" font="0">(</text>
+<text top="618" left="366" width="7" height="13" font="4">x</text>
+<text top="618" left="373" width="4" height="13" font="0">|</text>
+<text top="618" left="377" width="36" height="14" font="4">y; <i>µ</i>, <i>π</i></text>
+<text top="618" left="413" width="20" height="14" font="0">) =</text>
+<text top="609" left="443" width="7" height="13" font="4">1</text>
+<text top="628" left="440" width="15" height="14" font="4">m!</text>
+<text top="613" left="465" width="14" height="24" font="12">∑</text>
+<text top="635" left="458" width="21" height="10" font="5">y∈P</text>
+<text top="639" left="479" width="6" height="7" font="10">m</text>
+<text top="622" left="488" width="9" height="10" font="11"><i>π</i></text>
+<text top="615" left="498" width="40" height="11" font="5">G(x,y,<i>µ</i>)</text>
+<text top="618" left="539" width="5" height="14" font="0">(</text>
+<text top="619" left="544" width="7" height="13" font="4">1</text>
+<text top="618" left="554" width="11" height="13" font="0">−</text>
+<text top="622" left="568" width="9" height="10" font="11"><i>π</i></text>
+<text top="618" left="577" width="5" height="14" font="0">)</text>
+<text top="615" left="584" width="79" height="11" font="5">A(x,y)−G(x,y,<i>µ</i>)</text>
+<text top="619" left="664" width="3" height="13" font="4">,</text>
+<text top="662" left="148" width="37" height="13" font="4">where</text>
+<text top="688" left="171" width="24" height="13" font="4">• <i>µ</i></text>
+<text top="688" left="201" width="26" height="13" font="0">∈ P</text>
+<text top="692" left="227" width="8" height="10" font="5">m</text>
+<text top="688" left="236" width="404" height="13" font="4">, the modal ranking, is a location parameter. Its opposite ranking ¯</text>
+<text top="692" left="634" width="8" height="10" font="11"><i>µ</i></text>
+<text top="688" left="647" width="12" height="13" font="4">( ¯</text>
+<text top="692" left="652" width="8" height="10" font="11"><i>µ</i></text>
+<text top="688" left="666" width="11" height="14" font="0">=</text>
+<text top="692" left="684" width="8" height="10" font="11"><i>µ</i></text>
+<text top="688" left="695" width="7" height="13" font="0">◦</text>
+<text top="688" left="707" width="37" height="14" font="4">¯e with</text>
+<text top="705" left="188" width="4" height="13" font="4">¯e</text>
+<text top="704" left="196" width="20" height="14" font="0">= (</text>
+<text top="705" left="216" width="46" height="14" font="4">m, . . . , 1</text>
+<text top="704" left="263" width="5" height="14" font="0">)</text>
+<text top="705" left="269" width="208" height="13" font="4">) is the rank of smallest probability,</text>
+<text top="727" left="171" width="25" height="13" font="4">• <i>π</i></text>
+<text top="726" left="200" width="17" height="14" font="0">∈ [</text>
+<text top="724" left="219" width="5" height="10" font="5">1</text>
+<text top="734" left="219" width="5" height="10" font="5">2</text>
+<text top="727" left="226" width="13" height="13" font="4">, 1</text>
+<text top="726" left="239" width="4" height="14" font="0">]</text>
+<text top="727" left="246" width="498" height="13" font="4">is the probability of good paired comparison in the sorting algorithm (where good</text>
+<text top="744" left="186" width="558" height="13" font="4">means in accordance with the modal ranking <i>µ</i>). It is a scale parameter: the distribution is uniform</text>
+<text top="760" left="186" width="47" height="13" font="4">when <i>π</i></text>
+<text top="759" left="238" width="11" height="14" font="0">=</text>
+<text top="757" left="256" width="5" height="10" font="5">1</text>
+<text top="767" left="256" width="5" height="10" font="5">2</text>
+<text top="760" left="267" width="479" height="13" font="4">and the mode <i>µ </i>of the distribution is uniformly more pronounced as <i>π </i>grows,</text>
+<text top="777" left="186" width="208" height="13" font="4">being a Dirac function in <i>µ </i>when <i>π</i></text>
+<text top="776" left="399" width="11" height="14" font="0">=</text>
+<text top="777" left="413" width="10" height="13" font="4">1,</text>
+<text top="799" left="171" width="103" height="13" font="4">• the sum over y</text>
+<text top="798" left="278" width="23" height="13" font="0">∈ P</text>
+<text top="803" left="301" width="8" height="10" font="5">m</text>
+<text top="799" left="314" width="430" height="13" font="4">corresponds to all the possible initial presentation orders of the objects to</text>
+<text top="815" left="186" width="515" height="13" font="4">be ranked (with identical prior probabilities equal to 1/m! because they are unknown),</text>
+<text top="838" left="171" width="26" height="13" font="4">• G</text>
+<text top="837" left="197" width="5" height="14" font="0">(</text>
+<text top="838" left="203" width="33" height="14" font="4">x, y, <i>µ</i></text>
+<text top="837" left="236" width="5" height="14" font="0">)</text>
+<text top="838" left="245" width="499" height="13" font="4">is the number of good paired comparisons during the sorting process leading to return</text>
+<text top="854" left="187" width="206" height="14" font="4">x when the presentation order is y,</text>
+<text top="877" left="171" width="26" height="13" font="4">• A</text>
+<text top="876" left="197" width="5" height="14" font="0">(</text>
+<text top="877" left="203" width="20" height="14" font="4">x, y</text>
+<text top="876" left="223" width="5" height="14" font="0">)</text>
+<text top="877" left="232" width="431" height="13" font="4">corresponds to the total number of paired comparisons (good or wrong).</text>
+<text top="904" left="148" width="163" height="13" font="4">The precise definitions of G</text>
+<text top="903" left="312" width="5" height="14" font="0">(</text>
+<text top="904" left="318" width="33" height="14" font="4">x, y, <i>µ</i></text>
+<text top="903" left="352" width="5" height="14" font="0">)</text>
+<text top="904" left="361" width="37" height="13" font="4">and A</text>
+<text top="903" left="398" width="5" height="14" font="0">(</text>
+<text top="904" left="404" width="20" height="14" font="4">x, y</text>
+<text top="903" left="423" width="5" height="14" font="0">)</text>
+<text top="904" left="432" width="92" height="13" font="4">can be found in</text>
+<text top="904" left="528" width="130" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Biernacki and Jacques</a></text>
+<text top="904" left="662" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="904" left="666" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2013</a></text>
+<text top="904" left="693" width="8" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">).</a></text>
+<text top="946" left="149" width="190" height="15" font="9"><b>Mixture of multivariate ISR</b></text>
+<text top="981" left="149" width="93" height="13" font="4">Now redefine <b>x</b></text>
+<text top="980" left="246" width="20" height="14" font="0">= (</text>
+<text top="981" left="267" width="7" height="13" font="4">x</text>
+<text top="978" left="274" width="5" height="10" font="5">1</text>
+<text top="981" left="280" width="36" height="13" font="4">, . . . , x</text>
+<text top="978" left="318" width="3" height="10" font="5">J</text>
+<text top="980" left="322" width="33" height="14" font="0">) ∈ P</text>
+<text top="985" left="356" width="8" height="10" font="5">m</text>
+<text top="989" left="364" width="4" height="7" font="10">1</text>
+<text top="980" left="372" width="11" height="13" font="0">×</text>
+<text top="981" left="386" width="15" height="13" font="4">. . .</text>
+<text top="980" left="404" width="24" height="13" font="0">× P</text>
+<text top="985" left="428" width="8" height="10" font="5">m</text>
+<text top="988" left="437" width="2" height="7" font="10">J</text>
+<text top="981" left="444" width="196" height="13" font="4">as a multivariate rank, in which x</text>
+<text top="978" left="642" width="3" height="10" font="5">j</text>
+<text top="980" left="649" width="20" height="14" font="0">= (</text>
+<text top="981" left="670" width="7" height="13" font="4">x</text>
+<text top="978" left="678" width="8" height="11" font="5">j1</text>
+<text top="981" left="687" width="36" height="13" font="4">, . . . , x</text>
+<text top="977" left="724" width="11" height="10" font="5">jm</text>
+<text top="981" left="736" width="2" height="7" font="10">j</text>
+<text top="980" left="740" width="5" height="14" font="0">)</text>
+<text top="997" left="149" width="80" height="13" font="4">is a rank of m</text>
+<text top="1002" left="229" width="3" height="10" font="5">j</text>
+<text top="997" left="236" width="55" height="13" font="4">objects (1</text>
+<text top="996" left="295" width="11" height="13" font="0">≤</text>
+<text top="997" left="311" width="4" height="13" font="4">j</text>
+<text top="996" left="318" width="11" height="13" font="0">≤</text>
+<text top="997" left="334" width="13" height="14" font="4">J).</text>
+<text top="1018" left="171" width="567" height="13" font="4">The population of multivariate ranks is assumed to be composed of K groups in proportions p</text>
+<text top="1023" left="739" width="5" height="10" font="5">k</text>
+<text top="1034" left="148" width="12" height="13" font="4">(p</text>
+<text top="1039" left="161" width="5" height="10" font="5">k</text>
+<text top="1034" left="171" width="18" height="14" font="0">∈ [</text>
+<text top="1034" left="188" width="19" height="13" font="4">0, 1</text>
+<text top="1034" left="208" width="4" height="14" font="0">]</text>
+<text top="1034" left="215" width="23" height="13" font="4">and</text>
+<text top="1032" left="242" width="10" height="17" font="4">∑</text>
+<text top="1031" left="253" width="7" height="10" font="5">K</text>
+<text top="1041" left="253" width="19" height="11" font="5">k=1</text>
+<text top="1034" left="276" width="7" height="13" font="4">p</text>
+<text top="1039" left="283" width="5" height="10" font="5">k</text>
+<text top="1034" left="292" width="11" height="14" font="0">=</text>
+<text top="1034" left="308" width="241" height="13" font="4">1). Given a group k, the J components x</text>
+<text top="1032" left="549" width="5" height="10" font="5">1</text>
+<text top="1034" left="555" width="36" height="13" font="4">, . . . , x</text>
+<text top="1032" left="592" width="3" height="10" font="5">J</text>
+<text top="1034" left="600" width="144" height="13" font="4">of the multivariate rank</text>
+<text top="1051" left="149" width="329" height="13" font="4">datum <b>x </b>are assumed to be sampled from independent</text>
+<text top="1053" left="481" width="18" height="11" font="5">ISR</text>
+<text top="1051" left="503" width="241" height="13" font="4">distributions with corresponding modal</text>
+<text top="1071" left="149" width="64" height="13" font="4">rankings <i>µ</i></text>
+<text top="1068" left="213" width="5" height="10" font="5">1</text>
+<text top="1078" left="213" width="5" height="10" font="5">k</text>
+<text top="1071" left="219" width="37" height="13" font="4">, . . . , <i>µ</i></text>
+<text top="1066" left="257" width="3" height="10" font="5">J</text>
+<text top="1078" left="256" width="5" height="10" font="5">k</text>
+<text top="1071" left="265" width="43" height="13" font="4">(each <i>µ</i></text>
+<text top="1066" left="308" width="3" height="10" font="5">j</text>
+<text top="1078" left="308" width="5" height="10" font="5">k</text>
+<text top="1070" left="317" width="23" height="13" font="0">∈ P</text>
+<text top="1075" left="341" width="8" height="10" font="5">m</text>
+<text top="1079" left="350" width="2" height="7" font="10">j</text>
+<text top="1071" left="353" width="270" height="13" font="4">) and good paired comparison probabilities <i>π</i></text>
+<text top="1068" left="624" width="5" height="10" font="5">1</text>
+<text top="1078" left="623" width="5" height="10" font="5">k</text>
+<text top="1071" left="630" width="38" height="13" font="4">, . . . , <i>π</i></text>
+<text top="1066" left="669" width="3" height="10" font="5">J</text>
+<text top="1078" left="668" width="5" height="10" font="5">k</text>
+<text top="1070" left="678" width="17" height="14" font="0">∈ [</text>
+<text top="1068" left="697" width="5" height="10" font="5">1</text>
+<text top="1078" left="697" width="5" height="10" font="5">2</text>
+<text top="1071" left="704" width="12" height="13" font="4">, 1</text>
+<text top="1070" left="717" width="4" height="14" font="0">]</text>
+<text top="1071" left="721" width="3" height="13" font="4">.</text>
+<text top="1092" left="171" width="287" height="13" font="4">The unconditional probability of a rank <b>x </b>is then</text>
+<text top="1134" left="352" width="8" height="13" font="4">p</text>
+<text top="1133" left="360" width="5" height="14" font="0">(</text>
+<text top="1134" left="366" width="7" height="13" font="3"><b>x</b></text>
+<text top="1134" left="372" width="13" height="13" font="4">; <i><b>θ</b></i></text>
+<text top="1133" left="385" width="20" height="14" font="0">) =</text>
+<text top="1122" left="416" width="7" height="10" font="5">K</text>
+<text top="1129" left="412" width="14" height="24" font="12">∑</text>
+<text top="1151" left="410" width="19" height="11" font="5">k=1</text>
+<text top="1134" left="432" width="7" height="13" font="4">p</text>
+<text top="1139" left="439" width="5" height="10" font="5">k</text>
+<text top="1121" left="454" width="3" height="10" font="5">J</text>
+<text top="1129" left="447" width="17" height="24" font="12">∏</text>
+<text top="1151" left="447" width="17" height="11" font="5">j=1</text>
+<text top="1134" left="466" width="8" height="13" font="4">p</text>
+<text top="1133" left="475" width="5" height="14" font="0">(</text>
+<text top="1134" left="481" width="7" height="13" font="4">x</text>
+<text top="1131" left="488" width="3" height="10" font="5">j</text>
+<text top="1134" left="492" width="14" height="13" font="4">; <i>µ</i></text>
+<text top="1129" left="506" width="3" height="10" font="5">j</text>
+<text top="1141" left="506" width="5" height="10" font="5">k</text>
+<text top="1134" left="511" width="15" height="13" font="4">, <i>π</i></text>
+<text top="1129" left="527" width="3" height="10" font="5">j</text>
+<text top="1141" left="527" width="5" height="10" font="5">k</text>
+<text top="1133" left="532" width="5" height="14" font="0">)</text>
+<text top="1134" left="538" width="3" height="13" font="4">,</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">103</text>
+<text top="103" left="148" width="48" height="13" font="4">where <i><b>θ</b></i></text>
+<text top="102" left="200" width="20" height="14" font="0">= (</text>
+<text top="106" left="221" width="9" height="10" font="11"><i>π</i></text>
+<text top="98" left="231" width="3" height="10" font="5">j</text>
+<text top="110" left="230" width="5" height="10" font="5">k</text>
+<text top="103" left="236" width="14" height="13" font="4">, <i>µ</i></text>
+<text top="98" left="250" width="3" height="10" font="5">j</text>
+<text top="110" left="249" width="5" height="10" font="5">k</text>
+<text top="103" left="255" width="13" height="13" font="4">, p</text>
+<text top="108" left="269" width="5" height="10" font="5">k</text>
+<text top="102" left="274" width="5" height="14" font="0">)</text>
+<text top="108" left="280" width="80" height="11" font="5">k=1,...,K ,j=1,...,J</text>
+<text top="103" left="365" width="34" height="13" font="4">and p</text>
+<text top="102" left="399" width="5" height="14" font="0">(</text>
+<text top="103" left="405" width="7" height="13" font="4">x</text>
+<text top="100" left="413" width="3" height="10" font="5">j</text>
+<text top="103" left="416" width="14" height="13" font="4">; <i>µ</i></text>
+<text top="98" left="431" width="3" height="10" font="5">j</text>
+<text top="110" left="430" width="5" height="10" font="5">k</text>
+<text top="103" left="436" width="15" height="13" font="4">, <i>π</i></text>
+<text top="98" left="452" width="3" height="10" font="5">j</text>
+<text top="110" left="451" width="5" height="10" font="5">k</text>
+<text top="102" left="457" width="5" height="14" font="0">)</text>
+<text top="103" left="466" width="84" height="13" font="4">is defined by <a href="2014-1-jacques-grimonprez-biernacki.html#2">(</a></text>
+<text top="103" left="550" width="34" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#2">22.2.1</a></text>
+<text top="103" left="584" width="8" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#2">).</a></text>
+<text top="127" left="171" width="111" height="13" font="4">Each component x</text>
+<text top="125" left="283" width="3" height="10" font="5">j</text>
+<text top="127" left="291" width="454" height="13" font="4">of <b>x </b>can be full or partial. Frequently, the objects in the top positions will be</text>
+<text top="144" left="149" width="595" height="13" font="4">ranked and the missing ones will be at the end of the ranking, but our model does not impose this and</text>
+<text top="160" left="149" width="548" height="13" font="4">is able to work with partial rankings whatever the positions of the missing data (see details in</text>
+<text top="160" left="700" width="44" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques</a></text>
+<text top="177" left="149" width="82" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">and Biernacki</a></text>
+<text top="177" left="234" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="177" left="239" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="177" left="265" width="12" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">)).</a></text>
+<text top="219" left="149" width="145" height="15" font="9"><b>Estimation algorithm</b></text>
+<text top="251" left="149" width="595" height="13" font="4">Parameter estimation is performed by maximum likelihood. However, maximum likelihood estimation</text>
+<text top="267" left="149" width="554" height="13" font="4">is not straightforward since the model contains some missing data: the cluster memberships z</text>
+<text top="272" left="703" width="3" height="10" font="5">i</text>
+<text top="267" left="710" width="34" height="13" font="4">of the</text>
+<text top="286" left="149" width="234" height="13" font="4">observations, the presentation orders <b>y</b></text>
+<text top="291" left="382" width="3" height="10" font="5">i</text>
+<text top="286" left="390" width="53" height="13" font="4">(where <b>y</b></text>
+<text top="291" left="443" width="3" height="10" font="5">i</text>
+<text top="285" left="450" width="20" height="14" font="0">= (</text>
+<text top="286" left="471" width="7" height="13" font="4">y</text>
+<text top="284" left="478" width="5" height="10" font="5">1</text>
+<text top="293" left="478" width="3" height="10" font="5">i</text>
+<text top="286" left="484" width="36" height="13" font="4">, . . . , y</text>
+<text top="282" left="521" width="3" height="10" font="5">J</text>
+<text top="293" left="520" width="3" height="10" font="5">i</text>
+<text top="285" left="526" width="5" height="14" font="0">)</text>
+<text top="286" left="535" width="209" height="13" font="4">is the presentation order for the ith</text>
+<text top="303" left="149" width="397" height="13" font="4">observation) and the unobserved ranking positions, denoted by ˆ<b>x</b></text>
+<text top="308" left="546" width="3" height="10" font="5">i</text>
+<text top="303" left="554" width="190" height="13" font="4">(for partial rankings). In such a</text>
+<text top="319" left="149" width="536" height="13" font="4">situation, a convenient way to maximize the likelihood is to consider an EM algorithm <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="319" left="685" width="60" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Dempster</a></text>
+<text top="336" left="149" width="29" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">et al.</a></text>
+<text top="336" left="178" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="336" left="185" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1977</a></text>
+<text top="336" left="213" width="532" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">). </a>This algorithm relies on the completed-data log-likelihood, and proceeds by iterating</text>
+<text top="352" left="149" width="595" height="13" font="4">an estimation (E) step, in which the conditional expectation of the completed-data log-likelihood is</text>
+<text top="368" left="149" width="595" height="13" font="4">computed, and a maximization (M) step, in which the model parameters are estimated by maximizing</text>
+<text top="385" left="149" width="596" height="13" font="4">the conditional expectation computed in the E step. Unfortunately, the EM algorithm is tractable only</text>
+<text top="401" left="149" width="292" height="13" font="4">for univariate full rankings with moderate m (m</text>
+<text top="400" left="446" width="11" height="13" font="0">≤</text>
+<text top="401" left="462" width="282" height="13" font="4">7) for mathematical and numerical reasons. In</text>
+<text top="418" left="148" width="596" height="13" font="4">particular, when partial rankings occur, the E step is intractable since the completed-data log-likelihood</text>
+<text top="434" left="149" width="317" height="13" font="4">is not linear for all three types of missing data (refer to</text>
+<text top="434" left="469" width="128" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="434" left="601" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="434" left="605" width="26" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="434" left="631" width="115" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>for its expression).</text>
+<text top="451" left="148" width="349" height="13" font="4">A Stochastic EM (SEM) Gibbs approach is then proposed in</text>
+<text top="451" left="501" width="129" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="451" left="633" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="451" left="637" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="451" left="664" width="80" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>to overcome</text>
+<text top="467" left="149" width="93" height="13" font="4">these problems.</text>
+<text top="488" left="171" width="573" height="13" font="4">The fundamental idea of the SEM-Gibbs algorithm is to reduce the computational complexity that</text>
+<text top="504" left="149" width="595" height="13" font="4">is present in both E and M steps of EM by removing all explicit and extensive use of the conditional</text>
+<text top="521" left="149" width="479" height="13" font="4">expectations of any product of missing data. First, it relies on the SEM algorithm <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="521" left="628" width="114" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Geman and Geman</a></text>
+<text top="521" left="742" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="537" left="148" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1984</a></text>
+<text top="537" left="175" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">;</a></text>
+<text top="537" left="182" width="116" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Celeux and Diebolt</a></text>
+<text top="537" left="298" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="537" left="304" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1985</a></text>
+<text top="537" left="331" width="413" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>which generates the latent variables at a so-called stochastic (S) step</text>
+<text top="554" left="149" width="595" height="13" font="4">from the conditional probabilities computed at the E step. Then these latent variables are directly used</text>
+<text top="570" left="149" width="595" height="13" font="4">in the M step. Second, the advantage of the SEM-Gibbs algorithm in comparison with the basic SEM</text>
+<text top="587" left="149" width="597" height="13" font="4">one is that the latent variables are generated without calculating conditional probabilities at the E step,</text>
+<text top="603" left="149" width="220" height="13" font="4">thanks to a Gibbs algorithm. Refer to</text>
+<text top="603" left="372" width="130" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="603" left="505" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="603" left="510" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="603" left="537" width="105" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>for more details.</text>
+<text top="648" left="149" width="300" height="17" font="6"><b>Existing R packages for ranking data</b></text>
+<text top="687" left="148" width="597" height="13" font="4">To the best of our knowledge, there are only two packages dedicated to the analysis of ranking data,</text>
+<text top="703" left="149" width="596" height="13" font="4">available on the CRAN website, but their functionalities are significantly limited in comparison to our</text>
+<text top="720" left="148" width="246" height="13" font="4">package <b>Rankcluster</b>, as we discuss now:</text>
+<text top="747" left="171" width="39" height="13" font="4">• The</text>
+<text top="747" left="212" width="25" height="13" font="8"><a href="http://CRAN.R-project.org/package=pmr"><b>pmr</b></a></text>
+<text top="747" left="241" width="58" height="13" font="4">package <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="747" left="299" width="68" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Lee and Yu</a></text>
+<text top="747" left="367" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="747" left="373" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2013</a></text>
+<text top="747" left="401" width="343" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>provides some descriptive statistics and modeling tools</text>
+<text top="763" left="186" width="558" height="13" font="4">using classical rank data models for full univariate ranking data: Luce models, distance-based</text>
+<text top="779" left="186" width="218" height="13" font="4">models, and rank-ordered logit (see</text>
+<text top="779" left="408" width="48" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Marden</a></text>
+<text top="779" left="460" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="779" left="465" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1995</a></text>
+<text top="779" left="492" width="254" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>for a description of these models). Visu-</text>
+<text top="796" left="186" width="558" height="13" font="4">alization of ranking data using polytopes is also available for less than four objects to rank</text>
+<text top="812" left="186" width="15" height="13" font="4">(m</text>
+<text top="811" left="205" width="11" height="13" font="0">≤</text>
+<text top="812" left="220" width="15" height="13" font="4">4).</text>
+<text top="835" left="171" width="39" height="13" font="4">• The</text>
+<text top="835" left="213" width="58" height="13" font="8"><a href="http://CRAN.R-project.org/package=RMallow"><b>RMallow</b></a></text>
+<text top="835" left="274" width="58" height="13" font="4">package <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="835" left="332" width="50" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Gregory</a></text>
+<text top="835" left="382" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="835" left="389" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2012</a></text>
+<text top="835" left="417" width="327" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>performs clustering of univariate ranking data using</text>
+<text top="851" left="186" width="214" height="13" font="4">mixtures of distance-based models <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="851" left="400" width="120" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Murphy and Martin</a></text>
+<text top="851" left="520" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="851" left="527" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2003</a></text>
+<text top="851" left="554" width="8" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">).</a></text>
+<text top="878" left="149" width="74" height="13" font="3"><b>Rankcluster</b></text>
+<text top="878" left="226" width="496" height="13" font="4">proposes modeling and clustering tools on the basis of the mixture of multivariate</text>
+<text top="880" left="726" width="18" height="11" font="5">ISR</text>
+<text top="894" left="148" width="596" height="13" font="4">presented in the previous section. Comparing to the existing packages, <b>Rankcluster </b>is the only</text>
+<text top="911" left="148" width="395" height="13" font="4">package taking into account multivariate and partial ranking data.</text>
+<text top="956" left="149" width="318" height="17" font="6"><b>Overview of the Rankcluster functions</b></text>
+<text top="995" left="148" width="596" height="13" font="4">This section presents briefly the functions of the <b>Rankcluster </b>package. For more details, refer to the</text>
+<text top="1011" left="149" width="126" height="13" font="4">help of the functions.</text>
+<text top="1053" left="149" width="131" height="15" font="9"><b>The main function:</b></text>
+<text top="1049" left="284" width="84" height="20" font="15">rankclust()</text>
+<text top="1085" left="148" width="22" height="13" font="4">The</text>
+<text top="1081" left="174" width="570" height="18" font="4">rankclust() function performs modeling or cluster analysis of a dataset of rankings. For cluster</text>
+<text top="1101" left="149" width="595" height="13" font="4">analysis, the number of clusters can be specified by the user, or selected by the Bayesian Information</text>
+<text top="1118" left="149" width="96" height="13" font="4">Criterion (BIC) <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="1118" left="245" width="51" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Schwarz</a></text>
+<text top="1118" left="296" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="1118" left="303" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1978</a></text>
+<text top="1118" left="329" width="291" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">), </a>or the Integrated Completed Likelihood (ICL) <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="1118" left="620" width="87" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Biernacki et al.</a></text>
+<text top="1118" left="707" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="1118" left="714" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2000</a></text>
+<text top="1118" left="741" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">)</a></text>
+<text top="1134" left="149" width="597" height="13" font="4">in a list of possible numbers provided by the user. By default, the number of clusters is equal to one,</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">104</text>
+<text top="103" left="149" width="315" height="13" font="4">and consequently a single homogeneous multivariate</text>
+<text top="105" left="467" width="18" height="11" font="5">ISR</text>
+<text top="103" left="489" width="255" height="13" font="4">model is fitted to the data. The main inputs</text>
+<text top="120" left="149" width="197" height="13" font="4">and outputs are described below.</text>
+<text top="141" left="171" width="304" height="13" font="4">This function has only one mandatory argument,</text>
+<text top="137" left="481" width="263" height="18" font="4">data, which is a matrix composed of the n</text>
+<text top="157" left="149" width="595" height="13" font="4">observed ranks in their ranking representation. For <b>univariate rankings </b>the number of columns of</text>
+<text top="170" left="149" width="468" height="18" font="4">data is m (default value of argument m). For <b>multivariate rankings</b>, data has m</text>
+<text top="178" left="617" width="5" height="10" font="5">1</text>
+<text top="172" left="626" width="11" height="14" font="0">+</text>
+<text top="173" left="640" width="15" height="13" font="4">. . .</text>
+<text top="172" left="658" width="11" height="14" font="0">+</text>
+<text top="173" left="672" width="10" height="13" font="4">m</text>
+<text top="178" left="683" width="3" height="10" font="5">J</text>
+<text top="173" left="692" width="54" height="13" font="4">columns:</text>
+<text top="192" left="149" width="60" height="13" font="4">the first m</text>
+<text top="197" left="209" width="5" height="10" font="5">1</text>
+<text top="192" left="218" width="110" height="13" font="4">columns contain x</text>
+<text top="189" left="328" width="5" height="10" font="5">1</text>
+<text top="192" left="338" width="194" height="13" font="4">(first dimension), the columns m</text>
+<text top="197" left="532" width="5" height="10" font="5">1</text>
+<text top="191" left="541" width="11" height="14" font="0">+</text>
+<text top="192" left="554" width="36" height="13" font="4">1 to m</text>
+<text top="197" left="590" width="5" height="10" font="5">1</text>
+<text top="191" left="599" width="11" height="14" font="0">+</text>
+<text top="192" left="613" width="10" height="13" font="4">m</text>
+<text top="196" left="624" width="5" height="10" font="5">2</text>
+<text top="192" left="633" width="55" height="13" font="4">contain x</text>
+<text top="189" left="688" width="5" height="10" font="5">2</text>
+<text top="192" left="698" width="46" height="13" font="4">(second</text>
+<text top="208" left="149" width="290" height="13" font="4">dimension), and so on. In this case, the argument</text>
+<text top="205" left="443" width="225" height="18" font="4">m must be filled with the vector of size</text>
+<text top="207" left="671" width="5" height="14" font="0">(</text>
+<text top="208" left="677" width="10" height="13" font="4">m</text>
+<text top="213" left="687" width="5" height="10" font="5">1</text>
+<text top="208" left="693" width="40" height="13" font="4">, . . . , m</text>
+<text top="213" left="734" width="3" height="10" font="5">j</text>
+<text top="207" left="738" width="5" height="14" font="0">)</text>
+<text top="208" left="743" width="3" height="13" font="4">.</text>
+<text top="225" left="149" width="595" height="13" font="4">Several arguments allow the different tuning parameters used in the SEM-Gibbs estimation to be</text>
+<text top="241" left="149" width="106" height="13" font="4">specified. Refer to</text>
+<text top="241" left="258" width="129" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="241" left="390" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="241" left="395" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="241" left="421" width="45" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>and to</text>
+<text top="238" left="470" width="248" height="18" font="4">help(rankclust) for more details (section</text>
+<text top="241" left="721" width="23" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#4">22.5</a></text>
+<text top="258" left="149" width="238" height="13" font="4">also gives some examples). The option</text>
+<text top="254" left="391" width="354" height="18" font="4">run allows the number of initializations of the SEM-Gibbs</text>
+<text top="274" left="149" width="595" height="13" font="4">algorithm to be set (1 by default). In the case of multiple initializations, the best solution according to</text>
+<text top="290" left="149" width="261" height="13" font="4">the approximated log-likelihood is retained.</text>
+<text top="311" left="171" width="22" height="13" font="4">The</text>
+<text top="308" left="197" width="549" height="18" font="4">rankclust() function returns an instance of the &#34;ResultTab&#34; class. It contains 5 slots, includ-</text>
+<text top="328" left="149" width="20" height="13" font="4">ing</text>
+<text top="324" left="172" width="229" height="18" font="4">results which is a list containing all k</text>
+<text top="327" left="404" width="11" height="14" font="0">=</text>
+<text top="328" left="419" width="325" height="13" font="4">1, . . . , K classes, summarized in 18 slots, among which</text>
+<text top="344" left="149" width="108" height="13" font="4">the main ones are:</text>
+<text top="371" left="171" width="8" height="13" font="4">•</text>
+<text top="367" left="186" width="237" height="18" font="4">proportion: a K-vector of proportions p</text>
+<text top="376" left="424" width="5" height="10" font="5">1</text>
+<text top="371" left="430" width="37" height="13" font="4">, . . . , p</text>
+<text top="375" left="467" width="7" height="10" font="5">K</text>
+<text top="371" left="475" width="3" height="13" font="4">.</text>
+<text top="397" left="171" width="8" height="13" font="4">•</text>
+<text top="393" left="186" width="40" height="18" font="4">pi: a K</text>
+<text top="396" left="230" width="11" height="13" font="0">×</text>
+<text top="397" left="244" width="265" height="14" font="4">J-matrix composed of the scale parameters <i>π</i></text>
+<text top="391" left="511" width="3" height="10" font="5">j</text>
+<text top="404" left="510" width="5" height="10" font="5">k</text>
+<text top="397" left="519" width="11" height="13" font="4">(1</text>
+<text top="396" left="534" width="11" height="13" font="0">≤</text>
+<text top="397" left="549" width="6" height="13" font="4">k</text>
+<text top="396" left="559" width="11" height="13" font="0">≤</text>
+<text top="397" left="574" width="46" height="14" font="4">K and 1</text>
+<text top="396" left="624" width="11" height="13" font="0">≤</text>
+<text top="397" left="639" width="4" height="13" font="4">j</text>
+<text top="396" left="647" width="11" height="13" font="0">≤</text>
+<text top="397" left="663" width="13" height="14" font="4">J).</text>
+<text top="419" left="171" width="8" height="13" font="4">•</text>
+<text top="415" left="186" width="183" height="18" font="4">mu: a matrix with K lines and m</text>
+<text top="424" left="369" width="5" height="10" font="5">1</text>
+<text top="418" left="378" width="11" height="14" font="0">+</text>
+<text top="419" left="392" width="15" height="13" font="4">. . .</text>
+<text top="418" left="410" width="11" height="14" font="0">+</text>
+<text top="419" left="424" width="10" height="13" font="4">m</text>
+<text top="423" left="435" width="3" height="10" font="5">J</text>
+<text top="419" left="443" width="301" height="13" font="4">columns in which line k is composed of the location</text>
+<text top="439" left="186" width="67" height="13" font="4">parameters</text>
+<text top="438" left="256" width="5" height="14" font="0">(</text>
+<text top="442" left="262" width="8" height="10" font="11"><i>µ</i></text>
+<text top="436" left="270" width="5" height="10" font="5">1</text>
+<text top="446" left="270" width="5" height="10" font="5">k</text>
+<text top="439" left="276" width="37" height="13" font="4">, . . . , <i>µ</i></text>
+<text top="434" left="314" width="3" height="10" font="5">J</text>
+<text top="446" left="313" width="5" height="10" font="5">k</text>
+<text top="438" left="319" width="5" height="14" font="0">)</text>
+<text top="439" left="328" width="68" height="13" font="4">of cluster k.</text>
+<text top="461" left="171" width="8" height="13" font="4">•</text>
+<text top="458" left="186" width="400" height="18" font="4">ll,bic,icl: values of the log-likelihood, BIC and ICL, respectively.</text>
+<text top="483" left="171" width="8" height="13" font="4">•</text>
+<text top="480" left="186" width="54" height="18" font="4">tik: an n</text>
+<text top="482" left="243" width="11" height="13" font="0">×</text>
+<text top="483" left="257" width="487" height="14" font="4">K matrix containing the estimates of the conditional probabilities of belonging to</text>
+<text top="500" left="186" width="210" height="13" font="4">each cluster for the observed ranks.</text>
+<text top="522" left="171" width="8" height="13" font="4">•</text>
+<text top="518" left="186" width="510" height="18" font="4">partition: an n-vector containing the partition estimate resulting from the clustering.</text>
+<text top="544" left="171" width="8" height="13" font="4">•</text>
+<text top="540" left="186" width="534" height="18" font="4">partialRank: a matrix containing the full rankings, estimated using the within cluster</text>
+<text top="546" left="726" width="18" height="11" font="5">ISR</text>
+<text top="560" left="186" width="234" height="13" font="4">parameters when the ranking is partial.</text>
+<text top="582" left="171" width="8" height="13" font="4">•</text>
+<text top="579" left="186" width="558" height="18" font="4">distanceProp,distancePi,distanceMu: distances between the final estimate and the current</text>
+<text top="599" left="186" width="560" height="13" font="4">value at each iteration of the SEM-Gibbs algorithm (except the burn-in phase) for respectively:</text>
+<text top="619" left="186" width="81" height="13" font="4">proportions p</text>
+<text top="624" left="267" width="5" height="10" font="5">k</text>
+<text top="619" left="273" width="118" height="13" font="4">, scale parameters <i>π</i></text>
+<text top="613" left="393" width="3" height="10" font="5">j</text>
+<text top="626" left="392" width="5" height="10" font="5">k</text>
+<text top="619" left="397" width="136" height="13" font="4">, location parameters <i>µ</i></text>
+<text top="613" left="534" width="3" height="10" font="5">j</text>
+<text top="626" left="534" width="5" height="10" font="5">k</text>
+<text top="619" left="539" width="3" height="13" font="4">.</text>
+<text top="641" left="171" width="8" height="13" font="4">•</text>
+<text top="637" left="186" width="386" height="18" font="4">distanceZ: a vector of size Qsem-Bsem containing the Rand index <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="641" left="572" width="31" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Rand</a></text>
+<text top="641" left="603" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="641" left="610" width="26" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1971</a></text>
+<text top="641" left="636" width="108" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>between the final</text>
+<text top="657" left="186" width="558" height="13" font="4">estimated partition and the current value at each iteration of the SEM-Gibbs algorithm (except</text>
+<text top="674" left="186" width="116" height="13" font="4">the burning phase).</text>
+<text top="700" left="149" width="9" height="13" font="4">If</text>
+<text top="697" left="161" width="585" height="18" font="4">res is the name assigned to the result of rankclust(), each slot can be obtained by res[k]@slotname,</text>
+<text top="717" left="148" width="37" height="13" font="4">where</text>
+<text top="713" left="189" width="555" height="18" font="4">k is the cluster index and slotname is the name of the selected slot (proportion, pi ...). For the</text>
+<text top="733" left="149" width="27" height="13" font="4">slots</text>
+<text top="730" left="179" width="565" height="18" font="4">ll, bic and icl, res[&#34;slotname&#34;] returns a vector of size K containing the values of the slot for</text>
+<text top="750" left="149" width="110" height="13" font="4">each cluster index.</text>
+<text top="792" left="149" width="149" height="15" font="9"><b>Companion functions</b></text>
+<text top="823" left="149" width="189" height="13" font="4">In addition to the main function,</text>
+<text top="820" left="341" width="406" height="18" font="4">rankclust(), several companion functions are available in <b>Rankclus-</b></text>
+<text top="840" left="149" width="16" height="13" font="3"><b>ter</b></text>
+<text top="840" left="165" width="3" height="13" font="4">:</text>
+<text top="866" left="171" width="8" height="13" font="4">•</text>
+<text top="863" left="186" width="297" height="18" font="4">convertRank(): converts ranking representation x</text>
+<text top="863" left="484" width="14" height="11" font="5">−1</text>
+<text top="866" left="502" width="244" height="13" font="4">of a rank to its ordering representation x,</text>
+<text top="883" left="186" width="124" height="13" font="4">and vice-versa since x</text>
+<text top="882" left="313" width="7" height="13" font="0">◦</text>
+<text top="883" left="323" width="7" height="13" font="4">x</text>
+<text top="879" left="330" width="14" height="11" font="5">−1</text>
+<text top="882" left="349" width="11" height="14" font="0">=</text>
+<text top="883" left="364" width="7" height="13" font="4">x</text>
+<text top="879" left="371" width="14" height="11" font="5">−1</text>
+<text top="882" left="389" width="7" height="13" font="0">◦</text>
+<text top="883" left="399" width="10" height="14" font="4">x.</text>
+<text top="905" left="171" width="8" height="13" font="4">•</text>
+<text top="901" left="186" width="560" height="18" font="4">distCayley(),distHamming(),distKendall(),distSpearman(): compute usual distances be-</text>
+<text top="921" left="186" width="100" height="13" font="4">tween rankings <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="921" left="286" width="47" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Marden</a></text>
+<text top="921" left="333" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="921" left="340" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1995</a></text>
+<text top="921" left="367" width="276" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>for either ranking or ordering representation.</text>
+<text top="943" left="171" width="8" height="13" font="4">•</text>
+<text top="940" left="186" width="558" height="18" font="4">frequence(): transforms a raw dataset composed of a matrix of ranks (one rank per line, with</text>
+<text top="960" left="186" width="559" height="13" font="4">possibly equal lines if the same rank is observed several times) into a matrix rank/frequency</text>
+<text top="976" left="186" width="560" height="13" font="4">containing in line each different observed ranks and one additional last column with the fre-</text>
+<text top="993" left="186" width="292" height="13" font="4">quency of observation of these ranks. Conversely,</text>
+<text top="989" left="481" width="264" height="18" font="4">unfrequence() transforms a rank/frequency</text>
+<text top="1009" left="186" width="348" height="13" font="4">dataset in a raw dataset, as requested in input argument of</text>
+<text top="1006" left="538" width="79" height="18" font="4">rankclust().</text>
+<text top="1031" left="171" width="8" height="13" font="4">•</text>
+<text top="1028" left="186" width="558" height="18" font="4">khi2(): performs a chi-squared goodness-of-fit tests and returns the p-value of the test (See</text>
+<text top="1048" left="186" width="130" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Biernacki and Jacques</a></text>
+<text top="1048" left="320" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="1048" left="324" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">2013</a></text>
+<text top="1048" left="351" width="75" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">) </a>for details).</text>
+<text top="1070" left="171" width="8" height="13" font="4">•</text>
+<text top="1066" left="186" width="405" height="18" font="4">kullback(): estimates the Kullback-Leibler divergence between two</text>
+<text top="1072" left="595" width="18" height="11" font="5">ISR</text>
+<text top="1070" left="617" width="47" height="13" font="4">models.</text>
+<text top="1092" left="171" width="8" height="13" font="4">•</text>
+<text top="1088" left="186" width="536" height="18" font="4">simulISR(): simulates a univariate and unimodal dataset of full rankings according to the</text>
+<text top="1094" left="726" width="18" height="11" font="5">ISR</text>
+<text top="1108" left="186" width="41" height="13" font="4">model.</text>
+<text top="1130" left="171" width="8" height="13" font="4">•</text>
+<text top="1127" left="186" width="536" height="18" font="4">probability(): computes the probability of a ranking (multivariate or not) according to the</text>
+<text top="1132" left="726" width="17" height="11" font="5">ISR</text>
+<text top="1147" left="186" width="41" height="13" font="4">model.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="8" family="Times" color="#000000"/>
+	<fontspec id="17" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">105</text>
+<text top="100" left="149" width="250" height="17" font="6"><b>Rankcluster through examples</b></text>
+<text top="139" left="148" width="210" height="13" font="4">This section illustrates the use of the</text>
+<text top="135" left="361" width="383" height="18" font="4">rankclust() function on two real datasets. The first one, words, is</text>
+<text top="155" left="149" width="281" height="13" font="4">a well-known dataset in ranking studies, due to</text>
+<text top="155" left="434" width="123" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Fligner and Verducci</a></text>
+<text top="155" left="560" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="155" left="564" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1986</a></text>
+<text top="155" left="591" width="153" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">), </a>which consists of words</text>
+<text top="172" left="149" width="255" height="13" font="4">associations by students. The second one,</text>
+<text top="168" left="408" width="336" height="18" font="4">big4 consists of the rankings of the Big Four of English</text>
+<text top="188" left="149" width="595" height="13" font="4">Football (Manchester United, Liverpool, Arsenal and Chelsea) according to the Premier League results</text>
+<text top="205" left="149" width="321" height="13" font="4">and to their UEFA coefficients between 1993 and 2013.</text>
+<text top="247" left="149" width="27" height="15" font="9"><b>The</b></text>
+<text top="243" left="179" width="38" height="20" font="15">words</text>
+<text top="247" left="221" width="48" height="15" font="9"><b>dataset</b></text>
+<text top="279" left="148" width="528" height="13" font="4">This dataset was collected under the auspices of the Graduate Record Examination Board <a href="2014-1-jacques-grimonprez-biernacki.html#9">(</a></text>
+<text top="279" left="677" width="67" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Fligner and</a></text>
+<text top="295" left="148" width="52" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">Verducci</a></text>
+<text top="295" left="200" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">,</a></text>
+<text top="295" left="207" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">1986</a></text>
+<text top="295" left="234" width="510" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">). </a>A sample of 98 college students were asked to rank five words according to strength</text>
+<text top="311" left="149" width="597" height="13" font="4">of association (least to most associated) with the target word &#34;Idea&#34;: 1 = Thought, 2 = Play, 3 = Theory,</text>
+<text top="328" left="149" width="174" height="13" font="4">4 = Dream and 5 = Attention.</text>
+<text top="551" left="324" width="6" height="8" font="5">1</text>
+<text top="551" left="388" width="6" height="8" font="5">2</text>
+<text top="551" left="453" width="6" height="8" font="5">3</text>
+<text top="551" left="518" width="6" height="8" font="5">4</text>
+<text top="551" left="583" width="6" height="8" font="5">5</text>
+<text top="538" left="305" width="0" height="8" font="16">520</text>
+<text top="504" left="305" width="0" height="8" font="16">530</text>
+<text top="470" left="305" width="0" height="8" font="16">540</text>
+<text top="436" left="305" width="0" height="8" font="16">550</text>
+<text top="402" left="305" width="0" height="8" font="16">560</text>
+<text top="370" left="361" width="189" height="10" font="17"><b>BIC value on the words dataset</b></text>
+<text top="571" left="452" width="7" height="8" font="5">K</text>
+<text top="470" left="285" width="0" height="8" font="16">BIC</text>
+<text top="608" left="219" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="608" left="276" width="246" height="13" font="4">Value of the BIC criterion with mixture of</text>
+<text top="610" left="526" width="18" height="11" font="5">ISR</text>
+<text top="608" left="548" width="39" height="13" font="4">for the</text>
+<text top="605" left="590" width="84" height="18" font="4">words dataset.</text>
+<text top="662" left="171" width="534" height="13" font="4">First we start by installing and loading the <b>Rankcluster </b>package and then loading the</text>
+<text top="659" left="710" width="34" height="18" font="4">words</text>
+<text top="679" left="149" width="46" height="13" font="4">dataset:</text>
+<text top="705" left="149" width="233" height="18" font="4">R&gt; install.packages(&#34;Rankcluster&#34;)</text>
+<text top="722" left="149" width="158" height="18" font="4">R&gt; library(Rankcluster)</text>
+<text top="738" left="149" width="96" height="18" font="4">R&gt; data(words)</text>
+<text top="771" left="171" width="57" height="13" font="4">Using the</text>
+<text top="768" left="232" width="472" height="18" font="4">rankclust() function, a clustering with respectively 1 to 5 clusters is estimated:</text>
+<text top="798" left="149" width="562" height="18" font="4">R&gt; res=rankclust(words$data, m=words$m, K=1:5, Qsem=1000, Bsem=100, Ql=500, Bl=50,</text>
+<text top="814" left="149" width="144" height="18" font="4">+ maxTry=20, run=10)</text>
+<text top="848" left="171" width="235" height="13" font="4">The number of SEM-Gibbs iterations (</text>
+<text top="844" left="406" width="338" height="18" font="4">Qsem) has been set to 1000, with a burn-in phase of 100</text>
+<text top="864" left="149" width="66" height="13" font="4">iterations (</text>
+<text top="861" left="215" width="529" height="18" font="4">Bsem). For likelihood approximation the numbers of iterations (Ql and Bl) have been</text>
+<text top="880" left="149" width="144" height="13" font="4">divided by two. Option</text>
+<text top="877" left="296" width="448" height="18" font="4">maxTry=20 allows the estimation algorithm to be restarted up to 20 times if</text>
+<text top="897" left="149" width="346" height="13" font="4">one cluster becomes empty (which frequently occurs for K</text>
+<text top="896" left="499" width="11" height="14" font="0">=</text>
+<text top="897" left="514" width="230" height="13" font="4">5). Finally, the SEM-Gibbs algorithm is</text>
+<text top="913" left="149" width="111" height="13" font="4">initialized 5 times (</text>
+<text top="910" left="260" width="487" height="18" font="4">run=5), and the best solution (according to the approximated likelihood) is retained.</text>
+<text top="930" left="149" width="595" height="13" font="4">Computing time on a laptop with 2.80GHz CPU is about 3 minutes (7 seconds per run per number of</text>
+<text top="946" left="149" width="597" height="13" font="4">clusters). The reader who wants to test more quickly the package can reduced the number of runs,</text>
+<text top="963" left="149" width="109" height="13" font="4">using for instance:</text>
+<text top="986" left="149" width="549" height="18" font="4">R&gt; res=rankclust(words$data, m=words$m, K=1:5, Qsem=200, Bsem=20, Ql=200, Bl=20,</text>
+<text top="1002" left="149" width="89" height="18" font="4">+ maxTry=20)</text>
+<text top="1033" left="171" width="266" height="13" font="4">The values of the BIC criterion, obtained by</text>
+<text top="1029" left="441" width="205" height="18" font="4">res[&#34;bic&#34;] and plotted on Figure</text>
+<text top="1033" left="650" width="7" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#5">1</a></text>
+<text top="1033" left="656" width="88" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#5">, </a>tend to select</text>
+<text top="1049" left="149" width="82" height="13" font="4">three clusters.</text>
+<text top="1070" left="171" width="179" height="13" font="4">The parameter estimates for K</text>
+<text top="1069" left="355" width="11" height="14" font="0">=</text>
+<text top="1070" left="369" width="210" height="13" font="4">3 are given below for proportions p</text>
+<text top="1075" left="580" width="5" height="10" font="5">k</text>
+<text top="1070" left="585" width="54" height="13" font="4">, scales <i>π</i></text>
+<text top="1075" left="639" width="5" height="10" font="5">k</text>
+<text top="1070" left="648" width="77" height="13" font="4">and modes <i>µ</i></text>
+<text top="1075" left="726" width="5" height="10" font="5">k</text>
+<text top="1070" left="731" width="3" height="13" font="4">:</text>
+<text top="1094" left="149" width="137" height="18" font="4">R&gt; res[3]@proportion</text>
+<text top="1110" left="149" width="226" height="18" font="4">[1] 0.3061224 0.4918367 0.2020408</text>
+<text top="1127" left="149" width="82" height="18" font="4">R&gt; res[3]@pi</text>
+<text top="1143" left="211" width="34" height="18" font="4">dim 1</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="18" size="6" family="Times" color="#000000"/>
+	<fontspec id="19" size="6" family="Times" color="#000000"/>
+	<fontspec id="20" size="7" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">106</text>
+<text top="100" left="149" width="96" height="18" font="4">cl 1 0.9060649</text>
+<text top="116" left="149" width="96" height="18" font="4">cl 2 0.9416822</text>
+<text top="133" left="149" width="96" height="18" font="4">cl 3 0.8642753</text>
+<text top="149" left="149" width="82" height="18" font="4">R&gt; res[3]@mu</text>
+<text top="165" left="183" width="34" height="18" font="4">dim 1</text>
+<text top="182" left="149" width="27" height="18" font="4">cl 1</text>
+<text top="182" left="211" width="62" height="18" font="4">5 1 3 4 2</text>
+<text top="198" left="149" width="27" height="18" font="4">cl 2</text>
+<text top="198" left="211" width="62" height="18" font="4">5 1 4 3 2</text>
+<text top="215" left="149" width="27" height="18" font="4">cl 3</text>
+<text top="215" left="211" width="62" height="18" font="4">5 2 4 3 1</text>
+<text top="245" left="171" width="573" height="13" font="4">The word Thought is most associated with Idea for all clusters. Looking at the rankings of the four</text>
+<text top="262" left="149" width="595" height="13" font="4">other words can suggest an interesting interpretation of the clusters. Indeed, the first cluster, composed</text>
+<text top="278" left="149" width="597" height="13" font="4">of about 30% of the students, is characterized by the following modal ranking: Play, Attention, Theory,</text>
+<text top="294" left="149" width="595" height="13" font="4">Dream, Thought. Students in this cluster are probably literary-minded students who rank the word</text>
+<text top="311" left="149" width="596" height="13" font="4">Dream just after Thought. Students in the second cluster (about half of total students) are probably</text>
+<text top="327" left="149" width="597" height="13" font="4">more scientific since they rank the word Theory just after Thought, and so before the word Dream:</text>
+<text top="344" left="149" width="595" height="13" font="4">Play, Attention, Dream, Theory, Thought. This cluster is also the most homogeneous, with a high scale</text>
+<text top="360" left="148" width="213" height="13" font="4">parameter value (low dispersion): <i>π</i></text>
+<text top="365" left="362" width="5" height="10" font="5">2</text>
+<text top="359" left="372" width="11" height="13" font="0">'</text>
+<text top="360" left="386" width="358" height="13" font="4">0.94. Finally, the last cluster is characterized by the following</text>
+<text top="377" left="149" width="595" height="13" font="4">mode: Attention, Play, Dream, Theory, Thought. The only difference in the modal ranking with the</text>
+<text top="393" left="149" width="595" height="13" font="4">scientific students is the preference of Play rather than Attention. This cluster, which is the smallest</text>
+<text top="409" left="148" width="596" height="13" font="4">(20% of the students), can be qualified as intermediate cluster, probably composed of a set of students</text>
+<text top="426" left="149" width="596" height="13" font="4">not too scientific or too literary-minded, as evidenced by the smallest of the three scale parameter</text>
+<text top="442" left="148" width="56" height="13" font="4">values (<i>π</i></text>
+<text top="447" left="204" width="5" height="10" font="5">3</text>
+<text top="441" left="214" width="11" height="13" font="0">'</text>
+<text top="442" left="229" width="31" height="13" font="4">0.86).</text>
+<text top="485" left="149" width="27" height="15" font="9"><b>The</b></text>
+<text top="481" left="179" width="30" height="20" font="15">big4</text>
+<text top="485" left="213" width="48" height="15" font="9"><b>dataset</b></text>
+<text top="516" left="149" width="597" height="13" font="4">In the two last decades, English football has been dominated by four clubs, forming the “Big Four”:</text>
+<text top="533" left="149" width="595" height="13" font="4">Manchester United, Liverpool, Arsenal and Chelsea. In this example, we analyse the rankings of</text>
+<text top="549" left="149" width="595" height="13" font="4">these four teams in the English championship (Premier League) and their rankings according to the</text>
+<text top="566" left="149" width="595" height="13" font="4">UEFA coefficient, a European statistic on football teams based on the results of European football</text>
+<text top="582" left="149" width="518" height="13" font="4">competitions and used for ranking and seeding teams in international competitions. The</text>
+<text top="579" left="670" width="76" height="18" font="4">big4 dataset,</text>
+<text top="598" left="149" width="595" height="13" font="4">available in the package, is composed of Premier League rankings and UEFA rankings from 1993 to</text>
+<text top="615" left="149" width="595" height="13" font="4">2013, in ranking notation (club “1” is Manchester United, “2” is Liverpool, “3” is Arsenal and “4” is</text>
+<text top="631" left="149" width="595" height="13" font="4">Chelsea). In 2001 Arsenal and Chelsea had the same UEFA coefficient and then are tied for the first</text>
+<text top="648" left="149" width="595" height="13" font="4">ranking dimension. With <b>Rankcluster</b>, one way to take into account such ties in ranking data is to</text>
+<text top="664" left="149" width="538" height="13" font="4">consider the corresponding ranking positions as missing: the UEFA ranking becomes then</text>
+<text top="663" left="690" width="5" height="14" font="0">(</text>
+<text top="664" left="696" width="44" height="13" font="4">1, 0, 0, 2</text>
+<text top="663" left="740" width="5" height="14" font="0">)</text>
+<text top="681" left="149" width="595" height="13" font="4">for 2001, what means that Manchester United is the first, Liverpool is the last, and the two intermediate</text>
+<text top="697" left="148" width="354" height="13" font="4">positions are for Arsenal and Chelsea in an unknown order.</text>
+<text top="718" left="171" width="52" height="13" font="4">First, the</text>
+<text top="715" left="227" width="134" height="18" font="4">big4 dataset is loaded:</text>
+<text top="744" left="149" width="89" height="18" font="4">R&gt; data(big4)</text>
+<text top="778" left="171" width="573" height="13" font="4">Then, the number of clusters is estimated with the BIC criterion. For this, clustering for 1 to</text>
+<text top="794" left="149" width="196" height="13" font="4">3 clusters is performed with the</text>
+<text top="791" left="349" width="395" height="18" font="4">rankclust() function. It should be noted that, for 3 clusters, the</text>
+<text top="811" left="149" width="596" height="13" font="4">algorithm has to be launched several times since it often converges to a solution with one empty</text>
+<text top="827" left="149" width="357" height="13" font="4">cluster. The values of the BIC criterion are plotted on Figure</text>
+<text top="827" left="509" width="7" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#6">2</a></text>
+<text top="827" left="516" width="228" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#6">, </a>and tend to select two groups (which</text>
+<text top="844" left="149" width="548" height="13" font="4">confirms that with 3 clusters the estimation algorithm often converges to one empty cluster).</text>
+<text top="1072" left="315" width="4" height="6" font="18">1</text>
+<text top="1072" left="451" width="4" height="6" font="18">2</text>
+<text top="1072" left="588" width="4" height="6" font="18">3</text>
+<text top="1059" left="297" width="0" height="6" font="19">238</text>
+<text top="1035" left="297" width="0" height="6" font="19">240</text>
+<text top="1010" left="297" width="0" height="6" font="19">242</text>
+<text top="985" left="297" width="0" height="6" font="19">244</text>
+<text top="961" left="297" width="0" height="6" font="19">246</text>
+<text top="936" left="297" width="0" height="6" font="19">248</text>
+<text top="911" left="297" width="0" height="6" font="19">250</text>
+<text top="886" left="387" width="133" height="9" font="20"><b>BIC value on the big4 dataset</b></text>
+<text top="1086" left="451" width="5" height="6" font="18">K</text>
+<text top="985" left="283" width="0" height="6" font="19">BIC</text>
+<text top="1119" left="220" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="1118" left="277" width="252" height="13" font="4">Values of the BIC criterion with mixture of</text>
+<text top="1120" left="533" width="18" height="11" font="5">ISR</text>
+<text top="1118" left="554" width="39" height="13" font="4">for the</text>
+<text top="1115" left="597" width="77" height="18" font="4">big4 dataset.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">107</text>
+<text top="103" left="171" width="128" height="13" font="4">The clustering with K</text>
+<text top="102" left="304" width="11" height="14" font="0">=</text>
+<text top="103" left="318" width="356" height="13" font="4">2 is obtained in about 25 seconds on a laptop 2.80GHz CPU:</text>
+<text top="130" left="149" width="549" height="18" font="4">R&gt; res = rankclust(big4$data, m=big4$m, K=2, Qsem=1000, Bsem=100, Ql=500, Bl=50,</text>
+<text top="146" left="149" width="137" height="18" font="4">+ maxTry=20, run=5)</text>
+<text top="179" left="171" width="151" height="13" font="4">The printed outputs for K</text>
+<text top="178" left="326" width="11" height="14" font="0">=</text>
+<text top="179" left="341" width="274" height="13" font="4">2 are given below: value of the log-likelihood (</text>
+<text top="176" left="615" width="129" height="18" font="4">ll), values of BIC and</text>
+<text top="200" left="149" width="249" height="13" font="4">ICL criteria, estimate of the proportions p</text>
+<text top="205" left="398" width="5" height="10" font="5">k</text>
+<text top="200" left="403" width="90" height="13" font="4">’s, the modes <i>µ</i></text>
+<text top="194" left="494" width="3" height="10" font="5">j</text>
+<text top="207" left="494" width="5" height="10" font="5">k</text>
+<text top="200" left="499" width="86" height="13" font="4">’s, the scales <i>π</i></text>
+<text top="194" left="586" width="3" height="10" font="5">j</text>
+<text top="207" left="585" width="5" height="10" font="5">k</text>
+<text top="200" left="591" width="153" height="13" font="4">’s, the estimated partition</text>
+<text top="216" left="149" width="499" height="13" font="4">and finally the conditional probability that the observations belong to each cluster (t</text>
+<text top="221" left="648" width="8" height="10" font="5">ik</text>
+<text top="216" left="657" width="8" height="13" font="4">).</text>
+<text top="242" left="149" width="62" height="18" font="4">R&gt; res[2]</text>
+<text top="259" left="149" width="453" height="18" font="4">******************************************************************</text>
+<text top="275" left="149" width="144" height="18" font="4">Number of clusters: 2</text>
+<text top="292" left="149" width="453" height="18" font="4">******************************************************************</text>
+<text top="308" left="149" width="89" height="18" font="4">ll= -108.5782</text>
+<text top="325" left="149" width="96" height="18" font="4">bic = 244.5571</text>
+<text top="341" left="149" width="96" height="18" font="4">icl = 253.5601</text>
+<text top="357" left="149" width="213" height="18" font="4">proportion: 0.3854034 0.6145966</text>
+<text top="374" left="149" width="21" height="18" font="4">mu:</text>
+<text top="390" left="176" width="27" height="18" font="4">dim1</text>
+<text top="390" left="252" width="27" height="18" font="4">dim2</text>
+<text top="407" left="149" width="21" height="18" font="4">cl1</text>
+<text top="407" left="197" width="48" height="18" font="4">1 3 2 4</text>
+<text top="407" left="272" width="48" height="18" font="4">1 3 2 4</text>
+<text top="423" left="149" width="21" height="18" font="4">cl2</text>
+<text top="423" left="197" width="48" height="18" font="4">1 3 4 2</text>
+<text top="423" left="272" width="48" height="18" font="4">1 4 3 2</text>
+<text top="440" left="149" width="21" height="18" font="4">pi:</text>
+<text top="456" left="211" width="27" height="18" font="4">dim1</text>
+<text top="456" left="279" width="27" height="18" font="4">dim2</text>
+<text top="473" left="149" width="158" height="18" font="4">cl1 0.9698771 0.7759781</text>
+<text top="489" left="149" width="158" height="18" font="4">cl2 0.6945405 0.7707101</text>
+<text top="505" left="149" width="69" height="18" font="4">partition:</text>
+<text top="522" left="149" width="309" height="18" font="4">[1] 2 1 1 1 2 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2</text>
+<text top="538" left="149" width="27" height="18" font="4">tik:</text>
+<text top="555" left="149" width="62" height="18" font="4">[,1] [,2]</text>
+<text top="571" left="149" width="199" height="18" font="4">[1,] 6.280426e-01 0.371957427</text>
+<text top="588" left="149" width="199" height="18" font="4">[2,] 9.933149e-01 0.006685094</text>
+<text top="604" left="149" width="199" height="18" font="4">[3,] 9.565052e-01 0.043494814</text>
+<text top="620" left="149" width="199" height="18" font="4">[4,] 9.923445e-01 0.007655450</text>
+<text top="637" left="149" width="199" height="18" font="4">[5,] 6.609592e-01 0.339040841</text>
+<text top="653" left="149" width="199" height="18" font="4">[6,] 9.916482e-01 0.008351815</text>
+<text top="670" left="149" width="199" height="18" font="4">[7,] 1.215925e-03 0.998784075</text>
+<text top="686" left="149" width="199" height="18" font="4">[8,] 3.500066e-01 0.649993363</text>
+<text top="703" left="149" width="199" height="18" font="4">[9,] 3.441535e-02 0.965584647</text>
+<text top="719" left="149" width="206" height="18" font="4">[10,] 4.063712e-01 0.593628767</text>
+<text top="736" left="149" width="206" height="18" font="4">[11,] 9.589745e-01 0.041025518</text>
+<text top="752" left="149" width="206" height="18" font="4">[12,] 9.751644e-01 0.024835551</text>
+<text top="768" left="149" width="206" height="18" font="4">[13,] 6.806917e-02 0.931930833</text>
+<text top="785" left="149" width="206" height="18" font="4">[14,] 3.175113e-03 0.996824887</text>
+<text top="801" left="149" width="206" height="18" font="4">[15,] 1.263591e-03 0.998736409</text>
+<text top="818" left="149" width="206" height="18" font="4">[16,] 7.713598e-06 0.999992286</text>
+<text top="834" left="149" width="206" height="18" font="4">[17,] 9.115424e-04 0.999088458</text>
+<text top="851" left="149" width="206" height="18" font="4">[18,] 1.734860e-01 0.826513968</text>
+<text top="867" left="149" width="206" height="18" font="4">[19,] 1.605939e-04 0.999839406</text>
+<text top="884" left="149" width="206" height="18" font="4">[20,] 7.425989e-02 0.925740107</text>
+<text top="900" left="149" width="206" height="18" font="4">[21,] 2.171738e-02 0.978282624</text>
+<text top="916" left="149" width="453" height="18" font="4">******************************************************************</text>
+<text top="950" left="171" width="573" height="13" font="4">The estimated clustering exhibits two groups, the second one being larger than the first one</text>
+<text top="966" left="148" width="12" height="13" font="4">(p</text>
+<text top="971" left="161" width="5" height="10" font="5">1</text>
+<text top="965" left="173" width="11" height="13" font="0">'</text>
+<text top="966" left="190" width="64" height="13" font="4">0.39 and p</text>
+<text top="971" left="254" width="5" height="10" font="5">2</text>
+<text top="965" left="266" width="11" height="13" font="0">'</text>
+<text top="966" left="283" width="462" height="13" font="4">0.61). The values of the modes for each cluster and dimension lead to two</text>
+<text top="983" left="149" width="595" height="13" font="4">interesting remarks. First, the ranking in each dimension is very similar in both clusters: exactly the</text>
+<text top="999" left="149" width="595" height="13" font="4">same for cluster 1 and just one transposition in the last two positions for cluster 2. This means that</text>
+<text top="1015" left="149" width="597" height="13" font="4">the performance of the clubs at the Premier League is highly correlated with their UEFA rankings,</text>
+<text top="1032" left="148" width="598" height="13" font="4">which is related to the results of the clubs in the European competitions over the previous five seasons.</text>
+<text top="1048" left="148" width="596" height="13" font="4">This first comment shows a certain inertia in the performance of the clubs. Secondly, the distinction</text>
+<text top="1065" left="149" width="595" height="13" font="4">between the two clusters is essentially due to the position of Chealsea (club 4). Indeed, in the first</text>
+<text top="1081" left="149" width="597" height="13" font="4">cluster Chelsea is the last in both rankings, but it is in second position in the second cluster. Moreover,</text>
+<text top="1098" left="149" width="595" height="13" font="4">in the partition, we find that cluster 2 is mainly present in the second half of the period 1993-2013</text>
+<text top="1114" left="148" width="459" height="13" font="4">(see for instance the conditional probabilities of cluster membership on Figure</text>
+<text top="1114" left="611" width="7" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#8">3</a></text>
+<text top="1114" left="618" width="127" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#8">). </a>This rise of Chelsea</text>
+<text top="1130" left="149" width="595" height="13" font="4">can be explained by the acquisition of the club by Russian investor Roman Abramovich in 2003, who</text>
+<text top="1147" left="149" width="197" height="13" font="4">brought great players to the club.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="21" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">108</text>
+<text top="319" left="279" width="26" height="11" font="1">1995</text>
+<text top="319" left="382" width="26" height="11" font="1">2000</text>
+<text top="319" left="485" width="26" height="11" font="1">2005</text>
+<text top="319" left="588" width="26" height="11" font="1">2010</text>
+<text top="302" left="222" width="0" height="11" font="21">0.0</text>
+<text top="271" left="222" width="0" height="11" font="21">0.2</text>
+<text top="239" left="222" width="0" height="11" font="21">0.4</text>
+<text top="208" left="222" width="0" height="11" font="21">0.6</text>
+<text top="177" left="222" width="0" height="11" font="21">0.8</text>
+<text top="145" left="222" width="0" height="11" font="21">1.0</text>
+<text top="114" left="308" width="297" height="13" font="3"><b>Conditional probabilities of cluster belonging</b></text>
+<text top="340" left="446" width="22" height="11" font="1">year</text>
+<text top="225" left="201" width="0" height="11" font="21">t_ik</text>
+<text top="215" left="649" width="34" height="11" font="1">cls 1   </text>
+<text top="226" left="649" width="37" height="11" font="1">cls 2    </text>
+<text top="379" left="149" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="379" left="206" width="538" height="13" font="4">Conditional probabilities for each observation (year) to belong to cluster 1 (black circle) and</text>
+<text top="396" left="149" width="111" height="13" font="4">2 (red filled circle).</text>
+<text top="460" left="171" width="217" height="13" font="4">In addition to this information, the</text>
+<text top="457" left="392" width="352" height="18" font="4">summary() function gives an overview of the partition by</text>
+<text top="477" left="148" width="583" height="13" font="4">printing the five ranks of highest probability and the five ranks of highest entropy for each cluster:</text>
+<text top="500" left="156" width="103" height="18" font="4">R&gt; summary(res)</text>
+<text top="531" left="148" width="596" height="13" font="4">The ranks of highest probability are the best representatives of the cluster, whereas the ranks of</text>
+<text top="547" left="149" width="595" height="13" font="4">highest entropy are those for which their membership to the cluster are the less obvious. Note that the</text>
+<text top="563" left="149" width="595" height="13" font="4">full list of the cluster members with their probabilities and entropies are available through the slots</text>
+<text top="576" left="149" width="195" height="18" font="4">probability and entropy. Table</text>
+<text top="580" left="347" width="7" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#8">1</a></text>
+<text top="580" left="358" width="387" height="13" font="4">gives an example of these outputs for cluster 2. The rankings of</text>
+<text top="596" left="149" width="596" height="13" font="4">2011 are the most representative of the cluster, and the five most representative rankings of the cluster</text>
+<text top="613" left="149" width="595" height="13" font="4">correspond to rankings after 2003. Similarly, the four observations whose membership in cluster 2 is</text>
+<text top="629" left="149" width="595" height="13" font="4">the most questionable correspond to observations before 2003. This confirms the previous analysis</text>
+<text top="646" left="149" width="310" height="13" font="4">indicating that cluster 2 is due to the rise of Chelsea.</text>
+<text top="684" left="297" width="29" height="15" font="0">year</text>
+<text top="684" left="350" width="40" height="15" font="0">UEFA</text>
+<text top="684" left="414" width="92" height="15" font="0">Prem. League</text>
+<text top="684" left="523" width="73" height="15" font="0">probability</text>
+<text top="710" left="297" width="30" height="15" font="0">2011</text>
+<text top="710" left="345" width="51" height="15" font="0">(1,3,4,2)</text>
+<text top="710" left="434" width="51" height="15" font="0">(1,4,3,2)</text>
+<text top="710" left="523" width="61" height="15" font="0">2.367e-04</text>
+<text top="728" left="297" width="30" height="15" font="0">2008</text>
+<text top="728" left="345" width="51" height="15" font="0">(4,2,3,1)</text>
+<text top="728" left="434" width="51" height="15" font="0">(1,4,3,2)</text>
+<text top="728" left="523" width="61" height="15" font="0">6.862e-05</text>
+<text top="746" left="297" width="30" height="15" font="0">2013</text>
+<text top="746" left="345" width="51" height="15" font="0">(2,4,3,1)</text>
+<text top="746" left="434" width="51" height="15" font="0">(1,4,3,2)</text>
+<text top="746" left="523" width="61" height="15" font="0">3.529e-05</text>
+<text top="763" left="297" width="30" height="15" font="0">2009</text>
+<text top="763" left="345" width="51" height="15" font="0">(3,2,4,1)</text>
+<text top="763" left="434" width="51" height="15" font="0">(1,2,4,3)</text>
+<text top="763" left="523" width="61" height="15" font="0">3.097e-05</text>
+<text top="781" left="297" width="30" height="15" font="0">2005</text>
+<text top="781" left="345" width="51" height="15" font="0">(1,2,3,4)</text>
+<text top="781" left="434" width="51" height="15" font="0">(3,4,2,1)</text>
+<text top="781" left="523" width="61" height="15" font="0">2.151e-05</text>
+<text top="807" left="297" width="29" height="15" font="0">year</text>
+<text top="807" left="350" width="40" height="15" font="0">UEFA</text>
+<text top="807" left="414" width="92" height="15" font="0">Prem. League</text>
+<text top="807" left="523" width="52" height="15" font="0">entropy</text>
+<text top="832" left="297" width="30" height="15" font="0">2002</text>
+<text top="832" left="345" width="51" height="15" font="0">(1,4,2,3)</text>
+<text top="832" left="434" width="51" height="15" font="0">(3,2,1,4)</text>
+<text top="832" left="523" width="64" height="15" font="0">0.6755106</text>
+<text top="850" left="297" width="30" height="15" font="0">1993</text>
+<text top="850" left="345" width="51" height="15" font="0">(1,2,3,4)</text>
+<text top="850" left="434" width="51" height="15" font="0">(1,2,3,4)</text>
+<text top="850" left="523" width="64" height="15" font="0">0.6599892</text>
+<text top="868" left="297" width="30" height="15" font="0">2000</text>
+<text top="868" left="345" width="51" height="15" font="0">(1,4,3,2)</text>
+<text top="868" left="434" width="51" height="15" font="0">(1,3,2,4)</text>
+<text top="868" left="523" width="64" height="15" font="0">0.6474507</text>
+<text top="886" left="297" width="30" height="15" font="0">1997</text>
+<text top="886" left="345" width="51" height="15" font="0">(1,2,3,4)</text>
+<text top="886" left="434" width="51" height="15" font="0">(1,3,2,4)</text>
+<text top="886" left="523" width="64" height="15" font="0">0.6403972</text>
+<text top="904" left="297" width="30" height="15" font="0">2010</text>
+<text top="904" left="345" width="51" height="15" font="0">(1,0,0,4)</text>
+<text top="904" left="434" width="51" height="15" font="0">(2,4,3,1)</text>
+<text top="904" left="523" width="64" height="15" font="0">0.4613709</text>
+<text top="941" left="198" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="941" left="249" width="446" height="13" font="4">Rankings with the highest entropies and probabilities in the second cluster.</text>
+<text top="991" left="171" width="22" height="13" font="4">The</text>
+<text top="988" left="196" width="550" height="18" font="4">summary() function also prints the estimated full ranking for each partial ranking. For instance,</text>
+<text top="1008" left="149" width="595" height="13" font="4">in 2001 Arsenal and Chelsea had the same UEFA coefficient, and when asking our model to differentiate</text>
+<text top="1024" left="149" width="595" height="13" font="4">these two teams, Arsenal is ranked before Chelsea. This is not surprising as we already remarked that</text>
+<text top="1040" left="149" width="488" height="13" font="4">the results of Chelsea were generally among the worst of the Big Four before 2003.</text>
+<text top="1061" left="171" width="573" height="13" font="4">Finally, the variability of estimation of the model parameters can be achieved by means of the</text>
+<text top="1078" left="149" width="595" height="13" font="4">distances between the final estimate and the current value at each step of the SEM-Gibbs algorithm</text>
+<text top="1094" left="148" width="49" height="13" font="4">(refer to</text>
+<text top="1094" left="202" width="134" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Jacques and Biernacki</a></text>
+<text top="1094" left="340" width="5" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="1094" left="345" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">2012</a></text>
+<text top="1094" left="372" width="372" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>for accurate definitions of these distances). These distances</text>
+<text top="1111" left="149" width="145" height="13" font="4">are available in the slots</text>
+<text top="1107" left="297" width="447" height="18" font="4">distanceProp,distancePi,distanceMu of the output res[2]. The standard</text>
+<text top="1127" left="149" width="596" height="13" font="4">deviation of these distances can be used for instance as an indicator of estimation variability. For</text>
+<text top="1144" left="149" width="343" height="13" font="4">instance, the standard deviation of the Kendall distance <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="1144" left="492" width="48" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Marden</a></text>
+<text top="1144" left="540" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="1144" left="547" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1995</a></text>
+<text top="1144" left="574" width="170" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>between the final esitimate</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="22" size="7" family="Times" color="#000000"/>
+	<fontspec id="23" size="7" family="Times" color="#000000"/>
+	<fontspec id="24" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">109</text>
+<text top="103" left="149" width="595" height="13" font="4">of the mode and its current value at each step of the SEM-Gibbs algorithm is for cluster 2: 0.52</text>
+<text top="120" left="149" width="595" height="13" font="4">for the UEFA coefficients rankings and 0.43 for Premier League rankings. Similarly, the standard</text>
+<text top="136" left="149" width="595" height="13" font="4">deviation of the scale estimate is for cluster 2 about 0.002 for both the UEFA coefficients and the</text>
+<text top="152" left="149" width="595" height="13" font="4">Premier League rankings. Note that these variabilities are relatively small, due to the low overlapping</text>
+<text top="169" left="149" width="467" height="13" font="4">of the two clusters (scale coefficients are quite high). In a similar way, the slot</text>
+<text top="165" left="619" width="125" height="18" font="4">distanceZ illustrates</text>
+<text top="185" left="149" width="421" height="13" font="4">the convergence of the SEM-Gibbs algorithm by given the Rand index <a href="2014-1-jacques-grimonprez-biernacki.html#10">(</a></text>
+<text top="185" left="570" width="32" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">Rand</a></text>
+<text top="185" left="601" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">,</a></text>
+<text top="185" left="608" width="27" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#10">1971</a></text>
+<text top="185" left="635" width="109" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#10">) </a>between the final</text>
+<text top="202" left="148" width="417" height="13" font="4">partition and the current partition at each SEM-Gibbs iteration (Figure</text>
+<text top="202" left="569" width="7" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">4</a></text>
+<text top="202" left="576" width="8" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">).</a></text>
+<text top="418" left="313" width="16" height="7" font="22">200</text>
+<text top="418" left="390" width="16" height="7" font="22">400</text>
+<text top="418" left="466" width="16" height="7" font="22">600</text>
+<text top="418" left="542" width="16" height="7" font="22">800</text>
+<text top="418" left="616" width="22" height="7" font="22">1000</text>
+<text top="390" left="259" width="0" height="7" font="23">0.6</text>
+<text top="361" left="259" width="0" height="7" font="23">0.7</text>
+<text top="332" left="259" width="0" height="7" font="23">0.8</text>
+<text top="303" left="259" width="0" height="7" font="23">0.9</text>
+<text top="273" left="259" width="0" height="7" font="23">1.0</text>
+<text top="246" left="432" width="47" height="9" font="24"><b>Partition</b></text>
+<text top="435" left="408" width="94" height="7" font="22">SEM−Gibbs iterations</text>
+<text top="356" left="242" width="0" height="7" font="23">Rand Inde</text>
+<text top="312" left="242" width="0" height="7" font="23">x</text>
+<text top="471" left="149" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="470" left="207" width="538" height="13" font="4">Evolution of the partition along with the SEM-Gibbs iterations: values of the Rand index</text>
+<text top="487" left="149" width="217" height="13" font="4">between current and final partitions.</text>
+<text top="561" left="149" width="94" height="17" font="6"><b>Conclusion</b></text>
+<text top="600" left="149" width="74" height="13" font="3"><b>Rankcluster</b></text>
+<text top="600" left="226" width="518" height="13" font="4">is the first R package dedicated to ranking data that allows modeling and cluster analysis</text>
+<text top="616" left="149" width="595" height="13" font="4">for multivariate partial ranking data. Available on the CRAN website, this package is simple to use</text>
+<text top="633" left="148" width="136" height="13" font="4">with its main function,</text>
+<text top="629" left="288" width="457" height="18" font="4">rankclust(), having only one mandatory argument, the ranking dataset. By</text>
+<text top="649" left="149" width="596" height="13" font="4">default a single homogeneous multivariate ISR model is fitted to the data, and specifying the number</text>
+<text top="666" left="149" width="595" height="13" font="4">of desired clusters leads to perform a cluster analysis, with selection of the number of clusters if several</text>
+<text top="682" left="149" width="595" height="13" font="4">numbers are given. The analysis of two real datasets presented in this paper illustrates the possibilities</text>
+<text top="699" left="149" width="389" height="13" font="4">of the package, and also constitutes a user guide for practitioners.</text>
+<text top="743" left="149" width="109" height="17" font="6"><b>Bibliography</b></text>
+<text top="782" left="149" width="598" height="13" font="4">C. Biernacki and J. Jacques. A generative model for rank data based on insertion sort algorithm.</text>
+<text top="799" left="163" width="355" height="14" font="4">Computational Statistics &amp; Data Analysis, 58:162–176, 2013. <a href="2014-1-jacques-grimonprez-biernacki.html#1">[p</a></text>
+<text top="799" left="519" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#1">101</a></text>
+<text top="799" left="539" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#1">,</a></text>
+<text top="799" left="546" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#2">102</a></text>
+<text top="799" left="566" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#2">,</a></text>
+<text top="799" left="572" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#4">104</a></text>
+<text top="799" left="593" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#4">]</a></text>
+<text top="827" left="149" width="595" height="13" font="4">C. Biernacki, G. Celeux, and G. Govaert. Assessing a mixture model for clustering with the integrated</text>
+<text top="844" left="164" width="582" height="13" font="4">completed likelihood. IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(4):719–725,</text>
+<text top="860" left="164" width="48" height="13" font="4">2000. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="860" left="211" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="860" left="232" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="888" left="149" width="595" height="13" font="4">G. Celeux and J. Diebolt. The SEM algorithm: A probabilistic teacher algorithm derived from the EM</text>
+<text top="905" left="164" width="527" height="13" font="4">algorithm for the mixture problem. Computational Statistics Quarterly, 2(1):73–82, 1985. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="905" left="690" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="905" left="711" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="933" left="149" width="598" height="13" font="4">A. Dempster, N. Laird, and D. Rubin. Maximum likelihood from incomplete data via the EM algorithm.</text>
+<text top="950" left="164" width="556" height="14" font="4">Journal of the Royal Statistical Society. Series B. Methodological, 39(1):1–38, 1977. With discussion. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="950" left="720" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="950" left="740" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="978" left="149" width="595" height="13" font="4">M. Fligner and J. Verducci. Distance based ranking models. Journal of the Royal Statistical Society. Series</text>
+<text top="994" left="163" width="239" height="14" font="4">B. Methodological, 48(3):359–369, 1986. <a href="2014-1-jacques-grimonprez-biernacki.html#2">[p</a></text>
+<text top="994" left="402" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#2">102</a></text>
+<text top="994" left="422" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#2">,</a></text>
+<text top="994" left="429" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#5">105</a></text>
+<text top="994" left="449" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#5">]</a></text>
+<text top="1023" left="149" width="595" height="13" font="4">A. Geman and D. Geman. Stochastic relaxation, Gibbs distributions and the Bayesian restoration of</text>
+<text top="1039" left="164" width="529" height="13" font="4">images. IEEE Transactions on Pattern Analysis and Matching Intelligence, 6:721–741, 1984. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="1039" left="693" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="1039" left="713" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="1068" left="149" width="595" height="13" font="4">I. Gormley and T. Murphy. A mixture of experts model for rank data with applications in election</text>
+<text top="1084" left="164" width="350" height="13" font="4">studies. Annals of Applied Statistics, 2(4):1452–1477, 2008. <a href="2014-1-jacques-grimonprez-biernacki.html#1">[p</a></text>
+<text top="1084" left="514" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#1">101</a></text>
+<text top="1084" left="534" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#1">]</a></text>
+<text top="1113" left="149" width="497" height="13" font="4">E. Gregory. RMallow: Fit Multi-Modal Mallows’ Models to ranking data., 2012. URL</text>
+<text top="1109" left="649" width="96" height="18" font="7"><a href="http://CRAN.R-project.org/package=RMallow">http://CRAN.R-</a></text>
+<text top="1126" left="164" width="185" height="18" font="7"><a href="http://CRAN.R-project.org/package=RMallow">project.org/package=RMallow</a></text>
+<text top="1129" left="349" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=RMallow">. </a>R package version 1.0. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="1129" left="507" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="1129" left="527" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">110</text>
+<text top="103" left="149" width="595" height="13" font="4">J. Jacques and C. Biernacki. Model-based clustering for multivariate partial ranking data. Technical</text>
+<text top="120" left="164" width="261" height="13" font="4">Report 8113, Inria Research Report, 2012. <a href="2014-1-jacques-grimonprez-biernacki.html#1">[p</a></text>
+<text top="120" left="424" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#1">101</a></text>
+<text top="120" left="445" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#1">,</a></text>
+<text top="120" left="451" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#2">102</a></text>
+<text top="120" left="472" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#2">,</a></text>
+<text top="120" left="478" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="120" left="498" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">,</a></text>
+<text top="120" left="505" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#4">104</a></text>
+<text top="120" left="525" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#4">,</a></text>
+<text top="120" left="532" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#8">108</a></text>
+<text top="120" left="552" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#8">]</a></text>
+<text top="148" left="149" width="595" height="13" font="4">P. Lee and P. Yu. An R package for analyzing and modeling ranking data. BMC Medical Research</text>
+<text top="164" left="164" width="198" height="14" font="4">Methodology, 13(65):1–11, 2013. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="164" left="362" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="164" left="382" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="193" left="149" width="598" height="13" font="4">J. Marden. Analyzing and modeling rank data, volume 64 of Monographs on Statistics and Applied Probability.</text>
+<text top="209" left="164" width="209" height="13" font="4">Chapman &amp; Hall, London, 1995. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="209" left="373" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="209" left="393" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">,</a></text>
+<text top="209" left="400" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#4">104</a></text>
+<text top="209" left="420" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#4">,</a></text>
+<text top="209" left="427" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#8">108</a></text>
+<text top="209" left="447" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#8">]</a></text>
+<text top="238" left="149" width="595" height="13" font="4">T. Murphy and D. Martin. Mixtures of distance-based models for ranking data. Comput. Statist. Data</text>
+<text top="254" left="163" width="182" height="14" font="4">Anal., 41(3-4):645–655, 2003. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="254" left="345" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="254" left="366" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="282" left="149" width="595" height="13" font="4">W. Rand. Objective criteria for the evaluation of clustering methods. Journal of the American Statistical</text>
+<text top="299" left="163" width="188" height="14" font="4">Association, 55:846–850, 1971. <a href="2014-1-jacques-grimonprez-biernacki.html#4">[p</a></text>
+<text top="299" left="351" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#4">104</a></text>
+<text top="299" left="371" width="3" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#4">,</a></text>
+<text top="299" left="378" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#9">109</a></text>
+<text top="299" left="398" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#9">]</a></text>
+<text top="327" left="149" width="567" height="13" font="4">G. Schwarz. Estimating the dimension of a model. The Annals of Statistics, 6(2):461–464, 1978. <a href="2014-1-jacques-grimonprez-biernacki.html#3">[p</a></text>
+<text top="327" left="716" width="20" height="13" font="7"><a href="2014-1-jacques-grimonprez-biernacki.html#3">103</a></text>
+<text top="327" left="736" width="4" height="13" font="4"><a href="2014-1-jacques-grimonprez-biernacki.html#3">]</a></text>
+<text top="374" left="149" width="76" height="13" font="4">Julien Jacques</text>
+<text top="390" left="149" width="390" height="13" font="4">MODAL team (Inria) &amp; Laboratoire Paul Painlevé (UMR CNRS 8524)</text>
+<text top="406" left="148" width="94" height="13" font="4">University Lille I</text>
+<text top="423" left="148" width="264" height="13" font="4">Cité Scientifique, 59655 Villeneuve d’Ascq cedex</text>
+<text top="439" left="148" width="37" height="13" font="4">France</text>
+<text top="436" left="189" width="219" height="18" font="7"><a href="mailto:julien.jacques@polytech-lille.fr">julien.jacques@polytech-lille.fr</a></text>
+<text top="477" left="148" width="115" height="13" font="4">Quentin Grimonprez</text>
+<text top="493" left="149" width="80" height="13" font="4">MODAL team</text>
+<text top="510" left="149" width="129" height="13" font="4">Inria Lille-Nord Europe</text>
+<text top="526" left="148" width="253" height="13" font="4">40 avenue du Halley, 59650 Villeneuve d’Ascq</text>
+<text top="542" left="148" width="37" height="13" font="4">France</text>
+<text top="539" left="189" width="185" height="18" font="7"><a href="mailto:quentin.grimonprez@inria.fr">quentin.grimonprez@inria.fr</a></text>
+<text top="580" left="148" width="113" height="13" font="4">Christophe Biernacki</text>
+<text top="596" left="149" width="390" height="13" font="4">MODAL team (Inria) &amp; Laboratoire Paul Painlevé (UMR CNRS 8524)</text>
+<text top="613" left="148" width="94" height="13" font="4">University Lille I</text>
+<text top="629" left="148" width="264" height="13" font="4">Cité Scientifique, 59655 Villeneuve d’Ascq cedex</text>
+<text top="646" left="148" width="37" height="13" font="4">France</text>
+<text top="642" left="189" width="274" height="18" font="7"><a href="mailto:christophe.biernacki@math.univ-lille1.fr">christophe.biernacki@math.univ-lille1.fr</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

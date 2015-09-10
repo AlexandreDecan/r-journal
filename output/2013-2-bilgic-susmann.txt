@@ -1,0 +1,105 @@
+page	left	top	code
+5	149	915	> library(rlme)
+5	149	932	> data(schools)
+5	149	948	> model = y ~ 1 + sex + age + (1 | region) + (1 | region:school)
+5	149	965	> rlme.fit = rlme(model, schools, method="gr")
+5	149	997	# For robust predictions, include rprpair="med-mad"
+6	149	486	> summary(rlme.fit)
+6	149	503	Linear mixed model fit by GR
+6	149	519	Formula: y ~ 1 + sex + age + (1 | region) + (1 | region:school)
+6	149	536	Random effects:
+6	156	552	Groups Name Variance
+6	156	569	region:school (Intercept) 0.14703510
+6	156	585	region (Intercept) 0.01497416
+6	156	601	Residual 0.81229310
+6	149	634	Number of obs:
+6	149	651	334 observations, 4 clusters, 11 subclusters
+6	149	684	Fixed effects:
+6	238	700	Estimate Std. Error .. p value
+6	156	716	(Intercept) 0.1586624 0.2686822 .. 0.554841676
+6	156	733	sex -0.2953611 0.1071201 .. 0.005828259
+6	156	749	age 0.2260327 0.1621609 .. 0.163354085
+6	149	782	Intra-class correlation coefficients
+6	272	799	Estimates
+6	156	815	intra-cluster 0.1509132
+6	156	832	intra-subcluster 0.1662823
+6	149	864	cov-var (fixed effects)
+6	341	881	sex age
+6	183	897	7.219013e-02 -0.0002000644 -1.672882e-05
+6	149	914	sex -2.000644e-04 0.0114747092 9.802962e-04
+6	149	930	age -1.672882e-05 0.0009802962 2.629616e-02
+6	149	1103	> plot(rlme.fit)
+7	149	120	# Raw residuals
+7	149	137	> rlme.fit$ehat
+7	149	153	[,1]
+7	149	169	1 -1.186129739
+7	149	186	2 -1.641494973
+7	149	202	3 -1.147704177
+7	149	219	...
+7	149	235	334 -0.327186795
+7	149	373	> rlme.fit = rlme(model, schools, method="reml")
+7	149	390	> summary(rlme.fit)
+7	149	406	Linear mixed model fit by REML
+7	149	422	...
+7	149	439	Fixed effects:
+7	238	455	Estimate Std. Error .. p value
+7	156	472	(Intercept) -0.08756901 0.2681410 .. 0.7439869
+7	156	488	sex -0.26286182 0.1092493 .. 0.0161250
+7	156	505	age 0.24712016 0.1720753 .. 0.1509693
+7	149	537	Intra-class correlation coefficients
+7	272	554	Estimates
+7	156	570	intra-cluster 0.2433171
+7	156	587	intra-subcluster 0.2443941
+7	149	603	...
+7	149	695	> data(schools)
+7	149	711	> model = y ~ 1 + sex + age + (1 | region)
+7	149	727	> rlme.fit = rlme(model, data = schools, method = "gr")
+7	149	744	> summary(rlme.fit)
+7	149	760	Linear mixed model fit by GR
+7	149	777	Formula: y ~ 1 + sex + age + (1 | region)
+7	149	793	...
+7	149	810	Fixed effects:
+7	238	826	Estimate Std. Error .. p value
+7	156	842	(Intercept) -0.09298845 0.22061464 .. 6.733921e-01
+7	156	859	sex -0.35939453 0.08977332 .. 6.245027e-05
+7	156	875	age 0.11882249 0.13665390 .. 3.845660e-01
+7	149	908	Intra-class correlation coefficients
+7	272	925	Estimates
+7	156	941	intra-cluster 0.1452482
+7	156	958	intra-subcluster 1.0000000
+7	149	974	...
+7	149	1115	> data(schools)
+7	149	1131	> model = y ~ 1 + sex + age + (1 | region) + (1 | region:school)
+8	149	104	# Extract covariates into matrix
+8	149	120	> cov = as.matrix(data.frame(rep(1, length(schools[,"y"])),
+8	149	137	schools[,"sex"], schools[,"age"]))
+8	149	169	# Fit the models using each method
+8	149	186	> reml.fit = rlme(model, schools, method="reml")
+8	149	202	> gr.fit = rlme(model, schools, method="gr")
+8	149	235	# Extract fixed effects estimates
+8	149	252	> reml.beta = reml.fit$fixed.effects$Estimate
+8	149	268	> gr.beta = gr.fit$fixed.effects$Estimate
+8	149	301	# Extract the covariance matrix of the fixed effects estimates
+8	149	317	> var.b = reml.fit$var.b
+8	149	350	> fitdvcov(cov, reml.beta, gr.beta, var.b)$tdbeta
+8	149	367	[1] 0.9406339
+8	149	400	# The following gets CFITS. For more info about diagnostics and
+8	149	416	# benchmarks, see help(fitdvcov) and help(compare.fits)
+8	149	432	> fitdvcov(cov, reml.beta, gr.beta, var.b)$cfits
+8	149	465	# Graphing alone and getting standard residuals
+8	149	482	> getgrstplot(gr.fit)
+8	149	498	> getgrstplot(gr.fit)$sresid
+8	149	531	> getlmestplot(reml.fit)
+8	149	548	> getlmestplot(reml.fit)$sresid
+8	149	657	> data(schools)
+8	149	673	> rlme.fit = rlme(y ~ 1 + sex + age, data = schools)
+8	149	706	You have entered an independent linear model.
+8	149	722	Continuing using the ww package.
+8	149	755	Wald Test of H0: BETA1=BETA2=0
+8	149	772	TS: 38.4414 PVAL: 0
+8	149	805	Drop Test of H0: BETA1=BETA2=0
+8	149	821	TS: 7.819 PVAL: 5e-04
+8	217	854	EST SE TVAL PVAL
+8	149	870	BETA0 0.2333 0.0000 9105.8041 0
+8	149	887	BETA1 -0.4192 0.0478 -8.7664 0
+8	149	903	BETA2 0.0000 0.0772 0.0000 1

@@ -1,0 +1,94 @@
+page	left	top	code
+2	163	100	> head(farmer2, n = 3)
+2	176	116	w1 w2 w3 y1 y2 y3 y4
+2	163	133	1 0 0 0 0 0 0 0
+2	163	149	2 0 0 0 0 0 0 1
+2	163	165	3 0 0 0 0 0 0 1
+2	163	198	> tail(farmer2, n = 3)
+2	190	215	w1 w2 w3 y1 y2 y3 y4
+2	163	231	277 1 1 1 1 1 0 0
+2	163	248	278 1 1 1 1 1 0 0
+2	163	264	279 1 1 1 1 1 1 0
+2	163	576	> item.response.table(data = farmer2, I = 3, J = 4)
+2	211	608	y1 y2 y3 y4
+2	211	625	0 1 0 1 0 1 0 1
+2	169	641	w1 0 123 116 175 64 156 83 228 11
+2	190	658	1 13 27 24 16 38 2 38 2
+2	169	674	w2 0 128 121 181 68 165 84 237 12
+2	190	691	1 8 22 18 12 29 1 29 1
+2	169	707	w3 0 134 124 184 74 174 84 245 13
+2	190	724	1 2 19 15 6 20 1 21 0
+3	653	179	type = "boot"
+3	163	380	> set.seed(102211) # Set seed to replicate bootstrap results
+3	163	397	> MI.test(data = farmer2, I = 3, J = 4, type = "all", B = 1999, plot.hist = TRUE)
+3	163	429	Test for Simultaneous Pairwise Marginal Independence (SPMI)
+3	163	462	Unadjusted Pearson Chi-Square Tests for Independence:
+3	163	479	X^2_S = 64.03
+3	163	495	X^2_S.ij =
+3	204	512	y1 y2 y3 y4
+3	163	528	w1 4.93 2.93 14.29 0.01
+3	163	545	w2 6.56 2.11 11.68 0.13
+3	163	561	w3 13.98 0.00 7.08 0.32
+3	163	594	Bootstrap Results:
+3	163	610	Final results based on 1999 resamples
+3	163	627	p.boot = 0.0005
+3	163	643	p.combo.prod = 0.0005
+3	163	660	p.combo.min = 0.001
+3	163	692	Second-Order Rao-Scott Adjusted Results:
+3	163	709	X^2_S.adj = 36.17
+3	163	725	df.adj = 6.78
+3	163	742	p.adj < 0.0001
+3	163	775	Bonferroni Adjusted Results:
+3	163	791	p.adj = 0.0019
+3	163	808	p.ij.adj =
+3	183	824	y1 y2 y3 y4
+3	163	840	w1 0.3163 1.0000 0.0019 1.0000
+3	163	857	w2 0.1253 1.0000 0.0076 1.0000
+3	163	873	w3 0.0022 1.0000 0.0934 1.0000
+4	163	884	> item.response.table(data = farmer2, I = 3, J = 4, create.dataframe = TRUE)
+4	190	901	W Y wi yj count
+4	163	917	1 w1 y1 0 0 123
+4	163	934	2 w1 y1 0 1 116
+4	163	950	3 w1 y1 1 0 13
+4	163	967	4 w1 y1 1 1 27
+4	163	983	5 w1 y2 0 0 175
+4	163	1016	< output omitted >
+4	163	1049	48 w3 y4 1 1 0
+4	149	1127	"y.main", "wy.main", and "saturated" to specify a particular model. Alternatively, a user-supplied
+5	148	100	WI, and Y1, . . . , YJ, which we illustrate shortly. The boot = TRUE (the default) value for genloglin()
+5	163	233	> set.seed(499077) # Set seed to replicate bootstrap results
+5	163	249	> mod.fit <- genloglin(data = farmer2, I = 3, J = 4, model = "y.main", B = 1999,
+5	163	266	+ print.status = FALSE)
+5	163	282	> summary(mod.fit)
+5	163	315	Call:
+5	163	331	glm(formula = count ~ -1 + W:Y + wi %in% W:Y + yj %in% W:Y + wi:yj + wi:yj %in% Y,
+5	176	348	family = poisson(link = log), data = model.data)
+5	163	381	Deviance Residuals:
+5	197	397	Min 1Q Median 3Q Max
+5	163	414	-1.58007 -0.13272 0.00043 0.10282 0.79587
+5	163	446	Coefficients:
+5	238	463	Estimate RS SE z value Pr(>|z|)
+5	163	479	Ww1:Yy1 4.83360 0.06535 73.969 < 2e-16 ***
+5	163	496	Ww2:Yy1 4.85571 0.06387 76.023 < 2e-16 ***
+5	163	512	Ww3:Yy1 4.87418 0.06314 77.199 < 2e-16 ***
+5	163	545	< output omitted >
+5	217	578	Null deviance: 25401.0663 Residual deviance: 5.8825
+5	217	594	Number of Fisher Scoring iterations: 4
+5	717	727	W:Y),
+5	149	880	genloglin() to an alternative model given by its model.HA argument. Comparing the Y-main effects
+5	163	926	> anova(object = mod.fit, model.HA = "saturated", type = "all")
+5	163	959	Model comparison statistics for
+5	163	975	H0 = y.main
+5	163	992	HA = saturated
+5	163	1025	Pearson chi-square statistic = 5.34
+5	163	1041	LRT statistic = 5.88
+5	163	1074	Second-Order Rao-Scott Adjusted Results:
+5	163	1091	Rao-Scott Pearson chi-square statistic = 10.85, df = 5.23, p = 0.0624
+5	163	1107	Rao-Scott LRT statistic = 11.96, df = 5.23, p = 0.0409
+5	163	1140	Bootstrap Results:
+6	163	100	Final results based on 1999 resamples
+6	163	116	Pearson chi-square p-value = 0.0385
+6	163	133	LRT p-value = 0.0255
+6	149	241	mod.fit.w3y1 <- genloglin(data = farmer2, I = 3, J = 4, model = count ~ -1 + W:Y +
+6	327	257	wi %in% W:Y + yj %in% W:Y + wi:yj + wi:yj %in% Y +
+6	327	274	wi:yj %in% W3:Y1, B = 1999)

@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="7" size="9" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">54</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="663" height="36" font="2"><b>rainbow: An R Package for Visualizing</b></text>
+<text top="166" left="82" width="390" height="36" font="2"><b>Functional Time Series</b></text>
+<text top="218" left="82" width="93" height="15" font="0">Han Lin Shang</text>
+<text top="253" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="253" left="164" width="253" height="15" font="0">Recent advances in computer technol-</text>
+<text top="271" left="96" width="321" height="15" font="0">ogy have tremendously increased the use of func-</text>
+<text top="289" left="96" width="319" height="15" font="0">tional data, whose graphical representation can</text>
+<text top="307" left="96" width="321" height="15" font="0">be infinite-dimensional curves, images or shapes.</text>
+<text top="325" left="96" width="322" height="15" font="0">This article describes four methods for visual-</text>
+<text top="343" left="96" width="319" height="15" font="0">izing functional time series using an R add-on</text>
+<text top="361" left="96" width="319" height="15" font="0">package. These methods are demonstrated using</text>
+<text top="379" left="96" width="319" height="15" font="0">age-specific Australian fertility data from 1921 to</text>
+<text top="397" left="96" width="319" height="15" font="0">2006 and monthly sea surface temperatures from</text>
+<text top="415" left="96" width="210" height="15" font="0">January 1950 to December 2006.</text>
+<text top="467" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="507" left="82" width="346" height="15" font="0">Recent advances in computer technology have</text>
+<text top="525" left="82" width="349" height="15" font="0">enabled researchers to collect and store high-</text>
+<text top="543" left="82" width="346" height="15" font="0">dimensional data. When the high-dimensional data</text>
+<text top="561" left="82" width="346" height="15" font="0">are repeatedly measured over a period of time, a time</text>
+<text top="579" left="82" width="346" height="15" font="0">series of functions can be observed. Although one</text>
+<text top="597" left="82" width="349" height="15" font="0">can display high-dimensional time series by adapt-</text>
+<text top="615" left="82" width="346" height="15" font="0">ing multivariate techniques, it is important to take</text>
+<text top="633" left="82" width="262" height="15" font="0">smoothness of functions into account <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="633" left="345" width="84" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Ramsay and</a></text>
+<text top="651" left="82" width="47" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Dalzell</a></text>
+<text top="651" left="130" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="651" left="137" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1991</a></text>
+<text top="651" left="167" width="262" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>It is the smooth property of functions</text>
+<text top="669" left="82" width="349" height="15" font="0">that separates functional time series from multivari-</text>
+<text top="687" left="82" width="349" height="15" font="0">ate time series. Unlike longitudinal time series, func-</text>
+<text top="705" left="82" width="346" height="15" font="0">tional time series mitigates the problem of missing</text>
+<text top="723" left="82" width="346" height="15" font="0">data by an interpolation or smoothing technique, and</text>
+<text top="740" left="82" width="349" height="15" font="0">so functional time series can be thought of as continu-</text>
+<text top="758" left="82" width="27" height="15" font="0">ous.</text>
+<text top="777" left="105" width="324" height="15" font="0">Visualization aids the discovery of characteristics</text>
+<text top="795" left="82" width="349" height="15" font="0">in data that might not have been apparent in math-</text>
+<text top="813" left="82" width="349" height="15" font="0">ematical models and summary statistics. Yet visu-</text>
+<text top="831" left="82" width="346" height="15" font="0">alization has not yet received much attention in the</text>
+<text top="849" left="82" width="349" height="15" font="0">literature of functional data analysis. Notable excep-</text>
+<text top="867" left="82" width="208" height="15" font="0">tions are the phase-plane plot of</text>
+<text top="867" left="294" width="135" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Ramsay and Ramsey</a></text>
+<text top="885" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="885" left="87" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2002</a></text>
+<text top="885" left="116" width="315" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>which highlights important distributional char-</text>
+<text top="903" left="82" width="346" height="15" font="0">acteristics using the first and second derivatives of</text>
+<text top="921" left="82" width="349" height="15" font="0">functional data, and the singular value decomposi-</text>
+<text top="939" left="82" width="116" height="15" font="0">tion (SVD) plot of</text>
+<text top="939" left="202" width="77" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Zhang et al.</a></text>
+<text top="939" left="283" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="939" left="288" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2007</a></text>
+<text top="939" left="318" width="111" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>which displays</text>
+<text top="957" left="82" width="346" height="15" font="0">the changes in latent components in relation to the</text>
+<text top="975" left="82" width="349" height="15" font="0">increases of the sample size or dimensionality. An-</text>
+<text top="993" left="82" width="246" height="15" font="0">other exception is the rainbow plot of</text>
+<text top="993" left="332" width="97" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hyndman and</a></text>
+<text top="1011" left="82" width="42" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Shang</a></text>
+<text top="1011" left="129" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1011" left="134" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2010</a></text>
+<text top="1011" left="165" width="264" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>which can simultaneously display of</text>
+<text top="1028" left="82" width="300" height="15" font="0">functional data and identify possible outliers.</text>
+<text top="1048" left="105" width="324" height="15" font="0">The aim of this article is to collect the R code that</text>
+<text top="1065" left="82" width="346" height="15" font="0">implements these graphical techniques. The R code</text>
+<text top="1083" left="82" width="346" height="15" font="0">of phase-plane plot is included in the <b>fda </b>package</text>
+<text top="1101" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1101" left="87" width="87" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Ramsay et al.</a></text>
+<text top="1101" left="173" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1101" left="181" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2011</a></text>
+<text top="1101" left="210" width="219" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>while others are included in the</text>
+<text top="1119" left="82" width="57" height="15" font="3"><b>rainbow</b></text>
+<text top="1119" left="145" width="66" height="15" font="0">package <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1119" left="211" width="147" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Shang and Hyndman</a></text>
+<text top="1119" left="358" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1119" left="367" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2011</a></text>
+<text top="1119" left="397" width="32" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>In</text>
+<text top="1137" left="82" width="349" height="15" font="0">addition, this article also presents the use of anima-</text>
+<text top="1155" left="82" width="346" height="15" font="0">tion, which can easily be used with all three graphical</text>
+<text top="1173" left="82" width="346" height="15" font="0">techniques in order to visualize time-varying features</text>
+<text top="218" left="459" width="74" height="15" font="0">of the data.</text>
+<text top="236" left="481" width="324" height="15" font="0">The article proceeds as follows. Visualization</text>
+<text top="254" left="459" width="349" height="15" font="0">methods of functional time series are first reviewed. Il-</text>
+<text top="272" left="459" width="346" height="15" font="0">lustrated by two data sets, the visualization methods</text>
+<text top="290" left="459" width="349" height="15" font="0">are then demonstrated using the <b>rainbow </b>package.</text>
+<text top="307" left="459" width="220" height="15" font="0">Conclusions are given in the end.</text>
+<text top="355" left="459" width="89" height="21" font="4"><b>Data sets</b></text>
+<text top="394" left="458" width="347" height="15" font="0">The visualization methods are demonstrated using</text>
+<text top="412" left="459" width="346" height="15" font="0">age-specific Australian fertility rates and monthly sea</text>
+<text top="430" left="459" width="346" height="15" font="0">surface temperatures, both included in <b>rainbow</b>. The</text>
+<text top="448" left="459" width="327" height="15" font="0">details of these two data sets are described below.</text>
+<text top="466" left="481" width="42" height="15" font="0">Figure</text>
+<text top="466" left="527" width="7" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#1">1</a></text>
+<text top="466" left="538" width="269" height="15" font="0">shows annual age-specific Australian fer-</text>
+<text top="484" left="459" width="347" height="15" font="0">tility rates between ages 15 and 49 observed from 1921</text>
+<text top="502" left="459" width="346" height="15" font="0">to 2006. These data were obtained from the Australian</text>
+<text top="520" left="459" width="349" height="15" font="0">Bureau of Statistics (Cat No, 3105.0.65.001, Table 38).</text>
+<text top="538" left="458" width="347" height="15" font="0">The fertility rates are defined as the number of live</text>
+<text top="555" left="459" width="76" height="15" font="0">births at 30</text>
+<text top="553" left="534" width="10" height="11" font="1">th</text>
+<text top="555" left="550" width="256" height="15" font="0">June each year, per 1000 of the female</text>
+<text top="573" left="459" width="240" height="15" font="0">resident population of the same age.</text>
+<text top="870" left="511" width="12" height="10" font="6">15</text>
+<text top="870" left="550" width="12" height="10" font="6">20</text>
+<text top="870" left="589" width="12" height="10" font="6">25</text>
+<text top="870" left="628" width="12" height="10" font="6">30</text>
+<text top="870" left="666" width="12" height="10" font="6">35</text>
+<text top="870" left="705" width="12" height="10" font="6">40</text>
+<text top="870" left="744" width="12" height="10" font="6">45</text>
+<text top="870" left="783" width="12" height="10" font="6">50</text>
+<text top="847" left="498" width="0" height="10" font="7">0</text>
+<text top="806" left="498" width="0" height="10" font="7">50</text>
+<text top="764" left="498" width="0" height="10" font="7">100</text>
+<text top="720" left="498" width="0" height="10" font="7">150</text>
+<text top="675" left="498" width="0" height="10" font="7">200</text>
+<text top="631" left="498" width="0" height="10" font="7">250</text>
+<text top="893" left="639" width="20" height="10" font="6">Age</text>
+<text top="757" left="475" width="0" height="10" font="7">F</text>
+<text top="751" left="475" width="0" height="10" font="7">er</text>
+<text top="740" left="475" width="0" height="10" font="7">tility r</text>
+<text top="714" left="475" width="0" height="10" font="7">ate</text>
+<text top="620" left="762" width="25" height="10" font="6">1921</text>
+<text top="634" left="762" width="25" height="10" font="6">1963</text>
+<text top="647" left="762" width="25" height="10" font="6">2006</text>
+<text top="922" left="459" width="346" height="15" font="0">Figure 1: Smoothed Australian fertility rates between</text>
+<text top="940" left="459" width="283" height="15" font="0">ages 15 and 49 observed from 1921 to 2006.</text>
+<text top="976" left="481" width="324" height="15" font="0">Although the four graphical techniques work</text>
+<text top="994" left="459" width="346" height="15" font="0">equally well for plotting un-smoothed multivariate</text>
+<text top="1012" left="459" width="349" height="15" font="0">data, functional data ought to be smooth in nature.</text>
+<text top="1029" left="458" width="347" height="15" font="0">Therefore, the fertility rates were smoothed using a</text>
+<text top="1047" left="458" width="347" height="15" font="0">weighted median smoothing B-spline, constrained</text>
+<text top="1065" left="459" width="122" height="15" font="0">to be concave (see</text>
+<text top="1065" left="585" width="75" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">He and Ng</a></text>
+<text top="1065" left="660" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1065" left="668" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1999</a></text>
+<text top="1065" left="698" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">;</a></text>
+<text top="1065" left="706" width="99" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hyndman and</a></text>
+<text top="1083" left="459" width="36" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Ullah</a></text>
+<text top="1083" left="495" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1083" left="503" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2007</a></text>
+<text top="1083" left="533" width="83" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">, </a>for details).</text>
+<text top="1101" left="481" width="42" height="15" font="0">Figure</text>
+<text top="1101" left="527" width="7" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#2">2</a></text>
+<text top="1101" left="538" width="267" height="15" font="0">shows monthly sea surface temperatures</text>
+<text top="1119" left="458" width="18" height="15" font="0">(in</text>
+<text top="1115" left="481" width="6" height="14" font="1">◦</text>
+<text top="1119" left="488" width="318" height="15" font="0">C) from January 1950 to December 2006. These</text>
+<text top="1137" left="459" width="349" height="15" font="0">data were obtained from National Oceanic and Atmo-</text>
+<text top="1155" left="459" width="165" height="15" font="0">spheric Administration <a href="http://www.cpc.noaa.gov/data/indices/sstoi.indices">(</a></text>
+<text top="1156" left="624" width="183" height="12" font="5"><a href="http://www.cpc.noaa.gov/data/indices/sstoi.indices">http://www.cpc.noaa.gov/</a></text>
+<text top="1174" left="459" width="198" height="12" font="5"><a href="http://www.cpc.noaa.gov/data/indices/sstoi.indices">data/indices/sstoi.indices</a></text>
+<text top="1173" left="657" width="9" height="15" font="0"><a href="http://www.cpc.noaa.gov/data/indices/sstoi.indices">).</a></text>
+<text top="1173" left="681" width="124" height="15" font="0">These sea surface</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="13" family="Times" color="#000000"/>
+	<fontspec id="9" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="15" family="Times" color="#000000"/>
+	<fontspec id="12" size="11" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">55</text>
+<text top="125" left="82" width="346" height="15" font="0">temperatures were measured by moored buoys in</text>
+<text top="143" left="82" width="349" height="15" font="0">the “Niño region&#34;, defined as the area within the co-</text>
+<text top="161" left="82" width="67" height="15" font="0">ordinate 0</text>
+<text top="160" left="152" width="12" height="18" font="8">−</text>
+<text top="161" left="167" width="15" height="15" font="0">10</text>
+<text top="157" left="183" width="6" height="14" font="1">◦</text>
+<text top="161" left="193" width="86" height="15" font="0">South and 90</text>
+<text top="160" left="282" width="12" height="18" font="8">−</text>
+<text top="161" left="298" width="15" height="15" font="0">80</text>
+<text top="157" left="313" width="6" height="14" font="1">◦</text>
+<text top="161" left="323" width="36" height="15" font="0">West.</text>
+<text top="382" left="187" width="5" height="8" font="9">2</text>
+<text top="382" left="222" width="5" height="8" font="9">4</text>
+<text top="382" left="257" width="5" height="8" font="9">6</text>
+<text top="382" left="293" width="5" height="8" font="9">8</text>
+<text top="382" left="326" width="9" height="8" font="9">10</text>
+<text top="382" left="361" width="9" height="8" font="9">12</text>
+<text top="346" left="157" width="0" height="8" font="10">20</text>
+<text top="312" left="157" width="0" height="8" font="10">22</text>
+<text top="279" left="157" width="0" height="8" font="10">24</text>
+<text top="245" left="157" width="0" height="8" font="10">26</text>
+<text top="211" left="157" width="0" height="8" font="10">28</text>
+<text top="399" left="257" width="23" height="8" font="9">Month</text>
+<text top="339" left="140" width="0" height="8" font="10">Smoothed sea surf</text>
+<text top="270" left="140" width="0" height="8" font="10">ace temper</text>
+<text top="229" left="140" width="0" height="8" font="10">ature</text>
+<text top="193" left="351" width="18" height="8" font="9">1950</text>
+<text top="203" left="351" width="18" height="8" font="9">1978</text>
+<text top="212" left="351" width="18" height="8" font="9">2006</text>
+<text top="424" left="82" width="346" height="15" font="0">Figure 2: Smoothed monthly sea surface temperatures</text>
+<text top="442" left="82" width="18" height="15" font="0">(in</text>
+<text top="438" left="104" width="6" height="14" font="1">◦</text>
+<text top="442" left="111" width="265" height="15" font="0">C) from January 1950 to December 2006.</text>
+<text top="479" left="105" width="327" height="15" font="0">The sea surface temperatures were smoothed us-</text>
+<text top="497" left="82" width="347" height="15" font="0">ing a smoothing spline with the smoothing parameter</text>
+<text top="515" left="82" width="346" height="15" font="0">determined by generalized cross validation. Each</text>
+<text top="533" left="82" width="346" height="15" font="0">curve represents smoothed sea surface temperatures</text>
+<text top="551" left="82" width="82" height="15" font="0">in each year.</text>
+<text top="604" left="82" width="346" height="21" font="4"><b>Functional time series visualization</b></text>
+<text top="631" left="82" width="85" height="21" font="4"><b>methods</b></text>
+<text top="672" left="82" width="112" height="17" font="11"><b>Rainbow plot</b></text>
+<text top="705" left="82" width="349" height="15" font="0">The rainbow plot is a graphical display of all the func-</text>
+<text top="723" left="82" width="346" height="15" font="0">tional data, with the only additional feature being</text>
+<text top="741" left="82" width="346" height="15" font="0">a rainbow color palette based on an ordering of the</text>
+<text top="759" left="82" width="346" height="15" font="0">data. By default, the rainbow plot displays functional</text>
+<text top="776" left="82" width="346" height="15" font="0">data that are naturally ordered by time. Functional</text>
+<text top="794" left="82" width="346" height="15" font="0">data can also be ordered by halfspace location depth</text>
+<text top="812" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="812" left="87" width="40" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Tukey</a></text>
+<text top="812" left="127" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="812" left="134" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1975</a></text>
+<text top="812" left="164" width="197" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>and highest density regions <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="812" left="360" width="67" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hyndman</a></text>
+<text top="812" left="427" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="830" left="82" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1996</a></text>
+<text top="830" left="112" width="317" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>The depth and density orderings lead to the</text>
+<text top="848" left="82" width="346" height="15" font="0">developments of functional bagplot and functional</text>
+<text top="866" left="82" width="317" height="15" font="0">HDR boxplot, described in the next subsections.</text>
+<text top="885" left="105" width="324" height="15" font="0">As the referees pointed out, the rainbow plot (with</text>
+<text top="903" left="82" width="349" height="15" font="0">the default rainbow color palette) may not be suit-</text>
+<text top="921" left="82" width="346" height="15" font="0">able for readers with color blindness. To mitigate this</text>
+<text top="939" left="82" width="349" height="15" font="0">problem, the plot.fds function allows users to spec-</text>
+<text top="957" left="82" width="346" height="15" font="0">ify their preferred color, such as the heat or terrain</text>
+<text top="975" left="82" width="347" height="15" font="0">palettes. In addition to the computer-screen based</text>
+<text top="993" left="82" width="349" height="15" font="0">RGB colors, the plot.fds function allows users to uti-</text>
+<text top="1011" left="82" width="346" height="15" font="0">lize the perceptually-based Hue-Chroma-Luminance</text>
+<text top="1029" left="82" width="347" height="15" font="0">(HCL) colors included in the <b>colorspace </b>package</text>
+<text top="1046" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1046" left="87" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Ihaka et al.</a></text>
+<text top="1046" left="159" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1046" left="166" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2011</a></text>
+<text top="1046" left="196" width="233" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>The use of HCL colors is superior</text>
+<text top="1064" left="82" width="348" height="15" font="0">to RGB colors for readability and color separation,</text>
+<text top="1082" left="82" width="160" height="15" font="0">and it is thus preferred <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1082" left="242" width="79" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Zeileis et al.</a></text>
+<text top="1082" left="321" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1082" left="328" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2009</a></text>
+<text top="1082" left="358" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">).</a></text>
+<text top="1101" left="105" width="42" height="15" font="0">Figure</text>
+<text top="1101" left="150" width="7" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#1">1</a></text>
+<text top="1101" left="160" width="269" height="15" font="0">presents the rainbow plot of the smoothed</text>
+<text top="1119" left="82" width="349" height="15" font="0">fertility rates in Australia between ages 15 and 49 ob-</text>
+<text top="1137" left="82" width="346" height="15" font="0">served from 1921 to 2006. The fertility rates from the</text>
+<text top="1155" left="82" width="346" height="15" font="0">distant past years are shown in red, while the most</text>
+<text top="1173" left="82" width="349" height="15" font="0">recent years are shown in violet. The peak of fertil-</text>
+<text top="125" left="459" width="346" height="15" font="0">ity rates occurred around 1961, followed by a rapid</text>
+<text top="143" left="459" width="346" height="15" font="0">decrease during the 1980s, due to the increasing use</text>
+<text top="161" left="459" width="346" height="15" font="0">of contraceptive pills. Then there is an increase in</text>
+<text top="179" left="459" width="348" height="15" font="0">fertility rates at higher ages in the most recent years,</text>
+<text top="197" left="458" width="350" height="15" font="0">which may be caused by a tendency to postpone child-</text>
+<text top="215" left="459" width="346" height="15" font="0">bearing while pursuing careers. The rainbow plot is</text>
+<text top="233" left="459" width="346" height="15" font="0">useful to reveal pattern changes for functional time</text>
+<text top="251" left="459" width="346" height="15" font="0">series with a trend. It was produced by the following</text>
+<text top="268" left="459" width="35" height="15" font="0">code:</text>
+<text top="301" left="459" width="322" height="10" font="12"># load the package used throughout this article</text>
+<text top="318" left="459" width="123" height="10" font="12">library(&#34;rainbow&#34;)</text>
+<text top="334" left="459" width="357" height="10" font="12"># plot.type = &#34;function&#34;, curves are plotted by time</text>
+<text top="350" left="459" width="288" height="10" font="12"># the most recent curve is shown in purple</text>
+<text top="367" left="459" width="268" height="10" font="12"># the distant past cure is shown in red</text>
+<text top="383" left="459" width="377" height="10" font="12">plot(Australiasmoothfertility, plot.type = &#34;functions&#34;,</text>
+<text top="400" left="473" width="123" height="10" font="12">plotlegend = TRUE)</text>
+<text top="416" left="459" width="295" height="10" font="12">plot(ElNinosmooth, plot.type = &#34;functions&#34;,</text>
+<text top="433" left="473" width="123" height="10" font="12">plotlegend = TRUE)</text>
+<text top="462" left="481" width="326" height="15" font="0">For functional time series without a trend (e.g.,</text>
+<text top="480" left="459" width="44" height="15" font="0">Figure</text>
+<text top="480" left="507" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#2">2</a></text>
+<text top="480" left="514" width="293" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#2">), </a>the rainbow plot can still be used by con-</text>
+<text top="498" left="459" width="349" height="15" font="0">structing other order indexes, such as halfspace loca-</text>
+<text top="516" left="459" width="346" height="15" font="0">tion depth and highest density regions. The colors</text>
+<text top="534" left="459" width="346" height="15" font="0">of curves are then chosen in a rainbow color palette</text>
+<text top="552" left="459" width="299" height="15" font="0">according to the ordering of depth or density.</text>
+<text top="774" left="563" width="5" height="8" font="9">2</text>
+<text top="774" left="598" width="5" height="8" font="9">4</text>
+<text top="774" left="634" width="5" height="8" font="9">6</text>
+<text top="774" left="669" width="5" height="8" font="9">8</text>
+<text top="774" left="702" width="9" height="8" font="9">10</text>
+<text top="774" left="737" width="9" height="8" font="9">12</text>
+<text top="739" left="534" width="0" height="8" font="10">20</text>
+<text top="705" left="534" width="0" height="8" font="10">22</text>
+<text top="672" left="534" width="0" height="8" font="10">24</text>
+<text top="638" left="534" width="0" height="8" font="10">26</text>
+<text top="604" left="534" width="0" height="8" font="10">28</text>
+<text top="791" left="633" width="23" height="8" font="9">Month</text>
+<text top="731" left="516" width="0" height="8" font="10">Smoothed sea surf</text>
+<text top="663" left="516" width="0" height="8" font="10">ace temper</text>
+<text top="622" left="516" width="0" height="8" font="10">ature</text>
+<text top="586" left="728" width="18" height="8" font="9">1960</text>
+<text top="595" left="728" width="18" height="8" font="9">1985</text>
+<text top="605" left="728" width="18" height="8" font="9">1997</text>
+<text top="817" left="459" width="346" height="15" font="0">Figure 3: Rainbow plot with depth ordering. The</text>
+<text top="835" left="459" width="213" height="15" font="0">median curve is shown in black.</text>
+<text top="1077" left="563" width="5" height="8" font="9">2</text>
+<text top="1077" left="598" width="5" height="8" font="9">4</text>
+<text top="1077" left="634" width="5" height="8" font="9">6</text>
+<text top="1077" left="669" width="5" height="8" font="9">8</text>
+<text top="1077" left="702" width="9" height="8" font="9">10</text>
+<text top="1077" left="737" width="9" height="8" font="9">12</text>
+<text top="1041" left="534" width="0" height="8" font="10">20</text>
+<text top="1008" left="534" width="0" height="8" font="10">22</text>
+<text top="974" left="534" width="0" height="8" font="10">24</text>
+<text top="940" left="534" width="0" height="8" font="10">26</text>
+<text top="907" left="534" width="0" height="8" font="10">28</text>
+<text top="1094" left="633" width="23" height="8" font="9">Month</text>
+<text top="1034" left="516" width="0" height="8" font="10">Smoothed sea surf</text>
+<text top="965" left="516" width="0" height="8" font="10">ace temper</text>
+<text top="924" left="516" width="0" height="8" font="10">ature</text>
+<text top="888" left="728" width="18" height="8" font="9">1960</text>
+<text top="898" left="728" width="18" height="8" font="9">1988</text>
+<text top="908" left="728" width="18" height="8" font="9">1997</text>
+<text top="1120" left="459" width="346" height="15" font="0">Figure 4: Rainbow plot with density ordering. The</text>
+<text top="1137" left="459" width="200" height="15" font="0">mode curve is shown in black.</text>
+<text top="1173" left="481" width="50" height="15" font="0">Figures</text>
+<text top="1173" left="536" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#2">3</a></text>
+<text top="1173" left="547" width="26" height="15" font="0">and</text>
+<text top="1173" left="577" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#2">4</a></text>
+<text top="1173" left="589" width="216" height="15" font="0">present the rainbow plots of sea</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="0" family="Times" color="#3355ff"/>
+	<fontspec id="16" size="0" family="Times" color="#000088"/>
+	<fontspec id="17" size="0" family="Times" color="#ff0000"/>
+	<fontspec id="18" size="0" family="Times" color="#000000"/>
+	<fontspec id="19" size="3" family="Times" color="#ff0000"/>
+	<fontspec id="20" size="3" family="Times" color="#80ff00"/>
+	<fontspec id="21" size="3" family="Times" color="#00ffff"/>
+	<fontspec id="22" size="3" family="Times" color="#8000ff"/>
+	<fontspec id="23" size="7" family="Helvetica" color="#ff0000"/>
+	<fontspec id="24" size="7" family="Helvetica" color="#80ff00"/>
+	<fontspec id="25" size="7" family="Helvetica" color="#00ffff"/>
+	<fontspec id="26" size="7" family="Helvetica" color="#8000ff"/>
+<text top="67" left="82" width="15" height="15" font="0">56</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">surface temperatures ordered by halfspace location</text>
+<text top="143" left="82" width="346" height="15" font="0">depth and highest density regions. The colors reflect</text>
+<text top="161" left="82" width="346" height="15" font="0">the ordering and follow the order of the rainbow. The</text>
+<text top="179" left="82" width="346" height="15" font="0">curves closest to the center of the data set are shown</text>
+<text top="197" left="82" width="346" height="15" font="0">in red, whereas the most outlying curves are shown</text>
+<text top="215" left="82" width="346" height="15" font="0">in violet. The curves are plotted in the order of depth</text>
+<text top="233" left="82" width="348" height="15" font="0">and density, so the red curves are mostly obscured,</text>
+<text top="251" left="82" width="349" height="15" font="0">but the violet curves are clearly seen even if they over-</text>
+<text top="268" left="82" width="346" height="15" font="0">lap with the majority of the data. These rainbow plots</text>
+<text top="286" left="82" width="271" height="15" font="0">were produced using the following code.</text>
+<text top="322" left="82" width="329" height="10" font="12"># plot.type=&#34;depth&#34;, curves are plotted by depth</text>
+<text top="339" left="82" width="336" height="10" font="12"># depth is distance between median and each curve</text>
+<text top="355" left="82" width="281" height="10" font="12"># median curve (black line) is the center</text>
+<text top="372" left="82" width="268" height="10" font="12">plot(ElNinosmooth, plot.type = &#34;depth&#34;,</text>
+<text top="388" left="96" width="123" height="10" font="12">plotlegend = TRUE)</text>
+<text top="421" left="82" width="357" height="10" font="12"># plot.type=&#34;density&#34;, curves are plotted by density</text>
+<text top="437" left="82" width="295" height="10" font="12"># mode (black line) has the highest density</text>
+<text top="454" left="82" width="281" height="10" font="12">plot(ElNinosmooth, plot.type = &#34;density&#34;,</text>
+<text top="470" left="96" width="123" height="10" font="12">plotlegend = TRUE)</text>
+<text top="512" left="82" width="155" height="17" font="11"><b>Functional bagplot</b></text>
+<text top="543" left="82" width="312" height="15" font="0">Adopting from the idea of projection pursuit <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="543" left="393" width="36" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Cook</a></text>
+<text top="561" left="82" width="34" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">et al.</a></text>
+<text top="561" left="116" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="561" left="126" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1995</a></text>
+<text top="561" left="156" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">),</a></text>
+<text top="561" left="171" width="148" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hyndman and Shang</a></text>
+<text top="561" left="324" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="561" left="330" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2010</a></text>
+<text top="561" left="360" width="71" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>use a ro-</text>
+<text top="579" left="82" width="349" height="15" font="0">bust functional principal component analysis to de-</text>
+<text top="597" left="82" width="346" height="15" font="0">compose functional data into the first two functional</text>
+<text top="615" left="82" width="347" height="15" font="0">principal components and their principal component</text>
+<text top="633" left="82" width="346" height="15" font="0">scores. As surrogates for functional data, the bivariate</text>
+<text top="651" left="82" width="347" height="15" font="0">principal component scores can be ordered by Tukey’s</text>
+<text top="669" left="82" width="349" height="15" font="0">halfspace location depth and plotted in a familiar two-</text>
+<text top="687" left="82" width="129" height="15" font="0">dimensional graph.</text>
+<text top="929" left="159" width="15" height="8" font="13">−10</text>
+<text top="929" left="196" width="10" height="8" font="13">−5</text>
+<text top="929" left="233" width="5" height="8" font="13">0</text>
+<text top="929" left="267" width="5" height="8" font="13">5</text>
+<text top="929" left="299" width="10" height="8" font="13">10</text>
+<text top="929" left="333" width="10" height="8" font="13">15</text>
+<text top="929" left="367" width="10" height="8" font="13">20</text>
+<text top="923" left="160" width="0" height="8" font="14">−10</text>
+<text top="886" left="160" width="0" height="8" font="14">−5</text>
+<text top="849" left="160" width="0" height="8" font="14">0</text>
+<text top="815" left="160" width="0" height="8" font="14">5</text>
+<text top="784" left="160" width="0" height="8" font="14">10</text>
+<text top="749" left="160" width="0" height="8" font="14">15</text>
+<text top="715" left="160" width="0" height="8" font="14">20</text>
+<text top="947" left="247" width="45" height="8" font="13">PC score 1</text>
+<text top="835" left="141" width="0" height="8" font="14">PC score 2</text>
+<text top="823" left="280" width="2" height="2" font="15">●</text>
+<text top="854" left="188" width="2" height="2" font="15">●</text>
+<text top="858" left="197" width="2" height="2" font="15">●</text>
+<text top="842" left="298" width="2" height="2" font="15">●</text>
+<text top="863" left="265" width="2" height="2" font="15">●</text>
+<text top="846" left="210" width="2" height="2" font="15">●</text>
+<text top="834" left="245" width="2" height="2" font="15">●</text>
+<text top="850" left="200" width="2" height="2" font="15">●</text>
+<text top="869" left="216" width="2" height="2" font="15">●</text>
+<text top="829" left="219" width="2" height="2" font="15">●</text>
+<text top="827" left="307" width="2" height="2" font="15">●</text>
+<text top="871" left="218" width="2" height="2" font="15">●</text>
+<text top="872" left="209" width="2" height="2" font="15">●</text>
+<text top="833" left="276" width="2" height="2" font="15">●</text>
+<text top="852" left="203" width="2" height="2" font="15">●</text>
+<text top="854" left="297" width="2" height="2" font="15">●</text>
+<text top="867" left="208" width="2" height="2" font="15">●</text>
+<text top="878" left="276" width="2" height="2" font="15">●</text>
+<text top="835" left="232" width="2" height="2" font="15">●</text>
+<text top="863" left="204" width="2" height="2" font="15">●</text>
+<text top="879" left="231" width="2" height="2" font="15">●</text>
+<text top="830" left="260" width="2" height="2" font="15">●</text>
+<text top="847" left="210" width="2" height="2" font="15">●</text>
+<text top="844" left="289" width="2" height="2" font="15">●</text>
+<text top="864" left="206" width="2" height="2" font="15">●</text>
+<text top="860" left="268" width="2" height="2" font="15">●</text>
+<text top="861" left="229" width="2" height="2" font="16">●</text>
+<text top="854" left="276" width="2" height="2" font="16">●</text>
+<text top="850" left="223" width="2" height="2" font="16">●</text>
+<text top="854" left="249" width="2" height="2" font="16">●</text>
+<text top="853" left="230" width="2" height="2" font="16">●</text>
+<text top="863" left="227" width="2" height="2" font="16">●</text>
+<text top="851" left="219" width="2" height="2" font="16">●</text>
+<text top="849" left="275" width="2" height="2" font="16">●</text>
+<text top="845" left="214" width="2" height="2" font="16">●</text>
+<text top="856" left="231" width="2" height="2" font="16">●</text>
+<text top="854" left="243" width="2" height="2" font="16">●</text>
+<text top="847" left="230" width="2" height="2" font="16">●</text>
+<text top="837" left="259" width="2" height="2" font="16">●</text>
+<text top="856" left="250" width="2" height="2" font="16">●</text>
+<text top="848" left="235" width="2" height="2" font="16">●</text>
+<text top="847" left="229" width="2" height="2" font="16">●</text>
+<text top="841" left="236" width="2" height="2" font="16">●</text>
+<text top="860" left="233" width="2" height="2" font="16">●</text>
+<text top="859" left="233" width="2" height="2" font="16">●</text>
+<text top="841" left="253" width="2" height="2" font="16">●</text>
+<text top="857" left="228" width="2" height="2" font="16">●</text>
+<text top="864" left="214" width="2" height="2" font="16">●</text>
+<text top="864" left="230" width="2" height="2" font="16">●</text>
+<text top="860" left="255" width="2" height="2" font="16">●</text>
+<text top="843" left="224" width="2" height="2" font="16">●</text>
+<text top="849" left="228" width="2" height="2" font="16">●</text>
+<text top="858" left="227" width="2" height="2" font="16">●</text>
+<text top="798" left="268" width="2" height="2" font="17">●</text>
+<text top="868" left="350" width="2" height="2" font="17">●</text>
+<text top="783" left="348" width="2" height="2" font="17">●</text>
+<text top="896" left="321" width="2" height="2" font="17">●</text>
+<text top="847" left="210" width="2" height="3" font="18">●</text>
+<text top="823" left="280" width="2" height="3" font="18">●</text>
+<text top="861" left="229" width="2" height="3" font="18">●</text>
+<text top="853" left="276" width="2" height="3" font="18">●</text>
+<text top="853" left="188" width="2" height="3" font="18">●</text>
+<text top="858" left="196" width="2" height="3" font="18">●</text>
+<text top="850" left="222" width="2" height="3" font="18">●</text>
+<text top="842" left="298" width="2" height="3" font="18">●</text>
+<text top="863" left="265" width="2" height="3" font="18">●</text>
+<text top="853" left="249" width="2" height="3" font="18">●</text>
+<text top="853" left="229" width="2" height="3" font="18">●</text>
+<text top="863" left="226" width="2" height="3" font="18">●</text>
+<text top="845" left="210" width="2" height="3" font="18">●</text>
+<text top="834" left="245" width="2" height="3" font="18">●</text>
+<text top="850" left="200" width="2" height="3" font="18">●</text>
+<text top="844" left="288" width="2" height="3" font="18">●</text>
+<text top="851" left="219" width="2" height="3" font="18">●</text>
+<text top="869" left="216" width="2" height="3" font="18">●</text>
+<text top="828" left="219" width="2" height="3" font="18">●</text>
+<text top="848" left="275" width="2" height="3" font="18">●</text>
+<text top="863" left="206" width="2" height="3" font="18">●</text>
+<text top="845" left="213" width="2" height="3" font="18">●</text>
+<text top="827" left="307" width="2" height="3" font="18">●</text>
+<text top="871" left="218" width="2" height="3" font="18">●</text>
+<text top="855" left="230" width="2" height="3" font="18">●</text>
+<text top="872" left="208" width="2" height="3" font="18">●</text>
+<text top="833" left="276" width="2" height="3" font="18">●</text>
+<text top="854" left="243" width="2" height="3" font="18">●</text>
+<text top="847" left="230" width="2" height="3" font="18">●</text>
+<text top="837" left="258" width="2" height="3" font="18">●</text>
+<text top="855" left="250" width="2" height="3" font="18">●</text>
+<text top="848" left="235" width="2" height="3" font="18">●</text>
+<text top="797" left="268" width="2" height="3" font="18">●</text>
+<text top="868" left="350" width="2" height="3" font="18">●</text>
+<text top="846" left="228" width="2" height="3" font="18">●</text>
+<text top="851" left="203" width="2" height="3" font="18">●</text>
+<text top="841" left="236" width="2" height="3" font="18">●</text>
+<text top="854" left="296" width="2" height="3" font="18">●</text>
+<text top="867" left="207" width="2" height="3" font="18">●</text>
+<text top="860" left="233" width="2" height="3" font="18">●</text>
+<text top="858" left="233" width="2" height="3" font="18">●</text>
+<text top="840" left="253" width="2" height="3" font="18">●</text>
+<text top="878" left="276" width="2" height="3" font="18">●</text>
+<text top="859" left="268" width="2" height="3" font="18">●</text>
+<text top="835" left="232" width="2" height="3" font="18">●</text>
+<text top="857" left="228" width="2" height="3" font="18">●</text>
+<text top="863" left="204" width="2" height="3" font="18">●</text>
+<text top="783" left="348" width="2" height="3" font="18">●</text>
+<text top="896" left="321" width="2" height="3" font="18">●</text>
+<text top="864" left="214" width="2" height="3" font="18">●</text>
+<text top="864" left="230" width="2" height="3" font="18">●</text>
+<text top="878" left="231" width="2" height="3" font="18">●</text>
+<text top="860" left="255" width="2" height="3" font="18">●</text>
+<text top="842" left="223" width="2" height="3" font="18">●</text>
+<text top="849" left="228" width="2" height="3" font="18">●</text>
+<text top="858" left="226" width="2" height="3" font="18">●</text>
+<text top="830" left="259" width="2" height="3" font="18">●</text>
+<text top="796" left="267" width="4" height="5" font="19">●</text>
+<text top="866" left="349" width="4" height="5" font="20">●</text>
+<text top="782" left="347" width="4" height="5" font="21">●</text>
+<text top="895" left="319" width="4" height="5" font="22">●</text>
+<text top="795" left="247" width="20" height="8" font="23">1982</text>
+<text top="866" left="329" width="20" height="8" font="24">1983</text>
+<text top="781" left="328" width="20" height="8" font="25">1997</text>
+<text top="894" left="300" width="20" height="8" font="26">1998</text>
+<text top="976" left="152" width="207" height="15" font="0">Figure 5: The bivariate bagplot.</text>
+<text top="1012" left="105" width="68" height="15" font="0">Following</text>
+<text top="1012" left="178" width="100" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Jones and Rice</a></text>
+<text top="1012" left="283" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1012" left="289" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1992</a></text>
+<text top="1012" left="319" width="36" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>and</text>
+<text top="1012" left="360" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Sood et al.</a></text>
+<text top="1030" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1030" left="87" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2009</a></text>
+<text top="1030" left="117" width="315" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>the functional bagplot is considered as a map-</text>
+<text top="1048" left="82" width="196" height="15" font="0">ping of the bivariate bagplot <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="1048" left="278" width="110" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Rousseeuw et al.</a></text>
+<text top="1048" left="388" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="1048" left="396" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1999</a></text>
+<text top="1048" left="426" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">)</a></text>
+<text top="1065" left="82" width="346" height="15" font="0">of the first two robust principal component scores to</text>
+<text top="1083" left="82" width="346" height="15" font="0">the functional curves. The functional bagplot displays</text>
+<text top="1101" left="82" width="349" height="15" font="0">the median curve, and the inner and outer regions.</text>
+<text top="1119" left="82" width="347" height="15" font="0">The inner region is defined as the region bounded</text>
+<text top="1137" left="82" width="349" height="15" font="0">by all curves corresponding to the points in the bi-</text>
+<text top="1155" left="82" width="347" height="15" font="0">variate bag. Hence, 50% of curves are in the inner</text>
+<text top="1173" left="82" width="346" height="15" font="0">region. The outer region is similarly defined as the</text>
+<text top="125" left="459" width="346" height="15" font="0">region bounded by all curves corresponding to the</text>
+<text top="143" left="458" width="347" height="15" font="0">points within the bivariate fence region. The colors of</text>
+<text top="161" left="459" width="346" height="15" font="0">bivariate outliers are matched to the same colors of</text>
+<text top="179" left="459" width="125" height="15" font="0">functional outliers.</text>
+<text top="208" left="481" width="50" height="15" font="0">Figures</text>
+<text top="208" left="537" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">5</a></text>
+<text top="208" left="550" width="26" height="15" font="0">and</text>
+<text top="208" left="581" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">6</a></text>
+<text top="208" left="594" width="213" height="15" font="0">display the bivariate and func-</text>
+<text top="226" left="459" width="337" height="15" font="0">tional bagplots of the sea surface temperature data.</text>
+<text top="459" left="563" width="5" height="8" font="9">2</text>
+<text top="459" left="598" width="5" height="8" font="9">4</text>
+<text top="459" left="634" width="5" height="8" font="9">6</text>
+<text top="459" left="669" width="5" height="8" font="9">8</text>
+<text top="459" left="702" width="9" height="8" font="9">10</text>
+<text top="459" left="737" width="9" height="8" font="9">12</text>
+<text top="424" left="534" width="0" height="8" font="10">20</text>
+<text top="390" left="534" width="0" height="8" font="10">22</text>
+<text top="356" left="534" width="0" height="8" font="10">24</text>
+<text top="323" left="534" width="0" height="8" font="10">26</text>
+<text top="289" left="534" width="0" height="8" font="10">28</text>
+<text top="476" left="633" width="23" height="8" font="9">Month</text>
+<text top="416" left="516" width="0" height="8" font="10">Smoothed sea surf</text>
+<text top="348" left="516" width="0" height="8" font="10">ace temper</text>
+<text top="307" left="516" width="0" height="8" font="10">ature</text>
+<text top="270" left="680" width="18" height="8" font="9">1982</text>
+<text top="280" left="680" width="18" height="8" font="9">1983</text>
+<text top="270" left="728" width="18" height="8" font="9">1997</text>
+<text top="280" left="728" width="18" height="8" font="9">1998</text>
+<text top="502" left="524" width="216" height="15" font="0">Figure 6: The functional bagplot.</text>
+<text top="548" left="481" width="327" height="15" font="0">The detected outliers in the sea surface tempera-</text>
+<text top="566" left="459" width="346" height="15" font="0">ture data are the years 1982-1983 and 1997-1998. The</text>
+<text top="584" left="459" width="346" height="15" font="0">sea surface temperatures during 1982-1983 began in</text>
+<text top="602" left="459" width="347" height="15" font="0">June 1982 with a moderate increase, then there were</text>
+<text top="620" left="459" width="346" height="15" font="0">abnormal increases between September 1982 and June</text>
+<text top="638" left="458" width="39" height="15" font="0">1983 <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="638" left="497" width="125" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Timmermann et al.</a></text>
+<text top="638" left="622" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="638" left="630" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1999</a></text>
+<text top="638" left="659" width="148" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>The sea surface tem-</text>
+<text top="656" left="458" width="347" height="15" font="0">peratures during 1997-1998 were also unusual: they</text>
+<text top="674" left="459" width="346" height="15" font="0">became extremely warm in the latter half of 1997, and</text>
+<text top="692" left="459" width="246" height="15" font="0">stayed high for the early part of 1998.</text>
+<text top="721" left="481" width="62" height="15" font="0">In Figure</text>
+<text top="721" left="547" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">5</a></text>
+<text top="721" left="555" width="252" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">, </a>the dark gray region shows the 50%</text>
+<text top="739" left="459" width="347" height="15" font="0">bag, and the light gray region exhibits the customary</text>
+<text top="757" left="459" width="346" height="15" font="0">99% fence. These convex hulls correspond directly to</text>
+<text top="774" left="459" width="349" height="15" font="0">the equivalent regions with similar colors and shad-</text>
+<text top="792" left="459" width="272" height="15" font="0">ing in the functional bagplot (in Figure</text>
+<text top="792" left="736" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">6</a></text>
+<text top="792" left="744" width="61" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#3">). </a>Points</text>
+<text top="810" left="459" width="349" height="15" font="0">outside these regions are defined as outliers. The dif-</text>
+<text top="828" left="459" width="346" height="15" font="0">ferent colors for these outliers enable the functional</text>
+<text top="846" left="459" width="346" height="15" font="0">outliers to be matched to the bivariate outliers. The</text>
+<text top="864" left="459" width="346" height="15" font="0">red asterisk marks the Tukey median of the bivariate</text>
+<text top="882" left="458" width="347" height="15" font="0">principal component scores, and the solid black curve</text>
+<text top="900" left="459" width="346" height="15" font="0">shows the median curve. The dotted blue line in the</text>
+<text top="918" left="459" width="346" height="15" font="0">functional bagplot gives 95% pointwise confidence</text>
+<text top="936" left="459" width="346" height="15" font="0">intervals for the median curve. These bagplots were</text>
+<text top="954" left="458" width="235" height="15" font="0">produced using the following code.</text>
+<text top="1042" left="459" width="343" height="10" font="12"># plot.type = &#34;bivariate&#34;, the bivariate principal</text>
+<text top="1058" left="459" width="219" height="10" font="12"># component scores are displayed</text>
+<text top="1075" left="459" width="240" height="10" font="12"># type = &#34;bag&#34; requests the bagplot</text>
+<text top="1091" left="459" width="322" height="10" font="12">fboxplot(ElNinosmooth, plot.type = &#34;bivariate&#34;,</text>
+<text top="1108" left="466" width="350" height="10" font="12">type = &#34;bag&#34;, ylim = c(-10, 20), xlim = c(-10, 20))</text>
+<text top="1124" left="459" width="350" height="10" font="12"># plot.type = &#34;functional&#34;, the bivariate pc scores</text>
+<text top="1141" left="459" width="254" height="10" font="12"># are matched to corresponding curves</text>
+<text top="1157" left="459" width="329" height="10" font="12">fboxplot(ElNinosmooth, plot.type = &#34;functional&#34;,</text>
+<text top="1173" left="466" width="89" height="10" font="12">type = &#34;bag&#34;)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="27" size="3" family="Times" color="#000000"/>
+	<fontspec id="28" size="6" family="Helvetica" color="#ff0000"/>
+	<fontspec id="29" size="6" family="Helvetica" color="#80ff00"/>
+	<fontspec id="30" size="6" family="Helvetica" color="#00ffff"/>
+	<fontspec id="31" size="6" family="Helvetica" color="#8000ff"/>
+	<fontspec id="32" size="7" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">57</text>
+<text top="123" left="82" width="348" height="17" font="11"><b>Functional highest density region (HDR)</b></text>
+<text top="144" left="82" width="63" height="17" font="11"><b>boxplot</b></text>
+<text top="177" left="82" width="347" height="15" font="0">The bivariate principal component scores can also be</text>
+<text top="195" left="82" width="346" height="15" font="0">ordered by the highest density regions. The highest</text>
+<text top="213" left="82" width="346" height="15" font="0">density regions are the quantiles of a two-dimensional</text>
+<text top="231" left="82" width="346" height="15" font="0">Parzen-Rosenblatt kernel density estimate, where the</text>
+<text top="249" left="82" width="305" height="15" font="0">bandwidths are chosen by a plug-in method <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="249" left="387" width="44" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hynd-</a></text>
+<text top="267" left="82" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">man</a></text>
+<text top="267" left="112" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="267" left="121" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1996</a></text>
+<text top="267" left="152" width="280" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">). </a>In comparison to a depth-measure ap-</text>
+<text top="285" left="82" width="349" height="15" font="0">proach, the density-measure approach is able to dis-</text>
+<text top="303" left="82" width="299" height="15" font="0">play multimodality if it is present in the data.</text>
+<text top="322" left="105" width="327" height="15" font="0">The functional HDR boxplot is a mapping of the bi-</text>
+<text top="340" left="82" width="142" height="15" font="0">variate HDR boxplot <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="340" left="224" width="67" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Hyndman</a></text>
+<text top="340" left="291" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="340" left="298" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">1996</a></text>
+<text top="340" left="327" width="102" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>of the first two</text>
+<text top="358" left="82" width="346" height="15" font="0">robust principal component scores to the functional</text>
+<text top="376" left="82" width="346" height="15" font="0">curves. The functional HDR boxplot displays the</text>
+<text top="394" left="82" width="348" height="15" font="0">modal curve (i.e., the curve with the highest density),</text>
+<text top="412" left="82" width="346" height="15" font="0">and the inner and outer regions. The inner region is</text>
+<text top="430" left="82" width="349" height="15" font="0">defined as the region bounded by all the curves corre-</text>
+<text top="448" left="82" width="349" height="15" font="0">sponding to the points inside the 50% bivariate HDR.</text>
+<text top="465" left="82" width="347" height="15" font="0">Thus, 50% of curves are in the inner region. The outer</text>
+<text top="483" left="82" width="347" height="15" font="0">region is similarly defined as the region bounded by</text>
+<text top="501" left="82" width="346" height="15" font="0">all the curves corresponding to the points within the</text>
+<text top="519" left="82" width="346" height="15" font="0">outer bivariate HDR. The colors of bivariate outliers</text>
+<text top="537" left="82" width="349" height="15" font="0">are matched to the same colors of functional outliers.</text>
+<text top="557" left="105" width="50" height="15" font="0">Figures</text>
+<text top="557" left="161" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">7</a></text>
+<text top="557" left="174" width="26" height="15" font="0">and</text>
+<text top="557" left="205" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">8</a></text>
+<text top="557" left="218" width="213" height="15" font="0">display the bivariate and func-</text>
+<text top="575" left="82" width="346" height="15" font="0">tional HDR boxplots of the sea surface temperature</text>
+<text top="592" left="82" width="346" height="15" font="0">data set. As with any outlier detection methods, the</text>
+<text top="610" left="82" width="346" height="15" font="0">coverage probability of the outer region needs to be</text>
+<text top="628" left="82" width="347" height="15" font="0">pre-specified. If we set the coverage probability of</text>
+<text top="646" left="82" width="346" height="15" font="0">the outer region to be 93%, then the outliers detected</text>
+<text top="664" left="82" width="347" height="15" font="0">would match the results obtained by the bagplot. This</text>
+<text top="682" left="82" width="346" height="15" font="0">indicates that these outliers are not only far from the</text>
+<text top="700" left="82" width="271" height="15" font="0">median, but also have the lowest density.</text>
+<text top="719" left="105" width="61" height="15" font="0">In Figure</text>
+<text top="719" left="169" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">7</a></text>
+<text top="719" left="177" width="253" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">, </a>the dark and light gray regions show</text>
+<text top="737" left="82" width="349" height="15" font="0">the 50% HDR and the 93% outer HDR, respectively.</text>
+<text top="755" left="82" width="347" height="15" font="0">These correspond directly to the equivalent regions</text>
+<text top="773" left="82" width="347" height="15" font="0">with similar colors and shading in the functional HDR</text>
+<text top="791" left="82" width="122" height="15" font="0">boxplot (in Figure</text>
+<text top="791" left="209" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">8</a></text>
+<text top="791" left="217" width="214" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#4">). </a>Points outside these outer re-</text>
+<text top="809" left="82" width="346" height="15" font="0">gions are identified as the outliers. The use of different</text>
+<text top="827" left="82" width="346" height="15" font="0">colors for these outliers enables the functional outliers</text>
+<text top="845" left="82" width="346" height="15" font="0">to match with the bivariate outliers. The red dot in the</text>
+<text top="863" left="82" width="346" height="15" font="0">bivariate HDR boxplot marks the mode of bivariate</text>
+<text top="881" left="82" width="347" height="15" font="0">principal component scores, and it corresponds to the</text>
+<text top="899" left="82" width="320" height="15" font="0">solid black curve in the functional HDR boxplot.</text>
+<text top="1131" left="163" width="14" height="8" font="9">−10</text>
+<text top="1131" left="198" width="10" height="8" font="9">−5</text>
+<text top="1131" left="234" width="5" height="8" font="9">0</text>
+<text top="1131" left="267" width="5" height="8" font="9">5</text>
+<text top="1131" left="297" width="10" height="8" font="9">10</text>
+<text top="1131" left="330" width="10" height="8" font="9">15</text>
+<text top="1131" left="363" width="10" height="8" font="9">20</text>
+<text top="1126" left="164" width="0" height="8" font="10">−10</text>
+<text top="1090" left="164" width="0" height="8" font="10">−5</text>
+<text top="1055" left="164" width="0" height="8" font="10">0</text>
+<text top="1022" left="164" width="0" height="8" font="10">5</text>
+<text top="992" left="164" width="0" height="8" font="10">10</text>
+<text top="959" left="164" width="0" height="8" font="10">15</text>
+<text top="926" left="164" width="0" height="8" font="10">20</text>
+<text top="1149" left="248" width="42" height="8" font="9">PC score 1</text>
+<text top="1041" left="146" width="0" height="8" font="10">PC score 2</text>
+<text top="1004" left="266" width="4" height="5" font="27">●</text>
+<text top="1072" left="345" width="4" height="5" font="27">●</text>
+<text top="990" left="344" width="4" height="5" font="27">●</text>
+<text top="1099" left="317" width="4" height="5" font="27">●</text>
+<text top="1056" left="229" width="5" height="8" font="9">o</text>
+<text top="1053" left="211" width="2" height="3" font="18">●</text>
+<text top="1029" left="279" width="2" height="3" font="18">●</text>
+<text top="1066" left="230" width="2" height="3" font="18">●</text>
+<text top="1059" left="275" width="2" height="3" font="18">●</text>
+<text top="1059" left="190" width="2" height="3" font="18">●</text>
+<text top="1063" left="199" width="2" height="3" font="18">●</text>
+<text top="1055" left="224" width="2" height="3" font="18">●</text>
+<text top="1048" left="296" width="2" height="3" font="18">●</text>
+<text top="1068" left="264" width="2" height="3" font="18">●</text>
+<text top="1059" left="249" width="2" height="3" font="18">●</text>
+<text top="1059" left="230" width="2" height="3" font="18">●</text>
+<text top="1068" left="227" width="2" height="3" font="18">●</text>
+<text top="1051" left="212" width="2" height="3" font="18">●</text>
+<text top="1040" left="245" width="2" height="3" font="18">●</text>
+<text top="1056" left="202" width="2" height="3" font="18">●</text>
+<text top="1050" left="287" width="2" height="3" font="18">●</text>
+<text top="1056" left="221" width="2" height="3" font="18">●</text>
+<text top="1074" left="218" width="2" height="3" font="18">●</text>
+<text top="1035" left="220" width="2" height="3" font="18">●</text>
+<text top="1054" left="274" width="2" height="3" font="18">●</text>
+<text top="1069" left="208" width="2" height="3" font="18">●</text>
+<text top="1051" left="215" width="2" height="3" font="18">●</text>
+<text top="1034" left="305" width="2" height="3" font="18">●</text>
+<text top="1076" left="219" width="2" height="3" font="18">●</text>
+<text top="1061" left="231" width="2" height="3" font="18">●</text>
+<text top="1077" left="210" width="2" height="3" font="18">●</text>
+<text top="1039" left="275" width="2" height="3" font="18">●</text>
+<text top="1059" left="243" width="2" height="3" font="18">●</text>
+<text top="1052" left="231" width="2" height="3" font="18">●</text>
+<text top="1043" left="258" width="2" height="3" font="18">●</text>
+<text top="1061" left="250" width="2" height="3" font="18">●</text>
+<text top="1054" left="236" width="2" height="3" font="18">●</text>
+<text top="1005" left="267" width="2" height="3" font="18">●</text>
+<text top="1073" left="346" width="2" height="3" font="18">●</text>
+<text top="1052" left="229" width="2" height="3" font="18">●</text>
+<text top="1057" left="205" width="2" height="3" font="18">●</text>
+<text top="1047" left="237" width="2" height="3" font="18">●</text>
+<text top="1059" left="295" width="2" height="3" font="18">●</text>
+<text top="1072" left="209" width="2" height="3" font="18">●</text>
+<text top="1065" left="234" width="2" height="3" font="18">●</text>
+<text top="1064" left="234" width="2" height="3" font="18">●</text>
+<text top="1046" left="253" width="2" height="3" font="18">●</text>
+<text top="1082" left="275" width="2" height="3" font="18">●</text>
+<text top="1065" left="267" width="2" height="3" font="18">●</text>
+<text top="1041" left="233" width="2" height="3" font="18">●</text>
+<text top="1062" left="229" width="2" height="3" font="18">●</text>
+<text top="1068" left="205" width="2" height="3" font="18">●</text>
+<text top="991" left="345" width="2" height="3" font="18">●</text>
+<text top="1100" left="318" width="2" height="3" font="18">●</text>
+<text top="1069" left="216" width="2" height="3" font="18">●</text>
+<text top="1069" left="231" width="2" height="3" font="18">●</text>
+<text top="1083" left="232" width="2" height="3" font="18">●</text>
+<text top="1065" left="255" width="2" height="3" font="18">●</text>
+<text top="1048" left="225" width="2" height="3" font="18">●</text>
+<text top="1055" left="229" width="2" height="3" font="18">●</text>
+<text top="1063" left="227" width="2" height="3" font="18">●</text>
+<text top="1036" left="259" width="2" height="3" font="18">●</text>
+<text top="1004" left="266" width="4" height="5" font="19">●</text>
+<text top="1072" left="345" width="4" height="5" font="20">●</text>
+<text top="990" left="344" width="4" height="5" font="21">●</text>
+<text top="1099" left="317" width="4" height="5" font="22">●</text>
+<text top="1003" left="248" width="19" height="8" font="28">1982</text>
+<text top="1071" left="327" width="19" height="8" font="29">1983</text>
+<text top="989" left="325" width="19" height="8" font="30">1997</text>
+<text top="1098" left="299" width="19" height="8" font="31">1998</text>
+<text top="1175" left="133" width="245" height="15" font="0">Figure 7: The bivariate HDR boxplot.</text>
+<text top="343" left="567" width="5" height="8" font="9">2</text>
+<text top="343" left="601" width="5" height="8" font="9">4</text>
+<text top="343" left="635" width="5" height="8" font="9">6</text>
+<text top="343" left="669" width="5" height="8" font="9">8</text>
+<text top="343" left="700" width="10" height="8" font="9">10</text>
+<text top="343" left="734" width="10" height="8" font="9">12</text>
+<text top="305" left="538" width="0" height="8" font="10">20</text>
+<text top="269" left="538" width="0" height="8" font="10">22</text>
+<text top="232" left="538" width="0" height="8" font="10">24</text>
+<text top="196" left="538" width="0" height="8" font="10">26</text>
+<text top="160" left="538" width="0" height="8" font="10">28</text>
+<text top="362" left="633" width="25" height="8" font="9">Month</text>
+<text top="297" left="519" width="0" height="8" font="10">Smoothed sea surf</text>
+<text top="223" left="519" width="0" height="8" font="10">ace temper</text>
+<text top="179" left="519" width="0" height="8" font="10">ature</text>
+<text top="140" left="671" width="20" height="8" font="9">1982</text>
+<text top="150" left="671" width="20" height="8" font="9">1983</text>
+<text top="140" left="723" width="20" height="8" font="9">1997</text>
+<text top="150" left="723" width="20" height="8" font="9">1998</text>
+<text top="388" left="505" width="254" height="15" font="0">Figure 8: The functional HDR boxplot.</text>
+<text top="424" left="481" width="327" height="15" font="0">These HDR boxplots were produced using the fol-</text>
+<text top="442" left="459" width="85" height="15" font="0">lowing code.</text>
+<text top="474" left="459" width="268" height="10" font="12"># type = &#34;hdr&#34; requests the HDR boxplot</text>
+<text top="491" left="459" width="343" height="10" font="12"># alpha requests the coverage probability of inner</text>
+<text top="507" left="459" width="329" height="10" font="12"># and outer HDR regions, customarily c(0.05,0.5)</text>
+<text top="524" left="459" width="322" height="10" font="12">fboxplot(ElNinosmooth, plot.type = &#34;bivariate&#34;,</text>
+<text top="540" left="521" width="233" height="10" font="12">type = &#34;hdr&#34;, alpha = c(0.07,0.5),</text>
+<text top="557" left="521" width="240" height="10" font="12">ylim = c(-10,20), xlim = c(-10,20))</text>
+<text top="573" left="459" width="329" height="10" font="12">fboxplot(ElNinosmooth, plot.type = &#34;functional&#34;,</text>
+<text top="589" left="521" width="233" height="10" font="12">type = &#34;hdr&#34;, alpha = c(0.07,0.5))</text>
+<text top="629" left="459" width="340" height="17" font="11"><b>Singular value decomposition (SVD) plot</b></text>
+<text top="659" left="459" width="81" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Zhang et al.</a></text>
+<text top="659" left="545" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="659" left="550" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2007</a></text>
+<text top="659" left="580" width="226" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>proposed an interactive plot for</text>
+<text top="677" left="458" width="349" height="15" font="0">visualizing patterns of functional data and multivari-</text>
+<text top="695" left="459" width="346" height="15" font="0">ate data. They use the idea of projection pursuit</text>
+<text top="713" left="459" width="346" height="15" font="0">to find only those low-dimensional projections that</text>
+<text top="731" left="459" width="346" height="15" font="0">expose interesting features of the high-dimensional</text>
+<text top="749" left="458" width="349" height="15" font="0">point cloud. As a popular projection pursuit tech-</text>
+<text top="767" left="459" width="349" height="15" font="0">nique, singular value decomposition (SVD) decom-</text>
+<text top="785" left="458" width="347" height="15" font="0">poses high-dimensional smoothed multivariate data</text>
+<text top="803" left="459" width="347" height="15" font="0">into singular columns, singular rows, and singular</text>
+<text top="820" left="458" width="348" height="15" font="0">values ordered by the amount of explained variance.</text>
+<text top="838" left="481" width="91" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Zhang et al.</a></text>
+<text top="838" left="581" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="838" left="586" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2007</a></text>
+<text top="838" left="617" width="191" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>discretize a set of func-</text>
+<text top="856" left="459" width="302" height="15" font="0">tional data on a dense grid, denoted as <b>f</b></text>
+<text top="855" left="763" width="6" height="16" font="8">(</text>
+<text top="856" left="769" width="7" height="15" font="0">x</text>
+<text top="862" left="777" width="3" height="11" font="1">i</text>
+<text top="855" left="781" width="24" height="16" font="8">) =</text>
+<text top="876" left="459" width="4" height="16" font="8">[</text>
+<text top="877" left="466" width="4" height="15" font="0">f</text>
+<text top="882" left="470" width="6" height="11" font="1">1</text>
+<text top="876" left="477" width="6" height="16" font="8">(</text>
+<text top="877" left="484" width="7" height="15" font="0">x</text>
+<text top="882" left="491" width="3" height="11" font="1">i</text>
+<text top="876" left="496" width="6" height="16" font="8">)</text>
+<text top="877" left="502" width="4" height="15" font="0">,</text>
+<text top="875" left="508" width="17" height="18" font="8">· · ·</text>
+<text top="877" left="528" width="12" height="15" font="0">, f</text>
+<text top="882" left="541" width="6" height="11" font="1">n</text>
+<text top="876" left="548" width="6" height="16" font="8">(</text>
+<text top="877" left="555" width="7" height="15" font="0">x</text>
+<text top="882" left="562" width="3" height="11" font="1">i</text>
+<text top="876" left="567" width="11" height="16" font="8">)]</text>
+<text top="871" left="578" width="3" height="11" font="32">0</text>
+<text top="877" left="582" width="41" height="15" font="0">, for i</text>
+<text top="876" left="628" width="12" height="16" font="8">=</text>
+<text top="877" left="645" width="11" height="15" font="0">1,</text>
+<text top="875" left="658" width="17" height="18" font="8">· · ·</text>
+<text top="877" left="679" width="127" height="15" font="0">, p, where p is the</text>
+<text top="895" left="459" width="349" height="15" font="0">number of covariates, and n is the number of curves.</text>
+<text top="913" left="459" width="22" height="15" font="0">Let</text>
+<text top="911" left="485" width="8" height="18" font="8">{</text>
+<text top="912" left="493" width="6" height="15" font="3"><b>r</b></text>
+<text top="918" left="499" width="3" height="11" font="1">i</text>
+<text top="913" left="503" width="10" height="15" font="0">; i</text>
+<text top="912" left="517" width="12" height="16" font="8">=</text>
+<text top="913" left="533" width="11" height="15" font="0">1,</text>
+<text top="911" left="546" width="17" height="18" font="8">· · ·</text>
+<text top="913" left="567" width="14" height="15" font="0">, p</text>
+<text top="911" left="581" width="8" height="18" font="8">}</text>
+<text top="913" left="593" width="26" height="15" font="0">and</text>
+<text top="911" left="623" width="8" height="18" font="8">{</text>
+<text top="912" left="632" width="7" height="15" font="3"><b>c</b></text>
+<text top="918" left="639" width="3" height="11" font="1">j</text>
+<text top="913" left="643" width="10" height="15" font="0">; j</text>
+<text top="912" left="657" width="12" height="16" font="8">=</text>
+<text top="913" left="673" width="11" height="15" font="0">1,</text>
+<text top="911" left="687" width="17" height="18" font="8">· · ·</text>
+<text top="913" left="707" width="14" height="15" font="0">, n</text>
+<text top="911" left="721" width="8" height="18" font="8">}</text>
+<text top="913" left="734" width="72" height="15" font="0">be the row</text>
+<text top="931" left="459" width="179" height="15" font="0">and column vectors of the</text>
+<text top="930" left="643" width="6" height="16" font="8">(</text>
+<text top="930" left="650" width="8" height="15" font="0">n</text>
+<text top="929" left="662" width="12" height="18" font="8">×</text>
+<text top="930" left="678" width="7" height="15" font="0">p</text>
+<text top="930" left="686" width="6" height="16" font="8">)</text>
+<text top="931" left="697" width="56" height="15" font="0">matrix <b>f</b></text>
+<text top="930" left="756" width="6" height="16" font="8">(</text>
+<text top="930" left="762" width="7" height="15" font="0">x</text>
+<text top="936" left="770" width="3" height="11" font="1">i</text>
+<text top="930" left="774" width="6" height="16" font="8">)</text>
+<text top="931" left="781" width="27" height="15" font="0">, re-</text>
+<text top="949" left="459" width="160" height="15" font="0">spectively. The SVD of <b>f</b></text>
+<text top="948" left="621" width="6" height="16" font="8">(</text>
+<text top="948" left="628" width="7" height="15" font="0">x</text>
+<text top="954" left="635" width="3" height="11" font="1">i</text>
+<text top="948" left="640" width="6" height="16" font="8">)</text>
+<text top="949" left="650" width="82" height="15" font="0">is defined as</text>
+<text top="998" left="500" width="5" height="15" font="3"><b>f</b></text>
+<text top="997" left="507" width="6" height="16" font="8">(</text>
+<text top="998" left="514" width="7" height="15" font="0">x</text>
+<text top="1003" left="521" width="3" height="11" font="1">i</text>
+<text top="997" left="526" width="22" height="16" font="8">) =</text>
+<text top="998" left="551" width="6" height="15" font="0">s</text>
+<text top="1003" left="557" width="6" height="11" font="1">1</text>
+<text top="998" left="564" width="8" height="15" font="3"><b>u</b></text>
+<text top="1003" left="572" width="6" height="11" font="1">1</text>
+<text top="998" left="579" width="8" height="15" font="3"><b>v</b></text>
+<text top="994" left="588" width="7" height="11" font="1">T</text>
+<text top="1005" left="587" width="6" height="11" font="1">1</text>
+<text top="997" left="599" width="12" height="16" font="8">+</text>
+<text top="998" left="614" width="6" height="15" font="0">s</text>
+<text top="1003" left="620" width="6" height="11" font="1">2</text>
+<text top="998" left="627" width="8" height="15" font="3"><b>u</b></text>
+<text top="1003" left="636" width="6" height="11" font="1">2</text>
+<text top="998" left="642" width="8" height="15" font="3"><b>v</b></text>
+<text top="994" left="651" width="7" height="11" font="1">T</text>
+<text top="1005" left="650" width="6" height="11" font="1">2</text>
+<text top="997" left="662" width="12" height="16" font="8">+</text>
+<text top="997" left="678" width="32" height="18" font="8">· · · +</text>
+<text top="998" left="713" width="6" height="15" font="0">s</text>
+<text top="1003" left="719" width="8" height="11" font="1">K</text>
+<text top="998" left="728" width="8" height="15" font="3"><b>u</b></text>
+<text top="1003" left="737" width="8" height="11" font="1">K</text>
+<text top="998" left="746" width="8" height="15" font="3"><b>v</b></text>
+<text top="994" left="754" width="7" height="11" font="1">T</text>
+<text top="1005" left="754" width="8" height="11" font="1">K</text>
+<text top="998" left="763" width="4" height="15" font="0">,</text>
+<text top="1030" left="481" width="211" height="15" font="0">where the singular columns <b>u</b></text>
+<text top="1035" left="693" width="6" height="11" font="1">1</text>
+<text top="1030" left="699" width="4" height="15" font="0">,</text>
+<text top="1028" left="705" width="17" height="18" font="8">· · ·</text>
+<text top="1030" left="725" width="14" height="15" font="0">, <b>u</b></text>
+<text top="1035" left="740" width="8" height="11" font="1">K</text>
+<text top="1030" left="755" width="50" height="15" font="0">form K</text>
+<text top="1048" left="459" width="346" height="15" font="0">orthonormal basis functions for the column space</text>
+<text top="1065" left="459" width="79" height="15" font="0">spanned by</text>
+<text top="1064" left="543" width="8" height="18" font="8">{</text>
+<text top="1065" left="551" width="7" height="15" font="3"><b>c</b></text>
+<text top="1071" left="559" width="3" height="11" font="1">j</text>
+<text top="1064" left="563" width="8" height="18" font="8">}</text>
+<text top="1065" left="571" width="142" height="15" font="0">; the singular rows <b>v</b></text>
+<text top="1071" left="713" width="6" height="11" font="1">1</text>
+<text top="1065" left="719" width="4" height="15" font="0">,</text>
+<text top="1064" left="725" width="17" height="18" font="8">· · ·</text>
+<text top="1065" left="745" width="14" height="15" font="0">, <b>v</b></text>
+<text top="1071" left="759" width="8" height="11" font="1">K</text>
+<text top="1065" left="772" width="33" height="15" font="0">form</text>
+<text top="1083" left="459" width="346" height="15" font="0">K orthonormal basis functions for the row space</text>
+<text top="1101" left="459" width="78" height="15" font="0">spanned by</text>
+<text top="1100" left="540" width="8" height="18" font="8">{</text>
+<text top="1101" left="548" width="6" height="15" font="3"><b>r</b></text>
+<text top="1107" left="554" width="3" height="11" font="1">i</text>
+<text top="1100" left="559" width="8" height="18" font="8">}</text>
+<text top="1101" left="567" width="33" height="15" font="0">; and</text>
+<text top="1098" left="604" width="7" height="11" font="1">T</text>
+<text top="1101" left="616" width="192" height="15" font="0">symbolizes vector transpose.</text>
+<text top="1119" left="458" width="75" height="15" font="0">The vectors</text>
+<text top="1118" left="537" width="8" height="18" font="8">{</text>
+<text top="1119" left="545" width="8" height="15" font="3"><b>u</b></text>
+<text top="1125" left="554" width="5" height="11" font="1">k</text>
+<text top="1118" left="560" width="8" height="18" font="8">}</text>
+<text top="1119" left="571" width="25" height="15" font="0">and</text>
+<text top="1118" left="600" width="8" height="18" font="8">{</text>
+<text top="1119" left="608" width="8" height="15" font="3"><b>v</b></text>
+<text top="1125" left="616" width="5" height="11" font="1">k</text>
+<text top="1118" left="622" width="8" height="18" font="8">}</text>
+<text top="1119" left="634" width="171" height="15" font="0">are called singular column</text>
+<text top="1137" left="459" width="293" height="15" font="0">and singular row, respectively. The scalars s</text>
+<text top="1143" left="752" width="6" height="11" font="1">1</text>
+<text top="1137" left="759" width="4" height="15" font="0">,</text>
+<text top="1136" left="764" width="17" height="18" font="8">· · ·</text>
+<text top="1137" left="785" width="11" height="15" font="0">, s</text>
+<text top="1142" left="797" width="8" height="11" font="1">K</text>
+<text top="1155" left="459" width="260" height="15" font="0">are called singular values. The matrix</text>
+<text top="1154" left="724" width="8" height="18" font="8">{</text>
+<text top="1155" left="732" width="6" height="15" font="0">s</text>
+<text top="1161" left="739" width="5" height="11" font="1">k</text>
+<text top="1155" left="745" width="8" height="15" font="3"><b>u</b></text>
+<text top="1161" left="753" width="5" height="11" font="1">k</text>
+<text top="1155" left="759" width="8" height="15" font="3"><b>v</b></text>
+<text top="1152" left="768" width="7" height="11" font="1">T</text>
+<text top="1163" left="768" width="5" height="11" font="1">k</text>
+<text top="1155" left="776" width="12" height="15" font="0">; k</text>
+<text top="1154" left="793" width="12" height="16" font="8">=</text>
+<text top="1173" left="458" width="11" height="15" font="0">1,</text>
+<text top="1172" left="471" width="17" height="18" font="8">· · ·</text>
+<text top="1173" left="492" width="16" height="15" font="0">, K</text>
+<text top="1172" left="508" width="8" height="18" font="8">}</text>
+<text top="1173" left="520" width="242" height="15" font="0">is referred to as the SVD component.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="33" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="34" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="35" size="7" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">58</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="583" left="117" width="653" height="15" font="0">Figure 9: The animation of SVD plot is started by clicking on any graph when using Adobe Reader.</text>
+<text top="633" left="105" width="143" height="15" font="0">The interactive plot of</text>
+<text top="633" left="251" width="77" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Zhang et al.</a></text>
+<text top="633" left="331" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="633" left="336" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2007</a></text>
+<text top="633" left="365" width="63" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">) </a>captures</text>
+<text top="651" left="82" width="346" height="15" font="0">the changes in the singular columns, as the number of</text>
+<text top="669" left="82" width="346" height="15" font="0">curves gradually increases. Similarly, it also captures</text>
+<text top="687" left="82" width="346" height="15" font="0">the changes in the singular rows, as the number of</text>
+<text top="705" left="82" width="346" height="15" font="0">covariates gradually increases. The interactive plot</text>
+<text top="723" left="82" width="349" height="15" font="0">simultaneously presents the column and row infor-</text>
+<text top="741" left="82" width="346" height="15" font="0">mation of a two-way matrix, to relate the matrix to the</text>
+<text top="759" left="82" width="346" height="15" font="0">corresponding curves, to show local variation, and to</text>
+<text top="777" left="82" width="346" height="15" font="0">highlight interactions between columns and rows of</text>
+<text top="795" left="82" width="121" height="15" font="0">a two-way matrix.</text>
+<text top="813" left="105" width="205" height="15" font="0">By using the <b>animate </b>package <a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">(</a></text>
+<text top="813" left="310" width="41" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">Grahn</a></text>
+<text top="813" left="351" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">,</a></text>
+<text top="813" left="358" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">2010</a></text>
+<text top="813" left="388" width="41" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#6">), </a>a set</text>
+<text top="831" left="82" width="294" height="15" font="0">of dynamic movies can be created (see Figure</text>
+<text top="831" left="380" width="7" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#5">9</a></text>
+<text top="831" left="391" width="38" height="15" font="0">for an</text>
+<text top="849" left="82" width="346" height="15" font="0">example). The advantage of creating these movies is</text>
+<text top="867" left="82" width="346" height="15" font="0">the ability to demonstrate the time-varying features</text>
+<text top="885" left="82" width="346" height="15" font="0">of the singular components, and to highlight outliers</text>
+<text top="903" left="82" width="347" height="15" font="0">if present in the data. The animation is started by</text>
+<text top="921" left="82" width="322" height="15" font="0">clicking on any graph when using Adobe reader.</text>
+<text top="939" left="105" width="44" height="15" font="0">Figure</text>
+<text top="939" left="154" width="8" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#5">9</a></text>
+<text top="939" left="167" width="262" height="15" font="0">shows the SVD plot of the sea surface</text>
+<text top="957" left="82" width="349" height="15" font="0">temperature data set. The first SVD component cap-</text>
+<text top="975" left="82" width="346" height="15" font="0">tures the seasonal pattern, while the second and third</text>
+<text top="993" left="82" width="346" height="15" font="0">SVD components show the contrasts of sea surface</text>
+<text top="1011" left="82" width="346" height="15" font="0">temperatures among different months. Note that the</text>
+<text top="1029" left="82" width="349" height="15" font="0">SVD2 and SVD3 are on a much smaller scale in com-</text>
+<text top="1047" left="82" width="347" height="15" font="0">parison to the SVD1, because the SVD1 accounts for</text>
+<text top="1065" left="82" width="346" height="15" font="0">the most of the curves’ variation. The functional time</text>
+<text top="1083" left="82" width="346" height="15" font="0">series can be approximated by the summation of the</text>
+<text top="1101" left="82" width="348" height="15" font="0">first three SVD components. From the residual plot,</text>
+<text top="1119" left="82" width="347" height="15" font="0">outliers can be identified if they differ significantly</text>
+<text top="1137" left="82" width="68" height="15" font="0">from zero.</text>
+<text top="1155" left="105" width="324" height="15" font="0">The animated SVD plot was produced in a</text>
+<text top="1173" left="82" width="9" height="15" font="0">L</text>
+<text top="1173" left="86" width="9" height="11" font="1">A</text>
+<text top="1173" left="93" width="338" height="18" font="0">TEXeditor, such as WinEdt. For creating one ani-</text>
+<text top="633" left="459" width="110" height="15" font="0">mation in Figure</text>
+<text top="633" left="573" width="7" height="15" font="5"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#5">9</a></text>
+<text top="633" left="580" width="225" height="15" font="0"><a href="2011-2-RJournal_2011-2_Lin~Shang.html#5">, </a>a series of 57 figures (as there are</text>
+<text top="651" left="459" width="346" height="15" font="0">57 years in the sea surface temperature data set) are</text>
+<text top="669" left="459" width="171" height="15" font="0">linked together as follows</text>
+<text top="702" left="459" width="185" height="10" font="12">\% load a package in WinEdt</text>
+<text top="718" left="458" width="137" height="10" font="12">\usepackage{animate}</text>
+<text top="735" left="458" width="302" height="10" font="12">\% link a series of 57 figures for producing</text>
+<text top="751" left="458" width="110" height="10" font="12">\% one animation</text>
+<text top="768" left="458" width="96" height="10" font="12">\begin{figure}</text>
+<text top="784" left="473" width="219" height="10" font="12">\animategraphics{figure_}{1}{57}</text>
+<text top="801" left="458" width="82" height="10" font="12">\end{figure}</text>
+<text top="830" left="481" width="324" height="15" font="0">In R, the non-animated SVD plot can be produced</text>
+<text top="848" left="459" width="167" height="15" font="0">using the following code.</text>
+<text top="881" left="459" width="322" height="10" font="12"># order represents the number of SVD components</text>
+<text top="897" left="459" width="295" height="10" font="12"># as the number of SVD components increases</text>
+<text top="914" left="459" width="316" height="10" font="12"># the residuals should be centered around zero</text>
+<text top="930" left="459" width="329" height="10" font="12"># plot can be suppressed by setting plot = FALSE</text>
+<text top="947" left="459" width="309" height="10" font="12">SVDplot(ElNinosmooth, order = 3, plot = TRUE)</text>
+<text top="991" left="459" width="122" height="21" font="4"><b>Conclusions</b></text>
+<text top="1030" left="458" width="349" height="15" font="0">This article described four graphical methods in-</text>
+<text top="1048" left="459" width="349" height="15" font="0">cluded in the <b>rainbow </b>package, for visualizing func-</text>
+<text top="1065" left="459" width="346" height="15" font="0">tional time series. These methods can be categorized</text>
+<text top="1083" left="459" width="349" height="15" font="0">into graphical techniques using projection pursuit.</text>
+<text top="1101" left="459" width="347" height="15" font="0">Each of these methods has its unique advantages for</text>
+<text top="1119" left="459" width="349" height="15" font="0">revealing the characteristics of functional time series.</text>
+<text top="1137" left="459" width="349" height="15" font="0">Some of the methods enable us to identify and ana-</text>
+<text top="1155" left="459" width="347" height="15" font="0">lyze abnormal observations, while others can be very</text>
+<text top="1173" left="459" width="346" height="15" font="0">useful in visualizing trend. Overall, these graphical</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+<text top="318" left="149" width="4" height="7" font="33">2</text>
+<text top="318" left="179" width="4" height="7" font="33">4</text>
+<text top="318" left="209" width="4" height="7" font="33">6</text>
+<text top="318" left="239" width="4" height="7" font="33">8</text>
+<text top="318" left="267" width="9" height="7" font="33">10</text>
+<text top="318" left="297" width="9" height="7" font="33">12</text>
+<text top="285" left="124" width="0" height="7" font="34">20</text>
+<text top="255" left="124" width="0" height="7" font="34">22</text>
+<text top="224" left="124" width="0" height="7" font="34">24</text>
+<text top="194" left="124" width="0" height="7" font="34">26</text>
+<text top="163" left="124" width="0" height="7" font="34">28</text>
+<text top="127" left="190" width="58" height="9" font="35"><b>Original data</b></text>
+<text top="334" left="208" width="22" height="7" font="33">Month</text>
+<text top="282" left="107" width="0" height="7" font="34">Smoothed sea surf</text>
+<text top="216" left="107" width="0" height="7" font="34">ace temper</text>
+<text top="177" left="107" width="0" height="7" font="34">ature</text>
+<text top="318" left="386" width="4" height="7" font="33">2</text>
+<text top="318" left="416" width="4" height="7" font="33">4</text>
+<text top="318" left="446" width="4" height="7" font="33">6</text>
+<text top="318" left="476" width="4" height="7" font="33">8</text>
+<text top="318" left="504" width="9" height="7" font="33">10</text>
+<text top="318" left="534" width="9" height="7" font="33">12</text>
+<text top="285" left="361" width="0" height="7" font="34">20</text>
+<text top="255" left="361" width="0" height="7" font="34">22</text>
+<text top="224" left="361" width="0" height="7" font="34">24</text>
+<text top="194" left="361" width="0" height="7" font="34">26</text>
+<text top="163" left="361" width="0" height="7" font="34">28</text>
+<text top="127" left="444" width="25" height="9" font="35"><b>SVD1</b></text>
+<text top="334" left="445" width="22" height="7" font="33">Month</text>
+<text top="318" left="623" width="4" height="7" font="33">2</text>
+<text top="318" left="653" width="4" height="7" font="33">4</text>
+<text top="318" left="683" width="4" height="7" font="33">6</text>
+<text top="318" left="713" width="4" height="7" font="33">8</text>
+<text top="318" left="741" width="9" height="7" font="33">10</text>
+<text top="318" left="771" width="9" height="7" font="33">12</text>
+<text top="283" left="598" width="0" height="7" font="34">−2</text>
+<text top="250" left="598" width="0" height="7" font="34">−1</text>
+<text top="215" left="598" width="0" height="7" font="34">0</text>
+<text top="182" left="598" width="0" height="7" font="34">1</text>
+<text top="149" left="598" width="0" height="7" font="34">2</text>
+<text top="127" left="681" width="25" height="9" font="35"><b>SVD2</b></text>
+<text top="334" left="682" width="22" height="7" font="33">Month</text>
+<text top="541" left="149" width="4" height="7" font="33">2</text>
+<text top="541" left="179" width="4" height="7" font="33">4</text>
+<text top="541" left="209" width="4" height="7" font="33">6</text>
+<text top="541" left="239" width="4" height="7" font="33">8</text>
+<text top="541" left="267" width="9" height="7" font="33">10</text>
+<text top="541" left="297" width="9" height="7" font="33">12</text>
+<text top="525" left="124" width="0" height="7" font="34">−1.5</text>
+<text top="502" left="124" width="0" height="7" font="34">−1.0</text>
+<text top="478" left="124" width="0" height="7" font="34">−0.5</text>
+<text top="452" left="124" width="0" height="7" font="34">0.0</text>
+<text top="428" left="124" width="0" height="7" font="34">0.5</text>
+<text top="404" left="124" width="0" height="7" font="34">1.0</text>
+<text top="381" left="124" width="0" height="7" font="34">1.5</text>
+<text top="350" left="207" width="25" height="9" font="35"><b>SVD3</b></text>
+<text top="558" left="208" width="22" height="7" font="33">Month</text>
+<text top="541" left="386" width="4" height="7" font="33">2</text>
+<text top="541" left="416" width="4" height="7" font="33">4</text>
+<text top="541" left="446" width="4" height="7" font="33">6</text>
+<text top="541" left="476" width="4" height="7" font="33">8</text>
+<text top="541" left="504" width="9" height="7" font="33">10</text>
+<text top="541" left="534" width="9" height="7" font="33">12</text>
+<text top="513" left="361" width="0" height="7" font="34">20</text>
+<text top="483" left="361" width="0" height="7" font="34">22</text>
+<text top="454" left="361" width="0" height="7" font="34">24</text>
+<text top="424" left="361" width="0" height="7" font="34">26</text>
+<text top="394" left="361" width="0" height="7" font="34">28</text>
+<text top="365" left="361" width="0" height="7" font="34">30</text>
+<text top="350" left="421" width="69" height="9" font="35"><b>Reconstruction</b></text>
+<text top="558" left="445" width="22" height="7" font="33">Month</text>
+<text top="541" left="623" width="4" height="7" font="33">2</text>
+<text top="541" left="653" width="4" height="7" font="33">4</text>
+<text top="541" left="683" width="4" height="7" font="33">6</text>
+<text top="541" left="713" width="4" height="7" font="33">8</text>
+<text top="541" left="741" width="9" height="7" font="33">10</text>
+<text top="541" left="771" width="9" height="7" font="33">12</text>
+<text top="535" left="598" width="0" height="7" font="34">−1.5</text>
+<text top="507" left="598" width="0" height="7" font="34">−1.0</text>
+<text top="479" left="598" width="0" height="7" font="34">−0.5</text>
+<text top="449" left="598" width="0" height="7" font="34">0.0</text>
+<text top="421" left="598" width="0" height="7" font="34">0.5</text>
+<text top="393" left="598" width="0" height="7" font="34">1.0</text>
+<text top="365" left="598" width="0" height="7" font="34">1.5</text>
+<text top="350" left="673" width="39" height="9" font="35"><b>Residual</b></text>
+<text top="558" left="682" width="22" height="7" font="33">Month</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">59</text>
+<text top="125" left="82" width="348" height="15" font="0">methods present a summary of functional time series,</text>
+<text top="143" left="82" width="346" height="15" font="0">and should be considered as the first step of functional</text>
+<text top="161" left="82" width="131" height="15" font="0">time series analysis.</text>
+<text top="209" left="82" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="247" left="82" width="347" height="15" font="0">Thanks to the editors and reviewers for constructive</text>
+<text top="265" left="82" width="349" height="15" font="0">comments and suggestions that have significantly im-</text>
+<text top="283" left="82" width="349" height="15" font="0">proved this article. Thanks also to Professor Rob Hyn-</text>
+<text top="301" left="82" width="202" height="15" font="0">dman for helping with R code.</text>
+<text top="349" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="388" left="82" width="346" height="15" font="0">D. Cook, A. Buja, J. Cabrera, and C. Hurley. Grand</text>
+<text top="405" left="97" width="332" height="15" font="0">tour and projection pursuit. Journal of Computational</text>
+<text top="423" left="97" width="332" height="15" font="0">and Graphical Statistics, 4(3):155–172, 1995. URL</text>
+<text top="443" left="97" width="267" height="12" font="5"><a href="http://www.jstor.org/stable/1390844">http://www.jstor.org/stable/1390844</a></text>
+<text top="441" left="364" width="4" height="15" font="0"><a href="http://www.jstor.org/stable/1390844">.</a></text>
+<text top="472" left="82" width="72" height="15" font="0">A. Grahn.</text>
+<text top="472" left="179" width="194" height="15" font="0">The Animate Package, 2010.</text>
+<text top="472" left="398" width="31" height="15" font="0">URL</text>
+<text top="491" left="97" width="312" height="12" font="5"><a href="http://www.tug.org/texlive/Contents/live/texmf-dist/doc/latex/animate/animate.pdf">http://www.tug.org/texlive/Contents/live/</a></text>
+<text top="509" left="97" width="306" height="12" font="5"><a href="http://www.tug.org/texlive/Contents/live/texmf-dist/doc/latex/animate/animate.pdf">texmf-dist/doc/latex/animate/animate.pdf</a></text>
+<text top="508" left="403" width="4" height="15" font="0"><a href="http://www.tug.org/texlive/Contents/live/texmf-dist/doc/latex/animate/animate.pdf">.</a></text>
+<text top="538" left="82" width="346" height="15" font="0">X. He and P. Ng. COBS: qualitatively constrained</text>
+<text top="556" left="97" width="332" height="15" font="0">smoothing via linear programming. Computational</text>
+<text top="574" left="97" width="227" height="15" font="0">Statistics, 14(3):315–337, 1999. URL</text>
+<text top="575" left="328" width="107" height="12" font="5"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=185108">http://papers.</a></text>
+<text top="593" left="97" width="328" height="12" font="5"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=185108">ssrn.com/sol3/papers.cfm?abstract_id=185108</a></text>
+<text top="592" left="425" width="4" height="15" font="0"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=185108">.</a></text>
+<text top="622" left="82" width="346" height="15" font="0">R. J. Hyndman. Computing and graphing highest</text>
+<text top="640" left="97" width="334" height="15" font="0">density regions. The American Statistician, 50(2):120–</text>
+<text top="658" left="97" width="114" height="15" font="0">126, 1996. URL</text>
+<text top="659" left="217" width="213" height="12" font="5"><a href="http://www.jstor.org/stable/2684423">http://www.jstor.org/stable/</a></text>
+<text top="677" left="97" width="53" height="12" font="5"><a href="http://www.jstor.org/stable/2684423">2684423</a></text>
+<text top="676" left="151" width="4" height="15" font="0"><a href="http://www.jstor.org/stable/2684423">.</a></text>
+<text top="706" left="82" width="349" height="15" font="0">R. J. Hyndman and H. L. Shang. Rainbow plots, bag-</text>
+<text top="724" left="97" width="332" height="15" font="0">plots, and boxplots for functional data. Journal of</text>
+<text top="742" left="97" width="334" height="15" font="0">Computational and Graphical Statistics, 19(1):29–45,</text>
+<text top="760" left="97" width="73" height="15" font="0">2010. URL</text>
+<text top="762" left="175" width="259" height="12" font="5"><a href="http://pubs.amstat.org/doi/pdf/10.1198/jcgs.2009.08158">http://pubs.amstat.org/doi/pdf/10.</a></text>
+<text top="779" left="97" width="152" height="12" font="5"><a href="http://pubs.amstat.org/doi/pdf/10.1198/jcgs.2009.08158">1198/jcgs.2009.08158</a></text>
+<text top="778" left="249" width="4" height="15" font="0"><a href="http://pubs.amstat.org/doi/pdf/10.1198/jcgs.2009.08158">.</a></text>
+<text top="809" left="82" width="346" height="15" font="0">R. J. Hyndman and M. S. Ullah. Robust forecasting</text>
+<text top="826" left="97" width="332" height="15" font="0">of mortality and fertility rates: A functional data</text>
+<text top="844" left="97" width="333" height="15" font="0">approach. Computational Statistics &amp; Data Analysis,</text>
+<text top="862" left="97" width="195" height="15" font="0">51(10):4942–4956, 2007. URL</text>
+<text top="864" left="297" width="137" height="12" font="5"><a href="http://portal.acm.org/citation.cfm?id=1241107.1241182">http://portal.acm.</a></text>
+<text top="882" left="97" width="267" height="12" font="5"><a href="http://portal.acm.org/citation.cfm?id=1241107.1241182">org/citation.cfm?id=1241107.1241182</a></text>
+<text top="880" left="364" width="4" height="15" font="0"><a href="http://portal.acm.org/citation.cfm?id=1241107.1241182">.</a></text>
+<text top="911" left="82" width="349" height="15" font="0">R. Ihaka, P. Murrell, K. Hornik, and A. Zeileis. col-</text>
+<text top="928" left="97" width="293" height="15" font="0">orspace: Color Space Manipulation., 2011. URL</text>
+<text top="930" left="395" width="38" height="12" font="5"><a href="http://CRAN.R-project.org/package=colorspace">http:</a></text>
+<text top="948" left="97" width="298" height="12" font="5"><a href="http://CRAN.R-project.org/package=colorspace">//CRAN.R-project.org/package=colorspace</a></text>
+<text top="947" left="395" width="4" height="15" font="0"><a href="http://CRAN.R-project.org/package=colorspace">.</a></text>
+<text top="947" left="419" width="10" height="15" font="0">R</text>
+<text top="964" left="97" width="146" height="15" font="0">package version 1.1-0.</text>
+<text top="995" left="82" width="349" height="15" font="0">M. C. Jones and J. A. Rice. Displaying the impor-</text>
+<text top="1013" left="97" width="334" height="15" font="0">tant features of large collections of similar curves.</text>
+<text top="1031" left="97" width="333" height="15" font="0">The American Statistician, 46(2):140–145, 1992. URL</text>
+<text top="1050" left="97" width="267" height="12" font="5"><a href="http://www.jstor.org/stable/2684184">http://www.jstor.org/stable/2684184</a></text>
+<text top="1049" left="364" width="4" height="15" font="0"><a href="http://www.jstor.org/stable/2684184">.</a></text>
+<text top="1079" left="82" width="349" height="15" font="0">J. O. Ramsay and C. J. Dalzell. Some tools for func-</text>
+<text top="1097" left="97" width="332" height="15" font="0">tional data analysis (with discussion). Journal of the</text>
+<text top="1115" left="97" width="335" height="15" font="0">Royal Statistical Society: Series B, 53(3):539–572, 1991.</text>
+<text top="1133" left="97" width="31" height="15" font="0">URL</text>
+<text top="1134" left="132" width="267" height="12" font="5"><a href="http://www.jstor.org/stable/2345586">http://www.jstor.org/stable/2345586</a></text>
+<text top="1133" left="399" width="4" height="15" font="0"><a href="http://www.jstor.org/stable/2345586">.</a></text>
+<text top="125" left="459" width="247" height="15" font="0">J. O. Ramsay and J. B. Ramsey.</text>
+<text top="125" left="733" width="72" height="15" font="0">Functional</text>
+<text top="143" left="474" width="332" height="15" font="0">data analysis of the dynamics of the monthly</text>
+<text top="161" left="474" width="283" height="15" font="0">index of nondurable goods production.</text>
+<text top="161" left="776" width="31" height="15" font="0">Jour-</text>
+<text top="179" left="474" width="19" height="15" font="0">nal</text>
+<text top="179" left="509" width="11" height="15" font="0">of</text>
+<text top="179" left="536" width="87" height="15" font="0">Econometrics,</text>
+<text top="179" left="641" width="114" height="15" font="0">107(1-2):327–344,</text>
+<text top="179" left="774" width="34" height="15" font="0">2002.</text>
+<text top="197" left="474" width="31" height="15" font="0">URL</text>
+<text top="198" left="532" width="274" height="12" font="5"><a href="http://ideas.repec.org/a/eee/econom/v107y2002i1-2p327-344.html">http://ideas.repec.org/a/eee/econom/</a></text>
+<text top="216" left="473" width="200" height="12" font="5"><a href="http://ideas.repec.org/a/eee/econom/v107y2002i1-2p327-344.html">v107y2002i1-2p327-344.html</a></text>
+<text top="215" left="673" width="4" height="15" font="0"><a href="http://ideas.repec.org/a/eee/econom/v107y2002i1-2p327-344.html">.</a></text>
+<text top="245" left="459" width="349" height="15" font="0">J. O. Ramsay, H. Wickham, S. Graves, and G. Hooker.</text>
+<text top="262" left="474" width="244" height="15" font="0">fda: Functional Data Analysis, 2011.</text>
+<text top="263" left="733" width="31" height="15" font="0">URL</text>
+<text top="264" left="771" width="38" height="12" font="5"><a href="http://CRAN.R-project.org/package=fda">http:</a></text>
+<text top="282" left="473" width="245" height="12" font="5"><a href="http://CRAN.R-project.org/package=fda">//CRAN.R-project.org/package=fda</a></text>
+<text top="281" left="718" width="88" height="15" font="0"><a href="http://CRAN.R-project.org/package=fda">. </a>R package</text>
+<text top="298" left="473" width="86" height="15" font="0">version 2.2.6.</text>
+<text top="328" left="459" width="348" height="15" font="0">P. J. Rousseeuw, I. Ruts, and J. W. Tukey. The bagplot:</text>
+<text top="346" left="474" width="332" height="15" font="0">a bivariate boxplot. The American Statistician, 53</text>
+<text top="364" left="473" width="154" height="15" font="0">(4):382–387, 1999. URL</text>
+<text top="366" left="632" width="175" height="12" font="5"><a href="http://www.questia.com/googleScholar.qst?docId=5001888966">http://www.questia.com/</a></text>
+<text top="384" left="474" width="259" height="12" font="5"><a href="http://www.questia.com/googleScholar.qst?docId=5001888966">googleScholar.qst?docId=5001888966</a></text>
+<text top="382" left="733" width="4" height="15" font="0"><a href="http://www.questia.com/googleScholar.qst?docId=5001888966">.</a></text>
+<text top="412" left="459" width="234" height="15" font="0">H. L. Shang and R. J. Hyndman.</text>
+<text top="412" left="708" width="100" height="15" font="0">rainbow: Rain-</text>
+<text top="430" left="474" width="333" height="15" font="0">bow plots, bagplots and boxplots for functional data,</text>
+<text top="448" left="474" width="68" height="15" font="0">2011. URL</text>
+<text top="449" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=rainbow">http://CRAN.R-project.org/package=</a></text>
+<text top="467" left="474" width="53" height="12" font="5"><a href="http://CRAN.R-project.org/package=rainbow">rainbow</a></text>
+<text top="466" left="527" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=rainbow">. </a>R package version 2.6.</text>
+<text top="496" left="459" width="349" height="15" font="0">A. Sood, G. M. James, and G. J. Tellis. Functional re-</text>
+<text top="514" left="474" width="334" height="15" font="0">gression: A new model for predicting market pene-</text>
+<text top="532" left="474" width="334" height="15" font="0">tration of new products. Marketing Science, 28(1):36–</text>
+<text top="550" left="474" width="103" height="15" font="0">51, 2009. URL</text>
+<text top="551" left="582" width="229" height="12" font="5"><a href="http://mktsci.journal.informs.org/cgi/content/abstract/mksc.1080.0382v1">http://mktsci.journal.informs.</a></text>
+<text top="569" left="474" width="312" height="12" font="5"><a href="http://mktsci.journal.informs.org/cgi/content/abstract/mksc.1080.0382v1">org/cgi/content/abstract/mksc.1080.0382v1</a></text>
+<text top="568" left="786" width="4" height="15" font="0"><a href="http://mktsci.journal.informs.org/cgi/content/abstract/mksc.1080.0382v1">.</a></text>
+<text top="598" left="459" width="348" height="15" font="0">A. Timmermann, J. Oberhuber, A. Bacher, M. Esch,</text>
+<text top="616" left="474" width="188" height="15" font="0">M. Latif, and E. Roeckner.</text>
+<text top="616" left="678" width="127" height="15" font="0">Increased El Niño</text>
+<text top="633" left="474" width="334" height="15" font="0">Frequency in a Climate Model Forced by Fu-</text>
+<text top="651" left="474" width="334" height="15" font="0">ture Greenhouse Warming. Nature, 398(6729):694–</text>
+<text top="669" left="474" width="107" height="15" font="0">697, 1999. URL</text>
+<text top="671" left="586" width="221" height="12" font="5"><a href="http://www.nature.com/nature/journal/v398/n6729/abs/398694a0.html">http://www.nature.com/nature/</a></text>
+<text top="689" left="474" width="274" height="12" font="5"><a href="http://www.nature.com/nature/journal/v398/n6729/abs/398694a0.html">journal/v398/n6729/abs/398694a0.html</a></text>
+<text top="687" left="748" width="4" height="15" font="0"><a href="http://www.nature.com/nature/journal/v398/n6729/abs/398694a0.html">.</a></text>
+<text top="717" left="459" width="349" height="15" font="0">J. W. Tukey. Mathematics and the picturing of data.</text>
+<text top="735" left="474" width="332" height="15" font="0">In R. D. James, editor, Proceedings of the International</text>
+<text top="753" left="473" width="334" height="15" font="0">Congress of Mathematicians, volume 2, pages 523–</text>
+<text top="771" left="474" width="333" height="15" font="0">531. Canadian mathematical congress, Vancouver,</text>
+<text top="789" left="473" width="34" height="15" font="0">1975.</text>
+<text top="819" left="459" width="269" height="15" font="0">A. Zeileis, K. Hornik, and P. Murrell.</text>
+<text top="819" left="744" width="61" height="15" font="0">Escaping</text>
+<text top="837" left="474" width="334" height="15" font="0">rgbland: selecting colors for statistical graphics.</text>
+<text top="855" left="473" width="334" height="15" font="0">Computational Statistics and Data Analysis, 53(9):</text>
+<text top="873" left="474" width="143" height="15" font="0">3259–3270, 2009. URL</text>
+<text top="874" left="620" width="191" height="12" font="5"><a href="http://www.sciencedirect.com/science/article/B6V8V-4VM43VH-1/2/b63f4a1a558083ab2b98f12e446d1ac7">http://www.sciencedirect.</a></text>
+<text top="892" left="474" width="291" height="12" font="5"><a href="http://www.sciencedirect.com/science/article/B6V8V-4VM43VH-1/2/b63f4a1a558083ab2b98f12e446d1ac7">com/science/article/B6V8V-4VM43VH-1/2/</a></text>
+<text top="910" left="474" width="244" height="12" font="5"><a href="http://www.sciencedirect.com/science/article/B6V8V-4VM43VH-1/2/b63f4a1a558083ab2b98f12e446d1ac7">b63f4a1a558083ab2b98f12e446d1ac7</a></text>
+<text top="909" left="718" width="4" height="15" font="0"><a href="http://www.sciencedirect.com/science/article/B6V8V-4VM43VH-1/2/b63f4a1a558083ab2b98f12e446d1ac7">.</a></text>
+<text top="939" left="459" width="347" height="15" font="0">L. Zhang, J. S. Marron, H. Shen, and Z. Zhu. Singular</text>
+<text top="956" left="473" width="332" height="15" font="0">value decomposition and its visualization. Journal of</text>
+<text top="974" left="473" width="334" height="15" font="0">Computational and Graphical Statistics, 16(4):833–854,</text>
+<text top="992" left="474" width="73" height="15" font="0">2007. URL</text>
+<text top="994" left="552" width="259" height="12" font="5"><a href="http://pubs.amstat.org/doi/abs/10.1198/106186007X256080?journalCode=jcgs">http://pubs.amstat.org/doi/abs/10.</a></text>
+<text top="1012" left="473" width="290" height="12" font="5"><a href="http://pubs.amstat.org/doi/abs/10.1198/106186007X256080?journalCode=jcgs">1198/106186007X256080?journalCode=jcgs</a></text>
+<text top="1061" left="458" width="93" height="15" font="0">Han Lin Shang</text>
+<text top="1079" left="459" width="345" height="15" font="0">Department of Econometrics and Business Statistics,</text>
+<text top="1097" left="459" width="322" height="15" font="0">Monash University, Caulfield East, Victoria 3145,</text>
+<text top="1115" left="459" width="145" height="15" font="0">Melbourne, Australia.</text>
+<text top="1134" left="459" width="198" height="12" font="5"><a href="mailto:HanLin.Shang@monash.edu.au">HanLin.Shang@monash.edu.au</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,131 @@
+page	left	top	code
+3	149	376	> library(sgr)
+3	149	393	> require(MASS)
+3	149	409	> require(polycor)
+3	149	426	> set.seed(367)
+3	149	442	> R <- matrix(c(1,.4,.4,1),2,2)
+3	149	459	> th <- list(c(-Inf,qnorm(c(0.04,0.27,0.73,0.96)), Inf),
+3	149	475	+ c(-Inf,qnorm(c(0.06,0.31,0.69,0.94)),Inf))
+3	149	491	> Dx <- rdatagen(n=100,R=R,Q=c(5,5),th=th)
+3	149	508	> Dx$data
+3	149	742	> d1 <- factor(Dx$data[,1],ordered=TRUE)
+3	149	759	> d2 <- factor(Dx$data[,2],ordered=TRUE)
+3	149	775	> polychor(d1,d2,ML=TRUE,std.err=TRUE)
+3	149	808	Polychoric Correlation, ML est. = 0.3627 (0.09832)
+4	149	1090	> RM <- replacement.matrix(Q=5,p=c(.5,0),fake.model="slight")
+4	149	1106	> Fx <- rdatarepl(Dx$data,RM)
+4	149	1123	46% of data replaced.
+4	149	1139	> Fx$Fx
+5	149	681	> RM <- replacement.matrix(Q=5,p=c(.5,0),gam=c(1.5,0),del=c(4,0))
+5	149	757	> table(Dx$data[,1])
+5	156	790	1 2 3 4 5
+5	156	806	5 29 40 24 2
+5	149	822	> table(Fx$Fx[,1])
+5	156	855	1 2 3 4 5
+5	156	872	2 17 36 31 14
+6	149	715	> require(polycor)
+6	149	731	> set.seed(367)
+6	149	748	> obs.stat <- .3; mc.stat <- NULL
+6	149	764	> Rmc <- matrix(c(1,.25,.25,1),2)
+6	149	780	> PM <- matrix(c(rep(1,100),rep(2,100)),ncol=2,byrow=TRUE)
+6	149	797	> Pparm <- list(p=matrix(c(.2,.3,.1,.2),2),gam=matrix(1,2,2),del=matrix(1,2,2))
+6	149	813	> for (b in 1:1000) {
+6	149	830	+ mcD <- rdatagen(n=100,R=Rmc,Q=5)$data
+6	149	846	+ Fx <- partition.replacement(mcD,PM,Pparm=Pparm)
+6	149	863	+ for (j in 1:ncol(Fx)) {
+6	149	879	+ Fx[,j] <- ordered(Fx[,j])
+6	149	896	+ }
+6	149	912	+ mcpc1 <- hetcor(Fx[1:50,])$correlations[1,2]
+6	149	928	+ mcpc2 <- hetcor(Fx[51:100,])$correlations[1,2]
+6	149	945	+ Delta <- mcpc1-mcpc2
+6	149	961	+ mc.stat <- c(mc.stat,Delta)
+6	149	978	+ }
+6	149	1011	> hist(mc.stat)
+6	149	1027	> sum(mc.stat>=obs.stat)/1000
+6	149	1043	[1] 0.226
+8	149	565	> require(MASS)
+8	149	582	> set.seed(367)
+8	149	598	> data(smokers)
+8	149	615	> ecstasy.table <- table(smokers$drug,smokers$age,dnn=c("drug","age"))
+8	149	631	> obs.lrt <- loglm(~drug+age,data=ecstasy.table)$lrt
+8	149	648	>
+8	149	664	> PM <- matrix(0,nrow(smokers),2)
+8	149	681	> PM[smokers$age==1,2] <- 1
+8	149	697	> PM[smokers$age==2,2] <- 2
+8	149	713	> Pparm <- list(p=matrix(c(.8,.4,0,0),2),gam=matrix(c(1,1,0,0),2),
+8	149	730	+ del=matrix(c(1,1,0,0),2))
+8	149	746	> mc.lrt <- NULL
+8	149	763	> for (b in 1:1000) {
+8	149	779	+ smokers$simdrug <- rdatagen(nrow(smokers),R=matrix(1),Q=2,
+8	149	796	+ probs=list(c(.75,.25)))$data
+8	149	812	+ Fx <- partition.replacement(smokers[,c("age","simdrug")],PM,Pparm=Pparm)
+8	149	828	+ mc.lrt <- c(mc.lrt,loglm(~simdrug+age,data=table(Fx$simdrug,Fx$age,
+8	149	845	+ dnn=c("simdrug","age")))$lrt)
+8	149	861	+ }
+8	149	894	> hist(mc.lrt)
+8	149	911	> sum(mc.lrt>=obs.lrt)/1000
+8	149	927	[1] 0.812
+9	149	900	> Y <- data.frame(list(age=gl(2,4),response=gl(4,1,8,ordered=TRUE),
+9	149	917	+ counts=c(20,5,7,0,27,5,18,10)))
+9	149	933	> fit0 <- polr(response~1,data=Y,weight=counts)
+9	149	950	> fit1 <- polr(response~age,data=Y,weight=counts)
+9	149	966	> lrt.obs <- -2*(logLik(fit0)-logLik(fit1))
+10	149	744	> set.seed(367)
+10	149	760	> Z <- na.omit(smokers[,c("age","druguse")])
+10	149	776	> PM <- matrix(0,nrow(Z),ncol(Z))
+10	149	793	> PM[Z$age==1,2] <- 1
+10	149	809	> lrt.mc <- NULL
+10	149	826	> for (b in 1:1000) {
+10	149	842	+ Z$simdrug <- rdatagen(nrow(Z),R=matrix(1),Q=4,
+10	149	859	+ probs=list(c(27,5,18,10)/60))$data
+10	149	875	+ Dx <- Z[,-2]
+10	149	892	+ Fx <- partition.replacement(Dx,PM,p=matrix(c(0,.1),1),fake.model="slight")
+10	149	908	+ Tmc <- table(Fx$age,Fx$simdrug)
+10	149	924	+ Ymc <- data.frame(list(age=gl(2,4),response=gl(4,1,8,ordered=TRUE),
+10	149	941	+ counts=c(Tmc[1,],Tmc[2,])))
+10	149	957	+ fit0 <- polr(response~1,data=Ymc,weight=counts)
+10	149	974	+ fit1 <- polr(response~age,data=Ymc,weight=counts)
+10	149	990	+ lrt.mc <- c(lrt.mc,-2*(logLik(fit0)-logLik(fit1)))
+10	149	1007	+ }
+10	149	1040	> sum(lrt.mc>=lrt.obs)/1000
+10	149	1056	[1] 0.039
+11	149	594	> data(smokers)
+11	149	610	> Z <- na.omit(smokers[,c("age","druguse")])
+11	149	627	>
+11	149	643	> fit0 <- polr(ordered(druguse)~1,data=Z)
+11	149	660	> fit1 <- polr(ordered(druguse)~age,data=Z)
+11	149	676	> lrt.obs <- -2*(logLik(fit0)-logLik(fit1)) # observed LRT
+11	149	693	>
+11	149	709	> ### SGR algorithm
+12	149	100	> PI <- .2; B <- 10 # for real simulations set B at least 500
+12	149	116	> lrt.mc <- ga.mc <- de.mc <- p.mc <- NULL
+12	149	133	> PM <- matrix(0,nrow(Z),ncol(Z)) # partition matrix
+12	149	149	> PM[Z$age==1,2] <- 1
+12	149	165	>
+12	149	182	> for (GA in seq(.5,5.5,.5)) {
+12	149	198	+ for (DE in seq(.5,5.5,.5)) {
+12	149	215	+
+12	149	231	+ Pparm <- list(p=matrix(c(0,PI),1),gam=matrix(c(0,GA),1),del=matrix(c(0,DE),1))
+12	149	248	+
+12	149	264	+ for (b in 1:B) {
+12	149	281	+ Z$simdrug <- rdatagen(nrow(Z),R=matrix(1),Q=4,
+12	149	297	+ probs=list(c(27,5,18,10)/60))$data
+12	149	313	+ Dx <- Z[,-2]
+12	149	330	+ Fx <- partition.replacement(Dx,PM,Pparm=Pparm)
+12	149	346	+
+12	149	363	+ Tmc <- table(Fx$age,Fx$simdrug)
+12	149	379	+ Ymc <- data.frame(list(age=gl(2,ncol(Tmc)),response=gl(ncol(Tmc),1,
+12	149	396	+ ordered=TRUE,labels=colnames(Tmc)),counts=c(Tmc[1,],Tmc[2,])))
+12	149	412	+
+12	149	428	+ fit0 <- polr(response~1,data=Ymc,weight=counts)
+12	149	445	+ fit1 <- polr(response~age,data=Ymc,weight=counts)
+12	149	461	+ statval <- -2*(logLik(fit0)-logLik(fit1))
+12	149	478	+ lrt.mc <- c(lrt.mc,statval)
+12	149	494	+
+12	149	511	+ ga.mc <- c(ga.mc,GA); de.mc <- c(de.mc,DE)
+12	149	527	+ p.mc <- c(p.mc,ifelse(statval>lrt.obs,1,0))
+12	149	544	+ }
+12	149	560	+ }
+12	149	576	+ }
+12	149	609	> LRT <- data.frame(list(gam=ga.mc,del=de.mc,lrt=lrt.mc))
+12	149	626	> aggregate(p.mc,list(gam=LRT$gam,del=LRT$del),mean)

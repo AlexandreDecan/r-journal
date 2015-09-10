@@ -1,0 +1,110 @@
+page	left	top	code
+1	459	506	> ### Identify extrema and zero-crossings
+1	459	522	> ndata <- 3000
+1	459	538	> tt <- seq(0, 9, length=ndata)
+1	459	555	> xt <- sin(pi * tt)
+1	459	571	>
+1	459	588	> library(EMD)
+1	459	604	> extrema(xt)
+1	459	621	$minindex
+1	493	637	[,1] [,2]
+1	459	654	[1,] 501 501
+1	459	670	[2,] 1167 1167
+1	459	686	[3,] 1834 1834
+1	459	703	[4,] 2500 2500
+1	459	736	$maxindex
+1	493	752	[,1] [,2]
+1	459	769	[1,] 168 168
+1	459	785	[2,] 834 834
+1	459	801	[3,] 1500 1501
+1	459	818	[4,] 2167 2167
+1	459	834	[5,] 2833 2833
+1	459	867	$nextreme
+1	459	884	[1] 9
+1	459	917	$cross
+1	500	933	[,1] [,2]
+1	466	949	[1,] 1 1
+1	466	966	[2,] 334 335
+1	466	982	[3,] 667 668
+1	466	999	[4,] 1000 1001
+1	466	1015	[5,] 1333 1334
+1	466	1032	[6,] 1667 1668
+1	466	1048	[7,] 2000 2001
+1	466	1064	[8,] 2333 2334
+1	466	1081	[9,] 2666 2667
+1	459	1114	$ncross
+1	459	1130	[1] 9
+2	459	187	> ### Generating a signal
+2	459	203	> ndata <- 3000
+2	459	220	> par(mfrow=c(1,1), mar=c(1,1,1,1))
+2	459	236	> tt2 <- seq(0, 9, length=ndata)
+2	459	253	> xt2 <- sin(pi * tt2) + sin(2* pi * tt2) +
+2	459	269	+ sin(6 * pi * tt2) + 0.5 * tt2
+2	459	285	> plot(tt2, xt2, xlab="", ylab="", type="l",
+2	459	302	+ axes=FALSE); box()
+2	459	318	>
+2	459	335	> ### Extracting the first IMF by sifting process
+2	459	351	> tryimf <- extractimf(xt2, tt2, check=TRUE)
+3	459	496	> ### Empirical Mode Decomposition
+3	459	512	> par(mfrow=c(3,1), mar=c(2,1,2,1))
+3	459	528	> try <- emd(xt2, tt2, boundary="wave")
+3	459	545	>
+3	459	561	> ### Ploting the IMF's
+3	459	578	> par(mfrow=c(3,1), mar=c(2,1,2,1))
+3	459	594	> par(mfrow=c(try$nimf+1, 1), mar=c(2,1,2,1))
+3	459	611	> rangeimf <- range(try$imf)
+3	459	627	> for(i in 1:try$nimf)
+3	459	644	+ plot(tt2, try$imf[,i], type="l", xlab="",
+3	459	660	+ ylab="", ylim=rangeimf, main=
+3	459	676	+ paste(i, "-th IMF", sep="")); abline(h=0)
+3	459	693	> plot(tt2, try$residue, xlab="", ylab="",
+3	459	709	+ main="residue", type="l")
+4	82	929	> ### Mode mixing
+4	82	945	> tt <- seq(0, 0.1, length = 2001)[1:2000]
+4	82	962	> f1 <- 1776; f2 <- 1000
+4	82	978	> xt <- sin(2*pi*f1*tt) * (tt <= 0.033 |
+4	82	995	+ tt >= 0.067) + sin(2*pi*f2*tt)
+4	82	1011	>
+4	82	1027	> ### EMD
+4	82	1044	> interm1 <- emd(xt, tt, boundary="wave",
+4	82	1060	+ max.imf=2, plot.imf=FALSE)
+4	82	1077	> par(mfrow=c(3, 1), mar=c(3,2,2,1))
+4	82	1093	> plot(tt, xt, main="Signal", type="l")
+4	82	1110	> rangeimf <- range(interm1$imf)
+4	82	1126	> plot(tt, interm1$imf[,1], type="l", xlab="",
+4	82	1142	+ ylab="", ylim=rangeimf, main="IMF 1")
+4	82	1159	> plot(tt, interm1$imf[,2], type="l", xlab="",
+4	82	1175	+ ylab="", ylim=rangeimf, main="IMF 2")
+4	459	554	> ### Histogram of empirical period
+4	459	571	> par(mfrow=c(1,1), mar=c(2,4,1,1))
+4	459	587	> tmpinterm <- extrema(interm1$imf[,1])
+4	459	604	> zerocross <-
+4	459	620	+ as.numeric(round(apply(tmpinterm$cross, 1, mean)))
+4	459	637	> hist(diff(tt[zerocross[seq(1, length(zerocross),
+4	459	653	+ by=2)]]), freq=FALSE, xlab="", main="")
+4	459	978	> ### Treating intermittence
+4	459	995	> interm2 <- emd(xt, tt, boundary="wave",
+4	459	1011	+ max.imf=2, plot.imf=FALSE, interm=0.0007)
+4	459	1027	>
+4	459	1044	> ### Plot of each imf
+4	459	1060	> par(mfrow=c(2,1), mar=c(2,2,3,1), oma=c(0,0,0,0))
+4	459	1077	> rangeimf <- range(interm2$imf)
+4	459	1093	> plot(tt,interm2$imf[,1], type="l",
+4	459	1110	+ main="IMF 1 after treating intermittence",
+4	459	1126	+ xlab="", ylab="", ylim=rangeimf)
+4	459	1142	> plot(tt,interm2$imf[,2], type="l",
+4	459	1159	+ main="IMF 2 after treating intermittence",
+4	459	1175	+ xlab="", ylab="", ylim=rangeimf)
+5	82	1060	> ### Spectrogram : X - Time, Y - frequency,
+5	82	1077	> ### Z (Image) - Amplitude
+5	82	1093	> test1 <- hilbertspec(interm1$imf)
+5	82	1110	> spectrogram(test1$amplitude[,1],
+5	82	1126	+ test1$instantfreq[,1])
+5	82	1142	> test2 <- hilbertspec(interm2$imf, tt=tt)
+5	82	1159	> spectrogram(test2$amplitude[,1],
+5	82	1175	+ test2$instantfreq[,1])
+6	82	1008	> data(lena)
+6	82	1024	> z <- lena[seq(1, 512, by=4), seq(1, 512, by=4)]
+6	82	1041	> lenadecom <- emd2d(z, max.imf = 4)
+6	82	1159	> imageEMD(z=z, emdz=lenadecom, extrema=TRUE,
+6	82	1175	+ col=gray(0:100/100))

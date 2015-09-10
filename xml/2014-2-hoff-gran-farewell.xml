@@ -1,0 +1,1751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">137</text>
+<text top="98" left="149" width="558" height="30" font="2"><b>Farewell’s Linear Increments Model for</b></text>
+<text top="137" left="149" width="473" height="30" font="2"><b>Missing Data: The FLIM Package</b></text>
+<text top="173" left="149" width="321" height="15" font="0">by Rune Hoff, Jon Michael Gran and Daniel Farewell</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="538" height="13" font="4">Missing data is common in longitudinal studies. We present a package for Farewell’s Linear</text>
+<text top="231" left="149" width="596" height="13" font="4">Increments Model for Missing Data (the <b>FLIM </b>package), which can be used to fit linear models for</text>
+<text top="247" left="149" width="596" height="13" font="4">observed increments of longitudinal processes and impute missing data. The method is valid for</text>
+<text top="264" left="149" width="595" height="13" font="4">data with regular observation patterns. The end result is a list of fitted models and a hypothetical</text>
+<text top="280" left="149" width="598" height="13" font="4">complete dataset corresponding to the data we might have observed had individuals not been missing.</text>
+<text top="297" left="148" width="596" height="13" font="4">The <b>FLIM </b>package may also be applied to longitudinal studies for causal analysis, by considering</text>
+<text top="313" left="149" width="595" height="13" font="4">counterfactual data as missing data - for instance to compare the effect of different treatments when</text>
+<text top="329" left="149" width="595" height="13" font="4">only data from observational studies are available. The aim of this article is to give an introduction to</text>
+<text top="346" left="149" width="425" height="13" font="4">the <b>FLIM </b>package and to demonstrate how the package can be applied.</text>
+<text top="391" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="430" left="149" width="595" height="13" font="4">Longitudinal data consist of repeated measurements recorded for a group of individuals over a given</text>
+<text top="446" left="149" width="598" height="13" font="4">time period. The resultant datasets are often incomplete, i.e. missing responses for some individuals.</text>
+<text top="462" left="149" width="595" height="13" font="4">Incomplete datasets are more troublesome to analyse, since one has to assess the mechanism behind</text>
+<text top="479" left="149" width="595" height="13" font="4">the missing data. If a response measure itself is linked to the probability of being missing, a standard</text>
+<text top="495" left="149" width="317" height="13" font="4">analysis of the observed data may be severely biased.</text>
+<text top="516" left="171" width="573" height="13" font="4">Data from repeated observations have a natural time order. Standard likelihood-based models</text>
+<text top="533" left="149" width="555" height="13" font="4">for quantitative analysis usually ignore time order and treat longitudinal data as cluster data <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="533" left="704" width="40" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Hogan</a></text>
+<text top="549" left="149" width="29" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">et al.</a></text>
+<text top="549" left="178" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="549" left="185" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2004</a></text>
+<text top="549" left="212" width="532" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">), </a>giving little regard to where missingness takes place or to how the response processes</text>
+<text top="566" left="149" width="43" height="13" font="4">evolve.</text>
+<text top="566" left="196" width="52" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Farewell</a></text>
+<text top="566" left="252" width="5" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="566" left="256" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2006</a></text>
+<text top="566" left="283" width="31" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">) </a>and</text>
+<text top="566" left="318" width="72" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle et al.</a></text>
+<text top="566" left="393" width="5" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="566" left="398" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2007</a></text>
+<text top="566" left="425" width="319" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">) </a>introduced the linear increments model as a tool for</text>
+<text top="582" left="149" width="595" height="13" font="4">dealing with missing data due to drop-out in a dynamic manner, that is, explicitly considering the</text>
+<text top="598" left="149" width="595" height="13" font="4">time order of the responses and where drop-out occurred. The key concept in the linear increments</text>
+<text top="615" left="149" width="595" height="13" font="4">model is the increments, which represent changes over time, and hence are representative of evolving</text>
+<text top="631" left="149" width="120" height="13" font="4">response processes <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="631" left="269" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="631" left="380" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="631" left="387" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="631" left="414" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="652" left="171" width="573" height="13" font="4">As with any method that considers missing data, the linear increments model is not exempt from</text>
+<text top="669" left="149" width="595" height="13" font="4">untestable assumptions. In the linear increments model, the discrete time-independent censoring</text>
+<text top="685" left="148" width="596" height="13" font="4">(DTIC) assumption is adopted. This assumption states that the local characteristics of the response</text>
+<text top="701" left="149" width="595" height="13" font="4">are unchanged by additional information about who is censored, or knowledge of who will, or will</text>
+<text top="718" left="149" width="242" height="13" font="4">not, be censored at the next time point <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="718" left="391" width="73" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle et al.</a></text>
+<text top="718" left="464" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="718" left="471" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2007</a></text>
+<text top="718" left="498" width="246" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>The DTIC assumption is similar to the</text>
+<text top="734" left="149" width="310" height="13" font="4">sequential version of missing at random assumption <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="734" left="458" width="70" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Hogan et al.</a></text>
+<text top="734" left="528" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="734" left="534" width="26" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2004</a></text>
+<text top="734" left="561" width="184" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">), </a>and to independent censoring</text>
+<text top="751" left="149" width="119" height="13" font="4">in survival analysis.</text>
+<text top="772" left="171" width="573" height="13" font="4">The <b>FLIM </b>package implements an autoregressive multivariate version of the linear increments</text>
+<text top="788" left="149" width="117" height="13" font="4">model described by</text>
+<text top="788" left="269" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="788" left="384" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="788" left="388" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="788" left="415" width="329" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>The end result is a hypothetical complete dataset that</text>
+<text top="805" left="149" width="595" height="13" font="4">might have been observed had individuals not been missing, referred to as a hypothetical complete</text>
+<text top="821" left="149" width="595" height="13" font="4">dataset, which can be used for further analysis. Because of the nature of the method, it is required that</text>
+<text top="837" left="149" width="595" height="13" font="4">the longitudinal data exhibits a regular observation pattern with the same potential observation times</text>
+<text top="854" left="149" width="597" height="13" font="4">for all individuals. The <b>FLIM </b>package may also be applied to longitudinal studies for causal analysis,</text>
+<text top="870" left="149" width="595" height="13" font="4">by considering the counterfactuals as missing data. For instance, we may artificially censor individuals</text>
+<text top="887" left="149" width="595" height="13" font="4">after they initiate treatment and apply the linear increments model to estimate counterfactual responses</text>
+<text top="903" left="149" width="195" height="13" font="4">had treatment not been initiated.</text>
+<text top="924" left="171" width="573" height="13" font="4">Early work on the linear increments model focused on handling monotone missingness (i.e. when</text>
+<text top="941" left="149" width="595" height="13" font="4">individuals are missing and do not return to the study; typically referred to as drop-out). The approach</text>
+<text top="957" left="149" width="12" height="13" font="4">of</text>
+<text top="957" left="164" width="109" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="957" left="276" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="957" left="280" width="26" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="957" left="307" width="438" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">), </a>which we adopt, includes both monotone and nonmonotone missingness</text>
+<text top="973" left="148" width="596" height="13" font="4">(i.e. when individuals are missing for a certain amount of time, but later return to the study), and the</text>
+<text top="990" left="149" width="393" height="13" font="4">required assumptions for both types of missingness are discussed.</text>
+<text top="1035" left="149" width="236" height="17" font="5"><b>The linear increments model</b></text>
+<text top="1074" left="148" width="596" height="13" font="4">The linear increments model assumes a hypothetical complete dataset. The focus lies in the response</text>
+<text top="1090" left="149" width="598" height="13" font="4">that would have been observed if, contrary to fact, individuals did not drop out. Thus, the linear incre-</text>
+<text top="1106" left="149" width="597" height="13" font="4">ments model makes explicit the possibility that dropping out can influence the response measurements,</text>
+<text top="1123" left="149" width="217" height="13" font="4">rather than just lead to missing data.</text>
+<text top="1144" left="171" width="573" height="13" font="4">The model is, as the name implies, based on linear models for the increments, which represent</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="7" size="8" family="Times" color="#000000"/>
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">138</text>
+<text top="103" left="149" width="416" height="13" font="4">changes over time and thus capture the evolving response process <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="103" left="565" width="115" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="103" left="679" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="103" left="687" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="103" left="714" width="30" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>At</text>
+<text top="120" left="149" width="595" height="13" font="4">every time point, a linear model is fitted for each longitudinal response by regressing the observed</text>
+<text top="136" left="149" width="597" height="13" font="4">increments onto lagged values of the response variables and possibly other covariates. Afterwards,</text>
+<text top="152" left="149" width="595" height="13" font="4">missing data are imputed by estimating increments for the unobserved individuals and then adding</text>
+<text top="169" left="149" width="316" height="13" font="4">these to the lagged values of their response variables.</text>
+<text top="190" left="171" width="484" height="13" font="4">To fix some notation, we start by describing the hypothetical complete dataset. Let ˜</text>
+<text top="190" left="648" width="9" height="13" font="4">Y</text>
+<text top="190" left="657" width="5" height="12" font="0">(</text>
+<text top="190" left="663" width="4" height="13" font="4">t</text>
+<text top="190" left="668" width="5" height="12" font="0">)</text>
+<text top="190" left="676" width="41" height="13" font="4">be an n</text>
+<text top="189" left="720" width="11" height="13" font="0">×</text>
+<text top="190" left="733" width="10" height="13" font="4">m</text>
+<text top="206" left="149" width="428" height="13" font="4">matrix of multivariate individual responses defined for a set of times t</text>
+<text top="205" left="581" width="21" height="13" font="0">∈ {</text>
+<text top="206" left="602" width="35" height="13" font="4">0, ..., k</text>
+<text top="205" left="637" width="7" height="13" font="0">}</text>
+<text top="206" left="645" width="46" height="13" font="4">, with ˜</text>
+<text top="206" left="683" width="9" height="13" font="4">Y</text>
+<text top="206" left="693" width="5" height="12" font="0">(</text>
+<text top="206" left="698" width="7" height="13" font="4">0</text>
+<text top="206" left="705" width="21" height="12" font="0">) =</text>
+<text top="206" left="731" width="7" height="13" font="4">y</text>
+<text top="211" left="738" width="5" height="10" font="7">0</text>
+<text top="223" left="149" width="447" height="13" font="4">being a matrix of fixed starting values for the processes. Further we write X</text>
+<text top="223" left="597" width="5" height="12" font="0">(</text>
+<text top="223" left="602" width="4" height="13" font="4">t</text>
+<text top="223" left="607" width="5" height="12" font="0">)</text>
+<text top="223" left="616" width="46" height="13" font="4">for an n</text>
+<text top="222" left="665" width="11" height="13" font="0">×</text>
+<text top="223" left="680" width="64" height="14" font="4">p matrix of</text>
+<text top="239" left="149" width="595" height="13" font="4">multivariate individual covariates that can contain both baseline and time dependent variables – note</text>
+<text top="256" left="149" width="595" height="13" font="4">that any time dependent covariate is assumed to take on the same value as the last observed value</text>
+<text top="272" left="149" width="151" height="13" font="4">on missing observations.</text>
+<text top="272" left="305" width="114" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="272" left="423" width="5" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="272" left="428" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="272" left="455" width="289" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">) </a>define the increment of a response measure as</text>
+<text top="285" left="149" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="288" left="168" width="5" height="12" font="0">(</text>
+<text top="288" left="173" width="4" height="13" font="4">t</text>
+<text top="288" left="178" width="20" height="12" font="0">) =</text>
+<text top="285" left="206" width="4" height="13" font="4">˜</text>
+<text top="288" left="202" width="9" height="13" font="4">Y</text>
+<text top="288" left="212" width="5" height="12" font="0">(</text>
+<text top="288" left="218" width="4" height="13" font="4">t</text>
+<text top="288" left="223" width="19" height="12" font="0">) −</text>
+<text top="285" left="248" width="4" height="13" font="4">˜</text>
+<text top="288" left="245" width="9" height="13" font="4">Y</text>
+<text top="288" left="254" width="5" height="12" font="0">(</text>
+<text top="288" left="260" width="4" height="13" font="4">t</text>
+<text top="288" left="267" width="11" height="13" font="0">−</text>
+<text top="288" left="281" width="7" height="13" font="4">1</text>
+<text top="288" left="288" width="5" height="12" font="0">)</text>
+<text top="288" left="293" width="184" height="13" font="4">, and we assume for each t that</text>
+<text top="285" left="481" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="288" left="500" width="5" height="12" font="0">(</text>
+<text top="288" left="506" width="4" height="13" font="4">t</text>
+<text top="288" left="510" width="5" height="12" font="0">)</text>
+<text top="288" left="519" width="110" height="13" font="4">satisfies the model</text>
+<text top="314" left="302" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="317" left="320" width="5" height="12" font="0">(</text>
+<text top="317" left="326" width="4" height="13" font="4">t</text>
+<text top="317" left="331" width="20" height="12" font="0">) =</text>
+<text top="317" left="356" width="10" height="13" font="4">X</text>
+<text top="317" left="366" width="5" height="12" font="0">(</text>
+<text top="317" left="372" width="4" height="13" font="4">t</text>
+<text top="317" left="379" width="11" height="13" font="0">−</text>
+<text top="318" left="393" width="7" height="13" font="4">1</text>
+<text top="317" left="400" width="5" height="12" font="0">)</text>
+<text top="321" left="406" width="7" height="10" font="8"><i>α</i></text>
+<text top="317" left="413" width="5" height="12" font="0">(</text>
+<text top="317" left="419" width="4" height="13" font="4">t</text>
+<text top="317" left="424" width="19" height="12" font="0">) +</text>
+<text top="314" left="449" width="4" height="13" font="4">˜</text>
+<text top="317" left="446" width="9" height="13" font="4">Y</text>
+<text top="317" left="455" width="5" height="12" font="0">(</text>
+<text top="317" left="461" width="4" height="13" font="4">t</text>
+<text top="317" left="468" width="11" height="13" font="0">−</text>
+<text top="318" left="482" width="7" height="13" font="4">1</text>
+<text top="317" left="489" width="5" height="12" font="0">)</text>
+<text top="321" left="495" width="7" height="10" font="8"><i>β</i></text>
+<text top="317" left="503" width="5" height="12" font="0">(</text>
+<text top="317" left="508" width="4" height="13" font="4">t</text>
+<text top="317" left="513" width="19" height="12" font="0">) +</text>
+<text top="317" left="537" width="5" height="14" font="4">˜<i>e</i></text>
+<text top="317" left="542" width="5" height="12" font="0">(</text>
+<text top="317" left="548" width="4" height="13" font="4">t</text>
+<text top="317" left="553" width="5" height="12" font="0">)</text>
+<text top="318" left="558" width="3" height="13" font="4">.</text>
+<text top="318" left="728" width="16" height="13" font="4">(1)</text>
+<text top="347" left="149" width="40" height="13" font="4">Here <i>β</i></text>
+<text top="347" left="189" width="5" height="12" font="0">(</text>
+<text top="347" left="194" width="4" height="13" font="4">t</text>
+<text top="347" left="199" width="5" height="12" font="0">)</text>
+<text top="347" left="208" width="41" height="13" font="4">is an m</text>
+<text top="346" left="252" width="11" height="13" font="0">×</text>
+<text top="347" left="265" width="150" height="14" font="4">m matrix of parameters, <i>α</i></text>
+<text top="347" left="415" width="5" height="12" font="0">(</text>
+<text top="347" left="421" width="4" height="13" font="4">t</text>
+<text top="347" left="426" width="5" height="12" font="0">)</text>
+<text top="347" left="435" width="38" height="13" font="4">is an p</text>
+<text top="346" left="475" width="11" height="13" font="0">×</text>
+<text top="347" left="489" width="171" height="14" font="4">m matrix of parameters and ˜<i>e</i></text>
+<text top="347" left="660" width="5" height="12" font="0">(</text>
+<text top="347" left="666" width="4" height="13" font="4">t</text>
+<text top="347" left="671" width="5" height="12" font="0">)</text>
+<text top="347" left="679" width="38" height="13" font="4">is an n</text>
+<text top="346" left="720" width="11" height="13" font="0">×</text>
+<text top="347" left="733" width="10" height="13" font="4">m</text>
+<text top="363" left="149" width="363" height="13" font="4">error matrix. The error is defined as a zero mean martingale <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="363" left="512" width="71" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle et al.</a></text>
+<text top="363" left="583" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="363" left="590" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2007</a></text>
+<text top="363" left="617" width="95" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>It follows that</text>
+<text top="392" left="294" width="11" height="13" font="4">IE</text>
+<text top="392" left="304" width="5" height="12" font="0">(</text>
+<text top="389" left="310" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="392" left="329" width="5" height="12" font="0">(</text>
+<text top="392" left="335" width="4" height="13" font="4">t</text>
+<text top="392" left="339" width="20" height="12" font="0">)|F</text>
+<text top="397" left="360" width="18" height="11" font="7">t−1</text>
+<text top="392" left="378" width="20" height="12" font="0">) =</text>
+<text top="392" left="403" width="10" height="13" font="4">X</text>
+<text top="392" left="413" width="5" height="12" font="0">(</text>
+<text top="392" left="419" width="4" height="13" font="4">t</text>
+<text top="391" left="427" width="11" height="13" font="0">−</text>
+<text top="392" left="440" width="7" height="13" font="4">1</text>
+<text top="392" left="447" width="5" height="12" font="0">)</text>
+<text top="395" left="453" width="7" height="10" font="8"><i>α</i></text>
+<text top="392" left="460" width="5" height="12" font="0">(</text>
+<text top="392" left="466" width="4" height="13" font="4">t</text>
+<text top="392" left="471" width="19" height="12" font="0">) +</text>
+<text top="389" left="496" width="4" height="13" font="4">˜</text>
+<text top="392" left="493" width="9" height="13" font="4">Y</text>
+<text top="392" left="502" width="5" height="12" font="0">(</text>
+<text top="392" left="508" width="4" height="13" font="4">t</text>
+<text top="391" left="516" width="11" height="13" font="0">−</text>
+<text top="392" left="529" width="7" height="13" font="4">1</text>
+<text top="392" left="536" width="5" height="12" font="0">)</text>
+<text top="395" left="542" width="7" height="10" font="8"><i>β</i></text>
+<text top="392" left="550" width="5" height="12" font="0">(</text>
+<text top="392" left="556" width="4" height="13" font="4">t</text>
+<text top="392" left="561" width="5" height="12" font="0">)</text>
+<text top="392" left="566" width="3" height="13" font="4">,</text>
+<text top="421" left="148" width="37" height="13" font="4">where</text>
+<text top="421" left="189" width="10" height="13" font="0">F</text>
+<text top="426" left="199" width="3" height="10" font="7">t</text>
+<text top="421" left="207" width="410" height="13" font="4">is the history of responses, and covariates up to and including time t.</text>
+<text top="442" left="171" width="189" height="13" font="4">To estimate the parameters in <a href="2014-2-hoff-gran-farewell.html#2">(</a></text>
+<text top="442" left="360" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#2">1</a></text>
+<text top="442" left="367" width="377" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#2">), </a>a nonparametric model is assumed over time, so there is no</text>
+<text top="459" left="149" width="130" height="13" font="4">connection between <i>α</i></text>
+<text top="459" left="279" width="5" height="12" font="0">(</text>
+<text top="459" left="285" width="4" height="13" font="4">t</text>
+<text top="464" left="290" width="5" height="10" font="7">1</text>
+<text top="459" left="296" width="5" height="12" font="0">)</text>
+<text top="459" left="305" width="34" height="13" font="4">and <i>α</i></text>
+<text top="459" left="339" width="5" height="12" font="0">(</text>
+<text top="459" left="345" width="4" height="13" font="4">t</text>
+<text top="463" left="349" width="5" height="10" font="7">2</text>
+<text top="459" left="355" width="5" height="12" font="0">)</text>
+<text top="459" left="364" width="116" height="13" font="4">for different times t</text>
+<text top="464" left="481" width="5" height="10" font="7">1</text>
+<text top="459" left="490" width="31" height="13" font="4">and t</text>
+<text top="463" left="521" width="5" height="10" font="7">2</text>
+<text top="459" left="531" width="101" height="13" font="4">and neither for <i>β</i></text>
+<text top="459" left="632" width="5" height="12" font="0">(</text>
+<text top="459" left="637" width="4" height="13" font="4">t</text>
+<text top="464" left="642" width="5" height="10" font="7">1</text>
+<text top="459" left="648" width="5" height="12" font="0">)</text>
+<text top="459" left="657" width="34" height="13" font="4">and <i>β</i></text>
+<text top="459" left="692" width="5" height="12" font="0">(</text>
+<text top="459" left="697" width="4" height="13" font="4">t</text>
+<text top="463" left="702" width="5" height="10" font="7">2</text>
+<text top="459" left="708" width="5" height="12" font="0">)</text>
+<text top="459" left="714" width="30" height="13" font="4">. The</text>
+<text top="475" left="148" width="127" height="13" font="4">parameter matrices <i>α</i></text>
+<text top="475" left="275" width="5" height="12" font="0">(</text>
+<text top="475" left="281" width="4" height="13" font="4">t</text>
+<text top="475" left="286" width="5" height="12" font="0">)</text>
+<text top="475" left="295" width="34" height="13" font="4">and <i>β</i></text>
+<text top="475" left="329" width="5" height="12" font="0">(</text>
+<text top="475" left="335" width="4" height="13" font="4">t</text>
+<text top="475" left="340" width="5" height="12" font="0">)</text>
+<text top="475" left="349" width="395" height="13" font="4">can be estimated in an unbiased manner by ordinary least squares</text>
+<text top="492" left="149" width="185" height="13" font="4">from the observed increments <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="492" left="334" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="492" left="445" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="492" left="452" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="492" left="479" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="513" left="171" width="573" height="13" font="4">In order to simplify the derivations, we shall for the rest of this section assume that there only are</text>
+<text top="529" left="149" width="368" height="13" font="4">responses and no covariates. To write out the estimator for <i>β</i></text>
+<text top="529" left="518" width="5" height="12" font="0">(</text>
+<text top="529" left="523" width="4" height="13" font="4">t</text>
+<text top="529" left="528" width="5" height="12" font="0">)</text>
+<text top="529" left="534" width="79" height="13" font="4">, we define R</text>
+<text top="529" left="613" width="5" height="12" font="0">(</text>
+<text top="529" left="619" width="4" height="13" font="4">t</text>
+<text top="529" left="624" width="5" height="12" font="0">)</text>
+<text top="529" left="633" width="36" height="13" font="4">and R</text>
+<text top="534" left="670" width="5" height="10" font="7">0</text>
+<text top="529" left="676" width="5" height="12" font="0">(</text>
+<text top="529" left="682" width="4" height="13" font="4">t</text>
+<text top="529" left="686" width="5" height="12" font="0">)</text>
+<text top="529" left="696" width="24" height="13" font="4">as n</text>
+<text top="528" left="723" width="11" height="13" font="0">×</text>
+<text top="529" left="736" width="7" height="13" font="4">n</text>
+<text top="545" left="149" width="528" height="13" font="4">diagonal matrices with response indicators on the diagonal. The ith diagonal element of R</text>
+<text top="545" left="677" width="5" height="12" font="0">(</text>
+<text top="545" left="683" width="4" height="13" font="4">t</text>
+<text top="545" left="688" width="5" height="12" font="0">)</text>
+<text top="545" left="697" width="48" height="13" font="4">equals 1</text>
+<text top="562" left="148" width="268" height="13" font="4">when the complete set of response increments</text>
+<text top="559" left="420" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="567" left="437" width="3" height="10" font="7">i</text>
+<text top="562" left="441" width="5" height="12" font="0">(</text>
+<text top="562" left="447" width="4" height="13" font="4">t</text>
+<text top="562" left="452" width="5" height="12" font="0">)</text>
+<text top="562" left="461" width="200" height="13" font="4">is observed for individual i, and R</text>
+<text top="567" left="661" width="5" height="10" font="7">0</text>
+<text top="562" left="667" width="5" height="12" font="0">(</text>
+<text top="562" left="673" width="4" height="13" font="4">t</text>
+<text top="562" left="678" width="5" height="12" font="0">)</text>
+<text top="562" left="687" width="57" height="13" font="4">is defined</text>
+<text top="578" left="149" width="481" height="13" font="4">similarly for the response measures. We assume that observation of an increment</text>
+<text top="575" left="633" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="583" left="650" width="3" height="10" font="7">i</text>
+<text top="578" left="654" width="5" height="12" font="0">(</text>
+<text top="578" left="660" width="4" height="13" font="4">t</text>
+<text top="578" left="665" width="5" height="12" font="0">)</text>
+<text top="578" left="674" width="70" height="13" font="4">implies that</text>
+<text top="595" left="149" width="39" height="13" font="4">both ˜</text>
+<text top="595" left="180" width="9" height="13" font="4">Y</text>
+<text top="600" left="188" width="3" height="10" font="7">i</text>
+<text top="595" left="192" width="5" height="12" font="0">(</text>
+<text top="595" left="198" width="4" height="13" font="4">t</text>
+<text top="595" left="202" width="5" height="12" font="0">)</text>
+<text top="595" left="212" width="34" height="13" font="4">and ˜</text>
+<text top="595" left="238" width="9" height="13" font="4">Y</text>
+<text top="600" left="246" width="3" height="10" font="7">i</text>
+<text top="595" left="250" width="5" height="12" font="0">(</text>
+<text top="595" left="256" width="4" height="13" font="4">t</text>
+<text top="594" left="264" width="11" height="13" font="0">−</text>
+<text top="595" left="278" width="7" height="13" font="4">1</text>
+<text top="595" left="285" width="5" height="12" font="0">)</text>
+<text top="595" left="294" width="150" height="13" font="4">were observed. Define Y</text>
+<text top="595" left="444" width="5" height="12" font="0">(</text>
+<text top="595" left="450" width="4" height="13" font="4">t</text>
+<text top="595" left="455" width="5" height="12" font="0">)</text>
+<text top="595" left="464" width="280" height="13" font="4">to be the observed data, so the increments can</text>
+<text top="611" left="149" width="77" height="13" font="4">be written as</text>
+<text top="608" left="229" width="18" height="17" font="4">∆Y</text>
+<text top="611" left="248" width="5" height="12" font="0">(</text>
+<text top="611" left="254" width="4" height="13" font="4">t</text>
+<text top="611" left="258" width="20" height="12" font="0">) =</text>
+<text top="611" left="283" width="9" height="13" font="4">Y</text>
+<text top="611" left="292" width="5" height="12" font="0">(</text>
+<text top="611" left="298" width="4" height="13" font="4">t</text>
+<text top="611" left="303" width="19" height="12" font="0">) −</text>
+<text top="611" left="325" width="9" height="13" font="4">Y</text>
+<text top="611" left="334" width="5" height="12" font="0">(</text>
+<text top="611" left="340" width="4" height="13" font="4">t</text>
+<text top="610" left="347" width="11" height="13" font="0">−</text>
+<text top="611" left="361" width="7" height="13" font="4">1</text>
+<text top="611" left="368" width="5" height="12" font="0">)</text>
+<text top="611" left="377" width="367" height="13" font="4">when they are well defined. Thus it is not necessarily the case</text>
+<text top="628" left="149" width="161" height="13" font="4">that the observed values Y</text>
+<text top="628" left="310" width="5" height="12" font="0">(</text>
+<text top="628" left="316" width="4" height="13" font="4">t</text>
+<text top="628" left="321" width="5" height="12" font="0">)</text>
+<text top="628" left="330" width="92" height="13" font="4">equals the sum</text>
+<text top="626" left="425" width="31" height="17" font="4">∑ ∆Y</text>
+<text top="628" left="457" width="5" height="12" font="0">(</text>
+<text top="628" left="463" width="4" height="13" font="4">t</text>
+<text top="628" left="467" width="5" height="12" font="0">)</text>
+<text top="628" left="473" width="119" height="13" font="4">. If we now write U</text>
+<text top="628" left="597" width="11" height="12" font="0">=</text>
+<text top="628" left="612" width="9" height="13" font="4">R</text>
+<text top="628" left="621" width="5" height="12" font="0">(</text>
+<text top="628" left="627" width="4" height="13" font="4">t</text>
+<text top="628" left="632" width="5" height="12" font="0">)</text>
+<text top="628" left="638" width="9" height="13" font="4">Y</text>
+<text top="628" left="647" width="5" height="12" font="0">(</text>
+<text top="628" left="653" width="4" height="13" font="4">t</text>
+<text top="627" left="660" width="11" height="13" font="0">−</text>
+<text top="628" left="674" width="7" height="13" font="4">1</text>
+<text top="628" left="681" width="5" height="12" font="0">)</text>
+<text top="628" left="687" width="57" height="13" font="4">, the least</text>
+<text top="644" left="149" width="125" height="13" font="4">squares estimate of <i>β</i></text>
+<text top="644" left="274" width="5" height="12" font="0">(</text>
+<text top="644" left="280" width="4" height="13" font="4">t</text>
+<text top="644" left="285" width="5" height="12" font="0">)</text>
+<text top="644" left="294" width="13" height="13" font="4">is:</text>
+<text top="672" left="356" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="675" left="362" width="5" height="12" font="0">(</text>
+<text top="675" left="367" width="4" height="13" font="4">t</text>
+<text top="675" left="372" width="30" height="12" font="0">) = (</text>
+<text top="675" left="402" width="10" height="13" font="4">U</text>
+<text top="671" left="413" width="6" height="10" font="7">T</text>
+<text top="675" left="421" width="10" height="13" font="4">U</text>
+<text top="675" left="432" width="5" height="12" font="0">)</text>
+<text top="671" left="438" width="14" height="11" font="7">−1</text>
+<text top="675" left="452" width="10" height="13" font="4">U</text>
+<text top="671" left="464" width="6" height="10" font="7">T</text>
+<text top="672" left="471" width="18" height="17" font="4">∆Y</text>
+<text top="675" left="490" width="5" height="12" font="0">(</text>
+<text top="675" left="496" width="4" height="13" font="4">t</text>
+<text top="675" left="501" width="5" height="12" font="0">)</text>
+<text top="675" left="506" width="3" height="13" font="4">.</text>
+<text top="675" left="728" width="16" height="13" font="4">(2)</text>
+<text top="704" left="149" width="595" height="13" font="4">Once linear models for the observed increments are fitted, estimates of the increments for missing</text>
+<text top="721" left="149" width="595" height="13" font="4">individuals may be calculated and data can be imputed. The idea is to use real responses where</text>
+<text top="737" left="149" width="595" height="13" font="4">they are available and then to substitute missing increments by iteratively updated estimates. The</text>
+<text top="753" left="149" width="475" height="13" font="4">imputation scheme for the predicted hypothetical complete data is as following:</text>
+<text top="779" left="260" width="4" height="13" font="4">˜</text>
+<text top="782" left="256" width="9" height="13" font="4">Y</text>
+<text top="779" left="266" width="12" height="10" font="7">est</text>
+<text top="782" left="279" width="5" height="12" font="0">(</text>
+<text top="783" left="285" width="7" height="13" font="4">0</text>
+<text top="782" left="292" width="20" height="12" font="0">) =</text>
+<text top="782" left="316" width="7" height="13" font="4">y</text>
+<text top="787" left="323" width="5" height="10" font="7">0</text>
+<text top="803" left="249" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="802" left="268" width="12" height="10" font="7">est</text>
+<text top="806" left="281" width="5" height="12" font="0">(</text>
+<text top="806" left="287" width="4" height="13" font="4">t</text>
+<text top="806" left="292" width="30" height="12" font="0">) = (</text>
+<text top="806" left="322" width="7" height="13" font="4">1</text>
+<text top="805" left="331" width="11" height="13" font="0">−</text>
+<text top="806" left="345" width="9" height="13" font="4">R</text>
+<text top="810" left="354" width="5" height="10" font="7">0</text>
+<text top="806" left="361" width="5" height="12" font="0">(</text>
+<text top="806" left="366" width="4" height="13" font="4">t</text>
+<text top="806" left="371" width="11" height="12" font="0">))</text>
+<text top="803" left="386" width="4" height="13" font="4">˜</text>
+<text top="806" left="382" width="9" height="13" font="4">Y</text>
+<text top="802" left="392" width="12" height="10" font="7">est</text>
+<text top="806" left="405" width="5" height="12" font="0">(</text>
+<text top="806" left="411" width="4" height="13" font="4">t</text>
+<text top="805" left="418" width="11" height="13" font="0">−</text>
+<text top="806" left="432" width="7" height="13" font="4">1</text>
+<text top="806" left="439" width="5" height="12" font="0">)</text>
+<text top="803" left="447" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="806" left="453" width="5" height="12" font="0">(</text>
+<text top="806" left="458" width="4" height="13" font="4">t</text>
+<text top="806" left="463" width="19" height="12" font="0">) +</text>
+<text top="806" left="486" width="9" height="13" font="4">R</text>
+<text top="810" left="495" width="5" height="10" font="7">0</text>
+<text top="806" left="501" width="5" height="12" font="0">(</text>
+<text top="806" left="507" width="4" height="13" font="4">t</text>
+<text top="806" left="512" width="11" height="12" font="0">)(</text>
+<text top="806" left="523" width="9" height="13" font="4">Y</text>
+<text top="806" left="532" width="5" height="12" font="0">(</text>
+<text top="806" left="538" width="4" height="13" font="4">t</text>
+<text top="806" left="543" width="19" height="12" font="0">) −</text>
+<text top="803" left="568" width="4" height="13" font="4">˜</text>
+<text top="806" left="565" width="9" height="13" font="4">Y</text>
+<text top="802" left="574" width="12" height="10" font="7">est</text>
+<text top="806" left="588" width="5" height="12" font="0">(</text>
+<text top="806" left="593" width="4" height="13" font="4">t</text>
+<text top="805" left="601" width="11" height="13" font="0">−</text>
+<text top="806" left="615" width="7" height="13" font="4">1</text>
+<text top="806" left="621" width="11" height="12" font="0">))</text>
+<text top="806" left="633" width="61" height="13" font="4">, t = 1,...,k,</text>
+<text top="826" left="261" width="4" height="13" font="4">˜</text>
+<text top="829" left="258" width="9" height="13" font="4">Y</text>
+<text top="826" left="268" width="12" height="10" font="7">est</text>
+<text top="829" left="281" width="5" height="12" font="0">(</text>
+<text top="829" left="287" width="4" height="13" font="4">t</text>
+<text top="829" left="292" width="20" height="12" font="0">) =</text>
+<text top="826" left="319" width="4" height="13" font="4">˜</text>
+<text top="829" left="316" width="9" height="13" font="4">Y</text>
+<text top="826" left="325" width="12" height="10" font="7">est</text>
+<text top="829" left="339" width="5" height="12" font="0">(</text>
+<text top="829" left="344" width="4" height="13" font="4">t</text>
+<text top="828" left="352" width="11" height="13" font="0">−</text>
+<text top="829" left="365" width="7" height="13" font="4">1</text>
+<text top="829" left="372" width="19" height="12" font="0">) +</text>
+<text top="826" left="395" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="826" left="413" width="12" height="10" font="7">est</text>
+<text top="829" left="426" width="5" height="12" font="0">(</text>
+<text top="829" left="432" width="4" height="13" font="4">t</text>
+<text top="829" left="437" width="5" height="12" font="0">)</text>
+<text top="829" left="443" width="58" height="13" font="4">, t =1,...,k.</text>
+<text top="860" left="148" width="207" height="13" font="4">When data is observed, the value ˜</text>
+<text top="860" left="348" width="9" height="13" font="4">Y</text>
+<text top="857" left="357" width="12" height="10" font="7">est</text>
+<text top="860" left="371" width="5" height="12" font="0">(</text>
+<text top="860" left="376" width="4" height="13" font="4">t</text>
+<text top="860" left="381" width="5" height="12" font="0">)</text>
+<text top="860" left="390" width="75" height="13" font="4">just equals Y</text>
+<text top="860" left="466" width="5" height="12" font="0">(</text>
+<text top="860" left="472" width="4" height="13" font="4">t</text>
+<text top="860" left="477" width="5" height="12" font="0">)</text>
+<text top="860" left="482" width="262" height="13" font="4">. When there is missing data, the increments</text>
+<text top="876" left="149" width="222" height="13" font="4">are predicted according to the model.</text>
+<text top="897" left="171" width="573" height="13" font="4">When applying the linear increments model, some issues might need to be resolved for the</text>
+<text top="914" left="149" width="595" height="13" font="4">imputation to work. To obtain reasonable estimates, a sufficient number of observed increments must</text>
+<text top="930" left="149" width="595" height="13" font="4">be available at all times. Sufficient number is a vague concept, but towards the end of a study there are</text>
+<text top="947" left="149" width="595" height="13" font="4">typically less individuals left. Therefore, it might sometimes be advisable to stop imputation before</text>
+<text top="963" left="149" width="277" height="13" font="4">the last observation times. Also, if the matrix U</text>
+<text top="960" left="427" width="6" height="10" font="7">T</text>
+<text top="963" left="434" width="34" height="14" font="4">U in <a href="2014-2-hoff-gran-farewell.html#2">(</a></text>
+<text top="963" left="468" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#2">2</a></text>
+<text top="963" left="474" width="270" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#2">) </a>is singular at any time, such that it cannot be</text>
+<text top="979" left="149" width="598" height="13" font="4">inverted, the routine is halted. At this point, one option is to do a Ridge regression to find <i>β</i>-estimates.</text>
+<text top="1000" left="171" width="573" height="13" font="4">The DTIC assumption requirement for the data is discussed below – if the required assumptions</text>
+<text top="1017" left="149" width="595" height="13" font="4">hold, hypothetical complete datasets constructed using the above procedures will have the correct</text>
+<text top="1033" left="149" width="482" height="13" font="4">mean structure. However, they will not have the correct random error variation <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="1033" left="631" width="112" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="1033" left="742" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="1050" left="149" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="1050" left="176" width="568" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>To deal with this, bootstrap samples of hypothetical complete datasets can be produced. This</text>
+<text top="1066" left="149" width="595" height="13" font="4">should not be too time-consuming, as iterations are not needed to find estimates. The bootstrap is</text>
+<text top="1083" left="149" width="595" height="13" font="4">done so that the same number of individuals as in the original data are sampled with replacement</text>
+<text top="1099" left="149" width="595" height="13" font="4">from the study population. If an individual is sampled, his or her entire observation matrix should be</text>
+<text top="1115" left="149" width="595" height="13" font="4">included. Missing data in a bootstrap sample are then imputed in the same manner as the original</text>
+<text top="1132" left="149" width="595" height="13" font="4">dataset, and inference can be based on these bootstrap samples. In the package, we have included the</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">139</text>
+<text top="103" left="148" width="596" height="13" font="4">possibility to calculate empirical bootstrap estimates of the standard errors for the hypothetical mean</text>
+<text top="120" left="149" width="595" height="13" font="4">responses, and also an option to draw point wise 95% confidence bands around the hypothetical mean</text>
+<text top="136" left="149" width="98" height="13" font="4">response curves.</text>
+<text top="157" left="171" width="573" height="13" font="4">To perform model check for the increments models, one can use the standard diagnostics plots</text>
+<text top="173" left="149" width="595" height="13" font="4">for linear regression fits. These plots should reveal any serious misspecification of the model, and</text>
+<text top="190" left="149" width="596" height="13" font="4">users should check for the usual signs of model misspecification in linear models – these are briefly</text>
+<text top="206" left="149" width="596" height="13" font="4">explained when demonstrating the package later. We have included in the package an option to easily</text>
+<text top="223" left="148" width="286" height="13" font="4">view the diagnostics plots that are produced for</text>
+<text top="219" left="438" width="306" height="18" font="4">&#34;lm&#34; objects in R on the different time points where</text>
+<text top="239" left="149" width="152" height="13" font="4">linear models were fitted.</text>
+<text top="281" left="149" width="364" height="15" font="9"><b>The discrete time-independent censoring assumption</b></text>
+<text top="312" left="148" width="314" height="13" font="4">The DTIC assumption is covered with greater detail in</text>
+<text top="312" left="466" width="76" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Gunnes et al.</a></text>
+<text top="312" left="544" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="312" left="549" width="26" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2009</a></text>
+<text top="312" left="575" width="171" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>Despite the term censoring,</text>
+<text top="329" left="149" width="595" height="13" font="4">the DTIC is actually an assumption about missingness. The terminology comes from the analogy of</text>
+<text top="345" left="149" width="259" height="13" font="4">independent censoring in survival analysis.</text>
+<text top="366" left="171" width="192" height="13" font="4">To write out the assumption, let</text>
+<text top="365" left="367" width="18" height="13" font="0">R(</text>
+<text top="366" left="385" width="4" height="13" font="4">t</text>
+<text top="366" left="390" width="5" height="12" font="0">)</text>
+<text top="366" left="399" width="140" height="13" font="4">be the past history of R</text>
+<text top="366" left="539" width="5" height="12" font="0">(</text>
+<text top="366" left="544" width="4" height="13" font="4">t</text>
+<text top="366" left="549" width="5" height="12" font="0">)</text>
+<text top="366" left="555" width="189" height="13" font="4">, i.e the history of the censoring</text>
+<text top="382" left="148" width="117" height="13" font="4">process up to time t</text>
+<text top="382" left="268" width="11" height="13" font="0">−</text>
+<text top="382" left="282" width="462" height="13" font="4">1. The censoring is considered to be independent of the hypothetical response</text>
+<text top="399" left="148" width="55" height="13" font="4">process ˜</text>
+<text top="399" left="196" width="96" height="14" font="4">Y if, and only if,</text>
+<text top="428" left="305" width="8" height="13" font="4">E</text>
+<text top="428" left="313" width="5" height="12" font="0">(</text>
+<text top="425" left="319" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="428" left="338" width="5" height="12" font="0">(</text>
+<text top="428" left="343" width="4" height="13" font="4">t</text>
+<text top="428" left="348" width="20" height="12" font="0">)|F</text>
+<text top="433" left="369" width="18" height="11" font="7">t−1</text>
+<text top="428" left="387" width="3" height="13" font="4">,</text>
+<text top="427" left="393" width="18" height="13" font="0">R(</text>
+<text top="428" left="411" width="4" height="13" font="4">t</text>
+<text top="428" left="415" width="26" height="12" font="0">)) =</text>
+<text top="428" left="446" width="8" height="13" font="4">E</text>
+<text top="428" left="454" width="5" height="12" font="0">(</text>
+<text top="425" left="460" width="18" height="17" font="4">∆ ˜Y</text>
+<text top="428" left="479" width="5" height="12" font="0">(</text>
+<text top="428" left="485" width="4" height="13" font="4">t</text>
+<text top="428" left="489" width="20" height="12" font="0">)|F</text>
+<text top="433" left="510" width="18" height="11" font="7">t−1</text>
+<text top="428" left="528" width="5" height="12" font="0">)</text>
+<text top="428" left="534" width="3" height="13" font="4">,</text>
+<text top="427" left="540" width="8" height="13" font="0">∀</text>
+<text top="428" left="551" width="8" height="13" font="4">t.</text>
+<text top="428" left="728" width="16" height="13" font="4">(3)</text>
+<text top="457" left="149" width="351" height="13" font="4">Independent censoring says that the local characteristics of ˜</text>
+<text top="457" left="492" width="252" height="14" font="4">Y are unchanged by additional information</text>
+<text top="474" left="149" width="598" height="13" font="4">about the censoring process. This assumption ensures that the observed increments remain represen-</text>
+<text top="490" left="149" width="218" height="13" font="4">tative of the original study sample <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="490" left="367" width="73" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle et al.</a></text>
+<text top="490" left="440" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="490" left="448" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2007</a></text>
+<text top="490" left="475" width="269" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>The DTIC assumption guarantees that the</text>
+<text top="506" left="149" width="294" height="13" font="4">observed data will satisfy the model specified in <a href="2014-2-hoff-gran-farewell.html#2">(</a></text>
+<text top="506" left="443" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#2">1</a></text>
+<text top="506" left="450" width="12" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#2">) </a><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="506" left="462" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="506" left="573" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="506" left="580" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="506" left="607" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="548" left="149" width="287" height="15" font="9"><b>Monotone and nonmonotone missingness</b></text>
+<text top="580" left="149" width="598" height="13" font="4">Early works on the linear increments model concentrated on censored or monotone missing data.</text>
+<text top="596" left="148" width="598" height="13" font="4">Although the imputation technique may be valid when there are nonmonotone missing data, assump-</text>
+<text top="612" left="149" width="595" height="13" font="4">tions can prove harder to justify, and it might therefore be necessary to remove data from individuals</text>
+<text top="629" left="148" width="596" height="13" font="4">with nonmonotone missingness. In many cases, if data are missing at only a few time points it would</text>
+<text top="645" left="149" width="595" height="13" font="4">be foolish to ignore subsequent data. For instance, if only one measurement is missing for reasons</text>
+<text top="662" left="149" width="595" height="13" font="4">unrelated to the evolution of the response process, then later measurements for the same individual</text>
+<text top="678" left="149" width="595" height="13" font="4">should not be ignored. On the other hand, individuals who are missing from the study for an extended</text>
+<text top="695" left="148" width="596" height="13" font="4">period and then return might not be representative of the population of the missing ones. The problem</text>
+<text top="711" left="149" width="595" height="13" font="4">is to decide whether the data from these individuals should be used, which goes beyond the DTIC</text>
+<text top="728" left="149" width="78" height="13" font="4">assumption <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="728" left="226" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="728" left="337" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="728" left="344" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="728" left="371" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="748" left="171" width="573" height="13" font="4">To decide whether monotone or nonmonotone missing data can be used, one must determine</text>
+<text top="765" left="148" width="596" height="13" font="4">whether the probabilities of going missing and returning to the study are related to the progress of the</text>
+<text top="781" left="149" width="121" height="13" font="4">complete response ˜</text>
+<text top="781" left="263" width="9" height="13" font="4">Y</text>
+<text top="781" left="272" width="5" height="12" font="0">(</text>
+<text top="781" left="278" width="4" height="13" font="4">t</text>
+<text top="781" left="283" width="5" height="12" font="0">)</text>
+<text top="781" left="288" width="208" height="13" font="4">. There are four possible situations,</text>
+<text top="806" left="169" width="575" height="13" font="4">1. Going missing &#34;is unrelated&#34; to the previous response progress. Returning &#34;does not depend&#34;</text>
+<text top="823" left="186" width="181" height="13" font="4">on the progress while missing.</text>
+<text top="843" left="169" width="575" height="13" font="4">2. Going missing &#34;is related&#34; to the previous response progress. Returning &#34;does not depend&#34; on</text>
+<text top="860" left="186" width="163" height="13" font="4">the progress while missing.</text>
+<text top="880" left="169" width="575" height="13" font="4">3. Going missing &#34;is unrelated&#34; to the previous response progress. Returning &#34;does depend&#34; on</text>
+<text top="897" left="186" width="163" height="13" font="4">the progress while missing.</text>
+<text top="917" left="169" width="575" height="13" font="4">4. Going missing &#34;is related&#34; to the previous response progress. Returning &#34;does depend&#34; on the</text>
+<text top="934" left="186" width="141" height="13" font="4">progress while missing.</text>
+<text top="959" left="149" width="596" height="13" font="4">In order to consistently use nonmonotone missing data, the probability of returning to the study</text>
+<text top="975" left="149" width="598" height="13" font="4">should not depend on the response progress while missing, as is the case in situations 1 and 2 above.</text>
+<text top="992" left="149" width="597" height="13" font="4">In situations where the probability of returning does depend on the response process while missing,</text>
+<text top="1008" left="149" width="598" height="13" font="4">data from observation times after an individual returns may need to be removed from the analysis.</text>
+<text top="1025" left="149" width="596" height="13" font="4">For all four situations above, monotone missing data can be used, since no considerations to any</text>
+<text top="1041" left="149" width="595" height="13" font="4">developments during absence have to be made. For a more elaborate discussion on the matter, see</text>
+<text top="1057" left="148" width="111" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="1057" left="263" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="1057" left="267" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="1057" left="294" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="1099" left="149" width="106" height="15" font="9"><b>Causal analysis</b></text>
+<text top="1130" left="149" width="595" height="13" font="4">Methods for dealing with missing data have much in common with methods for estimating causal</text>
+<text top="1147" left="149" width="47" height="13" font="4">effects <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="1147" left="196" width="115" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen and Gunnes</a></text>
+<text top="1147" left="311" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="1147" left="318" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2010</a></text>
+<text top="1147" left="346" width="398" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>A typical problem in longitudinal studies is the comparison of</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">140</text>
+<text top="103" left="149" width="595" height="13" font="4">treatment effects when treatment is confounded with the condition of the individual rather than being</text>
+<text top="120" left="149" width="597" height="13" font="4">randomised. For instance, if treatment is initiated with increasing probability as individuals get sicker,</text>
+<text top="136" left="149" width="598" height="13" font="4">a naive analysis could conclude that individuals receiving treatment are worse off than if left untreated.</text>
+<text top="152" left="149" width="595" height="13" font="4">Here the linear increments model can be adopted to estimate the counterfactual condition progress</text>
+<text top="169" left="149" width="596" height="13" font="4">had treatment not been initiated, which could shed light on the treatment effectiveness. To see how</text>
+<text top="185" left="149" width="274" height="13" font="4">this can be achieved, note that, as reported by</text>
+<text top="185" left="426" width="78" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Hernán et al.</a></text>
+<text top="185" left="507" width="5" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="185" left="512" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2006</a></text>
+<text top="185" left="539" width="205" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">), </a>treatment initiation or change in</text>
+<text top="202" left="149" width="267" height="13" font="4">treatment may be seen as artificial censoring.</text>
+<text top="223" left="171" width="575" height="13" font="4">To demonstrate how the linear increments model can be used to assess causal effects, for example,</text>
+<text top="239" left="149" width="595" height="13" font="4">assume a situation where treatment A and treatment B are to be compared in their effectiveness of</text>
+<text top="256" left="149" width="595" height="13" font="4">improving the condition of the patients. Rather than randomising treatment, the decision regarding</text>
+<text top="272" left="149" width="595" height="13" font="4">type of treatment is made based on the patients’ conditions, typically quantified by some measured</text>
+<text top="288" left="149" width="595" height="13" font="4">response variable. Patients are given either treatment A or treatment B, and those receiving treatment</text>
+<text top="305" left="148" width="596" height="13" font="4">A are moved to treatment B if their condition worsens. Depending on the purpose of the analysis, we</text>
+<text top="321" left="149" width="595" height="13" font="4">may explicitly censor response values for individuals who changed from treatment A to treatment B</text>
+<text top="338" left="149" width="595" height="13" font="4">after their last observation under treatment A. The data would be reconstructed as if these patients</text>
+<text top="354" left="149" width="596" height="13" font="4">never initiated treatment B, but rather continued treatment A and were &#34;missing&#34; from follow-up for</text>
+<text top="371" left="149" width="160" height="13" font="4">the remainder of the study.</text>
+<text top="392" left="171" width="573" height="13" font="4">It is possible to use <b>FLIM </b>to impute counterfactual response developments as described above. To</text>
+<text top="408" left="149" width="597" height="13" font="4">do this, the dataset should include a factor variable that indicates that an intervention has taken place,</text>
+<text top="424" left="149" width="595" height="13" font="4">for instance some form of treatment. This variable should be coded so that the value is zero whenever a</text>
+<text top="441" left="148" width="596" height="13" font="4">patient is not intervened on, and 1 from the time point when intervention first took place. Intervention</text>
+<text top="457" left="149" width="595" height="13" font="4">has to be of such nature that once initiated, the patient continuous to undergo this intervention for the</text>
+<text top="474" left="149" width="595" height="13" font="4">remainder of the study period or until being censored or having an event. An example is shown on a</text>
+<text top="490" left="149" width="216" height="13" font="4">simulated dataset later in the article.</text>
+<text top="535" left="149" width="153" height="17" font="5"><b>The FLIM package</b></text>
+<text top="574" left="148" width="596" height="13" font="4">Applications of the linear increments model in the <b>FLIM </b>package are done with the core function</text>
+<text top="587" left="149" width="31" height="18" font="4">flim:</text>
+<text top="613" left="149" width="556" height="18" font="4">flim(formula, data, id, obstime, t.values = NULL, method = &#34;locf&#34;, lambda = NULL,</text>
+<text top="630" left="197" width="96" height="18" font="4">art.cens=NULL)</text>
+<text top="660" left="148" width="500" height="13" font="4">To use the function, the following mandatory arguments must be entered. Note that</text>
+<text top="656" left="652" width="92" height="18" font="4">id and obstime</text>
+<text top="676" left="149" width="242" height="13" font="4">should be entered with quotation marks.</text>
+<text top="706" left="171" width="8" height="13" font="4">•</text>
+<text top="702" left="186" width="268" height="18" font="4">formula: an R formula on the form response</text>
+<text top="709" left="461" width="11" height="11" font="0">∼</text>
+<text top="702" left="479" width="266" height="18" font="4">predictors. The package fits models for the</text>
+<text top="722" left="186" width="112" height="13" font="4">increments, so that</text>
+<text top="719" left="301" width="75" height="18" font="4">formula = Y</text>
+<text top="725" left="384" width="11" height="11" font="0">∼</text>
+<text top="719" left="402" width="151" height="18" font="4">Y + X specifies the model</text>
+<text top="741" left="187" width="8" height="13" font="4">E</text>
+<text top="741" left="195" width="4" height="12" font="0">[</text>
+<text top="741" left="199" width="9" height="13" font="4">Y</text>
+<text top="741" left="209" width="5" height="12" font="0">(</text>
+<text top="741" left="214" width="4" height="13" font="4">t</text>
+<text top="741" left="222" width="11" height="12" font="0">+</text>
+<text top="741" left="235" width="7" height="13" font="4">1</text>
+<text top="741" left="242" width="19" height="12" font="0">) −</text>
+<text top="741" left="264" width="9" height="13" font="4">Y</text>
+<text top="741" left="274" width="5" height="12" font="0">(</text>
+<text top="741" left="280" width="4" height="13" font="4">t</text>
+<text top="741" left="284" width="25" height="12" font="0">)] =</text>
+<text top="745" left="314" width="7" height="10" font="8"><i>β</i></text>
+<text top="746" left="321" width="5" height="10" font="7">0</text>
+<text top="741" left="327" width="5" height="12" font="0">(</text>
+<text top="741" left="333" width="4" height="13" font="4">t</text>
+<text top="741" left="338" width="19" height="12" font="0">) +</text>
+<text top="745" left="361" width="7" height="10" font="8"><i>β</i></text>
+<text top="746" left="368" width="5" height="10" font="7">1</text>
+<text top="741" left="374" width="5" height="12" font="0">(</text>
+<text top="741" left="380" width="4" height="13" font="4">t</text>
+<text top="741" left="385" width="5" height="12" font="0">)</text>
+<text top="741" left="390" width="9" height="13" font="4">Y</text>
+<text top="741" left="400" width="5" height="12" font="0">(</text>
+<text top="741" left="406" width="4" height="13" font="4">t</text>
+<text top="741" left="411" width="19" height="12" font="0">) +</text>
+<text top="745" left="433" width="7" height="10" font="8"><i>β</i></text>
+<text top="746" left="441" width="5" height="10" font="7">2</text>
+<text top="741" left="447" width="5" height="12" font="0">(</text>
+<text top="741" left="453" width="4" height="13" font="4">t</text>
+<text top="741" left="458" width="5" height="12" font="0">)</text>
+<text top="741" left="464" width="10" height="13" font="4">X</text>
+<text top="741" left="474" width="5" height="12" font="0">(</text>
+<text top="741" left="480" width="4" height="13" font="4">t</text>
+<text top="741" left="485" width="5" height="12" font="0">)</text>
+<text top="761" left="186" width="306" height="13" font="4">For several responses and the same set of predictors,</text>
+<text top="757" left="496" width="82" height="18" font="4">cbind(Y1,Y2)</text>
+<text top="764" left="585" width="11" height="11" font="0">∼</text>
+<text top="757" left="603" width="144" height="18" font="4">predictors can be used.</text>
+<text top="777" left="186" width="310" height="13" font="4">For full flexibility, a list of formulae can be supplied.</text>
+<text top="799" left="171" width="8" height="13" font="4">•</text>
+<text top="796" left="186" width="558" height="18" font="4">data: a data frame with the longitudinal dataset. See separate section later for specification</text>
+<text top="816" left="186" width="82" height="13" font="4">requirements.</text>
+<text top="838" left="171" width="8" height="13" font="4">•</text>
+<text top="834" left="186" width="385" height="18" font="4">id: name of the variable in data with unique ids for each subject.</text>
+<text top="860" left="171" width="8" height="13" font="4">•</text>
+<text top="857" left="186" width="320" height="18" font="4">obstime: name of the variable with observation times.</text>
+<text top="890" left="171" width="573" height="13" font="4">In addition, there are some optional arguments that should be specified accordingly when needed.</text>
+<text top="916" left="171" width="8" height="13" font="4">•</text>
+<text top="913" left="186" width="560" height="18" font="4">t.values: a vector with time points at which models should be fitted and missing data imputed.</text>
+<text top="933" left="186" width="560" height="13" font="4">Models are fitted from the first time point all the way through to the penultimate time point.</text>
+<text top="949" left="186" width="560" height="13" font="4">While data are imputed from the second time point up to the last one. If nothing is specified,</text>
+<text top="965" left="186" width="431" height="13" font="4">this argument will be set to the unique time points contained in the data.</text>
+<text top="988" left="171" width="8" height="13" font="4">•</text>
+<text top="984" left="186" width="558" height="18" font="4">method: method for filling in response values between observations if there is nonmonotone</text>
+<text top="1004" left="186" width="558" height="13" font="4">missingness. The options are &#34;locf&#34;, &#34;approx&#34;, &#34;recursive&#34; and &#34;recursiveX&#34;. Default is &#34;locf&#34;. See</text>
+<text top="1020" left="186" width="290" height="13" font="4">details in a separate section about this argument.</text>
+<text top="1043" left="171" width="8" height="13" font="4">•</text>
+<text top="1039" left="186" width="496" height="18" font="4">lambda: ridge parameter for doing ridge regression in the linear fits. Default is OLS.</text>
+<text top="1065" left="171" width="8" height="13" font="4">•</text>
+<text top="1061" left="186" width="558" height="18" font="4">art.cens: used to specify a 0-1 factor variable that will be used for artificial censoring. Artificial</text>
+<text top="1081" left="186" width="560" height="13" font="4">censoring is performed to response values for all subjects after the first switch from 0 to 1.</text>
+<text top="1098" left="186" width="558" height="13" font="4">Missing values will then be imputed as if subjects never made the switch. This is intended for</text>
+<text top="1114" left="186" width="558" height="13" font="4">advanced users and does not come with readily available tools for investigating results. The</text>
+<text top="1130" left="186" width="558" height="13" font="4">original dataset with added columns for counterfactual response values is stored in the fitted</text>
+<text top="1147" left="186" width="38" height="13" font="4">object.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">141</text>
+<text top="103" left="171" width="466" height="13" font="4">Below is an example of how arguments can be entered. Imagine a dataset called</text>
+<text top="100" left="641" width="103" height="18" font="4">mydata consisting</text>
+<text top="120" left="149" width="233" height="13" font="4">of a cohort of HIV patients similar to e.g</text>
+<text top="120" left="385" width="65" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Aalen et al.</a></text>
+<text top="120" left="454" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="120" left="459" width="26" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2012</a></text>
+<text top="120" left="485" width="259" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>The patients are observed regularly, where</text>
+<text top="136" left="149" width="595" height="13" font="4">they have among other variables, measured cd4 and rna levels. Suppose ids and observation times are</text>
+<text top="152" left="149" width="131" height="13" font="4">stored in the columns</text>
+<text top="149" left="283" width="461" height="18" font="4">pID and Obs, respectively, and we wish to impute missing values for the two</text>
+<text top="169" left="149" width="63" height="13" font="4">responses,</text>
+<text top="165" left="215" width="529" height="18" font="4">cd4 and rna. We also want to include the covariate age as a predictor. Assume our goal</text>
+<text top="185" left="149" width="258" height="13" font="4">is to fit models and impute data for times t</text>
+<text top="184" left="411" width="20" height="13" font="0">∈ {</text>
+<text top="185" left="431" width="74" height="13" font="4">1, 2, 3, ....., 20</text>
+<text top="184" left="505" width="7" height="13" font="0">}</text>
+<text top="185" left="516" width="229" height="13" font="4">– individuals may be observed on any</text>
+<text top="202" left="149" width="597" height="13" font="4">arbitrary set of times contained within t as long as they are fully observed on their first observation,</text>
+<text top="218" left="149" width="595" height="13" font="4">that is, all responses and covariates are registered. Any potential nonmonotone missing data are to be</text>
+<text top="235" left="149" width="545" height="13" font="4">filled in by last observation carried forward (LOCF). To achieve this, we enter the following:</text>
+<text top="261" left="149" width="364" height="18" font="4">flimobject &lt;- flim(cbind(cd4, rna) ~ cd4 + rna + age,</text>
+<text top="278" left="293" width="261" height="18" font="4">mydata, &#34;pID&#34;, &#34;Obs&#34;, t.values = 1:20)</text>
+<text top="311" left="148" width="396" height="13" font="4">This example would be equivalent to specifying these two models:</text>
+<text top="340" left="231" width="8" height="13" font="4">E</text>
+<text top="340" left="239" width="4" height="12" font="0">[</text>
+<text top="340" left="243" width="19" height="14" font="4">cd4</text>
+<text top="340" left="263" width="5" height="12" font="0">(</text>
+<text top="340" left="269" width="4" height="13" font="4">t</text>
+<text top="340" left="276" width="11" height="12" font="0">+</text>
+<text top="340" left="290" width="7" height="13" font="4">1</text>
+<text top="340" left="297" width="19" height="12" font="0">) −</text>
+<text top="340" left="319" width="19" height="14" font="4">cd4</text>
+<text top="340" left="339" width="5" height="12" font="0">(</text>
+<text top="340" left="344" width="4" height="13" font="4">t</text>
+<text top="340" left="349" width="10" height="12" font="0">)]</text>
+<text top="340" left="374" width="11" height="12" font="0">=</text>
+<text top="343" left="401" width="7" height="10" font="8"><i>β</i></text>
+<text top="345" left="408" width="5" height="10" font="7">0</text>
+<text top="340" left="414" width="5" height="12" font="0">(</text>
+<text top="340" left="420" width="4" height="13" font="4">t</text>
+<text top="340" left="425" width="19" height="12" font="0">) +</text>
+<text top="343" left="448" width="7" height="10" font="8"><i>β</i></text>
+<text top="345" left="455" width="5" height="10" font="7">1</text>
+<text top="340" left="461" width="5" height="12" font="0">(</text>
+<text top="340" left="467" width="4" height="13" font="4">t</text>
+<text top="340" left="472" width="5" height="12" font="0">)</text>
+<text top="340" left="478" width="19" height="14" font="4">cd4</text>
+<text top="340" left="497" width="5" height="12" font="0">(</text>
+<text top="340" left="503" width="4" height="13" font="4">t</text>
+<text top="340" left="508" width="19" height="12" font="0">) +</text>
+<text top="343" left="531" width="7" height="10" font="8"><i>β</i></text>
+<text top="345" left="538" width="5" height="10" font="7">2</text>
+<text top="340" left="544" width="5" height="12" font="0">(</text>
+<text top="340" left="550" width="4" height="13" font="4">t</text>
+<text top="340" left="555" width="5" height="12" font="0">)</text>
+<text top="340" left="561" width="20" height="13" font="4">rna</text>
+<text top="340" left="581" width="5" height="12" font="0">(</text>
+<text top="340" left="586" width="4" height="13" font="4">t</text>
+<text top="340" left="591" width="19" height="12" font="0">) +</text>
+<text top="343" left="614" width="7" height="10" font="8"><i>β</i></text>
+<text top="345" left="622" width="5" height="10" font="7">3</text>
+<text top="340" left="628" width="5" height="12" font="0">(</text>
+<text top="340" left="633" width="4" height="13" font="4">t</text>
+<text top="340" left="638" width="5" height="12" font="0">)</text>
+<text top="340" left="644" width="19" height="13" font="4">age</text>
+<text top="361" left="230" width="8" height="13" font="4">E</text>
+<text top="361" left="239" width="4" height="12" font="0">[</text>
+<text top="361" left="243" width="20" height="13" font="4">rna</text>
+<text top="361" left="263" width="5" height="12" font="0">(</text>
+<text top="361" left="268" width="4" height="13" font="4">t</text>
+<text top="361" left="276" width="11" height="12" font="0">+</text>
+<text top="361" left="290" width="7" height="13" font="4">1</text>
+<text top="361" left="296" width="19" height="12" font="0">) −</text>
+<text top="361" left="318" width="20" height="13" font="4">rna</text>
+<text top="361" left="339" width="5" height="12" font="0">(</text>
+<text top="361" left="344" width="4" height="13" font="4">t</text>
+<text top="361" left="349" width="10" height="12" font="0">)]</text>
+<text top="361" left="374" width="11" height="12" font="0">=</text>
+<text top="364" left="400" width="7" height="10" font="8"><i>α</i></text>
+<text top="366" left="407" width="5" height="10" font="7">0</text>
+<text top="361" left="414" width="5" height="12" font="0">(</text>
+<text top="361" left="419" width="4" height="13" font="4">t</text>
+<text top="361" left="424" width="19" height="12" font="0">) +</text>
+<text top="364" left="446" width="7" height="10" font="8"><i>α</i></text>
+<text top="366" left="454" width="5" height="10" font="7">1</text>
+<text top="361" left="460" width="5" height="12" font="0">(</text>
+<text top="361" left="466" width="4" height="13" font="4">t</text>
+<text top="361" left="470" width="5" height="12" font="0">)</text>
+<text top="361" left="476" width="19" height="14" font="4">cd4</text>
+<text top="361" left="496" width="5" height="12" font="0">(</text>
+<text top="361" left="502" width="4" height="13" font="4">t</text>
+<text top="361" left="506" width="19" height="12" font="0">) +</text>
+<text top="364" left="529" width="7" height="10" font="8"><i>α</i></text>
+<text top="366" left="536" width="5" height="10" font="7">2</text>
+<text top="361" left="542" width="5" height="12" font="0">(</text>
+<text top="361" left="548" width="4" height="13" font="4">t</text>
+<text top="361" left="553" width="5" height="12" font="0">)</text>
+<text top="361" left="558" width="20" height="13" font="4">rna</text>
+<text top="361" left="578" width="5" height="12" font="0">(</text>
+<text top="361" left="584" width="4" height="13" font="4">t</text>
+<text top="361" left="589" width="19" height="12" font="0">) +</text>
+<text top="364" left="611" width="7" height="10" font="8"><i>α</i></text>
+<text top="366" left="618" width="5" height="10" font="7">3</text>
+<text top="361" left="625" width="5" height="12" font="0">(</text>
+<text top="361" left="630" width="4" height="13" font="4">t</text>
+<text top="361" left="635" width="5" height="12" font="0">)</text>
+<text top="361" left="641" width="19" height="13" font="4">age</text>
+<text top="395" left="171" width="573" height="13" font="4">A short stepwise review of the programme flow is as follows. First data are sorted by id and</text>
+<text top="411" left="149" width="595" height="13" font="4">increasing time. Then a check for whether all individuals have a complete set of responses on their first</text>
+<text top="427" left="149" width="595" height="13" font="4">observation is performed. After this, the dataset is prepared for imputation so that each individual has</text>
+<text top="444" left="149" width="595" height="13" font="4">rows corresponding to the same set of observation times. If there is nonmonotone missingness, this</text>
+<text top="460" left="149" width="163" height="13" font="4">is handled according to the</text>
+<text top="457" left="315" width="432" height="18" font="4">method argument, which is described in greater detail later in the article.</text>
+<text top="477" left="149" width="569" height="13" font="4">Subsequently, increments are calculated, and separate regressions performed at each time point.</text>
+<text top="498" left="171" width="573" height="13" font="4">To combine the reconstruction driven approach where missing data are imputed, and the task</text>
+<text top="514" left="149" width="595" height="13" font="4">of fitting models for the increments, the linear regressions are performed successively by increasing</text>
+<text top="531" left="149" width="595" height="13" font="4">observation time. This means that missing data can routinely be inserted based on previous imputed</text>
+<text top="547" left="149" width="321" height="13" font="4">data and the model for increments at the current time.</text>
+<text top="568" left="171" width="170" height="13" font="4">The end result from applying</text>
+<text top="564" left="345" width="399" height="18" font="4">flim is an object of class &#34;flim&#34; in R – a list containing among others</text>
+<text top="584" left="149" width="53" height="13" font="4">the value</text>
+<text top="581" left="205" width="539" height="18" font="4">dataset with the reconstructed data (hypothetical complete dataset) and fit, which contains</text>
+<text top="601" left="149" width="320" height="13" font="4">the fitted models. Methods and functions for the class</text>
+<text top="597" left="472" width="129" height="18" font="4">&#34;flim&#34; are as follows:</text>
+<text top="631" left="171" width="8" height="13" font="4">•</text>
+<text top="627" left="186" width="55" height="18" font="4">print(x)</text>
+<text top="653" left="171" width="8" height="13" font="4">•</text>
+<text top="650" left="186" width="69" height="18" font="4">summary(x)</text>
+<text top="675" left="171" width="8" height="13" font="4">•</text>
+<text top="672" left="186" width="537" height="18" font="4">plot(x,...), see separate section on how to plot a &#34;flim&#34; object for additional arguments.</text>
+<text top="698" left="171" width="8" height="13" font="4">•</text>
+<text top="694" left="186" width="399" height="18" font="4">flimMean(x,response,grouping=NULL), calculates mean responses.</text>
+<text top="720" left="171" width="8" height="13" font="4">•</text>
+<text top="717" left="186" width="199" height="18" font="4">flimList(x), to assess model fits.</text>
+<text top="743" left="171" width="8" height="13" font="4">•</text>
+<text top="739" left="186" width="319" height="18" font="4">flimboot(x,R,counter = F), bootstraps a flim object.</text>
+<text top="773" left="171" width="111" height="13" font="4">The arguments are</text>
+<text top="800" left="171" width="8" height="13" font="4">•</text>
+<text top="796" left="186" width="161" height="18" font="4">x: an object of class &#34;flim&#34;.</text>
+<text top="822" left="171" width="8" height="13" font="4">•</text>
+<text top="819" left="186" width="231" height="18" font="4">response: name of a response variable.</text>
+<text top="844" left="171" width="8" height="13" font="4">•</text>
+<text top="841" left="186" width="314" height="18" font="4">grouping: optional factor variable used in the model.</text>
+<text top="867" left="171" width="8" height="13" font="4">•</text>
+<text top="863" left="186" width="191" height="18" font="4">R: number of bootstrap samples.</text>
+<text top="889" left="171" width="8" height="13" font="4">•</text>
+<text top="886" left="186" width="558" height="18" font="4">counter: logical. If TRUE displays a bootstrap sample counter. Works by default on Mac and</text>
+<text top="906" left="186" width="100" height="13" font="4">Linux platforms.</text>
+<text top="933" left="171" width="84" height="13" font="4">The functions</text>
+<text top="929" left="259" width="485" height="18" font="4">flimList and flimboot take a fitted &#34;flim&#34; object as main argument and create</text>
+<text top="949" left="149" width="595" height="13" font="4">objects of class corresponding to the function name. Examples are shown in the application section</text>
+<text top="965" left="149" width="29" height="13" font="4">later.</text>
+<text top="962" left="182" width="366" height="18" font="4">flimList is used to assess the model fits and has three usages</text>
+<text top="992" left="171" width="8" height="13" font="4">•</text>
+<text top="989" left="186" width="558" height="18" font="4">print(flimList(flimobject)) prints the predictor coefficients for all increment models on</text>
+<text top="1009" left="186" width="158" height="13" font="4">every included time point.</text>
+<text top="1031" left="171" width="8" height="13" font="4">•</text>
+<text top="1028" left="186" width="558" height="18" font="4">summary(flimList(flimobject)) gives estimated standard errors, t-values and p-values for all</text>
+<text top="1048" left="186" width="365" height="13" font="4">predictor coefficients in the linear models at every time point.</text>
+<text top="1070" left="171" width="8" height="13" font="4">•</text>
+<text top="1067" left="186" width="558" height="18" font="4">plot(flimList(flimobject,response)) plots model diagnostics in a 2x2 grid for the linear</text>
+<text top="1086" left="186" width="137" height="13" font="4">model for the specified</text>
+<text top="1083" left="326" width="418" height="18" font="4">response. Plots are shown for the first time point, then the second and</text>
+<text top="1103" left="186" width="122" height="13" font="4">so on when pressing</text>
+<text top="1099" left="311" width="51" height="18" font="4">&lt;ENTER&gt;.</text>
+<text top="1130" left="149" width="267" height="13" font="4">Bootstrapping a flim object can be done with</text>
+<text top="1126" left="419" width="325" height="18" font="4">flimboot, which creates a &#34;flimboot&#34; object. The class</text>
+<text top="1146" left="149" width="214" height="13" font="4">has two working methods. Suppose</text>
+<text top="1143" left="366" width="180" height="18" font="4">fbo is a &#34;flimboot object, then</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">142</text>
+<text top="103" left="171" width="8" height="13" font="4">•</text>
+<text top="100" left="186" width="560" height="18" font="4">flimSD(fbo,response,grouping = NULL) calculates empirical standard errors of the hypothet-</text>
+<text top="120" left="186" width="281" height="13" font="4">ical bootstrap mean responses. The argument</text>
+<text top="116" left="472" width="272" height="18" font="4">response chooses the response variable, and</text>
+<text top="133" left="186" width="231" height="18" font="4">grouping is an optional factor variable.</text>
+<text top="158" left="171" width="8" height="13" font="4">•</text>
+<text top="155" left="186" width="558" height="18" font="4">plot(fbo,response,grouping=NULL,...) plots the hypothetical reconstructed mean response</text>
+<text top="175" left="186" width="558" height="13" font="4">from the original dataset together with bootstrapped point wise 95% confidence bands. Takes</text>
+<text top="191" left="186" width="139" height="13" font="4">the same arguments as</text>
+<text top="188" left="329" width="415" height="18" font="4">flimSD and in addition any argument that can be passed to plot. By</text>
+<text top="208" left="186" width="501" height="13" font="4">default the hypothetical means are fully drawn and the confidence bands stipulated.</text>
+<text top="250" left="149" width="78" height="15" font="9"><b>The dataset</b></text>
+<text top="282" left="148" width="598" height="13" font="4">A long format longitudinal dataset, in which each observation is stored as a separate row, is required.</text>
+<text top="298" left="149" width="595" height="13" font="4">Further, the dataset must contain a column for id, which uniquely identifies every individual in the</text>
+<text top="315" left="149" width="595" height="13" font="4">study, and a column for the observation times. For each individual, the data should only include rows</text>
+<text top="331" left="149" width="595" height="13" font="4">corresponding to observation times where at least one of the (potentially many) response variables is</text>
+<text top="347" left="149" width="215" height="13" font="4">observed, missing data are denoted</text>
+<text top="344" left="367" width="377" height="18" font="4">NA. For the iterative imputation to work, all individuals need a</text>
+<text top="364" left="149" width="356" height="13" font="4">complete set of responses at their first observation time. The</text>
+<text top="360" left="508" width="88" height="18" font="4">panss dataset <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="364" left="596" width="39" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle</a></text>
+<text top="364" left="635" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="364" left="642" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">1998</a></text>
+<text top="364" left="669" width="75" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">) </a>included in</text>
+<text top="380" left="149" width="595" height="13" font="4">the package is an example of how the data should look . If data are in wide format, one option is to</text>
+<text top="397" left="149" width="246" height="13" font="4">transform them into long format with the</text>
+<text top="393" left="398" width="132" height="18" font="4">reshape function in R.</text>
+<text top="439" left="149" width="152" height="15" font="9"><b>The method argument</b></text>
+<text top="471" left="149" width="182" height="13" font="4">Specifying this argument in the</text>
+<text top="467" left="334" width="410" height="18" font="4">flim function determines how missing data before drop-out should be</text>
+<text top="487" left="149" width="595" height="13" font="4">treated; after drop-out, the linear increments model is used regardless of choice of method. There are</text>
+<text top="503" left="149" width="77" height="13" font="4">four options,</text>
+<text top="500" left="229" width="351" height="18" font="4">&#34;locf&#34; (default), &#34;approx&#34; &#34;recursive&#34; and &#34;recursiveX&#34;.</text>
+<text top="524" left="171" width="86" height="13" font="4">For the option</text>
+<text top="521" left="261" width="483" height="18" font="4">&#34;locf&#34;, missing values when there are available observed values on a later time</text>
+<text top="541" left="148" width="596" height="13" font="4">point, are imputed by inserting the last observed value. To implement LOCF, we use the function</text>
+<text top="554" left="149" width="85" height="18" font="4">na.locf in the</text>
+<text top="557" left="237" width="22" height="13" font="10"><a href="http://CRAN.R-project.org/package=zoo"><b>zoo</b></a></text>
+<text top="557" left="262" width="57" height="13" font="4">package <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="557" left="319" width="150" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Zeileis and Grothendieck</a></text>
+<text top="557" left="469" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="557" left="476" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2005</a></text>
+<text top="557" left="503" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="578" left="171" width="126" height="13" font="4">The second option is</text>
+<text top="575" left="301" width="444" height="18" font="4">&#34;approx&#34;, or the approximation method, which imputes the missing data</text>
+<text top="595" left="149" width="392" height="13" font="4">between observations by linear approximation, calculated with</text>
+<text top="591" left="545" width="199" height="18" font="4">na.approx in <b>zoo</b>. Conceptually</text>
+<text top="611" left="149" width="596" height="13" font="4">this approach may be more appealing than LOCF. The approximation method performs a linear</text>
+<text top="628" left="149" width="595" height="13" font="4">interpolation to impute missing data between two observed values. The pitfall of this approach is that</text>
+<text top="644" left="149" width="597" height="13" font="4">it may go against our prime directive: to consider specifically the time order of the measurements,</text>
+<text top="660" left="149" width="597" height="13" font="4">and to use information contained in the response histories available at the time when data is missing,</text>
+<text top="677" left="149" width="595" height="13" font="4">to impute data. Indeed, the approximation method violates this by looking ahead at future response</text>
+<text top="693" left="148" width="238" height="13" font="4">values, which is in some sense cheating.</text>
+<text top="714" left="171" width="109" height="13" font="4">The third option is</text>
+<text top="711" left="283" width="461" height="18" font="4">&#34;recursive&#34;, which uses the linear increments model to fill in data for missing</text>
+<text top="731" left="149" width="596" height="13" font="4">individuals throughout the entire dataset – regardless of whether they are observed again on a later</text>
+<text top="747" left="149" width="69" height="13" font="4">time or not.</text>
+<text top="768" left="171" width="112" height="13" font="4">The final option is</text>
+<text top="765" left="288" width="456" height="18" font="4">&#34;recursiveX&#34;, which is similar to &#34;recursive&#34;. Unlike &#34;recursive&#34;, when</text>
+<text top="784" left="149" width="595" height="13" font="4">fitting models, this method utilises data from observations just as patients return to the study, where</text>
+<text top="801" left="149" width="595" height="13" font="4">there are no observed increments since the values are missing until the patients return. This is achieved</text>
+<text top="817" left="149" width="392" height="13" font="4">by using estimated increments based on previously imputed data.</text>
+<text top="860" left="149" width="142" height="15" font="9"><b>Plotting a flim object</b></text>
+<text top="891" left="148" width="22" height="13" font="4">The</text>
+<text top="888" left="174" width="570" height="18" font="4">plot function can be used to plot the hypothetical mean responses of the imputed data, the mean</text>
+<text top="908" left="149" width="595" height="13" font="4">responses of the observed data and a spaghetti plot of all individual trajectories. The default method</text>
+<text top="924" left="149" width="493" height="13" font="4">is to plot mean responses where both hypothetical and observed curves are shown.</text>
+<text top="948" left="149" width="480" height="18" font="4">plot(x, response, grouping = NULL, ylim = NULL, col = NULL, naive = T,</text>
+<text top="964" left="156" width="453" height="18" font="4">lty = 1:2, ptype = &#34;mean&#34;, ylab = &#34;Response&#34;, xlab = &#34;Times&#34;, ...)</text>
+<text top="994" left="148" width="239" height="13" font="4">Arguments for plotting a flim object are:</text>
+<text top="1021" left="171" width="8" height="13" font="4">•</text>
+<text top="1018" left="186" width="119" height="18" font="4">x: the &#34;flim&#34; object.</text>
+<text top="1044" left="171" width="8" height="13" font="4">•</text>
+<text top="1040" left="186" width="257" height="18" font="4">response: name of a longitudinal response.</text>
+<text top="1066" left="171" width="8" height="13" font="4">•</text>
+<text top="1063" left="186" width="359" height="18" font="4">grouping: optional group/factor variable used in the model.</text>
+<text top="1088" left="171" width="8" height="13" font="4">•</text>
+<text top="1085" left="186" width="558" height="18" font="4">ptype: decides plot type, default is &#34;mean&#34; for mean responses, while ptype=&#34;spa&#34; will give</text>
+<text top="1105" left="186" width="115" height="13" font="4">spaghetti type plot.</text>
+<text top="1127" left="171" width="8" height="13" font="4">•</text>
+<text top="1124" left="186" width="421" height="18" font="4">naive: logical. If TRUE the plot will contain the observed means as well.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">143</text>
+<text top="103" left="148" width="309" height="13" font="4">The rest of the arguments are standard arguments to</text>
+<text top="100" left="460" width="284" height="18" font="4">plot that have been given default values – these</text>
+<text top="120" left="149" width="225" height="13" font="4">may be altered by the user. Note that</text>
+<text top="116" left="378" width="366" height="18" font="4">lty is a vector of length two and specifies the linetype of the</text>
+<text top="136" left="149" width="595" height="13" font="4">observed mean response and hypothetical mean response respectively. An example of plotting a</text>
+<text top="149" left="149" width="291" height="18" font="4">&#34;flim&#34; object is shown in the application section.</text>
+<text top="195" left="149" width="174" height="15" font="9"><b>Bootstrapping with FLIM</b></text>
+<text top="226" left="149" width="39" height="13" font="4">Once a</text>
+<text top="223" left="191" width="554" height="18" font="4">&#34;flim&#34; object is created, it can be bootstrapped to create a list of &#34;flim&#34; objects, each using a new</text>
+<text top="243" left="149" width="595" height="13" font="4">dataset that has been resampled from the original data. The resampling is done with replacements on</text>
+<text top="259" left="149" width="595" height="13" font="4">the id numbers so that every time an individual is selected to the bootstrap data, their full observation</text>
+<text top="276" left="149" width="595" height="13" font="4">cluster is included. Bootstrapping in the linear increments model allows us to easily calculate standard</text>
+<text top="292" left="149" width="251" height="13" font="4">errors for the hypothetical mean response.</text>
+<text top="313" left="171" width="197" height="13" font="4">The bootstrap function is called</text>
+<text top="310" left="373" width="371" height="18" font="4">bootflim. Because flim can handle a lot of different model</text>
+<text top="329" left="149" width="595" height="13" font="4">specifications and imputes data iteratively, the routine may be slower than a script working for one</text>
+<text top="346" left="149" width="597" height="13" font="4">specific model. Nevertheless, because no iterations are required to reach the estimates in the models,</text>
+<text top="362" left="149" width="287" height="13" font="4">time is not a major issue – with our example data</text>
+<text top="359" left="439" width="305" height="18" font="4">panss, 100 samples were fitted in around 10 seconds</text>
+<text top="379" left="149" width="71" height="13" font="4">on a laptop.</text>
+<text top="400" left="171" width="42" height="13" font="4">After a</text>
+<text top="396" left="216" width="528" height="18" font="4">&#34;flim&#34; object have been bootstrapped, the hypothetical mean using imputed data in the</text>
+<text top="416" left="149" width="595" height="13" font="4">original dataset can easily be plotted with confidence bands as shown in the application section – these</text>
+<text top="433" left="149" width="249" height="13" font="4">confidence bands are point-wise and 95%.</text>
+<text top="477" left="149" width="98" height="17" font="5"><b>Application</b></text>
+<text top="516" left="149" width="595" height="13" font="4">In this section, we will analyse data from an investigation of the effect on PANSS score of different</text>
+<text top="533" left="149" width="597" height="13" font="4">schizophrenia treatments. A longitudinal study was conducted to compare three treatment regimens,</text>
+<text top="549" left="149" width="595" height="13" font="4">haloperidol, placebo and risperidone among patients with schizophrenia. Patients were randomised</text>
+<text top="566" left="149" width="595" height="13" font="4">to treatments at time 0, and followed for 8 weeks where they had PANSS score evaluated. PANSS is a</text>
+<text top="582" left="149" width="595" height="13" font="4">score measure that quantifies the severity of schizophrenic symptoms, and the goal of the study was</text>
+<text top="598" left="149" width="595" height="13" font="4">to compare the effectiveness of treatments in improving (reducing) the mean PANSS score. The data</text>
+<text top="615" left="149" width="595" height="13" font="4">consist of 685 observations among 150 patients, and were extracted from a larger, confidential dataset</text>
+<text top="631" left="149" width="501" height="13" font="4">from a randomised clinical trial. An analysis of the complete dataset can be found in</text>
+<text top="631" left="653" width="40" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle</a></text>
+<text top="631" left="696" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="631" left="700" width="27" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">1998</a></text>
+<text top="631" left="727" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">).</a></text>
+<text top="658" left="149" width="178" height="18" font="4">&gt; install.packages(&#34;FLIM&#34;)</text>
+<text top="674" left="149" width="103" height="18" font="4">&gt; library(FLIM)</text>
+<text top="691" left="149" width="89" height="18" font="4">&gt; data(panss)</text>
+<text top="707" left="149" width="110" height="18" font="4">&gt; head(panss, 8)</text>
+<text top="724" left="163" width="69" height="18" font="4">treat time</text>
+<text top="724" left="252" width="27" height="18" font="4">Y id</text>
+<text top="740" left="149" width="7" height="18" font="4">1</text>
+<text top="740" left="190" width="7" height="18" font="4">1</text>
+<text top="740" left="224" width="55" height="18" font="4">0 91 1</text>
+<text top="756" left="149" width="7" height="18" font="4">2</text>
+<text top="756" left="190" width="7" height="18" font="4">2</text>
+<text top="756" left="224" width="55" height="18" font="4">0 72 2</text>
+<text top="773" left="149" width="7" height="18" font="4">3</text>
+<text top="773" left="190" width="7" height="18" font="4">1</text>
+<text top="773" left="224" width="55" height="18" font="4">0 108 3</text>
+<text top="789" left="149" width="7" height="18" font="4">4</text>
+<text top="789" left="190" width="7" height="18" font="4">1</text>
+<text top="789" left="224" width="55" height="18" font="4">1 110 3</text>
+<text top="806" left="149" width="7" height="18" font="4">5</text>
+<text top="806" left="190" width="7" height="18" font="4">1</text>
+<text top="806" left="224" width="55" height="18" font="4">0 106 4</text>
+<text top="822" left="149" width="7" height="18" font="4">6</text>
+<text top="822" left="190" width="7" height="18" font="4">1</text>
+<text top="822" left="224" width="55" height="18" font="4">1 93 4</text>
+<text top="839" left="149" width="7" height="18" font="4">7</text>
+<text top="839" left="190" width="7" height="18" font="4">1</text>
+<text top="839" left="224" width="55" height="18" font="4">0 77 5</text>
+<text top="855" left="149" width="7" height="18" font="4">8</text>
+<text top="855" left="190" width="7" height="18" font="4">1</text>
+<text top="855" left="224" width="55" height="18" font="4">1 80 5</text>
+<text top="888" left="171" width="573" height="13" font="4">To fit the linear models for increments and reconstruct the data, one should use the main function</text>
+<text top="901" left="149" width="595" height="18" font="4">flim. Here a model where the PANSS score increments are regressed onto the score value and the</text>
+<text top="921" left="149" width="344" height="13" font="4">treatment group is fitted, which corresponds to entering</text>
+<text top="918" left="497" width="7" height="18" font="4">Y</text>
+<text top="920" left="504" width="11" height="13" font="0">∼</text>
+<text top="918" left="515" width="229" height="18" font="4">Y+factor(treat) in the function. The</text>
+<text top="938" left="149" width="598" height="13" font="4">remaining mandatory arguments are filled in as needed, and the extra arguments are left unspecified.</text>
+<text top="961" left="156" width="508" height="18" font="4">panss.flim &lt;- flim(Y~Y+factor(treat), data=panss, id=&#34;id&#34;, obstime=&#34;time&#34;)</text>
+<text top="991" left="148" width="105" height="13" font="4">The stored object</text>
+<text top="988" left="258" width="486" height="18" font="4">panss.flim is now of class type &#34;flim&#34;; some additional information about the</text>
+<text top="1008" left="149" width="145" height="13" font="4">object, over the standard</text>
+<text top="1004" left="297" width="447" height="18" font="4">print, can be had by using summary on the object. If users want direct access</text>
+<text top="1024" left="149" width="318" height="13" font="4">to the reconstructed data, these are stored in the value</text>
+<text top="1021" left="470" width="274" height="18" font="4">dataset. The linear models fitted on each time</text>
+<text top="1041" left="148" width="214" height="13" font="4">point are stored as a list in the value</text>
+<text top="1037" left="366" width="24" height="18" font="4">fit.</text>
+<text top="1062" left="171" width="573" height="13" font="4">Instead of directly accessing the data and the models, users may want to take advantage of the</text>
+<text top="1078" left="149" width="595" height="13" font="4">built-in functions available to analyse the results. We start by calculating the mean response with</text>
+<text top="1091" left="149" width="58" height="18" font="4">flimMean:</text>
+<text top="1118" left="149" width="185" height="18" font="4">&gt; flimMean(panss.flim, &#34;Y&#34;)</text>
+<text top="1134" left="163" width="144" height="18" font="4">hypothetical observed</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="10" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="10" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">144</text>
+<text top="100" left="149" width="7" height="18" font="4">0</text>
+<text top="100" left="190" width="117" height="18" font="4">92.02000 92.02000</text>
+<text top="116" left="149" width="7" height="18" font="4">1</text>
+<text top="116" left="190" width="117" height="18" font="4">87.39672 87.44595</text>
+<text top="133" left="149" width="7" height="18" font="4">2</text>
+<text top="133" left="190" width="117" height="18" font="4">86.01734 83.07874</text>
+<text top="149" left="149" width="7" height="18" font="4">4</text>
+<text top="149" left="190" width="117" height="18" font="4">85.78134 80.25926</text>
+<text top="165" left="149" width="7" height="18" font="4">6</text>
+<text top="165" left="190" width="117" height="18" font="4">87.88868 77.42857</text>
+<text top="182" left="149" width="7" height="18" font="4">8</text>
+<text top="182" left="190" width="117" height="18" font="4">88.52504 76.00000</text>
+<text top="212" left="148" width="320" height="13" font="4">This is displaying the mean response of the variable</text>
+<text top="209" left="472" width="272" height="18" font="4">Y for the observed data and the hypothetical</text>
+<text top="229" left="149" width="114" height="13" font="4">reconstructed data.</text>
+<text top="250" left="171" width="456" height="13" font="4">In order to perform separate calculations for the different treatment groups, the</text>
+<text top="246" left="630" width="114" height="18" font="4">grouping argument</text>
+<text top="266" left="149" width="595" height="13" font="4">must be specified. The first three columns in the print below show the mean responses for the</text>
+<text top="282" left="149" width="463" height="13" font="4">hypothetical reconstructed data, while the last three are for the observed data.</text>
+<text top="306" left="149" width="302" height="18" font="4">&gt; flimMean(panss.flim,&#34;Y&#34;, grouping=&#34;treat&#34;)</text>
+<text top="322" left="211" width="7" height="18" font="4">1</text>
+<text top="322" left="279" width="7" height="18" font="4">2</text>
+<text top="322" left="341" width="7" height="18" font="4">3</text>
+<text top="322" left="375" width="34" height="18" font="4">1 obs</text>
+<text top="322" left="437" width="34" height="18" font="4">2 obs</text>
+<text top="322" left="499" width="34" height="18" font="4">3 obs</text>
+<text top="339" left="149" width="384" height="18" font="4">0 93.40000 91.40000 91.26000 93.40000 91.40000 91.26000</text>
+<text top="355" left="149" width="384" height="18" font="4">1 87.84636 93.54380 80.80000 87.87755 93.79592 80.80000</text>
+<text top="372" left="149" width="384" height="18" font="4">2 86.60223 92.80858 78.64123 84.47727 88.42105 77.20000</text>
+<text top="388" left="149" width="384" height="18" font="4">4 87.91717 95.21459 74.21225 83.92500 86.30000 71.63158</text>
+<text top="405" left="149" width="384" height="18" font="4">6 85.80121 104.10217 73.76264 75.67857 91.52174 69.09091</text>
+<text top="421" left="149" width="384" height="18" font="4">8 83.48531 103.63105 78.45876 73.72000 86.87500 71.66667</text>
+<text top="451" left="171" width="257" height="13" font="4">The mean responses can be plotted with the</text>
+<text top="448" left="432" width="312" height="18" font="4">plot function – we specify the grouping argument so</text>
+<text top="468" left="149" width="338" height="13" font="4">that separate curves are drawn for each treatment group:</text>
+<text top="491" left="149" width="487" height="18" font="4">&gt; plot(panss.flim,&#34;Y&#34;, grouping=&#34;treat&#34;, col=c(&#34;green&#34;,&#34;blue&#34;,&#34;brown&#34;))</text>
+<text top="508" left="149" width="288" height="18" font="4">Mean response plot created for variable: Y</text>
+<text top="524" left="149" width="240" height="18" font="4">Full drawn: observed mean response.</text>
+<text top="541" left="149" width="302" height="18" font="4">Stipulated: flim hypothetical mean response.</text>
+<text top="573" left="149" width="391" height="18" font="4">Response variable separated by: treat which has 3 levels.</text>
+<text top="590" left="149" width="521" height="18" font="4">Group: 1 has color green. Group: 2 has color blue. Group: 3 has color brown.</text>
+<text top="962" left="212" width="7" height="12" font="11">0</text>
+<text top="962" left="333" width="7" height="12" font="11">2</text>
+<text top="962" left="455" width="7" height="12" font="11">4</text>
+<text top="962" left="576" width="7" height="12" font="11">6</text>
+<text top="962" left="697" width="7" height="12" font="11">8</text>
+<text top="932" left="182" width="0" height="12" font="12">70</text>
+<text top="895" left="182" width="0" height="12" font="12">75</text>
+<text top="859" left="182" width="0" height="12" font="12">80</text>
+<text top="823" left="182" width="0" height="12" font="12">85</text>
+<text top="786" left="182" width="0" height="12" font="12">90</text>
+<text top="750" left="182" width="0" height="12" font="12">95</text>
+<text top="717" left="182" width="0" height="12" font="12">100</text>
+<text top="681" left="182" width="0" height="12" font="12">105</text>
+<text top="985" left="441" width="35" height="12" font="11">Times</text>
+<text top="833" left="159" width="0" height="12" font="12">Response</text>
+<text top="1026" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="1026" left="206" width="540" height="13" font="4">Observed (solid line) and hypothetical (dotted line) mean responses for haloperidol (green),</text>
+<text top="1042" left="148" width="571" height="13" font="4">placebo (blue) and resperidone (brown) treatment regimens among patients with schizophrenia.</text>
+<text top="1079" left="171" width="573" height="13" font="4">The different treatments are 1: haloperidol, 2: placebo and 3: risperidone. Legends are not auto</text>
+<text top="1095" left="149" width="595" height="13" font="4">generated by the function and must be added by the user if needed. Observed and hypothetical mean</text>
+<text top="1112" left="149" width="181" height="13" font="4">responses are shown in Figure</text>
+<text top="1112" left="333" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#8">1</a></text>
+<text top="1112" left="340" width="404" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#8">. </a>Looking at the figure, we find that the haloperidol and risperidone</text>
+<text top="1128" left="149" width="596" height="13" font="4">treatment groups show better progress than the placebo group. Moreover, the risperidone group</text>
+<text top="1145" left="149" width="595" height="13" font="4">shows fewer symptoms than the haloperidol group. But the most striking feature is that among all</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">145</text>
+<text top="103" left="149" width="595" height="13" font="4">treatment groups, there are clear differences between the observed and the hypothetical curves. When</text>
+<text top="120" left="149" width="596" height="13" font="4">considering the observed mean responses, one might infer that PANSS scores improve (decrease) over</text>
+<text top="136" left="149" width="595" height="13" font="4">time regardless of treatment group. Indeed, even the placebo group shows a decreasing observed</text>
+<text top="152" left="149" width="596" height="13" font="4">mean response. On the other hand, when the hypothetical mean responses are considered, the linear</text>
+<text top="169" left="149" width="595" height="13" font="4">increments model suggests that this is due to informative drop-out, and therefore the observed data are</text>
+<text top="185" left="149" width="597" height="13" font="4">underestimating the PANSS score. An increase in symptoms is even suggested in the placebo group,</text>
+<text top="202" left="148" width="596" height="13" font="4">while the haloperidol and risperidone groups show a reduced effect (less decline) when comparing</text>
+<text top="218" left="149" width="249" height="13" font="4">hypothetical to observed mean responses.</text>
+<text top="239" left="171" width="573" height="13" font="4">By default, the plot function displays the mean response – to show individual trajectories, use</text>
+<text top="252" left="149" width="308" height="18" font="4">ptype=&#34;spa&#34;. The spaghetti plot is shown in Figure</text>
+<text top="256" left="460" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#9">2</a></text>
+<text top="256" left="467" width="279" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#9">, </a>in which solid lines are used before drop out,</text>
+<text top="272" left="149" width="393" height="13" font="4">and the dotted lines are used thereafter, when values are imputed:</text>
+<text top="294" left="149" width="562" height="18" font="4">plot(panss.flim,&#34;Y&#34;, grouping=&#34;treat&#34;, col=c(&#34;green&#34;,&#34;blue&#34;,&#34;brown&#34;), ptype=&#34;spa&#34;)</text>
+<text top="664" left="212" width="7" height="12" font="11">0</text>
+<text top="664" left="333" width="7" height="12" font="11">2</text>
+<text top="664" left="455" width="7" height="12" font="11">4</text>
+<text top="664" left="576" width="7" height="12" font="11">6</text>
+<text top="664" left="697" width="7" height="12" font="11">8</text>
+<text top="626" left="182" width="0" height="12" font="12">40</text>
+<text top="587" left="182" width="0" height="12" font="12">60</text>
+<text top="547" left="182" width="0" height="12" font="12">80</text>
+<text top="511" left="182" width="0" height="12" font="12">100</text>
+<text top="471" left="182" width="0" height="12" font="12">120</text>
+<text top="431" left="182" width="0" height="12" font="12">140</text>
+<text top="391" left="182" width="0" height="12" font="12">160</text>
+<text top="687" left="441" width="35" height="12" font="11">Times</text>
+<text top="535" left="159" width="0" height="12" font="12">Response</text>
+<text top="728" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="728" left="206" width="538" height="13" font="4">Individual responses for haloperidol, placebo and resperidone treatment regimens among</text>
+<text top="744" left="148" width="389" height="13" font="4">patients with schizophrenia. Dotted lines are used after drop-out.</text>
+<text top="801" left="149" width="133" height="15" font="9"><b>Assessing model fit</b></text>
+<text top="832" left="148" width="379" height="13" font="4">The fitted linear models for the increments are contained in the</text>
+<text top="829" left="531" width="215" height="18" font="4">flim object as a list in the value fit.</text>
+<text top="849" left="149" width="596" height="13" font="4">Users may perform standard model checking by directly accessing these. However, to view summary</text>
+<text top="865" left="149" width="595" height="13" font="4">of the coefficients and running model diagnostics on the different time points in a more compact and</text>
+<text top="882" left="149" width="171" height="13" font="4">convenient way, the function</text>
+<text top="878" left="324" width="111" height="18" font="4">flimList is useful:</text>
+<text top="904" left="149" width="151" height="18" font="4">&gt; flimList(panss.flim)</text>
+<text top="921" left="149" width="34" height="18" font="4">Call:</text>
+<text top="937" left="163" width="219" height="18" font="4">Model: Y.inc ~ Y + factor(treat)</text>
+<text top="953" left="169" width="75" height="18" font="4">Data: panss</text>
+<text top="970" left="163" width="110" height="18" font="4">Times: 0 1 2 4 6</text>
+<text top="1003" left="156" width="89" height="18" font="4">Coefficients:</text>
+<text top="1019" left="163" width="75" height="18" font="4">(Intercept)</text>
+<text top="1019" left="279" width="213" height="18" font="4">Y factor(treat)2 factor(treat)3</text>
+<text top="1036" left="149" width="7" height="18" font="4">0</text>
+<text top="1036" left="197" width="89" height="18" font="4">28.369 -0.363</text>
+<text top="1036" left="355" width="34" height="18" font="4">6.971</text>
+<text top="1036" left="451" width="41" height="18" font="4">-5.684</text>
+<text top="1052" left="149" width="7" height="18" font="4">1</text>
+<text top="1052" left="204" width="82" height="18" font="4">8.557 -0.112</text>
+<text top="1052" left="355" width="34" height="18" font="4">1.145</text>
+<text top="1052" left="451" width="41" height="18" font="4">-1.701</text>
+<text top="1068" left="149" width="7" height="18" font="4">2</text>
+<text top="1068" left="197" width="89" height="18" font="4">10.264 -0.103</text>
+<text top="1068" left="355" width="34" height="18" font="4">1.732</text>
+<text top="1068" left="451" width="41" height="18" font="4">-6.567</text>
+<text top="1085" left="149" width="7" height="18" font="4">4</text>
+<text top="1085" left="204" width="82" height="18" font="4">2.650 -0.054</text>
+<text top="1085" left="348" width="41" height="18" font="4">11.399</text>
+<text top="1085" left="457" width="34" height="18" font="4">0.923</text>
+<text top="1101" left="149" width="7" height="18" font="4">6</text>
+<text top="1101" left="204" width="82" height="18" font="4">6.199 -0.099</text>
+<text top="1101" left="355" width="34" height="18" font="4">3.661</text>
+<text top="1101" left="457" width="34" height="18" font="4">5.817</text>
+<text top="1130" left="148" width="596" height="13" font="4">These coefficients represents the effects of responses and covariates on the expected change in the</text>
+<text top="1147" left="149" width="223" height="13" font="4">responses at the different time points.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">146</text>
+<text top="103" left="171" width="22" height="13" font="4">The</text>
+<text top="100" left="196" width="550" height="18" font="4">summary function will display the estimated coefficients, standard errors, t-values and p-values:</text>
+<text top="127" left="149" width="213" height="18" font="4">&gt; summary(flimList(panss.flim))</text>
+<text top="143" left="149" width="34" height="18" font="4">Call:</text>
+<text top="160" left="163" width="219" height="18" font="4">Model: Y.inc ~ Y + factor(treat)</text>
+<text top="176" left="169" width="75" height="18" font="4">Data: panss</text>
+<text top="192" left="163" width="110" height="18" font="4">Times: 0 1 2 4 6</text>
+<text top="225" left="156" width="89" height="18" font="4">Coefficients:</text>
+<text top="258" left="156" width="75" height="18" font="4">(Intercept)</text>
+<text top="275" left="169" width="130" height="18" font="4">Estimate Std. Error</text>
+<text top="275" left="320" width="48" height="18" font="4">t value</text>
+<text top="275" left="403" width="55" height="18" font="4">Pr(&gt;|t|)</text>
+<text top="291" left="149" width="75" height="18" font="4">0 28.369363</text>
+<text top="291" left="245" width="213" height="18" font="4">6.766822 4.1924203 4.796753e-05</text>
+<text top="307" left="149" width="75" height="18" font="4">1 8.557158</text>
+<text top="307" left="245" width="213" height="18" font="4">6.069304 1.4099075 1.610906e-01</text>
+<text top="324" left="149" width="75" height="18" font="4">2 10.263738</text>
+<text top="324" left="245" width="213" height="18" font="4">5.880129 1.7454954 8.385207e-02</text>
+<text top="340" left="149" width="75" height="18" font="4">4 2.650326</text>
+<text top="340" left="245" width="213" height="18" font="4">6.697694 0.3957073 6.933743e-01</text>
+<text top="357" left="149" width="75" height="18" font="4">6 6.199175</text>
+<text top="357" left="245" width="213" height="18" font="4">5.389000 1.1503387 2.542846e-01</text>
+<text top="390" left="156" width="7" height="18" font="4">Y</text>
+<text top="406" left="183" width="130" height="18" font="4">Estimate Std. Error</text>
+<text top="406" left="341" width="48" height="18" font="4">t value</text>
+<text top="406" left="423" width="55" height="18" font="4">Pr(&gt;|t|)</text>
+<text top="423" left="149" width="329" height="18" font="4">0 -0.36320130 0.06831664 -5.3164396 3.948642e-07</text>
+<text top="439" left="149" width="329" height="18" font="4">1 -0.11157312 0.06689537 -1.6678752 9.788447e-02</text>
+<text top="455" left="149" width="329" height="18" font="4">2 -0.10333217 0.06732753 -1.5347686 1.278774e-01</text>
+<text top="472" left="149" width="329" height="18" font="4">4 -0.05421329 0.07943341 -0.6824999 4.968945e-01</text>
+<text top="488" left="149" width="329" height="18" font="4">6 -0.09924193 0.06558725 -1.5131284 1.351699e-01</text>
+<text top="521" left="156" width="96" height="18" font="4">factor(treat)2</text>
+<text top="538" left="169" width="130" height="18" font="4">Estimate Std. Error</text>
+<text top="538" left="320" width="48" height="18" font="4">t value</text>
+<text top="538" left="396" width="55" height="18" font="4">Pr(&gt;|t|)</text>
+<text top="554" left="149" width="75" height="18" font="4">0 6.971035</text>
+<text top="554" left="245" width="206" height="18" font="4">3.174670 2.1958296 0.029704587</text>
+<text top="570" left="149" width="75" height="18" font="4">1 1.144598</text>
+<text top="570" left="245" width="206" height="18" font="4">3.002800 0.3811768 0.703729668</text>
+<text top="587" left="149" width="75" height="18" font="4">2 1.732388</text>
+<text top="587" left="245" width="206" height="18" font="4">3.049484 0.5680922 0.571196889</text>
+<text top="603" left="149" width="75" height="18" font="4">4 11.399145</text>
+<text top="603" left="245" width="206" height="18" font="4">4.024242 2.8326193 0.005839657</text>
+<text top="620" left="149" width="75" height="18" font="4">6 3.661010</text>
+<text top="620" left="245" width="206" height="18" font="4">3.599667 1.0170413 0.312963201</text>
+<text top="653" left="156" width="96" height="18" font="4">factor(treat)3</text>
+<text top="669" left="176" width="130" height="18" font="4">Estimate Std. Error</text>
+<text top="669" left="334" width="48" height="18" font="4">t value</text>
+<text top="669" left="403" width="55" height="18" font="4">Pr(&gt;|t|)</text>
+<text top="686" left="149" width="82" height="18" font="4">0 -5.6836117</text>
+<text top="686" left="252" width="206" height="18" font="4">3.160298 -1.7984418 0.07420171</text>
+<text top="702" left="149" width="82" height="18" font="4">1 -1.7008236</text>
+<text top="702" left="252" width="206" height="18" font="4">2.898236 -0.5868478 0.55838151</text>
+<text top="718" left="149" width="82" height="18" font="4">2 -6.5665452</text>
+<text top="718" left="252" width="206" height="18" font="4">2.891971 -2.2706126 0.02523154</text>
+<text top="735" left="149" width="82" height="18" font="4">4 0.9233581</text>
+<text top="735" left="252" width="206" height="18" font="4">3.712419 0.2487214 0.80421371</text>
+<text top="751" left="149" width="82" height="18" font="4">6 5.8172905</text>
+<text top="751" left="252" width="206" height="18" font="4">3.115758 1.8670547 0.06647537</text>
+<text top="782" left="171" width="80" height="13" font="4">In addition to</text>
+<text top="778" left="254" width="490" height="18" font="4">print and summary, a plot function for flimList is available in the package. Plotting</text>
+<text top="798" left="149" width="7" height="13" font="4">a</text>
+<text top="795" left="160" width="586" height="18" font="4">flimList object will display the standard lm plot diagnostics in a 2x2 grid for each time point.</text>
+<text top="814" left="148" width="598" height="13" font="4">These plots enable us to detect any major misspecification in the linear models for the increments.</text>
+<text top="831" left="149" width="545" height="13" font="4">Diagnostics for the increment model at time point 0 for the PANSS data are shown in Figure</text>
+<text top="831" left="698" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#11">3</a></text>
+<text top="831" left="704" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#11">.</a></text>
+<text top="852" left="171" width="573" height="13" font="4">The top left plot is showing the residuals vs fitted values, and should ideally be close to zero</text>
+<text top="868" left="149" width="595" height="13" font="4">and not show any trend. The plot in the top right is a Q-Q plot that can reveal deviation from the</text>
+<text top="885" left="149" width="595" height="13" font="4">normal assumption in the linear regression. The bottom left plot is typically used in addition to the</text>
+<text top="901" left="149" width="595" height="13" font="4">first plot to check for misspecification and to check for heterogeneity in variances – users should note</text>
+<text top="918" left="149" width="596" height="13" font="4">however that it might not be a problem with heterogeneity as we do not have to assume homogeneity</text>
+<text top="934" left="149" width="77" height="13" font="4">of variances <a href="2014-2-hoff-gran-farewell.html#13">(</a></text>
+<text top="934" left="226" width="69" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">Diggle et al.</a></text>
+<text top="934" left="296" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">,</a></text>
+<text top="934" left="302" width="26" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">2007</a></text>
+<text top="934" left="328" width="416" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#13">). </a>The lower right plot that shows residuals vs leverage is used to detect</text>
+<text top="950" left="149" width="596" height="13" font="4">if some observations are affecting the model fit more strongly than others, users should look for any</text>
+<text top="967" left="149" width="596" height="13" font="4">observation with large leverage and a big standardised residual (negative or positive), as this may</text>
+<text top="983" left="149" width="106" height="13" font="4">distort the model.</text>
+<text top="1004" left="171" width="458" height="13" font="4">To view the plots for the subsequent time points, users are prompted to press</text>
+<text top="1001" left="632" width="51" height="18" font="4">&lt;ENTER&gt;:</text>
+<text top="1028" left="149" width="219" height="18" font="4">&gt; plot(flimList(panss.flim),&#34;Y&#34;)</text>
+<text top="1044" left="163" width="219" height="18" font="4">Model: Y.inc ~ Y + factor(treat)</text>
+<text top="1061" left="149" width="206" height="18" font="4">Hit &lt;Return&gt; to see next plot:</text>
+<text top="1077" left="149" width="48" height="18" font="4">Time: 0</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="8" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="8" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="5" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">147</text>
+<text top="260" left="188" width="18" height="10" font="13">−30</text>
+<text top="260" left="239" width="18" height="10" font="13">−20</text>
+<text top="260" left="290" width="18" height="10" font="13">−10</text>
+<text top="260" left="346" width="6" height="10" font="13">0</text>
+<text top="260" left="394" width="12" height="10" font="13">10</text>
+<text top="251" left="176" width="0" height="10" font="14">−60</text>
+<text top="212" left="176" width="0" height="10" font="14">−20</text>
+<text top="169" left="176" width="0" height="10" font="14">20</text>
+<text top="279" left="278" width="58" height="10" font="13">Fitted values</text>
+<text top="209" left="157" width="0" height="10" font="14">Residuals</text>
+<text top="123" left="253" width="108" height="12" font="11">Residuals vs Fitted</text>
+<text top="245" left="265" width="29" height="7" font="15">106.416</text>
+<text top="243" left="218" width="29" height="7" font="15">127.542</text>
+<text top="144" left="319" width="20" height="7" font="15">23.43</text>
+<text top="260" left="518" width="12" height="10" font="13">−2</text>
+<text top="260" left="558" width="12" height="10" font="13">−1</text>
+<text top="260" left="602" width="6" height="10" font="13">0</text>
+<text top="260" left="643" width="6" height="10" font="13">1</text>
+<text top="260" left="684" width="6" height="10" font="13">2</text>
+<text top="242" left="474" width="0" height="10" font="14">−3</text>
+<text top="209" left="474" width="0" height="10" font="14">−1</text>
+<text top="173" left="474" width="0" height="10" font="14">1</text>
+<text top="156" left="474" width="0" height="10" font="14">2</text>
+<text top="140" left="474" width="0" height="10" font="14">3</text>
+<text top="279" left="556" width="98" height="10" font="13">Theoretical Quantiles</text>
+<text top="238" left="455" width="0" height="10" font="14">Standardiz</text>
+<text top="189" left="455" width="0" height="10" font="14">ed residuals</text>
+<text top="123" left="569" width="72" height="12" font="11">Normal Q−Q</text>
+<text top="242" left="497" width="29" height="7" font="15">106.416</text>
+<text top="241" left="513" width="29" height="7" font="15">127.542</text>
+<text top="144" left="693" width="20" height="7" font="15">23.43</text>
+<text top="460" left="188" width="18" height="10" font="13">−30</text>
+<text top="460" left="239" width="18" height="10" font="13">−20</text>
+<text top="460" left="290" width="18" height="10" font="13">−10</text>
+<text top="460" left="346" width="6" height="10" font="13">0</text>
+<text top="460" left="394" width="12" height="10" font="13">10</text>
+<text top="446" left="176" width="0" height="10" font="14">0.0</text>
+<text top="416" left="176" width="0" height="10" font="14">0.5</text>
+<text top="387" left="176" width="0" height="10" font="14">1.0</text>
+<text top="357" left="176" width="0" height="10" font="14">1.5</text>
+<text top="479" left="278" width="58" height="10" font="13">Fitted values</text>
+<text top="437" left="157" width="0" height="10" font="14">S</text>
+<text top="430" left="157" width="0" height="10" font="14">ta</text>
+<text top="421" left="157" width="0" height="10" font="14">n</text>
+<text top="416" left="157" width="0" height="10" font="14">d</text>
+<text top="410" left="157" width="0" height="10" font="14">a</text>
+<text top="404" left="157" width="0" height="10" font="14">rd</text>
+<text top="395" left="157" width="0" height="10" font="14">iz</text>
+<text top="387" left="157" width="0" height="10" font="14">e</text>
+<text top="382" left="157" width="0" height="10" font="14">d</text>
+<text top="376" left="157" width="0" height="10" font="14"> r</text>
+<text top="370" left="157" width="0" height="10" font="14">e</text>
+<text top="364" left="157" width="0" height="10" font="14">s</text>
+<text top="359" left="157" width="0" height="10" font="14">id</text>
+<text top="351" left="157" width="0" height="10" font="14">u</text>
+<text top="345" left="157" width="0" height="10" font="14">a</text>
+<text top="339" left="157" width="0" height="10" font="14">ls</text>
+<text top="324" left="264" width="87" height="12" font="11">Scale−Location</text>
+<text top="338" left="265" width="29" height="7" font="15">106.416</text>
+<text top="339" left="218" width="29" height="7" font="15">127.542</text>
+<text top="344" left="319" width="20" height="7" font="15">23.43</text>
+<text top="460" left="484" width="20" height="10" font="13">0.00</text>
+<text top="460" left="526" width="20" height="10" font="13">0.02</text>
+<text top="460" left="567" width="20" height="10" font="13">0.04</text>
+<text top="460" left="609" width="20" height="10" font="13">0.06</text>
+<text top="460" left="650" width="20" height="10" font="13">0.08</text>
+<text top="460" left="692" width="20" height="10" font="13">0.10</text>
+<text top="436" left="474" width="0" height="10" font="14">−3</text>
+<text top="405" left="474" width="0" height="10" font="14">−1</text>
+<text top="371" left="474" width="0" height="10" font="14">1</text>
+<text top="356" left="474" width="0" height="10" font="14">2</text>
+<text top="341" left="474" width="0" height="10" font="14">3</text>
+<text top="479" left="584" width="42" height="10" font="13">Leverage</text>
+<text top="439" left="455" width="0" height="10" font="14">Standardiz</text>
+<text top="390" left="455" width="0" height="10" font="14">ed residuals</text>
+<text top="396" left="514" width="73" height="10" font="13">Cook's distance</text>
+<text top="324" left="541" width="128" height="12" font="11">Residuals vs Leverage</text>
+<text top="444" left="580" width="29" height="7" font="15">127.542</text>
+<text top="345" left="561" width="20" height="7" font="15">23.43</text>
+<text top="445" left="546" width="29" height="7" font="15">106.416</text>
+<text top="516" left="287" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="516" left="345" width="261" height="13" font="4">Plot diagnostics for linear fit at time point 0.</text>
+<text top="565" left="149" width="97" height="15" font="9"><b>Bootstrapping</b></text>
+<text top="596" left="149" width="193" height="13" font="4">Bootstrapping is available once a</text>
+<text top="593" left="345" width="399" height="18" font="4">&#34;flim&#34; object is fitted. Using the flimboot function, users have only</text>
+<text top="613" left="149" width="260" height="13" font="4">to specify the number of bootstrap samples:</text>
+<text top="636" left="149" width="268" height="18" font="4">panss.boot &lt;- flimboot(panss.flim, 100)</text>
+<text top="666" left="148" width="596" height="13" font="4">We can calculate the empirical standard errors for bootstrap estimates of the hypothetical mean</text>
+<text top="683" left="149" width="74" height="13" font="4">response by:</text>
+<text top="706" left="149" width="295" height="18" font="4">&gt; flimSD(panss.boot, &#34;Y&#34;, grouping=&#34;treat&#34;)</text>
+<text top="737" left="171" width="574" height="13" font="4">To plot the hypothetical mean response from the original dataset together with point wise 95%</text>
+<text top="753" left="149" width="358" height="13" font="4">bootstrap confidence bands, we can use the plot function for</text>
+<text top="750" left="510" width="159" height="18" font="4">&#34;flimboot&#34; objects (Figure</text>
+<text top="753" left="673" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#12">4</a></text>
+<text top="753" left="679" width="8" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#12">):</a></text>
+<text top="776" left="149" width="206" height="18" font="4">plot(panss.boot, &#34;Y&#34;, &#34;treat&#34;)</text>
+<text top="828" left="149" width="274" height="15" font="9"><b>Artificial censoring and causal inference</b></text>
+<text top="860" left="148" width="598" height="13" font="4">As argued before, the linear increments model can be a potential method for doing causal inference.</text>
+<text top="876" left="148" width="596" height="13" font="4">This is done by imputing counterfactual response values as if an intervention never took place; the</text>
+<text top="893" left="149" width="595" height="13" font="4">imputed values can then be compared to the observed values to assess what effect the intervention</text>
+<text top="909" left="149" width="123" height="13" font="4">had on the response.</text>
+<text top="930" left="171" width="573" height="13" font="4">We will demonstrate this feature with a simulated dataset that is made to mimic a study of patients</text>
+<text top="946" left="148" width="596" height="13" font="4">with HIV. The patients in the study have steadily declining CD4 values, and as CD4 values continue</text>
+<text top="963" left="149" width="595" height="13" font="4">to decrease, patients initiate treatment with increasing probability. Receiving treatment increases the</text>
+<text top="979" left="148" width="596" height="13" font="4">patients’ CD4 values. CD4 is also affecting the hazard of event as those with a low value are at greater</text>
+<text top="996" left="149" width="595" height="13" font="4">risk of developing AIDS during the study. The event AIDS is simulated on each time point with an</text>
+<text top="1012" left="149" width="597" height="13" font="4">additive hazard model where CD4 status and treatment are affecting the hazard. If patients get AIDS,</text>
+<text top="1029" left="149" width="197" height="13" font="4">they are censored from the study.</text>
+<text top="1050" left="171" width="573" height="13" font="4">Since CD4 is affecting both probability of starting treatment and the outcome, and treatment on</text>
+<text top="1066" left="149" width="595" height="13" font="4">the other hand is affecting CD4, it would be useful to know what the CD4 values would have been if</text>
+<text top="1082" left="148" width="596" height="13" font="4">patients counterfactually did not start treatment. Note that it is assumed that treatment is affecting the</text>
+<text top="1099" left="149" width="598" height="13" font="4">response value on the next observation after treatment starts, and then on consecutive observations.</text>
+<text top="1115" left="149" width="460" height="13" font="4">Once a patient starts treatment, he or she may not go back to being untreated.</text>
+<text top="1136" left="171" width="423" height="13" font="4">It is simple to create counterfactual values as if treatment never started:</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="15" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="15" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="19" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">148</text>
+<text top="422" left="228" width="10" height="17" font="16">0</text>
+<text top="422" left="343" width="10" height="17" font="16">2</text>
+<text top="422" left="458" width="10" height="17" font="16">4</text>
+<text top="422" left="572" width="10" height="17" font="16">6</text>
+<text top="422" left="687" width="10" height="17" font="16">8</text>
+<text top="373" left="196" width="0" height="17" font="17">70</text>
+<text top="326" left="196" width="0" height="17" font="17">80</text>
+<text top="279" left="196" width="0" height="17" font="17">90</text>
+<text top="236" left="196" width="0" height="17" font="17">100</text>
+<text top="189" left="196" width="0" height="17" font="17">110</text>
+<text top="122" left="198" width="530" height="20" font="18"><b>Hypothetical mean with bootstrap confidence bands</b></text>
+<text top="455" left="438" width="49" height="17" font="16">Times</text>
+<text top="312" left="163" width="0" height="17" font="17">Response</text>
+<text top="506" left="230" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="506" left="287" width="377" height="13" font="4">Hypothetical mean responses with bootstrap confidence bands.</text>
+<text top="552" left="149" width="82" height="18" font="4">data(CD4sim)</text>
+<text top="568" left="149" width="446" height="18" font="4">CD4.flim &lt;- flim(cd4 ~ cd4, id=&#34;id&#34;, obstime=&#34;time&#34;, data=CD4sim,</text>
+<text top="585" left="238" width="117" height="18" font="4">art.cens=&#34;treat&#34;)</text>
+<text top="615" left="148" width="590" height="13" font="4">The fitted object contains a dataset with the counterfactual CD4 values added in a separate column:</text>
+<text top="645" left="149" width="165" height="18" font="4">&gt; head(CD4.flim$dataset)</text>
+<text top="661" left="163" width="89" height="18" font="4">id time treat</text>
+<text top="661" left="293" width="55" height="18" font="4">cd4 AIDS</text>
+<text top="661" left="368" width="41" height="18" font="4">cd4.cf</text>
+<text top="677" left="148" width="27" height="18" font="4">1 1</text>
+<text top="677" left="203" width="7" height="18" font="4">0</text>
+<text top="677" left="245" width="69" height="18" font="4">0 7.071068</text>
+<text top="677" left="341" width="69" height="18" font="4">0 7.071068</text>
+<text top="694" left="149" width="27" height="18" font="4">2 1</text>
+<text top="694" left="204" width="7" height="18" font="4">1</text>
+<text top="694" left="245" width="69" height="18" font="4">0 6.084063</text>
+<text top="694" left="341" width="69" height="18" font="4">0 6.084063</text>
+<text top="710" left="149" width="27" height="18" font="4">3 1</text>
+<text top="710" left="204" width="7" height="18" font="4">2</text>
+<text top="710" left="245" width="69" height="18" font="4">0 5.471980</text>
+<text top="710" left="341" width="69" height="18" font="4">0 5.471980</text>
+<text top="727" left="148" width="27" height="18" font="4">4 1</text>
+<text top="727" left="203" width="7" height="18" font="4">3</text>
+<text top="727" left="245" width="69" height="18" font="4">0 4.644535</text>
+<text top="727" left="341" width="69" height="18" font="4">0 4.644535</text>
+<text top="743" left="149" width="27" height="18" font="4">5 1</text>
+<text top="743" left="204" width="7" height="18" font="4">4</text>
+<text top="743" left="245" width="69" height="18" font="4">0 3.900693</text>
+<text top="743" left="341" width="69" height="18" font="4">0 3.900693</text>
+<text top="760" left="149" width="27" height="18" font="4">6 1</text>
+<text top="760" left="204" width="7" height="18" font="4">5</text>
+<text top="760" left="245" width="69" height="18" font="4">0 3.262019</text>
+<text top="760" left="341" width="69" height="18" font="4">0 3.262019</text>
+<text top="796" left="148" width="598" height="13" font="4">This option is intended for advanced users and does not come with readily available tools for in-</text>
+<text top="812" left="148" width="173" height="13" font="4">vestigating results. In Figure</text>
+<text top="812" left="325" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#13">5</a></text>
+<text top="812" left="335" width="409" height="13" font="4">we have for illustration chosen to plot the mean response curves for</text>
+<text top="829" left="149" width="595" height="13" font="4">observed and counterfactual CD4 values. Here we can see that the linear increments model suggests</text>
+<text top="845" left="149" width="460" height="13" font="4">the CD4 values would have been lower if the treated patients were untreated.</text>
+<text top="890" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="929" left="148" width="596" height="13" font="4">The linear increments model is a simple approach for dealing with missing data in longitudinal</text>
+<text top="945" left="149" width="595" height="13" font="4">studies, and FLIM provides a straightforward implementation with standard formula syntax. Using</text>
+<text top="962" left="149" width="595" height="13" font="4">the package, we can recreate hypothetical response trajectories that could have been observed in the</text>
+<text top="978" left="149" width="595" height="13" font="4">absence of missingness. The mean structure of the reconstructed data will be correct under certain</text>
+<text top="995" left="149" width="82" height="13" font="4">assumptions <a href="2014-2-hoff-gran-farewell.html#3">(</a></text>
+<text top="995" left="231" width="7" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#3">3</a></text>
+<text top="995" left="237" width="507" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#3">); </a>however, these imputed values will not exhibit the correct variability, and confidence</text>
+<text top="1011" left="149" width="359" height="13" font="4">bands for the mean response can be based on bootstrapping.</text>
+<text top="1032" left="171" width="573" height="13" font="4">With a readily available tool for handling and imputing missing data, users should emphasise</text>
+<text top="1048" left="148" width="598" height="13" font="4">which assumptions need to be made in order for the hypothetical developments to be justifiable.</text>
+<text top="1065" left="149" width="595" height="13" font="4">Indeed, in some sense imputation is a manipulation of the data, and this is certainly true when one is</text>
+<text top="1081" left="149" width="595" height="13" font="4">considering averages such as the mean response. Uncritically applying the linear increments model to</text>
+<text top="1098" left="149" width="251" height="13" font="4">obtain a &#34;complete&#34; dataset is not advised.</text>
+<text top="1119" left="171" width="573" height="13" font="4">Knowing when the required assumptions are met can be a challenge, and the issue is further</text>
+<text top="1135" left="149" width="595" height="13" font="4">complicated when missingness is nonmonotone. The basic message is that the method is applicable</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="13" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="17" family="Helvetica" color="#000000"/>
+	<fontspec id="20" size="17" family="Helvetica" color="#000000"/>
+	<fontspec id="21" size="21" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">149</text>
+<text top="354" left="234" width="11" height="18" font="19">0</text>
+<text top="354" left="324" width="11" height="18" font="19">2</text>
+<text top="354" left="414" width="11" height="18" font="19">4</text>
+<text top="354" left="504" width="11" height="18" font="19">6</text>
+<text top="354" left="594" width="11" height="18" font="19">8</text>
+<text top="354" left="678" width="22" height="18" font="19">10</text>
+<text top="311" left="201" width="0" height="18" font="20">5</text>
+<text top="268" left="201" width="0" height="18" font="20">10</text>
+<text top="220" left="201" width="0" height="18" font="20">15</text>
+<text top="172" left="201" width="0" height="18" font="20">20</text>
+<text top="390" left="443" width="44" height="18" font="19">Time</text>
+<text top="293" left="275" width="86" height="18" font="19">Observed</text>
+<text top="311" left="275" width="128" height="18" font="19">Counterfactual</text>
+<text top="126" left="379" width="171" height="22" font="21"><b>Mean response</b></text>
+<text top="255" left="182" width="0" height="18" font="20">C</text>
+<text top="240" left="182" width="0" height="18" font="20">D</text>
+<text top="226" left="182" width="0" height="18" font="20">4</text>
+<text top="444" left="240" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="444" left="298" width="355" height="13" font="4">Mean response for observed and counterfactual CD4 values</text>
+<text top="494" left="148" width="596" height="13" font="4">when the observed increments are representative of those from the general population; this goes both</text>
+<text top="510" left="149" width="598" height="13" font="4">for monotone and nonmonotone missing data, but may be more difficult to establish in the latter case.</text>
+<text top="555" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="594" left="149" width="595" height="13" font="4">O. O. Aalen and N. Gunnes. A dynamic approach for reconstructing missing longitudinal data using</text>
+<text top="610" left="164" width="365" height="13" font="4">the linear increments model. Biostatistics, 11:453–472, 2010. <a href="2014-2-hoff-gran-farewell.html#1">[p</a></text>
+<text top="610" left="529" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#1">137</a></text>
+<text top="610" left="549" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#1">,</a></text>
+<text top="610" left="556" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#2">138</a></text>
+<text top="610" left="576" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#2">,</a></text>
+<text top="610" left="583" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#3">139</a></text>
+<text top="610" left="603" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#3">]</a></text>
+<text top="639" left="149" width="595" height="13" font="4">O. O. Aalen, K. Røysland, J. M. Gran, and B. Ledergerber. Causality, mediation and time: a dynamic</text>
+<text top="655" left="163" width="583" height="13" font="4">viewpoint. Journal of the Royal Statistical Society: Series A (Statistics in Society), 175(4):831–861, 2012.</text>
+<text top="671" left="164" width="13" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#5">[p</a></text>
+<text top="671" left="176" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#5">141</a></text>
+<text top="671" left="196" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#5">]</a></text>
+<text top="700" left="149" width="595" height="13" font="4">P. Diggle. Dealing with missing values in longitudinal studies. In Recent Advances in the Statistical</text>
+<text top="716" left="163" width="482" height="14" font="4">Analysis of Medical Data, editor, B. S. Everitt and G. Dunn, pages 203–228, 1998. <a href="2014-2-hoff-gran-farewell.html#6">[p</a></text>
+<text top="716" left="645" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#6">142</a></text>
+<text top="716" left="665" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#6">,</a></text>
+<text top="716" left="672" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#7">143</a></text>
+<text top="716" left="692" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#7">]</a></text>
+<text top="745" left="149" width="597" height="13" font="4">P. Diggle, D. M. Farewell, and R. Henderson. Analysis of longitudinal data with drop-out: objectives,</text>
+<text top="761" left="164" width="582" height="13" font="4">assumptions and a proposal. Journal of the Royal Statistical Society: Series C (Applied Statistics), 56:</text>
+<text top="778" left="164" width="101" height="13" font="4">499–550, 2007. <a href="2014-2-hoff-gran-farewell.html#1">[p</a></text>
+<text top="778" left="265" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#1">137</a></text>
+<text top="778" left="285" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#1">,</a></text>
+<text top="778" left="292" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#2">138</a></text>
+<text top="778" left="312" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#2">,</a></text>
+<text top="778" left="319" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#3">139</a></text>
+<text top="778" left="339" width="3" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#3">,</a></text>
+<text top="778" left="346" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#10">146</a></text>
+<text top="778" left="366" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#10">]</a></text>
+<text top="806" left="149" width="522" height="13" font="4">D. M. Farewell. Linear models for censored data. PhD thesis, Lancaster University, 2006. <a href="2014-2-hoff-gran-farewell.html#1">[p</a></text>
+<text top="806" left="670" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#1">137</a></text>
+<text top="806" left="691" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#1">]</a></text>
+<text top="834" left="149" width="595" height="13" font="4">N. Gunnes, D. M. Farewell, O. O. Aalen, and T. G. Seierstad. Analysis of censored discrete longitudinal</text>
+<text top="851" left="164" width="455" height="13" font="4">data: estimation of mean response. Statistics in Medicine, 28:605–624, 2009. <a href="2014-2-hoff-gran-farewell.html#3">[p</a></text>
+<text top="851" left="619" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#3">139</a></text>
+<text top="851" left="639" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#3">]</a></text>
+<text top="879" left="149" width="595" height="13" font="4">M. A. Hernán, E. Lanoy, D. Costagliola, and J. M. Robins. Comparison of dynamic treatment regimes</text>
+<text top="896" left="163" width="521" height="13" font="4">via inverse probability weighting. Basic &amp; Clinical Pharmacology &amp; Toxicology, 98:237–242</text>
+<text top="912" left="164" width="48" height="13" font="4">2006. <a href="2014-2-hoff-gran-farewell.html#4">[p</a></text>
+<text top="912" left="211" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#4">140</a></text>
+<text top="912" left="232" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#4">]</a></text>
+<text top="940" left="149" width="595" height="13" font="4">J. W. Hogan, J. Roy, and C. Korkontzelou. Handling drop-out in longitudinal studies. Statistics in</text>
+<text top="957" left="164" width="189" height="14" font="4">Medicine, 23:1455–1497, 2004. <a href="2014-2-hoff-gran-farewell.html#1">[p</a></text>
+<text top="957" left="353" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#1">137</a></text>
+<text top="957" left="373" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#1">]</a></text>
+<text top="985" left="149" width="595" height="13" font="4">A. Zeileis and G. Grothendieck. zoo: S3 infrastructure for regular and irregular time series. Journal of</text>
+<text top="1002" left="163" width="241" height="14" font="4">Statistical Software, 14(6):1–27, 2005. URL</text>
+<text top="998" left="408" width="226" height="18" font="6"><a href="http://www.jstatsoft.org/v14/i06/">http://www.jstatsoft.org/v14/i06/</a></text>
+<text top="1002" left="634" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v14/i06/">. </a><a href="2014-2-hoff-gran-farewell.html#6">[p</a></text>
+<text top="1002" left="655" width="20" height="13" font="6"><a href="2014-2-hoff-gran-farewell.html#6">142</a></text>
+<text top="1002" left="675" width="4" height="13" font="4"><a href="2014-2-hoff-gran-farewell.html#6">]</a></text>
+<text top="1048" left="148" width="56" height="13" font="4">Rune Hoff</text>
+<text top="1064" left="148" width="254" height="13" font="4">Oslo Centre for Biostatistics and Epidemiology</text>
+<text top="1081" left="148" width="148" height="13" font="4">Department of Biostatistics</text>
+<text top="1097" left="148" width="101" height="13" font="4">University of Oslo</text>
+<text top="1114" left="149" width="44" height="13" font="4">Norway</text>
+<text top="1127" left="149" width="165" height="18" font="6"><a href="mailto:rune.hoff@medisin.uio.no">rune.hoff@medisin.uio.no</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="14" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">150</text>
+<text top="103" left="149" width="97" height="13" font="4">Jon Michael Gran</text>
+<text top="119" left="148" width="254" height="13" font="4">Oslo Centre for Biostatistics and Epidemiology</text>
+<text top="136" left="148" width="148" height="13" font="4">Department of Biostatistics</text>
+<text top="152" left="148" width="101" height="13" font="4">University of Oslo</text>
+<text top="169" left="149" width="44" height="13" font="4">Norway</text>
+<text top="182" left="149" width="158" height="18" font="6"><a href="mailto:j.m.gran@medisin.uio.no">j.m.gran@medisin.uio.no</a></text>
+<text top="223" left="148" width="86" height="13" font="4">Daniel Farewell</text>
+<text top="239" left="148" width="284" height="13" font="4">Cochrane Institute of Primary Care &amp; Public Health</text>
+<text top="255" left="148" width="102" height="13" font="4">School of Medicine</text>
+<text top="272" left="148" width="101" height="13" font="4">Cardiff University</text>
+<text top="288" left="148" width="33" height="13" font="4">Wales</text>
+<text top="301" left="149" width="123" height="18" font="6"><a href="mailto:FarewellD@cf.ac.uk">FarewellD@cf.ac.uk</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

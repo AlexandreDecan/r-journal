@@ -1,0 +1,1245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#000000"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#00004c"/>
+	<fontspec id="9" size="9" family="Times" color="#00004c"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+	<fontspec id="11" size="6" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">61</text>
+<text top="121" left="82" width="667" height="36" font="2"><b>The RecordLinkage Package: Detecting</b></text>
+<text top="166" left="82" width="238" height="36" font="2"><b>Errors in Data</b></text>
+<text top="218" left="82" width="219" height="15" font="0">by Murat Sariyar and Andreas Borg</text>
+<text top="253" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="253" left="167" width="248" height="15" font="0">Record linkage deals with detecting</text>
+<text top="271" left="96" width="319" height="15" font="0">homonyms and mainly synonyms in data. The</text>
+<text top="289" left="96" width="319" height="15" font="0">package <b>RecordLinkage </b>provides means to per-</text>
+<text top="307" left="96" width="319" height="15" font="0">form and evaluate different record linkage meth-</text>
+<text top="325" left="96" width="319" height="15" font="0">ods. A stochastic framework is implemented</text>
+<text top="343" left="96" width="319" height="15" font="0">which calculates weights through an EM al-</text>
+<text top="361" left="96" width="57" height="15" font="0">gorithm.</text>
+<text top="361" left="169" width="246" height="15" font="0">The determination of the necessary</text>
+<text top="379" left="96" width="319" height="15" font="0">thresholds in this model can be achieved by tools</text>
+<text top="397" left="96" width="319" height="15" font="0">of extreme value theory. Furthermore, machine</text>
+<text top="414" left="96" width="319" height="15" font="0">learning methods are utilized, including deci-</text>
+<text top="432" left="96" width="319" height="15" font="0">sion trees (<b>rpart</b>), bootstrap aggregating (<b>bag-</b></text>
+<text top="450" left="96" width="31" height="15" font="3"><b>ging</b></text>
+<text top="450" left="127" width="288" height="15" font="0">), ada boost (<b>ada</b>), neural nets (<b>nnet</b>) and</text>
+<text top="468" left="96" width="319" height="15" font="0">support vector machines (<b>svm</b>). The generation</text>
+<text top="486" left="96" width="319" height="15" font="0">of record pairs and comparison patterns from</text>
+<text top="504" left="96" width="319" height="15" font="0">single data items are provided as well. Com-</text>
+<text top="522" left="96" width="319" height="15" font="0">parison patterns can be chosen to be binary or</text>
+<text top="540" left="96" width="319" height="15" font="0">based on some string metrics. In order to reduce</text>
+<text top="558" left="96" width="319" height="15" font="0">computation time and memory usage, blocking</text>
+<text top="576" left="96" width="319" height="15" font="0">can be used. Future development will concen-</text>
+<text top="594" left="96" width="319" height="15" font="0">trate on additional and refined methods, perfor-</text>
+<text top="612" left="96" width="319" height="15" font="0">mance improvements and input/output facili-</text>
+<text top="630" left="96" width="253" height="15" font="0">ties needed for real-world application.</text>
+<text top="681" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="722" left="82" width="346" height="15" font="0">When dealing with data from different sources that</text>
+<text top="740" left="82" width="346" height="15" font="0">stem from and represent one realm, it is likely that</text>
+<text top="758" left="82" width="346" height="15" font="0">homonym and especially synonym errors occur. In</text>
+<text top="776" left="82" width="346" height="15" font="0">order to reduce these errors either different data files</text>
+<text top="794" left="82" width="346" height="15" font="0">are linked or one data file is deduplicated. Record</text>
+<text top="811" left="82" width="346" height="15" font="0">linkage is the task of reducing such errors through</text>
+<text top="829" left="82" width="346" height="15" font="0">a vast number of different methods. These methods</text>
+<text top="847" left="82" width="346" height="15" font="0">can be divided into two classes. One class consists of</text>
+<text top="865" left="82" width="316" height="15" font="0">stochastic methods based on the framework of</text>
+<text top="865" left="404" width="25" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Fel-</a></text>
+<text top="883" left="82" width="106" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">legi and Sunter</a></text>
+<text top="883" left="195" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="883" left="200" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">1969</a></text>
+<text top="883" left="230" width="199" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">). </a>The other class comprises</text>
+<text top="901" left="82" width="346" height="15" font="0">non-stochastic methods from the machine learning</text>
+<text top="919" left="82" width="346" height="15" font="0">context. Methods from both classes need preliminary</text>
+<text top="937" left="82" width="346" height="15" font="0">steps in order to generate data pairs from single data</text>
+<text top="955" left="82" width="346" height="15" font="0">items. These record pairs are then transformed into</text>
+<text top="973" left="82" width="346" height="15" font="0">comparison patterns. An exemplary comparison pat-</text>
+<text top="991" left="82" width="136" height="15" font="0">tern is of the form <i>γ</i></text>
+<text top="991" left="223" width="22" height="14" font="7">= (</text>
+<text top="991" left="245" width="98" height="15" font="0">1, 0, 1, 0, 1, 0, 0, 0</text>
+<text top="991" left="343" width="6" height="14" font="7">)</text>
+<text top="991" left="354" width="75" height="15" font="0">where only</text>
+<text top="1009" left="82" width="346" height="15" font="0">agreement and non-agreement of eight attributes</text>
+<text top="1027" left="82" width="346" height="15" font="0">are evaluated. This transformation and other pre-</text>
+<text top="1045" left="82" width="346" height="15" font="0">processing steps are described in the next section.</text>
+<text top="1063" left="82" width="346" height="15" font="0">Stochastic record linkage is primarily defined by the</text>
+<text top="1080" left="82" width="346" height="15" font="0">assumption of a probability model concerning prob-</text>
+<text top="1098" left="82" width="346" height="15" font="0">abilities of agreement of attributes conditional on the</text>
+<text top="1116" left="82" width="346" height="15" font="0">matching status of the underlying data pair. Machine</text>
+<text top="1134" left="82" width="346" height="15" font="0">learning methods reduce the problem of record link-</text>
+<text top="218" left="459" width="203" height="15" font="0">age to a classification problem.</text>
+<text top="237" left="481" width="83" height="15" font="0">The package</text>
+<text top="237" left="569" width="104" height="15" font="8"><a href="http://cran.r-project.org/package=RecordLinkage"><b>RecordLinkage</b></a></text>
+<text top="237" left="676" width="129" height="15" font="0">is designed to facil-</text>
+<text top="255" left="459" width="346" height="15" font="0">itate the application of record linkage in R. The idea</text>
+<text top="273" left="459" width="346" height="15" font="0">for this package evolved whilst using R for record</text>
+<text top="291" left="459" width="346" height="15" font="0">linkage of data stemming from a German cancer reg-</text>
+<text top="309" left="459" width="346" height="15" font="0">istry. An evaluation of different methods thereafter</text>
+<text top="327" left="459" width="346" height="15" font="0">lead to a large number of functions and data struc-</text>
+<text top="344" left="459" width="346" height="15" font="0">tures. The organisation of these functions and data</text>
+<text top="362" left="459" width="346" height="15" font="0">structures as an R package eases the evaluation of</text>
+<text top="380" left="459" width="346" height="15" font="0">record linkage methods and facilitates the applica-</text>
+<text top="398" left="459" width="346" height="15" font="0">tion of record linkage to different data sets. These</text>
+<text top="416" left="459" width="346" height="15" font="0">are the main goals behind the package described in</text>
+<text top="434" left="459" width="69" height="15" font="0">this paper.</text>
+<text top="453" left="481" width="104" height="15" font="3"><b>RecordLinkage</b></text>
+<text top="453" left="595" width="210" height="15" font="0">is available from our project</text>
+<text top="471" left="459" width="150" height="15" font="0">home page on R-For<a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#1">ge</a></text>
+<text top="468" left="609" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#1">1</a></text>
+<text top="471" left="619" width="151" height="15" font="0">as well as from CRAN.</text>
+<text top="525" left="459" width="189" height="21" font="4"><b>Data preprocessing</b></text>
+<text top="566" left="459" width="346" height="15" font="0">First steps in data preprocessing usually include</text>
+<text top="584" left="459" width="346" height="15" font="0">standardization of data, for example conversion of</text>
+<text top="602" left="459" width="346" height="15" font="0">accented characters or enforcing a well-defined date</text>
+<text top="620" left="459" width="346" height="15" font="0">format. However, such methods are not included in</text>
+<text top="638" left="459" width="104" height="15" font="3"><b>RecordLinkage</b></text>
+<text top="638" left="563" width="243" height="15" font="0">. In the package, the user is respon-</text>
+<text top="656" left="459" width="346" height="15" font="0">sible for providing the data in the form the package</text>
+<text top="674" left="459" width="66" height="15" font="0">expects it.</text>
+<text top="693" left="481" width="324" height="15" font="0">Data must reside in a data frame where each</text>
+<text top="711" left="459" width="346" height="15" font="0">row holds one record and columns represent at-</text>
+<text top="729" left="459" width="346" height="15" font="0">tributes. The package includes two example data</text>
+<text top="747" left="459" width="346" height="15" font="0">sets, RLdata500 and RLdata10000, which differ in the</text>
+<text top="765" left="459" width="128" height="15" font="0">number of recor<a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#1">ds.</a></text>
+<text top="762" left="587" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#1">2</a></text>
+<text top="765" left="603" width="203" height="15" font="0">The following example shows</text>
+<text top="783" left="459" width="177" height="15" font="0">the structure of RLdata500.</text>
+<text top="822" left="459" width="165" height="10" font="10">&gt; library(RecordLinkage)</text>
+<text top="838" left="459" width="117" height="10" font="10">&gt; data(RLdata500)</text>
+<text top="854" left="459" width="123" height="10" font="10">&gt; RLdata500[1:5, ]</text>
+<text top="890" left="473" width="240" height="10" font="10">fname_c1 fname_c2 lname_c1 lname_c2</text>
+<text top="890" left="733" width="55" height="10" font="10">by bm bd</text>
+<text top="906" left="459" width="7" height="10" font="10">1</text>
+<text top="906" left="479" width="48" height="10" font="10">CARSTEN</text>
+<text top="906" left="562" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="906" left="617" width="34" height="10" font="10">MEIER</text>
+<text top="906" left="685" width="62" height="10" font="10">&lt;NA&gt; 1949</text>
+<text top="906" left="761" width="27" height="10" font="10">7 22</text>
+<text top="922" left="459" width="7" height="10" font="10">2</text>
+<text top="922" left="500" width="27" height="10" font="10">GERD</text>
+<text top="922" left="562" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="922" left="617" width="34" height="10" font="10">BAUER</text>
+<text top="922" left="685" width="62" height="10" font="10">&lt;NA&gt; 1968</text>
+<text top="922" left="761" width="27" height="10" font="10">7 27</text>
+<text top="939" left="459" width="7" height="10" font="10">3</text>
+<text top="939" left="486" width="41" height="10" font="10">ROBERT</text>
+<text top="939" left="562" width="89" height="10" font="10">&lt;NA&gt; HARTMANN</text>
+<text top="939" left="685" width="62" height="10" font="10">&lt;NA&gt; 1930</text>
+<text top="939" left="761" width="27" height="10" font="10">4 30</text>
+<text top="955" left="459" width="7" height="10" font="10">4</text>
+<text top="955" left="486" width="41" height="10" font="10">STEFAN</text>
+<text top="955" left="562" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="955" left="617" width="34" height="10" font="10">WOLFF</text>
+<text top="955" left="685" width="62" height="10" font="10">&lt;NA&gt; 1957</text>
+<text top="955" left="761" width="7" height="10" font="10">9</text>
+<text top="955" left="781" width="7" height="10" font="10">2</text>
+<text top="972" left="459" width="7" height="10" font="10">5</text>
+<text top="972" left="500" width="27" height="10" font="10">RALF</text>
+<text top="972" left="562" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="972" left="603" width="48" height="10" font="10">KRUEGER</text>
+<text top="972" left="685" width="62" height="10" font="10">&lt;NA&gt; 1966</text>
+<text top="972" left="761" width="27" height="10" font="10">1 13</text>
+<text top="1007" left="481" width="324" height="15" font="0">The fields in this data set are first name and fam-</text>
+<text top="1025" left="459" width="346" height="15" font="0">ily name, each split into a first and second compo-</text>
+<text top="1043" left="459" width="346" height="15" font="0">nent, and the date of birth, with separate components</text>
+<text top="1061" left="459" width="161" height="15" font="0">for day, month and year.</text>
+<text top="1080" left="481" width="324" height="15" font="0">Column names are reused for comparison pat-</text>
+<text top="1098" left="459" width="346" height="15" font="0">terns (see below). If a record identifier other than</text>
+<text top="1116" left="459" width="346" height="15" font="0">the row number is desired, it should be included as</text>
+<text top="1134" left="459" width="305" height="15" font="0">a separate column instead of using row.names.</text>
+<text top="1158" left="99" width="4" height="9" font="11"><a href="http://r-forge.r-project.org/projects/recordlinkage/">1</a></text>
+<text top="1161" left="104" width="319" height="9" font="9"><a href="http://r-forge.r-project.org/projects/recordlinkage/">http://r-forge.r-project.org/projects/recordlinkage/</a></text>
+<text top="1173" left="99" width="4" height="9" font="11">2</text>
+<text top="1175" left="104" width="543" height="12" font="1">The data were created randomly from German name statistics and have no relation to existing persons.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="15" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">62</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="123" left="82" width="244" height="17" font="12"><b>Building comparison patterns</b></text>
+<text top="156" left="82" width="346" height="15" font="0">We include two functions for the creation of compari-</text>
+<text top="174" left="82" width="346" height="15" font="0">son patterns from data sets: compare.dedup for dedu-</text>
+<text top="192" left="82" width="346" height="15" font="0">plication of a single data set and compare.linkage for</text>
+<text top="210" left="82" width="346" height="15" font="0">linking two data sets together. In the case of three</text>
+<text top="228" left="82" width="346" height="15" font="0">or more data sets, iteratively two of them are linked</text>
+<text top="246" left="82" width="346" height="15" font="0">and replaced by the data set which is the result of the</text>
+<text top="264" left="82" width="153" height="15" font="0">linkage. This leads to n</text>
+<text top="263" left="239" width="12" height="15" font="7">−</text>
+<text top="264" left="254" width="166" height="15" font="0">1 linkages for n data sets.</text>
+<text top="283" left="105" width="324" height="15" font="0">Both compare functions return an object of class</text>
+<text top="302" left="82" width="99" height="12" font="0">&#34;RecLinkData&#34;</text>
+<text top="301" left="185" width="244" height="15" font="0">which includes, among other compo-</text>
+<text top="319" left="82" width="346" height="15" font="0">nents, the resulting comparison patterns as compo-</text>
+<text top="337" left="82" width="346" height="15" font="0">nent pairs. In the following, such an object will be</text>
+<text top="354" left="82" width="179" height="15" font="0">referred to as a data object .</text>
+<text top="389" left="82" width="247" height="10" font="10">&gt; rpairs &lt;- compare.dedup(RLdata500,</text>
+<text top="405" left="82" width="7" height="10" font="10">+</text>
+<text top="405" left="110" width="206" height="10" font="10">identity = identity.RLdata500)</text>
+<text top="422" left="82" width="144" height="10" font="10">&gt; rpairs$pairs[1:5, ]</text>
+<text top="458" left="96" width="316" height="10" font="10">id1 id2 fname_c1 fname_c2 lname_c1 lname_c2 by</text>
+<text top="475" left="82" width="7" height="10" font="10">1</text>
+<text top="475" left="110" width="7" height="10" font="10">1</text>
+<text top="475" left="137" width="7" height="10" font="10">2</text>
+<text top="475" left="199" width="7" height="10" font="10">0</text>
+<text top="475" left="254" width="14" height="10" font="10">NA</text>
+<text top="475" left="323" width="7" height="10" font="10">0</text>
+<text top="475" left="377" width="14" height="10" font="10">NA</text>
+<text top="475" left="405" width="7" height="10" font="10">0</text>
+<text top="491" left="82" width="7" height="10" font="10">2</text>
+<text top="491" left="110" width="7" height="10" font="10">1</text>
+<text top="491" left="137" width="7" height="10" font="10">3</text>
+<text top="491" left="199" width="7" height="10" font="10">0</text>
+<text top="491" left="254" width="14" height="10" font="10">NA</text>
+<text top="491" left="323" width="7" height="10" font="10">0</text>
+<text top="491" left="377" width="14" height="10" font="10">NA</text>
+<text top="491" left="405" width="7" height="10" font="10">0</text>
+<text top="508" left="82" width="7" height="10" font="10">3</text>
+<text top="508" left="110" width="7" height="10" font="10">1</text>
+<text top="508" left="137" width="7" height="10" font="10">4</text>
+<text top="508" left="199" width="7" height="10" font="10">0</text>
+<text top="508" left="254" width="14" height="10" font="10">NA</text>
+<text top="508" left="323" width="7" height="10" font="10">0</text>
+<text top="508" left="377" width="14" height="10" font="10">NA</text>
+<text top="508" left="405" width="7" height="10" font="10">0</text>
+<text top="524" left="82" width="7" height="10" font="10">4</text>
+<text top="524" left="110" width="7" height="10" font="10">1</text>
+<text top="524" left="137" width="7" height="10" font="10">5</text>
+<text top="524" left="199" width="7" height="10" font="10">0</text>
+<text top="524" left="254" width="14" height="10" font="10">NA</text>
+<text top="524" left="323" width="7" height="10" font="10">0</text>
+<text top="524" left="377" width="14" height="10" font="10">NA</text>
+<text top="524" left="405" width="7" height="10" font="10">0</text>
+<text top="540" left="82" width="7" height="10" font="10">5</text>
+<text top="540" left="110" width="7" height="10" font="10">1</text>
+<text top="540" left="137" width="7" height="10" font="10">6</text>
+<text top="540" left="199" width="7" height="10" font="10">0</text>
+<text top="540" left="254" width="14" height="10" font="10">NA</text>
+<text top="540" left="323" width="7" height="10" font="10">0</text>
+<text top="540" left="377" width="14" height="10" font="10">NA</text>
+<text top="540" left="405" width="7" height="10" font="10">0</text>
+<text top="557" left="96" width="96" height="10" font="10">bm bd is_match</text>
+<text top="573" left="82" width="7" height="10" font="10">1</text>
+<text top="573" left="103" width="7" height="10" font="10">1</text>
+<text top="573" left="124" width="7" height="10" font="10">0</text>
+<text top="573" left="185" width="7" height="10" font="10">0</text>
+<text top="590" left="82" width="7" height="10" font="10">2</text>
+<text top="590" left="103" width="7" height="10" font="10">0</text>
+<text top="590" left="124" width="7" height="10" font="10">0</text>
+<text top="590" left="185" width="7" height="10" font="10">0</text>
+<text top="606" left="82" width="7" height="10" font="10">3</text>
+<text top="606" left="103" width="7" height="10" font="10">0</text>
+<text top="606" left="124" width="7" height="10" font="10">0</text>
+<text top="606" left="185" width="7" height="10" font="10">0</text>
+<text top="623" left="82" width="7" height="10" font="10">4</text>
+<text top="623" left="103" width="7" height="10" font="10">0</text>
+<text top="623" left="124" width="7" height="10" font="10">0</text>
+<text top="623" left="185" width="7" height="10" font="10">0</text>
+<text top="639" left="82" width="7" height="10" font="10">5</text>
+<text top="639" left="103" width="7" height="10" font="10">1</text>
+<text top="639" left="124" width="7" height="10" font="10">0</text>
+<text top="639" left="185" width="7" height="10" font="10">0</text>
+<text top="675" left="105" width="324" height="15" font="0">The printed slice of datapairs$pairs shows the</text>
+<text top="693" left="82" width="346" height="15" font="0">structure of comparison patterns: The row numbers</text>
+<text top="711" left="82" width="346" height="15" font="0">of the underlying records are followed by their cor-</text>
+<text top="728" left="82" width="346" height="15" font="0">responding comparison vector. Note that a missing</text>
+<text top="746" left="82" width="346" height="15" font="0">value in either of two records results in a NA in the</text>
+<text top="764" left="82" width="346" height="15" font="0">corresponding column of the comparison pattern.</text>
+<text top="782" left="82" width="346" height="15" font="0">The classification procedures described in the follow-</text>
+<text top="800" left="82" width="346" height="15" font="0">ing sections treat these NAs as zeros by default. If</text>
+<text top="818" left="82" width="346" height="15" font="0">this behaviour is undesired, further preprocessing by</text>
+<text top="836" left="82" width="346" height="15" font="0">the user is necessary. Column is_match denotes the</text>
+<text top="854" left="82" width="346" height="15" font="0">true matching status of a pair (0 means non-match,</text>
+<text top="872" left="82" width="346" height="15" font="0">1 means match). It can be set externally by using</text>
+<text top="890" left="82" width="346" height="15" font="0">the optional argument identity of the compare func-</text>
+<text top="908" left="82" width="36" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#2">tions.</a></text>
+<text top="905" left="119" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#2">3</a></text>
+<text top="908" left="131" width="298" height="15" font="0">This allows evaluation of record linkage pro-</text>
+<text top="926" left="82" width="327" height="15" font="0">cedures based on labeled data as a gold standard.</text>
+<text top="975" left="82" width="74" height="17" font="12"><b>Blocking</b></text>
+<text top="1007" left="82" width="346" height="15" font="0">Blocking is the reduction of the amount of data pairs</text>
+<text top="1025" left="82" width="332" height="15" font="0">through focusing on specified agreement patterns.</text>
+<text top="1045" left="105" width="324" height="15" font="0">Unrestricted comparison yields comparison pat-</text>
+<text top="1063" left="82" width="218" height="15" font="0">terns for all possible data pairs: n</text>
+<text top="1062" left="300" width="6" height="14" font="7">(</text>
+<text top="1062" left="307" width="8" height="15" font="0">n</text>
+<text top="1062" left="318" width="12" height="15" font="7">−</text>
+<text top="1063" left="333" width="7" height="15" font="0">1</text>
+<text top="1062" left="341" width="6" height="14" font="7">)</text>
+<text top="1063" left="347" width="82" height="15" font="0">/2 for dedu-</text>
+<text top="1080" left="82" width="157" height="15" font="0">plication of n records, n</text>
+<text top="1079" left="243" width="4" height="15" font="7">·</text>
+<text top="1080" left="251" width="178" height="15" font="0">m for linking two data sets</text>
+<text top="1098" left="82" width="346" height="15" font="0">with n and m records. Blocking is a common strategy</text>
+<text top="1116" left="82" width="346" height="15" font="0">to reduce computation time and memory consump-</text>
+<text top="1134" left="82" width="346" height="15" font="0">tion by only comparing records with equal values for</text>
+<text top="125" left="459" width="346" height="15" font="0">a subset of attributes, called blocking fields. A block-</text>
+<text top="143" left="459" width="346" height="15" font="0">ing specification can be supplied to the compare func-</text>
+<text top="161" left="459" width="346" height="15" font="0">tions via the argument blockfld. The most simple</text>
+<text top="179" left="459" width="346" height="15" font="0">specification is a vector of column indices denoting</text>
+<text top="197" left="459" width="346" height="15" font="0">the attributes on which two records must agree (pos-</text>
+<text top="215" left="459" width="346" height="15" font="0">sibly after applying a phonetic code, see below) to</text>
+<text top="233" left="459" width="346" height="15" font="0">appear in the output. Combining several such spec-</text>
+<text top="251" left="459" width="346" height="15" font="0">ifications in a list leads to the union of the sets ob-</text>
+<text top="268" left="459" width="346" height="15" font="0">tained by the individual application of the specifica-</text>
+<text top="286" left="459" width="346" height="15" font="0">tions. In the following example, two records must</text>
+<text top="304" left="459" width="346" height="15" font="0">agree in either the first component of the first name</text>
+<text top="322" left="459" width="346" height="15" font="0">or the complete date of birth to appear in the result-</text>
+<text top="340" left="459" width="204" height="15" font="0">ing set of comparison patterns.</text>
+<text top="378" left="459" width="247" height="10" font="10">&gt; rpairs &lt;- compare.dedup(RLdata500,</text>
+<text top="395" left="459" width="7" height="10" font="10">+</text>
+<text top="395" left="486" width="165" height="10" font="10">blockfld = list(1, 5:7),</text>
+<text top="411" left="459" width="7" height="10" font="10">+</text>
+<text top="411" left="486" width="206" height="10" font="10">identity = identity.RLdata500)</text>
+<text top="428" left="459" width="240" height="10" font="10">&gt; rpairs$pairs[c(1:3, 1203:1204), ]</text>
+<text top="462" left="493" width="295" height="10" font="10">id1 id2 fname_c1 fname_c2 lname_c1 lname_c2</text>
+<text top="479" left="459" width="7" height="10" font="10">1</text>
+<text top="479" left="500" width="41" height="10" font="10">17 119</text>
+<text top="479" left="596" width="7" height="10" font="10">1</text>
+<text top="479" left="651" width="14" height="10" font="10">NA</text>
+<text top="479" left="720" width="7" height="10" font="10">0</text>
+<text top="479" left="774" width="14" height="10" font="10">NA</text>
+<text top="495" left="459" width="7" height="10" font="10">2</text>
+<text top="495" left="500" width="41" height="10" font="10">61 106</text>
+<text top="495" left="596" width="7" height="10" font="10">1</text>
+<text top="495" left="651" width="14" height="10" font="10">NA</text>
+<text top="495" left="720" width="7" height="10" font="10">0</text>
+<text top="495" left="774" width="14" height="10" font="10">NA</text>
+<text top="512" left="459" width="7" height="10" font="10">3</text>
+<text top="512" left="500" width="41" height="10" font="10">61 175</text>
+<text top="512" left="596" width="7" height="10" font="10">1</text>
+<text top="512" left="651" width="14" height="10" font="10">NA</text>
+<text top="512" left="720" width="7" height="10" font="10">0</text>
+<text top="512" left="774" width="14" height="10" font="10">NA</text>
+<text top="528" left="459" width="27" height="10" font="10">1203</text>
+<text top="528" left="500" width="14" height="10" font="10">37</text>
+<text top="528" left="527" width="14" height="10" font="10">72</text>
+<text top="528" left="596" width="7" height="10" font="10">0</text>
+<text top="528" left="651" width="14" height="10" font="10">NA</text>
+<text top="528" left="720" width="7" height="10" font="10">0</text>
+<text top="528" left="774" width="14" height="10" font="10">NA</text>
+<text top="545" left="459" width="27" height="10" font="10">1204</text>
+<text top="545" left="500" width="41" height="10" font="10">44 339</text>
+<text top="545" left="596" width="7" height="10" font="10">0</text>
+<text top="545" left="651" width="14" height="10" font="10">NA</text>
+<text top="545" left="720" width="7" height="10" font="10">0</text>
+<text top="545" left="774" width="14" height="10" font="10">NA</text>
+<text top="561" left="493" width="117" height="10" font="10">by bm bd is_match</text>
+<text top="578" left="459" width="7" height="10" font="10">1</text>
+<text top="578" left="500" width="7" height="10" font="10">0</text>
+<text top="578" left="521" width="7" height="10" font="10">0</text>
+<text top="578" left="541" width="7" height="10" font="10">0</text>
+<text top="578" left="603" width="7" height="10" font="10">0</text>
+<text top="594" left="459" width="7" height="10" font="10">2</text>
+<text top="594" left="500" width="7" height="10" font="10">0</text>
+<text top="594" left="521" width="7" height="10" font="10">0</text>
+<text top="594" left="541" width="7" height="10" font="10">1</text>
+<text top="594" left="603" width="7" height="10" font="10">0</text>
+<text top="610" left="459" width="7" height="10" font="10">3</text>
+<text top="610" left="500" width="7" height="10" font="10">0</text>
+<text top="610" left="521" width="7" height="10" font="10">0</text>
+<text top="610" left="541" width="7" height="10" font="10">1</text>
+<text top="610" left="603" width="7" height="10" font="10">0</text>
+<text top="627" left="459" width="27" height="10" font="10">1203</text>
+<text top="627" left="500" width="7" height="10" font="10">1</text>
+<text top="627" left="521" width="7" height="10" font="10">1</text>
+<text top="627" left="541" width="7" height="10" font="10">1</text>
+<text top="627" left="603" width="7" height="10" font="10">1</text>
+<text top="643" left="459" width="27" height="10" font="10">1204</text>
+<text top="643" left="500" width="7" height="10" font="10">1</text>
+<text top="643" left="521" width="7" height="10" font="10">1</text>
+<text top="643" left="541" width="7" height="10" font="10">1</text>
+<text top="643" left="603" width="7" height="10" font="10">0</text>
+<text top="689" left="459" width="346" height="17" font="12"><b>Phonetic functions and string comparators</b></text>
+<text top="722" left="459" width="346" height="15" font="0">Phonetic functions and string comparators are sim-</text>
+<text top="740" left="459" width="346" height="15" font="0">ilar, yet distinct approaches to dealing with ty-</text>
+<text top="758" left="459" width="276" height="15" font="0">pographical errors in character strings.</text>
+<text top="758" left="754" width="51" height="15" font="0">A pho-</text>
+<text top="776" left="459" width="346" height="15" font="0">netic function maps words in a natural language to</text>
+<text top="794" left="459" width="346" height="15" font="0">strings representing their pronunciation (the pho-</text>
+<text top="811" left="459" width="346" height="15" font="0">netic code). The aim is that words which sound</text>
+<text top="829" left="459" width="346" height="15" font="0">similar enough get the same phonetic code. Obvi-</text>
+<text top="847" left="459" width="346" height="15" font="0">ously one needs different phonetic functions for dif-</text>
+<text top="865" left="459" width="113" height="15" font="0">ferent <a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#2">languages.</a></text>
+<text top="862" left="572" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#2">4</a></text>
+<text top="865" left="584" width="222" height="15" font="0">Package <b>RecordLinkage </b>includes</text>
+<text top="883" left="459" width="346" height="15" font="0">the popular Soundex algorithm for English and a</text>
+<text top="901" left="459" width="289" height="15" font="0">German language algorithm introduced by</text>
+<text top="901" left="753" width="53" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Michael</a></text>
+<text top="919" left="459" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="919" left="464" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">1999</a></text>
+<text top="919" left="494" width="312" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">), </a>implemented through functions soundex and</text>
+<text top="938" left="459" width="38" height="12" font="0">pho_h</text>
+<text top="937" left="503" width="302" height="15" font="0">respectively. The argument phonetic of the</text>
+<text top="955" left="459" width="346" height="15" font="0">compare functions controls the application of the</text>
+<text top="973" left="459" width="346" height="15" font="0">phonetic function, which defaults to pho_h and can</text>
+<text top="991" left="459" width="346" height="15" font="0">be set by argument phonfun. Typically, an integer</text>
+<text top="1009" left="459" width="346" height="15" font="0">vector is supplied which specifies the indices of the</text>
+<text top="1027" left="459" width="346" height="15" font="0">data columns for which a phonetic code is to be com-</text>
+<text top="1045" left="459" width="346" height="15" font="0">puted before comparison with other records. Note</text>
+<text top="1063" left="459" width="346" height="15" font="0">that the phonetic function, if requested, is applied</text>
+<text top="1080" left="459" width="346" height="15" font="0">before the blocking process, therefore the equality</text>
+<text top="1098" left="459" width="346" height="15" font="0">restrictions imposed by blocking apply to phonetic</text>
+<text top="1116" left="459" width="346" height="15" font="0">codes. Consider, for example, a call with arguments</text>
+<text top="1136" left="459" width="107" height="12" font="0">phonetic = 1:4</text>
+<text top="1134" left="570" width="235" height="15" font="0">and blockfld = 1. In this case, the</text>
+<text top="1158" left="99" width="4" height="9" font="11">3</text>
+<text top="1160" left="104" width="236" height="12" font="1">See documentation for compare.* for details.</text>
+<text top="1173" left="99" width="4" height="9" font="11">4</text>
+<text top="1175" left="104" width="585" height="12" font="1">For this reason, problems may arise when records in one file stem from individuals from different nationalities.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="9" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">63</text>
+<text top="125" left="82" width="346" height="15" font="0">actual blocking criterion is agreement on phonetic</text>
+<text top="143" left="82" width="167" height="15" font="0">code of the first attribute.</text>
+<text top="161" left="105" width="324" height="15" font="0">String comparators measure the similarity be-</text>
+<text top="179" left="82" width="346" height="15" font="0">tween strings, usually with a similarity measure in</text>
+<text top="197" left="82" width="62" height="15" font="0">the range</text>
+<text top="197" left="148" width="4" height="14" font="7">[</text>
+<text top="197" left="153" width="20" height="15" font="0">0, 1</text>
+<text top="197" left="174" width="4" height="14" font="7">]</text>
+<text top="197" left="178" width="251" height="15" font="0">, where 0 denotes maximal dissimilar-</text>
+<text top="215" left="82" width="346" height="15" font="0">ity and 1 equality. This allows ‘fuzzy’ comparison</text>
+<text top="233" left="82" width="313" height="15" font="0">patterns as displayed in the following <a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#3">example.</a></text>
+<text top="230" left="396" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#3">5</a></text>
+<text top="264" left="82" width="281" height="10" font="10">&gt; rpairsfuzzy &lt;- compare.dedup(RLdata500,</text>
+<text top="280" left="82" width="7" height="10" font="10">+</text>
+<text top="280" left="110" width="233" height="10" font="10">blockfld = c(5, 6), strcmp = TRUE)</text>
+<text top="297" left="82" width="178" height="10" font="10">&gt; rpairsfuzzy$pairs[1:5, ]</text>
+<text top="328" left="96" width="48" height="10" font="10">id1 id2</text>
+<text top="328" left="158" width="117" height="10" font="10">fname_c1 fname_c2</text>
+<text top="328" left="288" width="117" height="10" font="10">lname_c1 lname_c2</text>
+<text top="345" left="82" width="130" height="10" font="10">1 357 414 1.0000000</text>
+<text top="345" left="261" width="82" height="10" font="10">NA 1.0000000</text>
+<text top="345" left="391" width="14" height="10" font="10">NA</text>
+<text top="361" left="82" width="130" height="10" font="10">2 389 449 0.6428571</text>
+<text top="361" left="261" width="82" height="10" font="10">NA 0.0000000</text>
+<text top="361" left="391" width="14" height="10" font="10">NA</text>
+<text top="378" left="82" width="130" height="10" font="10">3 103 211 0.7833333</text>
+<text top="378" left="261" width="82" height="10" font="10">NA 0.5333333</text>
+<text top="378" left="391" width="14" height="10" font="10">NA</text>
+<text top="394" left="82" width="7" height="10" font="10">4</text>
+<text top="394" left="110" width="103" height="10" font="10">6 328 0.4365079</text>
+<text top="394" left="261" width="82" height="10" font="10">NA 0.4444444</text>
+<text top="394" left="391" width="14" height="10" font="10">NA</text>
+<text top="411" left="82" width="7" height="10" font="10">5</text>
+<text top="411" left="103" width="14" height="10" font="10">37</text>
+<text top="411" left="131" width="82" height="10" font="10">72 0.9750000</text>
+<text top="411" left="261" width="82" height="10" font="10">NA 0.9500000</text>
+<text top="411" left="391" width="14" height="10" font="10">NA</text>
+<text top="427" left="96" width="34" height="10" font="10">by bm</text>
+<text top="427" left="185" width="75" height="10" font="10">bd is_match</text>
+<text top="443" left="82" width="7" height="10" font="10">1</text>
+<text top="443" left="103" width="7" height="10" font="10">1</text>
+<text top="443" left="124" width="75" height="10" font="10">1 0.7000000</text>
+<text top="443" left="247" width="14" height="10" font="10">NA</text>
+<text top="460" left="82" width="7" height="10" font="10">2</text>
+<text top="460" left="103" width="7" height="10" font="10">1</text>
+<text top="460" left="124" width="75" height="10" font="10">1 0.6666667</text>
+<text top="460" left="247" width="14" height="10" font="10">NA</text>
+<text top="476" left="82" width="7" height="10" font="10">3</text>
+<text top="476" left="103" width="7" height="10" font="10">1</text>
+<text top="476" left="124" width="75" height="10" font="10">1 0.0000000</text>
+<text top="476" left="247" width="14" height="10" font="10">NA</text>
+<text top="493" left="82" width="7" height="10" font="10">4</text>
+<text top="493" left="103" width="7" height="10" font="10">1</text>
+<text top="493" left="124" width="75" height="10" font="10">1 0.0000000</text>
+<text top="493" left="247" width="14" height="10" font="10">NA</text>
+<text top="509" left="82" width="7" height="10" font="10">5</text>
+<text top="509" left="103" width="7" height="10" font="10">1</text>
+<text top="509" left="124" width="75" height="10" font="10">1 1.0000000</text>
+<text top="509" left="247" width="14" height="10" font="10">NA</text>
+<text top="540" left="105" width="324" height="15" font="0">Controlling the application of string comparators</text>
+<text top="558" left="82" width="346" height="15" font="0">works in the same manner as for phonetic functions,</text>
+<text top="576" left="82" width="346" height="15" font="0">via the arguments strcmp and strcmpfun. The al-</text>
+<text top="594" left="82" width="82" height="15" font="0">gorithms by</text>
+<text top="594" left="170" width="53" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Winkler</a></text>
+<text top="594" left="229" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="594" left="234" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">1990</a></text>
+<text top="594" left="264" width="165" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">) </a>(function jarowinkler)</text>
+<text top="612" left="82" width="346" height="15" font="0">and one based on the edit distance by Leven-</text>
+<text top="630" left="82" width="346" height="15" font="0">shtein (function levenshteinSim) are included in</text>
+<text top="648" left="82" width="346" height="15" font="0">the package. String comparison and phonetic en-</text>
+<text top="666" left="82" width="346" height="15" font="0">coding cannot be used simultaneously on one at-</text>
+<text top="684" left="82" width="346" height="15" font="0">tribute but can be applied to different attributes</text>
+<text top="702" left="82" width="346" height="15" font="0">within one set of comparison patterns, as in the</text>
+<text top="719" left="82" width="346" height="15" font="0">function call compare.dedup(RLdata500, phonetic</text>
+<text top="739" left="82" width="152" height="12" font="0">= 1:4, strcmp = 5:7)</text>
+<text top="737" left="235" width="4" height="15" font="0">.</text>
+<text top="737" left="254" width="175" height="15" font="0">We refer to the reference</text>
+<text top="755" left="82" width="210" height="15" font="0">manual for further information.</text>
+<text top="803" left="82" width="246" height="21" font="4"><b>Stochastic record linkage</b></text>
+<text top="842" left="82" width="59" height="17" font="12"><b>Theory</b></text>
+<text top="873" left="82" width="346" height="15" font="0">Stochastic record linkage relies on the assumption of</text>
+<text top="891" left="82" width="346" height="15" font="0">conditional probabilities concerning comparison pat-</text>
+<text top="909" left="82" width="329" height="15" font="0">terns. The probabilities of the random vector <i>γ</i></text>
+<text top="909" left="417" width="12" height="14" font="7">=</text>
+<text top="927" left="83" width="6" height="14" font="7">(</text>
+<text top="930" left="89" width="9" height="11" font="6"><i>γ</i></text>
+<text top="932" left="98" width="6" height="11" font="1">1</text>
+<text top="927" left="105" width="31" height="15" font="0">, ..., <i>γ</i></text>
+<text top="932" left="136" width="6" height="11" font="1">n</text>
+<text top="927" left="143" width="6" height="14" font="7">)</text>
+<text top="927" left="156" width="102" height="15" font="0">having value ˜</text>
+<text top="930" left="250" width="9" height="11" font="6"><i>γ</i></text>
+<text top="927" left="264" width="23" height="14" font="7">= (</text>
+<text top="927" left="290" width="5" height="15" font="0">˜</text>
+<text top="930" left="288" width="9" height="11" font="6"><i>γ</i></text>
+<text top="932" left="297" width="6" height="11" font="1">1</text>
+<text top="927" left="303" width="30" height="15" font="0">, ..., ˜</text>
+<text top="930" left="325" width="9" height="11" font="6"><i>γ</i></text>
+<text top="932" left="335" width="6" height="11" font="1">n</text>
+<text top="927" left="342" width="6" height="14" font="7">)</text>
+<text top="927" left="354" width="75" height="15" font="0">conditional</text>
+<text top="945" left="82" width="241" height="15" font="0">on the match status Z are defined by</text>
+<text top="978" left="101" width="8" height="15" font="0">u</text>
+<text top="983" left="112" width="4" height="11" font="1">˜</text>
+<text top="985" left="110" width="7" height="9" font="13"><i>γ</i></text>
+<text top="978" left="121" width="12" height="14" font="7">=</text>
+<text top="978" left="137" width="9" height="15" font="0">P</text>
+<text top="978" left="147" width="6" height="14" font="7">(</text>
+<text top="981" left="153" width="9" height="11" font="6"><i>γ</i></text>
+<text top="978" left="166" width="12" height="14" font="7">=</text>
+<text top="978" left="185" width="5" height="15" font="0">˜</text>
+<text top="981" left="182" width="9" height="11" font="6"><i>γ</i></text>
+<text top="977" left="195" width="4" height="15" font="7">|</text>
+<text top="978" left="203" width="10" height="15" font="0">Z</text>
+<text top="978" left="217" width="12" height="14" font="7">=</text>
+<text top="978" left="232" width="7" height="15" font="0">0</text>
+<text top="978" left="240" width="6" height="14" font="7">)</text>
+<text top="978" left="246" width="24" height="15" font="0">, m</text>
+<text top="983" left="273" width="4" height="11" font="1">˜</text>
+<text top="985" left="270" width="7" height="9" font="13"><i>γ</i></text>
+<text top="978" left="282" width="12" height="14" font="7">=</text>
+<text top="978" left="298" width="9" height="15" font="0">P</text>
+<text top="978" left="307" width="6" height="14" font="7">(</text>
+<text top="981" left="314" width="9" height="11" font="6"><i>γ</i></text>
+<text top="978" left="327" width="12" height="14" font="7">=</text>
+<text top="978" left="345" width="5" height="15" font="0">˜</text>
+<text top="981" left="342" width="9" height="11" font="6"><i>γ</i></text>
+<text top="977" left="355" width="4" height="15" font="7">|</text>
+<text top="978" left="363" width="10" height="15" font="0">Z</text>
+<text top="978" left="377" width="12" height="14" font="7">=</text>
+<text top="978" left="393" width="7" height="15" font="0">1</text>
+<text top="978" left="400" width="6" height="14" font="7">)</text>
+<text top="978" left="407" width="4" height="15" font="0">,</text>
+<text top="1011" left="82" width="56" height="15" font="0">where Z</text>
+<text top="1011" left="142" width="12" height="14" font="7">=</text>
+<text top="1011" left="158" width="209" height="15" font="0">0 stands for a non-match and Z</text>
+<text top="1011" left="371" width="12" height="14" font="7">=</text>
+<text top="1011" left="387" width="42" height="15" font="0">1 for a</text>
+<text top="1029" left="82" width="346" height="15" font="0">match. In the Fellegi-Sunter model these probabili-</text>
+<text top="1047" left="82" width="294" height="15" font="0">ties are used to compute weights of the form</text>
+<text top="1089" left="155" width="11" height="15" font="0">w</text>
+<text top="1094" left="168" width="4" height="11" font="1">˜</text>
+<text top="1097" left="166" width="7" height="9" font="13"><i>γ</i></text>
+<text top="1089" left="177" width="12" height="14" font="7">=</text>
+<text top="1090" left="193" width="21" height="15" font="0">log</text>
+<text top="1079" left="216" width="23" height="15" font="0"> P</text>
+<text top="1079" left="239" width="6" height="14" font="7">(</text>
+<text top="1083" left="245" width="9" height="11" font="6"><i>γ</i></text>
+<text top="1079" left="258" width="12" height="14" font="7">=</text>
+<text top="1079" left="277" width="5" height="15" font="0">˜</text>
+<text top="1083" left="274" width="9" height="11" font="6"><i>γ</i></text>
+<text top="1078" left="287" width="4" height="15" font="7">|</text>
+<text top="1079" left="295" width="10" height="15" font="0">Z</text>
+<text top="1079" left="309" width="12" height="14" font="7">=</text>
+<text top="1079" left="324" width="7" height="15" font="0">1</text>
+<text top="1079" left="332" width="6" height="14" font="7">)</text>
+<text top="1100" left="229" width="9" height="15" font="0">P</text>
+<text top="1100" left="239" width="6" height="14" font="7">(</text>
+<text top="1103" left="245" width="9" height="11" font="6"><i>γ</i></text>
+<text top="1100" left="258" width="12" height="14" font="7">=</text>
+<text top="1100" left="277" width="5" height="15" font="0">˜</text>
+<text top="1103" left="274" width="9" height="11" font="6"><i>γ</i></text>
+<text top="1099" left="287" width="4" height="15" font="7">|</text>
+<text top="1100" left="295" width="10" height="15" font="0">Z</text>
+<text top="1100" left="309" width="12" height="14" font="7">=</text>
+<text top="1100" left="324" width="7" height="15" font="0">0</text>
+<text top="1100" left="332" width="6" height="14" font="7">)</text>
+<text top="1079" left="340" width="11" height="7" font="0"></text>
+<text top="1090" left="353" width="4" height="15" font="0">.</text>
+<text top="1131" left="82" width="346" height="15" font="0">These weights are used in order to discern between</text>
+<text top="1149" left="82" width="176" height="15" font="0">matches and non-matches.</text>
+<text top="125" left="481" width="324" height="15" font="0">There are several ways of estimating the proba-</text>
+<text top="143" left="459" width="346" height="15" font="0">bilities involved in this model. In <b>RecordLinkage </b>an</text>
+<text top="161" left="459" width="346" height="15" font="0">EM algorithm is used as a promising method for re-</text>
+<text top="179" left="459" width="346" height="15" font="0">liable estimations. The backbone of this algorithm</text>
+<text top="197" left="459" width="101" height="15" font="0">is described by</text>
+<text top="197" left="564" width="41" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Haber</a></text>
+<text top="197" left="610" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="197" left="615" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">1984</a></text>
+<text top="197" left="645" width="160" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">). </a>We extended and im-</text>
+<text top="215" left="459" width="346" height="15" font="0">plemented this algorithm in C in order to improve</text>
+<text top="233" left="459" width="346" height="15" font="0">its performance. Without a proper stochastic model,</text>
+<text top="251" left="459" width="346" height="15" font="0">the probabilities have to be fixed manually. If only</text>
+<text top="268" left="459" width="346" height="15" font="0">weights are to be computed without relying on the</text>
+<text top="286" left="459" width="346" height="15" font="0">assumptions of probabilities, then simple methods</text>
+<text top="304" left="459" width="198" height="15" font="0">like the one implemented by</text>
+<text top="304" left="662" width="97" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Contiero et al.</a></text>
+<text top="304" left="765" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="304" left="770" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2005</a></text>
+<text top="304" left="800" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">)</a></text>
+<text top="322" left="459" width="346" height="15" font="0">are suitable. Further details of these methods are also</text>
+<text top="340" left="459" width="57" height="15" font="0">found in</text>
+<text top="340" left="519" width="82" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Sariyar et al.</a></text>
+<text top="340" left="605" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="340" left="610" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2009</a></text>
+<text top="340" left="640" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">).</a></text>
+<text top="359" left="481" width="324" height="15" font="0">Weight calculation based on the EM algorithm</text>
+<text top="377" left="459" width="135" height="15" font="0">and the method by</text>
+<text top="377" left="601" width="100" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Contiero et al.</a></text>
+<text top="377" left="708" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="377" left="713" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2005</a></text>
+<text top="377" left="743" width="62" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">) </a>are im-</text>
+<text top="395" left="459" width="346" height="15" font="0">plemented by functions emWeights and epiWeights.</text>
+<text top="413" left="459" width="346" height="15" font="0">Both take a data set object as argument and return a</text>
+<text top="431" left="459" width="346" height="15" font="0">copy with the calculated weights stored in additional</text>
+<text top="448" left="459" width="346" height="15" font="0">components. Calling summary on the result shows the</text>
+<text top="466" left="459" width="346" height="15" font="0">distribution of weights in histogram style. This infor-</text>
+<text top="484" left="459" width="346" height="15" font="0">mation can be helpful for determining classification</text>
+<text top="502" left="459" width="346" height="15" font="0">thresholds, e.g. by identifying clusters of record pairs</text>
+<text top="520" left="459" width="346" height="15" font="0">with high or low weights as non-matches or matches</text>
+<text top="538" left="459" width="81" height="15" font="0">respectively.</text>
+<text top="574" left="459" width="206" height="10" font="10">&gt; rpairs &lt;- epiWeights(rpairs)</text>
+<text top="591" left="459" width="117" height="10" font="10">&gt; summary(rpairs)</text>
+<text top="624" left="459" width="151" height="10" font="10">Deduplication Data Set</text>
+<text top="657" left="459" width="75" height="10" font="10">500 records</text>
+<text top="674" left="459" width="117" height="10" font="10">1221 record pairs</text>
+<text top="706" left="459" width="69" height="10" font="10">49 matches</text>
+<text top="723" left="459" width="110" height="10" font="10">1172 non-matches</text>
+<text top="739" left="459" width="185" height="10" font="10">0 pairs with unknown status</text>
+<text top="789" left="459" width="137" height="10" font="10">Weight distribution:</text>
+<text top="821" left="459" width="295" height="10" font="10">[0.15,0.2] (0.2,0.25] (0.25,0.3] (0.3,0.35]</text>
+<text top="838" left="500" width="27" height="10" font="10">1011</text>
+<text top="838" left="596" width="7" height="10" font="10">0</text>
+<text top="838" left="665" width="14" height="10" font="10">89</text>
+<text top="838" left="740" width="14" height="10" font="10">30</text>
+<text top="854" left="459" width="295" height="10" font="10">(0.35,0.4] (0.4,0.45] (0.45,0.5] (0.5,0.55]</text>
+<text top="871" left="514" width="14" height="10" font="10">29</text>
+<text top="871" left="596" width="7" height="10" font="10">8</text>
+<text top="871" left="671" width="7" height="10" font="10">7</text>
+<text top="871" left="747" width="7" height="10" font="10">1</text>
+<text top="887" left="459" width="295" height="10" font="10">(0.55,0.6] (0.6,0.65] (0.65,0.7] (0.7,0.75]</text>
+<text top="904" left="514" width="14" height="10" font="10">14</text>
+<text top="904" left="589" width="14" height="10" font="10">19</text>
+<text top="904" left="665" width="14" height="10" font="10">10</text>
+<text top="904" left="747" width="7" height="10" font="10">2</text>
+<text top="920" left="459" width="69" height="10" font="10">(0.75,0.8]</text>
+<text top="937" left="521" width="7" height="10" font="10">1</text>
+<text top="970" left="481" width="324" height="15" font="0">Discernment between matches and non-matches</text>
+<text top="988" left="459" width="346" height="15" font="0">is achieved by means of computing weight thresh-</text>
+<text top="1006" left="459" width="32" height="15" font="0">olds.</text>
+<text top="1006" left="506" width="300" height="15" font="0">In the Fellegi-Sunter model, thresholds are</text>
+<text top="1024" left="459" width="346" height="15" font="0">computed via specification of destined (and feasi-</text>
+<text top="1041" left="459" width="346" height="15" font="0">ble) values of homonym and synonym errors so that</text>
+<text top="1059" left="459" width="317" height="15" font="0">the amount of doubtable cases is minimized.</text>
+<text top="1059" left="792" width="14" height="15" font="0">In</text>
+<text top="1077" left="459" width="346" height="15" font="0">the package three auspicious variants for determin-</text>
+<text top="1095" left="459" width="346" height="15" font="0">ing the threshold are implemented. The most com-</text>
+<text top="1113" left="459" width="346" height="15" font="0">mon practice is to determine thresholds by cleri-</text>
+<text top="1131" left="459" width="346" height="15" font="0">cal review, either a single threshold which separates</text>
+<text top="1149" left="459" width="346" height="15" font="0">links and non-links or separate thresholds for links</text>
+<text top="1173" left="99" width="4" height="9" font="11">5</text>
+<text top="1175" left="104" width="418" height="12" font="1">Blocking is used in this example for the purpose of reducing computation time.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="6" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">64</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">and non-links which define a range of doubtable</text>
+<text top="143" left="82" width="346" height="15" font="0">cases between them. <b>RecordLinkage </b>supports this</text>
+<text top="161" left="82" width="346" height="15" font="0">by the function getPairs, which shows record pairs</text>
+<text top="179" left="82" width="346" height="15" font="0">aligned in two consecutive lines along with their</text>
+<text top="197" left="82" width="346" height="15" font="0">weight (see the following example). When appropri-</text>
+<text top="215" left="82" width="346" height="15" font="0">ate thresholds are found, classification is performed</text>
+<text top="233" left="82" width="346" height="15" font="0">with emClassify or epiClassify, which take as argu-</text>
+<text top="251" left="82" width="346" height="15" font="0">ments the data set object and one or two classification</text>
+<text top="268" left="82" width="73" height="15" font="0">thresholds.</text>
+<text top="301" left="82" width="233" height="10" font="10">&gt; tail(getPairs(rpairs, 0.6, 0.5))</text>
+<text top="331" left="124" width="41" height="10" font="10">Weight</text>
+<text top="331" left="179" width="199" height="10" font="10">id fname_c1 fname_c2 lname_c1</text>
+<text top="347" left="82" width="110" height="10" font="10">25 0.5924569 266</text>
+<text top="347" left="220" width="34" height="10" font="10">KARIN</text>
+<text top="347" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="347" left="350" width="27" height="10" font="10">HORN</text>
+<text top="364" left="82" width="14" height="10" font="10">26</text>
+<text top="364" left="172" width="21" height="10" font="10">437</text>
+<text top="364" left="213" width="41" height="10" font="10">KARINW</text>
+<text top="364" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="364" left="350" width="27" height="10" font="10">HORN</text>
+<text top="380" left="82" width="110" height="10" font="10">27 0.5924569 395</text>
+<text top="380" left="206" width="48" height="10" font="10">GISOELA</text>
+<text top="380" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="380" left="350" width="27" height="10" font="10">BECK</text>
+<text top="397" left="82" width="14" height="10" font="10">28</text>
+<text top="397" left="172" width="21" height="10" font="10">404</text>
+<text top="397" left="213" width="41" height="10" font="10">GISELA</text>
+<text top="397" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="397" left="350" width="27" height="10" font="10">BECK</text>
+<text top="413" left="82" width="110" height="10" font="10">29 0.5067013 388</text>
+<text top="413" left="213" width="41" height="10" font="10">ANDREA</text>
+<text top="413" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="413" left="343" width="34" height="10" font="10">WEBER</text>
+<text top="430" left="82" width="14" height="10" font="10">30</text>
+<text top="430" left="172" width="21" height="10" font="10">408</text>
+<text top="430" left="213" width="41" height="10" font="10">ANDREA</text>
+<text top="430" left="288" width="27" height="10" font="10">&lt;NA&gt;</text>
+<text top="430" left="329" width="48" height="10" font="10">SCHMIDT</text>
+<text top="446" left="103" width="55" height="10" font="10">lname_c2</text>
+<text top="446" left="179" width="55" height="10" font="10">by bm bd</text>
+<text top="462" left="82" width="14" height="10" font="10">25</text>
+<text top="462" left="131" width="62" height="10" font="10">&lt;NA&gt; 2002</text>
+<text top="462" left="206" width="7" height="10" font="10">6</text>
+<text top="462" left="227" width="7" height="10" font="10">4</text>
+<text top="479" left="82" width="14" height="10" font="10">26</text>
+<text top="479" left="131" width="62" height="10" font="10">&lt;NA&gt; 2002</text>
+<text top="479" left="206" width="7" height="10" font="10">6</text>
+<text top="479" left="227" width="7" height="10" font="10">4</text>
+<text top="495" left="82" width="14" height="10" font="10">27</text>
+<text top="495" left="131" width="62" height="10" font="10">&lt;NA&gt; 2003</text>
+<text top="495" left="206" width="27" height="10" font="10">4 16</text>
+<text top="512" left="82" width="14" height="10" font="10">28</text>
+<text top="512" left="131" width="62" height="10" font="10">&lt;NA&gt; 2003</text>
+<text top="512" left="206" width="27" height="10" font="10">4 16</text>
+<text top="528" left="82" width="14" height="10" font="10">29</text>
+<text top="528" left="131" width="62" height="10" font="10">&lt;NA&gt; 1945</text>
+<text top="528" left="206" width="27" height="10" font="10">5 20</text>
+<text top="545" left="82" width="14" height="10" font="10">30</text>
+<text top="545" left="131" width="62" height="10" font="10">&lt;NA&gt; 1945</text>
+<text top="545" left="206" width="27" height="10" font="10">2 20</text>
+<text top="575" left="82" width="254" height="10" font="10">&gt; result &lt;- epiClassify(rpairs, 0.55)</text>
+<text top="604" left="105" width="324" height="15" font="0">The result is an object of class &#34;RecLinkResult&#34;,</text>
+<text top="622" left="82" width="346" height="15" font="0">which differs from the data object in having a com-</text>
+<text top="640" left="82" width="346" height="15" font="0">ponent prediction that represents the classification</text>
+<text top="658" left="82" width="346" height="15" font="0">result. Calling summary on such an object shows error</text>
+<text top="676" left="82" width="346" height="15" font="0">measures and a table comparing true and predicted</text>
+<text top="694" left="82" width="109" height="15" font="0">matching <a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#4">status.</a></text>
+<text top="691" left="191" width="6" height="11" font="9"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#4">6</a></text>
+<text top="726" left="82" width="117" height="10" font="10">&gt; summary(result)</text>
+<text top="756" left="82" width="151" height="10" font="10">Deduplication Data Set</text>
+<text top="789" left="82" width="34" height="10" font="10">[...]</text>
+<text top="822" left="82" width="117" height="10" font="10">46 links detected</text>
+<text top="838" left="82" width="171" height="10" font="10">0 possible links detected</text>
+<text top="855" left="82" width="158" height="10" font="10">1175 non-links detected</text>
+<text top="887" left="82" width="144" height="10" font="10">alpha error: 0.061224</text>
+<text top="904" left="82" width="137" height="10" font="10">beta error: 0.000000</text>
+<text top="920" left="82" width="123" height="10" font="10">accuracy: 0.997543</text>
+<text top="970" left="82" width="144" height="10" font="10">Classification table:</text>
+<text top="1003" left="158" width="96" height="10" font="10">classification</text>
+<text top="1019" left="82" width="75" height="10" font="10">true status</text>
+<text top="1019" left="185" width="7" height="10" font="10">N</text>
+<text top="1019" left="220" width="7" height="10" font="10">P</text>
+<text top="1019" left="254" width="7" height="10" font="10">L</text>
+<text top="1035" left="124" width="69" height="10" font="10">FALSE 1172</text>
+<text top="1035" left="220" width="7" height="10" font="10">0</text>
+<text top="1035" left="254" width="7" height="10" font="10">0</text>
+<text top="1052" left="124" width="27" height="10" font="10">TRUE</text>
+<text top="1052" left="185" width="7" height="10" font="10">3</text>
+<text top="1052" left="220" width="7" height="10" font="10">0</text>
+<text top="1052" left="247" width="14" height="10" font="10">46</text>
+<text top="1081" left="105" width="324" height="15" font="0">One alternative to threshold determination by</text>
+<text top="1099" left="82" width="346" height="15" font="0">clerical review needs labeled training data on which</text>
+<text top="1117" left="82" width="346" height="15" font="0">the threshold for the whole data set is computed by</text>
+<text top="1135" left="82" width="346" height="15" font="0">minimizing the number of wrongly classified pairs.</text>
+<text top="125" left="459" width="346" height="15" font="0">After weights have been calculated for these data,</text>
+<text top="143" left="459" width="346" height="15" font="0">the classification threshold can be obtained by call-</text>
+<text top="161" left="459" width="327" height="15" font="0">ing optimalThreshold on the training data object.</text>
+<text top="184" left="481" width="324" height="15" font="0">The other alternative for determining thresholds</text>
+<text top="202" left="459" width="346" height="15" font="0">is an unsupervised procedure based on concepts of</text>
+<text top="220" left="459" width="346" height="15" font="0">extreme value statistics. A mean excess plot is gener-</text>
+<text top="238" left="459" width="346" height="15" font="0">ated on which the interval representing the relevant</text>
+<text top="256" left="459" width="346" height="15" font="0">area for false match rates is to be determined. Based</text>
+<text top="274" left="459" width="346" height="15" font="0">on the assumption that this interval corresponds to a</text>
+<text top="292" left="459" width="346" height="15" font="0">fat tail of the empirical weights distribution, the gen-</text>
+<text top="310" left="459" width="346" height="15" font="0">eralized Pareto distribution is used to compute the</text>
+<text top="327" left="459" width="346" height="15" font="0">threshold discerning matches and non-matches. De-</text>
+<text top="345" left="459" width="346" height="15" font="0">tails of this latter procedure will be found in a forth-</text>
+<text top="363" left="459" width="274" height="15" font="0">coming paper which is still under review.</text>
+<text top="386" left="481" width="324" height="15" font="0">A function getParetoThreshold is included in</text>
+<text top="404" left="459" width="346" height="15" font="0">the package which encapsulates the necessary steps.</text>
+<text top="422" left="459" width="346" height="15" font="0">Called on a data set for which weights have been</text>
+<text top="440" left="459" width="346" height="15" font="0">calculated, it brings up a mean excess plot of the</text>
+<text top="458" left="459" width="346" height="15" font="0">weights. By clicking on the graph, the boundaries of</text>
+<text top="476" left="459" width="346" height="15" font="0">the weight range in which matches and non-matches</text>
+<text top="494" left="459" width="346" height="15" font="0">presumably overlap are selected. This area is usu-</text>
+<text top="512" left="459" width="346" height="15" font="0">ally discernible as a relatively long, approximately</text>
+<text top="530" left="459" width="346" height="15" font="0">linear section in the middle region of the mean ex-</text>
+<text top="548" left="459" width="346" height="15" font="0">cess graph. This corresponds to the assumption that</text>
+<text top="566" left="459" width="346" height="15" font="0">the generalized Pareto distribution is applicable. The</text>
+<text top="584" left="459" width="346" height="15" font="0">data sets in the package provide only weak support</text>
+<text top="602" left="459" width="346" height="15" font="0">for this assumption, especially because of their lim-</text>
+<text top="620" left="459" width="107" height="15" font="0">ited size. Figure</text>
+<text top="620" left="570" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#4">1</a></text>
+<text top="620" left="582" width="223" height="15" font="0">shows an example plot where the</text>
+<text top="637" left="459" width="346" height="15" font="0">appropriate limits are displayed as dashed lines. The</text>
+<text top="655" left="459" width="346" height="15" font="0">return value is a threshold which can be used with</text>
+<text top="675" left="459" width="76" height="12" font="0">emClassify</text>
+<text top="673" left="540" width="265" height="15" font="0">or epiClassify, depending on the type</text>
+<text top="691" left="459" width="346" height="15" font="0">of weights. We refer to the package vignette Classify-</text>
+<text top="709" left="459" width="346" height="15" font="0">ing record pairs by means of Extreme Value Theory for an</text>
+<text top="727" left="459" width="138" height="15" font="0">example application.</text>
+<text top="1056" left="496" width="14" height="8" font="14">−60</text>
+<text top="1056" left="555" width="14" height="8" font="14">−40</text>
+<text top="1056" left="613" width="14" height="8" font="14">−20</text>
+<text top="1056" left="676" width="5" height="8" font="14">0</text>
+<text top="1056" left="732" width="9" height="8" font="14">20</text>
+<text top="1032" left="488" width="0" height="8" font="15">0</text>
+<text top="994" left="488" width="0" height="8" font="15">5</text>
+<text top="958" left="488" width="0" height="8" font="15">10</text>
+<text top="920" left="488" width="0" height="8" font="15">15</text>
+<text top="882" left="488" width="0" height="8" font="15">20</text>
+<text top="844" left="488" width="0" height="8" font="15">25</text>
+<text top="807" left="488" width="0" height="8" font="15">30</text>
+<text top="1076" left="624" width="37" height="8" font="14">Threshold</text>
+<text top="919" left="468" width="0" height="8" font="15">MRL</text>
+<text top="1117" left="459" width="346" height="15" font="0">Figure 1: Example mean excess plot of weights with</text>
+<text top="1135" left="459" width="98" height="15" font="0">selected limits.</text>
+<text top="1159" left="99" width="4" height="9" font="11">6</text>
+<text top="1161" left="104" width="701" height="12" font="1">True status is denoted by TRUE and FALSE, classification result by &#34;N&#34; (non-link),&#34;L&#34; (link) and &#34;P&#34; (possible link). To save space, some</text>
+<text top="1175" left="82" width="426" height="12" font="1">output is omitted, marked by ‘[...]’ in this and some of the following examples</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">65</text>
+<text top="121" left="82" width="264" height="21" font="4"><b>Machine learning methods</b></text>
+<text top="161" left="82" width="346" height="15" font="0">Record Linkage can be understood as a classification</text>
+<text top="179" left="82" width="346" height="15" font="0">problem with comparison pattern <i>γ </i>as input and the</text>
+<text top="196" left="82" width="346" height="15" font="0">matching status variable Z as output. With this view,</text>
+<text top="214" left="82" width="346" height="15" font="0">a vast range of machine learning procedures, such</text>
+<text top="232" left="82" width="346" height="15" font="0">as clustering methods, decision trees or support vec-</text>
+<text top="250" left="82" width="346" height="15" font="0">tor machines, becomes available for deduplicating or</text>
+<text top="268" left="82" width="346" height="15" font="0">linking personal data. The following describes the</text>
+<text top="286" left="82" width="346" height="15" font="0">application of machine learning to record linkage as</text>
+<text top="304" left="82" width="219" height="15" font="0">it is implemented in the package.</text>
+<text top="348" left="82" width="225" height="17" font="12"><b>Unsupervised classification</b></text>
+<text top="380" left="82" width="346" height="15" font="0">Unsupervised classification methods are attractive as</text>
+<text top="398" left="82" width="346" height="15" font="0">they eliminate the necessity to provide representa-</text>
+<text top="416" left="82" width="346" height="15" font="0">tive training data, which can turn out to be a time-</text>
+<text top="434" left="82" width="346" height="15" font="0">consuming task, involving either manual review or</text>
+<text top="452" left="82" width="346" height="15" font="0">the finding of an adequate mechanism to generate</text>
+<text top="469" left="82" width="346" height="15" font="0">artificial data. Motivated by this advantage, unsu-</text>
+<text top="487" left="82" width="346" height="15" font="0">pervised clustering is incorporated into the package</text>
+<text top="505" left="82" width="346" height="15" font="0">by means of the classifyUnsup function, which uses</text>
+<text top="523" left="82" width="346" height="15" font="0">k-means clustering via kmeans or bagged clustering</text>
+<text top="541" left="82" width="169" height="15" font="0">via bclust from package</text>
+<text top="541" left="257" width="37" height="15" font="8"><a href="http://cran.r-project.org/package=e1071"><b>e1071</b></a></text>
+<text top="541" left="299" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="541" left="304" width="121" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Dimitriadou et al.</a></text>
+<text top="541" left="425" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">,</a></text>
+<text top="559" left="82" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2009</a></text>
+<text top="559" left="112" width="317" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">). </a>It must be noted that the quality of the re-</text>
+<text top="577" left="82" width="346" height="15" font="0">sulting classification varies significantly for different</text>
+<text top="595" left="82" width="346" height="15" font="0">data sets and poor results can occur. The following</text>
+<text top="613" left="82" width="346" height="15" font="0">example shows the invocation of k-means clustering</text>
+<text top="631" left="82" width="204" height="15" font="0">and the resulting classification.</text>
+<text top="663" left="82" width="350" height="10" font="10">&gt; summary(classifyUnsup(rpairs, method = &#34;kmeans&#34;))</text>
+<text top="696" left="82" width="151" height="10" font="10">Deduplication Data Set</text>
+<text top="729" left="82" width="34" height="10" font="10">[...]</text>
+<text top="762" left="82" width="117" height="10" font="10">62 links detected</text>
+<text top="778" left="82" width="171" height="10" font="10">0 possible links detected</text>
+<text top="795" left="82" width="158" height="10" font="10">1159 non-links detected</text>
+<text top="828" left="82" width="144" height="10" font="10">alpha error: 0.000000</text>
+<text top="844" left="82" width="137" height="10" font="10">beta error: 0.011092</text>
+<text top="861" left="82" width="123" height="10" font="10">accuracy: 0.989353</text>
+<text top="910" left="82" width="144" height="10" font="10">Classification table:</text>
+<text top="943" left="158" width="96" height="10" font="10">classification</text>
+<text top="959" left="82" width="75" height="10" font="10">true status</text>
+<text top="959" left="185" width="7" height="10" font="10">N</text>
+<text top="959" left="220" width="7" height="10" font="10">P</text>
+<text top="959" left="254" width="7" height="10" font="10">L</text>
+<text top="976" left="124" width="69" height="10" font="10">FALSE 1159</text>
+<text top="976" left="220" width="7" height="10" font="10">0</text>
+<text top="976" left="247" width="14" height="10" font="10">13</text>
+<text top="992" left="124" width="27" height="10" font="10">TRUE</text>
+<text top="992" left="185" width="7" height="10" font="10">0</text>
+<text top="992" left="220" width="7" height="10" font="10">0</text>
+<text top="992" left="247" width="14" height="10" font="10">49</text>
+<text top="1034" left="82" width="203" height="17" font="12"><b>Supervised classification</b></text>
+<text top="1065" left="82" width="346" height="15" font="0">Training data for calibrating supervised classification</text>
+<text top="1083" left="82" width="346" height="15" font="0">methods can be obtained in a variety of ways in the</text>
+<text top="1101" left="82" width="346" height="15" font="0">context of this package. An important distinction is</text>
+<text top="1119" left="82" width="346" height="15" font="0">to be made between cases where additional training</text>
+<text top="1137" left="82" width="346" height="15" font="0">data with known true identity status are available</text>
+<text top="1155" left="82" width="346" height="15" font="0">and those where a training set has to be determined</text>
+<text top="1173" left="82" width="346" height="15" font="0">from the data on which linkage is performed. In the</text>
+<text top="125" left="459" width="346" height="15" font="0">former case, one can provide a distinct set of records</text>
+<text top="143" left="459" width="346" height="15" font="0">which are compared by one of the compare functions</text>
+<text top="161" left="459" width="346" height="15" font="0">(see above) to obtain a training set. In the latter case,</text>
+<text top="179" left="459" width="346" height="15" font="0">two approaches exist, first through what we call a</text>
+<text top="197" left="459" width="346" height="15" font="0">minimal training set , second through unsupervised</text>
+<text top="215" left="459" width="88" height="15" font="0">classification.</text>
+<text top="233" left="481" width="324" height="15" font="0">To construct a minimal training set, compari-</text>
+<text top="251" left="459" width="346" height="15" font="0">son patterns in a data set are grouped according</text>
+<text top="268" left="459" width="346" height="15" font="0">to their configuration of agreement values. For ev-</text>
+<text top="286" left="459" width="346" height="15" font="0">ery present configuration, one representative is ran-</text>
+<text top="304" left="459" width="346" height="15" font="0">domly chosen. Naturally, this procedure is only fea-</text>
+<text top="322" left="459" width="346" height="15" font="0">sible for binary comparisons (agreement or disagree-</text>
+<text top="340" left="459" width="156" height="15" font="0">ment coded as 1 and 0).</text>
+<text top="358" left="481" width="324" height="15" font="0">In our experience, the use of supervised classifi-</text>
+<text top="376" left="459" width="346" height="15" font="0">cation with a minimal training set can yield results</text>
+<text top="394" left="459" width="346" height="15" font="0">similar to those that might be achieved with ran-</text>
+<text top="412" left="459" width="346" height="15" font="0">domly sampled training sets of a substantially larger</text>
+<text top="430" left="459" width="346" height="15" font="0">size. Their small magnitude allows minimal training</text>
+<text top="448" left="459" width="346" height="15" font="0">sets to be classified by clerical review with manage-</text>
+<text top="466" left="459" width="70" height="15" font="0">able effort.</text>
+<text top="484" left="481" width="324" height="15" font="0">Two functions in <b>RecordLinkage </b>facilitate the use</text>
+<text top="502" left="459" width="346" height="15" font="0">of minimal training sets. A set with the defined prop-</text>
+<text top="520" left="459" width="346" height="15" font="0">erties can be assembled by calling getMinimalTrain</text>
+<text top="537" left="459" width="346" height="15" font="0">on a data object. Calling editMatch on the result</text>
+<text top="555" left="459" width="346" height="15" font="0">opens an edit window which prints each record pair</text>
+<text top="573" left="459" width="346" height="15" font="0">on two consecutive lines and allows for setting its</text>
+<text top="591" left="459" width="258" height="15" font="0">matching status (as displayed in Figure</text>
+<text top="591" left="721" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#5">2</a></text>
+<text top="591" left="728" width="77" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#5">). </a>In the fol-</text>
+<text top="609" left="459" width="346" height="15" font="0">lowing example, 17 comparison patterns are selected</text>
+<text top="627" left="459" width="236" height="15" font="0">randomly as a minimal training set.</text>
+<text top="659" left="459" width="254" height="10" font="10">&gt; minTrain &lt;- getMinimalTrain(rpairs)</text>
+<text top="675" left="459" width="226" height="10" font="10">&gt; minTrain &lt;- editMatch(minTrain)</text>
+<text top="977" left="495" width="275" height="15" font="0">Figure 2: Edit window for clerical review</text>
+<text top="1012" left="481" width="324" height="15" font="0">The second approach to obtaining training data</text>
+<text top="1030" left="459" width="346" height="15" font="0">when no labelled data are available, provided by</text>
+<text top="1048" left="459" width="346" height="15" font="0">function genSamples, uses unsupervised clustering</text>
+<text top="1065" left="459" width="346" height="15" font="0">in a manner similar to classifyUnsup. Instead of di-</text>
+<text top="1083" left="459" width="346" height="15" font="0">rectly classifying all the data, a subset is extracted</text>
+<text top="1101" left="459" width="346" height="15" font="0">and classified by bagged clustering. It can then be</text>
+<text top="1119" left="459" width="346" height="15" font="0">used to calibrate a supervised classifier which is ul-</text>
+<text top="1137" left="459" width="346" height="15" font="0">timately applied to the remaining set. Arguments to</text>
+<text top="1156" left="459" width="76" height="12" font="0">genSamples</text>
+<text top="1155" left="540" width="265" height="15" font="0">are the original data set, the number of</text>
+<text top="1173" left="459" width="346" height="15" font="0">non-matches to appear in the training set and the</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">66</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">desired ratio of matches to non-matches. For ex-</text>
+<text top="143" left="82" width="346" height="15" font="0">ample, the call genSamples(datapairs, num.non =</text>
+<text top="162" left="82" width="160" height="12" font="0">200, des.mprop = 0.1)</text>
+<text top="161" left="248" width="181" height="15" font="0">tries to build a training set</text>
+<text top="179" left="82" width="346" height="15" font="0">with 200 non-matches and 20 matches. The return</text>
+<text top="197" left="82" width="346" height="15" font="0">value is a list with two disjoint sets named train and</text>
+<text top="216" left="82" width="38" height="12" font="0">valid</text>
+<text top="215" left="121" width="4" height="15" font="0">.</text>
+<text top="233" left="105" width="324" height="15" font="0">In an scenario where different record linkage ap-</text>
+<text top="251" left="82" width="346" height="15" font="0">proaches are evaluated, it is useful to split a data</text>
+<text top="269" left="82" width="346" height="15" font="0">set into training and validation sets. Such a split</text>
+<text top="287" left="82" width="346" height="15" font="0">can be performed by splitData. The return value</text>
+<text top="305" left="82" width="346" height="15" font="0">is a list with components train and valid as in the</text>
+<text top="323" left="82" width="346" height="15" font="0">case of genSamples. The most basic usage is to spec-</text>
+<text top="341" left="82" width="346" height="15" font="0">ify a fraction of patterns that is drawn randomly</text>
+<text top="359" left="82" width="346" height="15" font="0">as a training set using the argument prop. For ex-</text>
+<text top="377" left="82" width="346" height="15" font="0">ample, splitData(rpairs, prop = 0.1) selects one</text>
+<text top="395" left="82" width="346" height="15" font="0">tenth of the data for training. By setting keep.mprop</text>
+<text top="414" left="82" width="46" height="12" font="0">= TRUE</text>
+<text top="413" left="134" width="295" height="15" font="0">it can be enforced that the original ratio of</text>
+<text top="430" left="82" width="346" height="15" font="0">matches to non-matches is retained in the resulting</text>
+<text top="448" left="82" width="346" height="15" font="0">sets. Another possibility is to set the desired num-</text>
+<text top="466" left="82" width="346" height="15" font="0">ber of non-matches and the match ratio through ar-</text>
+<text top="484" left="82" width="336" height="15" font="0">guments num.non and mprop as with genSamples().</text>
+<text top="529" left="82" width="193" height="17" font="12"><b>Classification functions</b></text>
+<text top="561" left="82" width="346" height="15" font="0">All classification methods share two interface</text>
+<text top="579" left="82" width="65" height="15" font="0">functions:</text>
+<text top="580" left="164" width="69" height="12" font="0">trainSupv</text>
+<text top="579" left="243" width="186" height="15" font="0">for calibrating a classifier,</text>
+<text top="598" left="82" width="91" height="12" font="0">classifySupv</text>
+<text top="597" left="178" width="251" height="15" font="0">for classifying new data. At least two</text>
+<text top="615" left="82" width="346" height="15" font="0">arguments are required for trainSupv, the data set</text>
+<text top="633" left="82" width="346" height="15" font="0">on which to train and a string representing the clas-</text>
+<text top="650" left="82" width="346" height="15" font="0">sification method. Currently, the supported methods</text>
+<text top="668" left="82" width="24" height="15" font="0">are:</text>
+<text top="705" left="82" width="53" height="12" font="0">&#34;rpart&#34;</text>
+<text top="704" left="143" width="286" height="15" font="0">Recursive partitioning trees, provided by</text>
+<text top="722" left="120" width="54" height="15" font="0">package</text>
+<text top="722" left="178" width="33" height="15" font="8"><a href="http://cran.r-project.org/package=rpart"><b>rpart</b></a></text>
+<text top="722" left="215" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="722" left="220" width="98" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Therneau et al.</a></text>
+<text top="722" left="318" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">,</a></text>
+<text top="722" left="326" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2009</a></text>
+<text top="722" left="356" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">).</a></text>
+<text top="755" left="82" width="69" height="12" font="0">&#34;bagging&#34;</text>
+<text top="754" left="159" width="270" height="15" font="0">Bagging of decision trees, provided by</text>
+<text top="772" left="120" width="54" height="15" font="0">package</text>
+<text top="772" left="178" width="37" height="15" font="8"><a href="http://cran.r-project.org/package=ipred"><b>ipred</b></a></text>
+<text top="772" left="218" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="772" left="223" width="130" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Peters and Hothorn</a></text>
+<text top="772" left="353" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">,</a></text>
+<text top="772" left="361" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2009</a></text>
+<text top="772" left="391" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">).</a></text>
+<text top="805" left="82" width="38" height="12" font="0">&#34;ada&#34;</text>
+<text top="804" left="128" width="273" height="15" font="0">Stochastic boosting, provided by package</text>
+<text top="804" left="405" width="24" height="15" font="8"><a href="http://cran.r-project.org/package=ada"><b>ada</b></a></text>
+<text top="822" left="120" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="822" left="125" width="68" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Culp et al.</a></text>
+<text top="822" left="193" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">,</a></text>
+<text top="822" left="200" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2006</a></text>
+<text top="822" left="230" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">).</a></text>
+<text top="855" left="82" width="38" height="12" font="0">&#34;svm&#34;</text>
+<text top="854" left="128" width="301" height="15" font="0">Support vector machines, provided by pack-</text>
+<text top="872" left="120" width="23" height="15" font="0">age</text>
+<text top="872" left="147" width="37" height="15" font="8"><a href="http://cran.r-project.org/package=e1071"><b>e1071</b></a></text>
+<text top="872" left="188" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">(</a></text>
+<text top="872" left="193" width="117" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">Dimitriadou et al.</a></text>
+<text top="872" left="310" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">,</a></text>
+<text top="872" left="317" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">2009</a></text>
+<text top="872" left="347" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">).</a></text>
+<text top="906" left="82" width="46" height="12" font="0">&#34;nnet&#34;</text>
+<text top="904" left="136" width="293" height="15" font="0">Single-hidden-layer neural networks, pro-</text>
+<text top="922" left="120" width="117" height="15" font="0">vided by package</text>
+<text top="922" left="240" width="37" height="15" font="8"><a href="http://cran.r-project.org/package=e1071"><b>e1071</b></a></text>
+<text top="922" left="281" width="44" height="15" font="0">(ibid.).</text>
+<text top="957" left="105" width="324" height="15" font="0">Of the further arguments, use.pred is notewor-</text>
+<text top="975" left="82" width="346" height="15" font="0">thy. Setting it to TRUE causes trainSupv to treat the</text>
+<text top="993" left="82" width="346" height="15" font="0">result of a previous prediction as outcome variable.</text>
+<text top="1011" left="82" width="346" height="15" font="0">This has to be used if the training data stem from a</text>
+<text top="1029" left="82" width="346" height="15" font="0">run of genSamples. Another application is to obtain a</text>
+<text top="1047" left="82" width="346" height="15" font="0">training set by classifying a fraction of the data set by</text>
+<text top="1065" left="82" width="346" height="15" font="0">the process of weight calculation and manual setting</text>
+<text top="1083" left="82" width="346" height="15" font="0">of thresholds. In order to train a supervised classifier</text>
+<text top="1101" left="82" width="346" height="15" font="0">with this training set, one would have to set use.pred</text>
+<text top="1120" left="82" width="46" height="12" font="0">= TRUE</text>
+<text top="1119" left="128" width="4" height="15" font="0">.</text>
+<text top="1137" left="105" width="25" height="15" font="0">The</text>
+<text top="1137" left="146" width="41" height="15" font="0">return</text>
+<text top="1137" left="203" width="36" height="15" font="0">value</text>
+<text top="1137" left="255" width="11" height="15" font="0">is</text>
+<text top="1137" left="282" width="16" height="15" font="0">an</text>
+<text top="1137" left="314" width="39" height="15" font="0">object</text>
+<text top="1137" left="369" width="13" height="15" font="0">of</text>
+<text top="1137" left="398" width="31" height="15" font="0">class</text>
+<text top="1156" left="82" width="122" height="12" font="0">&#34;RecLinkClassif&#34;</text>
+<text top="1155" left="204" width="225" height="15" font="0">. Classification of new data is car-</text>
+<text top="1173" left="82" width="346" height="15" font="0">ried out by passing it and a &#34;RecLinkData&#34; object to</text>
+<text top="126" left="459" width="91" height="12" font="0">classifySupv</text>
+<text top="125" left="550" width="255" height="15" font="0">. The following example shows the ap-</text>
+<text top="143" left="459" width="346" height="15" font="0">plication of bagging based on the minimal training</text>
+<text top="161" left="459" width="250" height="15" font="0">set minTrain from the example above.</text>
+<text top="199" left="459" width="343" height="10" font="10">&gt; model &lt;- trainSupv(minTrain, method = &#34;bagging&#34;)</text>
+<text top="215" left="459" width="336" height="10" font="10">&gt; result &lt;- classifySupv(model, newdata = rpairs)</text>
+<text top="232" left="459" width="117" height="10" font="10">&gt; summary(result)</text>
+<text top="266" left="459" width="151" height="10" font="10">Deduplication Data Set</text>
+<text top="299" left="459" width="34" height="10" font="10">[...]</text>
+<text top="332" left="459" width="117" height="10" font="10">53 links detected</text>
+<text top="348" left="459" width="171" height="10" font="10">0 possible links detected</text>
+<text top="365" left="459" width="158" height="10" font="10">1168 non-links detected</text>
+<text top="397" left="459" width="144" height="10" font="10">alpha error: 0.020408</text>
+<text top="414" left="459" width="137" height="10" font="10">beta error: 0.004266</text>
+<text top="430" left="459" width="123" height="10" font="10">accuracy: 0.995086</text>
+<text top="480" left="459" width="144" height="10" font="10">Classification table:</text>
+<text top="513" left="534" width="96" height="10" font="10">classification</text>
+<text top="529" left="459" width="75" height="10" font="10">true status</text>
+<text top="529" left="562" width="7" height="10" font="10">N</text>
+<text top="529" left="596" width="7" height="10" font="10">P</text>
+<text top="529" left="630" width="7" height="10" font="10">L</text>
+<text top="545" left="500" width="69" height="10" font="10">FALSE 1167</text>
+<text top="545" left="596" width="7" height="10" font="10">0</text>
+<text top="545" left="630" width="7" height="10" font="10">5</text>
+<text top="562" left="500" width="27" height="10" font="10">TRUE</text>
+<text top="562" left="562" width="7" height="10" font="10">1</text>
+<text top="562" left="596" width="7" height="10" font="10">0</text>
+<text top="562" left="623" width="14" height="10" font="10">48</text>
+<text top="612" left="459" width="109" height="21" font="4"><b>Discussion</b></text>
+<text top="653" left="459" width="346" height="15" font="0">During its development, the functionalities of the</text>
+<text top="671" left="459" width="346" height="15" font="0">package <b>RecordLinkage </b>have already been used by</text>
+<text top="689" left="459" width="346" height="15" font="0">the authors for a period of about one year, individual</text>
+<text top="707" left="459" width="346" height="15" font="0">functions even before that. Thanks to this process of</text>
+<text top="725" left="459" width="346" height="15" font="0">parallel development and usage, bugs were detected</text>
+<text top="742" left="459" width="346" height="15" font="0">early and new requirements that became apparent</text>
+<text top="760" left="459" width="346" height="15" font="0">were accounted for by implementing new features.</text>
+<text top="778" left="459" width="346" height="15" font="0">Therefore, the package is generally in a usable state.</text>
+<text top="796" left="459" width="346" height="15" font="0">However, there is still potential for future improve-</text>
+<text top="814" left="459" width="346" height="15" font="0">ments, mainly regarding data handling and perfor-</text>
+<text top="832" left="459" width="47" height="15" font="0">mance.</text>
+<text top="851" left="481" width="104" height="15" font="3"><b>RecordLinkage</b></text>
+<text top="851" left="590" width="215" height="15" font="0">was developed mainly as a tool</text>
+<text top="869" left="459" width="346" height="15" font="0">for empirical evaluation of record linkage methods,</text>
+<text top="887" left="459" width="346" height="15" font="0">i.e. the main focus of our research was on the perfor-</text>
+<text top="905" left="459" width="346" height="15" font="0">mance of particular record linkage methods. Only</text>
+<text top="923" left="459" width="346" height="15" font="0">in one case, the evaluation of a deterministic record</text>
+<text top="941" left="459" width="346" height="15" font="0">linkage procedure used in a German cancer registry,</text>
+<text top="959" left="459" width="346" height="15" font="0">were we actually interested in detecting duplicates.</text>
+<text top="977" left="459" width="346" height="15" font="0">Development of the package followed the needs</text>
+<text top="995" left="459" width="174" height="15" font="0">of this detection process.</text>
+<text top="995" left="649" width="156" height="15" font="0">But many other desir-</text>
+<text top="1012" left="459" width="346" height="15" font="0">able improvements concerning data processing and</text>
+<text top="1030" left="459" width="346" height="15" font="0">input/ouput facilities are needed for a real-world</text>
+<text top="1048" left="459" width="207" height="15" font="0">record linkage process, such as:</text>
+<text top="1082" left="481" width="324" height="19" font="0">• The possibility to use a database connection for</text>
+<text top="1103" left="496" width="150" height="15" font="0">data input and output.</text>
+<text top="1134" left="481" width="324" height="19" font="0">• Improved print facilities for clerical review,</text>
+<text top="1155" left="496" width="309" height="15" font="0">such as highlighting of agreement or disagree-</text>
+<text top="1173" left="496" width="137" height="15" font="0">ment in record pairs.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">67</text>
+<text top="122" left="105" width="324" height="19" font="0">• The possibility to output a deduplicated data</text>
+<text top="143" left="120" width="309" height="15" font="0">set based on the matching result. This is not</text>
+<text top="161" left="120" width="309" height="15" font="0">a trivial task as it requires choosing the most</text>
+<text top="179" left="120" width="309" height="15" font="0">likely record from each group of matching</text>
+<text top="197" left="120" width="309" height="15" font="0">items which can be accomplished by means of</text>
+<text top="215" left="120" width="138" height="15" font="0">linear programming.</text>
+<text top="241" left="105" width="324" height="15" font="0">Another important future task is performance en-</text>
+<text top="259" left="82" width="346" height="15" font="0">hancement. When handling large data sets of about</text>
+<text top="277" left="82" width="15" height="15" font="0">10</text>
+<text top="274" left="97" width="6" height="11" font="1">6</text>
+<text top="277" left="107" width="322" height="15" font="0">or more record pairs, high memory consumption</text>
+<text top="295" left="82" width="346" height="15" font="0">often leads to errors or destabilizes the computer sys-</text>
+<text top="313" left="82" width="346" height="15" font="0">tem R is run on. We are currently working on code</text>
+<text top="330" left="82" width="346" height="15" font="0">changes to avoid unnecessary copying of objects and</text>
+<text top="348" left="82" width="346" height="15" font="0">plan to incorporate these in future releases. Another</text>
+<text top="366" left="82" width="346" height="15" font="0">possibility, which needs further evaluation, is to use</text>
+<text top="384" left="82" width="346" height="15" font="0">more sophisticated ways of storing data, such as a</text>
+<text top="402" left="82" width="346" height="15" font="0">database or one of the various R packages for large</text>
+<text top="420" left="82" width="346" height="15" font="0">data sets. The current disadvantage of R concerning</text>
+<text top="438" left="82" width="346" height="15" font="0">performance and memory can be compensated by an</text>
+<text top="456" left="82" width="190" height="15" font="0">elaborated blocking strategy.</text>
+<text top="474" left="105" width="324" height="15" font="0">As a general improvement, it is intended to sup-</text>
+<text top="492" left="82" width="346" height="15" font="0">port the usage of algorithms not considered in the</text>
+<text top="510" left="82" width="346" height="15" font="0">package through a generic interface for supervised</text>
+<text top="528" left="82" width="200" height="15" font="0">or unsupervised classification.</text>
+<text top="546" left="105" width="324" height="15" font="0">We are aware that <b>RecordLinkage </b>lacks an im-</text>
+<text top="564" left="82" width="346" height="15" font="0">portant subtask of record linkage, the standardiza-</text>
+<text top="582" left="82" width="346" height="15" font="0">tion of records. However, this is an area that itself</text>
+<text top="599" left="82" width="346" height="15" font="0">would need extensive research efforts. Moreover, the</text>
+<text top="617" left="82" width="346" height="15" font="0">appropriate procedures depend heavily on the data</text>
+<text top="635" left="82" width="346" height="15" font="0">to be linked. It is therefore left to the users to tai-</text>
+<text top="653" left="82" width="346" height="15" font="0">lor standardization methods fitting the requirements</text>
+<text top="671" left="82" width="346" height="15" font="0">of their data. We refer to R’s capabilities to handle</text>
+<text top="689" left="82" width="314" height="15" font="0">regular expressions and to the CRAN task view</text>
+<text top="689" left="401" width="28" height="15" font="5"><a href="http://CRAN.R-project.org/view=NaturalLanguageProcessing">Nat-</a></text>
+<text top="707" left="82" width="149" height="15" font="5"><a href="http://CRAN.R-project.org/view=NaturalLanguageProcessing">uralLanguageProcessing</a></text>
+<text top="704" left="231" width="6" height="11" font="9"><a href="http://CRAN.R-project.org/view=NaturalLanguageProcessing">7</a></text>
+<text top="707" left="238" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Sariyar+Borg.html#7">.</a></text>
+<text top="753" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="791" left="82" width="346" height="15" font="0">P. Contiero et al. The Epilink record linkage software.</text>
+<text top="809" left="97" width="230" height="15" font="0">Methods Inf Med., 44(1):66–71, 2005.</text>
+<text top="836" left="82" width="300" height="15" font="0">M. Culp, K. Johnson, and G. Michailidis.</text>
+<text top="836" left="404" width="24" height="15" font="0">ada:</text>
+<text top="854" left="97" width="332" height="15" font="0">Performs boosting algorithms for a binary response,</text>
+<text top="872" left="97" width="34" height="15" font="0">2006.</text>
+<text top="872" left="159" width="31" height="15" font="0">URL</text>
+<text top="874" left="200" width="229" height="12" font="5"><a href="http://www.stat.lsa.umich.edu/~culpm/math/ada/img.html">http://www.stat.lsa.umich.edu/</a></text>
+<text top="892" left="97" width="183" height="12" font="5"><a href="http://www.stat.lsa.umich.edu/~culpm/math/ada/img.html">~culpm/math/ada/img.html</a></text>
+<text top="890" left="280" width="4" height="15" font="0"><a href="http://www.stat.lsa.umich.edu/~culpm/math/ada/img.html">.</a></text>
+<text top="890" left="301" width="128" height="15" font="0">R package version</text>
+<text top="908" left="97" width="35" height="15" font="0">2.0-1.</text>
+<text top="935" left="82" width="346" height="15" font="0">E. Dimitriadou, K. Hornik, F. Leisch, D. Meyer, and</text>
+<text top="953" left="97" width="332" height="15" font="0">A. Weingessel. e1071: Misc Functions of the Depart-</text>
+<text top="971" left="97" width="290" height="15" font="0">ment of Statistics (e1071), TU Wien, 2009. URL</text>
+<text top="973" left="391" width="38" height="12" font="5"><a href="http://CRAN.R-project.org/package=e1071">http:</a></text>
+<text top="126" left="474" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=e1071">//CRAN.R-project.org/package=e1071</a></text>
+<text top="125" left="734" width="72" height="15" font="0"><a href="http://CRAN.R-project.org/package=e1071">. </a>R pack-</text>
+<text top="143" left="474" width="122" height="15" font="0">age version 1.5-19.</text>
+<text top="174" left="459" width="346" height="15" font="0">I. Fellegi and A. Sunter. A theory for record link-</text>
+<text top="192" left="474" width="332" height="15" font="0">age. Journal of the American Statistical Association,</text>
+<text top="210" left="474" width="127" height="15" font="0">64:1183–1210, 1969.</text>
+<text top="242" left="459" width="346" height="15" font="0">E. Haber. AS207: Fitting a general log-linear model.</text>
+<text top="259" left="474" width="227" height="15" font="0">Applied Statistics, 33:358–362, 1984.</text>
+<text top="291" left="459" width="346" height="15" font="0">J. Michael. Doppelgänger gesucht – ein Programm</text>
+<text top="309" left="474" width="332" height="15" font="0">für kontextsensitive phonetische Textumwand-</text>
+<text top="327" left="474" width="243" height="15" font="0">lung. c’t, 17(25):252–261, 1999. URL</text>
+<text top="328" left="721" width="84" height="12" font="5"><a href="http://www.heise.de/ct/ftp/99/25/252/">http://www.</a></text>
+<text top="346" left="474" width="198" height="12" font="5"><a href="http://www.heise.de/ct/ftp/99/25/252/">heise.de/ct/ftp/99/25/252/</a></text>
+<text top="345" left="672" width="4" height="15" font="0"><a href="http://www.heise.de/ct/ftp/99/25/252/">.</a></text>
+<text top="376" left="459" width="346" height="15" font="0">A. Peters and T. Hothorn. ipred: Improved Predictors,</text>
+<text top="394" left="474" width="69" height="15" font="0">2009. URL</text>
+<text top="395" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=ipred">http://CRAN.R-project.org/package=</a></text>
+<text top="413" left="474" width="38" height="12" font="5"><a href="http://CRAN.R-project.org/package=ipred">ipred</a></text>
+<text top="412" left="512" width="169" height="15" font="0"><a href="http://CRAN.R-project.org/package=ipred">. </a>R package version 0.8-7.</text>
+<text top="443" left="459" width="346" height="15" font="0">M. Sariyar, A. Borg, and K. Pommerening. Evalua-</text>
+<text top="461" left="474" width="332" height="15" font="0">tion of record linkage methods for iterative inser-</text>
+<text top="479" left="474" width="287" height="15" font="0">tions. Methods Inf Med., 48(5):429–437, 2009.</text>
+<text top="511" left="459" width="346" height="15" font="0">T. M. Therneau, B. Atkinson, and B. Ripley (R port).</text>
+<text top="528" left="474" width="272" height="15" font="0">rpart: Recursive Partitioning, 2009. URL</text>
+<text top="530" left="752" width="53" height="12" font="5"><a href="http://CRAN.R-project.org/package=rpart">http://</a></text>
+<text top="548" left="474" width="245" height="12" font="5"><a href="http://CRAN.R-project.org/package=rpart">CRAN.R-project.org/package=rpart</a></text>
+<text top="546" left="718" width="87" height="15" font="0"><a href="http://CRAN.R-project.org/package=rpart">. </a>R package</text>
+<text top="564" left="474" width="95" height="15" font="0">version 3.1-45.</text>
+<text top="596" left="459" width="104" height="15" font="0">W. E. Winkler.</text>
+<text top="596" left="587" width="219" height="15" font="0">String comparator metrics and</text>
+<text top="614" left="474" width="332" height="15" font="0">enhanced decision rules in the Fellegi-Sunter</text>
+<text top="632" left="474" width="174" height="15" font="0">model of record linkage.</text>
+<text top="632" left="666" width="139" height="15" font="0">In Proceedings of the</text>
+<text top="649" left="474" width="332" height="15" font="0">Section on Survey Research Methods, American</text>
+<text top="667" left="474" width="332" height="15" font="0">Statistical Association, pages 354–369, 1990. URL</text>
+<text top="687" left="474" width="312" height="12" font="5"><a href="http://www.amstat.org/sections/srms/proceedings/papers/1990_056.pdf">www.amstat.org/sections/srms/proceedings/</a></text>
+<text top="705" left="474" width="145" height="12" font="5"><a href="http://www.amstat.org/sections/srms/proceedings/papers/1990_056.pdf">papers/1990_056.pdf</a></text>
+<text top="703" left="619" width="4" height="15" font="0"><a href="http://www.amstat.org/sections/srms/proceedings/papers/1990_056.pdf">.</a></text>
+<text top="755" left="459" width="88" height="15" font="0">Murat Sariyar</text>
+<text top="773" left="459" width="346" height="15" font="0">Institute of Medical Biostatistics, Epidemiology and Infor-</text>
+<text top="791" left="459" width="39" height="15" font="0">matics</text>
+<text top="809" left="459" width="40" height="15" font="0">Mainz</text>
+<text top="827" left="459" width="56" height="15" font="0">Germany</text>
+<text top="847" left="459" width="198" height="12" font="5"><a href="mailto:sariyar@imbei.uni-mainz.de">sariyar@imbei.uni-mainz.de</a></text>
+<text top="881" left="459" width="83" height="15" font="0">Andreas Borg</text>
+<text top="899" left="459" width="346" height="15" font="0">Institute of Medical Biostatistics, Epidemiology and Infor-</text>
+<text top="917" left="459" width="39" height="15" font="0">matics</text>
+<text top="935" left="459" width="40" height="15" font="0">Mainz</text>
+<text top="953" left="459" width="56" height="15" font="0">Germany</text>
+<text top="973" left="459" width="175" height="12" font="5"><a href="mailto:borg@imbei.uni-mainz.de">borg@imbei.uni-mainz.de</a></text>
+<text top="1173" left="99" width="4" height="9" font="11"><a href="http://cran.r-project.org/view=NaturalLanguageProcessing">7</a></text>
+<text top="1176" left="104" width="342" height="9" font="9"><a href="http://cran.r-project.org/view=NaturalLanguageProcessing">http://cran.r-project.org/view=NaturalLanguageProcessing</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

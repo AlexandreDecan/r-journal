@@ -1,0 +1,372 @@
+page	left	top	code
+1	459	1077	> library(dclone)
+1	459	1093	> set.seed(1234)
+1	459	1110	> n <- 50
+1	459	1126	> beta <- c(1.8, -0.9)
+1	459	1142	> sigma <- 0.2
+1	459	1159	> x <- runif(n, min = 0, max = 1)
+1	459	1175	> X <- model.matrix(~ x)
+2	82	127	> alpha <- rnorm(n, mean = 0, sd = sigma)
+2	82	144	> lambda <- exp(alpha + drop(X %*% beta))
+2	82	160	> Y <- rpois(n, lambda)
+2	82	414	> glmm.model <- function() {
+2	82	431	+ for (i in 1:n) {
+2	82	447	+ Y[i] ~ dpois(lambda[i])
+2	82	463	+ lambda[i] <- exp(alpha[i] +
+2	82	480	+ inprod(X[i,], beta[1,]))
+2	82	496	+ alpha[i] ~ dnorm(0, tau)
+2	82	513	+ }
+2	82	529	+ for (j in 1:np) {
+2	82	546	+ beta[1,j] ~ dnorm(0, 0.001)
+2	82	562	+ }
+2	82	579	+ log.sigma ~ dnorm(0, 0.001)
+2	82	595	+ sigma <- exp(log.sigma)
+2	82	611	+ tau <- 1 / pow(sigma, 2)
+2	82	628	+ }
+2	82	989	> dat <- list(Y = Y, X = X, n = n,
+2	82	1006	+ np = ncol(X))
+2	82	1022	> mod <- jags.fit(dat,
+2	82	1039	+ c("beta", "sigma"), glmm.model, n.iter = 1000)
+2	459	127	> glmm.model.bugs <- function() {
+2	459	144	+ for (i in 1:n) {
+2	459	160	+ Y[i] ~ dpois(lambda[i])
+2	459	177	+ lambda[i] <- exp(alpha[i] +
+2	459	193	+ inprod(X[i,], beta[1,]))
+2	459	210	+ alpha[i] ~ dnorm(0, tau) %_% I(-5, 5)
+2	459	226	+ }
+2	459	242	+ for (j in 1:np) {
+2	459	259	+ beta[1,j] ~ dnorm(0, 0.01) %_% I(-5, 5)
+2	459	275	+ }
+2	459	292	+ log.sigma ~ dnorm(0, 0.01) %_% I(-5, 5)
+2	459	308	+ sigma <- exp(log.sigma)
+2	459	325	+ tau <- 1 / pow(sigma, 2)
+2	459	341	+ }
+2	459	747	> mod.wb <- bugs.fit(dat, c("beta", "sigma"),
+2	459	763	+ glmm.model.bugs, DIC = FALSE, n.thin = 1)
+2	459	780	> mod.ob <- bugs.fit(dat, c("beta", "sigma"),
+2	459	796	+ glmm.model.bugs, program = "openbugs",
+2	459	813	+ DIC = FALSE, n.thin = 1)
+2	459	837	> sapply(list(JAGS = mod, WinBUGS = mod.wb,
+2	459	854	+ OpenBUGS = mod.ob), coef)
+2	527	878	JAGS WinBUGS OpenBUGS
+2	459	895	beta[1] 1.893 1.910 1.9037
+2	459	911	beta[2] -1.050 -1.074 -1.0375
+2	459	928	sigma 0.161 0.130 0.0732
+2	459	1174	> dclone(1:5, 1)
+3	82	127	[1] 1 2 3 4 5
+3	82	160	> dclone(1:5, 2)
+3	89	193	[1] 1 2 3 4 5 1 2 3 4 5
+3	82	210	attr(,"n.clones")
+3	82	226	[1] 2
+3	82	243	attr(,"n.clones")attr(,"method")
+3	82	259	[1] "rep"
+3	82	292	> dclone(matrix(1:4, 2, 2), 2)
+3	117	325	[,1] [,2]
+3	82	342	[1,] 1 3
+3	82	358	[2,] 2 4
+3	82	375	[3,] 1 3
+3	82	391	[4,] 2 4
+3	82	408	attr(,"n.clones")
+3	82	424	[1] 2
+3	82	440	attr(,"n.clones")attr(,"method")
+3	82	457	[1] "rep"
+3	82	490	> dclone(data.frame(a=1:2, b=3:4), 2)
+3	110	523	a b
+3	82	539	1_1 1 3
+3	82	556	2_1 2 4
+3	82	572	1_2 1 3
+3	82	589	2_2 2 4
+3	82	834	> dat2 <- dclone(dat, n.clones = 2,
+3	82	850	+ multiply = "n", unchanged = "np")
+3	82	867	> nclones(dat2)
+3	82	900	[1] 2
+3	82	917	attr(,"method")
+3	124	933	Y X n np
+3	96	950	"rep" "rep" "multi" NA
+3	82	1159	> mod2 <- jags.fit(dat2,
+3	82	1175	+ c("beta", "sigma"), glmm.model, n.iter = 1000)
+3	459	186	> mod.wb2 <- bugs.fit(dat2, c("beta", "sigma"),
+3	459	203	+ glmm.model.bugs, DIC = FALSE, n.thin = 1)
+3	459	219	> mod.ob2 <- bugs.fit(dat2, c("beta", "sigma"),
+3	459	236	+ glmm.model.bugs, program = "openbugs",
+3	459	252	+ DIC = FALSE, n.thin = 1)
+3	459	318	> sapply(list(JAGS = mod2, WinBUGS = mod.wb2,
+3	459	335	+ OpenBUGS = mod.ob2), coef)
+3	527	360	JAGS WinBUGS OpenBUGS
+3	459	376	beta[1] 1.918 1.905 1.896
+3	459	393	beta[2] -1.114 -1.080 -1.078
+3	459	409	sigma 0.207 0.187 0.243
+3	459	566	> (obj <- dclone(dcdim(data.matrix(1:5)), 2))
+3	493	591	clone.1 clone.2
+3	459	608	[1,] 1 1
+3	459	624	[2,] 2 2
+3	459	641	[3,] 3 3
+3	459	657	[4,] 4 4
+3	459	674	[5,] 5 5
+3	459	690	attr(,"n.clones")
+3	459	707	[1] 2
+3	459	723	attr(,"n.clones")attr(,"method")
+3	459	739	[1] "dim"
+3	459	756	attr(,"n.clones")attr(,"method")attr(,"drop")
+3	459	772	[1] TRUE
+4	82	302	> beverton.holt <- function() {
+4	82	318	+ for (j in 1:k) {
+4	82	335	+ for(i in 2:(n+1)){
+4	82	351	+ Y[(i-1),j] ~ dpois(exp(log.N[i,j]))
+4	82	367	+ log.N[i,j] ~ dnorm(mu[i,j], 1 / sigma^2)
+4	82	384	+ mu[i,j] <- log(lambda) + log.N[(i-1),j]
+4	82	400	+ - log(1 + beta * exp(log.N[(i-1),j]))
+4	82	417	+ }
+4	82	433	+ log.N[1,j] ~ dnorm(mu0, 1 / sigma^2)
+4	82	450	+ }
+4	82	466	+ beta ~ dlnorm(-1, 1)
+4	82	483	+ sigma ~ dlnorm(0, 1)
+4	82	499	+ tmp ~ dlnorm(0, 1)
+4	82	515	+ lambda <- tmp + 1
+4	82	532	+ mu0 <- log(lambda) + log(2) - log(1 + beta * 2)
+4	82	548	+ }
+4	82	712	> paurelia <- c(17, 29, 39, 63, 185, 258, 267,
+4	82	729	+ 392, 510, 570, 650, 560, 575, 650, 550,
+4	82	745	+ 480, 520, 500)
+4	82	762	> bhdat <- list(Y=dcdim(data.matrix(paurelia)),
+4	82	778	+ n=length(paurelia), k=1)
+4	82	794	> dcbhdat <- dclone(bhdat, n.clones = 5,
+4	82	811	+ multiply = "k", unchanged = "n")
+4	82	841	> bhmod <- jags.fit(dcbhdat,
+4	82	858	+ c("lambda","beta","sigma"), beverton.holt,
+4	82	874	+ n.iter=1000)
+4	82	904	> coef(bhmod)
+4	103	934	beta lambda sigma
+4	82	951	0.00218 2.18755 0.12777
+4	459	223	> glmm.model.up <- function() {
+4	459	239	+ for (i in 1:n) {
+4	459	256	+ Y[i] ~ dpois(lambda[i])
+4	459	272	+ lambda[i] <- exp(alpha[i] +
+4	459	289	+ inprod(X[i,], beta[1,]))
+4	459	305	+ alpha[i] ~ dnorm(0, 1/sigma^2)
+4	459	322	+ }
+4	459	338	+ for (j in 1:np) {
+4	459	354	+ beta[1,j] ~ dnorm(pr[j,1], pr[j,2])
+4	459	371	+ }
+4	459	387	+ log.sigma ~ dnorm(pr[(np+1),1], pr[(np+1),2])
+4	459	404	+ sigma <- exp(log.sigma)
+4	459	420	+ tau <- 1 / pow(sigma, 2)
+4	459	437	+ }
+4	459	611	> upfun <- function(x) {
+4	459	628	+ if (missing(x)) {
+4	459	644	+ np <- ncol(X)
+4	459	661	+ return(cbind(rep(0, np+1),
+4	459	677	+ rep(0.001, np+1)))
+4	459	694	+ } else {
+4	459	710	+ ncl <- nclones(x)
+4	459	726	+ if (is.null(ncl))
+4	459	743	+ ncl <- 1
+4	459	759	+ par <- coef(x)
+4	459	776	+ se <- dcsd(x)
+4	459	792	+ log.sigma <- mcmcapply(x[,"sigma"], log)
+4	459	809	+ par[length(par)] <- mean(log.sigma)
+4	459	825	+ se[length(se)] <- sd(log.sigma) * sqrt(ncl)
+4	459	842	+ return(cbind(par, se))
+4	459	858	+ }
+4	459	874	+ }
+4	459	960	> updat <- list(Y = Y, X = X, n = n,
+4	459	976	+ np = ncol(X), pr = upfun())
+4	459	992	> k <- c(1, 5, 10, 20)
+4	459	1009	> dcmod <- dc.fit(updat, c("beta", "sigma"),
+4	459	1025	+ glmm.model.up, n.clones = k, n.iter = 1000,
+4	459	1042	+ multiply = "n", unchanged = "np",
+4	459	1058	+ update = "pr", updatefun = upfun)
+4	459	1084	> summary(dcmod)
+4	459	1110	Iterations = 1001:2000
+4	459	1126	Thinning interval = 1
+4	459	1142	Number of chains = 3
+4	459	1159	Sample size per chain = 1000
+4	459	1175	Number of clones = 20
+5	82	144	1. Empirical mean and standard deviation for each
+5	103	160	variable, plus standard error of the mean:
+5	151	193	Mean SD DC SD Naive SE
+5	82	210	beta[1] 1.894 0.0368 0.164 0.000671
+5	82	226	beta[2] -1.082 0.0734 0.328 0.001341
+5	82	242	sigma 0.278 0.0256 0.114 0.000467
+5	137	259	Time-series SE R hat
+5	82	275	beta[1] 0.00259 1.01
+5	82	292	beta[2] 0.00546 1.01
+5	82	308	sigma 0.00194 1.04
+5	82	341	2. Quantiles for each variable:
+5	151	374	2.5% 25% 50% 75% 97.5%
+5	82	390	beta[1] 1.823 1.869 1.89 1.920 1.964
+5	82	407	beta[2] -1.230 -1.133 -1.08 -1.029 -0.943
+5	82	423	sigma 0.226 0.260 0.28 0.296 0.323
+5	82	932	> dct <- dctable(dcmod)
+5	82	948	> plot(dct)
+5	82	980	> plot(dct, type="log.var")
+5	459	295	> dcdiag(dcmod)
+5	473	321	n.clones lambda.max ms.error r.squared r.hat
+5	459	337	1 1 0.11538 0.1282 0.02103 1.66
+5	459	354	2 5 0.02225 0.0229 0.00277 1.02
+5	459	370	3 10 0.01145 0.0383 0.00612 1.01
+5	459	387	4 20 0.00643 0.0241 0.00173 1.03
+5	459	861	> gamma <- 2.5
+5	459	878	> sigma <- 0.2
+5	459	894	> tau <- 0.5
+5	459	911	> set.seed(2345)
+5	459	927	> mu <- rnorm(n, gamma, tau)
+5	459	944	> Y <- rnorm(n, mu, sigma)
+5	459	960	> nn.model <- function() {
+5	459	977	+ for (i in 1:n) {
+5	459	993	+ Y[i] ~ dnorm(mu[i], prec1)
+5	459	1009	+ mu[i] ~ dnorm(gamma, prec2)
+5	459	1026	+ }
+5	493	1042	gamma ~ dnorm(0, 0.001)
+5	459	1059	+ log.sigma ~ dnorm(0, 0.001)
+5	459	1075	+ sigma <- exp(log.sigma)
+5	459	1092	+ prec1 <- 1 / pow(sigma, 2)
+5	459	1108	+ log.tau ~ dnorm(0, 0.001)
+5	459	1124	+ tau <- exp(log.tau)
+5	459	1141	+ prec2 <- 1 / pow(tau, 2)
+5	459	1157	+ }
+5	459	1174	> nndat <- list(Y = Y, n = n)
+6	82	833	> nnmod <- dc.fit(nndat, c("gamma","sigma","tau"),
+6	82	849	+ nn.model, n.clones=c(1,10,20,30,40,50),
+6	82	866	+ n.iter=1000, multiply="n")
+6	82	893	> dcdiag(nnmod)
+6	96	920	n.clones lambda.max ms.error r.squared r.hat
+6	82	936	1 1 0.0312 0.508 0.02985 1.18
+6	82	952	2 10 0.0364 0.275 0.00355 2.06
+6	82	969	3 20 1.2617 1.111 0.13714 50.15
+6	82	985	4 30 0.1530 0.753 0.10267 12.91
+6	82	1002	5 40 1.7972 0.232 0.03770 92.87
+6	82	1018	6 50 1.8634 0.241 0.04003 15.72
+6	82	1045	> vars <- mcmcapply(nnmod[,c("sigma","tau")],
+6	82	1062	+ array)^2
+6	82	1078	> sigma^2 + tau^2
+6	82	1105	[1] 0.29
+6	82	1132	> summary(rowSums(vars))
+6	103	1159	Min. 1st Qu. Median Mean 3rd Qu. Max.
+6	103	1175	0.21 0.23 2.87 3.00 6.04 6.84
+6	459	1122	> coef(dcmod)
+6	459	1159	beta[1] beta[2] sigma
+6	473	1175	1.894 -1.082 0.278
+7	82	127	> dcsd(dcmod)
+7	82	157	beta[1] beta[2] sigma
+7	96	174	0.164 0.328 0.114
+7	82	203	> mcmcapply(dcmod, sd) * sqrt(nclones(dcmod))
+7	82	233	beta[1] beta[2] sigma
+7	96	250	0.164 0.328 0.114
+7	82	416	> confint(dcmod)
+7	151	446	2.5 % 97.5 %
+7	82	462	beta[1] 1.5718 2.217
+7	82	479	beta[2] -1.7253 -0.438
+7	82	495	sigma 0.0534 0.502
+7	82	525	> vcov(dcmod)
+7	144	555	beta[1] beta[2] sigma
+7	82	571	beta[1] 0.02705 -0.04604 -0.00291
+7	82	588	beta[2] -0.04604 0.10783 -0.00156
+7	82	604	sigma -0.00291 -0.00156 0.01308
+7	82	842	> glmm.pred <- function() {
+7	117	858	for (i in 1:n) {
+7	82	875	+ Y[i] ~ dpois(lambda[i])
+7	82	891	+ lambda[i] <- exp(mu[i])
+7	82	908	+ mu[i] <- alpha[i] +
+7	82	924	+ inprod(X[i,], beta[1,])
+7	82	940	+ alpha[i] ~ dnorm(0, tau)
+7	82	957	+ }
+7	82	973	+ tmp[1:(np+1)] ~ dmnorm(param[], prec[,])
+7	82	990	+ beta[1,1:np] <- tmp[1:np]
+7	117	1006	sigma <- tmp[(np+1)]
+7	82	1023	+ tau <- 1 / pow(sigma, 2)
+7	82	1039	+ }
+7	459	127	> prec <- make.symmetric(solve(vcov(dcmod)))
+7	459	144	> prdat <- list(X = X, n = nrow(X), np = ncol(X),
+7	493	160	param = coef(dcmod), prec = prec)
+7	459	177	> prmod <- jags.fit(prdat, "lambda", glmm.pred,
+7	493	193	n.iter = 1000)
+7	459	764	> glmmPois <- function(formula,
+7	459	781	+ data = parent.frame(), n.clones, ...) {
+7	459	797	+ lhs <- formula[[2]]
+7	459	814	+ Y <- eval(lhs, data)
+7	459	830	+ formula[[2]] <- NULL
+7	459	847	+ rhs <- model.frame(formula, data)
+7	459	863	+ X <- model.matrix(attr(rhs, "terms"), rhs)
+7	459	879	+ dat <- list(n = length(Y), Y = Y,
+7	459	896	+ X = X, np = ncol(X))
+7	459	912	+ dcdat <- dclone(dat, n.clones,
+7	459	929	+ multiply = "n", unchanged = "np")
+7	459	945	+ mod <- jags.fit(dcdat, c("beta", "sigma"),
+7	459	962	+ glmm.model, ...)
+7	459	978	+ coefs <- coef(mod)
+7	459	995	+ names(coefs) <- c(colnames(X),
+7	459	1011	+ "sigma")
+7	459	1027	+ rval <- list(coefficients = coefs,
+7	459	1044	+ call = match.call(),
+7	459	1060	+ mcmc = mod, y = Y, x = rhs,
+7	459	1077	+ model = X, formula = formula)
+7	459	1093	+ class(rval) <- "glmmPois"
+7	459	1110	+ rval
+7	459	1126	+ }
+7	459	1142	> print.glmmPois <- function(x, ...) {
+7	459	1159	+ cat("glmmPois model\n\n")
+7	459	1175	+ print(format(coef(x), digits = 4),
+8	82	127	+ print.gap = 2, quote = FALSE)
+8	82	144	+ cat("\n")
+8	82	160	+ invisible(x)
+8	82	177	+ }
+8	82	193	> summary.glmmPois <- function(object, ...) {
+8	82	210	+ x <- cbind("Estimate" = coef(object),
+8	82	226	+ "Std. Error" = dcsd(object$mcmc),
+8	82	242	+ confint(object$mcmc))
+8	82	259	+ cat("Call:", deparse(object$call,
+8	82	275	+ width.cutoff = getOption("width")),
+8	82	292	+ "\n", sep="\n")
+8	82	308	+ cat("glmmPois model\n\n")
+8	82	325	+ printCoefmat(x, ...)
+8	82	341	+ cat("\n")
+8	82	357	+ invisible(x)
+8	82	374	+ }
+8	82	390	> predict.glmmPois <- function(object,
+8	82	407	+ newdata = NULL, type = c("mu", "lambda", "Y"),
+8	82	423	+ level = 0.95, ...){
+8	82	440	+ prec <- solve(vcov(object$mcmc))
+8	82	456	+ prec <- make.symmetric(prec)
+8	82	473	+ param <- coef(object)
+8	82	489	+ if (is.null(newdata)) {
+8	82	505	+ X <- object$model
+8	82	522	+ } else {
+8	82	538	+ rhs <- model.frame(object$formula, newdata)
+8	82	555	+ X <- model.matrix(attr(rhs, "terms"), rhs)
+8	82	571	+ }
+8	82	588	+ type <- match.arg(type)
+8	82	604	+ prdat <- list(n = nrow(X), X = X,
+8	82	620	+ np = ncol(X), param = param, prec = prec)
+8	82	637	+ prval <- jags.fit(prdat, type, glmm.pred, ...)
+8	82	653	+ a <- (1 - level)/2
+8	82	670	+ a <- c(a, 1 - a)
+8	82	686	+ rval <- list(fit = coef(prval),
+8	82	703	+ ci.fit = quantile(prval, probs = a))
+8	82	719	+ rval
+8	82	736	+ }
+8	82	1067	> data(ovenbird)
+8	82	1083	> obmod <- glmmPois(count ~ uplow + thd,
+8	82	1100	+ ovenbird, n.clones = 5, n.update = 1000,
+8	82	1116	+ n.iter = 1000)
+8	82	1175	> obmod
+8	459	127	glmmPois model
+8	466	160	(Intercept) uplowlowland thd
+8	493	177	2.00312 -1.34242 -0.01647
+8	507	193	sigma
+8	493	210	1.19318
+8	459	239	> summary(obmod)
+8	459	269	Call:
+8	459	286	glmmPois(formula = count ~ uplow + thd, data = ovenbird,
+8	486	302	n.clones = 5, n.update = 1000, n.iter = 1000)
+8	459	352	glmmPois model
+8	548	385	Estimate Std. Error 2.5 % 97.5 %
+8	459	401	(Intercept) 2.00312 0.13767 1.73328 2.27
+8	459	417	uplowlowland -1.34242 0.21503 -1.76387 -0.92
+8	459	434	thd -0.01647 0.00569 -0.02763 -0.01
+8	459	450	sigma 1.19318 0.09523 1.00653 1.38
+8	459	545	> thd <- seq(0, 100, len = 101)
+8	459	561	> ndata <- data.frame(uplow = rep("lowland",
+8	459	578	+ length(thd)), thd = thd)
+8	459	594	> levels(ndata$uplow) <- levels(ovenbird$uplow)
+8	459	611	> obpred <- predict(obmod, ndata, "lambda")

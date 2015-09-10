@@ -1,0 +1,37 @@
+page	left	top	code
+2	149	568	> library(FactoMineR)
+2	149	585	> data(mortality)
+4	149	237	> mfa <- MFA(mortality, group=c(9, 9), type=c("f", "f"), name.group=c("1979", "2006"))
+4	149	569	> round(mfa$eig,3) [1:4,]
+4	204	585	eigenvalue percentage cumulative \%
+4	286	602	of variance of variance
+4	149	618	comp 1 1.790 52.420 52.420
+4	149	635	comp 2 0.999 29.269 81.689
+4	149	651	comp 3 0.262 7.659 89.348
+4	149	667	comp 4 0.149 4.367 93.715
+4	149	912	> plot(mfa, choix="freq", invisible="ind", habillage="group")
+4	149	928	> lines(mfa$freq$coord[1:9, 1], mfa$freq$coord[1:9, 2], col="red")
+4	149	945	> lines(mfa$freq$coord[10:18, 1], mfa$freq$coord[10:18, 2], col="green")
+5	149	522	> sel <- c(2, 8:10, 15, 38, 58)
+5	149	539	> plot(mfa, lab.ind=FALSE, habillage="group")
+5	149	555	> text(mfa$ind$coord[sel, 1], mfa$ind$coord[sel, 2], rownames(mortality)[sel],
+5	197	572	pos=c(2, 2, 2, 2, 4, 2, 4))
+5	149	907	> round(mfa$ind$contr[c(2, 8:10, 15, 38, 58), 1:2], 3)
+5	149	924	Addiction to prescription medication 0.998 0.448
+5	149	940	Complications in pregnancy & childb. 0.685 0.527
+5	149	957	Congenital defects circulatory system 0.692 0.176
+5	149	973	Congenital defects nervous system 0.179 0.070
+5	149	990	Homicides 1.802 0.657
+5	149	1006	Meningococcal disease 0.105 0.084
+5	149	1022	Road accidents 34.295 23.364
+5	149	1098	> mortality[58, 1:9] # road accidents in 1979
+5	156	1115	15-24 25-34 35-44 45-54 55-64 65-74 75-84 85-94 95 and more
+5	163	1131	3439 1666 1195 1328 966 1117 757 135
+5	670	1131	4
+5	149	1147	> mortality[58, 10:18] # road accidents in 2006
+6	156	551	15-24 25-34 35-44 45-54 55-64 65-74 75-84 85-94 95 and more
+6	163	567	1214 785 646 599 443 362 454 137
+6	670	567	8
+6	149	952	> sel <- c(2, 10, 41, 58)
+6	149	968	> plot(mfa, lab.ind=FALSE, habillage="group", partial=rownames(mortality)[sel])
+6	149	985	> text(mfa$ind$coord[sel,1], mfa$ind$coord[sel,2], rownames(mortality)[sel],pos=4)

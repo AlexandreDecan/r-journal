@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">171</text>
+<text top="98" left="149" width="549" height="30" font="2"><b>beadarrayFilter: An R Package to Filter</b></text>
+<text top="137" left="149" width="84" height="30" font="2"><b>Beads</b></text>
+<text top="173" left="149" width="597" height="15" font="0">by Anyiawung Chiara Forcheh, Geert Verbeke, Adetayo Kasim, Dan Lin, Ziv Shkedy, Willem Talloen,</text>
+<text top="192" left="148" width="276" height="15" font="0">Hinrich W.H. Göhlmann and Lieven Clement</text>
+<text top="233" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="233" left="207" width="540" height="13" font="4">Microarrays enable the expression levels of thousands of genes to be measured simultane-</text>
+<text top="250" left="149" width="595" height="13" font="4">ously. However, only a small fraction of these genes are expected to be expressed under different</text>
+<text top="266" left="149" width="598" height="13" font="4">experimental conditions. Nowadays, filtering has been introduced as a step in the microarray pre-</text>
+<text top="283" left="148" width="596" height="13" font="4">processing pipeline. Gene filtering aims at reducing the dimensionality of data by filtering redundant</text>
+<text top="299" left="149" width="596" height="13" font="4">features prior to the actual statistical analysis. Previous filtering methods focus on the Affymetrix</text>
+<text top="315" left="148" width="596" height="13" font="4">platform and can not be easily ported to the Illumina platform. As such, we developed a filtering</text>
+<text top="332" left="149" width="595" height="13" font="4">method for Illumina bead arrays. We developed an R package, <b>beadarrayFilter</b>, to implement the</text>
+<text top="348" left="149" width="596" height="13" font="4">latter method. In this paper, the main functions in the package are highlighted and using many</text>
+<text top="365" left="149" width="460" height="13" font="4">examples, we illustrate how <b>beadarrayFilter </b>can be used to filter bead arrays.</text>
+<text top="410" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="448" left="149" width="595" height="13" font="4">Gene expression patterns are commonly assessed by microarrays that can measure thousands of genes</text>
+<text top="465" left="149" width="595" height="13" font="4">simultaneously. However, in a typical microarray experiment, only a small fraction of the genes</text>
+<text top="481" left="149" width="595" height="13" font="4">are informative which motivated the development of gene filtering methods. Gene filtering aims</text>
+<text top="498" left="149" width="595" height="13" font="4">at reducing the dimensionality of data by filtering redundant features prior to the actual statistical</text>
+<text top="514" left="149" width="595" height="13" font="4">analysis. This has been shown to improve differential expression analysis with Affymetrix microarrays</text>
+<text top="531" left="148" width="28" height="13" font="4">(e.g.,</text>
+<text top="531" left="180" width="75" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Talloen et al.</a></text>
+<text top="531" left="255" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">,</a></text>
+<text top="531" left="262" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2007</a></text>
+<text top="531" left="289" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">;</a></text>
+<text top="531" left="295" width="65" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Calza et al.</a></text>
+<text top="531" left="360" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="531" left="367" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2007</a></text>
+<text top="531" left="394" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">;</a></text>
+<text top="531" left="401" width="70" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Kasim et al.</a></text>
+<text top="531" left="470" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="531" left="477" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2010</a></text>
+<text top="531" left="504" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">).</a></text>
+<text top="551" left="171" width="573" height="13" font="4">Although different microarrays platforms share the same principle of hybridizing DNA to a</text>
+<text top="568" left="149" width="595" height="13" font="4">complementary probe, they differ considerably by design. Unlike the Affymetrix microarrays which</text>
+<text top="584" left="149" width="597" height="13" font="4">have sets of unique probes targeting a particular gene (resulting in a probe set for a targeted gene),</text>
+<text top="601" left="149" width="595" height="13" font="4">Illumina microarrays have sets of identical probes. Thus, the existing filtering methods can not be</text>
+<text top="617" left="149" width="301" height="13" font="4">readily ported to the Illumina platform. As a result,</text>
+<text top="617" left="453" width="78" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="617" left="535" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="617" left="539" width="26" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="617" left="566" width="178" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>developed a filtering method</text>
+<text top="634" left="149" width="151" height="13" font="4">for Illumina bead arrays.</text>
+<text top="634" left="306" width="82" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="634" left="391" width="5" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="634" left="396" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="634" left="423" width="321" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>equally showed that filtering improves the analysis</text>
+<text top="650" left="149" width="485" height="13" font="4">of differential expression. We provide the implementation of their method in the</text>
+<text top="650" left="637" width="94" height="13" font="7"><a href="http://CRAN.R-project.org/package=beadarrayFilter"><b>beadarrayFilter</b></a></text>
+<text top="650" left="735" width="9" height="13" font="4">R</text>
+<text top="667" left="149" width="595" height="13" font="4">software package. The <b>beadarrayFilter </b>package can take a normalized data frame or a normalized bead</text>
+<text top="683" left="149" width="595" height="13" font="4">array ExpressionSetIllumina object (obtained using the summarize or readBeadSummaryData functions</text>
+<text top="699" left="149" width="250" height="13" font="4">in the Bioconductor package <b>beadarray </b>by</text>
+<text top="699" left="405" width="84" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Dunning et al.</a></text>
+<text top="699" left="489" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="699" left="496" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2007</a></text>
+<text top="699" left="522" width="222" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>or a normalized LumiBatch object as</text>
+<text top="716" left="149" width="595" height="13" font="4">input and returns a list containing a filtered data frame or a filtered bead array ExpressionSetIllumina</text>
+<text top="732" left="149" width="595" height="13" font="4">object or a filtered LumiBatch object, respectively. The package can also process summarized and</text>
+<text top="749" left="149" width="596" height="13" font="4">normalized average intensities (eSet), their standard errors (seSet) and the number of beads used for</text>
+<text top="765" left="149" width="595" height="13" font="4">summarization (nSet) as input and returns a list of components including the intra-cluster correlations</text>
+<text top="782" left="148" width="372" height="13" font="4">(ICC), which can be used to assess different filtering strategies.</text>
+<text top="803" left="171" width="573" height="13" font="4">The paper contains a brief background of the filtering methodology followed by the introduction</text>
+<text top="819" left="149" width="345" height="13" font="4">of the <b>beadarrayFilter </b>package with illustrative examples.</text>
+<text top="864" left="149" width="240" height="17" font="5"><b>Filtering Illumina bead types</b></text>
+<text top="903" left="149" width="33" height="13" font="4">Let Y</text>
+<text top="908" left="181" width="11" height="10" font="8">kij</text>
+<text top="903" left="198" width="548" height="13" font="4">be the bead-level expression intensity of bead j in sample (array) i in treatment group k,</text>
+<text top="919" left="149" width="4" height="13" font="4">i</text>
+<text top="919" left="157" width="11" height="12" font="0">=</text>
+<text top="919" left="172" width="44" height="13" font="4">1, . . . , n</text>
+<text top="924" left="216" width="5" height="10" font="8">k</text>
+<text top="919" left="221" width="11" height="13" font="4">, j</text>
+<text top="919" left="237" width="11" height="12" font="0">=</text>
+<text top="919" left="252" width="47" height="13" font="4">1, . . . , m</text>
+<text top="924" left="299" width="8" height="10" font="8">ki</text>
+<text top="919" left="307" width="13" height="13" font="4">, k</text>
+<text top="919" left="325" width="11" height="12" font="0">=</text>
+<text top="919" left="340" width="83" height="13" font="4">1, . . . , K, then,</text>
+<text top="919" left="426" width="81" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="919" left="510" width="5" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="919" left="515" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="919" left="542" width="202" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>proposed the following filtering</text>
+<text top="935" left="149" width="41" height="13" font="4">model:</text>
+<text top="952" left="390" width="9" height="13" font="4">Y</text>
+<text top="957" left="398" width="11" height="10" font="8">kij</text>
+<text top="952" left="414" width="11" height="12" font="0">=</text>
+<text top="955" left="429" width="8" height="10" font="9"><i>µ</i></text>
+<text top="952" left="440" width="11" height="12" font="0">+</text>
+<text top="952" left="454" width="6" height="13" font="4">b</text>
+<text top="957" left="460" width="3" height="10" font="8">i</text>
+<text top="952" left="467" width="11" height="12" font="0">+</text>
+<text top="955" left="481" width="6" height="10" font="9"><i>e</i></text>
+<text top="957" left="487" width="11" height="10" font="8">kij</text>
+<text top="952" left="499" width="3" height="13" font="4">,</text>
+<text top="952" left="728" width="16" height="13" font="4">(1)</text>
+<text top="974" left="148" width="473" height="13" font="4">where <i>µ </i>represents the average expression for a bead type across all samples, b</text>
+<text top="979" left="621" width="3" height="10" font="8">i</text>
+<text top="974" left="629" width="116" height="13" font="4">is the array specific</text>
+<text top="991" left="149" width="122" height="13" font="4">random effect and <i>e</i></text>
+<text top="996" left="271" width="11" height="10" font="8">kij</text>
+<text top="991" left="287" width="458" height="13" font="4">are the measurement errors, both normally distributed with mean zero and</text>
+<text top="1010" left="148" width="61" height="13" font="4">variance <i>τ</i></text>
+<text top="1007" left="210" width="5" height="10" font="8">2</text>
+<text top="1010" left="219" width="34" height="13" font="4">and <i>σ</i></text>
+<text top="1007" left="253" width="5" height="10" font="8">2</text>
+<text top="1010" left="259" width="82" height="13" font="4">, respectively:</text>
+<text top="1043" left="360" width="6" height="13" font="4">b</text>
+<text top="1048" left="366" width="3" height="10" font="8">i</text>
+<text top="1042" left="374" width="11" height="16" font="0">∼</text>
+<text top="1043" left="390" width="10" height="13" font="4">N</text>
+<text top="1043" left="401" width="5" height="12" font="0">(</text>
+<text top="1043" left="406" width="20" height="13" font="4">0, <i>τ</i></text>
+<text top="1040" left="426" width="5" height="10" font="8">2</text>
+<text top="1043" left="433" width="5" height="12" font="0">)</text>
+<text top="1043" left="438" width="13" height="13" font="4">, <i>e</i></text>
+<text top="1048" left="451" width="11" height="10" font="8">kij</text>
+<text top="1042" left="468" width="11" height="16" font="0">∼</text>
+<text top="1043" left="483" width="10" height="13" font="4">N</text>
+<text top="1043" left="494" width="5" height="12" font="0">(</text>
+<text top="1043" left="500" width="20" height="13" font="4">0, <i>σ</i></text>
+<text top="1040" left="520" width="5" height="10" font="8">2</text>
+<text top="1043" left="526" width="5" height="12" font="0">)</text>
+<text top="1043" left="532" width="3" height="13" font="4">.</text>
+<text top="1079" left="148" width="33" height="13" font="4">The <i>τ</i></text>
+<text top="1076" left="182" width="5" height="10" font="8">2</text>
+<text top="1079" left="191" width="273" height="13" font="4">captures the between-array variability while <i>σ</i></text>
+<text top="1076" left="465" width="5" height="10" font="8">2</text>
+<text top="1079" left="474" width="260" height="13" font="4">models the within-array variability. Model <a href="2013-1-forcheh-verbeke-kasim-etal.html#1">(</a></text>
+<text top="1079" left="734" width="7" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">1</a></text>
+<text top="1079" left="741" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">)</a></text>
+<text top="1095" left="149" width="148" height="13" font="4">implies a common ICC, <a href="2013-1-forcheh-verbeke-kasim-etal.html#10">(</a></text>
+<text top="1095" left="297" width="155" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Verbeke and Molenberghs</a></text>
+<text top="1095" left="452" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">,</a></text>
+<text top="1095" left="459" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2000</a></text>
+<text top="1095" left="486" width="63" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">), </a>given by</text>
+<text top="1138" left="408" width="7" height="10" font="9"><i>ρ</i></text>
+<text top="1134" left="419" width="11" height="12" font="0">=</text>
+<text top="1128" left="451" width="7" height="10" font="9"><i>τ</i></text>
+<text top="1123" left="459" width="5" height="10" font="8">2</text>
+<text top="1147" left="436" width="7" height="10" font="9"><i>τ</i></text>
+<text top="1142" left="443" width="5" height="10" font="8">2</text>
+<text top="1144" left="452" width="11" height="12" font="0">+</text>
+<text top="1147" left="466" width="8" height="10" font="9"><i>σ</i></text>
+<text top="1142" left="474" width="5" height="10" font="8">2</text>
+<text top="1134" left="482" width="3" height="13" font="4">,</text>
+<text top="1134" left="728" width="16" height="13" font="4">(2)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="12" family="Times" color="#000000"/>
+	<fontspec id="11" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">172</text>
+<text top="103" left="148" width="381" height="13" font="4">which is the correlation among the replicate probes on the array.</text>
+<text top="124" left="171" width="573" height="13" font="4">An informative bead type is expected to have a relatively high value of <i>ρ </i>since all corresponding</text>
+<text top="141" left="149" width="595" height="13" font="4">beads have the same sequence. As such, the between-array variability is the dominant variance</text>
+<text top="157" left="149" width="595" height="13" font="4">component for informative bead types while the within-array variability is the largest variance</text>
+<text top="173" left="149" width="281" height="13" font="4">component for the non-informative bead types.</text>
+<text top="194" left="171" width="573" height="13" font="4">For Illumina bead arrays, within-array variability is expected to vary across all arrays and treatment</text>
+<text top="211" left="149" width="245" height="13" font="4">groups in the experiment. In this regard,</text>
+<text top="211" left="397" width="81" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="211" left="481" width="5" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="211" left="486" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="211" left="513" width="231" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>included an array/treatment specific</text>
+<text top="227" left="148" width="412" height="13" font="4">variance component to adjust the model for heteroscedasticity i.e., <i>e</i></text>
+<text top="232" left="560" width="11" height="10" font="8">kij</text>
+<text top="226" left="577" width="11" height="16" font="0">∼</text>
+<text top="227" left="593" width="10" height="13" font="4">N</text>
+<text top="227" left="604" width="5" height="12" font="0">(</text>
+<text top="227" left="610" width="20" height="13" font="4">0, <i>σ</i></text>
+<text top="224" left="630" width="5" height="10" font="8">2</text>
+<text top="234" left="629" width="8" height="10" font="8">ki</text>
+<text top="227" left="638" width="5" height="12" font="0">)</text>
+<text top="227" left="644" width="101" height="13" font="4">. Hence, the ICC</text>
+<text top="244" left="149" width="218" height="13" font="4">becomes bead/array/group specific,</text>
+<text top="273" left="403" width="7" height="10" font="9"><i>ρ</i></text>
+<text top="275" left="410" width="8" height="10" font="8">ki</text>
+<text top="270" left="423" width="11" height="12" font="0">=</text>
+<text top="264" left="457" width="7" height="10" font="9"><i>τ</i></text>
+<text top="258" left="465" width="5" height="10" font="8">2</text>
+<text top="284" left="439" width="7" height="10" font="9"><i>τ</i></text>
+<text top="279" left="447" width="5" height="10" font="8">2</text>
+<text top="280" left="456" width="11" height="12" font="0">+</text>
+<text top="284" left="469" width="8" height="10" font="9"><i>σ</i></text>
+<text top="278" left="477" width="5" height="10" font="8">2</text>
+<text top="288" left="476" width="8" height="10" font="8">ki</text>
+<text top="280" left="485" width="3" height="13" font="4">,</text>
+<text top="270" left="728" width="16" height="13" font="4">(3)</text>
+<text top="306" left="149" width="23" height="13" font="4">and</text>
+<text top="304" left="175" width="10" height="17" font="4">∑</text>
+<text top="302" left="186" width="7" height="10" font="8">K</text>
+<text top="312" left="186" width="19" height="11" font="8">k=1</text>
+<text top="306" left="208" width="7" height="13" font="4">n</text>
+<text top="311" left="215" width="5" height="10" font="8">k</text>
+<text top="306" left="224" width="398" height="13" font="4">ICCs are obtained for each bead type ( more details can be found in</text>
+<text top="306" left="626" width="79" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="306" left="705" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="306" left="712" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="306" left="738" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">).</a></text>
+<text top="327" left="171" width="527" height="13" font="4">ICC based filtering of Affymetrix microarray data has been proposed in the literature (e.g.,</text>
+<text top="327" left="702" width="42" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Talloen</a></text>
+<text top="343" left="149" width="28" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">et al.</a></text>
+<text top="343" left="177" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">,</a></text>
+<text top="343" left="184" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2007</a></text>
+<text top="343" left="211" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">;</a></text>
+<text top="343" left="218" width="70" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Kasim et al.</a></text>
+<text top="343" left="288" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="343" left="294" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2010</a></text>
+<text top="343" left="321" width="166" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">). </a>Typically, an ICC cut-off <i>δ</i></text>
+<text top="343" left="492" width="11" height="12" font="0">=</text>
+<text top="343" left="507" width="237" height="13" font="4">0.5 has been used to declare a transcript</text>
+<text top="360" left="149" width="73" height="13" font="4">informative.</text>
+<text top="360" left="226" width="79" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="360" left="308" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="360" left="313" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="360" left="339" width="405" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>also relied on the ICC as a filtering criterion and proposed different</text>
+<text top="376" left="149" width="595" height="13" font="4">thresholding schemes based on the five number summaries, i.e., a bead type can be called informative</text>
+<text top="392" left="149" width="595" height="13" font="4">based on thresholding (1) the minimum ICC, (2) 25, (3) 50, (4) 75 quantiles or (5) the maximum ICC</text>
+<text top="409" left="149" width="595" height="13" font="4">of all the arrays. Filtering is expected to become less stringent from strategy (1)–(5). These different</text>
+<text top="425" left="149" width="360" height="13" font="4">thresholding strategies are implemented within the package.</text>
+<text top="470" left="149" width="197" height="17" font="5"><b>beadarrayFilter package</b></text>
+<text top="509" left="148" width="596" height="13" font="4">The <b>beadarrayFilter </b>package can either take a normalized ExpressionSetIllumina object, a normalized</text>
+<text top="525" left="149" width="595" height="13" font="4">LumiBatch object, a normalized data.frame or a normalized eSet, seSet and nSet as input and returns a</text>
+<text top="542" left="149" width="595" height="13" font="4">list. We refer the user to the documentation of the Bioconductor packages <b>beadarray </b>and <b>lumi </b>for more</text>
+<text top="558" left="149" width="595" height="13" font="4">details on generating ExpressionSetIllumina objects or LumiBatch objects. For each bead type, the ICCs</text>
+<text top="575" left="149" width="595" height="13" font="4">can be summarized using the 5 number summary or user specified quantiles. The corresponding ICC</text>
+<text top="591" left="149" width="597" height="13" font="4">summaries are used for obtaining informative bead types. The package contains two major functions,</text>
+<text top="608" left="148" width="598" height="13" font="4">which we refer to as: (1) a low level function iccFun and (2) a wrapper function beadtypeFilter.</text>
+<text top="624" left="149" width="476" height="13" font="4">Model fitting is done using a modified version of the MLM.beadarray function of</text>
+<text top="624" left="628" width="75" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Kim and Lin</a></text>
+<text top="624" left="707" width="5" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">(</a></text>
+<text top="624" left="711" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2011</a></text>
+<text top="624" left="739" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">).</a></text>
+<text top="640" left="149" width="598" height="13" font="4">Details on the functions can be obtained by using the help function in R (?beadtypeFilter or ?iccFun).</text>
+<text top="683" left="149" width="205" height="15" font="10"><b>Installation of beadarrayFilter</b></text>
+<text top="714" left="148" width="461" height="13" font="4">The <b>beadarrayFilter </b>package is available at CRAN, and can be installed using</text>
+<text top="731" left="149" width="240" height="11" font="4">install.packages(&#34;beadarrayFilter&#34;)</text>
+<text top="731" left="389" width="3" height="13" font="4">.</text>
+<text top="774" left="149" width="107" height="13" font="11">beadtypeFilter</text>
+<text top="773" left="259" width="58" height="15" font="10"><b>function</b></text>
+<text top="805" left="148" width="596" height="13" font="4">The beadtypeFilter function is a wrapper function for the iccFun function and is designed for</text>
+<text top="821" left="149" width="595" height="13" font="4">users with a primary interest in obtaining filtered bead types. This function takes a normalized</text>
+<text top="838" left="149" width="595" height="13" font="4">ExpressionSetIllumina object, a normalized LumiBatch object or a normalized data.frame and returns</text>
+<text top="854" left="149" width="596" height="13" font="4">the names of the informative bead types. Optionally, the filtered ExpressionSetIllumina object or</text>
+<text top="870" left="149" width="595" height="13" font="4">the filtered data.frame can also be returned. The filtered ExpressionSetIllumina object, or filtered</text>
+<text top="887" left="149" width="533" height="13" font="4">LumiBatch object or the filtered data.frame can then be used for the downstream analysis.</text>
+<text top="930" left="149" width="46" height="13" font="11">iccFun</text>
+<text top="929" left="198" width="58" height="15" font="10"><b>function</b></text>
+<text top="961" left="149" width="41" height="11" font="4">iccFun</text>
+<text top="961" left="193" width="553" height="13" font="4">is a low level function. It is designed for users who want to assess different filtering strategies.</text>
+<text top="977" left="149" width="595" height="13" font="4">It takes a normalized eSet, seSet and nSet and the bead types identification variable (ProbeID), fits the</text>
+<text top="994" left="149" width="97" height="13" font="4">filtering Model <a href="2013-1-forcheh-verbeke-kasim-etal.html#1">(</a></text>
+<text top="994" left="246" width="7" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">1</a></text>
+<text top="994" left="253" width="491" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">), </a>calculates the ICC for each bead type on each array/treatment group, summaries</text>
+<text top="1010" left="149" width="595" height="13" font="4">the ICCs at the specified quantiles, and returns the ICC summaries, the within-array variances, the</text>
+<text top="1026" left="149" width="595" height="13" font="4">between-array variances as well as all ICCs. The ICCs output can later be used for filtering or to</text>
+<text top="1043" left="149" width="596" height="13" font="4">assess different filtering strategies. Note the information printed as you execute the beadtypeFilter</text>
+<text top="1059" left="149" width="119" height="13" font="4">or iccFun functions:</text>
+<text top="1086" left="171" width="8" height="13" font="4">•</text>
+<text top="1086" left="186" width="4" height="12" font="0">[</text>
+<text top="1086" left="190" width="7" height="13" font="4">1</text>
+<text top="1086" left="197" width="4" height="12" font="0">]</text>
+<text top="1086" left="205" width="230" height="13" font="4">&#34;Number of converged transcripts: ... &#34;</text>
+<text top="1103" left="186" width="558" height="13" font="4">This indicates the number of transcripts for which the filtering model has already converged</text>
+<text top="1119" left="186" width="470" height="13" font="4">while &#34;Now ... remaining...&#34; tells the number of transcripts still to be processed.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="12" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">173</text>
+<text top="103" left="171" width="8" height="13" font="4">•</text>
+<text top="103" left="186" width="4" height="12" font="0">[</text>
+<text top="103" left="190" width="7" height="13" font="4">1</text>
+<text top="103" left="197" width="4" height="12" font="0">]</text>
+<text top="103" left="205" width="191" height="13" font="4">&#34;Computing ICC for each array&#34;</text>
+<text top="120" left="186" width="558" height="13" font="4">This message is printed when the function begins to calculate the ICC for each array once the</text>
+<text top="136" left="186" width="304" height="13" font="4">filtering model has been fitted to all the transcripts.</text>
+<text top="157" left="171" width="8" height="13" font="4">•</text>
+<text top="157" left="186" width="4" height="12" font="0">[</text>
+<text top="157" left="190" width="7" height="13" font="4">1</text>
+<text top="157" left="197" width="4" height="12" font="0">]</text>
+<text top="157" left="205" width="276" height="13" font="4">&#34;Summarising the ICC at supplied quantile(s)&#34;</text>
+<text top="174" left="186" width="558" height="13" font="4">This message indicates the last stage of the filtering function where the ICCs are summarized at</text>
+<text top="190" left="186" width="159" height="13" font="4">the supplied quantiles (see</text>
+<text top="190" left="348" width="80" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="190" left="428" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="190" left="435" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="190" left="462" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">).</a></text>
+<text top="216" left="171" width="573" height="13" font="4">The emCDF function within the <b>beadarrayFilter </b>package is used to plot the empirical cumulative</text>
+<text top="233" left="149" width="595" height="13" font="4">density functions (edcfs) for the different threshold strategies discussed above. It processes the iccFun</text>
+<text top="249" left="149" width="595" height="13" font="4">output and plots the empirical cumulative density functions (ecdf) for the different threshold strategies</text>
+<text top="266" left="149" width="87" height="13" font="4">as discussed in</text>
+<text top="266" left="239" width="78" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="266" left="321" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="266" left="325" width="26" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="266" left="352" width="393" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">). </a>It is expected that the filtering becomes more stringent as the ICC</text>
+<text top="282" left="149" width="438" height="13" font="4">threshold increases and/or as the the thresholded ICC quantile decreases.</text>
+<text top="303" left="171" width="573" height="13" font="4">Informative bead types will have larger between-array variances as compared to the within-array</text>
+<text top="319" left="148" width="596" height="13" font="4">variances. The varianceplot function takes the estimated between- and within-array variances from</text>
+<text top="336" left="149" width="595" height="13" font="4">the iccFun function as inputs and plots them. The variances of noninformative bead types are plotted</text>
+<text top="352" left="149" width="416" height="13" font="4">in blue while those of the informative bead types are displayed in red.</text>
+<text top="373" left="171" width="573" height="13" font="4">Upon filtering the MLM.beadarray function can be used for downstream analysis of single factor</text>
+<text top="390" left="149" width="175" height="13" font="4">designs. For more details, see</text>
+<text top="390" left="327" width="75" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Kim and Lin</a></text>
+<text top="390" left="406" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">(</a></text>
+<text top="390" left="410" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2011</a></text>
+<text top="390" left="437" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">).</a></text>
+<text top="411" left="171" width="573" height="13" font="4">A summary of the functions within the <b>beadarrayFilter </b>package and their use is presented in</text>
+<text top="427" left="148" width="32" height="13" font="4">Table</text>
+<text top="427" left="183" width="7" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">1</a></text>
+<text top="427" left="190" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">.</a></text>
+<text top="456" left="263" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="456" left="314" width="311" height="13" font="4">Main Functions within the <b>beadarrayFilter </b>package.</text>
+<text top="493" left="225" width="59" height="15" font="0">Function</text>
+<text top="493" left="654" width="77" height="15" font="0">Description</text>
+<text top="519" left="162" width="122" height="13" font="11">beadtypeFilter()</text>
+<text top="518" left="407" width="185" height="15" font="0">Fits the filtering model as in</text>
+<text top="518" left="595" width="88" height="15" font="12"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="518" left="687" width="5" height="15" font="0"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="518" left="692" width="30" height="15" font="12"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="518" left="722" width="9" height="15" font="0"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">),</a></text>
+<text top="536" left="438" width="293" height="15" font="0">computes the ICC and filters the bead types.</text>
+<text top="572" left="223" width="61" height="13" font="11">iccFun()</text>
+<text top="572" left="309" width="185" height="15" font="0">Fits the filtering model as in</text>
+<text top="572" left="498" width="88" height="15" font="12"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh et al.</a></text>
+<text top="572" left="590" width="5" height="15" font="0"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="572" left="595" width="30" height="15" font="12"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="572" left="625" width="106" height="15" font="0"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">), </a>and computes</text>
+<text top="590" left="303" width="428" height="15" font="0">the ICC which can later be used for filtering or to assess different</text>
+<text top="608" left="612" width="119" height="15" font="0">filtering strategies</text>
+<text top="644" left="170" width="114" height="13" font="11">MLM.beadarray()</text>
+<text top="643" left="302" width="429" height="15" font="0">Function to fit the filtering model or for the downstream analysis</text>
+<text top="661" left="488" width="243" height="15" font="0">of single factor experimental designs</text>
+<text top="698" left="231" width="53" height="13" font="11">emCDF()</text>
+<text top="697" left="401" width="330" height="15" font="0">Plots the ecdf for the different threshold strategies</text>
+<text top="734" left="177" width="107" height="13" font="11">varianceplot()</text>
+<text top="733" left="343" width="388" height="15" font="0">Plots the the between-array and the within-array variances</text>
+<text top="805" left="149" width="79" height="17" font="5"><b>Examples</b></text>
+<text top="843" left="148" width="542" height="13" font="4">The data set exampleSummaryData from the Bioconductor package <b>beadarrayExampleData </b><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="843" left="691" width="53" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Dunning</a></text>
+<text top="860" left="149" width="28" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">et al.</a></text>
+<text top="860" left="177" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="860" left="183" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2007</a></text>
+<text top="860" left="210" width="534" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">), </a>is used to illustrate filtering of ExpressionSetIllumina objects while the publicly available</text>
+<text top="876" left="149" width="84" height="13" font="4">spike-in data <a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="876" left="233" width="84" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Dunning et al.</a></text>
+<text top="876" left="317" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">,</a></text>
+<text top="876" left="324" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2008</a></text>
+<text top="876" left="350" width="244" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">) </a>are used to process data.frames. The log</text>
+<text top="883" left="595" width="5" height="10" font="8">2</text>
+<text top="876" left="604" width="140" height="13" font="4">summarized expression</text>
+<text top="893" left="149" width="595" height="13" font="4">intensities, obtained from Brain and Universal Human Reference RNA (UHRR) samples in the data</text>
+<text top="909" left="149" width="595" height="13" font="4">set exampleSummaryData will be used. There are 12 arrays, 6 for the Brain samples and 6 for the</text>
+<text top="925" left="149" width="474" height="13" font="4">UHRR samples. The spike-in dataset consists of 48 arrays and an array contained</text>
+<text top="924" left="627" width="11" height="16" font="0">∼</text>
+<text top="925" left="641" width="103" height="13" font="4">48,000 bead types</text>
+<text top="942" left="148" width="598" height="13" font="4">(non-spikes) and 33 bead types (spikes) targeting bacterial and viral genes absent in the mouse genome.</text>
+<text top="958" left="148" width="281" height="13" font="4">We use the same subset of the spike-in data as in</text>
+<text top="958" left="432" width="73" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Kim and Lin</a></text>
+<text top="958" left="509" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">(</a></text>
+<text top="958" left="513" width="26" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2011</a></text>
+<text top="958" left="539" width="205" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">). </a>This dataset includes 34,654 bead</text>
+<text top="975" left="149" width="595" height="13" font="4">types targeting annotated genes with Genebank IDs and the 33 spikes. The data can be downloaded</text>
+<text top="991" left="149" width="29" height="13" font="4">from</text>
+<text top="992" left="183" width="528" height="11" font="6"><a href="https://ephpublic.aecom.yu.edu/sites/rkim/Supplementary/files/KimLin2010.html">https://ephpublic.aecom.yu.edu/sites/rkim/Supplementary/files/KimLin2010.html</a></text>
+<text top="991" left="716" width="28" height="13" font="4">with</text>
+<text top="1008" left="149" width="595" height="13" font="4">the folder name “A normalized dataset for example analysis&#34;. We also show how the downstream</text>
+<text top="1024" left="149" width="595" height="13" font="4">analysis can be performed upon filtering using the spike-in data. Filtering of LumiBatch objects is</text>
+<text top="1041" left="149" width="596" height="13" font="4">illustrated using the BeadStudio output used in the vignette “beadsummary” from the <b>beadarray</b></text>
+<text top="1057" left="148" width="244" height="13" font="4">package, which can be downloaded from</text>
+<text top="1058" left="396" width="261" height="11" font="6"><a href="http://www.switchtoi.com/datasets.ilmn">http://www.switchtoi.com/datasets.ilmn</a></text>
+<text top="1057" left="657" width="3" height="13" font="4"><a href="http://www.switchtoi.com/datasets.ilmn">.</a></text>
+<text top="1099" left="149" width="107" height="13" font="11">beadtypeFilter</text>
+<text top="1099" left="259" width="58" height="15" font="10"><b>function</b></text>
+<text top="1130" left="148" width="598" height="13" font="4">This subsection shows how to use the beadtypeFilter function to filter normalized ExpressionSetIllu-</text>
+<text top="1147" left="149" width="595" height="13" font="4">mina objects, LumiBatch objects and data.frames. For an ExpressionSetIllumina, this is done using the</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">174</text>
+<text top="104" left="149" width="123" height="11" font="4">exampleSummaryData</text>
+<text top="103" left="276" width="303" height="13" font="4">data set from the <b>beadarrayExampleData </b>package.</text>
+<text top="130" left="149" width="254" height="11" font="4"># Normalize the log2 transformed data</text>
+<text top="146" left="149" width="192" height="11" font="4">&gt; library(&#34;beadarrayFilter&#34;)</text>
+<text top="163" left="149" width="425" height="11" font="4">&gt; data(&#34;exampleSummaryData&#34;, package = &#34;beadarrayExampleData&#34;)</text>
+<text top="179" left="149" width="542" height="11" font="4">&gt; exampleSummaryDataNorm &lt;- normaliseIllumina(channel(exampleSummaryData, &#34;G&#34;),</text>
+<text top="195" left="149" width="7" height="11" font="4">+</text>
+<text top="195" left="183" width="274" height="11" font="4">method = &#34;quantile&#34;, transform = &#34;none&#34;)</text>
+<text top="212" left="149" width="233" height="11" font="4"># Filter the ExpressionSetIllumina</text>
+<text top="228" left="149" width="466" height="11" font="4">&gt; iccResults &lt;- beadtypeFilter(exampleSummaryDataNorm, Quantile = 1,</text>
+<text top="245" left="149" width="7" height="11" font="4">+</text>
+<text top="245" left="183" width="199" height="11" font="4">keepData = TRUE, delta = 0.5)</text>
+<text top="270" left="149" width="595" height="13" font="4">By specifying iccQuant = 1 and delta = 0.5, the bead types are filtered using the maximum ICC at</text>
+<text top="286" left="149" width="547" height="13" font="4">a cutoff of 50%. The output of the beadtypeFilter function can then be observed as follows:</text>
+<text top="315" left="149" width="240" height="11" font="4">&gt; head(iccResults$InformProbeNames)</text>
+<text top="332" left="149" width="535" height="11" font="4">[1] &#34;ILMN_1802380&#34; &#34;ILMN_1736104&#34; &#34;ILMN_1792389&#34; &#34;ILMN_1705423&#34; &#34;ILMN_1697642&#34;</text>
+<text top="348" left="149" width="123" height="11" font="4">[6] &#34;ILMN_1788184&#34;</text>
+<text top="365" left="149" width="274" height="11" font="4">&gt; exprs(iccResults$informData)[1:6, 1:5]</text>
+<text top="381" left="238" width="439" height="11" font="4">4613710017_B 4613710052_B 4613710054_B 4616443079_B 4616443093_B</text>
+<text top="398" left="149" width="82" height="11" font="4">ILMN_1802380</text>
+<text top="398" left="265" width="55" height="11" font="4">8.216547</text>
+<text top="398" left="355" width="55" height="11" font="4">8.229713</text>
+<text top="398" left="444" width="55" height="11" font="4">8.097047</text>
+<text top="398" left="533" width="55" height="11" font="4">8.343822</text>
+<text top="398" left="622" width="55" height="11" font="4">8.249190</text>
+<text top="414" left="149" width="82" height="11" font="4">ILMN_1736104</text>
+<text top="414" left="265" width="55" height="11" font="4">5.317065</text>
+<text top="414" left="355" width="55" height="11" font="4">5.470957</text>
+<text top="414" left="444" width="55" height="11" font="4">5.054653</text>
+<text top="414" left="533" width="55" height="11" font="4">5.100678</text>
+<text top="414" left="622" width="55" height="11" font="4">5.446530</text>
+<text top="431" left="149" width="82" height="11" font="4">ILMN_1792389</text>
+<text top="431" left="265" width="55" height="11" font="4">6.725049</text>
+<text top="431" left="355" width="55" height="11" font="4">7.003632</text>
+<text top="431" left="444" width="55" height="11" font="4">6.783809</text>
+<text top="431" left="533" width="55" height="11" font="4">7.214921</text>
+<text top="431" left="622" width="55" height="11" font="4">7.257032</text>
+<text top="447" left="149" width="82" height="11" font="4">ILMN_1705423</text>
+<text top="447" left="265" width="55" height="11" font="4">5.496207</text>
+<text top="447" left="355" width="55" height="11" font="4">4.845898</text>
+<text top="447" left="444" width="55" height="11" font="4">5.394206</text>
+<text top="447" left="533" width="55" height="11" font="4">5.422772</text>
+<text top="447" left="622" width="55" height="11" font="4">5.479191</text>
+<text top="463" left="149" width="82" height="11" font="4">ILMN_1697642</text>
+<text top="463" left="265" width="55" height="11" font="4">7.977234</text>
+<text top="463" left="355" width="55" height="11" font="4">7.912246</text>
+<text top="463" left="444" width="55" height="11" font="4">7.668253</text>
+<text top="463" left="533" width="55" height="11" font="4">7.850134</text>
+<text top="463" left="622" width="55" height="11" font="4">7.758535</text>
+<text top="480" left="149" width="82" height="11" font="4">ILMN_1788184</text>
+<text top="480" left="265" width="55" height="11" font="4">5.291988</text>
+<text top="480" left="355" width="55" height="11" font="4">5.614500</text>
+<text top="480" left="444" width="55" height="11" font="4">5.565426</text>
+<text top="480" left="533" width="55" height="11" font="4">5.473346</text>
+<text top="480" left="622" width="55" height="11" font="4">5.573395</text>
+<text top="496" left="149" width="247" height="11" font="4">&gt; head(fData(iccResults$informData))</text>
+<text top="513" left="224" width="96" height="11" font="4">ArrayAddressID</text>
+<text top="513" left="341" width="69" height="11" font="4">IlluminaID</text>
+<text top="513" left="423" width="41" height="11" font="4">Status</text>
+<text top="529" left="149" width="82" height="11" font="4">ILMN_1802380</text>
+<text top="529" left="300" width="178" height="11" font="4">10008 ILMN_1802380 regular</text>
+<text top="546" left="149" width="82" height="11" font="4">ILMN_1736104</text>
+<text top="546" left="300" width="178" height="11" font="4">10017 ILMN_1736104 regular</text>
+<text top="562" left="149" width="82" height="11" font="4">ILMN_1792389</text>
+<text top="562" left="300" width="178" height="11" font="4">10019 ILMN_1792389 regular</text>
+<text top="579" left="149" width="82" height="11" font="4">ILMN_1705423</text>
+<text top="579" left="300" width="178" height="11" font="4">10039 ILMN_1705423 regular</text>
+<text top="595" left="149" width="82" height="11" font="4">ILMN_1697642</text>
+<text top="595" left="300" width="178" height="11" font="4">10044 ILMN_1697642 regular</text>
+<text top="611" left="149" width="82" height="11" font="4">ILMN_1788184</text>
+<text top="611" left="300" width="178" height="11" font="4">10048 ILMN_1788184 regular</text>
+<text top="628" left="149" width="199" height="11" font="4">&gt; dim(exampleSummaryDataNorm)</text>
+<text top="644" left="149" width="55" height="11" font="4">Features</text>
+<text top="644" left="217" width="110" height="11" font="4">Samples Channels</text>
+<text top="661" left="169" width="34" height="11" font="4">49576</text>
+<text top="661" left="252" width="14" height="11" font="4">12</text>
+<text top="661" left="320" width="7" height="11" font="4">1</text>
+<text top="677" left="149" width="192" height="11" font="4">&gt; dim(iccResults$informData)</text>
+<text top="694" left="149" width="55" height="11" font="4">Features</text>
+<text top="694" left="217" width="110" height="11" font="4">Samples Channels</text>
+<text top="710" left="169" width="34" height="11" font="4">23419</text>
+<text top="710" left="252" width="14" height="11" font="4">12</text>
+<text top="710" left="320" width="7" height="11" font="4">1</text>
+<text top="738" left="149" width="595" height="13" font="4">23419 out of the 49576 bead types were declared informative using the maximum ICC at a cutoff point</text>
+<text top="754" left="149" width="43" height="13" font="4">of 50%.</text>
+<text top="775" left="171" width="575" height="13" font="4">For a LumiBatch object, filtering is illustrated using the non-normalized data, an output of Bead-</text>
+<text top="792" left="149" width="518" height="13" font="4">Studio used in the “beadsummary” vignette from the <b>beadarray </b>package. The data file,</text>
+<text top="808" left="147" width="4" height="13" font="4">‘</text>
+<text top="809" left="151" width="212" height="11" font="13">AsuragenMAQC_BeadStudioOutput.zip</text>
+<text top="808" left="363" width="153" height="13" font="4">’, can be downloaded from</text>
+<text top="809" left="519" width="233" height="11" font="6"><a href="http://www.switchtoi.com/datasets.ilmn">http://www.switchtoi.com/datasets.</a></text>
+<text top="825" left="149" width="27" height="11" font="6"><a href="http://www.switchtoi.com/datasets.ilmn">ilmn</a></text>
+<text top="825" left="176" width="495" height="13" font="4"><a href="http://www.switchtoi.com/datasets.ilmn">. </a>Once the file has been downloaded, unzip its content to your R working directory.</text>
+<text top="851" left="149" width="103" height="11" font="4">&gt; require(lumi)</text>
+<text top="879" left="149" width="576" height="11" font="4"># Set the working directory to the directory where the unzipped data file was saved.</text>
+<text top="896" left="149" width="528" height="11" font="4">&gt; setwd(&#34;C:/Multi_level_Illumina_feb2011/RPackageFinal/beadstudiooutputData&#34;)</text>
+<text top="912" left="149" width="405" height="11" font="4"># Read in the data using lumiR to obtain a LumiBatch object</text>
+<text top="929" left="149" width="322" height="11" font="4">&gt; x.lumi &lt;- lumiR(&#34;AsuragenMAQC-probe-raw.txt&#34;)</text>
+<text top="945" left="149" width="412" height="11" font="4"># Normalize the data without any further transformation step</text>
+<text top="962" left="149" width="219" height="11" font="4">&gt; lumi.N &lt;- lumiN(x.lumi, &#34;rsn&#34;)</text>
+<text top="978" left="149" width="151" height="11" font="4"># Filter the LumiBatch</text>
+<text top="995" left="149" width="556" height="11" font="4">&gt; iccResult &lt;- beadtypeFilter(lumi.N, Quantile = 1, keepData = TRUE, delta = 0.5)</text>
+<text top="1022" left="149" width="595" height="13" font="4">By specifying iccQuant = 1 and delta = 0.5, the bead types are filtered using the maximum ICC at</text>
+<text top="1039" left="149" width="91" height="13" font="4">a cutoff of 50%.</text>
+<text top="1065" left="149" width="89" height="11" font="4">&gt; dim(lumi.N)</text>
+<text top="1082" left="149" width="55" height="11" font="4">Features</text>
+<text top="1082" left="217" width="48" height="11" font="4">Samples</text>
+<text top="1098" left="169" width="34" height="11" font="4">48701</text>
+<text top="1098" left="259" width="7" height="11" font="4">6</text>
+<text top="1115" left="149" width="185" height="11" font="4">&gt; dim(iccResult$informData)</text>
+<text top="1131" left="149" width="55" height="11" font="4">Features</text>
+<text top="1131" left="217" width="48" height="11" font="4">Samples</text>
+<text top="1147" left="176" width="27" height="11" font="4">1195</text>
+<text top="1147" left="259" width="7" height="11" font="4">6</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">175</text>
+<text top="103" left="149" width="595" height="13" font="4">Only 1195 of the 48701 bead types were declared informative using the maximum ICC at a cutoff of</text>
+<text top="120" left="149" width="595" height="13" font="4">50%. This may be due to the way the data was summarized and normalized. How the processing of</text>
+<text top="136" left="149" width="420" height="13" font="4">bead array data affects bead types filtering is a topic of future research.</text>
+<text top="157" left="171" width="573" height="13" font="4">For a data.frame, the beadtypeFilter function is illustrated using the Illumina spike-in data. Read</text>
+<text top="173" left="149" width="535" height="13" font="4">the data from the file location where the data had been downloaded, unzipped and saved.</text>
+<text top="198" left="149" width="494" height="11" font="4">&gt; filepath &lt;- &#34;C:/Multi_level_Illumina_feb2011/log2scale.normalized.txt&#34;</text>
+<text top="215" left="149" width="549" height="11" font="4">&gt; dt &lt;- read.delim(filepath, header = TRUE, as.is = TRUE, row.names = NULL)[,-1]</text>
+<text top="231" left="149" width="89" height="11" font="4">&gt; dt[1:6,1:5]</text>
+<text top="248" left="163" width="418" height="11" font="4">ProbeID X1377192001_A.AVG_Signal X1377192001_A.Detection.Pval</text>
+<text top="264" left="149" width="7" height="11" font="4">1</text>
+<text top="264" left="176" width="34" height="11" font="4">50014</text>
+<text top="264" left="327" width="55" height="11" font="4">6.150486</text>
+<text top="264" left="506" width="75" height="11" font="4">0.579207900</text>
+<text top="281" left="149" width="7" height="11" font="4">2</text>
+<text top="281" left="176" width="34" height="11" font="4">50017</text>
+<text top="281" left="327" width="55" height="11" font="4">6.616132</text>
+<text top="281" left="506" width="75" height="11" font="4">0.074257430</text>
+<text top="297" left="149" width="7" height="11" font="4">3</text>
+<text top="297" left="176" width="34" height="11" font="4">50019</text>
+<text top="297" left="327" width="55" height="11" font="4">8.164317</text>
+<text top="297" left="506" width="75" height="11" font="4">0.000000000</text>
+<text top="314" left="149" width="7" height="11" font="4">4</text>
+<text top="314" left="176" width="34" height="11" font="4">50020</text>
+<text top="314" left="327" width="55" height="11" font="4">7.414991</text>
+<text top="314" left="506" width="75" height="11" font="4">0.001856436</text>
+<text top="330" left="149" width="7" height="11" font="4">5</text>
+<text top="330" left="176" width="34" height="11" font="4">50022</text>
+<text top="330" left="327" width="55" height="11" font="4">5.804593</text>
+<text top="330" left="506" width="75" height="11" font="4">0.974628700</text>
+<text top="346" left="149" width="7" height="11" font="4">6</text>
+<text top="346" left="176" width="34" height="11" font="4">50025</text>
+<text top="346" left="327" width="55" height="11" font="4">6.412067</text>
+<text top="346" left="506" width="75" height="11" font="4">0.173267300</text>
+<text top="363" left="163" width="343" height="11" font="4">X1377192001_A.Avg_NBEADS X1377192001_A.BEAD_STDERR</text>
+<text top="379" left="149" width="7" height="11" font="4">1</text>
+<text top="379" left="313" width="14" height="11" font="4">27</text>
+<text top="379" left="437" width="69" height="11" font="4">0.09889349</text>
+<text top="396" left="149" width="7" height="11" font="4">2</text>
+<text top="396" left="313" width="14" height="11" font="4">40</text>
+<text top="396" left="437" width="69" height="11" font="4">0.05644992</text>
+<text top="412" left="149" width="7" height="11" font="4">3</text>
+<text top="412" left="313" width="14" height="11" font="4">25</text>
+<text top="412" left="437" width="69" height="11" font="4">0.06384269</text>
+<text top="429" left="149" width="7" height="11" font="4">4</text>
+<text top="429" left="313" width="14" height="11" font="4">27</text>
+<text top="429" left="437" width="69" height="11" font="4">0.07853792</text>
+<text top="445" left="149" width="7" height="11" font="4">5</text>
+<text top="445" left="313" width="14" height="11" font="4">38</text>
+<text top="445" left="437" width="69" height="11" font="4">0.08098911</text>
+<text top="462" left="149" width="7" height="11" font="4">6</text>
+<text top="462" left="313" width="14" height="11" font="4">28</text>
+<text top="462" left="437" width="69" height="11" font="4">0.08153830</text>
+<text top="485" left="149" width="595" height="13" font="4">Note, that the data.frame supplied to the beadtypeFilter function should contain the summarized</text>
+<text top="502" left="149" width="598" height="13" font="4">intensities (eSet), standard errors (seSet) and the number of beads used for the summarization (nSet).</text>
+<text top="518" left="148" width="596" height="13" font="4">When using a data frame, column names should be conform to BeadStudio output, i.e., the column</text>
+<text top="535" left="149" width="595" height="13" font="4">names for eSet should end on &#34;Signal&#34;, those for seSet on &#34;STDERR&#34; and the columns corresponding</text>
+<text top="551" left="149" width="595" height="13" font="4">to nSet should end on &#34;NBEADS&#34;. It is preferable to use an identification variable with a unique ID</text>
+<text top="568" left="149" width="595" height="13" font="4">for each bead type. In the spike-in data, the spikes all have the same TargetID, thus the ProbeID is</text>
+<text top="584" left="148" width="596" height="13" font="4">preferred. Similar to the ExpressionSetIllumina example, the beadtypeFilter function is used for</text>
+<text top="601" left="149" width="51" height="13" font="4">filtering.</text>
+<text top="626" left="149" width="549" height="11" font="4">&gt; iccResults &lt;- beadtypeFilter(dt, Quantile = 0.5, keepData = TRUE, delta = 0.5)</text>
+<text top="650" left="149" width="455" height="13" font="4">By specifying Quantile = 0.5, bead types are filtered using the median ICC.</text>
+<text top="675" left="149" width="240" height="11" font="4">&gt; head(iccResults$InformProbeNames)</text>
+<text top="691" left="149" width="21" height="11" font="4">[1]</text>
+<text top="691" left="183" width="34" height="11" font="4">50280</text>
+<text top="691" left="231" width="34" height="11" font="4">50440</text>
+<text top="691" left="279" width="178" height="11" font="4">70594 110138 110685 130402</text>
+<text top="708" left="149" width="62" height="11" font="4">&gt; dim(dt)</text>
+<text top="724" left="149" width="62" height="11" font="4">[1] 34687</text>
+<text top="724" left="231" width="21" height="11" font="4">193</text>
+<text top="740" left="149" width="192" height="11" font="4">&gt; dim(iccResults$informData)</text>
+<text top="757" left="149" width="75" height="11" font="4">[1] 238 193</text>
+<text top="781" left="149" width="595" height="13" font="4">238 of the 34687 bead types were declared informative based on thresholding the median ICC at a</text>
+<text top="797" left="149" width="595" height="13" font="4">cutoff of 50%. A large number of bead types have been filtered out. It should be noted that this is</text>
+<text top="814" left="148" width="596" height="13" font="4">probably due to the artificial nature of the spike-in data and we would expect lesser bead types to be</text>
+<text top="830" left="149" width="161" height="13" font="4">filtered out in real life data.</text>
+<text top="872" left="149" width="107" height="15" font="10"><b>iccFun function</b></text>
+<text top="903" left="148" width="597" height="13" font="4">The examples in this section show how the iccFun function can be used to process different data types,</text>
+<text top="919" left="149" width="309" height="13" font="4">observe its output and assess the filtering strategies.</text>
+<text top="961" left="149" width="173" height="15" font="10"><b>Processing data using the</b></text>
+<text top="961" left="326" width="46" height="13" font="11">iccFun</text>
+<text top="961" left="375" width="58" height="15" font="10"><b>function</b></text>
+<text top="992" left="169" width="162" height="13" font="4">1. <b>Processing a data.frame</b></text>
+<text top="1016" left="186" width="494" height="11" font="4">&gt; filepath &lt;- &#34;C:/Multi_level_Illumina_feb2011/log2scale.normalized.txt&#34;</text>
+<text top="1032" left="186" width="549" height="11" font="4">&gt; dt &lt;- read.delim(filepath, header = TRUE, as.is = TRUE, row.names = NULL)[,-1]</text>
+<text top="1049" left="186" width="281" height="11" font="4">&gt; eSet &lt;- dt[, grep(&#34;Signal&#34;, names(dt))]</text>
+<text top="1065" left="186" width="288" height="11" font="4">&gt; seSet &lt;- dt[, grep(&#34;STDERR&#34;, names(dt))]</text>
+<text top="1082" left="186" width="281" height="11" font="4">&gt; nSet &lt;- dt[, grep(&#34;NBEADS&#34;, names(dt))]</text>
+<text top="1098" left="186" width="137" height="11" font="4">&gt; ProbeID &lt;- dt[, 2]</text>
+<text top="1115" left="186" width="412" height="11" font="4">&gt; iccResults &lt;- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,</text>
+<text top="1131" left="344" width="281" height="11" font="4">iccQuant = c(0, 0.25, 0.5, 0.75, 0.8, 1),</text>
+<text top="1147" left="344" width="219" height="11" font="4">diffIcc = TRUE, keepData = TRUE)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">176</text>
+<text top="103" left="169" width="205" height="13" font="4">2. <b>Processing a LumiBatch object</b></text>
+<text top="128" left="186" width="528" height="11" font="4">&gt; setwd(&#34;C:/Multi_level_Illumina_feb2011/RPackageFinal/beadstudiooutputData&#34;)</text>
+<text top="145" left="186" width="453" height="11" font="4"># Read in the data using \code{lumiR} to obtain a LumiBatch object</text>
+<text top="161" left="186" width="322" height="11" font="4">&gt; x.lumi &lt;- lumiR(&#34;AsuragenMAQC-probe-raw.txt&#34;)</text>
+<text top="177" left="186" width="219" height="11" font="4">&gt; lumi.N &lt;- lumiN(x.lumi, &#34;rsn&#34;)</text>
+<text top="194" left="186" width="158" height="11" font="4">&gt; eSet &lt;- exprs(lumi.N)</text>
+<text top="210" left="186" width="185" height="11" font="4">&gt; seSet &lt;- se.exprs(lumi.N)</text>
+<text top="227" left="186" width="171" height="11" font="4">&gt; nSet &lt;- beadNum(lumi.N)</text>
+<text top="243" left="186" width="192" height="11" font="4">&gt; group &lt;- c(1:dim(eSet)[2])</text>
+<text top="260" left="186" width="226" height="11" font="4">&gt; ProbeID = fData(lumi.N)$ProbeID</text>
+<text top="276" left="186" width="412" height="11" font="4">&gt; iccResults &lt;- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,</text>
+<text top="292" left="186" width="7" height="11" font="4">+</text>
+<text top="292" left="351" width="206" height="11" font="4">iccQuant = c(0, 0.25, 0.5, 1),</text>
+<text top="309" left="186" width="7" height="11" font="4">+</text>
+<text top="309" left="351" width="219" height="11" font="4">diffIcc = TRUE, keepData = TRUE)</text>
+<text top="333" left="169" width="286" height="13" font="4">3. <b>Processing an ExpressionSetIllumina object</b></text>
+<text top="358" left="186" width="185" height="11" font="4">&gt; exampleSummaryDataNorm &lt;-</text>
+<text top="374" left="186" width="7" height="11" font="4">+</text>
+<text top="374" left="234" width="350" height="11" font="4">normaliseIllumina(channel(exampleSummaryData, &#34;G&#34;),</text>
+<text top="391" left="186" width="7" height="11" font="4">+</text>
+<text top="391" left="358" width="274" height="11" font="4">method = &#34;quantile&#34;, transform = &#34;none&#34;)</text>
+<text top="407" left="186" width="55" height="11" font="4">&gt; aaa &lt;-</text>
+<text top="423" left="186" width="7" height="11" font="4">+</text>
+<text top="423" left="234" width="425" height="11" font="4">na.omit(data.frame(I(rownames(exprs(exampleSummaryDataNorm))),</text>
+<text top="440" left="186" width="7" height="11" font="4">+</text>
+<text top="440" left="365" width="213" height="11" font="4">exprs(exampleSummaryDataNorm)))</text>
+<text top="456" left="186" width="144" height="11" font="4">&gt; ProbeID &lt;- aaa[, 1]</text>
+<text top="473" left="186" width="329" height="11" font="4">&gt; eSet &lt;- na.omit(exprs(exampleSummaryDataNorm))</text>
+<text top="489" left="186" width="364" height="11" font="4">&gt; stddev &lt;- na.omit(se.exprs(exampleSummaryDataNorm))</text>
+<text top="506" left="186" width="528" height="11" font="4">&gt; nSet &lt;- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)</text>
+<text top="522" left="186" width="192" height="11" font="4">&gt; seSet &lt;- stddev/sqrt(nSet)</text>
+<text top="539" left="186" width="412" height="11" font="4">&gt; iccResults &lt;- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,</text>
+<text top="555" left="186" width="7" height="11" font="4">+</text>
+<text top="555" left="344" width="206" height="11" font="4">iccQuant = c(0, 0.25, 0.5, 1))</text>
+<text top="596" left="149" width="119" height="15" font="10"><b>The output of the</b></text>
+<text top="597" left="272" width="46" height="13" font="11">iccFun</text>
+<text top="596" left="321" width="58" height="15" font="10"><b>function</b></text>
+<text top="628" left="149" width="595" height="13" font="4">In this subsection, we illustrate how the output of the iccFun function can be observed. Note that we</text>
+<text top="644" left="149" width="544" height="13" font="4">display the results for exampleSummaryData, the output for the spike-in data can be found in</text>
+<text top="644" left="696" width="48" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">Forcheh</a></text>
+<text top="661" left="149" width="28" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">et al.</a></text>
+<text top="661" left="180" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">(</a></text>
+<text top="661" left="185" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2012</a></text>
+<text top="661" left="212" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">).</a></text>
+<text top="687" left="149" width="199" height="11" font="4">&gt; head(iccResults$betweenvar)</text>
+<text top="704" left="190" width="48" height="11" font="4">ProbeID</text>
+<text top="704" left="265" width="62" height="11" font="4">fit1.tau2</text>
+<text top="720" left="149" width="185" height="11" font="4">1 ILMN_1802380 1.3154886475</text>
+<text top="737" left="149" width="185" height="11" font="4">2 ILMN_1893287 0.0202718744</text>
+<text top="753" left="149" width="185" height="11" font="4">3 ILMN_1736104 0.7883136626</text>
+<text top="769" left="149" width="185" height="11" font="4">4 ILMN_1792389 0.5374776179</text>
+<text top="786" left="149" width="185" height="11" font="4">5 ILMN_1854015 0.0000000000</text>
+<text top="802" left="149" width="185" height="11" font="4">6 ILMN_1904757 0.0004272419</text>
+<text top="835" left="149" width="219" height="11" font="4">&gt; iccResults$withinvar[1:6, 1:6]</text>
+<text top="852" left="238" width="48" height="11" font="4">ProbeID</text>
+<text top="852" left="327" width="405" height="11" font="4">sigma2.4613710017_B sigma2.4613710052_B sigma2.4613710054_B</text>
+<text top="868" left="149" width="171" height="11" font="4">ILMN_1802380 ILMN_1802380</text>
+<text top="868" left="389" width="69" height="11" font="4">0.08024396</text>
+<text top="868" left="533" width="62" height="11" font="4">0.1133679</text>
+<text top="868" left="663" width="69" height="11" font="4">0.07562057</text>
+<text top="884" left="149" width="171" height="11" font="4">ILMN_1893287 ILMN_1893287</text>
+<text top="884" left="389" width="69" height="11" font="4">0.15510050</text>
+<text top="884" left="533" width="62" height="11" font="4">0.1495736</text>
+<text top="884" left="663" width="69" height="11" font="4">0.31645854</text>
+<text top="901" left="149" width="171" height="11" font="4">ILMN_1736104 ILMN_1736104</text>
+<text top="901" left="389" width="69" height="11" font="4">0.22109680</text>
+<text top="901" left="533" width="62" height="11" font="4">0.2449570</text>
+<text top="901" left="663" width="69" height="11" font="4">0.16237022</text>
+<text top="917" left="149" width="171" height="11" font="4">ILMN_1792389 ILMN_1792389</text>
+<text top="917" left="389" width="69" height="11" font="4">0.16305881</text>
+<text top="917" left="533" width="62" height="11" font="4">0.2232660</text>
+<text top="917" left="663" width="69" height="11" font="4">0.25316536</text>
+<text top="934" left="149" width="171" height="11" font="4">ILMN_1854015 ILMN_1854015</text>
+<text top="934" left="389" width="69" height="11" font="4">0.31302729</text>
+<text top="934" left="533" width="62" height="11" font="4">0.1367953</text>
+<text top="934" left="663" width="69" height="11" font="4">0.29684239</text>
+<text top="950" left="149" width="171" height="11" font="4">ILMN_1904757 ILMN_1904757</text>
+<text top="950" left="389" width="69" height="11" font="4">0.11065525</text>
+<text top="950" left="533" width="62" height="11" font="4">0.2427457</text>
+<text top="950" left="663" width="69" height="11" font="4">0.35319329</text>
+<text top="967" left="238" width="268" height="11" font="4">sigma2.4616443079_B sigma2.4616443093_B</text>
+<text top="983" left="149" width="82" height="11" font="4">ILMN_1802380</text>
+<text top="983" left="307" width="62" height="11" font="4">0.1715118</text>
+<text top="983" left="444" width="62" height="11" font="4">0.1282700</text>
+<text top="1000" left="149" width="82" height="11" font="4">ILMN_1893287</text>
+<text top="1000" left="307" width="62" height="11" font="4">0.4629203</text>
+<text top="1000" left="444" width="62" height="11" font="4">0.1956166</text>
+<text top="1016" left="149" width="82" height="11" font="4">ILMN_1736104</text>
+<text top="1016" left="307" width="62" height="11" font="4">0.2781976</text>
+<text top="1016" left="444" width="62" height="11" font="4">0.2364219</text>
+<text top="1032" left="149" width="82" height="11" font="4">ILMN_1792389</text>
+<text top="1032" left="307" width="62" height="11" font="4">0.1187983</text>
+<text top="1032" left="444" width="62" height="11" font="4">0.1560972</text>
+<text top="1049" left="149" width="82" height="11" font="4">ILMN_1854015</text>
+<text top="1049" left="307" width="62" height="11" font="4">0.2776505</text>
+<text top="1049" left="444" width="62" height="11" font="4">0.4338320</text>
+<text top="1065" left="149" width="82" height="11" font="4">ILMN_1904757</text>
+<text top="1065" left="307" width="62" height="11" font="4">0.2621982</text>
+<text top="1065" left="444" width="62" height="11" font="4">0.4215812</text>
+<text top="1098" left="149" width="171" height="11" font="4">&gt; head(iccResults$iccAll)</text>
+<text top="1115" left="231" width="27" height="11" font="4">[,1]</text>
+<text top="1115" left="313" width="27" height="11" font="4">[,2]</text>
+<text top="1115" left="396" width="27" height="11" font="4">[,3]</text>
+<text top="1115" left="478" width="27" height="11" font="4">[,4]</text>
+<text top="1115" left="560" width="27" height="11" font="4">[,5]</text>
+<text top="1115" left="643" width="27" height="11" font="4">[,6]</text>
+<text top="1131" left="149" width="521" height="11" font="4">[1,] 0.942507641 0.920658321 0.945640089 0.884659197 0.911155532 0.945550561</text>
+<text top="1147" left="149" width="521" height="11" font="4">[2,] 0.115593318 0.119354803 0.060202088 0.041954058 0.093899753 0.076838800</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">177</text>
+<text top="104" left="149" width="521" height="11" font="4">[3,] 0.780964425 0.762930437 0.829206926 0.739151757 0.769284994 0.672257600</text>
+<text top="120" left="149" width="521" height="11" font="4">[4,] 0.767237213 0.706516107 0.679798133 0.818981163 0.774938161 0.794058983</text>
+<text top="137" left="149" width="521" height="11" font="4">[5,] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</text>
+<text top="153" left="149" width="521" height="11" font="4">[6,] 0.003846168 0.001756947 0.001208193 0.001626811 0.001012401 0.003354805</text>
+<text top="169" left="231" width="27" height="11" font="4">[,7]</text>
+<text top="169" left="320" width="27" height="11" font="4">[,8]</text>
+<text top="169" left="403" width="27" height="11" font="4">[,9]</text>
+<text top="169" left="478" width="34" height="11" font="4">[,10]</text>
+<text top="169" left="560" width="34" height="11" font="4">[,11]</text>
+<text top="169" left="650" width="34" height="11" font="4">[,12]</text>
+<text top="186" left="149" width="535" height="11" font="4">[1,] 0.813348960 0.2851197747 0.924933768 0.921820518 0.953747680 0.9672588084</text>
+<text top="202" left="149" width="535" height="11" font="4">[2,] 0.146496212 0.0086476707 0.079882094 0.046679979 0.083112294 0.0577318494</text>
+<text top="219" left="149" width="535" height="11" font="4">[3,] 0.862368982 0.4039671466 0.788168517 0.745235220 0.651296881 0.5468796285</text>
+<text top="235" left="149" width="535" height="11" font="4">[4,] 0.795226413 0.2446849630 0.818919242 0.889560842 0.859993713 0.7440351650</text>
+<text top="252" left="149" width="535" height="11" font="4">[5,] 0.000000000 0.0000000000 0.000000000 0.000000000 0.000000000 0.0000000000</text>
+<text top="268" left="149" width="535" height="11" font="4">[6,] 0.002726754 0.0005326228 0.001815729 0.005423024 0.002744552 0.0009235276</text>
+<text top="285" left="149" width="151" height="11" font="4">&gt; head(iccResults$icc)</text>
+<text top="301" left="156" width="48" height="11" font="4">ProbeID</text>
+<text top="301" left="279" width="14" height="11" font="4">q0</text>
+<text top="301" left="341" width="34" height="11" font="4">q0.25</text>
+<text top="301" left="430" width="27" height="11" font="4">q0.5</text>
+<text top="301" left="526" width="14" height="11" font="4">q1</text>
+<text top="317" left="149" width="432" height="11" font="4">1 ILMN_1802380 0.2851197747 0.904531448 0.923377143 0.967258808</text>
+<text top="334" left="149" width="432" height="11" font="4">2 ILMN_1893287 0.0086476707 0.054968882 0.078360447 0.146496212</text>
+<text top="350" left="149" width="432" height="11" font="4">3 ILMN_1736104 0.4039671466 0.667017420 0.754082829 0.862368982</text>
+<text top="367" left="149" width="432" height="11" font="4">4 ILMN_1792389 0.2446849630 0.734655400 0.784498572 0.889560842</text>
+<text top="383" left="149" width="432" height="11" font="4">5 ILMN_1854015 0.0000000000 0.000000000 0.000000000 0.000000000</text>
+<text top="400" left="149" width="432" height="11" font="4">6 ILMN_1904757 0.0005326228 0.001159245 0.001786338 0.005423024</text>
+<text top="426" left="149" width="595" height="13" font="4">If desired, the iccResults$icc output from the iccFun function can be used for filtering and assessing</text>
+<text top="442" left="149" width="187" height="13" font="4">the different filtering strategies.</text>
+<text top="473" left="149" width="597" height="11" font="4"># Obtaining the number of informative bead types at each of the specified ICC quantiles</text>
+<text top="489" left="149" width="556" height="11" font="4">&gt; apply(iccResults$icc[, -1], 2, function(x, thres) sum(x &gt;= thres), thres = 0.5)</text>
+<text top="506" left="149" width="55" height="11" font="4">q0 q0.25</text>
+<text top="506" left="217" width="27" height="11" font="4">q0.5</text>
+<text top="506" left="272" width="14" height="11" font="4">q1</text>
+<text top="522" left="156" width="151" height="11" font="4">4699 15784 17757 23419</text>
+<text top="539" left="149" width="412" height="11" font="4"># Obtaining the informative bead types using the minimum ICC</text>
+<text top="555" left="149" width="446" height="11" font="4">&gt; filterDataNorm &lt;- exampleSummaryDataNorm[subset(iccResults$icc,</text>
+<text top="571" left="149" width="7" height="11" font="4">+</text>
+<text top="571" left="492" width="240" height="11" font="4">iccResults$icc[, 2] &gt;= 0.5)[, 1], ]</text>
+<text top="588" left="149" width="7" height="11" font="4">&gt;</text>
+<text top="588" left="169" width="130" height="11" font="4">dim(filterDataNorm)</text>
+<text top="604" left="149" width="55" height="11" font="4">Features</text>
+<text top="604" left="217" width="110" height="11" font="4">Samples Channels</text>
+<text top="621" left="176" width="27" height="11" font="4">4699</text>
+<text top="621" left="252" width="14" height="11" font="4">12</text>
+<text top="621" left="320" width="7" height="11" font="4">1</text>
+<text top="663" left="149" width="220" height="15" font="10"><b>Assessing the filtering strategies</b></text>
+<text top="694" left="148" width="267" height="13" font="4">This is done using the emCDF function (Figure</text>
+<text top="694" left="423" width="7" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#8">1</a></text>
+<text top="694" left="429" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#8">).</a></text>
+<text top="722" left="149" width="343" height="11" font="4">&gt; emCDF(iccResults, iccQuant = c(0, 0.25, 0.5, 1))</text>
+<text top="748" left="171" width="573" height="13" font="4">Further, the within- and between-array variances at the minimum ICC can be observed using the</text>
+<text top="765" left="148" width="82" height="11" font="4">varianceplot</text>
+<text top="764" left="234" width="96" height="13" font="4">function (Figure</text>
+<text top="764" left="337" width="7" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">2</a></text>
+<text top="764" left="344" width="8" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">).</a></text>
+<text top="792" left="149" width="316" height="11" font="4">&gt; varianceplot(iccResults, q = 1, delta = 0.8)</text>
+<text top="818" left="171" width="573" height="13" font="4">By specifying q = 1 and delta = 0.8, the informative beads (displayed in red) are obtained using</text>
+<text top="835" left="149" width="217" height="13" font="4">the minimum ICC at a cutoff of 80%.</text>
+<text top="877" left="149" width="236" height="15" font="10"><b>Analysis of differential expression</b></text>
+<text top="908" left="149" width="595" height="13" font="4">Once the data have been filtered, they can be used for downstream analysis. Here, we assess differential</text>
+<text top="925" left="149" width="595" height="13" font="4">expression using a filtered data.frame. For the example 608 bead types were declared informative based</text>
+<text top="941" left="149" width="596" height="13" font="4">on the maximum ICC. We refer to the help file of the MLM.beadarray function in the <b>beadarrayFilter</b></text>
+<text top="958" left="148" width="348" height="13" font="4">package for an example on a ExpressionSetIllumina object.</text>
+<text top="988" left="149" width="535" height="11" font="4">&gt; iccResults &lt;- beadtypeFilter(dt, Quantile = 1, keepData = TRUE, delta = 0.5)</text>
+<text top="1005" left="149" width="192" height="11" font="4">&gt; dim(iccResults$informData)</text>
+<text top="1021" left="149" width="206" height="11" font="4">&gt; dat &lt;- iccResults$informData</text>
+<text top="1038" left="149" width="295" height="11" font="4">&gt; eSet &lt;- dat[, grep(&#34;Signal&#34;, names(dat))]</text>
+<text top="1054" left="149" width="302" height="11" font="4">&gt; seSet &lt;- dat[, grep(&#34;STDERR&#34;, names(dat))]</text>
+<text top="1070" left="149" width="295" height="11" font="4">&gt; nSet &lt;- dat[, grep(&#34;NBEADS&#34;, names(dat))]</text>
+<text top="1100" left="171" width="573" height="13" font="4">We define the group variable to compare concentrations 0.3 and 0.1 pM in the spike-in data. This</text>
+<text top="1116" left="149" width="598" height="13" font="4">is done by selecting the column numbers of the arrays corresponding to the concentrations of interest.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">178</text>
+<text top="619" left="177" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="619" left="235" width="477" height="13" font="4">The empirical cumulative density function of the ICCs at the specified quantiles.</text>
+<text top="669" left="149" width="199" height="11" font="4">&gt; group1 &lt;- c(26, 32, 38, 44)</text>
+<text top="685" left="149" width="199" height="11" font="4">&gt; group2 &lt;- c(27, 33, 39, 45)</text>
+<text top="702" left="149" width="439" height="11" font="4">&gt; fit1 &lt;- MLM.beadarray(eSet, seSet, nSet, list(group1, group2),</text>
+<text top="718" left="149" width="7" height="11" font="4">+</text>
+<text top="718" left="313" width="357" height="11" font="4">var.equal = TRUE, max.iteration = 20, method = &#34;ML&#34;)</text>
+<text top="748" left="148" width="596" height="13" font="4">The output of the MLM.beadarray function can then be used to test for equality of mean expression</text>
+<text top="764" left="149" width="189" height="13" font="4">between the two concentrations</text>
+<text top="792" left="149" width="295" height="11" font="4">&gt; df &lt;- length(group1) + length(group2) - 2</text>
+<text top="808" left="149" width="377" height="11" font="4">&gt; fit1$pvalue &lt;- 2 * (1-pt(abs(fit1$t.statistics), df))</text>
+<text top="824" left="149" width="569" height="11" font="4">&gt; fit1$pvalAdjust &lt;- p.adjust(fit1$pvalue, method = &#34;fdr&#34;, n = length(fit1$pvalue))</text>
+<text top="841" left="149" width="268" height="11" font="4">&gt; length(which(fit1$pvalAdjust &lt; 0.05))</text>
+<text top="857" left="149" width="41" height="11" font="4">[1] 29</text>
+<text top="884" left="149" width="598" height="13" font="4">i.e., 29 bead types were found to be differentially expressed between concentrations 0.3 and 0.1 pM.</text>
+<text top="900" left="149" width="365" height="13" font="4">Note that 22 of these 29 bead types are true positives (spikes).</text>
+<text top="945" left="149" width="91" height="17" font="5"><b>Discussion</b></text>
+<text top="984" left="148" width="596" height="13" font="4">The <b>beadarrayFilter </b>package can be used to filter Illumina bead array data. The beadtypeFilter</text>
+<text top="1000" left="149" width="595" height="13" font="4">function can filter normalized ExpressionSetIllumina objects, normalized LumiBatch objects as well as</text>
+<text top="1017" left="149" width="595" height="13" font="4">normalized data.frames and returns the names of the informative bead types. Optionally, the user can</text>
+<text top="1033" left="149" width="595" height="13" font="4">also obtain the filtered data. This, however, does not return the required outputs to assess different</text>
+<text top="1049" left="149" width="595" height="13" font="4">filtering strategies nor the variances using the emCDF or the varianceplot functions, respectively. The</text>
+<text top="1066" left="149" width="41" height="11" font="4">iccFun</text>
+<text top="1066" left="195" width="550" height="13" font="4">function can be used to customize filtering strategies. It returns the required outputs for</text>
+<text top="1082" left="149" width="494" height="13" font="4">assessing different filtering strategies and the between- and within-array variances.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="12" family="Times" color="#0000ff"/>
+	<fontspec id="15" size="12" family="Times" color="#ff0000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">179</text>
+<text top="568" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="568" left="206" width="538" height="13" font="4">Variance of random intercept versus variance of measurement error. Bead types are declared</text>
+<text top="585" left="149" width="595" height="13" font="4">informative based on thresholding the minimum ICC at a cutoff point of 80%: noninformative bead</text>
+<text top="601" left="149" width="40" height="13" font="4">types (</text>
+<text top="600" left="189" width="7" height="16" font="14">◦</text>
+<text top="601" left="196" width="5" height="12" font="0">)</text>
+<text top="601" left="205" width="171" height="13" font="4">and informative bead types (</text>
+<text top="600" left="377" width="12" height="16" font="15">4</text>
+<text top="601" left="390" width="5" height="12" font="0">)</text>
+<text top="601" left="395" width="3" height="13" font="4">.</text>
+<text top="648" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="687" left="148" width="596" height="13" font="4">We acknowledge the support from IAP research network grant nr. P6/03 of the Belgian government</text>
+<text top="703" left="148" width="596" height="13" font="4">(Belgian Science Policy), SymBioSys, the Katholieke Universiteit Leuven center of Excellence on</text>
+<text top="719" left="149" width="595" height="13" font="4">Computational Systems Biology, (EF/05/007), and Bioframe of the institute for the Promotion of</text>
+<text top="736" left="149" width="531" height="13" font="4">Innovation by Science and technology in Flanders (IWT: 060045/KUL-BIO-M$S-PLANT).</text>
+<text top="757" left="171" width="133" height="13" font="4">We are also grateful to</text>
+<text top="757" left="307" width="75" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">Kim and Lin</a></text>
+<text top="757" left="386" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">(</a></text>
+<text top="757" left="390" width="27" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">2011</a></text>
+<text top="757" left="417" width="302" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#10">) </a>for making the MLM.beadarray function available.</text>
+<text top="802" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="840" left="149" width="595" height="13" font="4">S. Calza, W. Raffelsberger, A. Ploner, J. Sahel, T. Leveillard, and Y. Pawitan. Filtering genes to improve</text>
+<text top="857" left="164" width="554" height="13" font="4">sensitivity in oligonucleotide microarray data analysis. Nucleic Acids Research, 35(16), 2007. <a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="857" left="718" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="857" left="738" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">]</a></text>
+<text top="885" left="149" width="595" height="13" font="4">M. Dunning, N. B. Morais, A. Lynch, S. Tavaré, and M. Ritchie. Statistical issues in the analysis of</text>
+<text top="902" left="164" width="583" height="13" font="4">Illumina data. BMC Bioinformatics, 9(1):85+, 2008. ISSN 1471-2105. doi: 10.1186/1471-2105-9-85.</text>
+<text top="918" left="164" width="28" height="13" font="4">URL</text>
+<text top="919" left="195" width="277" height="11" font="6"><a href="http://dx.doi.org/10.1186/1471-2105-9-85">http://dx.doi.org/10.1186/1471-2105-9-85</a></text>
+<text top="918" left="471" width="21" height="13" font="4"><a href="http://dx.doi.org/10.1186/1471-2105-9-85">. </a><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">[p</a></text>
+<text top="918" left="492" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">173</a></text>
+<text top="918" left="512" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">]</a></text>
+<text top="947" left="149" width="596" height="13" font="4">M. J. Dunning, M. L. Smith, M. E. Ritchie, and S. Tavaré. beadarray: R classes and methods for</text>
+<text top="963" left="164" width="583" height="13" font="4">Illumina bead-based data. Bioinformatics, 23(16):2183–2184, Aug. 2007. ISSN 1367-4811. doi: 10.</text>
+<text top="979" left="163" width="212" height="13" font="4">1093/bioinformatics/btm311. URL</text>
+<text top="980" left="379" width="322" height="11" font="6"><a href="http://dx.doi.org/10.1093/bioinformatics/btm311">http://dx.doi.org/10.1093/bioinformatics/btm311</a></text>
+<text top="979" left="701" width="21" height="13" font="4"><a href="http://dx.doi.org/10.1093/bioinformatics/btm311">. </a><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="979" left="722" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="979" left="742" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">,</a></text>
+<text top="996" left="163" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">173</a></text>
+<text top="996" left="183" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">]</a></text>
+<text top="1024" left="149" width="598" height="13" font="4">A. C. Forcheh, G. Verbeke, A. Kasim, D. Lin, Z. Shkedy, W. Talloen, H. W. Göhlmann, and L. Clement.</text>
+<text top="1041" left="164" width="580" height="13" font="4">Gene filtering in the analysis of Illumina microarray experiments. Journal of Statistical Applications in</text>
+<text top="1057" left="163" width="264" height="14" font="4">Genetics and Molecular Biology, 11(1), 2012. <a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="1057" left="427" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="1057" left="447" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">,</a></text>
+<text top="1057" left="454" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">172</a></text>
+<text top="1057" left="474" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">,</a></text>
+<text top="1057" left="481" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">173</a></text>
+<text top="1057" left="501" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">,</a></text>
+<text top="1057" left="508" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#6">176</a></text>
+<text top="1057" left="528" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#6">]</a></text>
+<text top="1086" left="149" width="597" height="13" font="4">A. Kasim, D. Lin, S. Van Sanden, D.-A. Clevert, L. Bijnens, H. Göhlmann, D. Amaratunga, S. Hochreiter,</text>
+<text top="1102" left="164" width="580" height="13" font="4">Z. Shkedy, and W. Talloen. Informative or noninformative calls for gene expression: a latent variable</text>
+<text top="1118" left="164" width="582" height="13" font="4">approach. Statistical applications in genetics and molecular biology, 9(1), Jan. 2010. ISSN 1544-6115. doi:</text>
+<text top="1135" left="163" width="177" height="13" font="4">10.2202/1544-6115.1460. URL</text>
+<text top="1135" left="343" width="275" height="11" font="6"><a href="http://dx.doi.org/10.2202/1544-6115.1460">http://dx.doi.org/10.2202/1544-6115.1460</a></text>
+<text top="1135" left="619" width="21" height="13" font="4"><a href="http://dx.doi.org/10.2202/1544-6115.1460">. </a><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="1135" left="639" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="1135" left="660" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">,</a></text>
+<text top="1135" left="666" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">172</a></text>
+<text top="1135" left="686" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">]</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">180</text>
+<text top="103" left="149" width="597" height="13" font="4">R. S. Kim and J. Lin. Multi-level mixed effects models for bead arrays. Bioinformatics, 27:633–640,</text>
+<text top="120" left="164" width="546" height="13" font="4">March 2011. ISSN 1367-4803. doi: http://dx.doi.org/10.1093/bioinformatics/btq708. URL</text>
+<text top="120" left="713" width="34" height="11" font="6"><a href="http://dx.doi.org/10.1093/bioinformatics/btq708">http:</a></text>
+<text top="137" left="163" width="288" height="11" font="6"><a href="http://dx.doi.org/10.1093/bioinformatics/btq708">//dx.doi.org/10.1093/bioinformatics/btq708</a></text>
+<text top="136" left="451" width="21" height="13" font="4"><a href="http://dx.doi.org/10.1093/bioinformatics/btq708">. </a><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">[p</a></text>
+<text top="136" left="472" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">172</a></text>
+<text top="136" left="492" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">,</a></text>
+<text top="136" left="499" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">173</a></text>
+<text top="136" left="519" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#3">,</a></text>
+<text top="136" left="526" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">179</a></text>
+<text top="136" left="546" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#9">]</a></text>
+<text top="164" left="149" width="598" height="13" font="4">W. Talloen, D.-A. Clevert, S. Hochreiter, D. Amaratunga, L. Bijnens, S. Kass, and H. W. H. Göhlmann.</text>
+<text top="181" left="164" width="581" height="13" font="4">I/NI-calls for the exclusion of non-informative genes: a highly effective filtering tool for microarray</text>
+<text top="197" left="164" width="581" height="13" font="4">data. Bioinformatics, 23(21):btm478–2902, Oct. 2007. doi: 10.1093/bioinformatics/btm478. URL</text>
+<text top="214" left="164" width="322" height="11" font="6"><a href="http://dx.doi.org/10.1093/bioinformatics/btm478">http://dx.doi.org/10.1093/bioinformatics/btm478</a></text>
+<text top="214" left="486" width="21" height="13" font="4"><a href="http://dx.doi.org/10.1093/bioinformatics/btm478">. </a><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="214" left="507" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="214" left="527" width="3" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">,</a></text>
+<text top="214" left="534" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">172</a></text>
+<text top="214" left="554" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#2">]</a></text>
+<text top="242" left="149" width="598" height="13" font="4">G. Verbeke and G. Molenberghs. Linear mixed models for longitudinal data. Springer Series in Statistics.</text>
+<text top="259" left="164" width="216" height="13" font="4">Springer-Verlag, New-York, 2000. <a href="2013-1-forcheh-verbeke-kasim-etal.html#1">[p</a></text>
+<text top="259" left="380" width="20" height="13" font="6"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">171</a></text>
+<text top="259" left="400" width="4" height="13" font="4"><a href="2013-1-forcheh-verbeke-kasim-etal.html#1">]</a></text>
+<text top="305" left="148" width="151" height="13" font="4">Anyiawung Chiara Forcheh</text>
+<text top="321" left="149" width="598" height="13" font="4">Interuniversity Institute for Biostatistics and statistical Bioinformatics, Katholieke Universiteit Leuven, Kapuci-</text>
+<text top="338" left="149" width="305" height="13" font="4">jnenvoer 35, Blok D, bus 7001, B3000 Leuven, Belgium,</text>
+<text top="354" left="149" width="136" height="13" font="4">and Universiteit Hasselt,</text>
+<text top="371" left="148" width="46" height="13" font="4">Belgium</text>
+<text top="388" left="149" width="117" height="11" font="6"><a href="mailto:forcheh@yahoo.com">forcheh@yahoo.com</a></text>
+<text top="424" left="148" width="187" height="13" font="4">Geert Verbeke and Lieven Clement</text>
+<text top="441" left="149" width="562" height="13" font="4">Interuniversity Institute for Biostatistics and statistical Bioinformatics, Katholieke Universiteit Leuven,</text>
+<text top="457" left="148" width="291" height="13" font="4">Kapucijnenvoer 35, Blok D, bus 7001, B3000 Leuven,</text>
+<text top="474" left="148" width="249" height="14" font="4">Belgium and Universiteit Hasselt, Belgium</text>
+<text top="491" left="149" width="199" height="11" font="6"><a href="mailto:Geert.Verbeke@med.kuleuven.be \ lieven.clement@med.kuleuven.be">Geert.Verbeke@med.kuleuven.be</a></text>
+<text top="507" left="149" width="206" height="11" font="6"><a href="mailto:Geert.Verbeke@med.kuleuven.be \ lieven.clement@med.kuleuven.be">lieven.clement@med.kuleuven.be</a></text>
+<text top="544" left="148" width="135" height="13" font="4">Dan Lin and Ziv Shkedy</text>
+<text top="560" left="149" width="503" height="13" font="4">Interuniversity Institute for Biostatistics and statistical Bioinformatics, Universiteit Hasselt,</text>
+<text top="577" left="148" width="428" height="13" font="4">Agoralaan 1, B3590 Diepenbeek, Belgium, and Katholieke Universiteit Leuven,</text>
+<text top="593" left="148" width="46" height="13" font="4">Belgium</text>
+<text top="610" left="149" width="130" height="11" font="6"><a href="mailto:dan.lin2@pfizer.com \ ziv.shkedy@uhasselt.be ">dan.lin2@pfizer.com</a></text>
+<text top="627" left="149" width="151" height="11" font="6"><a href="mailto:dan.lin2@pfizer.com \ ziv.shkedy@uhasselt.be ">ziv.shkedy@uhasselt.be</a></text>
+<text top="663" left="148" width="83" height="13" font="4">Adetayo Kasim</text>
+<text top="680" left="148" width="264" height="13" font="4">Wolfson Research Institute, Durham University,</text>
+<text top="696" left="148" width="279" height="13" font="4">Queen’s Campus, University Boulevard, Thornaby,</text>
+<text top="713" left="148" width="252" height="13" font="4">Stockton-on-Tees,TS17 6BH, United Kingdom</text>
+<text top="730" left="149" width="151" height="11" font="6"><a href="mailto:a.s.kasim@durham.ac.uk">a.s.kasim@durham.ac.uk</a></text>
+<text top="767" left="148" width="245" height="13" font="4">Willem Talloen and Hinrich W.H. Göhlmann</text>
+<text top="783" left="149" width="157" height="13" font="4">Janssen Pharmaceutica N.V.,</text>
+<text top="799" left="148" width="87" height="13" font="4">Beerse, Belgium</text>
+<text top="817" left="148" width="137" height="11" font="6"><a href="mailto:wtalloen@its.jnj.com \ hinrich@goehlmann.info">wtalloen@its.jnj.com</a></text>
+<text top="833" left="149" width="151" height="11" font="6"><a href="mailto:wtalloen@its.jnj.com \ hinrich@goehlmann.info">hinrich@goehlmann.info</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

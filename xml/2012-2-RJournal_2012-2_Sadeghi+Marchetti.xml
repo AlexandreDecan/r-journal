@@ -1,0 +1,1575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="13" family="Times" color="#000000"/>
+	<fontspec id="7" size="12" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#00004c"/>
+	<fontspec id="9" size="8" family="Times" color="#00008b"/>
+	<fontspec id="10" size="12" family="Times" color="#00004c"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">65</text>
+<text top="121" left="82" width="657" height="36" font="2"><b>Graphical Markov Models with Mixed</b></text>
+<text top="166" left="82" width="207" height="36" font="2"><b>Graphs in R</b></text>
+<text top="218" left="82" width="287" height="15" font="0">by Kayvan Sadeghi and Giovanni M. Marchetti</text>
+<text top="252" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="252" left="166" width="249" height="15" font="0">In this paper we provide a short tuto-</text>
+<text top="270" left="96" width="319" height="15" font="0">rial illustrating the new functions in the package</text>
+<text top="288" left="96" width="30" height="15" font="3"><b>ggm</b></text>
+<text top="288" left="130" width="285" height="15" font="0">that deal with ancestral, summary and rib-</text>
+<text top="306" left="96" width="319" height="15" font="0">bonless graphs. These are mixed graphs (con-</text>
+<text top="324" left="96" width="319" height="15" font="0">taining three types of edges) that are impor-</text>
+<text top="342" left="96" width="319" height="15" font="0">tant because they capture the modified inde-</text>
+<text top="360" left="96" width="319" height="15" font="0">pendence structure after marginalisation over,</text>
+<text top="378" left="96" width="319" height="15" font="0">and conditioning on, nodes of directed acyclic</text>
+<text top="395" left="96" width="319" height="15" font="0">graphs. We provide functions to verify whether</text>
+<text top="413" left="96" width="319" height="15" font="0">a mixed graph implies that A is independent</text>
+<text top="431" left="96" width="319" height="15" font="0">of B given C for any disjoint sets of nodes and</text>
+<text top="449" left="96" width="319" height="15" font="0">to generate maximal graphs inducing the same</text>
+<text top="467" left="96" width="319" height="15" font="0">independence structure of non-maximal graphs.</text>
+<text top="485" left="96" width="319" height="15" font="0">Finally, we provide functions to decide on the</text>
+<text top="503" left="96" width="319" height="15" font="0">Markov equivalence of two graphs with the</text>
+<text top="521" left="96" width="281" height="15" font="0">same node set but different types of edges.</text>
+<text top="563" left="82" width="290" height="21" font="4"><b>Introduction and background</b></text>
+<text top="602" left="82" width="346" height="15" font="0">Graphical Markov models have become a part of the</text>
+<text top="620" left="82" width="346" height="15" font="0">mainstream of statistical theory and application in</text>
+<text top="638" left="82" width="346" height="15" font="0">recent years. These models use graphs to represent</text>
+<text top="656" left="82" width="346" height="15" font="0">conditional independencies among sets of random</text>
+<text top="674" left="82" width="346" height="15" font="0">variables. Nodes of the graph correspond to random</text>
+<text top="692" left="82" width="346" height="15" font="0">variables and edges to some type of conditional de-</text>
+<text top="710" left="82" width="67" height="15" font="0">pendency.</text>
+<text top="750" left="82" width="190" height="17" font="5"><b>Directed acyclic graphs</b></text>
+<text top="781" left="82" width="346" height="15" font="0">In the literature on graphical models the two most</text>
+<text top="799" left="82" width="346" height="15" font="0">used classes of graphs are directed acyclic graphs</text>
+<text top="817" left="82" width="346" height="15" font="0">(DAGs) and undirected graphs. DAGs have proven</text>
+<text top="835" left="82" width="346" height="15" font="0">useful, among other things, to specify the data gener-</text>
+<text top="853" left="82" width="346" height="15" font="0">ating processes when the variables satisfy an under-</text>
+<text top="871" left="82" width="146" height="15" font="0">lying partial ordering.</text>
+<text top="889" left="105" width="324" height="15" font="0">For instance, suppose that we have four observed</text>
+<text top="906" left="82" width="346" height="15" font="0">variables: Y, the ratio of systolic to diastolic blood</text>
+<text top="924" left="82" width="346" height="15" font="0">pressure and X the diastolic blood pressure, both on</text>
+<text top="942" left="82" width="346" height="15" font="0">a log scale; Z, the body mass and W, the age, and that</text>
+<text top="960" left="82" width="346" height="15" font="0">a possible generating process is the following linear</text>
+<text top="978" left="82" width="178" height="15" font="0">recursive regression model</text>
+<text top="1006" left="174" width="10" height="15" font="0">Y</text>
+<text top="1006" left="188" width="12" height="14" font="6">=</text>
+<text top="1010" left="203" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1011" left="212" width="16" height="11" font="1">YZ</text>
+<text top="1006" left="230" width="10" height="15" font="0">Z</text>
+<text top="1006" left="243" width="12" height="14" font="6">+</text>
+<text top="1010" left="258" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1011" left="267" width="17" height="11" font="1">YU</text>
+<text top="1006" left="285" width="12" height="15" font="0">U</text>
+<text top="1006" left="301" width="12" height="14" font="6">+</text>
+<text top="1010" left="316" width="7" height="11" font="7"><i>e</i></text>
+<text top="1011" left="323" width="8" height="11" font="1">Y</text>
+<text top="1028" left="173" width="11" height="15" font="0">X</text>
+<text top="1028" left="188" width="12" height="14" font="6">=</text>
+<text top="1032" left="203" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1034" left="213" width="19" height="11" font="1">XW</text>
+<text top="1028" left="233" width="14" height="15" font="0">W</text>
+<text top="1028" left="251" width="12" height="14" font="6">+</text>
+<text top="1032" left="267" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1034" left="276" width="17" height="11" font="1">XU</text>
+<text top="1028" left="295" width="12" height="15" font="0">U</text>
+<text top="1028" left="310" width="12" height="14" font="6">+</text>
+<text top="1032" left="326" width="7" height="11" font="7"><i>e</i></text>
+<text top="1034" left="333" width="8" height="11" font="1">X</text>
+<text top="1051" left="174" width="10" height="15" font="0">Z</text>
+<text top="1051" left="188" width="12" height="14" font="6">=</text>
+<text top="1054" left="203" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1056" left="213" width="16" height="11" font="1">ZV</text>
+<text top="1051" left="230" width="14" height="15" font="0">W</text>
+<text top="1051" left="248" width="12" height="14" font="6">+</text>
+<text top="1054" left="264" width="7" height="11" font="7"><i>e</i></text>
+<text top="1056" left="271" width="8" height="11" font="1">Z</text>
+<text top="1073" left="169" width="14" height="15" font="0">W</text>
+<text top="1073" left="188" width="12" height="14" font="6">=</text>
+<text top="1077" left="203" width="7" height="11" font="7"><i>e</i></text>
+<text top="1079" left="210" width="11" height="11" font="1">W</text>
+<text top="1073" left="222" width="20" height="15" font="0">; U</text>
+<text top="1073" left="247" width="12" height="14" font="6">=</text>
+<text top="1077" left="263" width="7" height="11" font="7"><i>e</i></text>
+<text top="1079" left="270" width="9" height="11" font="1">U</text>
+<text top="1073" left="280" width="4" height="15" font="0">,</text>
+<text top="1101" left="82" width="346" height="15" font="0">where all the variables are mean-centered and the <i>e</i>s</text>
+<text top="1119" left="82" width="346" height="15" font="0">are zero mean, mutually independent Gaussian ran-</text>
+<text top="1137" left="82" width="346" height="15" font="0">dom errors. In this model we assume that there exists</text>
+<text top="1155" left="82" width="346" height="15" font="0">a genetic factor U influencing the ratio and levels of</text>
+<text top="1173" left="82" width="102" height="15" font="0">blood pressure.</text>
+<text top="218" left="481" width="324" height="15" font="0">This model can be represented by the DAG</text>
+<text top="236" left="459" width="67" height="15" font="0">in Figure</text>
+<text top="236" left="537" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">1</a></text>
+<text top="236" left="544" width="261" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">(a) </a>with nodes associated with the</text>
+<text top="254" left="459" width="346" height="15" font="0">variables and edges indicating the dependencies</text>
+<text top="271" left="459" width="346" height="15" font="0">represented by the regression coefficients (<i>γ</i>s).</text>
+<text top="298" left="521" width="7" height="8" font="9">Y</text>
+<text top="332" left="557" width="7" height="8" font="9">U</text>
+<text top="298" left="604" width="6" height="8" font="9">Z</text>
+<text top="367" left="520" width="7" height="8" font="9">X</text>
+<text top="367" left="603" width="10" height="8" font="9">W</text>
+<text top="294" left="663" width="7" height="11" font="9">Y</text>
+<text top="294" left="738" width="6" height="11" font="9">Z</text>
+<text top="367" left="663" width="7" height="11" font="9">X</text>
+<text top="367" left="736" width="10" height="11" font="9">W</text>
+<text top="391" left="557" width="17" height="15" font="0">(a)</text>
+<text top="391" left="695" width="18" height="15" font="0">(b)</text>
+<text top="424" left="466" width="332" height="15" font="0">Figure 1: (a) A DAG. (b) A regression chain graph.</text>
+<text top="459" left="481" width="324" height="15" font="0">From the graph it is seen, for instance, that the</text>
+<text top="477" left="459" width="346" height="15" font="0">ratio of the two blood pressures (Y) is directly influ-</text>
+<text top="495" left="459" width="346" height="15" font="0">enced by body mass (Z) but not by age (W). Thus a</text>
+<text top="513" left="459" width="346" height="15" font="0">consequence of the model is that the variables must</text>
+<text top="531" left="459" width="346" height="15" font="0">satisfy a set of conditional independencies: for exam-</text>
+<text top="549" left="459" width="346" height="15" font="0">ple, the ratio of the blood pressure is independent of</text>
+<text top="567" left="459" width="274" height="15" font="0">the age given the body mass, written as Y</text>
+<text top="566" left="737" width="12" height="15" font="6">⊥</text>
+<text top="566" left="734" width="12" height="15" font="6">⊥</text>
+<text top="567" left="750" width="14" height="15" font="0">W</text>
+<text top="566" left="765" width="4" height="15" font="6">|</text>
+<text top="567" left="770" width="14" height="15" font="0">Z.</text>
+<text top="585" left="481" width="324" height="15" font="0">A remarkable result is that the independencies</text>
+<text top="603" left="459" width="346" height="15" font="0">can be deduced from the graph alone, without ref-</text>
+<text top="621" left="459" width="346" height="15" font="0">erence to the equations, by using a criterion called</text>
+<text top="639" left="459" width="288" height="15" font="0">d-separation. In fact, in the graph of Figure</text>
+<text top="639" left="752" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">1</a></text>
+<text top="639" left="759" width="46" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">(a), </a>the</text>
+<text top="657" left="459" width="346" height="15" font="0">nodes Y and W are d-separated given Z. This can</text>
+<text top="675" left="459" width="346" height="15" font="0">be checked using special graph algorithms included,</text>
+<text top="693" left="459" width="173" height="15" font="0">for example, in packages</text>
+<text top="693" left="639" width="41" height="15" font="10"><a href="http://cran.r-project.org/package=gRain"><b>gRain</b></a></text>
+<text top="693" left="686" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="693" left="691" width="69" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Højsgaard</a></text>
+<text top="693" left="760" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="693" left="770" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="693" left="800" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">)</a></text>
+<text top="710" left="459" width="25" height="15" font="0">and</text>
+<text top="711" left="488" width="30" height="15" font="10"><a href="http://cran.r-project.org/package=ggm"><b>ggm</b></a></text>
+<text top="710" left="522" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="710" left="527" width="99" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Marchetti et al.</a></text>
+<text top="710" left="626" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="710" left="633" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="710" left="663" width="142" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>For more details on</text>
+<text top="728" left="459" width="346" height="15" font="0">DAG models and their implementation in R see the</text>
+<text top="746" left="459" width="152" height="15" font="0">extensive discussion in</text>
+<text top="746" left="614" width="104" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Højsgaard et al.</a></text>
+<text top="746" left="722" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="746" left="727" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="746" left="757" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">).</a></text>
+<text top="787" left="459" width="309" height="17" font="5"><b>Hidden variables and induced graphs</b></text>
+<text top="818" left="459" width="346" height="15" font="0">The model has four observed variables but includes</text>
+<text top="835" left="459" width="346" height="15" font="0">an unobserved variable, that is, the genetic factor U.</text>
+<text top="853" left="459" width="346" height="15" font="0">When U is hidden the model for the observed vari-</text>
+<text top="871" left="459" width="94" height="15" font="0">ables becomes</text>
+<text top="899" left="579" width="10" height="15" font="0">Y</text>
+<text top="899" left="593" width="12" height="14" font="6">=</text>
+<text top="902" left="609" width="9" height="11" font="7"><i>γ</i></text>
+<text top="904" left="618" width="16" height="11" font="1">YZ</text>
+<text top="899" left="635" width="10" height="15" font="0">Z</text>
+<text top="899" left="648" width="12" height="14" font="6">+</text>
+<text top="902" left="664" width="8" height="11" font="7"><i>η</i></text>
+<text top="904" left="671" width="8" height="11" font="1">Y</text>
+<text top="921" left="578" width="11" height="15" font="0">X</text>
+<text top="921" left="593" width="12" height="14" font="6">=</text>
+<text top="925" left="609" width="9" height="11" font="7"><i>γ</i></text>
+<text top="927" left="618" width="19" height="11" font="1">XW</text>
+<text top="921" left="639" width="14" height="15" font="0">W</text>
+<text top="921" left="657" width="12" height="14" font="6">+</text>
+<text top="925" left="672" width="8" height="11" font="7"><i>η</i></text>
+<text top="927" left="680" width="8" height="11" font="1">X</text>
+<text top="944" left="579" width="10" height="15" font="0">Z</text>
+<text top="944" left="593" width="12" height="14" font="6">=</text>
+<text top="947" left="609" width="9" height="11" font="7"><i>γ</i></text>
+<text top="949" left="618" width="16" height="11" font="1">ZV</text>
+<text top="944" left="635" width="14" height="15" font="0">W</text>
+<text top="944" left="654" width="12" height="14" font="6">+</text>
+<text top="947" left="669" width="7" height="11" font="7"><i>e</i></text>
+<text top="949" left="676" width="8" height="11" font="1">Z</text>
+<text top="966" left="574" width="14" height="15" font="0">W</text>
+<text top="966" left="593" width="12" height="14" font="6">=</text>
+<text top="970" left="609" width="7" height="11" font="7"><i>e</i></text>
+<text top="972" left="616" width="11" height="11" font="1">W</text>
+<text top="966" left="628" width="4" height="15" font="0">;</text>
+<text top="994" left="459" width="182" height="15" font="0">with two correlated errors <i>η</i></text>
+<text top="999" left="641" width="8" height="11" font="1">Y</text>
+<text top="994" left="653" width="12" height="14" font="6">=</text>
+<text top="997" left="668" width="9" height="11" font="7"><i>γ</i></text>
+<text top="999" left="677" width="17" height="11" font="1">YU</text>
+<text top="994" left="695" width="12" height="15" font="0">U</text>
+<text top="994" left="710" width="12" height="14" font="6">+</text>
+<text top="997" left="725" width="7" height="11" font="7"><i>e</i></text>
+<text top="999" left="732" width="8" height="11" font="1">Y</text>
+<text top="994" left="744" width="37" height="15" font="0">and <i>η</i></text>
+<text top="999" left="781" width="8" height="11" font="1">X</text>
+<text top="994" left="793" width="12" height="14" font="6">=</text>
+<text top="1015" left="459" width="9" height="11" font="7"><i>γ</i></text>
+<text top="1017" left="468" width="17" height="11" font="1">XU</text>
+<text top="1012" left="487" width="12" height="15" font="0">U</text>
+<text top="1012" left="503" width="12" height="14" font="6">+</text>
+<text top="1015" left="518" width="7" height="11" font="7"><i>e</i></text>
+<text top="1017" left="525" width="8" height="11" font="1">X</text>
+<text top="1012" left="535" width="97" height="15" font="0">, such that cov</text>
+<text top="1012" left="632" width="6" height="14" font="6">(</text>
+<text top="1015" left="638" width="8" height="11" font="7"><i>η</i></text>
+<text top="1017" left="646" width="8" height="11" font="1">Y</text>
+<text top="1012" left="655" width="13" height="15" font="0">, <i>η</i></text>
+<text top="1017" left="668" width="8" height="11" font="1">X</text>
+<text top="1012" left="678" width="22" height="14" font="6">) =</text>
+<text top="1015" left="704" width="11" height="11" font="7"><i>ω</i></text>
+<text top="1017" left="715" width="16" height="11" font="1">YX</text>
+<text top="1012" left="733" width="73" height="15" font="0">. As a con-</text>
+<text top="1030" left="459" width="346" height="15" font="0">sequence the model is still a recursive model and the</text>
+<text top="1048" left="459" width="346" height="15" font="0">parameters have a regression parameter interpreta-</text>
+<text top="1065" left="459" width="284" height="15" font="0">tion, but contain some correlated residuals.</text>
+<text top="1083" left="481" width="324" height="15" font="0">The induced model is said to be obtained after</text>
+<text top="1101" left="459" width="346" height="15" font="0">marginalisation over U. In this model some of the</text>
+<text top="1119" left="459" width="346" height="15" font="0">original independencies are lost, but we can observe</text>
+<text top="1137" left="459" width="202" height="15" font="0">the implied independencies Y</text>
+<text top="1136" left="665" width="12" height="15" font="6">⊥</text>
+<text top="1136" left="661" width="12" height="15" font="6">⊥</text>
+<text top="1137" left="677" width="14" height="15" font="0">W</text>
+<text top="1136" left="692" width="4" height="15" font="6">|</text>
+<text top="1137" left="697" width="57" height="15" font="0">Z and X</text>
+<text top="1136" left="759" width="12" height="15" font="6">⊥</text>
+<text top="1136" left="755" width="12" height="15" font="6">⊥</text>
+<text top="1137" left="772" width="10" height="15" font="0">Z</text>
+<text top="1136" left="782" width="4" height="15" font="6">|</text>
+<text top="1137" left="787" width="19" height="15" font="0">W.</text>
+<text top="1155" left="459" width="346" height="15" font="0">Also it can be shown that it is impossible to represent</text>
+<text top="1173" left="459" width="346" height="15" font="0">such independencies in a DAG model defined for the</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="8" family="Times" color="#00008a"/>
+<text top="67" left="82" width="15" height="15" font="0">66</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">four observed variables. Therefore, we say that DAG</text>
+<text top="143" left="82" width="296" height="15" font="0">models are not stable under marginalisation.</text>
+<text top="162" left="105" width="324" height="15" font="0">A mixed graph with arrows and arcs, as shown in</text>
+<text top="180" left="82" width="43" height="15" font="0">Figure</text>
+<text top="180" left="129" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">1</a></text>
+<text top="180" left="137" width="292" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">(b), </a>can be used to represent the induced in-</text>
+<text top="198" left="82" width="346" height="15" font="0">dependence model after marginalisation over U. In</text>
+<text top="216" left="82" width="346" height="15" font="0">this representation, beside the arrows, represented</text>
+<text top="234" left="82" width="187" height="15" font="0">by the <i>γ</i>s, we have the arc Y</text>
+<text top="233" left="271" width="12" height="15" font="6">≺</text>
+<text top="233" left="298" width="12" height="15" font="6"></text>
+<text top="234" left="311" width="118" height="15" font="0">X associated with</text>
+<text top="252" left="82" width="168" height="15" font="0">the (partial) correlation <i>ω</i></text>
+<text top="257" left="250" width="16" height="11" font="1">YX</text>
+<text top="252" left="268" width="4" height="15" font="0">.</text>
+<text top="271" left="105" width="141" height="15" font="0">The graph of Figure</text>
+<text top="271" left="253" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">1</a></text>
+<text top="271" left="260" width="169" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">(b) </a>belongs to a class of</text>
+<text top="289" left="82" width="346" height="15" font="0">models called regression chain graph models. This</text>
+<text top="307" left="82" width="346" height="15" font="0">class generalises the recursive generating process of</text>
+<text top="325" left="82" width="346" height="15" font="0">DAGs by permitting joint responses, coupled in the</text>
+<text top="343" left="82" width="346" height="15" font="0">graph by arcs, and thus appears to be an essential</text>
+<text top="361" left="82" width="211" height="15" font="0">extension for applications; see</text>
+<text top="361" left="300" width="129" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Cox and Wermuth</a></text>
+<text top="378" left="82" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="378" left="87" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">1996</a></text>
+<text top="378" left="117" width="312" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>Regression chain graphs can be used as a con-</text>
+<text top="396" left="82" width="346" height="15" font="0">ceptual framework for understanding multivariate</text>
+<text top="414" left="82" width="346" height="15" font="0">dependencies, for example in longitudinal studies.</text>
+<text top="432" left="82" width="346" height="15" font="0">The variables are arranged in a sequence of blocks,</text>
+<text top="450" left="82" width="346" height="15" font="0">such that (a) all variables in one block are of equal</text>
+<text top="468" left="82" width="346" height="15" font="0">standing and any dependence between them is rep-</text>
+<text top="486" left="82" width="346" height="15" font="0">resented by an arc, and (b) all variables in one block</text>
+<text top="504" left="82" width="346" height="15" font="0">are responses to variables in all blocks to their right,</text>
+<text top="522" left="82" width="346" height="15" font="0">so that any dependencies between them are directed,</text>
+<text top="540" left="82" width="346" height="15" font="0">represented by an arrow pointing from right to left.</text>
+<text top="558" left="82" width="346" height="15" font="0">The graph shows how the data analysis can be bro-</text>
+<text top="576" left="82" width="346" height="15" font="0">ken down into a series of regressions and informs</text>
+<text top="594" left="82" width="346" height="15" font="0">about which variables should or should not be con-</text>
+<text top="612" left="82" width="192" height="15" font="0">trolled for in each regression.</text>
+<text top="660" left="82" width="241" height="17" font="5"><b>More general induced graphs</b></text>
+<text top="693" left="82" width="346" height="15" font="0">The class of regression chain graphs is not, however,</text>
+<text top="711" left="82" width="346" height="15" font="0">stable under marginalisation. For instance, suppose</text>
+<text top="729" left="82" width="346" height="15" font="0">that the generating process for the blood pressure</text>
+<text top="747" left="82" width="346" height="15" font="0">data is defined by the more general regression chain</text>
+<text top="764" left="82" width="102" height="15" font="0">graph of Figure</text>
+<text top="764" left="187" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">2</a></text>
+<text top="764" left="195" width="234" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">(a) </a>where L is a further variable rep-</text>
+<text top="782" left="82" width="346" height="15" font="0">resenting a common hidden cause of systolic blood</text>
+<text top="800" left="82" width="164" height="15" font="0">pressure and body mass.</text>
+<text top="819" left="105" width="324" height="15" font="0">Then, after marginalisation over L, the model</text>
+<text top="837" left="82" width="346" height="15" font="0">can still be described by a linear system of equa-</text>
+<text top="855" left="82" width="346" height="15" font="0">tions with correlated residuals and can be repre-</text>
+<text top="873" left="82" width="310" height="15" font="0">sented by the mixed graph shown in Figure</text>
+<text top="873" left="400" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">2</a></text>
+<text top="873" left="407" width="22" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">(b).</a></text>
+<text top="891" left="82" width="346" height="15" font="0">But the resulting graph is not a DAG nor a re-</text>
+<text top="909" left="82" width="346" height="15" font="0">gression chain graph because it contains the pair</text>
+<text top="927" left="82" width="78" height="15" font="0">of variables</text>
+<text top="927" left="166" width="6" height="14" font="6">(</text>
+<text top="927" left="172" width="26" height="15" font="0">Y, Z</text>
+<text top="927" left="199" width="6" height="14" font="6">)</text>
+<text top="927" left="210" width="219" height="15" font="0">coupled by both a directed edge</text>
+<text top="945" left="82" width="346" height="15" font="0">and a path composed by bi-directed arcs. Thus Y</text>
+<text top="963" left="82" width="346" height="15" font="0">cannot be interpreted as a pure response to Z and</text>
+<text top="981" left="82" width="346" height="15" font="0">in addition Y and Z are not two joint responses.</text>
+<text top="1067" left="152" width="7" height="11" font="11">X</text>
+<text top="1067" left="219" width="10" height="11" font="11">W</text>
+<text top="1007" left="152" width="7" height="11" font="11">Y</text>
+<text top="1007" left="220" width="6" height="11" font="11">Z</text>
+<text top="1037" left="185" width="6" height="11" font="11">L</text>
+<text top="1067" left="274" width="7" height="11" font="11">X</text>
+<text top="1066" left="343" width="10" height="11" font="11">W</text>
+<text top="1006" left="274" width="7" height="11" font="11">Y</text>
+<text top="1006" left="344" width="6" height="11" font="11">Z</text>
+<text top="1099" left="185" width="17" height="15" font="0">(a)</text>
+<text top="1099" left="306" width="18" height="15" font="0">(b)</text>
+<text top="1132" left="82" width="346" height="15" font="0">Figure 2: (a) A regression chain graph model; (b) the</text>
+<text top="1150" left="82" width="346" height="15" font="0">mixed graph obtained after marginalisation over L,</text>
+<text top="1168" left="82" width="250" height="15" font="0">which is not a regression chain graph.</text>
+<text top="123" left="459" width="167" height="17" font="5"><b>Stable mixed graphs</b></text>
+<text top="154" left="459" width="346" height="15" font="0">The previous illustrations show that when there</text>
+<text top="172" left="459" width="346" height="15" font="0">are unobserved variables, DAG or regression chain</text>
+<text top="189" left="459" width="346" height="15" font="0">graph models are no longer appropriate. The dis-</text>
+<text top="207" left="459" width="346" height="15" font="0">cussion could be extended to situations where there</text>
+<text top="225" left="459" width="346" height="15" font="0">are some selection variables that are hidden variables</text>
+<text top="243" left="459" width="157" height="15" font="0">that are conditioned on.</text>
+<text top="261" left="481" width="324" height="15" font="0">This motivates the introduction of a more general</text>
+<text top="279" left="459" width="346" height="15" font="0">class of mixed graphs, which contains three types of</text>
+<text top="297" left="459" width="158" height="15" font="0">edges, denoted by lines,</text>
+<text top="297" left="649" width="57" height="15" font="0">, arrows,</text>
+<text top="296" left="731" width="12" height="15" font="6"></text>
+<text top="297" left="743" width="62" height="15" font="0">, and arcs</text>
+<text top="315" left="459" width="135" height="15" font="0">(bi-directed arrows),</text>
+<text top="314" left="599" width="12" height="15" font="6">≺</text>
+<text top="314" left="626" width="12" height="15" font="6"></text>
+<text top="315" left="638" width="167" height="15" font="0">. In the case of regression</text>
+<text top="333" left="459" width="346" height="15" font="0">models, explained above, lines generally link pairs of</text>
+<text top="351" left="459" width="346" height="15" font="0">joint context (explanatory) variables and arcs gener-</text>
+<text top="369" left="459" width="270" height="15" font="0">ally link pairs of joint response variables.</text>
+<text top="387" left="481" width="324" height="15" font="0">There are at least three known classes of mixed</text>
+<text top="405" left="459" width="346" height="15" font="0">graphs without self loops that remain in the same</text>
+<text top="423" left="459" width="346" height="15" font="0">class, i.e. that are stable under marginalisation and</text>
+<text top="441" left="459" width="346" height="15" font="0">conditioning. The largest one is that of ribbonless</text>
+<text top="459" left="459" width="99" height="15" font="0">graphs (RGs) <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="459" left="558" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="459" left="611" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">,</a></text>
+<text top="459" left="619" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="459" left="657" width="149" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">), </a>defined as a modifi-</text>
+<text top="477" left="459" width="142" height="15" font="0">cation of MC-graphs <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="477" left="601" width="43" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Koster</a></text>
+<text top="477" left="645" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="477" left="651" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="477" left="681" width="124" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>Then, there is the</text>
+<text top="494" left="459" width="238" height="15" font="0">subclass of summary graphs (SGs) <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="494" left="697" width="62" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Wermuth</a></text>
+<text top="494" left="759" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">,</a></text>
+<text top="494" left="767" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2011</a></text>
+<text top="494" left="797" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">),</a></text>
+<text top="512" left="459" width="346" height="15" font="0">and finally the smallest class of the ancestral graphs</text>
+<text top="530" left="459" width="48" height="15" font="0">(AGs) <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="530" left="507" width="153" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Richardson and Spirtes</a></text>
+<text top="530" left="660" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="530" left="668" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="530" left="698" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">).</a></text>
+<text top="572" left="459" width="251" height="17" font="5"><b>Four tasks of the current paper</b></text>
+<text top="603" left="459" width="346" height="15" font="0">In this paper, we focus on the implementation of</text>
+<text top="621" left="459" width="346" height="15" font="0">four important tasks performed on the class of mixed</text>
+<text top="639" left="459" width="80" height="15" font="0">graphs in R:</text>
+<text top="669" left="478" width="328" height="15" font="0">1. Generating different types of stable mixed</text>
+<text top="687" left="496" width="308" height="15" font="0">graphs after marginalisation and conditioning.</text>
+<text top="717" left="478" width="328" height="15" font="0">2. Verifying whether an independency of the</text>
+<text top="735" left="496" width="47" height="15" font="0">form Y</text>
+<text top="734" left="547" width="12" height="15" font="6">⊥</text>
+<text top="734" left="544" width="12" height="15" font="6">⊥</text>
+<text top="735" left="559" width="14" height="15" font="0">W</text>
+<text top="734" left="575" width="4" height="15" font="6">|</text>
+<text top="735" left="580" width="226" height="15" font="0">Z holds by using a separation cri-</text>
+<text top="753" left="496" width="176" height="15" font="0">terion called m-separation.</text>
+<text top="783" left="478" width="328" height="15" font="0">3. Generating a graph that induces the same in-</text>
+<text top="801" left="496" width="309" height="15" font="0">dependence structure as an input mixed graph</text>
+<text top="819" left="496" width="309" height="15" font="0">such that the generated graph is maximal , i.e.</text>
+<text top="837" left="496" width="309" height="15" font="0">each missing edge of the generated graph im-</text>
+<text top="855" left="496" width="270" height="15" font="0">plies at least an independence statement.</text>
+<text top="885" left="478" width="328" height="15" font="0">4. Verifying whether two graphs are Markov</text>
+<text top="903" left="496" width="309" height="15" font="0">equivalent , i.e. they induce the same indepen-</text>
+<text top="921" left="496" width="309" height="15" font="0">dencies, and whether, given a graph of a spe-</text>
+<text top="939" left="496" width="309" height="15" font="0">cific type, there is a graph of a different type</text>
+<text top="957" left="496" width="204" height="15" font="0">that is Markov equivalent to it.</text>
+<text top="999" left="459" width="107" height="17" font="5"><b>Package ggm</b></text>
+<text top="1030" left="459" width="346" height="15" font="0">The tasks above are illustrated by using a set of</text>
+<text top="1047" left="459" width="310" height="15" font="0">new functions introduced into the R package</text>
+<text top="1048" left="775" width="30" height="15" font="10"><a href="http://cran.r-project.org/package=ggm"><b>ggm</b></a></text>
+<text top="1065" left="459" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="1065" left="464" width="102" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Marchetti et al.</a></text>
+<text top="1065" left="566" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="1065" left="575" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="1065" left="604" width="201" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>In the next section we give</text>
+<text top="1083" left="459" width="346" height="15" font="0">the details of how general mixed graphs are defined.</text>
+<text top="1101" left="459" width="346" height="15" font="0">The following four sections deal with the four tasks</text>
+<text top="1119" left="459" width="346" height="15" font="0">respectively. For each task we give a brief introduc-</text>
+<text top="1137" left="459" width="327" height="15" font="0">tion at the beginning of its corresponding section.</text>
+<text top="1155" left="481" width="324" height="15" font="0">Some of the functions generalise previous contri-</text>
+<text top="1173" left="459" width="193" height="15" font="0">butions of <b>ggm </b>discussed in</text>
+<text top="1173" left="657" width="64" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Marchetti</a></text>
+<text top="1173" left="726" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="1173" left="731" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2006</a></text>
+<text top="1173" left="761" width="44" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>The</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="7" family="Times" color="#00008a"/>
+	<fontspec id="13" size="11" family="Times" color="#000000"/>
+	<fontspec id="14" size="15" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">67</text>
+<text top="125" left="82" width="30" height="15" font="3"><b>ggm</b></text>
+<text top="125" left="116" width="313" height="15" font="0">package has been improved and it is now more</text>
+<text top="143" left="82" width="346" height="15" font="0">integrated with other contributed packages related</text>
+<text top="161" left="82" width="229" height="15" font="0">to graph theory, such as <b>graph </b><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="161" left="311" width="114" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Gentleman et al.</a></text>
+<text top="161" left="425" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="179" left="82" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="179" left="112" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">),</a></text>
+<text top="179" left="124" width="45" height="15" font="10"><a href="http://cran.r-project.org/package=igraph"><b>igraph</b></a></text>
+<text top="179" left="172" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="179" left="177" width="126" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Csardi and Nepusz</a></text>
+<text top="179" left="303" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="179" left="309" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2006</a></text>
+<text top="179" left="339" width="37" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">), </a>and</text>
+<text top="179" left="379" width="50" height="15" font="10"><a href="http://cran.r-project.org/package=gRbase"><b>gRbase</b></a></text>
+<text top="197" left="82" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="197" left="87" width="172" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Dethlefsen and Højsgaard</a></text>
+<text top="197" left="260" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="197" left="267" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2005</a></text>
+<text top="197" left="297" width="132" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">), </a>which are now re-</text>
+<text top="215" left="82" width="346" height="15" font="0">quired for representing and plotting graphs. Specifi-</text>
+<text top="233" left="82" width="346" height="15" font="0">cally, in addition to adjacency matrices, all the func-</text>
+<text top="251" left="82" width="346" height="15" font="0">tions in the package now accept graphNEL and igraph</text>
+<text top="268" left="82" width="346" height="15" font="0">objects as input, as well as a new character string rep-</text>
+<text top="286" left="82" width="346" height="15" font="0">resentation. A more detailed list of available pack-</text>
+<text top="304" left="82" width="346" height="15" font="0">ages for graphical models can be found at the CRAN</text>
+<text top="322" left="82" width="248" height="15" font="0">Task View gRaphical Models in R at</text>
+<text top="324" left="338" width="91" height="12" font="8"><a href="http://cran.r-project.org/web/views/gR.html">http://cran.</a></text>
+<text top="342" left="82" width="237" height="12" font="8"><a href="http://cran.r-project.org/web/views/gR.html">r-project.org/web/views/gR.html</a></text>
+<text top="340" left="319" width="4" height="15" font="0"><a href="http://cran.r-project.org/web/views/gR.html">.</a></text>
+<text top="387" left="82" width="273" height="21" font="4"><b>Defining mixed graphs in R</b></text>
+<text top="425" left="82" width="346" height="15" font="0">For a comprehensive discussion on the ways of</text>
+<text top="443" left="82" width="241" height="15" font="0">defining a directed acyclic graph, see</text>
+<text top="443" left="327" width="102" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Højsgaard et al.</a></text>
+<text top="461" left="82" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="461" left="87" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2012</a></text>
+<text top="461" left="117" width="312" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>A mixed graph is a more general graph type</text>
+<text top="479" left="82" width="346" height="15" font="0">with at most three types of edge: directed, undi-</text>
+<text top="497" left="82" width="346" height="15" font="0">rected and bi-directed, with possibly multiple edges</text>
+<text top="515" left="82" width="346" height="15" font="0">of different types connecting two nodes. In <b>ggm </b>we</text>
+<text top="533" left="82" width="346" height="15" font="0">provide some special tools for mixed graphs that are</text>
+<text top="551" left="82" width="346" height="15" font="0">not present in other packages. Here we briefly il-</text>
+<text top="569" left="82" width="346" height="15" font="0">lustrate some methods to define mixed graphs and</text>
+<text top="587" left="82" width="346" height="15" font="0">we plot them with a new function, plotGraph, which</text>
+<text top="605" left="82" width="346" height="15" font="0">uses a Tk GUI for basic interactive graph manipula-</text>
+<text top="623" left="82" width="30" height="15" font="0">tion.</text>
+<text top="640" left="105" width="324" height="15" font="0">The first method is based on a generalisation of</text>
+<text top="658" left="82" width="346" height="15" font="0">the adjacency matrix. The second uses a descrip-</text>
+<text top="676" left="82" width="346" height="15" font="0">tive vector and is easy to use for small graphs. The</text>
+<text top="694" left="82" width="346" height="15" font="0">third uses a special function makeMG that allows the</text>
+<text top="712" left="82" width="346" height="15" font="0">directed, undirected, and bi-directed components of</text>
+<text top="730" left="82" width="205" height="15" font="0">a mixed graph to be combined.</text>
+<text top="771" left="82" width="303" height="17" font="5"><b>Adjacency matrices for mixed graphs</b></text>
+<text top="802" left="82" width="346" height="15" font="0">In the adjacency matrix of a mixed graph we code</text>
+<text top="820" left="82" width="346" height="15" font="0">the three different edges with a binary indicator: 1</text>
+<text top="838" left="82" width="346" height="15" font="0">for directed, 10 for undirected and 100 for bi-directed</text>
+<text top="856" left="82" width="346" height="15" font="0">edges. When there are multiple edges the codes are</text>
+<text top="874" left="82" width="46" height="15" font="0">added.</text>
+<text top="892" left="105" width="324" height="15" font="0">Thus the adjacency matrix of a mixed graph H with</text>
+<text top="909" left="82" width="207" height="15" font="0">node set N and edge set F is an</text>
+<text top="909" left="293" width="4" height="15" font="6">|</text>
+<text top="909" left="299" width="12" height="15" font="0">N</text>
+<text top="909" left="311" width="27" height="15" font="6">| × |</text>
+<text top="909" left="339" width="12" height="15" font="0">N</text>
+<text top="909" left="352" width="4" height="15" font="6">|</text>
+<text top="909" left="360" width="69" height="15" font="0">matrix ob-</text>
+<text top="927" left="82" width="78" height="15" font="0">tained as A</text>
+<text top="927" left="165" width="12" height="14" font="6">=</text>
+<text top="927" left="182" width="9" height="15" font="0">B</text>
+<text top="927" left="195" width="12" height="14" font="6">+</text>
+<text top="927" left="211" width="8" height="15" font="0">S</text>
+<text top="927" left="223" width="12" height="14" font="6">+</text>
+<text top="927" left="239" width="190" height="15" font="0">W by adding three matrices</text>
+<text top="945" left="83" width="9" height="15" font="0">B</text>
+<text top="945" left="96" width="22" height="14" font="6">= (</text>
+<text top="945" left="118" width="7" height="15" font="0">b</text>
+<text top="951" left="125" width="7" height="11" font="1">ij</text>
+<text top="945" left="133" width="6" height="14" font="6">)</text>
+<text top="945" left="139" width="16" height="15" font="0">, S</text>
+<text top="945" left="159" width="22" height="14" font="6">= (</text>
+<text top="945" left="181" width="6" height="15" font="0">s</text>
+<text top="951" left="187" width="7" height="11" font="1">ij</text>
+<text top="945" left="195" width="6" height="14" font="6">)</text>
+<text top="945" left="205" width="43" height="15" font="0">and W</text>
+<text top="945" left="253" width="22" height="14" font="6">= (</text>
+<text top="945" left="275" width="11" height="15" font="0">w</text>
+<text top="951" left="286" width="7" height="11" font="1">ij</text>
+<text top="945" left="294" width="6" height="14" font="6">)</text>
+<text top="945" left="304" width="71" height="15" font="0">defined by</text>
+<text top="992" left="144" width="7" height="15" font="0">b</text>
+<text top="997" left="151" width="7" height="11" font="1">ij</text>
+<text top="992" left="163" width="12" height="14" font="6">=</text>
+<text top="976" left="179" width="12" height="7" font="0">(</text>
+<text top="982" left="191" width="11" height="15" font="0">1,</text>
+<text top="982" left="221" width="93" height="15" font="0">if and only if i</text>
+<text top="981" left="334" width="12" height="15" font="6"></text>
+<text top="982" left="347" width="42" height="15" font="0">j in H;</text>
+<text top="1003" left="191" width="11" height="15" font="0">0,</text>
+<text top="1003" left="217" width="69" height="15" font="0">otherwise.</text>
+<text top="1043" left="112" width="6" height="15" font="0">s</text>
+<text top="1048" left="118" width="7" height="11" font="1">ij</text>
+<text top="1043" left="130" width="12" height="14" font="6">=</text>
+<text top="1043" left="145" width="6" height="15" font="0">s</text>
+<text top="1048" left="152" width="7" height="11" font="1">ji</text>
+<text top="1043" left="163" width="12" height="14" font="6">=</text>
+<text top="1027" left="179" width="12" height="7" font="0">(</text>
+<text top="1032" left="191" width="19" height="15" font="0">10,</text>
+<text top="1032" left="224" width="93" height="15" font="0">if and only if i</text>
+<text top="1032" left="347" width="42" height="15" font="0">j in H;</text>
+<text top="1054" left="191" width="11" height="15" font="0">0,</text>
+<text top="1054" left="224" width="69" height="15" font="0">otherwise.</text>
+<text top="1093" left="102" width="11" height="15" font="0">w</text>
+<text top="1099" left="113" width="7" height="11" font="1">ij</text>
+<text top="1093" left="125" width="12" height="14" font="6">=</text>
+<text top="1093" left="140" width="11" height="15" font="0">w</text>
+<text top="1099" left="152" width="7" height="11" font="1">ji</text>
+<text top="1093" left="163" width="12" height="14" font="6">=</text>
+<text top="1078" left="179" width="12" height="7" font="0">(</text>
+<text top="1083" left="191" width="26" height="15" font="0">100,</text>
+<text top="1083" left="232" width="93" height="15" font="0">if and only if i</text>
+<text top="1082" left="326" width="12" height="15" font="6">≺</text>
+<text top="1082" left="353" width="12" height="15" font="6"></text>
+<text top="1083" left="366" width="42" height="15" font="0">j in H;</text>
+<text top="1105" left="191" width="11" height="15" font="0">0,</text>
+<text top="1105" left="232" width="69" height="15" font="0">otherwise.</text>
+<text top="1137" left="82" width="346" height="15" font="0">Notice that because of the symmetric nature of lines</text>
+<text top="1155" left="82" width="346" height="15" font="0">and arcs S and W are symmetric, whereas B is not</text>
+<text top="1173" left="82" width="150" height="15" font="0">necessarily symmetric.</text>
+<text top="125" left="481" width="324" height="15" font="0">For instance consider the following general</text>
+<text top="143" left="459" width="92" height="15" font="0">mixed graph.:</text>
+<text top="255" left="611" width="7" height="7" font="12">Q</text>
+<text top="255" left="691" width="9" height="7" font="12">W</text>
+<text top="215" left="559" width="6" height="7" font="12">X</text>
+<text top="178" left="613" width="6" height="7" font="12">Y</text>
+<text top="178" left="693" width="6" height="7" font="12">Z</text>
+<text top="289" left="459" width="346" height="15" font="0">Notice that this graph is not of much interest per se,</text>
+<text top="307" left="459" width="346" height="15" font="0">because it is not a stable graph, but it is introduced</text>
+<text top="325" left="459" width="346" height="15" font="0">just to illustrate the structure of the adjacency matrix.</text>
+<text top="343" left="481" width="293" height="15" font="0">This graph can be defined by the commands</text>
+<text top="374" left="459" width="117" height="10" font="13">&gt; mg &lt;- matrix(c(</text>
+<text top="374" left="589" width="48" height="10" font="13">0, 101,</text>
+<text top="374" left="658" width="14" height="10" font="13">0,</text>
+<text top="374" left="692" width="48" height="10" font="13">0, 110,</text>
+<text top="390" left="575" width="27" height="10" font="13">100,</text>
+<text top="390" left="623" width="48" height="10" font="13">0, 100,</text>
+<text top="390" left="692" width="14" height="10" font="13">0,</text>
+<text top="390" left="726" width="14" height="10" font="13">1,</text>
+<text top="407" left="589" width="48" height="10" font="13">0, 110,</text>
+<text top="407" left="658" width="14" height="10" font="13">0,</text>
+<text top="407" left="692" width="14" height="10" font="13">1,</text>
+<text top="407" left="726" width="14" height="10" font="13">0,</text>
+<text top="423" left="589" width="14" height="10" font="13">0,</text>
+<text top="423" left="623" width="14" height="10" font="13">0,</text>
+<text top="423" left="658" width="14" height="10" font="13">1,</text>
+<text top="423" left="692" width="48" height="10" font="13">0, 100,</text>
+<text top="440" left="575" width="27" height="10" font="13">110,</text>
+<text top="440" left="623" width="14" height="10" font="13">0,</text>
+<text top="440" left="658" width="48" height="10" font="13">0, 100,</text>
+<text top="440" left="726" width="21" height="10" font="13">0),</text>
+<text top="456" left="562" width="130" height="10" font="13">5, 5, byrow = TRUE)</text>
+<text top="473" left="459" width="199" height="10" font="13">&gt; N &lt;- c(&#34;X&#34;,&#34;Y&#34;,&#34;Z&#34;,&#34;W&#34;,&#34;Q&#34;)</text>
+<text top="489" left="459" width="192" height="10" font="13">&gt; dimnames(mg) &lt;- list(N, N)</text>
+<text top="505" left="459" width="27" height="10" font="13">&gt; mg</text>
+<text top="537" left="486" width="7" height="10" font="13">X</text>
+<text top="537" left="514" width="7" height="10" font="13">Y</text>
+<text top="537" left="541" width="7" height="10" font="13">Z</text>
+<text top="537" left="569" width="7" height="10" font="13">W</text>
+<text top="537" left="596" width="7" height="10" font="13">Q</text>
+<text top="553" left="459" width="7" height="10" font="13">X</text>
+<text top="553" left="486" width="34" height="10" font="13">0 101</text>
+<text top="553" left="541" width="7" height="10" font="13">0</text>
+<text top="553" left="569" width="34" height="10" font="13">0 110</text>
+<text top="570" left="459" width="34" height="10" font="13">Y 100</text>
+<text top="570" left="514" width="34" height="10" font="13">0 100</text>
+<text top="570" left="569" width="7" height="10" font="13">0</text>
+<text top="570" left="596" width="7" height="10" font="13">1</text>
+<text top="586" left="459" width="7" height="10" font="13">Z</text>
+<text top="586" left="486" width="34" height="10" font="13">0 110</text>
+<text top="586" left="541" width="7" height="10" font="13">0</text>
+<text top="586" left="569" width="7" height="10" font="13">1</text>
+<text top="586" left="596" width="7" height="10" font="13">0</text>
+<text top="603" left="459" width="7" height="10" font="13">W</text>
+<text top="603" left="486" width="7" height="10" font="13">0</text>
+<text top="603" left="514" width="7" height="10" font="13">0</text>
+<text top="603" left="541" width="7" height="10" font="13">1</text>
+<text top="603" left="569" width="34" height="10" font="13">0 100</text>
+<text top="619" left="459" width="34" height="10" font="13">Q 110</text>
+<text top="619" left="514" width="7" height="10" font="13">0</text>
+<text top="619" left="541" width="34" height="10" font="13">0 100</text>
+<text top="619" left="596" width="7" height="10" font="13">0</text>
+<text top="650" left="459" width="217" height="15" font="0">and plotted with plotGraph(mg).</text>
+<text top="692" left="459" width="326" height="17" font="5"><b>Defining mixed graphs by using vectors</b></text>
+<text top="722" left="459" width="346" height="15" font="0">A more convenient way of defining small mixed</text>
+<text top="740" left="459" width="346" height="15" font="0">graphs is based on a simple vector coding as fol-</text>
+<text top="758" left="459" width="35" height="15" font="0">lows.</text>
+<text top="758" left="511" width="294" height="15" font="0">The graph is defined by a character vec-</text>
+<text top="776" left="459" width="178" height="15" font="0">tor of length 3 f , where f</text>
+<text top="776" left="644" width="22" height="14" font="6">= |</text>
+<text top="776" left="667" width="8" height="15" font="0">F</text>
+<text top="775" left="676" width="4" height="15" font="6">|</text>
+<text top="776" left="687" width="118" height="15" font="0">is the number of</text>
+<text top="794" left="459" width="346" height="15" font="0">edges, and the vector contains a sequence of triples</text>
+<text top="811" left="459" width="6" height="15" font="6">h</text>
+<text top="813" left="465" width="137" height="12" font="0">type,label1,label2</text>
+<text top="811" left="603" width="6" height="15" font="6">i</text>
+<text top="812" left="609" width="196" height="15" font="0">, where the type is the edge</text>
+<text top="830" left="459" width="346" height="15" font="0">type and label1 and label2 are the labels of the two</text>
+<text top="848" left="459" width="346" height="15" font="0">nodes. The edge type accepts &#34;a&#34; for a directed ar-</text>
+<text top="866" left="459" width="346" height="15" font="0">row , &#34;b&#34; for an arc and &#34;l&#34; for a line. Notice that</text>
+<text top="884" left="459" width="346" height="15" font="0">isolated nodes may not be created by this method.</text>
+<text top="902" left="459" width="346" height="15" font="0">For example, the vector representation of the previ-</text>
+<text top="920" left="459" width="126" height="15" font="0">ous mixed graph is</text>
+<text top="950" left="459" width="322" height="10" font="13">&gt; mgv &lt;- c(&#34;b&#34;,&#34;X&#34;,&#34;Y&#34;,&#34;a&#34;,&#34;X&#34;,&#34;Y&#34;,&#34;l&#34;,&#34;X&#34;,&#34;Q&#34;,</text>
+<text top="967" left="534" width="247" height="10" font="13">&#34;b&#34;,&#34;Q&#34;,&#34;X&#34;,&#34;a&#34;,&#34;Y&#34;,&#34;Q&#34;,&#34;b&#34;,&#34;Y&#34;,&#34;Z&#34;,</text>
+<text top="983" left="534" width="247" height="10" font="13">&#34;a&#34;,&#34;Z&#34;,&#34;W&#34;,&#34;a&#34;,&#34;W&#34;,&#34;Z&#34;,&#34;b&#34;,&#34;W&#34;,&#34;Q&#34;)</text>
+<text top="1011" left="459" width="346" height="15" font="0">Once again as in the DAG case we can use</text>
+<text top="1030" left="459" width="107" height="12" font="0">plotGraph(mgv)</text>
+<text top="1029" left="569" width="168" height="15" font="0">to plot the defined graph.</text>
+<text top="1071" left="459" width="319" height="17" font="5"><b>Mixed graph using the function </b>makeMG</text>
+<text top="1101" left="459" width="346" height="15" font="0">Finally the adjacency matrix of a mixed graph may</text>
+<text top="1119" left="459" width="346" height="15" font="0">be built up with the function makeMG. This function</text>
+<text top="1137" left="459" width="346" height="15" font="0">requires three arguments dg, ug and bg, correspond-</text>
+<text top="1155" left="459" width="346" height="15" font="0">ing respectively to the three adjacency matrices B, S</text>
+<text top="1173" left="459" width="346" height="15" font="0">and W composing the mixed graph. These may also</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="8" family="Times" color="#231f20"/>
+	<fontspec id="16" size="6" family="Times" color="#231f20"/>
+<text top="67" left="82" width="15" height="15" font="0">68</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">be obtained by the constructor functions DG and UG of</text>
+<text top="143" left="82" width="30" height="15" font="3"><b>ggm</b></text>
+<text top="143" left="116" width="313" height="15" font="0">for directed and undirected graphs respectively.</text>
+<text top="161" left="82" width="346" height="15" font="0">Thus for the previous mixed graph we can issue the</text>
+<text top="179" left="82" width="66" height="15" font="0">command</text>
+<text top="213" left="82" width="302" height="10" font="13">&gt; mg &lt;- makeMG(dg = DG(Y ~ X, Z ~ W, W ~ Z),</text>
+<text top="229" left="185" width="103" height="10" font="13">ug = UG(~ X*Q),</text>
+<text top="246" left="185" width="226" height="10" font="13">bg = UG(~ Y*X + X*Q + Q*W + Y*Z))</text>
+<text top="277" left="82" width="346" height="15" font="0">obtaining the same adjacency matrix (up to a permu-</text>
+<text top="295" left="82" width="47" height="15" font="0">tation).</text>
+<text top="349" left="82" width="314" height="21" font="4"><b>Generating stable mixed graphs</b></text>
+<text top="390" left="82" width="346" height="15" font="0">There are four general classes of stable mixed graphs.</text>
+<text top="409" left="105" width="324" height="15" font="0">The more general class is that of ribbonless</text>
+<text top="427" left="82" width="346" height="15" font="0">graphs: these are mixed graphs without a spe-</text>
+<text top="445" left="82" width="306" height="15" font="0">cific set of subgraphs called ribbons. Figure</text>
+<text top="445" left="395" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">3</a></text>
+<text top="445" left="409" width="20" height="15" font="0">be-</text>
+<text top="462" left="82" width="262" height="15" font="0">low shows two examples of ribbons.</text>
+<text top="462" left="362" width="67" height="15" font="0">The exact</text>
+<text top="480" left="82" width="227" height="15" font="0">definition of ribbons is given in</text>
+<text top="480" left="317" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="480" left="378" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="480" left="383" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="480" left="420" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">).</a></text>
+<text top="506" left="141" width="6" height="10" font="15">h</text>
+<text top="506" left="197" width="2" height="10" font="15">i</text>
+<text top="505" left="251" width="2" height="10" font="15">j</text>
+<text top="566" left="175" width="4" height="8" font="16">k</text>
+<text top="566" left="220" width="2" height="8" font="16">l</text>
+<text top="497" left="277" width="5" height="8" font="16">h</text>
+<text top="565" left="278" width="2" height="8" font="16">i</text>
+<text top="564" left="370" width="2" height="8" font="16">j</text>
+<text top="580" left="189" width="17" height="15" font="0">(a)</text>
+<text top="580" left="314" width="18" height="15" font="0">(b)</text>
+<text top="613" left="105" width="252" height="15" font="0">Figure 3: Two commonly seen ribbons</text>
+<text top="612" left="361" width="6" height="15" font="6">h</text>
+<text top="613" left="368" width="28" height="15" font="0">h, i, j</text>
+<text top="612" left="396" width="6" height="15" font="6">i</text>
+<text top="613" left="402" width="4" height="15" font="0">.</text>
+<text top="649" left="105" width="324" height="15" font="0">The lack of ribbons ensures that, for any RG, there</text>
+<text top="667" left="82" width="346" height="15" font="0">is a DAG whose independence structure, i.e. the set</text>
+<text top="685" left="82" width="346" height="15" font="0">of all conditional independence statements that it in-</text>
+<text top="703" left="82" width="346" height="15" font="0">duces after marginalisation over, and conditioning</text>
+<text top="721" left="82" width="346" height="15" font="0">on, two disjoint subsets of its node set can be repre-</text>
+<text top="739" left="82" width="346" height="15" font="0">sented by the given RG. This is essential, as it shows</text>
+<text top="757" left="82" width="346" height="15" font="0">that the independence structures corresponding to</text>
+<text top="775" left="82" width="346" height="15" font="0">RGs are probabilistic, that is, there exists a proba-</text>
+<text top="793" left="82" width="346" height="15" font="0">bility distribution P that is faithful with respect to</text>
+<text top="811" left="82" width="220" height="15" font="0">any RG, i.e. for random vectors X</text>
+<text top="816" left="303" width="8" height="11" font="1">A</text>
+<text top="811" left="312" width="18" height="15" font="0">, X</text>
+<text top="816" left="331" width="7" height="11" font="1">B</text>
+<text top="811" left="339" width="47" height="15" font="0">, and X</text>
+<text top="816" left="386" width="8" height="11" font="1">C</text>
+<text top="811" left="399" width="30" height="15" font="0">with</text>
+<text top="829" left="82" width="193" height="15" font="0">probability distribution P, X</text>
+<text top="834" left="276" width="8" height="11" font="1">A</text>
+<text top="828" left="289" width="12" height="15" font="6">⊥</text>
+<text top="828" left="285" width="12" height="15" font="6">⊥</text>
+<text top="829" left="302" width="11" height="15" font="0">X</text>
+<text top="834" left="313" width="7" height="11" font="1">B</text>
+<text top="828" left="323" width="4" height="15" font="6">|</text>
+<text top="829" left="329" width="11" height="15" font="0">X</text>
+<text top="834" left="340" width="8" height="11" font="1">C</text>
+<text top="829" left="354" width="75" height="15" font="0">if and only</text>
+<text top="847" left="82" width="9" height="15" font="0">if</text>
+<text top="846" left="96" width="6" height="15" font="6">h</text>
+<text top="847" left="103" width="26" height="15" font="0">A, B</text>
+<text top="846" left="131" width="4" height="15" font="6">|</text>
+<text top="847" left="137" width="10" height="15" font="0">C</text>
+<text top="846" left="148" width="6" height="15" font="6">i</text>
+<text top="847" left="158" width="271" height="15" font="0">is in the induced independence structure</text>
+<text top="865" left="82" width="346" height="15" font="0">by the graph. This probability distribution is the</text>
+<text top="883" left="82" width="346" height="15" font="0">marginal and conditional of a probability distribu-</text>
+<text top="901" left="82" width="281" height="15" font="0">tion that is faithful to the generating DAG.</text>
+<text top="920" left="105" width="324" height="15" font="0">The other classes of stable graphs are further sim-</text>
+<text top="938" left="82" width="346" height="15" font="0">plification of the class of ribbonless graphs. Sum-</text>
+<text top="956" left="82" width="346" height="15" font="0">mary graphs have the additional property that there</text>
+<text top="973" left="82" width="291" height="15" font="0">are neither arrowheads pointing to lines (i.e.</text>
+<text top="972" left="379" width="12" height="15" font="6">≺</text>
+<text top="972" left="406" width="23" height="15" font="6"> ◦</text>
+<text top="991" left="116" width="14" height="15" font="0">or</text>
+<text top="990" left="156" width="24" height="15" font="6"> ◦</text>
+<text top="991" left="212" width="217" height="15" font="0">) nor directed cycles with all ar-</text>
+<text top="1009" left="82" width="245" height="15" font="0">rows pointing towards one direction.</text>
+<text top="1028" left="105" width="324" height="15" font="0">Ancestral graphs have the same constraints as</text>
+<text top="1046" left="82" width="346" height="15" font="0">summary graphs plus the additional prohibition of</text>
+<text top="1064" left="82" width="346" height="15" font="0">bows, i.e. arcs with one endpoint that is an ances-</text>
+<text top="1082" left="82" width="190" height="15" font="0">tor of the other endpoint; see</text>
+<text top="1082" left="276" width="153" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Richardson and Spirtes</a></text>
+<text top="1100" left="82" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="1100" left="87" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="1100" left="117" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">).</a></text>
+<text top="1119" left="105" width="324" height="15" font="0">However, for some ribbonless and summary</text>
+<text top="1137" left="82" width="346" height="15" font="0">graphs the corresponding parametrisation is some-</text>
+<text top="1155" left="82" width="346" height="15" font="0">times not available even in the case of a standard</text>
+<text top="1173" left="82" width="180" height="15" font="0">joint Gaussian distribution.</text>
+<text top="125" left="481" width="324" height="15" font="0">If we suppose that stable mixed graphs are only</text>
+<text top="143" left="459" width="346" height="15" font="0">used to represent the independence structure after</text>
+<text top="161" left="459" width="346" height="15" font="0">marginalisation and conditioning, we can consider</text>
+<text top="179" left="459" width="346" height="15" font="0">all types as equally appropriate. However, each of</text>
+<text top="197" left="459" width="346" height="15" font="0">the three types has been used in different contexts</text>
+<text top="215" left="459" width="346" height="15" font="0">and for different purposes. RGs have been intro-</text>
+<text top="233" left="459" width="346" height="15" font="0">duced in order to straightforwardly deal with the</text>
+<text top="251" left="459" width="346" height="15" font="0">problem of finding a class of graphs that is closed</text>
+<text top="268" left="459" width="346" height="15" font="0">under marginalisation and conditioning by a simple</text>
+<text top="286" left="459" width="346" height="15" font="0">process of deriving them from DAGs. SGs are used</text>
+<text top="304" left="459" width="346" height="15" font="0">when the generating DAG is known, to trace the ef-</text>
+<text top="322" left="459" width="346" height="15" font="0">fects in the sets of regressions as described earlier.</text>
+<text top="340" left="459" width="346" height="15" font="0">AGs are simple graphs, meaning that they do not</text>
+<text top="358" left="459" width="346" height="15" font="0">contain multiple edges and the lack of bows ensures</text>
+<text top="376" left="459" width="346" height="15" font="0">that they satisfy many desirable statistical properties.</text>
+<text top="394" left="481" width="324" height="15" font="0">In addition, when one traces the effects in regres-</text>
+<text top="412" left="459" width="346" height="15" font="0">sion models with latent and selection variables (as</text>
+<text top="430" left="459" width="346" height="15" font="0">described in the introduction) ribbonless graphs are</text>
+<text top="448" left="459" width="346" height="15" font="0">more alerting to possible distortions (due to indirect</text>
+<text top="466" left="459" width="346" height="15" font="0">effects) than summary graphs, and summary graphs</text>
+<text top="484" left="459" width="312" height="15" font="0">are more alerting than ancestral graphs; see also</text>
+<text top="484" left="774" width="31" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Wer-</a></text>
+<text top="502" left="459" width="96" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">muth and Cox</a></text>
+<text top="502" left="559" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="502" left="564" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2008</a></text>
+<text top="502" left="594" width="211" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">). </a>For the exact definition and a</text>
+<text top="520" left="459" width="289" height="15" font="0">thorough discussion of all such graphs, see</text>
+<text top="520" left="752" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="538" left="459" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="538" left="464" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="538" left="501" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">).</a></text>
+<text top="556" left="481" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="556" left="541" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="556" left="546" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="556" left="583" width="222" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">) </a>also defines the algorithms for</text>
+<text top="574" left="459" width="346" height="15" font="0">generating stable mixed graphs of a specific type</text>
+<text top="592" left="459" width="346" height="15" font="0">for a given DAG or for a stable mixed graph of</text>
+<text top="610" left="459" width="346" height="15" font="0">the same type after marginalisation and conditioning</text>
+<text top="628" left="459" width="346" height="15" font="0">such that they induce the marginal and conditional</text>
+<text top="646" left="459" width="346" height="15" font="0">DAG-independence structure. We implement these</text>
+<text top="664" left="459" width="161" height="15" font="0">algorithms in this paper.</text>
+<text top="682" left="481" width="324" height="15" font="0">By “generating graphs” we mean applying the</text>
+<text top="700" left="459" width="346" height="15" font="0">defined algorithms, e.g. those for generating stable</text>
+<text top="718" left="459" width="346" height="15" font="0">mixed graphs to graphs, in order to generate new</text>
+<text top="736" left="459" width="49" height="15" font="0">graphs.</text>
+<text top="780" left="459" width="346" height="17" font="5"><b>Functions to generate the three main types</b></text>
+<text top="801" left="459" width="186" height="17" font="5"><b>of stable mixed graphs</b></text>
+<text top="832" left="459" width="346" height="15" font="0">Three main functions RG, SG, and AG are available</text>
+<text top="850" left="459" width="346" height="15" font="0">to generate and plot ribbonless, summary, and an-</text>
+<text top="868" left="459" width="346" height="15" font="0">cestral graphs from DAGs, using the algorithms in</text>
+<text top="886" left="459" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="886" left="516" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="886" left="521" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="886" left="558" width="247" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">). </a>These algorithms look for the paths</text>
+<text top="904" left="459" width="346" height="15" font="0">with three nodes and two edges in the graph whose</text>
+<text top="922" left="459" width="346" height="15" font="0">inner nodes are being marginalised over or condi-</text>
+<text top="940" left="459" width="346" height="15" font="0">tioned on, and generate appropriate edges between</text>
+<text top="957" left="459" width="346" height="15" font="0">the endpoints. These have two important properties:</text>
+<text top="975" left="459" width="346" height="15" font="0">(a) they are well-defined in the sense that the pro-</text>
+<text top="993" left="459" width="346" height="15" font="0">cess can be performed in any order and will always</text>
+<text top="1011" left="459" width="346" height="15" font="0">produce the same final graph, and (b) the generated</text>
+<text top="1029" left="459" width="346" height="15" font="0">graphs induce the modified independence structure</text>
+<text top="1047" left="459" width="289" height="15" font="0">after marginalisation and conditioning; see</text>
+<text top="1047" left="752" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="1065" left="459" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="1065" left="464" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="1065" left="501" width="117" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">) </a>for more details.</text>
+<text top="1083" left="481" width="324" height="15" font="0">The functions RG, SG, and AG all have three argu-</text>
+<text top="1101" left="459" width="346" height="15" font="0">ments: a, the given input graph, M, the marginalisa-</text>
+<text top="1119" left="459" width="346" height="15" font="0">tion set and C, the conditioning set. The graph may</text>
+<text top="1137" left="459" width="346" height="15" font="0">be of class &#34;graphNEL&#34; or of class &#34;igraph&#34; or may</text>
+<text top="1155" left="459" width="346" height="15" font="0">be represented by a character vector, or by an adja-</text>
+<text top="1173" left="459" width="346" height="15" font="0">cency matrix, as explained in the previous sections.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="17" size="7" family="Times" color="#00008b"/>
+	<fontspec id="18" size="19" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">69</text>
+<text top="125" left="82" width="346" height="15" font="0">The sets M and C (default c()) must be disjoint vec-</text>
+<text top="143" left="82" width="346" height="15" font="0">tors of node labels, and they may possibly be empty</text>
+<text top="161" left="82" width="346" height="15" font="0">sets. The output is always the adjacency matrix of</text>
+<text top="179" left="82" width="346" height="15" font="0">the generated graph. There are two additional logi-</text>
+<text top="197" left="82" width="346" height="15" font="0">cal arguments showmat and plot to specify whether</text>
+<text top="215" left="82" width="346" height="15" font="0">the adjacency matrix must be explicitly printed (de-</text>
+<text top="233" left="82" width="346" height="15" font="0">fault TRUE) and the graph must be plotted (default</text>
+<text top="252" left="82" width="38" height="12" font="0">FALSE</text>
+<text top="251" left="121" width="9" height="15" font="0">).</text>
+<text top="302" left="82" width="127" height="17" font="5"><b>Some examples</b></text>
+<text top="336" left="82" width="346" height="15" font="0">We start from a DAG defined in two ways, as an ad-</text>
+<text top="354" left="82" width="267" height="15" font="0">jacency matrix and as a character vector:</text>
+<text top="390" left="82" width="226" height="10" font="13">&gt; ex &lt;- matrix(c(0,1,0,0,0,0,0,0,</text>
+<text top="407" left="199" width="110" height="10" font="13">0,0,1,0,0,0,0,0,</text>
+<text top="423" left="199" width="110" height="10" font="13">0,0,0,0,0,0,0,0,</text>
+<text top="440" left="199" width="110" height="10" font="13">0,0,1,0,1,0,1,0,</text>
+<text top="456" left="199" width="110" height="10" font="13">0,0,0,0,0,1,0,0,</text>
+<text top="473" left="199" width="110" height="10" font="13">0,0,0,0,0,0,0,0,</text>
+<text top="489" left="199" width="110" height="10" font="13">0,0,0,0,0,1,0,0,</text>
+<text top="505" left="199" width="117" height="10" font="13">0,0,0,0,0,1,1,0),</text>
+<text top="522" left="185" width="130" height="10" font="13">8, 8, byrow = TRUE)</text>
+<text top="538" left="82" width="7" height="10" font="13">&gt;</text>
+<text top="555" left="82" width="254" height="10" font="13">&gt; exvec &lt;- c(&#34;a&#34;,1,2,&#34;a&#34;,2,3,&#34;a&#34;,4,3,</text>
+<text top="571" left="172" width="165" height="10" font="13">&#34;a&#34;,4,5,&#34;a&#34;,4,7,&#34;a&#34;,5,6,</text>
+<text top="588" left="172" width="165" height="10" font="13">&#34;a&#34;,7,6,&#34;a&#34;,8,6,&#34;a&#34;,8,7)</text>
+<text top="626" left="82" width="103" height="10" font="13">&gt; plotGraph(ex)</text>
+<text top="668" left="353" width="5" height="7" font="12">1</text>
+<text top="726" left="316" width="5" height="7" font="12">2</text>
+<text top="671" left="276" width="5" height="7" font="12">3</text>
+<text top="728" left="232" width="5" height="7" font="12">4</text>
+<text top="728" left="154" width="5" height="7" font="12">5</text>
+<text top="667" left="154" width="5" height="7" font="12">6</text>
+<text top="667" left="232" width="5" height="7" font="12">7</text>
+<text top="709" left="195" width="5" height="7" font="12">8</text>
+<text top="772" left="82" width="346" height="15" font="0">Then we define two disjoint sets M and C to</text>
+<text top="790" left="82" width="227" height="15" font="0">marginalise over and condition on</text>
+<text top="826" left="82" width="89" height="10" font="13">&gt; M &lt;- c(5,8)</text>
+<text top="842" left="82" width="55" height="10" font="13">&gt; C &lt;- 3</text>
+<text top="875" left="82" width="346" height="15" font="0">and we generate the ribbonless, summary and ances-</text>
+<text top="893" left="82" width="335" height="15" font="0">tral graphs from the DAG with the associated plot.</text>
+<text top="929" left="82" width="185" height="10" font="13">&gt; RG(ex, M, C, plot = TRUE)</text>
+<text top="968" left="96" width="7" height="10" font="13">1</text>
+<text top="968" left="117" width="7" height="10" font="13">2</text>
+<text top="968" left="137" width="7" height="10" font="13">4</text>
+<text top="968" left="165" width="7" height="10" font="13">6</text>
+<text top="968" left="192" width="7" height="10" font="13">7</text>
+<text top="984" left="82" width="21" height="10" font="13">1 0</text>
+<text top="984" left="117" width="7" height="10" font="13">1</text>
+<text top="984" left="137" width="7" height="10" font="13">0</text>
+<text top="984" left="165" width="7" height="10" font="13">0</text>
+<text top="984" left="192" width="7" height="10" font="13">0</text>
+<text top="1001" left="82" width="21" height="10" font="13">2 0</text>
+<text top="1001" left="117" width="27" height="10" font="13">0 10</text>
+<text top="1001" left="165" width="7" height="10" font="13">0</text>
+<text top="1001" left="192" width="7" height="10" font="13">0</text>
+<text top="1017" left="82" width="41" height="10" font="13">4 0 10</text>
+<text top="1017" left="137" width="7" height="10" font="13">0</text>
+<text top="1017" left="165" width="7" height="10" font="13">1</text>
+<text top="1017" left="192" width="7" height="10" font="13">1</text>
+<text top="1034" left="82" width="21" height="10" font="13">6 0</text>
+<text top="1034" left="117" width="7" height="10" font="13">0</text>
+<text top="1034" left="137" width="7" height="10" font="13">0</text>
+<text top="1034" left="165" width="34" height="10" font="13">0 100</text>
+<text top="1050" left="82" width="21" height="10" font="13">7 0</text>
+<text top="1050" left="117" width="7" height="10" font="13">0</text>
+<text top="1050" left="137" width="34" height="10" font="13">0 101</text>
+<text top="1050" left="192" width="7" height="10" font="13">0</text>
+<text top="1090" left="350" width="5" height="7" font="12">1</text>
+<text top="1146" left="303" width="5" height="7" font="12">2</text>
+<text top="1147" left="230" width="5" height="7" font="12">4</text>
+<text top="1090" left="152" width="5" height="7" font="12">6</text>
+<text top="1092" left="231" width="5" height="7" font="12">7</text>
+<text top="125" left="459" width="235" height="15" font="0">The summary graph is also plotted:</text>
+<text top="154" left="459" width="158" height="10" font="13">&gt; plotGraph(SG(ex,M,C))</text>
+<text top="184" left="479" width="7" height="10" font="13">1</text>
+<text top="184" left="500" width="7" height="10" font="13">2</text>
+<text top="184" left="521" width="7" height="10" font="13">4</text>
+<text top="184" left="548" width="7" height="10" font="13">6</text>
+<text top="184" left="575" width="7" height="10" font="13">7</text>
+<text top="200" left="459" width="7" height="10" font="13">1</text>
+<text top="200" left="479" width="27" height="10" font="13">0 10</text>
+<text top="200" left="521" width="7" height="10" font="13">0</text>
+<text top="200" left="548" width="7" height="10" font="13">0</text>
+<text top="200" left="575" width="7" height="10" font="13">0</text>
+<text top="217" left="459" width="27" height="10" font="13">2 10</text>
+<text top="217" left="500" width="27" height="10" font="13">0 10</text>
+<text top="217" left="548" width="7" height="10" font="13">0</text>
+<text top="217" left="575" width="7" height="10" font="13">0</text>
+<text top="233" left="459" width="7" height="10" font="13">4</text>
+<text top="233" left="479" width="27" height="10" font="13">0 10</text>
+<text top="233" left="521" width="7" height="10" font="13">0</text>
+<text top="233" left="548" width="7" height="10" font="13">1</text>
+<text top="233" left="575" width="7" height="10" font="13">1</text>
+<text top="250" left="459" width="7" height="10" font="13">6</text>
+<text top="250" left="479" width="7" height="10" font="13">0</text>
+<text top="250" left="500" width="7" height="10" font="13">0</text>
+<text top="250" left="521" width="7" height="10" font="13">0</text>
+<text top="250" left="548" width="34" height="10" font="13">0 100</text>
+<text top="266" left="459" width="7" height="10" font="13">7</text>
+<text top="266" left="479" width="7" height="10" font="13">0</text>
+<text top="266" left="500" width="7" height="10" font="13">0</text>
+<text top="266" left="521" width="34" height="10" font="13">0 101</text>
+<text top="266" left="575" width="7" height="10" font="13">0</text>
+<text top="302" left="713" width="5" height="7" font="12">1</text>
+<text top="356" left="670" width="5" height="7" font="12">2</text>
+<text top="357" left="612" width="5" height="7" font="12">4</text>
+<text top="305" left="548" width="5" height="7" font="12">6</text>
+<text top="306" left="612" width="5" height="7" font="12">7</text>
+<text top="397" left="459" width="346" height="15" font="0">The induced ancestral graph is obtained from the</text>
+<text top="415" left="459" width="165" height="15" font="0">DAG defined as a vector.</text>
+<text top="444" left="459" width="322" height="10" font="13">&gt; AG(exvec, M, C, showmat = FALSE, plot = TRUE)</text>
+<text top="475" left="714" width="5" height="7" font="17">1</text>
+<text top="529" left="670" width="5" height="7" font="17">2</text>
+<text top="530" left="603" width="5" height="7" font="17">4</text>
+<text top="474" left="545" width="5" height="7" font="17">6</text>
+<text top="474" left="604" width="5" height="7" font="17">7</text>
+<text top="578" left="459" width="226" height="21" font="4"><b>Verifying </b>m<b>-separation</b></text>
+<text top="617" left="459" width="346" height="15" font="0">To globally verify whether an independence state-</text>
+<text top="635" left="459" width="139" height="15" font="0">ment of the form A</text>
+<text top="634" left="602" width="12" height="15" font="6">⊥</text>
+<text top="634" left="599" width="12" height="15" font="6">⊥</text>
+<text top="635" left="615" width="9" height="15" font="0">B</text>
+<text top="634" left="626" width="4" height="15" font="6">|</text>
+<text top="635" left="633" width="173" height="15" font="0">C is implied by a mixed</text>
+<text top="653" left="459" width="346" height="15" font="0">graph we use a separation criterion called m-</text>
+<text top="671" left="459" width="239" height="15" font="0">separation. This has been defined in</text>
+<text top="671" left="701" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="671" left="758" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="671" left="763" width="37" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012a</a></text>
+<text top="671" left="800" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">)</a></text>
+<text top="689" left="459" width="346" height="15" font="0">for the general class of loopless mixed graphs and</text>
+<text top="707" left="459" width="346" height="15" font="0">is the same as the m-separation criterion defined in</text>
+<text top="725" left="459" width="157" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Richardson and Spirtes</a></text>
+<text top="725" left="621" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="725" left="626" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="725" left="656" width="149" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">) </a>for ancestral graphs.</text>
+<text top="743" left="459" width="346" height="15" font="0">It is also a generalisation of the d-separation criterion</text>
+<text top="761" left="459" width="74" height="15" font="0">for DAGs <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="761" left="533" width="34" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Pearl</a></text>
+<text top="761" left="567" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">,</a></text>
+<text top="761" left="576" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">1988</a></text>
+<text top="761" left="605" width="200" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">). </a>This is a graphical criterion</text>
+<text top="778" left="459" width="346" height="15" font="0">that looks to see if the graph contains special paths</text>
+<text top="796" left="459" width="346" height="15" font="0">connecting two sets A and B and involving a third</text>
+<text top="814" left="459" width="346" height="15" font="0">set C of the nodes. These special paths are said to be</text>
+<text top="832" left="459" width="346" height="15" font="0">active or m-connecting. For example, a directed path</text>
+<text top="850" left="459" width="346" height="15" font="0">from a node in A to a node in B that does not contain</text>
+<text top="868" left="459" width="346" height="15" font="0">any node of C is m-connecting A and B. However, if</text>
+<text top="886" left="459" width="346" height="15" font="0">such a path intercepts a node in C then A and B are</text>
+<text top="904" left="459" width="346" height="15" font="0">said to be m-separated given C. However, this be-</text>
+<text top="922" left="459" width="346" height="15" font="0">haviour can change if the path connecting A and B</text>
+<text top="940" left="459" width="346" height="15" font="0">contains a collision node or a collider for short, that</text>
+<text top="958" left="459" width="346" height="15" font="0">is a node c where the edges meet head-to-head, e.g.</text>
+<text top="975" left="479" width="12" height="15" font="6"></text>
+<text top="976" left="492" width="6" height="15" font="0">c</text>
+<text top="975" left="499" width="12" height="15" font="6">≺</text>
+<text top="976" left="535" width="14" height="15" font="0">or</text>
+<text top="975" left="573" width="12" height="15" font="6"></text>
+<text top="976" left="585" width="6" height="15" font="0">c</text>
+<text top="975" left="593" width="12" height="15" font="6">≺</text>
+<text top="975" left="620" width="12" height="15" font="6"></text>
+<text top="976" left="632" width="4" height="15" font="0">.</text>
+<text top="994" left="481" width="324" height="15" font="0">In general, a path is said to be m-connecting given</text>
+<text top="1011" left="459" width="346" height="15" font="0">C if all its collider nodes are in C or in the set of an-</text>
+<text top="1030" left="459" width="346" height="15" font="0">cestors of C, and all its non-collider nodes are outside</text>
+<text top="1047" left="459" width="346" height="15" font="0">C. For two disjoint subsets A and B of the node set,</text>
+<text top="1065" left="459" width="346" height="15" font="0">we say that C m-separates A and B if there is no m-</text>
+<text top="1083" left="459" width="282" height="15" font="0">connecting path between A and B given C.</text>
+<text top="1125" left="459" width="292" height="17" font="5"><b>Function for verifying </b>m<b>-separation</b></text>
+<text top="1155" left="459" width="346" height="15" font="0">The m-separation criterion has been implemented in</text>
+<text top="1173" left="459" width="30" height="15" font="3"><b>ggm</b></text>
+<text top="1173" left="496" width="309" height="15" font="0">and is available by using the function msep.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">70</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">Note that there is still a function dSep in <b>ggm </b>for d-</text>
+<text top="143" left="82" width="302" height="15" font="0">separation, although it is superseded by msep.</text>
+<text top="161" left="105" width="324" height="15" font="0">The function has four arguments, where the first</text>
+<text top="179" left="82" width="346" height="15" font="0">is the graph a, in one of the forms discussed before,</text>
+<text top="197" left="82" width="330" height="15" font="0">and the other three are the disjoint sets A, B, and C.</text>
+<text top="238" left="82" width="79" height="17" font="5"><b>Examples</b></text>
+<text top="269" left="82" width="272" height="15" font="0">For example, consider the DAG of Figure</text>
+<text top="269" left="358" width="7" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">1</a></text>
+<text top="269" left="366" width="21" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">(a):</a></text>
+<text top="299" left="82" width="268" height="10" font="13">&gt; a &lt;- DAG(Y ~ U + Z, X ~ U + W, Z ~ W)</text>
+<text top="326" left="105" width="305" height="15" font="0">We see that Y and W are m-separated given Z:</text>
+<text top="356" left="82" width="165" height="10" font="13">&gt; msep(a, &#34;Y&#34;, &#34;W&#34;, &#34;Z&#34;)</text>
+<text top="386" left="82" width="55" height="10" font="13">[1] TRUE</text>
+<text top="416" left="82" width="346" height="15" font="0">and the same statement holds for the induced ances-</text>
+<text top="434" left="82" width="256" height="15" font="0">tral graph after marginalisation over U:</text>
+<text top="464" left="82" width="144" height="10" font="13">&gt; b &lt;- AG(a, M = &#34;U&#34;)</text>
+<text top="480" left="82" width="165" height="10" font="13">&gt; msep(b, &#34;Y&#34;, &#34;W&#34;, &#34;Z&#34;)</text>
+<text top="511" left="82" width="55" height="10" font="13">[1] TRUE</text>
+<text top="540" left="82" width="346" height="15" font="0">This was expected because the induced ancestral</text>
+<text top="558" left="82" width="346" height="15" font="0">graph respects all the independence statements in-</text>
+<text top="576" left="82" width="346" height="15" font="0">duced by m-separation in the DAG, and not involv-</text>
+<text top="594" left="82" width="118" height="15" font="0">ing the variable U.</text>
+<text top="612" left="105" width="324" height="15" font="0">As a more complex example, consider the follow-</text>
+<text top="630" left="82" width="135" height="15" font="0">ing summary graph,</text>
+<text top="660" left="82" width="268" height="10" font="13">&gt; a &lt;- makeMG(dg= DG(W ~ Z, Z ~ Y + X),</text>
+<text top="676" left="179" width="96" height="10" font="13">bg= UG(~ Y*Z))</text>
+<text top="707" left="82" width="96" height="10" font="13">&gt; plotGraph(a)</text>
+<text top="761" left="199" width="9" height="10" font="12">W</text>
+<text top="761" left="252" width="6" height="10" font="12">Z</text>
+<text top="739" left="303" width="6" height="10" font="12">Y</text>
+<text top="787" left="301" width="6" height="10" font="12">X</text>
+<text top="825" left="82" width="346" height="15" font="0">Then, the two following statements verify whether X</text>
+<text top="843" left="82" width="346" height="15" font="0">is m-separated from Y given Z, and whether X is m-</text>
+<text top="861" left="82" width="259" height="15" font="0">separated from Y (given the empty set):</text>
+<text top="891" left="82" width="165" height="10" font="13">&gt; msep(a, &#34;X&#34;, &#34;Y&#34;, &#34;Z&#34;)</text>
+<text top="921" left="82" width="62" height="10" font="13">[1] FALSE</text>
+<text top="952" left="82" width="130" height="10" font="13">&gt; msep(a, &#34;X&#34;, &#34;Y&#34;)</text>
+<text top="982" left="82" width="55" height="10" font="13">[1] TRUE</text>
+<text top="1027" left="82" width="210" height="21" font="4"><b>Verifying maximality</b></text>
+<text top="1065" left="82" width="346" height="15" font="0">For many subclasses of graphs a missing edge cor-</text>
+<text top="1083" left="82" width="346" height="15" font="0">responds to some independence statement, but for</text>
+<text top="1101" left="82" width="346" height="15" font="0">the more complex classes of mixed graphs this is not</text>
+<text top="1119" left="82" width="346" height="15" font="0">necessarily true. A graph where each of its miss-</text>
+<text top="1137" left="82" width="346" height="15" font="0">ing edges is related to an independence statement is</text>
+<text top="1155" left="82" width="346" height="15" font="0">called a maximal graph . For a more detailed discus-</text>
+<text top="1173" left="82" width="346" height="15" font="0">sion on maximality of graphs and graph-theoretical</text>
+<text top="125" left="459" width="236" height="15" font="0">conditions for maximal graphs, see</text>
+<text top="125" left="700" width="105" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Richardson and</a></text>
+<text top="143" left="459" width="45" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Spirtes</a></text>
+<text top="143" left="513" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="143" left="518" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="143" left="547" width="39" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">) </a>and</text>
+<text top="143" left="594" width="159" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi and Lauritzen</a></text>
+<text top="143" left="762" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="143" left="767" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012</a></text>
+<text top="143" left="797" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">).</a></text>
+<text top="161" left="459" width="149" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi and Lauritzen</a></text>
+<text top="161" left="612" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="161" left="617" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012</a></text>
+<text top="161" left="647" width="159" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">) </a>also gave an algorithm</text>
+<text top="179" left="459" width="346" height="15" font="0">for generating maximal ribbonless graphs that in-</text>
+<text top="197" left="459" width="346" height="15" font="0">duces the same independence structure as an input</text>
+<text top="215" left="459" width="346" height="15" font="0">non-maximal ribbonless graph. This algorithm has</text>
+<text top="233" left="459" width="309" height="15" font="0">been implemented in <b>ggm </b>as illustrated below.</text>
+<text top="287" left="459" width="329" height="17" font="5"><b>Function for generating maximal graphs</b></text>
+<text top="322" left="459" width="346" height="15" font="0">Given a non-maximal graph, we can obtain the ad-</text>
+<text top="340" left="459" width="346" height="15" font="0">jacency matrix of a maximal graph that induces the</text>
+<text top="357" left="459" width="346" height="15" font="0">same independence statements with the function</text>
+<text top="377" left="459" width="23" height="12" font="0">Max</text>
+<text top="375" left="482" width="264" height="15" font="0">. This function uses the algorithm by</text>
+<text top="375" left="752" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="393" left="459" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="393" left="464" width="38" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012b</a></text>
+<text top="393" left="502" width="303" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">), </a>which is an extension of the implicit algo-</text>
+<text top="411" left="459" width="129" height="15" font="0">rithm presented in</text>
+<text top="411" left="595" width="160" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Richardson and Spirtes</a></text>
+<text top="411" left="762" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="411" left="767" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2002</a></text>
+<text top="411" left="797" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">).</a></text>
+<text top="429" left="459" width="346" height="15" font="0">The related functions MAG, MSG, and MRG, are just</text>
+<text top="447" left="459" width="346" height="15" font="0">handy wrappers to obtain maximal AGs, SGs and</text>
+<text top="465" left="459" width="207" height="15" font="0">RGs, respectively. For example,</text>
+<text top="502" left="459" width="117" height="10" font="13">&gt; H &lt;- matrix(c(0</text>
+<text top="502" left="589" width="34" height="10" font="13">,100,</text>
+<text top="502" left="637" width="14" height="10" font="13">1,</text>
+<text top="502" left="665" width="14" height="10" font="13">0,</text>
+<text top="519" left="569" width="34" height="10" font="13">100,0</text>
+<text top="519" left="617" width="34" height="10" font="13">,100,</text>
+<text top="519" left="665" width="14" height="10" font="13">0,</text>
+<text top="535" left="569" width="7" height="10" font="13">0</text>
+<text top="535" left="589" width="34" height="10" font="13">,100,</text>
+<text top="535" left="637" width="41" height="10" font="13">0,100,</text>
+<text top="552" left="569" width="14" height="10" font="13">0,</text>
+<text top="552" left="596" width="7" height="10" font="13">1</text>
+<text top="552" left="617" width="34" height="10" font="13">,100,</text>
+<text top="552" left="665" width="62" height="10" font="13">0), 4, 4)</text>
+<text top="592" left="459" width="96" height="10" font="13">&gt; plotGraph(H)</text>
+<text top="638" left="577" width="5" height="7" font="12">1</text>
+<text top="723" left="576" width="5" height="7" font="12">2</text>
+<text top="723" left="664" width="5" height="7" font="12">3</text>
+<text top="637" left="664" width="5" height="7" font="12">4</text>
+<text top="776" left="459" width="346" height="15" font="0">is a non-maximal ancestral graph, with the miss-</text>
+<text top="794" left="459" width="346" height="15" font="0">ing edge between nodes 1 and 4 that is not associ-</text>
+<text top="812" left="459" width="346" height="15" font="0">ated with any independence statement. Its associ-</text>
+<text top="830" left="459" width="230" height="15" font="0">ated maximal graph is obtained by</text>
+<text top="867" left="459" width="55" height="10" font="13">&gt; Max(H)</text>
+<text top="907" left="486" width="7" height="10" font="13">1</text>
+<text top="907" left="514" width="7" height="10" font="13">2</text>
+<text top="907" left="541" width="7" height="10" font="13">3</text>
+<text top="907" left="569" width="7" height="10" font="13">4</text>
+<text top="924" left="459" width="7" height="10" font="13">1</text>
+<text top="924" left="486" width="34" height="10" font="13">0 100</text>
+<text top="924" left="541" width="34" height="10" font="13">0 100</text>
+<text top="940" left="459" width="34" height="10" font="13">2 100</text>
+<text top="940" left="514" width="34" height="10" font="13">0 100</text>
+<text top="940" left="569" width="7" height="10" font="13">1</text>
+<text top="957" left="459" width="7" height="10" font="13">3</text>
+<text top="957" left="486" width="34" height="10" font="13">1 100</text>
+<text top="957" left="541" width="34" height="10" font="13">0 100</text>
+<text top="973" left="459" width="34" height="10" font="13">4 100</text>
+<text top="973" left="514" width="34" height="10" font="13">0 100</text>
+<text top="973" left="569" width="7" height="10" font="13">0</text>
+<text top="1011" left="459" width="130" height="10" font="13">&gt; plotGraph(Max(H))</text>
+<text top="1056" left="576" width="5" height="7" font="12">1</text>
+<text top="1141" left="575" width="5" height="7" font="12">2</text>
+<text top="1141" left="675" width="5" height="7" font="12">3</text>
+<text top="1057" left="676" width="5" height="7" font="12">4</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="6" family="Times" color="#00008a"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">71</text>
+<text top="125" left="82" width="346" height="15" font="0">As the graph H is an ancestral graph (as may be veri-</text>
+<text top="143" left="82" width="346" height="15" font="0">fied by the function isAG), we obtain the same result</text>
+<text top="161" left="82" width="30" height="15" font="0">with</text>
+<text top="188" left="82" width="55" height="10" font="13">&gt; MAG(H)</text>
+<text top="215" left="110" width="7" height="10" font="13">1</text>
+<text top="215" left="137" width="7" height="10" font="13">2</text>
+<text top="215" left="165" width="7" height="10" font="13">3</text>
+<text top="215" left="192" width="7" height="10" font="13">4</text>
+<text top="232" left="82" width="7" height="10" font="13">1</text>
+<text top="232" left="110" width="34" height="10" font="13">0 100</text>
+<text top="232" left="165" width="34" height="10" font="13">0 100</text>
+<text top="248" left="82" width="34" height="10" font="13">2 100</text>
+<text top="248" left="137" width="34" height="10" font="13">0 100</text>
+<text top="248" left="192" width="7" height="10" font="13">1</text>
+<text top="265" left="82" width="7" height="10" font="13">3</text>
+<text top="265" left="110" width="34" height="10" font="13">1 100</text>
+<text top="265" left="165" width="34" height="10" font="13">0 100</text>
+<text top="281" left="82" width="34" height="10" font="13">4 100</text>
+<text top="281" left="137" width="34" height="10" font="13">0 100</text>
+<text top="281" left="192" width="7" height="10" font="13">0</text>
+<text top="325" left="82" width="300" height="21" font="4"><b>Verifying Markov equivalence</b></text>
+<text top="363" left="82" width="346" height="15" font="0">Two graphical models are said to be Markov equiv-</text>
+<text top="381" left="82" width="346" height="15" font="0">alent when their associated graphs, although non-</text>
+<text top="399" left="82" width="346" height="15" font="0">identical, imply the same independence structure,</text>
+<text top="417" left="82" width="346" height="15" font="0">that is the same set of independence statements.</text>
+<text top="435" left="82" width="346" height="15" font="0">Thus two Markov equivalent models cannot be dis-</text>
+<text top="453" left="82" width="346" height="15" font="0">tinguished on the basis of statistical tests of inde-</text>
+<text top="471" left="82" width="346" height="15" font="0">pendence, even for arbitrary large samples. For in-</text>
+<text top="489" left="82" width="346" height="15" font="0">stance, it is easy to verify that the two directed acyclic</text>
+<text top="507" left="82" width="119" height="15" font="0">graphs models X</text>
+<text top="506" left="203" width="12" height="15" font="6">≺</text>
+<text top="507" left="235" width="12" height="15" font="0">U</text>
+<text top="506" left="267" width="12" height="15" font="6"></text>
+<text top="507" left="280" width="61" height="15" font="0">Y and X</text>
+<text top="506" left="342" width="12" height="15" font="6">≺</text>
+<text top="507" left="374" width="12" height="15" font="0">U</text>
+<text top="506" left="387" width="12" height="15" font="6">≺</text>
+<text top="507" left="419" width="10" height="15" font="0">Y</text>
+<text top="525" left="82" width="346" height="15" font="0">both imply the same independence statements, and</text>
+<text top="543" left="82" width="224" height="15" font="0">are, therefore, Markov equivalent.</text>
+<text top="561" left="105" width="324" height="15" font="0">Sometimes, we can check whether graphs of dif-</text>
+<text top="579" left="82" width="346" height="15" font="0">ferent types are Markov equivalent. For instance the</text>
+<text top="596" left="82" width="50" height="15" font="0">DAG X</text>
+<text top="595" left="153" width="12" height="15" font="6"></text>
+<text top="596" left="166" width="12" height="15" font="0">U</text>
+<text top="595" left="179" width="12" height="15" font="6">≺</text>
+<text top="596" left="210" width="219" height="15" font="0">Y is Markov equivalent to the bi-</text>
+<text top="614" left="82" width="112" height="15" font="0">directed graph X</text>
+<text top="613" left="196" width="12" height="15" font="6">≺</text>
+<text top="613" left="223" width="12" height="15" font="6"></text>
+<text top="614" left="236" width="12" height="15" font="0">U</text>
+<text top="613" left="249" width="12" height="15" font="6">≺</text>
+<text top="613" left="276" width="12" height="15" font="6"></text>
+<text top="614" left="289" width="14" height="15" font="0">Z.</text>
+<text top="632" left="105" width="324" height="15" font="0">Markov equivalent models may be useful in ap-</text>
+<text top="650" left="82" width="346" height="15" font="0">plications because (a) they may suggest alternative</text>
+<text top="668" left="82" width="346" height="15" font="0">interpretations of a given well-fitting model or (b)</text>
+<text top="686" left="82" width="346" height="15" font="0">on the basis of the equivalence one can choose a</text>
+<text top="704" left="82" width="346" height="15" font="0">simpler fitting algorithm. For instance, the previ-</text>
+<text top="722" left="82" width="346" height="15" font="0">ous bi-directed graph model may be fitted, using the</text>
+<text top="740" left="82" width="346" height="15" font="0">Markov equivalent DAG, in terms of a sequence of</text>
+<text top="758" left="82" width="149" height="15" font="0">univariate regressions.</text>
+<text top="776" left="105" width="324" height="15" font="0">In the literature several problems related to</text>
+<text top="794" left="82" width="346" height="15" font="0">Markov equivalences have been discussed. These in-</text>
+<text top="812" left="82" width="346" height="15" font="0">clude (a) verifying the Markov equivalence of given</text>
+<text top="830" left="82" width="346" height="15" font="0">graphs, (b) presenting conditions under which a</text>
+<text top="848" left="82" width="346" height="15" font="0">graph of a specific type can be Markov equivalent</text>
+<text top="865" left="82" width="346" height="15" font="0">to a graph of another type, and (c) providing algo-</text>
+<text top="883" left="82" width="346" height="15" font="0">rithms for generating Markov equivalent graphs of a</text>
+<text top="901" left="82" width="213" height="15" font="0">certain type from a given graph.</text>
+<text top="942" left="82" width="346" height="17" font="5"><b>Functions for testing Markov equivalences</b></text>
+<text top="973" left="82" width="346" height="15" font="0">The function MarkEqRcg tests whether two regression</text>
+<text top="991" left="82" width="346" height="15" font="0">chain graphs are Markov equivalent. This function</text>
+<text top="1009" left="82" width="346" height="15" font="0">simply finds the skeleton and all unshielded collider</text>
+<text top="1026" left="82" width="346" height="15" font="0">V-configurations in both graphs and tests whether</text>
+<text top="1044" left="82" width="144" height="15" font="0">they are identical, see</text>
+<text top="1044" left="231" width="150" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Wermuth and Sadeghi</a></text>
+<text top="1044" left="385" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="1044" left="390" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012</a></text>
+<text top="1044" left="420" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">).</a></text>
+<text top="1062" left="82" width="346" height="15" font="0">The arguments of this function are the two graphs a</text>
+<text top="1080" left="82" width="316" height="15" font="0">and b in one of the allowed forms. For example,</text>
+<text top="1110" left="82" width="261" height="10" font="13">&gt; H1 &lt;- makeMG(dg = DAG(W ~ X, Q ~ Z),</text>
+<text top="1126" left="185" width="185" height="10" font="13">bg = UG(~ X*Y + Y*Z + W*Q))</text>
+<text top="1142" left="82" width="336" height="10" font="13">&gt; H2 &lt;- makeMG(dg = DAG(W ~ X, Q ~ Z, Y ~ X + Z),</text>
+<text top="1159" left="185" width="103" height="10" font="13">bg = UG(~ W*Q))</text>
+<text top="1175" left="82" width="274" height="10" font="13">&gt; H3 &lt;- DAG(W ~ X, Q ~ Z + W, Y ~ X + Z)</text>
+<text top="127" left="459" width="309" height="10" font="13">&gt; plotGraph(H1); plotGraph(H2); plotGraph(H3)</text>
+<text top="186" left="550" width="8" height="6" font="19">W</text>
+<text top="167" left="501" width="5" height="6" font="19">X</text>
+<text top="235" left="550" width="6" height="6" font="19">Q</text>
+<text top="256" left="501" width="5" height="6" font="19">Z</text>
+<text top="211" left="501" width="5" height="6" font="19">Y</text>
+<text top="185" left="655" width="8" height="6" font="19">W</text>
+<text top="165" left="603" width="5" height="6" font="19">X</text>
+<text top="233" left="656" width="6" height="6" font="19">Q</text>
+<text top="255" left="603" width="5" height="6" font="19">Z</text>
+<text top="210" left="603" width="5" height="6" font="19">Y</text>
+<text top="190" left="759" width="8" height="6" font="19">W</text>
+<text top="166" left="707" width="5" height="6" font="19">X</text>
+<text top="230" left="760" width="6" height="6" font="19">Q</text>
+<text top="255" left="708" width="5" height="6" font="19">Z</text>
+<text top="211" left="707" width="5" height="6" font="19">Y</text>
+<text top="297" left="459" width="332" height="15" font="0">We can now verify Markov equivalence as follows</text>
+<text top="332" left="459" width="123" height="10" font="13">&gt; MarkEqRcg(H1,H2)</text>
+<text top="369" left="459" width="55" height="10" font="13">[1] TRUE</text>
+<text top="404" left="459" width="123" height="10" font="13">&gt; MarkEqRcg(H1,H3)</text>
+<text top="440" left="459" width="62" height="10" font="13">[1] FALSE</text>
+<text top="475" left="459" width="123" height="10" font="13">&gt; MarkEqRcg(H2,H3)</text>
+<text top="510" left="459" width="62" height="10" font="13">[1] FALSE</text>
+<text top="546" left="459" width="346" height="15" font="0">To test Markov equivalence for maximal ancestral</text>
+<text top="564" left="459" width="346" height="15" font="0">graphs the algorithm is much more computation-</text>
+<text top="582" left="459" width="134" height="15" font="0">ally demanding (see</text>
+<text top="582" left="596" width="128" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">Ali and Richardson</a></text>
+<text top="582" left="728" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">(</a></text>
+<text top="582" left="733" width="30" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">2004</a></text>
+<text top="582" left="763" width="43" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">)) </a>and,</text>
+<text top="600" left="459" width="346" height="15" font="0">for this purpose, the function MarkEqMag has been</text>
+<text top="618" left="459" width="65" height="15" font="0">provided.</text>
+<text top="618" left="542" width="263" height="15" font="0">Of course, one can use this function</text>
+<text top="636" left="459" width="346" height="15" font="0">for Markov equivalence of regression chain graphs</text>
+<text top="654" left="459" width="346" height="15" font="0">(which are a subclass of maximal ancestral graphs).</text>
+<text top="672" left="459" width="86" height="15" font="0">For example,</text>
+<text top="707" left="459" width="206" height="10" font="13">&gt; A1 &lt;- makeMG(dg = DG(W ~ Y),</text>
+<text top="723" left="562" width="185" height="10" font="13">bg = UG(~ X*Y + Y*Z + Z*W))</text>
+<text top="739" left="459" width="254" height="10" font="13">&gt; A2 &lt;- makeMG(dg = DG(W ~ Y, Y ~ X),</text>
+<text top="756" left="562" width="144" height="10" font="13">bg = UG(~ Y*Z + Z*W))</text>
+<text top="772" left="459" width="302" height="10" font="13">&gt; A3 &lt;- makeMG(dg = DG(W ~ Y, Y ~ X, Z ~ Y),</text>
+<text top="789" left="562" width="103" height="10" font="13">bg = UG(~ Z*W))</text>
+<text top="825" left="459" width="309" height="10" font="13">&gt; plotGraph(A1); plotGraph(A2); plotGraph(A3)</text>
+<text top="911" left="542" width="8" height="9" font="19">W</text>
+<text top="957" left="509" width="5" height="9" font="19">Y</text>
+<text top="911" left="474" width="5" height="9" font="19">X</text>
+<text top="864" left="509" width="5" height="9" font="19">Z</text>
+<text top="911" left="664" width="8" height="9" font="19">W</text>
+<text top="957" left="628" width="5" height="9" font="19">Y</text>
+<text top="911" left="592" width="5" height="9" font="19">X</text>
+<text top="864" left="628" width="5" height="9" font="19">Z</text>
+<text top="910" left="784" width="8" height="9" font="19">W</text>
+<text top="957" left="749" width="5" height="9" font="19">Y</text>
+<text top="910" left="713" width="5" height="9" font="19">X</text>
+<text top="863" left="749" width="5" height="9" font="19">Z</text>
+<text top="997" left="459" width="123" height="10" font="13">&gt; MarkEqMag(H1,H2)</text>
+<text top="1032" left="459" width="55" height="10" font="13">[1] TRUE</text>
+<text top="1068" left="459" width="123" height="10" font="13">&gt; MarkEqMag(H1,H3)</text>
+<text top="1103" left="459" width="62" height="10" font="13">[1] FALSE</text>
+<text top="1138" left="459" width="123" height="10" font="13">&gt; MarkEqMag(H2,H3)</text>
+<text top="1174" left="459" width="62" height="10" font="13">[1] FALSE</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">72</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="123" left="82" width="346" height="17" font="5"><b>Functions for generating Markov equiva-</b></text>
+<text top="144" left="82" width="233" height="17" font="5"><b>lent graphs of a specific type</b></text>
+<text top="177" left="82" width="346" height="15" font="0">To obtain an alternative interpretation of an indepen-</text>
+<text top="194" left="82" width="346" height="15" font="0">dence structure by using different graphical models,</text>
+<text top="212" left="82" width="346" height="15" font="0">it is important to verify if a given graph is capable</text>
+<text top="230" left="82" width="346" height="15" font="0">of being Markov equivalent to a graph of a specific</text>
+<text top="248" left="82" width="346" height="15" font="0">class of graphs (such as DAGs, undirected graphs,</text>
+<text top="266" left="82" width="346" height="15" font="0">or bidirected graphs), and if so, to obtain as a result</text>
+<text top="284" left="82" width="346" height="15" font="0">such a graph. The functions RepMarDAG, RepMarUG,</text>
+<text top="302" left="82" width="346" height="15" font="0">and RepMarBG do this for DAGs, undirected graphs,</text>
+<text top="320" left="82" width="346" height="15" font="0">and bidirected graphs, respectively. For associated</text>
+<text top="338" left="82" width="204" height="15" font="0">conditions and algorithms, see</text>
+<text top="338" left="291" width="53" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">Sadeghi</a></text>
+<text top="338" left="348" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">(</a></text>
+<text top="338" left="353" width="38" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">2012b</a></text>
+<text top="338" left="391" width="38" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#9">). </a>For</text>
+<text top="356" left="82" width="236" height="15" font="0">example, given the following graph</text>
+<text top="390" left="82" width="151" height="10" font="13">&gt; H &lt;- matrix(c( 0,10,</text>
+<text top="390" left="247" width="14" height="10" font="13">0,</text>
+<text top="390" left="275" width="14" height="10" font="13">0,</text>
+<text top="406" left="192" width="41" height="10" font="13">10, 0,</text>
+<text top="406" left="247" width="14" height="10" font="13">0,</text>
+<text top="406" left="275" width="14" height="10" font="13">0,</text>
+<text top="423" left="199" width="34" height="10" font="13">0, 1,</text>
+<text top="423" left="247" width="41" height="10" font="13">0,100,</text>
+<text top="439" left="199" width="62" height="10" font="13">0, 0,100,</text>
+<text top="439" left="275" width="62" height="10" font="13">0), 4, 4)</text>
+<text top="475" left="82" width="96" height="10" font="13">&gt; plotGraph(H)</text>
+<text top="513" left="158" width="5" height="7" font="12">1</text>
+<text top="514" left="216" width="5" height="7" font="12">2</text>
+<text top="513" left="273" width="5" height="7" font="12">3</text>
+<text top="513" left="345" width="5" height="7" font="12">4</text>
+<text top="562" left="82" width="346" height="15" font="0">we can see that it is Markov equivalent to a DAG, by</text>
+<text top="596" left="82" width="96" height="10" font="13">&gt; RepMarDAG(H)</text>
+<text top="632" left="82" width="48" height="10" font="13">$verify</text>
+<text top="648" left="82" width="55" height="10" font="13">[1] TRUE</text>
+<text top="681" left="82" width="34" height="10" font="13">$amat</text>
+<text top="698" left="96" width="48" height="10" font="13">1 2 3 4</text>
+<text top="714" left="82" width="62" height="10" font="13">1 0 1 0 0</text>
+<text top="730" left="82" width="62" height="10" font="13">2 0 0 1 0</text>
+<text top="747" left="82" width="62" height="10" font="13">3 0 0 0 0</text>
+<text top="763" left="82" width="62" height="10" font="13">4 0 0 1 0</text>
+<text top="798" left="82" width="171" height="10" font="13">&gt; plotGraph(RepMarDAG(H))</text>
+<text top="837" left="159" width="5" height="7" font="12">1</text>
+<text top="837" left="220" width="5" height="7" font="12">2</text>
+<text top="837" left="277" width="5" height="7" font="12">3</text>
+<text top="837" left="345" width="5" height="7" font="12">4</text>
+<text top="885" left="82" width="346" height="15" font="0">On the other hand it is not Markov equivalent to an</text>
+<text top="903" left="82" width="278" height="15" font="0">undirected graph or to a bidirected graph.</text>
+<text top="937" left="82" width="89" height="10" font="13">&gt; RepMarUG(H)</text>
+<text top="973" left="82" width="48" height="10" font="13">$verify</text>
+<text top="989" left="82" width="62" height="10" font="13">[1] FALSE</text>
+<text top="1022" left="82" width="34" height="10" font="13">$amat</text>
+<text top="1039" left="82" width="41" height="10" font="13">[1] NA</text>
+<text top="1073" left="82" width="89" height="10" font="13">&gt; RepMarBG(H)</text>
+<text top="1108" left="82" width="48" height="10" font="13">$verify</text>
+<text top="1124" left="82" width="62" height="10" font="13">[1] FALSE</text>
+<text top="1157" left="82" width="34" height="10" font="13">$amat</text>
+<text top="1174" left="82" width="41" height="10" font="13">[1] NA</text>
+<text top="121" left="459" width="185" height="21" font="4"><b>Acknowledgments</b></text>
+<text top="160" left="459" width="346" height="15" font="0">The authors are grateful to Steffen Lauritzen for help-</text>
+<text top="178" left="459" width="346" height="15" font="0">ful suggestions on codes and comments on an earlier</text>
+<text top="196" left="459" width="346" height="15" font="0">version of the paper and to Nanny Wermuth, the ed-</text>
+<text top="213" left="459" width="311" height="15" font="0">itor, and referees for their insightful comments.</text>
+<text top="259" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="298" left="459" width="346" height="15" font="0">R. A. Ali and T. Richardson. Searching across Markov</text>
+<text top="316" left="474" width="332" height="15" font="0">equivalence classes of maximal ancestral graphs.</text>
+<text top="334" left="474" width="332" height="15" font="0">In Proceedings of the Joint Statistical Meeting of the</text>
+<text top="351" left="474" width="332" height="15" font="0">American Statistical Association, Toronto, Canada,</text>
+<text top="370" left="474" width="53" height="15" font="0">2004. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">[p</a></text>
+<text top="370" left="527" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">71</a></text>
+<text top="370" left="542" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">]</a></text>
+<text top="397" left="459" width="346" height="15" font="0">D. R. Cox and N. Wermuth. Multivariate Dependen-</text>
+<text top="415" left="474" width="332" height="15" font="0">cies : models, analysis and interpretation. Chapman</text>
+<text top="433" left="474" width="284" height="15" font="0">&amp; Hall, London, United Kingdom, 1996. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="433" left="757" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="433" left="772" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">]</a></text>
+<text top="460" left="459" width="179" height="15" font="0">G. Csardi and T. Nepusz.</text>
+<text top="460" left="654" width="151" height="15" font="0">The &#34;igraph&#34; software</text>
+<text top="478" left="474" width="332" height="15" font="0">package for complex network research. InterJour-</text>
+<text top="496" left="474" width="272" height="15" font="0">nal, Complex Systems:1695, 2006. URL</text>
+<text top="497" left="752" width="53" height="12" font="8"><a href="http://igraph.sf.net">http://</a></text>
+<text top="515" left="474" width="99" height="12" font="8"><a href="http://igraph.sf.net">igraph.sf.net</a></text>
+<text top="514" left="573" width="23" height="15" font="0"><a href="http://igraph.sf.net">. </a><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">[p</a></text>
+<text top="514" left="596" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">67</a></text>
+<text top="514" left="611" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">]</a></text>
+<text top="541" left="459" width="346" height="15" font="0">C. Dethlefsen and S. Højsgaard. A common platform</text>
+<text top="559" left="474" width="332" height="15" font="0">for graphical models in R: The gRbase package.</text>
+<text top="577" left="474" width="332" height="15" font="0">Journal of Statistical Software, 14(17):1–12, 12 2005.</text>
+<text top="595" left="474" width="110" height="15" font="0">ISSN 1548-7660.</text>
+<text top="595" left="606" width="31" height="15" font="0">URL</text>
+<text top="597" left="645" width="160" height="12" font="8"><a href="http://www.jstatsoft.org/v14/i17">http://www.jstatsoft.</a></text>
+<text top="614" left="474" width="84" height="12" font="8"><a href="http://www.jstatsoft.org/v14/i17">org/v14/i17</a></text>
+<text top="613" left="558" width="23" height="15" font="0"><a href="http://www.jstatsoft.org/v14/i17">. </a><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">[p</a></text>
+<text top="613" left="581" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">67</a></text>
+<text top="613" left="596" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">]</a></text>
+<text top="641" left="459" width="346" height="15" font="0">R. Gentleman, E. Whalen, W. Huber, and S. Falcon.</text>
+<text top="658" left="474" width="332" height="15" font="0">graph: A package to handle graph data structures, 2012.</text>
+<text top="676" left="474" width="185" height="15" font="0">R package version 1.36.0. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">[p</a></text>
+<text top="676" left="659" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">67</a></text>
+<text top="676" left="674" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">]</a></text>
+<text top="704" left="459" width="92" height="15" font="0">S. Højsgaard.</text>
+<text top="704" left="569" width="236" height="15" font="0">Graphical independence networks</text>
+<text top="722" left="474" width="332" height="15" font="0">with the gRain package for R. Journal of Statisti-</text>
+<text top="740" left="474" width="242" height="15" font="0">cal Software, 46(10):1–26, 2012. URL</text>
+<text top="741" left="721" width="84" height="12" font="8"><a href="http://www.jstatsoft.org/v46/i10/">http://www.</a></text>
+<text top="759" left="474" width="168" height="12" font="8"><a href="http://www.jstatsoft.org/v46/i10/">jstatsoft.org/v46/i10/</a></text>
+<text top="758" left="641" width="23" height="15" font="0"><a href="http://www.jstatsoft.org/v46/i10/">. </a><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">[p</a></text>
+<text top="758" left="665" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">65</a></text>
+<text top="758" left="679" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">]</a></text>
+<text top="785" left="459" width="346" height="15" font="0">S. Højsgaard, D. Edwards, and S. Lauritzen. Graph-</text>
+<text top="803" left="474" width="139" height="15" font="0">ical Models with R.</text>
+<text top="803" left="640" width="165" height="15" font="0">Springer-Verlag, Berlin-</text>
+<text top="821" left="474" width="206" height="15" font="0">Heidelberg-New York, 2012. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">[p</a></text>
+<text top="821" left="680" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">65</a></text>
+<text top="821" left="695" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">,</a></text>
+<text top="821" left="702" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">67</a></text>
+<text top="821" left="717" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#3">]</a></text>
+<text top="848" left="459" width="346" height="15" font="0">J. T. A. Koster. Marginalizing and conditioning in</text>
+<text top="866" left="474" width="121" height="15" font="0">graphical models.</text>
+<text top="866" left="611" width="194" height="15" font="0">Bernoulli, 8(6):817–840, 2002.</text>
+<text top="884" left="474" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="884" left="488" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="884" left="503" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">]</a></text>
+<text top="912" left="459" width="346" height="15" font="0">G. M. Marchetti. Independencies induced from a</text>
+<text top="929" left="474" width="332" height="15" font="0">graphical Markov model after marginalization and</text>
+<text top="947" left="474" width="332" height="15" font="0">conditioning: the R package ggm. Journal of Statis-</text>
+<text top="965" left="474" width="183" height="15" font="0">tical Software, 15(6), 2006. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="965" left="657" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="965" left="672" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">]</a></text>
+<text top="993" left="459" width="346" height="15" font="0">G. M. Marchetti, M. Drton, and K. Sadeghi.</text>
+<text top="1011" left="474" width="30" height="15" font="0">ggm:</text>
+<text top="1011" left="523" width="282" height="15" font="0">A package for Graphical Markov Models,</text>
+<text top="1029" left="474" width="69" height="15" font="0">2012. URL</text>
+<text top="1030" left="545" width="260" height="12" font="8"><a href="http://CRAN.R-project.org/package=ggm">http://CRAN.R-project.org/package=</a></text>
+<text top="1048" left="474" width="23" height="12" font="8"><a href="http://CRAN.R-project.org/package=ggm">ggm</a></text>
+<text top="1047" left="497" width="203" height="15" font="0"><a href="http://CRAN.R-project.org/package=ggm">. </a>R package version 1.995-3. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">[p</a></text>
+<text top="1047" left="699" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">65</a></text>
+<text top="1047" left="714" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#1">,</a></text>
+<text top="1047" left="722" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="1047" left="737" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">]</a></text>
+<text top="1074" left="459" width="346" height="15" font="0">J. Pearl. Probabilistic Reasoning in Intelligent Systems:</text>
+<text top="1092" left="474" width="332" height="15" font="0">networks of plausible inference. Morgan Kaufmann</text>
+<text top="1110" left="474" width="275" height="15" font="0">Publishers, San Mateo, CA, USA, 1988. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">[p</a></text>
+<text top="1110" left="749" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">69</a></text>
+<text top="1110" left="764" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">]</a></text>
+<text top="1137" left="459" width="220" height="15" font="0">T. S. Richardson and P. Spirtes.</text>
+<text top="1137" left="696" width="110" height="15" font="0">Ancestral graph</text>
+<text top="1155" left="474" width="112" height="15" font="0">Markov models.</text>
+<text top="1155" left="602" width="203" height="15" font="0">Annals of Statistics, 30(4):962–</text>
+<text top="1173" left="474" width="90" height="15" font="0">1030, 2002. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="1173" left="564" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="1173" left="579" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">,</a></text>
+<text top="1173" left="587" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">68</a></text>
+<text top="1173" left="601" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">,</a></text>
+<text top="1173" left="609" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">69</a></text>
+<text top="1173" left="624" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">,</a></text>
+<text top="1173" left="631" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">70</a></text>
+<text top="1173" left="646" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">]</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">73</text>
+<text top="125" left="82" width="346" height="15" font="0">K. Sadeghi. Stable mixed graphs. Bernoulli, to appear,</text>
+<text top="143" left="97" width="41" height="15" font="0">2012a.</text>
+<text top="143" left="158" width="31" height="15" font="0">URL</text>
+<text top="144" left="197" width="229" height="12" font="8"><a href="http://arxiv.org/abs/1110.4168">http://arxiv.org/abs/1110.4168</a></text>
+<text top="143" left="425" width="4" height="15" font="0"><a href="http://arxiv.org/abs/1110.4168">.</a></text>
+<text top="161" left="97" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="161" left="111" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="161" left="126" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">,</a></text>
+<text top="161" left="134" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">68</a></text>
+<text top="161" left="149" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">,</a></text>
+<text top="161" left="156" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">69</a></text>
+<text top="161" left="171" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#5">]</a></text>
+<text top="192" left="82" width="346" height="15" font="0">K. Sadeghi. Markov equivalences for subclasses of</text>
+<text top="209" left="97" width="272" height="15" font="0">mixed graphs. Submitted, 2012b. URL</text>
+<text top="211" left="376" width="53" height="12" font="8"><a href="http://arxiv.org/abs/1110.4539">http://</a></text>
+<text top="229" left="97" width="175" height="12" font="8"><a href="http://arxiv.org/abs/1110.4539">arxiv.org/abs/1110.4539</a></text>
+<text top="227" left="273" width="23" height="15" font="0"><a href="http://arxiv.org/abs/1110.4539">. </a><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">[p</a></text>
+<text top="227" left="296" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">70</a></text>
+<text top="227" left="311" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">,</a></text>
+<text top="227" left="318" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">72</a></text>
+<text top="227" left="333" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#8">]</a></text>
+<text top="258" left="82" width="346" height="15" font="0">K. Sadeghi and S. L. Lauritzen. Markov properties</text>
+<text top="276" left="97" width="332" height="15" font="0">for mixed graphs. Bernoulli, to appear, 2012. URL</text>
+<text top="295" left="97" width="229" height="12" font="8"><a href="http://arxiv.org/abs/1109.5909">http://arxiv.org/abs/1109.5909</a></text>
+<text top="294" left="326" width="23" height="15" font="0"><a href="http://arxiv.org/abs/1109.5909">. </a><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">[p</a></text>
+<text top="294" left="349" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">70</a></text>
+<text top="294" left="364" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#6">]</a></text>
+<text top="325" left="82" width="89" height="15" font="0">N. Wermuth.</text>
+<text top="325" left="187" width="242" height="15" font="0">Probability distributions with sum-</text>
+<text top="342" left="97" width="153" height="15" font="0">mary graph structure.</text>
+<text top="342" left="268" width="161" height="15" font="0">Bernoulli, 17(3):845–879,</text>
+<text top="360" left="97" width="53" height="15" font="0">2011. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">[p</a></text>
+<text top="360" left="150" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">66</a></text>
+<text top="360" left="165" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#2">]</a></text>
+<text top="391" left="82" width="346" height="15" font="0">N. Wermuth and D. R. Cox. Distortion of effects</text>
+<text top="409" left="97" width="332" height="15" font="0">caused by indirect confounding. Biometrika, 95:17–</text>
+<text top="427" left="97" width="75" height="15" font="0">33, 2008. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">[p</a></text>
+<text top="427" left="173" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">68</a></text>
+<text top="427" left="188" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#4">]</a></text>
+<text top="125" left="459" width="346" height="15" font="0">N. Wermuth and K. Sadeghi. Sequences of regres-</text>
+<text top="143" left="474" width="332" height="15" font="0">sions and their independences. TEST, 21(2):215–</text>
+<text top="161" left="474" width="168" height="15" font="0">252 and 274–279, 2012. <a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">[p</a></text>
+<text top="161" left="642" width="15" height="15" font="8"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">71</a></text>
+<text top="161" left="657" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Sadeghi+Marchetti.html#7">]</a></text>
+<text top="212" left="459" width="98" height="15" font="0">Kayvan Sadeghi</text>
+<text top="230" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="247" left="459" width="127" height="15" font="0">University of Oxford</text>
+<text top="265" left="459" width="238" height="15" font="0">1 South Parks Road, OX1 3TG, Oxford</text>
+<text top="283" left="459" width="102" height="15" font="0">United Kingdom</text>
+<text top="303" left="459" width="168" height="12" font="8"><a href="mailto:sadeghi@stats.ox.ac.uk">sadeghi@stats.ox.ac.uk</a></text>
+<text top="337" left="459" width="142" height="15" font="0">Giovanni M. Marchetti</text>
+<text top="355" left="459" width="240" height="15" font="0">Dipartimento di Statistica &#34;G. Parenti&#34;</text>
+<text top="373" left="459" width="135" height="15" font="0">University of Florence</text>
+<text top="391" left="459" width="218" height="15" font="0">viale Morgagni, 59, 50134, Florence</text>
+<text top="409" left="459" width="28" height="15" font="0">Italy</text>
+<text top="428" left="459" width="229" height="12" font="8"><a href="mailto:giovanni.marchetti@ds.unifi.it">giovanni.marchetti@ds.unifi.it</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

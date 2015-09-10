@@ -1,0 +1,2060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">29</text>
+<text top="121" left="82" width="443" height="36" font="2"><b>dclone: Data Cloning in R</b></text>
+<text top="173" left="82" width="104" height="15" font="0">by Péter Sólymos</text>
+<text top="208" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="207" left="171" width="244" height="15" font="0">The <b>dclone </b>R package contains low</text>
+<text top="225" left="96" width="319" height="15" font="0">level functions for implementing maximum like-</text>
+<text top="243" left="96" width="319" height="15" font="0">lihood estimating procedures for complex mod-</text>
+<text top="261" left="96" width="319" height="15" font="0">els using data cloning and Bayesian Markov</text>
+<text top="279" left="96" width="319" height="15" font="0">Chain Monte Carlo methods with support for</text>
+<text top="297" left="96" width="224" height="15" font="0">JAGS, WinBUGS and OpenBUGS.</text>
+<text top="343" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="382" left="82" width="346" height="15" font="0">Hierarchical models, including generalized linear</text>
+<text top="400" left="82" width="346" height="15" font="0">models with mixed random and fixed effects, are</text>
+<text top="418" left="82" width="346" height="15" font="0">increasingly popular. The rapid expansion of ap-</text>
+<text top="436" left="82" width="346" height="15" font="0">plications is largely due to the advancement of the</text>
+<text top="453" left="82" width="346" height="15" font="0">Markov Chain Monte Carlo (MCMC) algorithms and</text>
+<text top="471" left="82" width="122" height="15" font="0">related software <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="471" left="204" width="94" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Gelman et al.</a></text>
+<text top="471" left="298" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="471" left="309" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2003</a></text>
+<text top="471" left="338" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">;</a></text>
+<text top="471" left="349" width="76" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Gilks et al.</a></text>
+<text top="471" left="425" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="489" left="82" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1996</a></text>
+<text top="489" left="112" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">;</a></text>
+<text top="489" left="121" width="73" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lunn et al.</a></text>
+<text top="489" left="194" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="489" left="202" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2009</a></text>
+<text top="489" left="232" width="197" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">). </a>Data cloning is a statistical</text>
+<text top="507" left="82" width="222" height="15" font="0">computing method introduced by</text>
+<text top="507" left="307" width="61" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="507" left="371" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="507" left="376" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2007</a></text>
+<text top="507" left="406" width="23" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">). </a>It</text>
+<text top="525" left="82" width="346" height="15" font="0">exploits the computational simplicity of the MCMC</text>
+<text top="543" left="82" width="346" height="15" font="0">algorithms used in the Bayesian statistical frame-</text>
+<text top="561" left="82" width="346" height="15" font="0">work, but it provides the maximum likelihood point</text>
+<text top="579" left="82" width="346" height="15" font="0">estimates and their standard errors for complex hi-</text>
+<text top="597" left="82" width="346" height="15" font="0">erarchical models. The use of the data cloning al-</text>
+<text top="615" left="82" width="346" height="15" font="0">gorithm is especially valuable for complex models,</text>
+<text top="633" left="82" width="346" height="15" font="0">where the number of unknowns increases with sam-</text>
+<text top="651" left="82" width="346" height="15" font="0">ple size (i.e. with latent variables), because inference</text>
+<text top="669" left="82" width="346" height="15" font="0">and prediction procedures are often hard to imple-</text>
+<text top="687" left="82" width="157" height="15" font="0">ment in such situations.</text>
+<text top="705" left="105" width="25" height="15" font="0">The</text>
+<text top="705" left="135" width="46" height="15" font="6"><a href="http://cran.r-project.org/package=dclone"><b>dclone</b></a></text>
+<text top="705" left="186" width="80" height="15" font="0">R package <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="705" left="265" width="56" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Sólymos</a></text>
+<text top="705" left="322" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="705" left="331" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="705" left="361" width="68" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>provides</text>
+<text top="723" left="82" width="346" height="15" font="0">infrastructure for data cloning. Users who are fa-</text>
+<text top="741" left="82" width="346" height="15" font="0">miliar with Bayesian methodology can instantly use</text>
+<text top="759" left="82" width="346" height="15" font="0">the package for maximum likelihood inference and</text>
+<text top="777" left="82" width="346" height="15" font="0">prediction. Developers of R packages can build on</text>
+<text top="794" left="82" width="346" height="15" font="0">the low level functionality provided by the pack-</text>
+<text top="812" left="82" width="346" height="15" font="0">age to implement more specific higher level estima-</text>
+<text top="830" left="82" width="346" height="15" font="0">tion procedures for users who are not familiar with</text>
+<text top="848" left="82" width="346" height="15" font="0">Bayesian methodology. This paper demonstrates the</text>
+<text top="866" left="82" width="346" height="15" font="0">implementation of the data cloning algorithm, and</text>
+<text top="884" left="82" width="346" height="15" font="0">presents a case study on how to write high level func-</text>
+<text top="902" left="82" width="245" height="15" font="0">tions for specific modeling problems.</text>
+<text top="950" left="82" width="223" height="21" font="4"><b>Theory of data cloning</b></text>
+<text top="990" left="82" width="346" height="15" font="0">Imagine a hypothetical situation where an experi-</text>
+<text top="1008" left="82" width="346" height="15" font="0">ment is repeated by k different observers, and all k</text>
+<text top="1025" left="82" width="346" height="15" font="0">experiments happen to result in exactly the same set</text>
+<text top="1045" left="82" width="123" height="15" font="0">of observations, y</text>
+<text top="1043" left="205" width="15" height="11" font="1">(k)</text>
+<text top="1045" left="226" width="23" height="14" font="7">= (</text>
+<text top="1045" left="250" width="57" height="15" font="0">y, y, . . . , y</text>
+<text top="1046" left="307" width="6" height="14" font="7">)</text>
+<text top="1045" left="313" width="116" height="15" font="0">. The likelihood</text>
+<text top="1063" left="82" width="346" height="15" font="0">function based on the combination of the data from</text>
+<text top="1081" left="82" width="160" height="15" font="0">these k experiments is L</text>
+<text top="1081" left="243" width="6" height="14" font="7">(</text>
+<text top="1085" left="249" width="7" height="11" font="8"><i>θ</i></text>
+<text top="1081" left="257" width="13" height="15" font="0">, y</text>
+<text top="1079" left="270" width="5" height="11" font="1">(</text>
+<text top="1078" left="275" width="10" height="11" font="1">k)</text>
+<text top="1081" left="286" width="31" height="14" font="7">) = [</text>
+<text top="1081" left="317" width="8" height="15" font="0">L</text>
+<text top="1081" left="328" width="6" height="14" font="7">(</text>
+<text top="1085" left="334" width="7" height="11" font="8"><i>θ</i></text>
+<text top="1081" left="341" width="13" height="15" font="0">, y</text>
+<text top="1081" left="355" width="11" height="14" font="7">)]</text>
+<text top="1077" left="366" width="5" height="11" font="1">k</text>
+<text top="1081" left="372" width="57" height="15" font="0">. The lo-</text>
+<text top="1101" left="82" width="195" height="15" font="0">cation of the maximum of L</text>
+<text top="1101" left="278" width="6" height="14" font="7">(</text>
+<text top="1105" left="285" width="7" height="11" font="8"><i>θ</i></text>
+<text top="1101" left="292" width="13" height="15" font="0">, y</text>
+<text top="1098" left="305" width="15" height="11" font="1">(k)</text>
+<text top="1101" left="321" width="6" height="14" font="7">)</text>
+<text top="1101" left="334" width="95" height="15" font="0">exactly equals</text>
+<text top="1119" left="82" width="307" height="15" font="0">the location of the maximum of the function L</text>
+<text top="1119" left="392" width="6" height="14" font="7">(</text>
+<text top="1123" left="398" width="7" height="11" font="8"><i>θ</i></text>
+<text top="1119" left="406" width="13" height="15" font="0">, y</text>
+<text top="1119" left="419" width="6" height="14" font="7">)</text>
+<text top="1119" left="425" width="4" height="15" font="0">,</text>
+<text top="1137" left="82" width="346" height="15" font="0">and the Fisher information matrix based on this like-</text>
+<text top="1155" left="82" width="346" height="15" font="0">lihood is k times the Fisher information matrix based</text>
+<text top="1173" left="82" width="30" height="15" font="0">on L</text>
+<text top="1173" left="114" width="6" height="14" font="7">(</text>
+<text top="1177" left="120" width="7" height="11" font="8"><i>θ</i></text>
+<text top="1173" left="128" width="13" height="15" font="0">, y</text>
+<text top="1173" left="141" width="6" height="14" font="7">)</text>
+<text top="1173" left="147" width="4" height="15" font="0">.</text>
+<text top="173" left="481" width="324" height="15" font="0">One can use MCMC methods to calculate the pos-</text>
+<text top="191" left="459" width="346" height="15" font="0">terior distribution of the model parameters (<i>θ</i>) condi-</text>
+<text top="209" left="459" width="346" height="15" font="0">tional on the data. Under regularity conditions, if k</text>
+<text top="227" left="459" width="346" height="15" font="0">is large, the posterior distribution corresponding to</text>
+<text top="244" left="459" width="346" height="15" font="0">k clones of the observations is approximately normal</text>
+<text top="262" left="459" width="346" height="15" font="0">with mean ˆ<i>θ </i>and variance 1/k times the inverse of</text>
+<text top="280" left="459" width="346" height="15" font="0">the Fisher information matrix. When k is large, the</text>
+<text top="298" left="459" width="346" height="15" font="0">mean of this posterior distribution is the maximum</text>
+<text top="316" left="459" width="346" height="15" font="0">likelihood estimate and k times the posterior vari-</text>
+<text top="334" left="459" width="346" height="15" font="0">ance is the corresponding asymptotic variance of the</text>
+<text top="352" left="459" width="346" height="15" font="0">maximum likelihood estimate if the parameter space</text>
+<text top="370" left="459" width="346" height="15" font="0">is continuous. When some of the parameters are on</text>
+<text top="388" left="459" width="249" height="15" font="0">the boundaries of their feasible space <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="388" left="708" width="94" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Stram and Lee</a></text>
+<text top="388" left="802" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="406" left="459" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1994</a></text>
+<text top="406" left="489" width="317" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">), </a>point estimates can be correct, but currently</text>
+<text top="424" left="459" width="346" height="15" font="0">the Fisher information cannot be estimated correctly</text>
+<text top="442" left="459" width="346" height="15" font="0">by using data cloning. This is an area for further re-</text>
+<text top="460" left="459" width="346" height="15" font="0">search, but such situations challenge other comput-</text>
+<text top="478" left="459" width="150" height="15" font="0">ing techniques as well.</text>
+<text top="496" left="481" width="324" height="15" font="0">Data cloning is a computational algorithm to</text>
+<text top="514" left="459" width="346" height="15" font="0">compute maximum likelihood estimates and the in-</text>
+<text top="531" left="459" width="346" height="15" font="0">verse of the Fisher information matrix, and is related</text>
+<text top="549" left="459" width="165" height="15" font="0">to simulated annealing <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="549" left="624" width="134" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Brooks and Morgan</a></text>
+<text top="549" left="758" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="549" left="767" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1995</a></text>
+<text top="549" left="797" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">).</a></text>
+<text top="567" left="459" width="346" height="15" font="0">By using data cloning, the statistical accuracy of the</text>
+<text top="585" left="459" width="346" height="15" font="0">estimator remains a function of the sample size and</text>
+<text top="603" left="459" width="346" height="15" font="0">not of the number of cloned copies. Data cloning</text>
+<text top="621" left="459" width="346" height="15" font="0">does not improve the statistical accuracy of the esti-</text>
+<text top="639" left="459" width="346" height="15" font="0">mator by artificially increasing the sample size. The</text>
+<text top="657" left="459" width="346" height="15" font="0">data cloning procedure avoids the analytical or nu-</text>
+<text top="675" left="459" width="346" height="15" font="0">merical evaluation of high dimensional integrals, nu-</text>
+<text top="693" left="459" width="346" height="15" font="0">merical optimization of the likelihood function, and</text>
+<text top="711" left="459" width="346" height="15" font="0">numerical computation of the curvature of the like-</text>
+<text top="729" left="459" width="346" height="15" font="0">lihood function. Interested readers should consult</text>
+<text top="747" left="459" width="66" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="747" left="531" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="747" left="536" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2007</a></text>
+<text top="747" left="565" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="747" left="575" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="747" left="605" width="201" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>for more details and mathe-</text>
+<text top="765" left="459" width="300" height="15" font="0">matical proofs for the data cloning algorithm.</text>
+<text top="811" left="459" width="267" height="21" font="4"><b>The data cloning algorithm</b></text>
+<text top="850" left="459" width="346" height="15" font="0">Consider the following Poisson generalized linear</text>
+<text top="868" left="459" width="346" height="15" font="0">mixed model (GLMM) with a random intercept for</text>
+<text top="886" left="459" width="150" height="15" font="0">i.i.d. observations of Y</text>
+<text top="891" left="608" width="3" height="11" font="1">i</text>
+<text top="886" left="617" width="89" height="15" font="0">counts from i</text>
+<text top="886" left="710" width="12" height="14" font="7">=</text>
+<text top="886" left="726" width="79" height="15" font="0">1, 2, . . . , n lo-</text>
+<text top="904" left="459" width="49" height="15" font="0">calities:</text>
+<text top="939" left="576" width="8" height="11" font="8"><i>α</i></text>
+<text top="941" left="584" width="3" height="11" font="1">i</text>
+<text top="935" left="592" width="12" height="15" font="7">∼</text>
+<text top="936" left="608" width="48" height="15" font="0">normal</text>
+<text top="929" left="657" width="9" height="7" font="0"></text>
+<text top="936" left="666" width="21" height="15" font="0">0, <i>σ</i></text>
+<text top="932" left="688" width="6" height="11" font="1">2</text>
+<text top="929" left="695" width="9" height="7" font="0"></text>
+<text top="972" left="575" width="9" height="11" font="8"><i>λ</i></text>
+<text top="974" left="584" width="3" height="11" font="1">i</text>
+<text top="968" left="592" width="12" height="14" font="7">=</text>
+<text top="969" left="608" width="24" height="15" font="0">exp</text>
+<text top="962" left="633" width="9" height="7" font="0"></text>
+<text top="972" left="643" width="8" height="11" font="8"><i>α</i></text>
+<text top="974" left="651" width="3" height="11" font="1">i</text>
+<text top="968" left="658" width="12" height="14" font="7">+</text>
+<text top="968" left="673" width="11" height="15" font="3"><b>X</b></text>
+<text top="965" left="685" width="9" height="11" font="1">T</text>
+<text top="975" left="685" width="3" height="11" font="1">i</text>
+<text top="972" left="695" width="9" height="11" font="9"><i><b>β</b></i></text>
+<text top="962" left="704" width="9" height="7" font="0"></text>
+<text top="997" left="550" width="10" height="15" font="0">Y</text>
+<text top="1002" left="559" width="3" height="11" font="1">i</text>
+<text top="996" left="567" width="4" height="15" font="7">|</text>
+<text top="1000" left="575" width="9" height="11" font="8"><i>λ</i></text>
+<text top="1002" left="584" width="3" height="11" font="1">i</text>
+<text top="996" left="592" width="12" height="15" font="7">∼</text>
+<text top="997" left="608" width="51" height="15" font="0">Poisson</text>
+<text top="997" left="660" width="6" height="14" font="7">(</text>
+<text top="1000" left="667" width="9" height="11" font="8"><i>λ</i></text>
+<text top="1002" left="676" width="3" height="11" font="1">i</text>
+<text top="997" left="680" width="6" height="14" font="7">)</text>
+<text top="1029" left="459" width="330" height="15" font="0">The corresponding code for the simulation with <i><b>β</b></i></text>
+<text top="1029" left="793" width="12" height="14" font="7">=</text>
+<text top="1047" left="459" width="6" height="14" font="7">(</text>
+<text top="1047" left="465" width="22" height="15" font="0">1.8,</text>
+<text top="1046" left="490" width="12" height="15" font="7">−</text>
+<text top="1047" left="502" width="19" height="15" font="0">0.9</text>
+<text top="1047" left="521" width="6" height="14" font="7">)</text>
+<text top="1047" left="527" width="16" height="15" font="0">, <i>σ</i></text>
+<text top="1047" left="547" width="12" height="14" font="7">=</text>
+<text top="1047" left="562" width="34" height="15" font="0">0.2, x</text>
+<text top="1052" left="597" width="3" height="11" font="1">i</text>
+<text top="1046" left="604" width="12" height="15" font="7">∼</text>
+<text top="1047" left="620" width="12" height="15" font="0">U</text>
+<text top="1047" left="633" width="6" height="14" font="7">(</text>
+<text top="1047" left="640" width="20" height="15" font="0">0, 1</text>
+<text top="1047" left="660" width="6" height="14" font="7">)</text>
+<text top="1047" left="670" width="14" height="15" font="0">is:</text>
+<text top="1077" left="459" width="117" height="10" font="10">&gt; library(dclone)</text>
+<text top="1093" left="459" width="110" height="10" font="10">&gt; set.seed(1234)</text>
+<text top="1110" left="459" width="62" height="10" font="10">&gt; n &lt;- 50</text>
+<text top="1126" left="459" width="151" height="10" font="10">&gt; beta &lt;- c(1.8, -0.9)</text>
+<text top="1142" left="459" width="96" height="10" font="10">&gt; sigma &lt;- 0.2</text>
+<text top="1159" left="459" width="226" height="10" font="10">&gt; x &lt;- runif(n, min = 0, max = 1)</text>
+<text top="1175" left="459" width="165" height="10" font="10">&gt; X &lt;- model.matrix(~ x)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">30</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="281" height="10" font="10">&gt; alpha &lt;- rnorm(n, mean = 0, sd = sigma)</text>
+<text top="144" left="82" width="281" height="10" font="10">&gt; lambda &lt;- exp(alpha + drop(X %*% beta))</text>
+<text top="160" left="82" width="158" height="10" font="10">&gt; Y &lt;- rpois(n, lambda)</text>
+<text top="187" left="105" width="324" height="15" font="0">The first step in the data cloning algorithm is</text>
+<text top="205" left="82" width="346" height="15" font="0">to construct the full Bayesian model of the prob-</text>
+<text top="223" left="82" width="346" height="15" font="0">lem with proper prior distributions for unknown pa-</text>
+<text top="241" left="82" width="346" height="15" font="0">rameters. We use flat normal priors for <i>β</i>s and for</text>
+<text top="259" left="82" width="21" height="15" font="0">log</text>
+<text top="259" left="105" width="6" height="14" font="7">(</text>
+<text top="262" left="112" width="8" height="11" font="8"><i>σ</i></text>
+<text top="259" left="120" width="6" height="14" font="7">)</text>
+<text top="259" left="127" width="114" height="15" font="0">. First we use the</text>
+<text top="259" left="245" width="33" height="15" font="6"><a href="http://cran.r-project.org/package=rjags"><b>rjags</b></a></text>
+<text top="259" left="282" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="259" left="287" width="62" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Plummer</a></text>
+<text top="259" left="349" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="259" left="356" width="38" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010b</a></text>
+<text top="259" left="395" width="34" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>and</text>
+<text top="277" left="82" width="32" height="15" font="6"><a href="http://cran.r-project.org/package=coda"><b>coda</b></a></text>
+<text top="277" left="117" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="277" left="122" width="96" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Plummer et al.</a></text>
+<text top="277" left="218" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="277" left="225" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="277" left="255" width="174" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>R packages and the JAGS</text>
+<text top="295" left="82" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="295" left="87" width="62" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Plummer</a></text>
+<text top="295" left="149" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="295" left="157" width="37" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010a</a></text>
+<text top="295" left="194" width="235" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>software for model fitting. But the</text>
+<text top="313" left="82" width="46" height="15" font="3"><b>dclone</b></text>
+<text top="313" left="131" width="224" height="15" font="0">package also supports WinBUGS <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="313" left="355" width="74" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Spiegelhal-</a></text>
+<text top="330" left="82" width="55" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">ter et al.</a></text>
+<text top="330" left="137" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="330" left="146" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2003</a></text>
+<text top="330" left="176" width="126" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>and OpenBUGS <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="330" left="302" width="124" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Spiegelhalter et al.</a></text>
+<text top="330" left="425" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="348" left="82" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2007</a></text>
+<text top="348" left="112" width="133" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>via the R packages</text>
+<text top="348" left="250" width="90" height="15" font="6"><a href="http://cran.r-project.org/package=R2WinBUGS"><b>R2WinBUGS</b></a></text>
+<text top="348" left="344" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="348" left="349" width="76" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Sturtz et al.</a></text>
+<text top="348" left="425" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="366" left="82" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2005</a></text>
+<text top="366" left="112" width="35" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>and</text>
+<text top="366" left="152" width="45" height="15" font="6"><a href="http://cran.r-project.org/package=BRugs"><b>BRugs</b></a></text>
+<text top="366" left="201" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="366" left="206" width="90" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Thomas et al.</a></text>
+<text top="366" left="296" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="366" left="304" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2006</a></text>
+<text top="366" left="334" width="95" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">), </a>respectively.</text>
+<text top="384" left="82" width="338" height="15" font="0">The corresponding model in the BUGS language is:</text>
+<text top="414" left="82" width="192" height="10" font="10">&gt; glmm.model &lt;- function() {</text>
+<text top="431" left="82" width="7" height="10" font="10">+</text>
+<text top="431" left="117" width="110" height="10" font="10">for (i in 1:n) {</text>
+<text top="447" left="82" width="7" height="10" font="10">+</text>
+<text top="447" left="137" width="158" height="10" font="10">Y[i] ~ dpois(lambda[i])</text>
+<text top="463" left="82" width="7" height="10" font="10">+</text>
+<text top="463" left="137" width="185" height="10" font="10">lambda[i] &lt;- exp(alpha[i] +</text>
+<text top="480" left="82" width="7" height="10" font="10">+</text>
+<text top="480" left="158" width="165" height="10" font="10">inprod(X[i,], beta[1,]))</text>
+<text top="496" left="82" width="7" height="10" font="10">+</text>
+<text top="496" left="137" width="165" height="10" font="10">alpha[i] ~ dnorm(0, tau)</text>
+<text top="513" left="82" width="7" height="10" font="10">+</text>
+<text top="513" left="117" width="7" height="10" font="10">}</text>
+<text top="529" left="82" width="7" height="10" font="10">+</text>
+<text top="529" left="117" width="117" height="10" font="10">for (j in 1:np) {</text>
+<text top="546" left="82" width="7" height="10" font="10">+</text>
+<text top="546" left="137" width="185" height="10" font="10">beta[1,j] ~ dnorm(0, 0.001)</text>
+<text top="562" left="82" width="7" height="10" font="10">+</text>
+<text top="562" left="117" width="7" height="10" font="10">}</text>
+<text top="579" left="82" width="7" height="10" font="10">+</text>
+<text top="579" left="117" width="185" height="10" font="10">log.sigma ~ dnorm(0, 0.001)</text>
+<text top="595" left="82" width="7" height="10" font="10">+</text>
+<text top="595" left="117" width="158" height="10" font="10">sigma &lt;- exp(log.sigma)</text>
+<text top="611" left="82" width="7" height="10" font="10">+</text>
+<text top="611" left="117" width="165" height="10" font="10">tau &lt;- 1 / pow(sigma, 2)</text>
+<text top="628" left="82" width="21" height="10" font="10">+ }</text>
+<text top="655" left="105" width="324" height="15" font="0">Note that instead of writing the model into a file,</text>
+<text top="673" left="82" width="346" height="15" font="0">we store it as an R function (see JAGS and Win-</text>
+<text top="690" left="82" width="346" height="15" font="0">BUGS documentation for how to correctly specify</text>
+<text top="708" left="82" width="346" height="15" font="0">the model in the BUGS language). Although the</text>
+<text top="726" left="82" width="346" height="15" font="0">BUGS and R syntaxes seem similar, the BUGS model</text>
+<text top="744" left="82" width="346" height="15" font="0">function cannot be evaluated within R. Storing the</text>
+<text top="762" left="82" width="346" height="15" font="0">BUGS model as an R function is handy, because the</text>
+<text top="780" left="82" width="346" height="15" font="0">user does not have to manage different files when</text>
+<text top="798" left="82" width="346" height="15" font="0">modeling. Nevertheless, the model can be supplied</text>
+<text top="816" left="82" width="318" height="15" font="0">in a separate file by giving its name as character.</text>
+<text top="834" left="105" width="324" height="15" font="0">We also have to define the data as elements of a</text>
+<text top="852" left="82" width="346" height="15" font="0">named list along with the names of nodes that we</text>
+<text top="870" left="82" width="346" height="15" font="0">want to monitor (we can also set up initial values,</text>
+<text top="888" left="82" width="346" height="15" font="0">number of burn-in iterations, number of iterations</text>
+<text top="906" left="82" width="346" height="15" font="0">for the posterior sample, thinning values, etc.; see</text>
+<text top="924" left="82" width="46" height="15" font="3"><b>dclone</b></text>
+<text top="924" left="132" width="297" height="15" font="0">package documentation for details). Now we</text>
+<text top="942" left="82" width="346" height="15" font="0">can do the Bayesian inference by calling the jags.fit</text>
+<text top="959" left="82" width="59" height="15" font="0">function:</text>
+<text top="989" left="82" width="233" height="10" font="10">&gt; dat &lt;- list(Y = Y, X = X, n = n,</text>
+<text top="1006" left="82" width="7" height="10" font="10">+</text>
+<text top="1006" left="117" width="89" height="10" font="10">np = ncol(X))</text>
+<text top="1022" left="82" width="151" height="10" font="10">&gt; mod &lt;- jags.fit(dat,</text>
+<text top="1039" left="82" width="7" height="10" font="10">+</text>
+<text top="1039" left="117" width="316" height="10" font="10">c(&#34;beta&#34;, &#34;sigma&#34;), glmm.model, n.iter = 1000)</text>
+<text top="1065" left="82" width="346" height="15" font="0">The output mod is an &#34;mcmc.list&#34; object, which can</text>
+<text top="1083" left="82" width="346" height="15" font="0">be explored by methods such as summary or plot pro-</text>
+<text top="1101" left="82" width="180" height="15" font="0">vided by the <b>coda </b>package.</text>
+<text top="1119" left="105" width="324" height="15" font="0">The <b>dclone </b>package provides the bugs.fit wrap-</text>
+<text top="1137" left="82" width="346" height="15" font="0">per function for WinBUGS/OpenBUGS. The BUGS</text>
+<text top="1155" left="82" width="346" height="15" font="0">model needs to be changed to run smoothly in Win-</text>
+<text top="1173" left="82" width="129" height="15" font="0">BUGS/OpenBUGS:</text>
+<text top="127" left="459" width="226" height="10" font="10">&gt; glmm.model.bugs &lt;- function() {</text>
+<text top="144" left="459" width="7" height="10" font="10">+</text>
+<text top="144" left="493" width="110" height="10" font="10">for (i in 1:n) {</text>
+<text top="160" left="459" width="7" height="10" font="10">+</text>
+<text top="160" left="514" width="158" height="10" font="10">Y[i] ~ dpois(lambda[i])</text>
+<text top="177" left="459" width="7" height="10" font="10">+</text>
+<text top="177" left="514" width="185" height="10" font="10">lambda[i] &lt;- exp(alpha[i] +</text>
+<text top="193" left="459" width="7" height="10" font="10">+</text>
+<text top="193" left="534" width="165" height="10" font="10">inprod(X[i,], beta[1,]))</text>
+<text top="210" left="459" width="7" height="10" font="10">+</text>
+<text top="210" left="514" width="254" height="10" font="10">alpha[i] ~ dnorm(0, tau) %_% I(-5, 5)</text>
+<text top="226" left="459" width="7" height="10" font="10">+</text>
+<text top="226" left="493" width="7" height="10" font="10">}</text>
+<text top="242" left="459" width="7" height="10" font="10">+</text>
+<text top="242" left="493" width="117" height="10" font="10">for (j in 1:np) {</text>
+<text top="259" left="459" width="7" height="10" font="10">+</text>
+<text top="259" left="514" width="268" height="10" font="10">beta[1,j] ~ dnorm(0, 0.01) %_% I(-5, 5)</text>
+<text top="275" left="459" width="7" height="10" font="10">+</text>
+<text top="275" left="493" width="7" height="10" font="10">}</text>
+<text top="292" left="459" width="7" height="10" font="10">+</text>
+<text top="292" left="493" width="268" height="10" font="10">log.sigma ~ dnorm(0, 0.01) %_% I(-5, 5)</text>
+<text top="308" left="459" width="7" height="10" font="10">+</text>
+<text top="308" left="493" width="158" height="10" font="10">sigma &lt;- exp(log.sigma)</text>
+<text top="325" left="459" width="7" height="10" font="10">+</text>
+<text top="325" left="493" width="165" height="10" font="10">tau &lt;- 1 / pow(sigma, 2)</text>
+<text top="341" left="459" width="21" height="10" font="10">+ }</text>
+<text top="363" left="481" width="324" height="15" font="0">In the bugs.fit function, the settings besides the</text>
+<text top="382" left="459" width="30" height="12" font="0">data</text>
+<text top="381" left="489" width="316" height="15" font="0">, params, model, and inits arguments follow</text>
+<text top="399" left="459" width="346" height="15" font="0">the settings in the bugs/openbugs functions in the</text>
+<text top="417" left="459" width="90" height="15" font="3"><b>R2WinBUGS</b></text>
+<text top="417" left="555" width="250" height="15" font="0">package. This leads to some differ-</text>
+<text top="435" left="459" width="346" height="15" font="0">ences between the arguments of the jags.fit and</text>
+<text top="453" left="459" width="346" height="15" font="0">the bugs.fit functions. For example bugs.fit uses</text>
+<text top="472" left="459" width="46" height="12" font="0">n.thin</text>
+<text top="471" left="508" width="298" height="15" font="0">instead of thin, and n.burnin is equivalent to</text>
+<text top="490" left="459" width="137" height="12" font="0">n.adapt + n.update</text>
+<text top="489" left="601" width="205" height="15" font="0">as compared to jags.fit. The</text>
+<text top="508" left="459" width="61" height="12" font="0">bugs.fit</text>
+<text top="507" left="523" width="282" height="15" font="0">can return the results either in &#34;mcmc.list&#34;</text>
+<text top="525" left="459" width="346" height="15" font="0">or &#34;bugs&#34; format. The reason for leaving different ar-</text>
+<text top="542" left="459" width="346" height="15" font="0">guments for jags.fit and bugs.fit is that the aim of</text>
+<text top="560" left="459" width="346" height="15" font="0">the <b>dclone </b>package is not to make the MCMC plat-</text>
+<text top="578" left="459" width="346" height="15" font="0">forms interchangeable, but to provide data cloning</text>
+<text top="596" left="459" width="346" height="15" font="0">facility for each. It is easy to adapt an existing BUGS</text>
+<text top="614" left="459" width="346" height="15" font="0">code for data cloning, but it sometimes can be tricky</text>
+<text top="632" left="459" width="346" height="15" font="0">to adapt a JAGS code to WinBUGS and vice versa,</text>
+<text top="650" left="459" width="346" height="15" font="0">because of differences between the two dialects (i.e.</text>
+<text top="668" left="459" width="346" height="15" font="0">truncation, censoring, autoregressive priors, etc., see</text>
+<text top="686" left="459" width="62" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Plummer</a></text>
+<text top="686" left="524" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="686" left="529" width="38" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010b</a></text>
+<text top="686" left="568" width="14" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">)).</a></text>
+<text top="704" left="481" width="324" height="15" font="0">Here are the results from the three MCMC plat-</text>
+<text top="722" left="459" width="42" height="15" font="0">forms:</text>
+<text top="747" left="459" width="309" height="10" font="10">&gt; mod.wb &lt;- bugs.fit(dat, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="763" left="459" width="7" height="10" font="10">+</text>
+<text top="763" left="493" width="281" height="10" font="10">glmm.model.bugs, DIC = FALSE, n.thin = 1)</text>
+<text top="780" left="459" width="309" height="10" font="10">&gt; mod.ob &lt;- bugs.fit(dat, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="796" left="459" width="7" height="10" font="10">+</text>
+<text top="796" left="493" width="261" height="10" font="10">glmm.model.bugs, program = &#34;openbugs&#34;,</text>
+<text top="813" left="459" width="7" height="10" font="10">+</text>
+<text top="813" left="493" width="165" height="10" font="10">DIC = FALSE, n.thin = 1)</text>
+<text top="837" left="459" width="295" height="10" font="10">&gt; sapply(list(JAGS = mod, WinBUGS = mod.wb,</text>
+<text top="854" left="459" width="7" height="10" font="10">+</text>
+<text top="854" left="493" width="171" height="10" font="10">OpenBUGS = mod.ob), coef)</text>
+<text top="878" left="527" width="144" height="10" font="10">JAGS WinBUGS OpenBUGS</text>
+<text top="895" left="459" width="48" height="10" font="10">beta[1]</text>
+<text top="895" left="521" width="34" height="10" font="10">1.893</text>
+<text top="895" left="575" width="34" height="10" font="10">1.910</text>
+<text top="895" left="630" width="41" height="10" font="10">1.9037</text>
+<text top="911" left="459" width="96" height="10" font="10">beta[2] -1.050</text>
+<text top="911" left="569" width="41" height="10" font="10">-1.074</text>
+<text top="911" left="623" width="48" height="10" font="10">-1.0375</text>
+<text top="928" left="459" width="34" height="10" font="10">sigma</text>
+<text top="928" left="521" width="34" height="10" font="10">0.161</text>
+<text top="928" left="575" width="34" height="10" font="10">0.130</text>
+<text top="928" left="630" width="41" height="10" font="10">0.0732</text>
+<text top="951" left="481" width="324" height="15" font="0">The idea in the next step of the data cloning al-</text>
+<text top="969" left="459" width="346" height="15" font="0">gorithm is that instead of using the likelihood for the</text>
+<text top="987" left="459" width="346" height="15" font="0">observed data, we use the likelihood corresponding</text>
+<text top="1005" left="459" width="346" height="15" font="0">to k copies (clones) of the data. Actually cloning (re-</text>
+<text top="1023" left="459" width="346" height="15" font="0">peating) the data k times is important if the model</text>
+<text top="1041" left="459" width="346" height="15" font="0">includes unobserved (latent) variables: in this way</text>
+<text top="1059" left="459" width="346" height="15" font="0">latent variables are cloned as well, thus contributing</text>
+<text top="1077" left="459" width="346" height="15" font="0">to the likelihood. We can use the rep function to re-</text>
+<text top="1095" left="459" width="346" height="15" font="0">peat the data vectors, but it is less convenient for e.g.</text>
+<text top="1113" left="459" width="346" height="15" font="0">matrices or data frames. Thus, there is the dclone</text>
+<text top="1131" left="459" width="346" height="15" font="0">generic function with methods for various R object</text>
+<text top="1149" left="459" width="48" height="15" font="0">classes:</text>
+<text top="1174" left="459" width="110" height="10" font="10">&gt; dclone(1:5, 1)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">31</text>
+<text top="127" left="82" width="89" height="10" font="10">[1] 1 2 3 4 5</text>
+<text top="160" left="82" width="110" height="10" font="10">&gt; dclone(1:5, 2)</text>
+<text top="193" left="89" width="158" height="10" font="10">[1] 1 2 3 4 5 1 2 3 4 5</text>
+<text top="210" left="82" width="117" height="10" font="10">attr(,&#34;n.clones&#34;)</text>
+<text top="226" left="82" width="34" height="10" font="10">[1] 2</text>
+<text top="243" left="82" width="219" height="10" font="10">attr(,&#34;n.clones&#34;)attr(,&#34;method&#34;)</text>
+<text top="259" left="82" width="62" height="10" font="10">[1] &#34;rep&#34;</text>
+<text top="292" left="82" width="206" height="10" font="10">&gt; dclone(matrix(1:4, 2, 2), 2)</text>
+<text top="325" left="117" width="62" height="10" font="10">[,1] [,2]</text>
+<text top="342" left="82" width="27" height="10" font="10">[1,]</text>
+<text top="342" left="137" width="7" height="10" font="10">1</text>
+<text top="342" left="172" width="7" height="10" font="10">3</text>
+<text top="358" left="82" width="27" height="10" font="10">[2,]</text>
+<text top="358" left="137" width="7" height="10" font="10">2</text>
+<text top="358" left="172" width="7" height="10" font="10">4</text>
+<text top="375" left="82" width="27" height="10" font="10">[3,]</text>
+<text top="375" left="137" width="7" height="10" font="10">1</text>
+<text top="375" left="172" width="7" height="10" font="10">3</text>
+<text top="391" left="82" width="27" height="10" font="10">[4,]</text>
+<text top="391" left="137" width="7" height="10" font="10">2</text>
+<text top="391" left="172" width="7" height="10" font="10">4</text>
+<text top="408" left="82" width="117" height="10" font="10">attr(,&#34;n.clones&#34;)</text>
+<text top="424" left="82" width="34" height="10" font="10">[1] 2</text>
+<text top="440" left="82" width="219" height="10" font="10">attr(,&#34;n.clones&#34;)attr(,&#34;method&#34;)</text>
+<text top="457" left="82" width="62" height="10" font="10">[1] &#34;rep&#34;</text>
+<text top="490" left="82" width="254" height="10" font="10">&gt; dclone(data.frame(a=1:2, b=3:4), 2)</text>
+<text top="523" left="110" width="21" height="10" font="10">a b</text>
+<text top="539" left="82" width="48" height="10" font="10">1_1 1 3</text>
+<text top="556" left="82" width="48" height="10" font="10">2_1 2 4</text>
+<text top="572" left="82" width="48" height="10" font="10">1_2 1 3</text>
+<text top="589" left="82" width="48" height="10" font="10">2_2 2 4</text>
+<text top="622" left="82" width="346" height="15" font="0">The number of clones can be extracted by the</text>
+<text top="641" left="82" width="53" height="12" font="0">nclones</text>
+<text top="640" left="140" width="192" height="15" font="0">function; it returns NULL for k</text>
+<text top="639" left="335" width="12" height="14" font="7">=</text>
+<text top="640" left="351" width="78" height="15" font="0">1 and k oth-</text>
+<text top="657" left="82" width="47" height="15" font="0">erwise.</text>
+<text top="676" left="105" width="324" height="15" font="0">The BUGS data specification might contain some</text>
+<text top="694" left="82" width="346" height="15" font="0">elements that we do not want to clone (e.g. &#34;np&#34;, the</text>
+<text top="712" left="82" width="346" height="15" font="0">number of columns of the design matrix in this case).</text>
+<text top="730" left="82" width="346" height="15" font="0">Thus the dclone method has different behaviour for</text>
+<text top="748" left="82" width="346" height="15" font="0">lists, than for non list classes (including data frames).</text>
+<text top="766" left="82" width="346" height="15" font="0">We can define which elements should not be cloned,</text>
+<text top="784" left="82" width="346" height="15" font="0">or which should be multiplied by k instead of being</text>
+<text top="801" left="82" width="98" height="15" font="0">cloned k times.</text>
+<text top="834" left="82" width="240" height="10" font="10">&gt; dat2 &lt;- dclone(dat, n.clones = 2,</text>
+<text top="850" left="82" width="7" height="10" font="10">+</text>
+<text top="850" left="124" width="226" height="10" font="10">multiply = &#34;n&#34;, unchanged = &#34;np&#34;)</text>
+<text top="867" left="82" width="103" height="10" font="10">&gt; nclones(dat2)</text>
+<text top="900" left="82" width="34" height="10" font="10">[1] 2</text>
+<text top="917" left="82" width="103" height="10" font="10">attr(,&#34;method&#34;)</text>
+<text top="933" left="124" width="7" height="10" font="10">Y</text>
+<text top="933" left="179" width="7" height="10" font="10">X</text>
+<text top="933" left="233" width="7" height="10" font="10">n</text>
+<text top="933" left="281" width="14" height="10" font="10">np</text>
+<text top="950" left="96" width="34" height="10" font="10">&#34;rep&#34;</text>
+<text top="950" left="151" width="89" height="10" font="10">&#34;rep&#34; &#34;multi&#34;</text>
+<text top="950" left="281" width="14" height="10" font="10">NA</text>
+<text top="983" left="82" width="346" height="15" font="0">The &#34;method&#34; attribute of the cloned object stores</text>
+<text top="1000" left="82" width="346" height="15" font="0">this information. There are three different ways of</text>
+<text top="1018" left="82" width="346" height="15" font="0">cloning (besides NA standing for unchanged): &#34;rep&#34;</text>
+<text top="1036" left="82" width="346" height="15" font="0">is for (longitudinal) repetitions, &#34;multi&#34; is for mul-</text>
+<text top="1054" left="82" width="346" height="15" font="0">tiplication, and &#34;dim&#34; is repeating the data along an</text>
+<text top="1072" left="82" width="178" height="15" font="0">extra dimension (see later).</text>
+<text top="1091" left="105" width="254" height="15" font="0">Now we do the model fitting with k</text>
+<text top="1091" left="364" width="12" height="14" font="7">=</text>
+<text top="1091" left="381" width="48" height="15" font="0">2. The</text>
+<text top="1110" left="82" width="84" height="12" font="0">&#34;mcmc.list&#34;</text>
+<text top="1109" left="174" width="255" height="15" font="0">object inherits the information about</text>
+<text top="1127" left="82" width="77" height="15" font="0">the cloning:</text>
+<text top="1159" left="82" width="165" height="10" font="10">&gt; mod2 &lt;- jags.fit(dat2,</text>
+<text top="1175" left="82" width="7" height="10" font="10">+</text>
+<text top="1175" left="117" width="316" height="10" font="10">c(&#34;beta&#34;, &#34;sigma&#34;), glmm.model, n.iter = 1000)</text>
+<text top="125" left="459" width="346" height="15" font="0">Similarly, the bugs.fit function takes care of the</text>
+<text top="143" left="459" width="346" height="15" font="0">cloning information passed through the data argu-</text>
+<text top="161" left="459" width="38" height="15" font="0">ment:</text>
+<text top="186" left="459" width="322" height="10" font="10">&gt; mod.wb2 &lt;- bugs.fit(dat2, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="203" left="459" width="7" height="10" font="10">+</text>
+<text top="203" left="493" width="281" height="10" font="10">glmm.model.bugs, DIC = FALSE, n.thin = 1)</text>
+<text top="219" left="459" width="322" height="10" font="10">&gt; mod.ob2 &lt;- bugs.fit(dat2, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="236" left="459" width="7" height="10" font="10">+</text>
+<text top="236" left="493" width="261" height="10" font="10">glmm.model.bugs, program = &#34;openbugs&#34;,</text>
+<text top="252" left="459" width="7" height="10" font="10">+</text>
+<text top="252" left="493" width="165" height="10" font="10">DIC = FALSE, n.thin = 1)</text>
+<text top="275" left="459" width="234" height="15" font="0">And here are the results based on k</text>
+<text top="275" left="696" width="12" height="14" font="7">=</text>
+<text top="275" left="712" width="93" height="15" font="0">2 for the three</text>
+<text top="293" left="459" width="121" height="15" font="0">MCMC platforms:</text>
+<text top="318" left="459" width="309" height="10" font="10">&gt; sapply(list(JAGS = mod2, WinBUGS = mod.wb2,</text>
+<text top="335" left="459" width="7" height="10" font="10">+</text>
+<text top="335" left="493" width="178" height="10" font="10">OpenBUGS = mod.ob2), coef)</text>
+<text top="360" left="527" width="144" height="10" font="10">JAGS WinBUGS OpenBUGS</text>
+<text top="376" left="459" width="48" height="10" font="10">beta[1]</text>
+<text top="376" left="521" width="34" height="10" font="10">1.918</text>
+<text top="376" left="575" width="34" height="10" font="10">1.905</text>
+<text top="376" left="637" width="34" height="10" font="10">1.896</text>
+<text top="393" left="459" width="96" height="10" font="10">beta[2] -1.114</text>
+<text top="393" left="569" width="41" height="10" font="10">-1.080</text>
+<text top="393" left="630" width="41" height="10" font="10">-1.078</text>
+<text top="409" left="459" width="34" height="10" font="10">sigma</text>
+<text top="409" left="521" width="34" height="10" font="10">0.207</text>
+<text top="409" left="575" width="34" height="10" font="10">0.187</text>
+<text top="409" left="637" width="34" height="10" font="10">0.243</text>
+<text top="433" left="481" width="324" height="15" font="0">For some models, indexing can be more complex,</text>
+<text top="451" left="459" width="346" height="15" font="0">and simple repetitions of the data (&#34;rep&#34; method)</text>
+<text top="469" left="459" width="138" height="15" font="0">are not appropriate.</text>
+<text top="469" left="612" width="193" height="15" font="0">In case of non independent</text>
+<text top="487" left="459" width="346" height="15" font="0">data (time series or spatial autoregressive models),</text>
+<text top="505" left="459" width="346" height="15" font="0">cloning should be done over an extra dimension to</text>
+<text top="523" left="459" width="346" height="15" font="0">ensure that clones are independent. For this purpose,</text>
+<text top="541" left="459" width="206" height="15" font="0">one can use the dcdim function:</text>
+<text top="566" left="459" width="309" height="10" font="10">&gt; (obj &lt;- dclone(dcdim(data.matrix(1:5)), 2))</text>
+<text top="591" left="493" width="103" height="10" font="10">clone.1 clone.2</text>
+<text top="608" left="459" width="27" height="10" font="10">[1,]</text>
+<text top="608" left="534" width="7" height="10" font="10">1</text>
+<text top="608" left="589" width="7" height="10" font="10">1</text>
+<text top="624" left="459" width="27" height="10" font="10">[2,]</text>
+<text top="624" left="534" width="7" height="10" font="10">2</text>
+<text top="624" left="589" width="7" height="10" font="10">2</text>
+<text top="641" left="459" width="27" height="10" font="10">[3,]</text>
+<text top="641" left="534" width="7" height="10" font="10">3</text>
+<text top="641" left="589" width="7" height="10" font="10">3</text>
+<text top="657" left="459" width="27" height="10" font="10">[4,]</text>
+<text top="657" left="534" width="7" height="10" font="10">4</text>
+<text top="657" left="589" width="7" height="10" font="10">4</text>
+<text top="674" left="459" width="27" height="10" font="10">[5,]</text>
+<text top="674" left="534" width="7" height="10" font="10">5</text>
+<text top="674" left="589" width="7" height="10" font="10">5</text>
+<text top="690" left="459" width="117" height="10" font="10">attr(,&#34;n.clones&#34;)</text>
+<text top="707" left="459" width="34" height="10" font="10">[1] 2</text>
+<text top="723" left="459" width="219" height="10" font="10">attr(,&#34;n.clones&#34;)attr(,&#34;method&#34;)</text>
+<text top="739" left="459" width="62" height="10" font="10">[1] &#34;dim&#34;</text>
+<text top="756" left="459" width="309" height="10" font="10">attr(,&#34;n.clones&#34;)attr(,&#34;method&#34;)attr(,&#34;drop&#34;)</text>
+<text top="772" left="459" width="55" height="10" font="10">[1] TRUE</text>
+<text top="796" left="459" width="346" height="15" font="0">If data cloning consists of repetitions of the data, our</text>
+<text top="814" left="459" width="346" height="15" font="0">BUGS model usually does not need modifications. If</text>
+<text top="832" left="459" width="346" height="15" font="0">we add an extra dimension to the data, the BUGS</text>
+<text top="850" left="459" width="346" height="15" font="0">model and the data specification must reflect the ex-</text>
+<text top="868" left="459" width="124" height="15" font="0">tra dimension, too.</text>
+<text top="886" left="481" width="324" height="15" font="0">To demonstrate this, we consider a model and</text>
+<text top="904" left="459" width="89" height="15" font="0">data set from</text>
+<text top="904" left="553" width="99" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Ponciano et al.</a></text>
+<text top="904" left="657" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="904" left="662" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2009</a></text>
+<text top="904" left="692" width="113" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">). </a>They used the</text>
+<text top="922" left="459" width="346" height="15" font="0">single-species population growth data from labora-</text>
+<text top="940" left="459" width="134" height="15" font="0">tory experiments of</text>
+<text top="940" left="599" width="41" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Gause</a></text>
+<text top="940" left="647" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="940" left="652" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1934</a></text>
+<text top="940" left="682" width="124" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>with Paramecium</text>
+<text top="958" left="459" width="346" height="15" font="0">aurelia. Gause initiated liquid cultures on day 0 at a</text>
+<text top="976" left="459" width="293" height="15" font="0">concentration of two individuals per 0.5 cm</text>
+<text top="973" left="752" width="6" height="11" font="1">3</text>
+<text top="976" left="763" width="43" height="15" font="0">of cul-</text>
+<text top="994" left="459" width="346" height="15" font="0">ture media. Then, on days 2–19, he took daily 0.5</text>
+<text top="1012" left="459" width="20" height="15" font="0">cm</text>
+<text top="1009" left="479" width="6" height="11" font="1">3</text>
+<text top="1012" left="488" width="317" height="15" font="0">samples of the microbe cultures and counted the</text>
+<text top="1030" left="459" width="204" height="15" font="0">number of cells in each sample.</text>
+<text top="1030" left="667" width="95" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Ponciano et al.</a></text>
+<text top="1030" left="765" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="1030" left="770" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2009</a></text>
+<text top="1030" left="800" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">)</a></text>
+<text top="1048" left="459" width="346" height="15" font="0">fitted discrete time stochastic models of population</text>
+<text top="1065" left="459" width="346" height="15" font="0">dynamics to describe Gause’s data taking into ac-</text>
+<text top="1083" left="459" width="346" height="15" font="0">count both process noise and observation error. The</text>
+<text top="1101" left="459" width="346" height="15" font="0">Beverton-Holt model incorporates a latent variable</text>
+<text top="1119" left="459" width="98" height="15" font="0">component (N</text>
+<text top="1124" left="556" width="4" height="11" font="1">t</text>
+<text top="1119" left="561" width="16" height="15" font="0">, t</text>
+<text top="1119" left="582" width="12" height="14" font="7">=</text>
+<text top="1119" left="598" width="207" height="15" font="0">0, 1, . . . , q) to describe an unob-</text>
+<text top="1137" left="459" width="346" height="15" font="0">served time series of actual population abundance.</text>
+<text top="1155" left="459" width="346" height="15" font="0">The latent variable component contains density de-</text>
+<text top="1173" left="459" width="298" height="15" font="0">pendence (<i>β</i>) and stochastic process noise (<i>σ</i></text>
+<text top="1170" left="757" width="6" height="11" font="1">2</text>
+<text top="1173" left="764" width="41" height="15" font="0">). The</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">32</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">model incorporates a Poisson observation compo-</text>
+<text top="143" left="82" width="335" height="15" font="0">nent to account for variability caused by sampling:</text>
+<text top="178" left="135" width="9" height="11" font="8"><i>µ</i></text>
+<text top="179" left="144" width="4" height="11" font="1">t</text>
+<text top="175" left="152" width="12" height="14" font="7">=</text>
+<text top="175" left="168" width="21" height="15" font="0">log</text>
+<text top="175" left="189" width="6" height="14" font="7">(</text>
+<text top="178" left="195" width="9" height="11" font="8"><i>λ</i></text>
+<text top="175" left="205" width="21" height="14" font="7">) +</text>
+<text top="175" left="229" width="21" height="15" font="0">log</text>
+<text top="175" left="250" width="6" height="14" font="7">(</text>
+<text top="175" left="257" width="12" height="15" font="0">N</text>
+<text top="180" left="268" width="19" height="11" font="1">t−1</text>
+<text top="175" left="288" width="21" height="14" font="7">) −</text>
+<text top="175" left="313" width="21" height="15" font="0">log</text>
+<text top="175" left="334" width="6" height="14" font="7">(</text>
+<text top="175" left="340" width="7" height="15" font="0">1</text>
+<text top="175" left="351" width="12" height="14" font="7">+</text>
+<text top="178" left="366" width="21" height="11" font="8"><i>β</i>N</text>
+<text top="180" left="387" width="19" height="11" font="1">t−1</text>
+<text top="175" left="407" width="6" height="14" font="7">)</text>
+<text top="200" left="99" width="21" height="15" font="0">log</text>
+<text top="200" left="120" width="6" height="14" font="7">(</text>
+<text top="200" left="126" width="12" height="15" font="0">N</text>
+<text top="205" left="138" width="4" height="11" font="1">t</text>
+<text top="200" left="143" width="22" height="14" font="7">) ∼</text>
+<text top="200" left="168" width="48" height="15" font="0">normal</text>
+<text top="200" left="216" width="6" height="14" font="7">(</text>
+<text top="203" left="222" width="9" height="11" font="8"><i>µ</i></text>
+<text top="205" left="231" width="4" height="11" font="1">t</text>
+<text top="200" left="236" width="14" height="15" font="0">, <i>σ</i></text>
+<text top="196" left="250" width="6" height="11" font="1">2</text>
+<text top="200" left="257" width="6" height="14" font="7">)</text>
+<text top="222" left="107" width="10" height="15" font="0">Y</text>
+<text top="227" left="116" width="4" height="11" font="1">t</text>
+<text top="221" left="124" width="4" height="15" font="7">|</text>
+<text top="222" left="133" width="12" height="15" font="0">N</text>
+<text top="227" left="144" width="4" height="11" font="1">t</text>
+<text top="221" left="152" width="12" height="15" font="7">∼</text>
+<text top="222" left="168" width="51" height="15" font="0">Poisson</text>
+<text top="222" left="219" width="6" height="14" font="7">(</text>
+<text top="222" left="226" width="12" height="15" font="0">N</text>
+<text top="227" left="237" width="4" height="11" font="1">t</text>
+<text top="222" left="242" width="6" height="14" font="7">)</text>
+<text top="258" left="83" width="9" height="11" font="8"><i>λ</i></text>
+<text top="254" left="98" width="331" height="15" font="0">is the finite rate of increase in population abun-</text>
+<text top="272" left="82" width="280" height="15" font="0">dance. The corresponding BUGS model is:</text>
+<text top="302" left="82" width="213" height="10" font="10">&gt; beverton.holt &lt;- function() {</text>
+<text top="318" left="82" width="7" height="10" font="10">+</text>
+<text top="318" left="117" width="110" height="10" font="10">for (j in 1:k) {</text>
+<text top="335" left="82" width="7" height="10" font="10">+</text>
+<text top="335" left="137" width="123" height="10" font="10">for(i in 2:(n+1)){</text>
+<text top="351" left="82" width="7" height="10" font="10">+</text>
+<text top="351" left="158" width="240" height="10" font="10">Y[(i-1),j] ~ dpois(exp(log.N[i,j]))</text>
+<text top="367" left="82" width="7" height="10" font="10">+</text>
+<text top="367" left="158" width="274" height="10" font="10">log.N[i,j] ~ dnorm(mu[i,j], 1 / sigma^2)</text>
+<text top="384" left="82" width="7" height="10" font="10">+</text>
+<text top="384" left="158" width="268" height="10" font="10">mu[i,j] &lt;- log(lambda) + log.N[(i-1),j]</text>
+<text top="400" left="82" width="7" height="10" font="10">+</text>
+<text top="400" left="185" width="254" height="10" font="10">- log(1 + beta * exp(log.N[(i-1),j]))</text>
+<text top="417" left="82" width="7" height="10" font="10">+</text>
+<text top="417" left="137" width="7" height="10" font="10">}</text>
+<text top="433" left="82" width="7" height="10" font="10">+</text>
+<text top="433" left="137" width="247" height="10" font="10">log.N[1,j] ~ dnorm(mu0, 1 / sigma^2)</text>
+<text top="450" left="82" width="7" height="10" font="10">+</text>
+<text top="450" left="117" width="7" height="10" font="10">}</text>
+<text top="466" left="82" width="7" height="10" font="10">+</text>
+<text top="466" left="117" width="137" height="10" font="10">beta ~ dlnorm(-1, 1)</text>
+<text top="483" left="82" width="7" height="10" font="10">+</text>
+<text top="483" left="117" width="137" height="10" font="10">sigma ~ dlnorm(0, 1)</text>
+<text top="499" left="82" width="7" height="10" font="10">+</text>
+<text top="499" left="117" width="123" height="10" font="10">tmp ~ dlnorm(0, 1)</text>
+<text top="515" left="82" width="7" height="10" font="10">+</text>
+<text top="515" left="117" width="117" height="10" font="10">lambda &lt;- tmp + 1</text>
+<text top="532" left="82" width="7" height="10" font="10">+</text>
+<text top="532" left="117" width="322" height="10" font="10">mu0 &lt;- log(lambda) + log(2) - log(1 + beta * 2)</text>
+<text top="548" left="82" width="21" height="10" font="10">+ }</text>
+<text top="575" left="105" width="324" height="15" font="0">Note that besides the indexing for the time series,</text>
+<text top="593" left="82" width="346" height="15" font="0">the model contains another dimension for the clones.</text>
+<text top="611" left="82" width="346" height="15" font="0">We define the data set by using the dcdim method for</text>
+<text top="629" left="82" width="346" height="15" font="0">cloning the observations. We include an element k =</text>
+<text top="648" left="82" width="8" height="12" font="0">1</text>
+<text top="647" left="93" width="336" height="15" font="0">that will be multiplied to indicate how many clones</text>
+<text top="665" left="82" width="346" height="15" font="0">(columns) are in the data, while n (number of obser-</text>
+<text top="683" left="82" width="191" height="15" font="0">vations) remains unchanged:</text>
+<text top="712" left="82" width="316" height="10" font="10">&gt; paurelia &lt;- c(17, 29, 39, 63, 185, 258, 267,</text>
+<text top="729" left="82" width="7" height="10" font="10">+</text>
+<text top="729" left="117" width="268" height="10" font="10">392, 510, 570, 650, 560, 575, 650, 550,</text>
+<text top="745" left="82" width="7" height="10" font="10">+</text>
+<text top="745" left="117" width="96" height="10" font="10">480, 520, 500)</text>
+<text top="762" left="82" width="322" height="10" font="10">&gt; bhdat &lt;- list(Y=dcdim(data.matrix(paurelia)),</text>
+<text top="778" left="82" width="7" height="10" font="10">+</text>
+<text top="778" left="117" width="165" height="10" font="10">n=length(paurelia), k=1)</text>
+<text top="794" left="82" width="274" height="10" font="10">&gt; dcbhdat &lt;- dclone(bhdat, n.clones = 5,</text>
+<text top="811" left="82" width="7" height="10" font="10">+</text>
+<text top="811" left="117" width="219" height="10" font="10">multiply = &#34;k&#34;, unchanged = &#34;n&#34;)</text>
+<text top="841" left="82" width="192" height="10" font="10">&gt; bhmod &lt;- jags.fit(dcbhdat,</text>
+<text top="858" left="82" width="7" height="10" font="10">+</text>
+<text top="858" left="117" width="288" height="10" font="10">c(&#34;lambda&#34;,&#34;beta&#34;,&#34;sigma&#34;), beverton.holt,</text>
+<text top="874" left="82" width="7" height="10" font="10">+</text>
+<text top="874" left="117" width="82" height="10" font="10">n.iter=1000)</text>
+<text top="904" left="82" width="89" height="10" font="10">&gt; coef(bhmod)</text>
+<text top="934" left="103" width="27" height="10" font="10">beta</text>
+<text top="934" left="144" width="41" height="10" font="10">lambda</text>
+<text top="934" left="206" width="34" height="10" font="10">sigma</text>
+<text top="951" left="82" width="158" height="10" font="10">0.00218 2.18755 0.12777</text>
+<text top="980" left="82" width="278" height="15" font="0">Results compare well with estimates in</text>
+<text top="980" left="368" width="61" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Ponciano</a></text>
+<text top="998" left="82" width="31" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">et al.</a></text>
+<text top="998" left="118" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="998" left="123" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2009</a></text>
+<text top="998" left="152" width="22" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>( ˆ<i>β</i></text>
+<text top="998" left="178" width="12" height="14" font="7">=</text>
+<text top="998" left="194" width="65" height="15" font="0">0.00235, ˆ<i>λ</i></text>
+<text top="998" left="263" width="12" height="14" font="7">=</text>
+<text top="998" left="279" width="50" height="15" font="0">2.274, ˆ<i>σ</i></text>
+<text top="998" left="332" width="12" height="14" font="7">=</text>
+<text top="998" left="348" width="50" height="15" font="0">0.1274).</text>
+<text top="1045" left="82" width="215" height="21" font="4"><b>Iterative model fitting</b></text>
+<text top="1083" left="82" width="346" height="15" font="0">We can use the dc.fit function to iteratively fit the</text>
+<text top="1101" left="82" width="346" height="15" font="0">same model with various k values as described in</text>
+<text top="1119" left="82" width="70" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="1119" left="161" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="1119" left="166" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="1119" left="195" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">).</a></text>
+<text top="1119" left="220" width="209" height="15" font="0">The function takes similar ar-</text>
+<text top="1137" left="82" width="346" height="15" font="0">guments to dclone and jags.fit (or bugs.fit, if</text>
+<text top="1156" left="82" width="122" height="12" font="0">flavour = &#34;bugs&#34;</text>
+<text top="1155" left="211" width="218" height="15" font="0">is used). Because the informa-</text>
+<text top="1173" left="82" width="346" height="15" font="0">tion in the data overrides the priors by increasing the</text>
+<text top="125" left="459" width="346" height="15" font="0">number of clones, we can improve MCMC conver-</text>
+<text top="143" left="459" width="346" height="15" font="0">gence by making the priors more informative during</text>
+<text top="161" left="459" width="346" height="15" font="0">the iterative fitting process. We achieve this by modi-</text>
+<text top="179" left="459" width="346" height="15" font="0">fying the BUGS model for the Poisson GLMM exam-</text>
+<text top="197" left="459" width="24" height="15" font="0">ple:</text>
+<text top="223" left="459" width="213" height="10" font="10">&gt; glmm.model.up &lt;- function() {</text>
+<text top="239" left="459" width="7" height="10" font="10">+</text>
+<text top="239" left="493" width="110" height="10" font="10">for (i in 1:n) {</text>
+<text top="256" left="459" width="7" height="10" font="10">+</text>
+<text top="256" left="514" width="158" height="10" font="10">Y[i] ~ dpois(lambda[i])</text>
+<text top="272" left="459" width="7" height="10" font="10">+</text>
+<text top="272" left="514" width="185" height="10" font="10">lambda[i] &lt;- exp(alpha[i] +</text>
+<text top="289" left="459" width="7" height="10" font="10">+</text>
+<text top="289" left="534" width="165" height="10" font="10">inprod(X[i,], beta[1,]))</text>
+<text top="305" left="459" width="7" height="10" font="10">+</text>
+<text top="305" left="514" width="206" height="10" font="10">alpha[i] ~ dnorm(0, 1/sigma^2)</text>
+<text top="322" left="459" width="7" height="10" font="10">+</text>
+<text top="322" left="493" width="7" height="10" font="10">}</text>
+<text top="338" left="459" width="7" height="10" font="10">+</text>
+<text top="338" left="493" width="117" height="10" font="10">for (j in 1:np) {</text>
+<text top="354" left="459" width="7" height="10" font="10">+</text>
+<text top="354" left="514" width="240" height="10" font="10">beta[1,j] ~ dnorm(pr[j,1], pr[j,2])</text>
+<text top="371" left="459" width="7" height="10" font="10">+</text>
+<text top="371" left="493" width="7" height="10" font="10">}</text>
+<text top="387" left="459" width="7" height="10" font="10">+</text>
+<text top="387" left="493" width="309" height="10" font="10">log.sigma ~ dnorm(pr[(np+1),1], pr[(np+1),2])</text>
+<text top="404" left="459" width="7" height="10" font="10">+</text>
+<text top="404" left="493" width="158" height="10" font="10">sigma &lt;- exp(log.sigma)</text>
+<text top="420" left="459" width="7" height="10" font="10">+</text>
+<text top="420" left="493" width="165" height="10" font="10">tau &lt;- 1 / pow(sigma, 2)</text>
+<text top="437" left="459" width="21" height="10" font="10">+ }</text>
+<text top="460" left="459" width="346" height="15" font="0">We also define a function to update the priors. The</text>
+<text top="478" left="459" width="346" height="15" font="0">function returns values for flat prior specification in</text>
+<text top="496" left="459" width="346" height="15" font="0">the first iteration, and uses the updated posterior</text>
+<text top="514" left="459" width="346" height="15" font="0">means (via the coef method) and data cloning stan-</text>
+<text top="531" left="459" width="346" height="15" font="0">dard errors (via the dcsd method) in the rest, be-</text>
+<text top="549" left="459" width="346" height="15" font="0">cause priors that have large probability mass near the</text>
+<text top="567" left="459" width="346" height="15" font="0">maximum likelihood estimate require fewer clones</text>
+<text top="585" left="459" width="208" height="15" font="0">to achieve the desired accuracy.</text>
+<text top="611" left="459" width="165" height="10" font="10">&gt; upfun &lt;- function(x) {</text>
+<text top="628" left="459" width="7" height="10" font="10">+</text>
+<text top="628" left="493" width="117" height="10" font="10">if (missing(x)) {</text>
+<text top="644" left="459" width="7" height="10" font="10">+</text>
+<text top="644" left="514" width="89" height="10" font="10">np &lt;- ncol(X)</text>
+<text top="661" left="459" width="7" height="10" font="10">+</text>
+<text top="661" left="514" width="178" height="10" font="10">return(cbind(rep(0, np+1),</text>
+<text top="677" left="459" width="7" height="10" font="10">+</text>
+<text top="677" left="541" width="123" height="10" font="10">rep(0.001, np+1)))</text>
+<text top="694" left="459" width="7" height="10" font="10">+</text>
+<text top="694" left="493" width="55" height="10" font="10">} else {</text>
+<text top="710" left="459" width="7" height="10" font="10">+</text>
+<text top="710" left="514" width="117" height="10" font="10">ncl &lt;- nclones(x)</text>
+<text top="726" left="459" width="7" height="10" font="10">+</text>
+<text top="726" left="514" width="117" height="10" font="10">if (is.null(ncl))</text>
+<text top="743" left="459" width="7" height="10" font="10">+</text>
+<text top="743" left="534" width="55" height="10" font="10">ncl &lt;- 1</text>
+<text top="759" left="459" width="7" height="10" font="10">+</text>
+<text top="759" left="514" width="96" height="10" font="10">par &lt;- coef(x)</text>
+<text top="776" left="459" width="7" height="10" font="10">+</text>
+<text top="776" left="514" width="89" height="10" font="10">se &lt;- dcsd(x)</text>
+<text top="792" left="459" width="7" height="10" font="10">+</text>
+<text top="792" left="514" width="274" height="10" font="10">log.sigma &lt;- mcmcapply(x[,&#34;sigma&#34;], log)</text>
+<text top="809" left="459" width="7" height="10" font="10">+</text>
+<text top="809" left="514" width="240" height="10" font="10">par[length(par)] &lt;- mean(log.sigma)</text>
+<text top="825" left="459" width="7" height="10" font="10">+</text>
+<text top="825" left="514" width="295" height="10" font="10">se[length(se)] &lt;- sd(log.sigma) * sqrt(ncl)</text>
+<text top="842" left="459" width="7" height="10" font="10">+</text>
+<text top="842" left="514" width="151" height="10" font="10">return(cbind(par, se))</text>
+<text top="858" left="459" width="7" height="10" font="10">+</text>
+<text top="858" left="493" width="7" height="10" font="10">}</text>
+<text top="874" left="459" width="21" height="10" font="10">+ }</text>
+<text top="897" left="459" width="346" height="15" font="0">Finally, we define prior specifications as part of the</text>
+<text top="915" left="459" width="346" height="15" font="0">data (&#34;pr&#34;), and provide the updating function in the</text>
+<text top="935" left="459" width="46" height="12" font="0">dc.fit</text>
+<text top="933" left="508" width="27" height="15" font="0">call:</text>
+<text top="960" left="459" width="247" height="10" font="10">&gt; updat &lt;- list(Y = Y, X = X, n = n,</text>
+<text top="976" left="459" width="7" height="10" font="10">+</text>
+<text top="976" left="493" width="185" height="10" font="10">np = ncol(X), pr = upfun())</text>
+<text top="992" left="459" width="151" height="10" font="10">&gt; k &lt;- c(1, 5, 10, 20)</text>
+<text top="1009" left="459" width="302" height="10" font="10">&gt; dcmod &lt;- dc.fit(updat, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="1025" left="459" width="7" height="10" font="10">+</text>
+<text top="1025" left="493" width="295" height="10" font="10">glmm.model.up, n.clones = k, n.iter = 1000,</text>
+<text top="1042" left="459" width="7" height="10" font="10">+</text>
+<text top="1042" left="493" width="226" height="10" font="10">multiply = &#34;n&#34;, unchanged = &#34;np&#34;,</text>
+<text top="1058" left="459" width="7" height="10" font="10">+</text>
+<text top="1058" left="493" width="226" height="10" font="10">update = &#34;pr&#34;, updatefun = upfun)</text>
+<text top="1084" left="459" width="110" height="10" font="10">&gt; summary(dcmod)</text>
+<text top="1110" left="459" width="151" height="10" font="10">Iterations = 1001:2000</text>
+<text top="1126" left="459" width="144" height="10" font="10">Thinning interval = 1</text>
+<text top="1142" left="459" width="137" height="10" font="10">Number of chains = 3</text>
+<text top="1159" left="459" width="192" height="10" font="10">Sample size per chain = 1000</text>
+<text top="1175" left="459" width="144" height="10" font="10">Number of clones = 20</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">33</text>
+<text top="144" left="82" width="336" height="10" font="10">1. Empirical mean and standard deviation for each</text>
+<text top="160" left="103" width="288" height="10" font="10">variable, plus standard error of the mean:</text>
+<text top="193" left="151" width="27" height="10" font="10">Mean</text>
+<text top="193" left="213" width="117" height="10" font="10">SD DC SD Naive SE</text>
+<text top="210" left="82" width="48" height="10" font="10">beta[1]</text>
+<text top="210" left="144" width="185" height="10" font="10">1.894 0.0368 0.164 0.000671</text>
+<text top="226" left="82" width="247" height="10" font="10">beta[2] -1.082 0.0734 0.328 0.001341</text>
+<text top="242" left="82" width="34" height="10" font="10">sigma</text>
+<text top="242" left="144" width="185" height="10" font="10">0.278 0.0256 0.114 0.000467</text>
+<text top="259" left="137" width="137" height="10" font="10">Time-series SE R hat</text>
+<text top="275" left="82" width="48" height="10" font="10">beta[1]</text>
+<text top="275" left="185" width="48" height="10" font="10">0.00259</text>
+<text top="275" left="247" width="27" height="10" font="10">1.01</text>
+<text top="292" left="82" width="48" height="10" font="10">beta[2]</text>
+<text top="292" left="185" width="48" height="10" font="10">0.00546</text>
+<text top="292" left="247" width="27" height="10" font="10">1.01</text>
+<text top="308" left="82" width="34" height="10" font="10">sigma</text>
+<text top="308" left="185" width="48" height="10" font="10">0.00194</text>
+<text top="308" left="247" width="27" height="10" font="10">1.04</text>
+<text top="341" left="82" width="213" height="10" font="10">2. Quantiles for each variable:</text>
+<text top="374" left="151" width="27" height="10" font="10">2.5%</text>
+<text top="374" left="206" width="21" height="10" font="10">25%</text>
+<text top="374" left="247" width="21" height="10" font="10">50%</text>
+<text top="374" left="295" width="21" height="10" font="10">75%</text>
+<text top="374" left="329" width="34" height="10" font="10">97.5%</text>
+<text top="390" left="82" width="48" height="10" font="10">beta[1]</text>
+<text top="390" left="144" width="34" height="10" font="10">1.823</text>
+<text top="390" left="192" width="34" height="10" font="10">1.869</text>
+<text top="390" left="240" width="27" height="10" font="10">1.89</text>
+<text top="390" left="281" width="34" height="10" font="10">1.920</text>
+<text top="390" left="329" width="34" height="10" font="10">1.964</text>
+<text top="407" left="82" width="281" height="10" font="10">beta[2] -1.230 -1.133 -1.08 -1.029 -0.943</text>
+<text top="423" left="82" width="34" height="10" font="10">sigma</text>
+<text top="423" left="144" width="34" height="10" font="10">0.226</text>
+<text top="423" left="192" width="34" height="10" font="10">0.260</text>
+<text top="423" left="240" width="27" height="10" font="10">0.28</text>
+<text top="423" left="281" width="34" height="10" font="10">0.296</text>
+<text top="423" left="329" width="34" height="10" font="10">0.323</text>
+<text top="455" left="82" width="346" height="15" font="0">The summary contains data cloning standard errors</text>
+<text top="473" left="82" width="91" height="15" font="0">(DC SD) and ˆ</text>
+<text top="472" left="166" width="263" height="15" font="0">R values for MCMC chain convergence</text>
+<text top="490" left="82" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="490" left="87" width="125" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Gelman and Rubin</a></text>
+<text top="490" left="213" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="490" left="220" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1992</a></text>
+<text top="490" left="250" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">).</a></text>
+<text top="539" left="82" width="116" height="21" font="4"><b>Diagnostics</b></text>
+<text top="578" left="82" width="346" height="15" font="0">We can see how the increase in the number of clones</text>
+<text top="595" left="82" width="346" height="15" font="0">affects our inferences on single nodes by using the</text>
+<text top="615" left="82" width="53" height="12" font="0">dctable</text>
+<text top="613" left="141" width="288" height="15" font="0">function. This function retrieves the infor-</text>
+<text top="631" left="82" width="346" height="15" font="0">mation stored during the iterative fitting process (or</text>
+<text top="649" left="82" width="346" height="15" font="0">can be used to compare more than one fitted model).</text>
+<text top="667" left="82" width="346" height="15" font="0">Only the last MCMC object is returned by dc.fit,</text>
+<text top="685" left="82" width="346" height="15" font="0">but descriptive statistics of the posterior distribution</text>
+<text top="703" left="82" width="209" height="15" font="0">are stored in each step (Figure</text>
+<text top="703" left="298" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#6">1</a></text>
+<text top="703" left="305" width="124" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#6">). </a>The asymptotic</text>
+<text top="721" left="82" width="346" height="15" font="0">convergence can be visually evaluated by plotting</text>
+<text top="739" left="82" width="346" height="15" font="0">the posterior variances scaled by the variance for the</text>
+<text top="757" left="82" width="74" height="15" font="0">model at k</text>
+<text top="757" left="162" width="12" height="14" font="7">=</text>
+<text top="757" left="179" width="250" height="15" font="0">1 (or the smallest k). If scaled vari-</text>
+<text top="775" left="82" width="346" height="15" font="0">ances are decreasing at a 1/k rate and have reached a</text>
+<text top="793" left="82" width="115" height="15" font="0">lower bound (say</text>
+<text top="793" left="201" width="12" height="14" font="7">&lt;</text>
+<text top="793" left="216" width="213" height="15" font="0">0.05), the data cloning algorithm</text>
+<text top="811" left="82" width="346" height="15" font="0">has converged. If scaled variances are not decreas-</text>
+<text top="829" left="82" width="346" height="15" font="0">ing at the proper rate, that might indicate identifia-</text>
+<text top="847" left="82" width="88" height="15" font="0">bility issues <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="847" left="171" width="64" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="847" left="235" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="847" left="243" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="847" left="273" width="156" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">). </a>On the log scale, this</text>
+<text top="864" left="82" width="346" height="15" font="0">graph should show an approximately linear decrease</text>
+<text top="882" left="82" width="198" height="15" font="0">of log(scaled variance) vs. log</text>
+<text top="882" left="280" width="6" height="14" font="7">(</text>
+<text top="882" left="287" width="7" height="15" font="0">k</text>
+<text top="882" left="294" width="6" height="14" font="7">)</text>
+<text top="882" left="304" width="125" height="15" font="0">for each parameter</text>
+<text top="900" left="82" width="48" height="15" font="0">(Figure</text>
+<text top="900" left="134" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#6">2</a></text>
+<text top="900" left="141" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#6">).</a></text>
+<text top="932" left="82" width="158" height="10" font="10">&gt; dct &lt;- dctable(dcmod)</text>
+<text top="948" left="82" width="75" height="10" font="10">&gt; plot(dct)</text>
+<text top="980" left="82" width="185" height="10" font="10">&gt; plot(dct, type=&#34;log.var&#34;)</text>
+<text top="1012" left="105" width="64" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="1012" left="173" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="1012" left="178" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="1012" left="208" width="221" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>introduced diagnostic measures</text>
+<text top="1030" left="82" width="346" height="15" font="0">for checking the convergence of the data cloning al-</text>
+<text top="1048" left="82" width="346" height="15" font="0">gorithm which are based on the joint posterior dis-</text>
+<text top="1065" left="82" width="346" height="15" font="0">tribution and not only on single parameters. These</text>
+<text top="1083" left="82" width="346" height="15" font="0">include calculating the largest eigenvalue of the pos-</text>
+<text top="1101" left="82" width="346" height="15" font="0">terior variance covariance matrix (lambdamax.diag),</text>
+<text top="1119" left="82" width="346" height="15" font="0">or calculating the mean squared error and another</text>
+<text top="1137" left="82" width="186" height="15" font="0">correlation-like fit statistic (r</text>
+<text top="1134" left="269" width="6" height="11" font="1">2</text>
+<text top="1137" left="275" width="91" height="15" font="0">) based on a <i>χ</i></text>
+<text top="1134" left="367" width="6" height="11" font="1">2</text>
+<text top="1137" left="377" width="52" height="15" font="0">approx-</text>
+<text top="1155" left="82" width="346" height="15" font="0">imation (chisq.diag with a plot method). The max-</text>
+<text top="1173" left="82" width="346" height="15" font="0">imum eigenvalue reflects the degeneracy of the pos-</text>
+<text top="125" left="459" width="346" height="15" font="0">terior distribution, while the two fit measures re-</text>
+<text top="143" left="459" width="346" height="15" font="0">flect the adequacy of the normal approximation. All</text>
+<text top="161" left="459" width="346" height="15" font="0">three statistics should converge to zero as k increases.</text>
+<text top="179" left="459" width="346" height="15" font="0">If this happens, different prior specifications are no</text>
+<text top="197" left="459" width="201" height="15" font="0">longer influencing the results <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="197" left="660" width="62" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="197" left="722" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="197" left="730" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2007</a></text>
+<text top="197" left="759" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="197" left="767" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="197" left="797" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">).</a></text>
+<text top="215" left="481" width="245" height="15" font="0">These measures and multivariate ˆ</text>
+<text top="215" left="719" width="87" height="15" font="0">R values for</text>
+<text top="233" left="459" width="201" height="15" font="0">MCMC chain convergence <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="233" left="660" width="142" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Brooks and Gelman</a></text>
+<text top="233" left="802" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="251" left="459" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">1997</a></text>
+<text top="251" left="489" width="317" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">) </a>are calculated during the iterations by dc.fit</text>
+<text top="268" left="459" width="345" height="15" font="0">as well, and can be retrieved by the function dcdiag:</text>
+<text top="295" left="459" width="103" height="10" font="10">&gt; dcdiag(dcmod)</text>
+<text top="321" left="473" width="302" height="10" font="10">n.clones lambda.max ms.error r.squared r.hat</text>
+<text top="337" left="459" width="7" height="10" font="10">1</text>
+<text top="337" left="521" width="7" height="10" font="10">1</text>
+<text top="337" left="555" width="48" height="10" font="10">0.11538</text>
+<text top="337" left="623" width="41" height="10" font="10">0.1282</text>
+<text top="337" left="685" width="48" height="10" font="10">0.02103</text>
+<text top="337" left="747" width="27" height="10" font="10">1.66</text>
+<text top="354" left="459" width="7" height="10" font="10">2</text>
+<text top="354" left="521" width="7" height="10" font="10">5</text>
+<text top="354" left="555" width="48" height="10" font="10">0.02225</text>
+<text top="354" left="623" width="41" height="10" font="10">0.0229</text>
+<text top="354" left="685" width="48" height="10" font="10">0.00277</text>
+<text top="354" left="747" width="27" height="10" font="10">1.02</text>
+<text top="370" left="459" width="7" height="10" font="10">3</text>
+<text top="370" left="514" width="14" height="10" font="10">10</text>
+<text top="370" left="555" width="48" height="10" font="10">0.01145</text>
+<text top="370" left="623" width="41" height="10" font="10">0.0383</text>
+<text top="370" left="685" width="48" height="10" font="10">0.00612</text>
+<text top="370" left="747" width="27" height="10" font="10">1.01</text>
+<text top="387" left="459" width="7" height="10" font="10">4</text>
+<text top="387" left="514" width="14" height="10" font="10">20</text>
+<text top="387" left="555" width="48" height="10" font="10">0.00643</text>
+<text top="387" left="623" width="41" height="10" font="10">0.0241</text>
+<text top="387" left="685" width="48" height="10" font="10">0.00173</text>
+<text top="387" left="747" width="27" height="10" font="10">1.03</text>
+<text top="412" left="481" width="324" height="15" font="0">The data cloning algorithm requires that MCMC</text>
+<text top="430" left="459" width="346" height="15" font="0">chains are properly mixed and the posterior distribu-</text>
+<text top="448" left="459" width="346" height="15" font="0">tion is nearly degenerate multivariate normal. These</text>
+<text top="466" left="459" width="346" height="15" font="0">requirements have been satisfied in the case of the</text>
+<text top="484" left="459" width="175" height="15" font="0">Poisson GLMM model. ˆ</text>
+<text top="484" left="626" width="179" height="15" font="0">R values show better mix-</text>
+<text top="502" left="459" width="346" height="15" font="0">ing properties of the MCMC chains with higher k</text>
+<text top="519" left="459" width="346" height="15" font="0">values, and in this example it is expected, because</text>
+<text top="537" left="459" width="346" height="15" font="0">we have used informative priors near the maximum</text>
+<text top="555" left="459" width="228" height="15" font="0">likelihood estimates for the cases k</text>
+<text top="555" left="691" width="12" height="14" font="7">&gt;</text>
+<text top="555" left="706" width="11" height="15" font="0">1.</text>
+<text top="573" left="481" width="324" height="15" font="0">The functions dctable and dcdiag can be used to</text>
+<text top="591" left="459" width="346" height="15" font="0">determine the number of clones required for a par-</text>
+<text top="609" left="459" width="346" height="15" font="0">ticular model and data set. Also, these diagnostic</text>
+<text top="627" left="459" width="346" height="15" font="0">functions can alert the modeller when the model con-</text>
+<text top="645" left="459" width="226" height="15" font="0">tains non-identifiable parameters.</text>
+<text top="645" left="694" width="66" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Lele et al.</a></text>
+<text top="645" left="765" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="645" left="770" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2010</a></text>
+<text top="645" left="800" width="5" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">)</a></text>
+<text top="663" left="459" width="346" height="15" font="0">gives several examples; here we consider the normal-</text>
+<text top="681" left="459" width="107" height="15" font="0">normal mixture:</text>
+<text top="712" left="581" width="9" height="11" font="8"><i>µ</i></text>
+<text top="714" left="590" width="3" height="11" font="1">i</text>
+<text top="707" left="598" width="12" height="15" font="7">∼</text>
+<text top="708" left="613" width="48" height="15" font="0">normal</text>
+<text top="708" left="661" width="6" height="14" font="7">(</text>
+<text top="712" left="667" width="9" height="11" font="8"><i>γ</i></text>
+<text top="708" left="677" width="13" height="15" font="0">, <i>τ</i></text>
+<text top="705" left="691" width="6" height="11" font="1">2</text>
+<text top="708" left="697" width="6" height="14" font="7">)</text>
+<text top="734" left="556" width="10" height="15" font="0">Y</text>
+<text top="739" left="565" width="3" height="11" font="1">i</text>
+<text top="733" left="573" width="4" height="15" font="7">|</text>
+<text top="737" left="581" width="9" height="11" font="8"><i>µ</i></text>
+<text top="739" left="590" width="3" height="11" font="1">i</text>
+<text top="733" left="598" width="12" height="15" font="7">∼</text>
+<text top="734" left="613" width="48" height="15" font="0">normal</text>
+<text top="734" left="661" width="6" height="14" font="7">(</text>
+<text top="737" left="667" width="9" height="11" font="8"><i>µ</i></text>
+<text top="739" left="676" width="3" height="11" font="1">i</text>
+<text top="734" left="681" width="14" height="15" font="0">, <i>σ</i></text>
+<text top="730" left="695" width="6" height="11" font="1">2</text>
+<text top="734" left="701" width="6" height="14" font="7">)</text>
+<text top="763" left="459" width="182" height="15" font="0">where the parameters (<i>γ</i>, <i>σ</i></text>
+<text top="760" left="641" width="6" height="11" font="1">2</text>
+<text top="763" left="651" width="12" height="14" font="7">+</text>
+<text top="767" left="668" width="8" height="11" font="8"><i>τ</i></text>
+<text top="760" left="676" width="6" height="11" font="1">2</text>
+<text top="763" left="682" width="123" height="15" font="0">) are known to be</text>
+<text top="781" left="459" width="137" height="15" font="0">identifiable, but (<i>γ</i>, <i>σ</i></text>
+<text top="778" left="596" width="6" height="11" font="1">2</text>
+<text top="781" left="602" width="13" height="15" font="0">, <i>τ</i></text>
+<text top="778" left="616" width="6" height="11" font="1">2</text>
+<text top="781" left="623" width="58" height="15" font="0">) are not.</text>
+<text top="799" left="481" width="324" height="15" font="0">We simulate random observations under this</text>
+<text top="817" left="459" width="63" height="15" font="0">model (<i>γ</i></text>
+<text top="817" left="527" width="12" height="14" font="7">=</text>
+<text top="817" left="545" width="33" height="15" font="0">2.5, <i>σ</i></text>
+<text top="817" left="583" width="12" height="14" font="7">=</text>
+<text top="817" left="600" width="32" height="15" font="0">0.2, <i>τ</i></text>
+<text top="817" left="638" width="12" height="14" font="7">=</text>
+<text top="817" left="656" width="150" height="15" font="0">0.5) and fit the corre-</text>
+<text top="835" left="459" width="156" height="15" font="0">sponding BUGS model:</text>
+<text top="861" left="459" width="96" height="10" font="10">&gt; gamma &lt;- 2.5</text>
+<text top="878" left="459" width="96" height="10" font="10">&gt; sigma &lt;- 0.2</text>
+<text top="894" left="459" width="82" height="10" font="10">&gt; tau &lt;- 0.5</text>
+<text top="911" left="459" width="110" height="10" font="10">&gt; set.seed(2345)</text>
+<text top="927" left="459" width="192" height="10" font="10">&gt; mu &lt;- rnorm(n, gamma, tau)</text>
+<text top="944" left="459" width="178" height="10" font="10">&gt; Y &lt;- rnorm(n, mu, sigma)</text>
+<text top="960" left="459" width="178" height="10" font="10">&gt; nn.model &lt;- function() {</text>
+<text top="977" left="459" width="7" height="10" font="10">+</text>
+<text top="977" left="493" width="110" height="10" font="10">for (i in 1:n) {</text>
+<text top="993" left="459" width="7" height="10" font="10">+</text>
+<text top="993" left="514" width="178" height="10" font="10">Y[i] ~ dnorm(mu[i], prec1)</text>
+<text top="1009" left="459" width="7" height="10" font="10">+</text>
+<text top="1009" left="514" width="185" height="10" font="10">mu[i] ~ dnorm(gamma, prec2)</text>
+<text top="1026" left="459" width="7" height="10" font="10">+</text>
+<text top="1026" left="493" width="7" height="10" font="10">}</text>
+<text top="1042" left="459" width="7" height="10" font="10">+</text>
+<text top="1042" left="493" width="158" height="10" font="10">gamma ~ dnorm(0, 0.001)</text>
+<text top="1059" left="459" width="7" height="10" font="10">+</text>
+<text top="1059" left="493" width="185" height="10" font="10">log.sigma ~ dnorm(0, 0.001)</text>
+<text top="1075" left="459" width="7" height="10" font="10">+</text>
+<text top="1075" left="493" width="158" height="10" font="10">sigma &lt;- exp(log.sigma)</text>
+<text top="1092" left="459" width="7" height="10" font="10">+</text>
+<text top="1092" left="493" width="178" height="10" font="10">prec1 &lt;- 1 / pow(sigma, 2)</text>
+<text top="1108" left="459" width="7" height="10" font="10">+</text>
+<text top="1108" left="493" width="171" height="10" font="10">log.tau ~ dnorm(0, 0.001)</text>
+<text top="1124" left="459" width="7" height="10" font="10">+</text>
+<text top="1124" left="493" width="130" height="10" font="10">tau &lt;- exp(log.tau)</text>
+<text top="1141" left="459" width="7" height="10" font="10">+</text>
+<text top="1141" left="493" width="165" height="10" font="10">prec2 &lt;- 1 / pow(tau, 2)</text>
+<text top="1157" left="459" width="21" height="10" font="10">+ }</text>
+<text top="1174" left="459" width="199" height="10" font="10">&gt; nndat &lt;- list(Y = Y, n = n)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="3" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">34</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="138" left="195" width="37" height="10" font="11"><b>beta[1]</b></text>
+<text top="342" left="179" width="70" height="8" font="12">Number of clones</text>
+<text top="247" left="92" width="0" height="8" font="13">Estimate</text>
+<text top="230" left="146" width="4" height="5" font="14">●</text>
+<text top="233" left="190" width="4" height="5" font="14">●</text>
+<text top="232" left="233" width="4" height="5" font="14">●</text>
+<text top="232" left="276" width="4" height="5" font="14">●</text>
+<text top="320" left="146" width="5" height="8" font="12">1</text>
+<text top="320" left="189" width="5" height="8" font="12">5</text>
+<text top="320" left="230" width="10" height="8" font="12">10</text>
+<text top="320" left="273" width="10" height="8" font="12">20</text>
+<text top="296" left="103" width="12" height="8" font="12">1.6</text>
+<text top="274" left="103" width="12" height="8" font="12">1.7</text>
+<text top="252" left="103" width="12" height="8" font="12">1.8</text>
+<text top="230" left="103" width="12" height="8" font="12">1.9</text>
+<text top="209" left="103" width="12" height="8" font="12">2.0</text>
+<text top="187" left="103" width="12" height="8" font="12">2.1</text>
+<text top="165" left="103" width="12" height="8" font="12">2.2</text>
+<text top="298" left="146" width="4" height="8" font="12">x</text>
+<text top="260" left="190" width="4" height="8" font="12">x</text>
+<text top="252" left="233" width="4" height="8" font="12">x</text>
+<text top="246" left="276" width="4" height="8" font="12">x</text>
+<text top="165" left="146" width="4" height="8" font="12">x</text>
+<text top="203" left="190" width="4" height="8" font="12">x</text>
+<text top="210" left="233" width="4" height="8" font="12">x</text>
+<text top="215" left="276" width="4" height="8" font="12">x</text>
+<text top="138" left="436" width="37" height="10" font="11"><b>beta[2]</b></text>
+<text top="342" left="420" width="70" height="8" font="12">Number of clones</text>
+<text top="247" left="333" width="0" height="8" font="13">Estimate</text>
+<text top="233" left="387" width="4" height="5" font="14">●</text>
+<text top="231" left="431" width="4" height="5" font="14">●</text>
+<text top="231" left="474" width="4" height="5" font="14">●</text>
+<text top="231" left="517" width="4" height="5" font="14">●</text>
+<text top="320" left="387" width="5" height="8" font="12">1</text>
+<text top="320" left="430" width="5" height="8" font="12">5</text>
+<text top="320" left="471" width="10" height="8" font="12">10</text>
+<text top="320" left="514" width="10" height="8" font="12">20</text>
+<text top="286" left="339" width="18" height="8" font="12">−1.6</text>
+<text top="265" left="339" width="18" height="8" font="12">−1.4</text>
+<text top="243" left="339" width="18" height="8" font="12">−1.2</text>
+<text top="222" left="339" width="18" height="8" font="12">−1.0</text>
+<text top="201" left="339" width="18" height="8" font="12">−0.8</text>
+<text top="180" left="339" width="18" height="8" font="12">−0.6</text>
+<text top="298" left="387" width="4" height="8" font="12">x</text>
+<text top="259" left="431" width="4" height="8" font="12">x</text>
+<text top="251" left="474" width="4" height="8" font="12">x</text>
+<text top="246" left="517" width="4" height="8" font="12">x</text>
+<text top="165" left="387" width="4" height="8" font="12">x</text>
+<text top="201" left="431" width="4" height="8" font="12">x</text>
+<text top="210" left="474" width="4" height="8" font="12">x</text>
+<text top="215" left="517" width="4" height="8" font="12">x</text>
+<text top="138" left="679" width="32" height="10" font="11"><b>sigma</b></text>
+<text top="342" left="661" width="70" height="8" font="12">Number of clones</text>
+<text top="247" left="574" width="0" height="8" font="13">Estimate</text>
+<text top="244" left="628" width="4" height="5" font="14">●</text>
+<text top="225" left="672" width="4" height="5" font="14">●</text>
+<text top="224" left="715" width="4" height="5" font="14">●</text>
+<text top="223" left="758" width="4" height="5" font="14">●</text>
+<text top="320" left="628" width="5" height="8" font="12">1</text>
+<text top="320" left="671" width="5" height="8" font="12">5</text>
+<text top="320" left="712" width="10" height="8" font="12">10</text>
+<text top="320" left="755" width="10" height="8" font="12">20</text>
+<text top="299" left="585" width="12" height="8" font="12">0.0</text>
+<text top="272" left="585" width="12" height="8" font="12">0.1</text>
+<text top="244" left="585" width="12" height="8" font="12">0.2</text>
+<text top="216" left="585" width="12" height="8" font="12">0.3</text>
+<text top="188" left="585" width="12" height="8" font="12">0.4</text>
+<text top="172" left="720" width="4" height="5" font="14">●</text>
+<text top="183" left="720" width="4" height="5" font="14">●</text>
+<text top="172" left="730" width="49" height="8" font="12">R.hat &gt;= 1.1</text>
+<text top="182" left="730" width="44" height="8" font="12">R.hat &lt; 1.1</text>
+<text top="298" left="628" width="4" height="8" font="12">x</text>
+<text top="253" left="672" width="4" height="8" font="12">x</text>
+<text top="242" left="715" width="4" height="8" font="12">x</text>
+<text top="236" left="758" width="4" height="8" font="12">x</text>
+<text top="165" left="628" width="4" height="8" font="12">x</text>
+<text top="193" left="672" width="4" height="8" font="12">x</text>
+<text top="205" left="715" width="4" height="8" font="12">x</text>
+<text top="209" left="758" width="4" height="8" font="12">x</text>
+<text top="399" left="82" width="723" height="15" font="0">Figure 1: Summary statistics for the Poisson mixed model example. Means are converging towards the maxi-</text>
+<text top="417" left="82" width="723" height="15" font="0">mum likelihood estimates (points), standard errors (vertical lines) are getting shorter with increasing number</text>
+<text top="435" left="82" width="430" height="15" font="0">of clones (95 and 50% quantile ranges and median also depicted).</text>
+<text top="514" left="130" width="4" height="5" font="14">●</text>
+<text top="591" left="217" width="4" height="5" font="14">●</text>
+<text top="621" left="255" width="4" height="5" font="14">●</text>
+<text top="647" left="293" width="4" height="5" font="14">●</text>
+<text top="485" left="195" width="37" height="10" font="11"><b>beta[1]</b></text>
+<text top="688" left="179" width="70" height="8" font="12">Number of clones</text>
+<text top="617" left="92" width="0" height="8" font="13">log(Scaled V</text>
+<text top="568" left="92" width="0" height="8" font="13">ar</text>
+<text top="559" left="92" width="0" height="8" font="13">iance)</text>
+<text top="667" left="130" width="5" height="8" font="12">1</text>
+<text top="667" left="217" width="5" height="8" font="12">5</text>
+<text top="667" left="252" width="10" height="8" font="12">10</text>
+<text top="667" left="290" width="10" height="8" font="12">20</text>
+<text top="628" left="98" width="18" height="8" font="12">−2.5</text>
+<text top="605" left="98" width="18" height="8" font="12">−2.0</text>
+<text top="582" left="98" width="18" height="8" font="12">−1.5</text>
+<text top="559" left="98" width="18" height="8" font="12">−1.0</text>
+<text top="536" left="98" width="18" height="8" font="12">−0.5</text>
+<text top="513" left="103" width="12" height="8" font="12">0.0</text>
+<text top="514" left="371" width="4" height="5" font="14">●</text>
+<text top="589" left="458" width="4" height="5" font="14">●</text>
+<text top="620" left="496" width="4" height="5" font="14">●</text>
+<text top="647" left="533" width="4" height="5" font="14">●</text>
+<text top="485" left="436" width="37" height="10" font="11"><b>beta[2]</b></text>
+<text top="688" left="420" width="70" height="8" font="12">Number of clones</text>
+<text top="617" left="333" width="0" height="8" font="13">log(Scaled V</text>
+<text top="568" left="333" width="0" height="8" font="13">ar</text>
+<text top="559" left="333" width="0" height="8" font="13">iance)</text>
+<text top="667" left="371" width="5" height="8" font="12">1</text>
+<text top="667" left="458" width="5" height="8" font="12">5</text>
+<text top="667" left="493" width="10" height="8" font="12">10</text>
+<text top="667" left="531" width="10" height="8" font="12">20</text>
+<text top="651" left="339" width="18" height="8" font="12">−3.0</text>
+<text top="628" left="339" width="18" height="8" font="12">−2.5</text>
+<text top="605" left="339" width="18" height="8" font="12">−2.0</text>
+<text top="582" left="339" width="18" height="8" font="12">−1.5</text>
+<text top="559" left="339" width="18" height="8" font="12">−1.0</text>
+<text top="536" left="339" width="18" height="8" font="12">−0.5</text>
+<text top="513" left="344" width="12" height="8" font="12">0.0</text>
+<text top="514" left="612" width="4" height="5" font="14">●</text>
+<text top="587" left="699" width="4" height="5" font="14">●</text>
+<text top="624" left="737" width="4" height="5" font="14">●</text>
+<text top="647" left="774" width="4" height="5" font="14">●</text>
+<text top="485" left="679" width="32" height="10" font="11"><b>sigma</b></text>
+<text top="688" left="661" width="70" height="8" font="12">Number of clones</text>
+<text top="617" left="574" width="0" height="8" font="13">log(Scaled V</text>
+<text top="568" left="574" width="0" height="8" font="13">ar</text>
+<text top="559" left="574" width="0" height="8" font="13">iance)</text>
+<text top="667" left="612" width="5" height="8" font="12">1</text>
+<text top="667" left="699" width="5" height="8" font="12">5</text>
+<text top="667" left="734" width="10" height="8" font="12">10</text>
+<text top="667" left="772" width="10" height="8" font="12">20</text>
+<text top="643" left="580" width="18" height="8" font="12">−3.5</text>
+<text top="625" left="580" width="18" height="8" font="12">−3.0</text>
+<text top="606" left="580" width="18" height="8" font="12">−2.5</text>
+<text top="587" left="580" width="18" height="8" font="12">−2.0</text>
+<text top="569" left="580" width="18" height="8" font="12">−1.5</text>
+<text top="550" left="580" width="18" height="8" font="12">−1.0</text>
+<text top="532" left="580" width="18" height="8" font="12">−0.5</text>
+<text top="513" left="585" width="12" height="8" font="12">0.0</text>
+<text top="519" left="720" width="4" height="5" font="14">●</text>
+<text top="530" left="720" width="4" height="5" font="14">●</text>
+<text top="518" left="730" width="49" height="8" font="12">R.hat &gt;= 1.1</text>
+<text top="529" left="730" width="44" height="8" font="12">R.hat &lt; 1.1</text>
+<text top="746" left="82" width="723" height="15" font="0">Figure 2: Convergence diagnostics for data cloning based on the Poisson mixed model example. Log of Scaled</text>
+<text top="764" left="82" width="289" height="15" font="0">Variances should decrease linearly with log</text>
+<text top="763" left="371" width="6" height="14" font="7">(</text>
+<text top="763" left="378" width="7" height="15" font="0">k</text>
+<text top="763" left="385" width="6" height="14" font="7">)</text>
+<text top="764" left="391" width="271" height="15" font="0">, the scaled variance value close to zero (</text>
+<text top="763" left="662" width="12" height="14" font="7">&lt;</text>
+<text top="764" left="678" width="127" height="15" font="0">0.05) indicates con-</text>
+<text top="782" left="82" width="259" height="15" font="0">vergence of the data cloning algorithm.</text>
+<text top="833" left="82" width="343" height="10" font="10">&gt; nnmod &lt;- dc.fit(nndat, c(&#34;gamma&#34;,&#34;sigma&#34;,&#34;tau&#34;),</text>
+<text top="849" left="82" width="7" height="10" font="10">+</text>
+<text top="849" left="117" width="268" height="10" font="10">nn.model, n.clones=c(1,10,20,30,40,50),</text>
+<text top="866" left="82" width="7" height="10" font="10">+</text>
+<text top="866" left="117" width="178" height="10" font="10">n.iter=1000, multiply=&#34;n&#34;)</text>
+<text top="893" left="82" width="103" height="10" font="10">&gt; dcdiag(nnmod)</text>
+<text top="920" left="96" width="302" height="10" font="10">n.clones lambda.max ms.error r.squared r.hat</text>
+<text top="936" left="82" width="7" height="10" font="10">1</text>
+<text top="936" left="144" width="7" height="10" font="10">1</text>
+<text top="936" left="185" width="41" height="10" font="10">0.0312</text>
+<text top="936" left="254" width="34" height="10" font="10">0.508</text>
+<text top="936" left="309" width="48" height="10" font="10">0.02985</text>
+<text top="936" left="371" width="27" height="10" font="10">1.18</text>
+<text top="952" left="82" width="7" height="10" font="10">2</text>
+<text top="952" left="137" width="14" height="10" font="10">10</text>
+<text top="952" left="185" width="41" height="10" font="10">0.0364</text>
+<text top="952" left="254" width="34" height="10" font="10">0.275</text>
+<text top="952" left="309" width="48" height="10" font="10">0.00355</text>
+<text top="952" left="371" width="27" height="10" font="10">2.06</text>
+<text top="969" left="82" width="7" height="10" font="10">3</text>
+<text top="969" left="137" width="14" height="10" font="10">20</text>
+<text top="969" left="185" width="41" height="10" font="10">1.2617</text>
+<text top="969" left="254" width="34" height="10" font="10">1.111</text>
+<text top="969" left="309" width="89" height="10" font="10">0.13714 50.15</text>
+<text top="985" left="82" width="7" height="10" font="10">4</text>
+<text top="985" left="137" width="14" height="10" font="10">30</text>
+<text top="985" left="185" width="41" height="10" font="10">0.1530</text>
+<text top="985" left="254" width="34" height="10" font="10">0.753</text>
+<text top="985" left="309" width="89" height="10" font="10">0.10267 12.91</text>
+<text top="1002" left="82" width="7" height="10" font="10">5</text>
+<text top="1002" left="137" width="14" height="10" font="10">40</text>
+<text top="1002" left="185" width="41" height="10" font="10">1.7972</text>
+<text top="1002" left="254" width="34" height="10" font="10">0.232</text>
+<text top="1002" left="309" width="89" height="10" font="10">0.03770 92.87</text>
+<text top="1018" left="82" width="7" height="10" font="10">6</text>
+<text top="1018" left="137" width="14" height="10" font="10">50</text>
+<text top="1018" left="185" width="41" height="10" font="10">1.8634</text>
+<text top="1018" left="254" width="34" height="10" font="10">0.241</text>
+<text top="1018" left="309" width="89" height="10" font="10">0.04003 15.72</text>
+<text top="1045" left="82" width="309" height="10" font="10">&gt; vars &lt;- mcmcapply(nnmod[,c(&#34;sigma&#34;,&#34;tau&#34;)],</text>
+<text top="1062" left="82" width="7" height="10" font="10">+</text>
+<text top="1062" left="117" width="55" height="10" font="10">array)^2</text>
+<text top="1078" left="82" width="117" height="10" font="10">&gt; sigma^2 + tau^2</text>
+<text top="1105" left="82" width="55" height="10" font="10">[1] 0.29</text>
+<text top="1132" left="82" width="165" height="10" font="10">&gt; summary(rowSums(vars))</text>
+<text top="1159" left="103" width="82" height="10" font="10">Min. 1st Qu.</text>
+<text top="1159" left="199" width="41" height="10" font="10">Median</text>
+<text top="1159" left="268" width="82" height="10" font="10">Mean 3rd Qu.</text>
+<text top="1159" left="377" width="27" height="10" font="10">Max.</text>
+<text top="1175" left="103" width="27" height="10" font="10">0.21</text>
+<text top="1175" left="158" width="27" height="10" font="10">0.23</text>
+<text top="1175" left="213" width="27" height="10" font="10">2.87</text>
+<text top="1175" left="268" width="27" height="10" font="10">3.00</text>
+<text top="1175" left="323" width="27" height="10" font="10">6.04</text>
+<text top="1175" left="377" width="27" height="10" font="10">6.84</text>
+<text top="831" left="459" width="346" height="15" font="0">The high r.hat and the variable lambda.max and fit</text>
+<text top="848" left="459" width="346" height="15" font="0">statistic values that are not converging to zero indi-</text>
+<text top="866" left="459" width="279" height="15" font="0">cate possible problems with identifiability.</text>
+<text top="921" left="459" width="243" height="21" font="4"><b>Inference and prediction</b></text>
+<text top="962" left="459" width="346" height="15" font="0">We can explore the results with methods defined for</text>
+<text top="981" left="459" width="84" height="12" font="0">&#34;mcmc.list&#34;</text>
+<text top="980" left="548" width="258" height="15" font="0">objects (many such methods are avail-</text>
+<text top="998" left="459" width="346" height="15" font="0">able in the <b>coda </b>package, e.g. summary, plot, etc.).</text>
+<text top="1016" left="459" width="346" height="15" font="0">The <b>dclone </b>package adds a few more methods: coef</text>
+<text top="1034" left="459" width="346" height="15" font="0">returns the mean of the posterior, dcsd the data</text>
+<text top="1052" left="459" width="346" height="15" font="0">cloning standard errors. Any function returning a</text>
+<text top="1069" left="459" width="346" height="15" font="0">scalar statistic can be passed via the mcmcapply func-</text>
+<text top="1087" left="459" width="30" height="15" font="0">tion:</text>
+<text top="1122" left="459" width="89" height="10" font="10">&gt; coef(dcmod)</text>
+<text top="1159" left="459" width="103" height="10" font="10">beta[1] beta[2]</text>
+<text top="1159" left="582" width="34" height="10" font="10">sigma</text>
+<text top="1175" left="473" width="34" height="10" font="10">1.894</text>
+<text top="1175" left="521" width="41" height="10" font="10">-1.082</text>
+<text top="1175" left="582" width="34" height="10" font="10">0.278</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">35</text>
+<text top="127" left="82" width="89" height="10" font="10">&gt; dcsd(dcmod)</text>
+<text top="157" left="82" width="103" height="10" font="10">beta[1] beta[2]</text>
+<text top="157" left="206" width="34" height="10" font="10">sigma</text>
+<text top="174" left="96" width="34" height="10" font="10">0.164</text>
+<text top="174" left="151" width="34" height="10" font="10">0.328</text>
+<text top="174" left="206" width="34" height="10" font="10">0.114</text>
+<text top="203" left="82" width="309" height="10" font="10">&gt; mcmcapply(dcmod, sd) * sqrt(nclones(dcmod))</text>
+<text top="233" left="82" width="103" height="10" font="10">beta[1] beta[2]</text>
+<text top="233" left="206" width="34" height="10" font="10">sigma</text>
+<text top="250" left="96" width="34" height="10" font="10">0.164</text>
+<text top="250" left="151" width="34" height="10" font="10">0.328</text>
+<text top="250" left="206" width="34" height="10" font="10">0.114</text>
+<text top="279" left="105" width="324" height="15" font="0">The asymptotic multivariate normality can be</text>
+<text top="297" left="82" width="346" height="15" font="0">used to get Wald-type confidence intervals for the</text>
+<text top="315" left="82" width="346" height="15" font="0">estimates based on the inverse of the Fisher infor-</text>
+<text top="333" left="82" width="346" height="15" font="0">mation matrix. The vcov method returns the inverse</text>
+<text top="351" left="82" width="346" height="15" font="0">Fisher information matrix, the confint method cal-</text>
+<text top="368" left="82" width="346" height="15" font="0">culates confidence intervals assuming multivariate</text>
+<text top="386" left="82" width="235" height="15" font="0">normality for MCMC objects with k</text>
+<text top="386" left="321" width="12" height="14" font="7">&gt;</text>
+<text top="386" left="336" width="11" height="15" font="0">1:</text>
+<text top="416" left="82" width="110" height="10" font="10">&gt; confint(dcmod)</text>
+<text top="446" left="151" width="82" height="10" font="10">2.5 % 97.5 %</text>
+<text top="462" left="82" width="48" height="10" font="10">beta[1]</text>
+<text top="462" left="144" width="41" height="10" font="10">1.5718</text>
+<text top="462" left="199" width="34" height="10" font="10">2.217</text>
+<text top="479" left="82" width="151" height="10" font="10">beta[2] -1.7253 -0.438</text>
+<text top="495" left="82" width="34" height="10" font="10">sigma</text>
+<text top="495" left="144" width="41" height="10" font="10">0.0534</text>
+<text top="495" left="199" width="34" height="10" font="10">0.502</text>
+<text top="525" left="82" width="89" height="10" font="10">&gt; vcov(dcmod)</text>
+<text top="555" left="144" width="48" height="10" font="10">beta[1]</text>
+<text top="555" left="206" width="48" height="10" font="10">beta[2]</text>
+<text top="555" left="281" width="34" height="10" font="10">sigma</text>
+<text top="571" left="82" width="48" height="10" font="10">beta[1]</text>
+<text top="571" left="144" width="171" height="10" font="10">0.02705 -0.04604 -0.00291</text>
+<text top="588" left="82" width="110" height="10" font="10">beta[2] -0.04604</text>
+<text top="588" left="206" width="110" height="10" font="10">0.10783 -0.00156</text>
+<text top="604" left="82" width="34" height="10" font="10">sigma</text>
+<text top="604" left="137" width="117" height="10" font="10">-0.00291 -0.00156</text>
+<text top="604" left="268" width="48" height="10" font="10">0.01308</text>
+<text top="633" left="82" width="346" height="15" font="0">Confidence intervals can also be obtained via para-</text>
+<text top="651" left="82" width="316" height="15" font="0">metric bootstrap or based on profile likelihood <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="651" left="398" width="31" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Pon-</a></text>
+<text top="669" left="82" width="73" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">ciano et al.</a></text>
+<text top="669" left="155" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="669" left="164" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2009</a></text>
+<text top="669" left="194" width="235" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">), </a>but these are not currently avail-</text>
+<text top="687" left="82" width="346" height="15" font="0">able in the <b>dclone </b>package and often require substan-</text>
+<text top="705" left="82" width="142" height="15" font="0">tial user intervention.</text>
+<text top="723" left="105" width="324" height="15" font="0">These methods are handy when we make predic-</text>
+<text top="741" left="82" width="346" height="15" font="0">tions. We can use the maximum likelihood estimates</text>
+<text top="759" left="82" width="346" height="15" font="0">and the variance-covariance matrix defined as a mul-</text>
+<text top="777" left="82" width="346" height="15" font="0">tivariate normal node in the BUGS model. For the</text>
+<text top="794" left="82" width="346" height="15" font="0">Poisson mixed model example, the BUGS model for</text>
+<text top="812" left="82" width="162" height="15" font="0">prediction will look like:</text>
+<text top="842" left="82" width="185" height="10" font="10">&gt; glmm.pred &lt;- function() {</text>
+<text top="858" left="82" width="7" height="10" font="10">+</text>
+<text top="858" left="117" width="110" height="10" font="10">for (i in 1:n) {</text>
+<text top="875" left="82" width="7" height="10" font="10">+</text>
+<text top="875" left="137" width="158" height="10" font="10">Y[i] ~ dpois(lambda[i])</text>
+<text top="891" left="82" width="7" height="10" font="10">+</text>
+<text top="891" left="137" width="158" height="10" font="10">lambda[i] &lt;- exp(mu[i])</text>
+<text top="908" left="82" width="7" height="10" font="10">+</text>
+<text top="908" left="137" width="130" height="10" font="10">mu[i] &lt;- alpha[i] +</text>
+<text top="924" left="82" width="7" height="10" font="10">+</text>
+<text top="924" left="158" width="158" height="10" font="10">inprod(X[i,], beta[1,])</text>
+<text top="940" left="82" width="7" height="10" font="10">+</text>
+<text top="940" left="137" width="165" height="10" font="10">alpha[i] ~ dnorm(0, tau)</text>
+<text top="957" left="82" width="7" height="10" font="10">+</text>
+<text top="957" left="117" width="7" height="10" font="10">}</text>
+<text top="973" left="82" width="7" height="10" font="10">+</text>
+<text top="973" left="117" width="274" height="10" font="10">tmp[1:(np+1)] ~ dmnorm(param[], prec[,])</text>
+<text top="990" left="82" width="7" height="10" font="10">+</text>
+<text top="990" left="117" width="171" height="10" font="10">beta[1,1:np] &lt;- tmp[1:np]</text>
+<text top="1006" left="82" width="7" height="10" font="10">+</text>
+<text top="1006" left="117" width="137" height="10" font="10">sigma &lt;- tmp[(np+1)]</text>
+<text top="1023" left="82" width="7" height="10" font="10">+</text>
+<text top="1023" left="117" width="165" height="10" font="10">tau &lt;- 1 / pow(sigma, 2)</text>
+<text top="1039" left="82" width="21" height="10" font="10">+ }</text>
+<text top="1065" left="82" width="346" height="15" font="0">Now we add the estimates and the precision ma-</text>
+<text top="1083" left="82" width="346" height="15" font="0">trix prec to the data (the make.symmetric function</text>
+<text top="1101" left="82" width="346" height="15" font="0">prevents some problems related to matrix symmetry</text>
+<text top="1119" left="82" width="346" height="15" font="0">and numerical precision), and define <b>X </b>for the pre-</text>
+<text top="1137" left="82" width="346" height="15" font="0">dictions (now we simply use the observed values of</text>
+<text top="1155" left="82" width="346" height="15" font="0">the covariates). Then do the modeling as usual by</text>
+<text top="1173" left="82" width="191" height="15" font="0">sampling the node &#34;lambda&#34;:</text>
+<text top="127" left="459" width="302" height="10" font="10">&gt; prec &lt;- make.symmetric(solve(vcov(dcmod)))</text>
+<text top="144" left="459" width="336" height="10" font="10">&gt; prdat &lt;- list(X = X, n = nrow(X), np = ncol(X),</text>
+<text top="160" left="459" width="7" height="10" font="10">+</text>
+<text top="160" left="493" width="226" height="10" font="10">param = coef(dcmod), prec = prec)</text>
+<text top="177" left="459" width="322" height="10" font="10">&gt; prmod &lt;- jags.fit(prdat, &#34;lambda&#34;, glmm.pred,</text>
+<text top="193" left="459" width="7" height="10" font="10">+</text>
+<text top="193" left="493" width="96" height="10" font="10">n.iter = 1000)</text>
+<text top="240" left="459" width="278" height="21" font="4"><b>Writing high level functions</b></text>
+<text top="280" left="459" width="346" height="15" font="0">Suppose we want to provide a user friendly func-</text>
+<text top="298" left="459" width="346" height="15" font="0">tion to fit the Poisson mixed model with random in-</text>
+<text top="316" left="459" width="346" height="15" font="0">tercept. We are now modeling the observed abun-</text>
+<text top="334" left="459" width="346" height="15" font="0">dances (count based on point counts) of the Oven-</text>
+<text top="351" left="459" width="346" height="15" font="0">bird (Seiurus aurocapilla) as a function of ecological</text>
+<text top="369" left="459" width="346" height="15" font="0">site characteristics (upland/lowland, uplow) and per-</text>
+<text top="387" left="459" width="346" height="15" font="0">centage of total human disturbance around the sites</text>
+<text top="405" left="459" width="346" height="15" font="0">(thd in the ovenbird data set). Data were collected</text>
+<text top="423" left="459" width="346" height="15" font="0">from 182 sites in the Northern Boreal region of Al-</text>
+<text top="441" left="459" width="346" height="15" font="0">berta, Canada, between 2003 and 2008. Data were</text>
+<text top="459" left="459" width="346" height="15" font="0">collected by the Alberta Biodiversity Monitoring In-</text>
+<text top="477" left="459" width="174" height="15" font="0">stitute and are available at</text>
+<text top="478" left="636" width="137" height="12" font="5"><a href="http://www.abmi.ca">http://www.abmi.ca</a></text>
+<text top="477" left="773" width="4" height="15" font="0"><a href="http://www.abmi.ca">.</a></text>
+<text top="495" left="481" width="324" height="15" font="0">Our goal is to determine the effect of human dis-</text>
+<text top="513" left="459" width="346" height="15" font="0">turbance on Ovenbird abundance, by controlling for</text>
+<text top="531" left="459" width="346" height="15" font="0">site characteristics. But we know that other factors</text>
+<text top="549" left="459" width="346" height="15" font="0">not taken into account, e.g. the amount of deciduous</text>
+<text top="567" left="459" width="313" height="15" font="0">forest, might influence the abundance as well <a href="2010-2-RJournal_2010-2_Solymos.html#9">(</a></text>
+<text top="567" left="771" width="34" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">Hob-</a></text>
+<text top="585" left="459" width="99" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">son and Bayne</a></text>
+<text top="585" left="558" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">,</a></text>
+<text top="585" left="566" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#9">2002</a></text>
+<text top="585" left="596" width="209" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#9">). </a>So the random intercept will</text>
+<text top="603" left="459" width="346" height="15" font="0">account for this unexplained environmental variabil-</text>
+<text top="621" left="459" width="346" height="15" font="0">ity. The Poisson error component will account for</text>
+<text top="639" left="459" width="337" height="15" font="0">random deviations from expected abundances (<i>λ</i></text>
+<text top="644" left="796" width="3" height="11" font="1">i</text>
+<text top="639" left="800" width="5" height="15" font="0">)</text>
+<text top="657" left="459" width="162" height="15" font="0">and observed counts (Y</text>
+<text top="662" left="620" width="3" height="11" font="1">i</text>
+<text top="657" left="624" width="181" height="15" font="0">) represent a realization of</text>
+<text top="675" left="459" width="86" height="15" font="0">this quantity.</text>
+<text top="693" left="481" width="324" height="15" font="0">Here is the high level function for fitting the Pois-</text>
+<text top="711" left="459" width="346" height="15" font="0">son mixed model built on data cloning with a simple</text>
+<text top="730" left="459" width="38" height="12" font="0">print</text>
+<text top="729" left="497" width="206" height="15" font="0">, summary and predict method:</text>
+<text top="764" left="459" width="213" height="10" font="10">&gt; glmmPois &lt;- function(formula,</text>
+<text top="781" left="459" width="281" height="10" font="10">+ data = parent.frame(), n.clones, ...) {</text>
+<text top="797" left="459" width="7" height="10" font="10">+</text>
+<text top="797" left="493" width="130" height="10" font="10">lhs &lt;- formula[[2]]</text>
+<text top="814" left="459" width="7" height="10" font="10">+</text>
+<text top="814" left="493" width="137" height="10" font="10">Y &lt;- eval(lhs, data)</text>
+<text top="830" left="459" width="7" height="10" font="10">+</text>
+<text top="830" left="493" width="137" height="10" font="10">formula[[2]] &lt;- NULL</text>
+<text top="847" left="459" width="7" height="10" font="10">+</text>
+<text top="847" left="493" width="226" height="10" font="10">rhs &lt;- model.frame(formula, data)</text>
+<text top="863" left="459" width="7" height="10" font="10">+</text>
+<text top="863" left="493" width="288" height="10" font="10">X &lt;- model.matrix(attr(rhs, &#34;terms&#34;), rhs)</text>
+<text top="879" left="459" width="7" height="10" font="10">+</text>
+<text top="879" left="493" width="226" height="10" font="10">dat &lt;- list(n = length(Y), Y = Y,</text>
+<text top="896" left="459" width="7" height="10" font="10">+</text>
+<text top="896" left="514" width="137" height="10" font="10">X = X, np = ncol(X))</text>
+<text top="912" left="459" width="7" height="10" font="10">+</text>
+<text top="912" left="493" width="206" height="10" font="10">dcdat &lt;- dclone(dat, n.clones,</text>
+<text top="929" left="459" width="7" height="10" font="10">+</text>
+<text top="929" left="514" width="226" height="10" font="10">multiply = &#34;n&#34;, unchanged = &#34;np&#34;)</text>
+<text top="945" left="459" width="7" height="10" font="10">+</text>
+<text top="945" left="493" width="288" height="10" font="10">mod &lt;- jags.fit(dcdat, c(&#34;beta&#34;, &#34;sigma&#34;),</text>
+<text top="962" left="459" width="7" height="10" font="10">+</text>
+<text top="962" left="514" width="110" height="10" font="10">glmm.model, ...)</text>
+<text top="978" left="459" width="7" height="10" font="10">+</text>
+<text top="978" left="493" width="123" height="10" font="10">coefs &lt;- coef(mod)</text>
+<text top="995" left="459" width="7" height="10" font="10">+</text>
+<text top="995" left="493" width="206" height="10" font="10">names(coefs) &lt;- c(colnames(X),</text>
+<text top="1011" left="459" width="7" height="10" font="10">+</text>
+<text top="1011" left="514" width="55" height="10" font="10">&#34;sigma&#34;)</text>
+<text top="1027" left="459" width="7" height="10" font="10">+</text>
+<text top="1027" left="493" width="233" height="10" font="10">rval &lt;- list(coefficients = coefs,</text>
+<text top="1044" left="459" width="7" height="10" font="10">+</text>
+<text top="1044" left="514" width="137" height="10" font="10">call = match.call(),</text>
+<text top="1060" left="459" width="7" height="10" font="10">+</text>
+<text top="1060" left="514" width="185" height="10" font="10">mcmc = mod, y = Y, x = rhs,</text>
+<text top="1077" left="459" width="7" height="10" font="10">+</text>
+<text top="1077" left="514" width="199" height="10" font="10">model = X, formula = formula)</text>
+<text top="1093" left="459" width="7" height="10" font="10">+</text>
+<text top="1093" left="493" width="171" height="10" font="10">class(rval) &lt;- &#34;glmmPois&#34;</text>
+<text top="1110" left="459" width="7" height="10" font="10">+</text>
+<text top="1110" left="493" width="27" height="10" font="10">rval</text>
+<text top="1126" left="459" width="21" height="10" font="10">+ }</text>
+<text top="1142" left="459" width="261" height="10" font="10">&gt; print.glmmPois &lt;- function(x, ...) {</text>
+<text top="1159" left="459" width="7" height="10" font="10">+</text>
+<text top="1159" left="493" width="171" height="10" font="10">cat(&#34;glmmPois model\n\n&#34;)</text>
+<text top="1175" left="459" width="7" height="10" font="10">+</text>
+<text top="1175" left="493" width="233" height="10" font="10">print(format(coef(x), digits = 4),</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="16" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="3" family="Times" color="#d2d2d2"/>
+<text top="67" left="82" width="15" height="15" font="0">36</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="7" height="10" font="10">+</text>
+<text top="127" left="137" width="199" height="10" font="10">print.gap = 2, quote = FALSE)</text>
+<text top="144" left="82" width="7" height="10" font="10">+</text>
+<text top="144" left="117" width="62" height="10" font="10">cat(&#34;\n&#34;)</text>
+<text top="160" left="82" width="7" height="10" font="10">+</text>
+<text top="160" left="117" width="82" height="10" font="10">invisible(x)</text>
+<text top="177" left="82" width="21" height="10" font="10">+ }</text>
+<text top="193" left="82" width="309" height="10" font="10">&gt; summary.glmmPois &lt;- function(object, ...) {</text>
+<text top="210" left="82" width="7" height="10" font="10">+</text>
+<text top="210" left="117" width="254" height="10" font="10">x &lt;- cbind(&#34;Estimate&#34; = coef(object),</text>
+<text top="226" left="82" width="7" height="10" font="10">+</text>
+<text top="226" left="137" width="226" height="10" font="10">&#34;Std. Error&#34; = dcsd(object$mcmc),</text>
+<text top="242" left="82" width="7" height="10" font="10">+</text>
+<text top="242" left="137" width="144" height="10" font="10">confint(object$mcmc))</text>
+<text top="259" left="82" width="7" height="10" font="10">+</text>
+<text top="259" left="117" width="226" height="10" font="10">cat(&#34;Call:&#34;, deparse(object$call,</text>
+<text top="275" left="82" width="7" height="10" font="10">+</text>
+<text top="275" left="137" width="240" height="10" font="10">width.cutoff = getOption(&#34;width&#34;)),</text>
+<text top="292" left="82" width="7" height="10" font="10">+</text>
+<text top="292" left="137" width="103" height="10" font="10">&#34;\n&#34;, sep=&#34;\n&#34;)</text>
+<text top="308" left="82" width="7" height="10" font="10">+</text>
+<text top="308" left="117" width="171" height="10" font="10">cat(&#34;glmmPois model\n\n&#34;)</text>
+<text top="325" left="82" width="7" height="10" font="10">+</text>
+<text top="325" left="117" width="137" height="10" font="10">printCoefmat(x, ...)</text>
+<text top="341" left="82" width="7" height="10" font="10">+</text>
+<text top="341" left="117" width="62" height="10" font="10">cat(&#34;\n&#34;)</text>
+<text top="357" left="82" width="7" height="10" font="10">+</text>
+<text top="357" left="117" width="82" height="10" font="10">invisible(x)</text>
+<text top="374" left="82" width="21" height="10" font="10">+ }</text>
+<text top="390" left="82" width="261" height="10" font="10">&gt; predict.glmmPois &lt;- function(object,</text>
+<text top="407" left="82" width="329" height="10" font="10">+ newdata = NULL, type = c(&#34;mu&#34;, &#34;lambda&#34;, &#34;Y&#34;),</text>
+<text top="423" left="82" width="144" height="10" font="10">+ level = 0.95, ...){</text>
+<text top="440" left="82" width="7" height="10" font="10">+</text>
+<text top="440" left="117" width="219" height="10" font="10">prec &lt;- solve(vcov(object$mcmc))</text>
+<text top="456" left="82" width="7" height="10" font="10">+</text>
+<text top="456" left="117" width="192" height="10" font="10">prec &lt;- make.symmetric(prec)</text>
+<text top="473" left="82" width="7" height="10" font="10">+</text>
+<text top="473" left="117" width="144" height="10" font="10">param &lt;- coef(object)</text>
+<text top="489" left="82" width="7" height="10" font="10">+</text>
+<text top="489" left="117" width="158" height="10" font="10">if (is.null(newdata)) {</text>
+<text top="505" left="82" width="7" height="10" font="10">+</text>
+<text top="505" left="137" width="117" height="10" font="10">X &lt;- object$model</text>
+<text top="522" left="82" width="7" height="10" font="10">+</text>
+<text top="522" left="117" width="55" height="10" font="10">} else {</text>
+<text top="538" left="82" width="7" height="10" font="10">+</text>
+<text top="538" left="137" width="295" height="10" font="10">rhs &lt;- model.frame(object$formula, newdata)</text>
+<text top="555" left="82" width="7" height="10" font="10">+</text>
+<text top="555" left="137" width="288" height="10" font="10">X &lt;- model.matrix(attr(rhs, &#34;terms&#34;), rhs)</text>
+<text top="571" left="82" width="7" height="10" font="10">+</text>
+<text top="571" left="117" width="7" height="10" font="10">}</text>
+<text top="588" left="82" width="7" height="10" font="10">+</text>
+<text top="588" left="117" width="158" height="10" font="10">type &lt;- match.arg(type)</text>
+<text top="604" left="82" width="7" height="10" font="10">+</text>
+<text top="604" left="117" width="226" height="10" font="10">prdat &lt;- list(n = nrow(X), X = X,</text>
+<text top="620" left="82" width="7" height="10" font="10">+</text>
+<text top="620" left="137" width="281" height="10" font="10">np = ncol(X), param = param, prec = prec)</text>
+<text top="637" left="82" width="7" height="10" font="10">+</text>
+<text top="637" left="117" width="316" height="10" font="10">prval &lt;- jags.fit(prdat, type, glmm.pred, ...)</text>
+<text top="653" left="82" width="7" height="10" font="10">+</text>
+<text top="653" left="117" width="123" height="10" font="10">a &lt;- (1 - level)/2</text>
+<text top="670" left="82" width="7" height="10" font="10">+</text>
+<text top="670" left="117" width="110" height="10" font="10">a &lt;- c(a, 1 - a)</text>
+<text top="686" left="82" width="7" height="10" font="10">+</text>
+<text top="686" left="117" width="213" height="10" font="10">rval &lt;- list(fit = coef(prval),</text>
+<text top="703" left="82" width="7" height="10" font="10">+</text>
+<text top="703" left="137" width="247" height="10" font="10">ci.fit = quantile(prval, probs = a))</text>
+<text top="719" left="82" width="7" height="10" font="10">+</text>
+<text top="719" left="117" width="27" height="10" font="10">rval</text>
+<text top="736" left="82" width="21" height="10" font="10">+ }</text>
+<text top="767" left="82" width="346" height="15" font="0">Note that the functions glmm.model and glmm.pred</text>
+<text top="785" left="82" width="346" height="15" font="0">containing the BUGS code are used within these R</text>
+<text top="802" left="82" width="346" height="15" font="0">functions. This implementation works fine, but is</text>
+<text top="820" left="82" width="346" height="15" font="0">not adequate when building a contributed R pack-</text>
+<text top="838" left="82" width="346" height="15" font="0">age, because functions such as dnorm and inprod are</text>
+<text top="856" left="82" width="346" height="15" font="0">not valid R objects, etc. For R packages, the best way</text>
+<text top="874" left="82" width="346" height="15" font="0">is to represent the BUGS model as a character vector</text>
+<text top="892" left="82" width="346" height="15" font="0">with lines as elements, and put that inside the R func-</text>
+<text top="910" left="82" width="346" height="15" font="0">tion. The custommodel function of the <b>dclone </b>pack-</text>
+<text top="928" left="82" width="346" height="15" font="0">age can be used to create such character vectors and</text>
+<text top="946" left="82" width="346" height="15" font="0">pass them to other <b>dclone </b>functions via the model ar-</text>
+<text top="964" left="82" width="55" height="15" font="0">gument.</text>
+<text top="982" left="105" width="324" height="15" font="0">Now we fit the model for the ovenbird data set to</text>
+<text top="1000" left="82" width="346" height="15" font="0">estimate the effect of human disturbance on Oven-</text>
+<text top="1018" left="82" width="346" height="15" font="0">bird abundance. We fit the model using the function</text>
+<text top="1037" left="82" width="61" height="12" font="0">glmmPois</text>
+<text top="1036" left="143" width="4" height="15" font="0">:</text>
+<text top="1067" left="82" width="110" height="10" font="10">&gt; data(ovenbird)</text>
+<text top="1083" left="82" width="274" height="10" font="10">&gt; obmod &lt;- glmmPois(count ~ uplow + thd,</text>
+<text top="1100" left="82" width="7" height="10" font="10">+</text>
+<text top="1100" left="117" width="274" height="10" font="10">ovenbird, n.clones = 5, n.update = 1000,</text>
+<text top="1116" left="82" width="7" height="10" font="10">+</text>
+<text top="1116" left="117" width="96" height="10" font="10">n.iter = 1000)</text>
+<text top="1144" left="82" width="311" height="15" font="0">Then print the object and inspect the summary,</text>
+<text top="1175" left="82" width="48" height="10" font="10">&gt; obmod</text>
+<text top="127" left="459" width="96" height="10" font="10">glmmPois model</text>
+<text top="160" left="466" width="75" height="10" font="10">(Intercept)</text>
+<text top="160" left="555" width="82" height="10" font="10">uplowlowland</text>
+<text top="160" left="713" width="21" height="10" font="10">thd</text>
+<text top="177" left="493" width="48" height="10" font="10">2.00312</text>
+<text top="177" left="582" width="55" height="10" font="10">-1.34242</text>
+<text top="177" left="678" width="55" height="10" font="10">-0.01647</text>
+<text top="193" left="507" width="34" height="10" font="10">sigma</text>
+<text top="210" left="493" width="48" height="10" font="10">1.19318</text>
+<text top="239" left="459" width="110" height="10" font="10">&gt; summary(obmod)</text>
+<text top="269" left="459" width="34" height="10" font="10">Call:</text>
+<text top="286" left="459" width="384" height="10" font="10">glmmPois(formula = count ~ uplow + thd, data = ovenbird,</text>
+<text top="302" left="486" width="309" height="10" font="10">n.clones = 5, n.update = 1000, n.iter = 1000)</text>
+<text top="352" left="459" width="96" height="10" font="10">glmmPois model</text>
+<text top="385" left="548" width="130" height="10" font="10">Estimate Std. Error</text>
+<text top="385" left="706" width="82" height="10" font="10">2.5 % 97.5 %</text>
+<text top="401" left="459" width="75" height="10" font="10">(Intercept)</text>
+<text top="401" left="555" width="48" height="10" font="10">2.00312</text>
+<text top="401" left="630" width="48" height="10" font="10">0.13767</text>
+<text top="401" left="692" width="48" height="10" font="10">1.73328</text>
+<text top="401" left="761" width="27" height="10" font="10">2.27</text>
+<text top="417" left="459" width="144" height="10" font="10">uplowlowland -1.34242</text>
+<text top="417" left="630" width="110" height="10" font="10">0.21503 -1.76387</text>
+<text top="417" left="754" width="34" height="10" font="10">-0.92</text>
+<text top="434" left="459" width="21" height="10" font="10">thd</text>
+<text top="434" left="548" width="55" height="10" font="10">-0.01647</text>
+<text top="434" left="630" width="110" height="10" font="10">0.00569 -0.02763</text>
+<text top="434" left="754" width="34" height="10" font="10">-0.01</text>
+<text top="450" left="459" width="34" height="10" font="10">sigma</text>
+<text top="450" left="555" width="48" height="10" font="10">1.19318</text>
+<text top="450" left="630" width="48" height="10" font="10">0.09523</text>
+<text top="450" left="692" width="48" height="10" font="10">1.00653</text>
+<text top="450" left="761" width="27" height="10" font="10">1.38</text>
+<text top="480" left="459" width="346" height="15" font="0">Finally predict abundances as a function of distur-</text>
+<text top="497" left="459" width="346" height="15" font="0">bance (0–100%) by controlling for site characteristics</text>
+<text top="515" left="459" width="48" height="15" font="0">(Figure</text>
+<text top="515" left="510" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Solymos.html#8">3</a></text>
+<text top="515" left="518" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Solymos.html#8">):</a></text>
+<text top="545" left="459" width="213" height="10" font="10">&gt; thd &lt;- seq(0, 100, len = 101)</text>
+<text top="561" left="459" width="302" height="10" font="10">&gt; ndata &lt;- data.frame(uplow = rep(&#34;lowland&#34;,</text>
+<text top="578" left="459" width="7" height="10" font="10">+</text>
+<text top="578" left="493" width="165" height="10" font="10">length(thd)), thd = thd)</text>
+<text top="594" left="459" width="322" height="10" font="10">&gt; levels(ndata$uplow) &lt;- levels(ovenbird$uplow)</text>
+<text top="611" left="459" width="295" height="10" font="10">&gt; obpred &lt;- predict(obmod, ndata, &#34;lambda&#34;)</text>
+<text top="935" left="514" width="5" height="9" font="15">0</text>
+<text top="935" left="562" width="11" height="9" font="15">20</text>
+<text top="935" left="613" width="11" height="9" font="15">40</text>
+<text top="935" left="664" width="11" height="9" font="15">60</text>
+<text top="935" left="715" width="11" height="9" font="15">80</text>
+<text top="935" left="763" width="16" height="9" font="15">100</text>
+<text top="909" left="489" width="5" height="9" font="15">0</text>
+<text top="854" left="484" width="11" height="9" font="15">20</text>
+<text top="800" left="484" width="11" height="9" font="15">40</text>
+<text top="746" left="484" width="11" height="9" font="15">60</text>
+<text top="691" left="484" width="11" height="9" font="15">80</text>
+<text top="958" left="637" width="13" height="9" font="15">thd</text>
+<text top="810" left="469" width="0" height="9" font="16">lambda</text>
+<text top="899" left="527" width="5" height="6" font="17">●</text>
+<text top="899" left="574" width="5" height="6" font="17">●</text>
+<text top="901" left="619" width="5" height="6" font="17">●</text>
+<text top="910" left="752" width="5" height="6" font="17">●</text>
+<text top="910" left="720" width="5" height="6" font="17">●</text>
+<text top="910" left="711" width="5" height="6" font="17">●</text>
+<text top="907" left="579" width="5" height="6" font="17">●</text>
+<text top="910" left="680" width="10" height="6" font="17">●●</text>
+<text top="904" left="654" width="5" height="6" font="17">●</text>
+<text top="890" left="535" width="5" height="6" font="17">●</text>
+<text top="907" left="528" width="5" height="6" font="17">●</text>
+<text top="901" left="534" width="5" height="6" font="17">●</text>
+<text top="907" left="541" width="5" height="6" font="17">●</text>
+<text top="877" left="532" width="5" height="6" font="17">●</text>
+<text top="910" left="542" width="5" height="6" font="17">●</text>
+<text top="896" left="536" width="5" height="6" font="17">●</text>
+<text top="890" left="538" width="5" height="6" font="17">●</text>
+<text top="910" left="752" width="5" height="6" font="17">●</text>
+<text top="893" left="515" width="5" height="6" font="17">●</text>
+<text top="861" left="519" width="5" height="6" font="17">●</text>
+<text top="866" left="519" width="5" height="6" font="17">●</text>
+<text top="910" left="514" width="5" height="6" font="17">●</text>
+<text top="910" left="515" width="5" height="6" font="17">●</text>
+<text top="836" left="519" width="5" height="6" font="17">●</text>
+<text top="803" left="514" width="5" height="6" font="17">●</text>
+<text top="880" left="552" width="5" height="6" font="17">●</text>
+<text top="910" left="550" width="5" height="6" font="17">●</text>
+<text top="852" left="519" width="5" height="6" font="17">●</text>
+<text top="910" left="514" width="5" height="6" font="17">●</text>
+<text top="899" left="556" width="5" height="6" font="17">●</text>
+<text top="910" left="517" width="5" height="6" font="17">●</text>
+<text top="896" left="518" width="5" height="6" font="17">●</text>
+<text top="877" left="638" width="5" height="6" font="17">●</text>
+<text top="871" left="530" width="5" height="6" font="17">●</text>
+<text top="910" left="535" width="5" height="6" font="17">●</text>
+<text top="910" left="516" width="5" height="6" font="17">●</text>
+<text top="896" left="515" width="5" height="6" font="17">●</text>
+<text top="910" left="515" width="5" height="6" font="17">●</text>
+<text top="904" left="515" width="14" height="6" font="17">● ●</text>
+<text top="907" left="517" width="5" height="6" font="17">●</text>
+<text top="850" left="525" width="5" height="6" font="17">●</text>
+<text top="893" left="519" width="5" height="6" font="17">●</text>
+<text top="910" left="534" width="5" height="6" font="17">●</text>
+<text top="899" left="542" width="5" height="6" font="17">●</text>
+<text top="910" left="515" width="5" height="6" font="17">●</text>
+<text top="893" left="564" width="5" height="6" font="17">●</text>
+<text top="877" left="514" width="5" height="6" font="17">●</text>
+<text top="882" left="514" width="5" height="6" font="17">●</text>
+<text top="907" left="524" width="5" height="6" font="17">●</text>
+<text top="877" left="548" width="5" height="6" font="17">●</text>
+<text top="899" left="562" width="5" height="6" font="17">●</text>
+<text top="907" left="514" width="5" height="6" font="17">●</text>
+<text top="910" left="516" width="5" height="6" font="17">●</text>
+<text top="896" left="514" width="5" height="6" font="17">●</text>
+<text top="907" left="521" width="5" height="6" font="17">●</text>
+<text top="907" left="521" width="5" height="6" font="17">●</text>
+<text top="893" left="539" width="5" height="6" font="17">●</text>
+<text top="839" left="557" width="5" height="6" font="17">●</text>
+<text top="877" left="530" width="5" height="6" font="17">●</text>
+<text top="852" left="515" width="5" height="6" font="17">●</text>
+<text top="877" left="542" width="5" height="6" font="17">●</text>
+<text top="910" left="523" width="5" height="6" font="17">●</text>
+<text top="888" left="556" width="5" height="6" font="17">●</text>
+<text top="896" left="536" width="5" height="6" font="17">●</text>
+<text top="858" left="523" width="5" height="6" font="17">●</text>
+<text top="896" left="543" width="5" height="6" font="17">●</text>
+<text top="893" left="521" width="5" height="6" font="17">●</text>
+<text top="899" left="524" width="5" height="6" font="17">●</text>
+<text top="910" left="516" width="5" height="6" font="17">●</text>
+<text top="855" left="515" width="5" height="6" font="17">●</text>
+<text top="910" left="520" width="5" height="6" font="17">●</text>
+<text top="904" left="594" width="5" height="6" font="17">●</text>
+<text top="844" left="560" width="5" height="6" font="17">●</text>
+<text top="839" left="551" width="5" height="6" font="17">●</text>
+<text top="871" left="523" width="5" height="6" font="17">●</text>
+<text top="893" left="571" width="5" height="6" font="17">●</text>
+<text top="910" left="524" width="5" height="6" font="17">●</text>
+<text top="852" left="545" width="5" height="6" font="17">●</text>
+<text top="910" left="526" width="5" height="6" font="17">●</text>
+<text top="907" left="527" width="5" height="6" font="17">●</text>
+<text top="910" left="523" width="5" height="6" font="17">●</text>
+<text top="910" left="549" width="5" height="6" font="17">●</text>
+<text top="858" left="524" width="5" height="6" font="17">●</text>
+<text top="899" left="554" width="5" height="6" font="17">●</text>
+<text top="869" left="557" width="5" height="6" font="17">●</text>
+<text top="847" left="643" width="5" height="6" font="17">●</text>
+<text top="874" left="531" width="5" height="6" font="17">●</text>
+<text top="882" left="524" width="5" height="6" font="17">●</text>
+<text top="866" left="523" width="5" height="6" font="17">●</text>
+<text top="910" left="527" width="5" height="6" font="17">●</text>
+<text top="888" left="517" width="5" height="6" font="17">●</text>
+<text top="910" left="518" width="5" height="6" font="17">●</text>
+<text top="877" left="562" width="5" height="6" font="17">●</text>
+<text top="910" left="531" width="5" height="6" font="17">●</text>
+<text top="904" left="525" width="5" height="6" font="17">●</text>
+<text top="907" left="545" width="5" height="6" font="17">●</text>
+<text top="871" left="584" width="5" height="6" font="17">●</text>
+<text top="907" left="729" width="5" height="6" font="17">●</text>
+<text top="910" left="745" width="5" height="6" font="17">●</text>
+<text top="882" left="523" width="5" height="6" font="17">●</text>
+<text top="861" left="523" width="5" height="6" font="17">●</text>
+<text top="907" left="570" width="5" height="6" font="17">●</text>
+<text top="896" left="548" width="5" height="6" font="17">●</text>
+<text top="907" left="524" width="5" height="6" font="17">●</text>
+<text top="910" left="522" width="5" height="6" font="17">●</text>
+<text top="877" left="524" width="5" height="6" font="17">●</text>
+<text top="910" left="543" width="5" height="6" font="17">●</text>
+<text top="901" left="522" width="5" height="6" font="17">●</text>
+<text top="896" left="518" width="5" height="6" font="17">●</text>
+<text top="899" left="517" width="5" height="6" font="17">●</text>
+<text top="890" left="564" width="5" height="6" font="17">●</text>
+<text top="910" left="554" width="5" height="6" font="17">●</text>
+<text top="910" left="521" width="5" height="6" font="17">●</text>
+<text top="901" left="520" width="5" height="6" font="17">●</text>
+<text top="877" left="555" width="5" height="6" font="17">●</text>
+<text top="910" left="535" width="5" height="6" font="17">●</text>
+<text top="882" left="521" width="5" height="6" font="17">●</text>
+<text top="863" left="517" width="5" height="6" font="17">●</text>
+<text top="877" left="553" width="5" height="6" font="17">●</text>
+<text top="901" left="619" width="5" height="6" font="17">●</text>
+<text top="910" left="527" width="5" height="6" font="17">●</text>
+<text top="910" left="527" width="5" height="6" font="17">●</text>
+<text top="880" left="520" width="5" height="6" font="17">●</text>
+<text top="869" left="524" width="5" height="6" font="17">●</text>
+<text top="910" left="518" width="5" height="6" font="17">●</text>
+<text top="910" left="614" width="5" height="6" font="17">●</text>
+<text top="880" left="519" width="5" height="6" font="17">●</text>
+<text top="871" left="584" width="5" height="6" font="17">●</text>
+<text top="882" left="557" width="5" height="6" font="17">●</text>
+<text top="855" left="623" width="5" height="6" font="17">●</text>
+<text top="852" left="549" width="5" height="6" font="17">●</text>
+<text top="893" left="543" width="5" height="6" font="17">●</text>
+<text top="880" left="551" width="5" height="6" font="17">●</text>
+<text top="871" left="553" width="5" height="6" font="17">●</text>
+<text top="890" left="538" width="5" height="6" font="17">●</text>
+<text top="874" left="619" width="5" height="6" font="17">●</text>
+<text top="880" left="519" width="5" height="6" font="17">●</text>
+<text top="893" left="552" width="5" height="6" font="17">●</text>
+<text top="901" left="551" width="5" height="6" font="17">●</text>
+<text top="910" left="608" width="5" height="6" font="17">●</text>
+<text top="888" left="586" width="5" height="6" font="17">●</text>
+<text top="910" left="569" width="5" height="6" font="17">●</text>
+<text top="896" left="669" width="5" height="6" font="17">●</text>
+<text top="852" left="538" width="5" height="6" font="17">●</text>
+<text top="885" left="549" width="5" height="6" font="17">●</text>
+<text top="880" left="543" width="5" height="6" font="17">●</text>
+<text top="910" left="644" width="5" height="6" font="17">●</text>
+<text top="869" left="529" width="5" height="6" font="17">●</text>
+<text top="899" left="607" width="5" height="6" font="17">●</text>
+<text top="869" left="542" width="5" height="6" font="17">●</text>
+<text top="850" left="521" width="5" height="6" font="17">●</text>
+<text top="910" left="573" width="5" height="6" font="17">●</text>
+<text top="907" left="595" width="5" height="6" font="17">●</text>
+<text top="899" left="595" width="5" height="6" font="17">●</text>
+<text top="901" left="648" width="5" height="6" font="17">●</text>
+<text top="861" left="612" width="5" height="6" font="17">●</text>
+<text top="890" left="541" width="5" height="6" font="17">●</text>
+<text top="885" left="563" width="5" height="6" font="17">●</text>
+<text top="880" left="580" width="5" height="6" font="17">●</text>
+<text top="852" left="533" width="5" height="6" font="17">●</text>
+<text top="904" left="526" width="5" height="6" font="17">●</text>
+<text top="888" left="524" width="5" height="6" font="17">●</text>
+<text top="871" left="545" width="5" height="6" font="17">●</text>
+<text top="896" left="539" width="5" height="6" font="17">●</text>
+<text top="861" left="585" width="5" height="6" font="17">●</text>
+<text top="836" left="545" width="5" height="6" font="17">●</text>
+<text top="904" left="521" width="5" height="6" font="17">●</text>
+<text top="910" left="580" width="5" height="6" font="17">●</text>
+<text top="885" left="655" width="5" height="6" font="17">●</text>
+<text top="874" left="551" width="5" height="6" font="17">●</text>
+<text top="861" left="527" width="5" height="6" font="17">●</text>
+<text top="888" left="611" width="5" height="6" font="17">●</text>
+<text top="885" left="640" width="5" height="6" font="17">●</text>
+<text top="907" left="584" width="5" height="6" font="17">●</text>
+<text top="877" left="528" width="5" height="6" font="17">●</text>
+<text top="904" left="528" width="5" height="6" font="17">●</text>
+<text top="888" left="597" width="5" height="6" font="17">●</text>
+<text top="910" left="587" width="5" height="6" font="17">●</text>
+<text top="901" left="616" width="5" height="6" font="17">●</text>
+<text top="888" left="539" width="5" height="6" font="17">●</text>
+<text top="1017" left="459" width="346" height="15" font="0">Figure 3: Expected Ovenbird abundance (lambda) as</text>
+<text top="1035" left="459" width="346" height="15" font="0">the function of percentage human disturbance (thd)</text>
+<text top="1053" left="459" width="346" height="15" font="0">based on the Poisson mixed model. Line represents</text>
+<text top="1071" left="459" width="346" height="15" font="0">the mean, gray shading indicates 95% prediction in-</text>
+<text top="1089" left="459" width="210" height="15" font="0">tervals. Points are observations.</text>
+<text top="1119" left="459" width="346" height="15" font="0">Ovenbird abundance was significantly higher in up-</text>
+<text top="1137" left="459" width="346" height="15" font="0">land sites, and human disturbance had a significant</text>
+<text top="1155" left="459" width="346" height="15" font="0">negative effect on expected Ovenbird abundance.</text>
+<text top="1173" left="459" width="171" height="15" font="0">Unexplained variation (<i>σ</i></text>
+<text top="1170" left="630" width="6" height="11" font="1">2</text>
+<text top="1173" left="641" width="12" height="14" font="7">=</text>
+<text top="1173" left="653" width="34" height="15" font="0">1.425</text>
+<text top="1172" left="693" width="12" height="15" font="7">±</text>
+<text top="1173" left="711" width="94" height="15" font="0">0.102 SE) was</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">37</text>
+<text top="125" left="82" width="346" height="15" font="0">substantial, thus the choice of the Poisson mixed</text>
+<text top="143" left="82" width="237" height="15" font="0">model makes sense for this data set.</text>
+<text top="188" left="82" width="96" height="21" font="4"><b>Summary</b></text>
+<text top="227" left="82" width="346" height="15" font="0">The data cloning algorithm is especially useful for</text>
+<text top="245" left="82" width="346" height="15" font="0">complex models for which other likelihood based</text>
+<text top="263" left="82" width="346" height="15" font="0">computational methods fail. The algorithm also can</text>
+<text top="281" left="82" width="346" height="15" font="0">numerically reveal potential identifiability issues re-</text>
+<text top="299" left="82" width="346" height="15" font="0">lated to hierarchical models. The <b>dclone </b>package</text>
+<text top="317" left="82" width="346" height="15" font="0">supports established MCMC software and provides</text>
+<text top="335" left="82" width="346" height="15" font="0">low level functions to help implementing high level</text>
+<text top="353" left="82" width="346" height="15" font="0">estimating procedures to get maximum likelihood</text>
+<text top="371" left="82" width="346" height="15" font="0">inferences and predictions for more specialized prob-</text>
+<text top="388" left="82" width="277" height="15" font="0">lems based on the data cloning algorithm.</text>
+<text top="434" left="82" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="473" left="82" width="102" height="15" font="0">Subhash Lele,</text>
+<text top="473" left="202" width="227" height="15" font="0">Khurram Nadeem and Gabor</text>
+<text top="490" left="82" width="346" height="15" font="0">Grothendieck have provided invaluable suggestions</text>
+<text top="508" left="82" width="346" height="15" font="0">and feedback on this work. Comments of Martyn</text>
+<text top="526" left="82" width="346" height="15" font="0">Plummer and two anonymous reviewers greatly</text>
+<text top="544" left="82" width="346" height="15" font="0">improved the quality of the paper. Funding was</text>
+<text top="562" left="82" width="346" height="15" font="0">provided by the Alberta Biodiversity Monitoring In-</text>
+<text top="580" left="82" width="346" height="15" font="0">stitute and the Natural Sciences and Engineering</text>
+<text top="598" left="82" width="118" height="15" font="0">Research Council.</text>
+<text top="634" left="82" width="86" height="15" font="0">Péter Sólymos</text>
+<text top="652" left="82" width="252" height="15" font="0">Alberta Biodiversity Monitoring Institute</text>
+<text top="670" left="82" width="205" height="15" font="0">Department of Biological Sciences</text>
+<text top="688" left="82" width="129" height="15" font="0">University of Alberta</text>
+<text top="707" left="82" width="145" height="12" font="5"><a href="mailto:solymos@ualberta.ca">solymos@ualberta.ca</a></text>
+<text top="751" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="790" left="82" width="346" height="15" font="0">S. P. Brooks and A. Gelman. General methods for</text>
+<text top="808" left="97" width="332" height="15" font="0">monitoring convergence of iterative simulations.</text>
+<text top="825" left="97" width="332" height="15" font="0">Journal of Computational and Graphical Statistics, 7:</text>
+<text top="844" left="97" width="93" height="15" font="0">434–455, 1997.</text>
+<text top="870" left="82" width="346" height="15" font="0">S. P. Brooks and B. J. T. Morgan. Optimization using</text>
+<text top="888" left="97" width="332" height="15" font="0">simulated annealing. Statistician, 241–257:44, 1995.</text>
+<text top="915" left="82" width="346" height="15" font="0">G. F. Gause. The struggle for existence. Wilkins, Balti-</text>
+<text top="933" left="97" width="187" height="15" font="0">more, Maryland, USA, 1934.</text>
+<text top="960" left="82" width="346" height="15" font="0">A. Gelman and D. B. Rubin. Inference from itera-</text>
+<text top="978" left="97" width="332" height="15" font="0">tive simulation using multiple sequences. Statisti-</text>
+<text top="996" left="97" width="177" height="15" font="0">cal Science, 7:457–511, 1992.</text>
+<text top="1023" left="82" width="346" height="15" font="0">A. Gelman, J. Carlin, H. Stern, and D. Rubin. Bayesian</text>
+<text top="1041" left="97" width="332" height="15" font="0">Data Analysis. CRC Press, Boca Raton, 2 edition,</text>
+<text top="1059" left="97" width="34" height="15" font="0">2003.</text>
+<text top="1086" left="82" width="346" height="15" font="0">W. Gilks, S. Richardson, and D. Spiegelhalter. Markov</text>
+<text top="1103" left="97" width="332" height="15" font="0">Chain Monte Carlo in Practice. Chapman &amp; Hall,</text>
+<text top="1121" left="97" width="93" height="15" font="0">London, 1996.</text>
+<text top="1148" left="82" width="346" height="15" font="0">K. A. Hobson and E. M. Bayne. Breeding bird com-</text>
+<text top="1166" left="97" width="332" height="15" font="0">munities in boreal forest of western Canada: Con-</text>
+<text top="1184" left="97" width="332" height="15" font="0">sequences of “unmixing” the mixedwoods. Con-</text>
+<text top="1202" left="97" width="147" height="15" font="0">dor, 102:759–769, 2002.</text>
+<text top="125" left="459" width="346" height="15" font="0">S. R. Lele, B. Dennis, and F. Lutscher. Data cloning:</text>
+<text top="143" left="474" width="332" height="15" font="0">easy maximum likelihood estimation for complex</text>
+<text top="161" left="474" width="332" height="15" font="0">ecological models using Bayesian Markov chain</text>
+<text top="179" left="474" width="332" height="15" font="0">Monte Carlo methods. Ecology Letters, 10:551–563,</text>
+<text top="197" left="474" width="34" height="15" font="0">2007.</text>
+<text top="229" left="459" width="346" height="15" font="0">S. R. Lele, K. Nadeem, and B. Schmuland. Estima-</text>
+<text top="247" left="474" width="332" height="15" font="0">bility and likelihood inference for generalized lin-</text>
+<text top="265" left="474" width="332" height="15" font="0">ear mixed models using data cloning. Journal of the</text>
+<text top="283" left="474" width="299" height="15" font="0">American Statistical Association, 2010. in press.</text>
+<text top="315" left="459" width="346" height="15" font="0">D. Lunn, D. Spiegelhalter, A. Thomas, and N. Best.</text>
+<text top="333" left="474" width="332" height="15" font="0">The BUGS project: Evolution, critique and fu-</text>
+<text top="351" left="474" width="332" height="15" font="0">ture directions. Statistics in Medicine, 28:3049–3067,</text>
+<text top="368" left="474" width="146" height="15" font="0">2009. with discussion.</text>
+<text top="400" left="459" width="92" height="15" font="0">M. Plummer.</text>
+<text top="400" left="574" width="231" height="15" font="0">JAGS Version 2.0.0 manual (April</text>
+<text top="418" left="474" width="127" height="15" font="0">26, 2010), 2010a.</text>
+<text top="418" left="632" width="31" height="15" font="0">URL</text>
+<text top="420" left="675" width="130" height="12" font="5"><a href="http://mcmc-jags.sourceforge.net">http://mcmc-jags.</a></text>
+<text top="438" left="474" width="114" height="12" font="5"><a href="http://mcmc-jags.sourceforge.net">sourceforge.net</a></text>
+<text top="436" left="588" width="4" height="15" font="0"><a href="http://mcmc-jags.sourceforge.net">.</a></text>
+<text top="468" left="459" width="90" height="15" font="0">M. Plummer.</text>
+<text top="468" left="566" width="239" height="15" font="0">rjags: Bayesian graphical models us-</text>
+<text top="486" left="474" width="134" height="15" font="0">ing MCMC, 2010b.</text>
+<text top="486" left="634" width="31" height="15" font="0">URL</text>
+<text top="488" left="675" width="130" height="12" font="5"><a href="http://mcmc-jags.sourceforge.net">http://mcmc-jags.</a></text>
+<text top="506" left="474" width="114" height="12" font="5"><a href="http://mcmc-jags.sourceforge.net">sourceforge.net</a></text>
+<text top="504" left="588" width="180" height="15" font="0"><a href="http://mcmc-jags.sourceforge.net">. </a>R package version 2.0.0-2.</text>
+<text top="536" left="459" width="346" height="15" font="0">M. Plummer, N. Best, K. Cowles, and K. Vines.</text>
+<text top="554" left="474" width="332" height="15" font="0">coda: Output analysis and diagnostics for MCMC,</text>
+<text top="572" left="474" width="34" height="15" font="0">2010.</text>
+<text top="572" left="535" width="31" height="15" font="0">URL</text>
+<text top="574" left="576" width="229" height="12" font="5"><a href="http://cran.r-project.org/web/packages/coda/index.html">http://cran.r-project.org/web/</a></text>
+<text top="591" left="474" width="183" height="12" font="5"><a href="http://cran.r-project.org/web/packages/coda/index.html">packages/coda/index.html</a></text>
+<text top="590" left="657" width="4" height="15" font="0"><a href="http://cran.r-project.org/web/packages/coda/index.html">.</a></text>
+<text top="590" left="677" width="128" height="15" font="0">R package version</text>
+<text top="608" left="474" width="42" height="15" font="0">0.13-5.</text>
+<text top="640" left="459" width="346" height="15" font="0">J. M. Ponciano, M. L. Taper, B. Dennis, and S. R. Lele.</text>
+<text top="658" left="474" width="332" height="15" font="0">Hierarchical models in ecology: confidence inter-</text>
+<text top="676" left="474" width="332" height="15" font="0">vals, hypothesis testing, and model selection using</text>
+<text top="694" left="474" width="258" height="15" font="0">data cloning. Ecology, 90:356–362, 2009.</text>
+<text top="726" left="459" width="346" height="15" font="0">P. Sólymos. dclone: Data Cloning and MCMC Tools</text>
+<text top="744" left="474" width="289" height="15" font="0">for Maximum Likelihood Methods, 2010. URL</text>
+<text top="745" left="767" width="38" height="12" font="5"><a href="http://cran.r-project.org/packages=dclone">http:</a></text>
+<text top="763" left="474" width="275" height="12" font="5"><a href="http://cran.r-project.org/packages=dclone">//cran.r-project.org/packages=dclone</a></text>
+<text top="762" left="749" width="56" height="15" font="0"><a href="http://cran.r-project.org/packages=dclone">. </a>R pack-</text>
+<text top="780" left="474" width="114" height="15" font="0">age version 1.2-0.</text>
+<text top="812" left="459" width="346" height="15" font="0">D. Spiegelhalter, A. Thomas, N. Best, and D. Lunn.</text>
+<text top="830" left="474" width="332" height="15" font="0">OpenBUGS User Manual, Version 3.0.2, September</text>
+<text top="848" left="474" width="113" height="15" font="0">2007, 2007. URL</text>
+<text top="849" left="592" width="213" height="12" font="5"><a href="http://mathstat.helsinki.fi/openbugs/">http://mathstat.helsinki.fi/</a></text>
+<text top="867" left="474" width="69" height="12" font="5"><a href="http://mathstat.helsinki.fi/openbugs/">openbugs/</a></text>
+<text top="866" left="542" width="4" height="15" font="0"><a href="http://mathstat.helsinki.fi/openbugs/">.</a></text>
+<text top="898" left="459" width="346" height="15" font="0">D. J. Spiegelhalter, A. Thomas, N. G. Best, and</text>
+<text top="916" left="474" width="62" height="15" font="0">D. Lunn.</text>
+<text top="916" left="553" width="253" height="15" font="0">WinBUGS version 1.4 users manual.</text>
+<text top="933" left="474" width="332" height="15" font="0">MRC Biostatistics Unit, Cambridge, 2003. URL</text>
+<text top="953" left="474" width="260" height="12" font="5"><a href="http://www.mrc-bsu.cam.ac.uk/bugs/">http://www.mrc-bsu.cam.ac.uk/bugs/</a></text>
+<text top="951" left="734" width="4" height="15" font="0"><a href="http://www.mrc-bsu.cam.ac.uk/bugs/">.</a></text>
+<text top="983" left="459" width="346" height="15" font="0">D. O. Stram and J. W. Lee. Variance components test-</text>
+<text top="1001" left="474" width="332" height="15" font="0">ing in the longitudinal mixed effects model. Bio-</text>
+<text top="1019" left="474" width="179" height="15" font="0">metrics, 50:1171–1177, 1994.</text>
+<text top="1051" left="459" width="346" height="15" font="0">S. Sturtz, U. Ligges, and A. Gelman. R2WinBUGS:</text>
+<text top="1069" left="474" width="332" height="15" font="0">A package for running WinBUGS from R. Jour-</text>
+<text top="1087" left="474" width="332" height="15" font="0">nal of Statistical Software, 12(3):1–16, 2005. URL</text>
+<text top="1107" left="474" width="183" height="12" font="5"><a href="http://www.jstatsoft.org">http://www.jstatsoft.org</a></text>
+<text top="1105" left="657" width="4" height="15" font="0"><a href="http://www.jstatsoft.org">.</a></text>
+<text top="1137" left="459" width="346" height="15" font="0">A. Thomas, B. O’Hara, U. Ligges, and S. Sturtz. Mak-</text>
+<text top="1155" left="474" width="332" height="15" font="0">ing BUGS open. R News, 6(1):12–17, 2006. URL</text>
+<text top="1174" left="474" width="275" height="12" font="5"><a href="http://cran.r-project.org/doc/Rnews/">http://cran.r-project.org/doc/Rnews/</a></text>
+<text top="1173" left="749" width="4" height="15" font="0"><a href="http://cran.r-project.org/doc/Rnews/">.</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

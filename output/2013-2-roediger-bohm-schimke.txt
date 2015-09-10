@@ -1,0 +1,142 @@
+page	left	top	code
+4	149	854	# Load MultiMelt data set.
+4	149	870	data(MultiMelt)
+4	149	903	# MFIerror for the HRPT1 data (column 2 to 13).
+4	149	920	# The default settings of MFIerror show the the mean fluorescence and the
+4	149	936	# standard deviation at a defined temperature.
+4	149	953	MFIerror(MultiMelt[, 1], MultiMelt[, 2:13])
+4	149	986	# MFIerror on the MLC-2v data (column 14 to 25).
+4	149	1002	MFIerror(MultiMelt[, 1], MultiMelt[, 14:25])
+5	149	772	# Load MultiMelt data set.
+5	149	789	data(MultiMelt)
+5	149	822	# Use MFIerror to calculate the mean fluorescence for HRPT1 and MLC-2v over all
+5	149	838	# twelve microbead populations.
+5	149	855	HPRT1.mean <- MFIerror(MultiMelt[, 1], MultiMelt[, 2:13], errplot = FALSE)
+5	149	871	MLC2v.mean <- MFIerror(MultiMelt[, 1], MultiMelt[, 14:25], errplot = FALSE)
+5	149	904	# Draw figures on the graphics device in a 2x6 array
+5	149	920	par(mfrow = c(2, 6))
+5	149	953	# Calculate the difference between the fluorescence of a single microbead population
+5	149	970	# and the average of all twelve microbead populations. Plot the results.
+5	149	986	for (i in 1:12) {
+5	163	1003	tmp.HPRT1 <- MultiMelt[, i + 1] - HPRT1.mean[, 2]
+5	163	1019	tmp.MLC2v <- MultiMelt[, i + 13] - MLC2v.mean[, 2]
+5	163	1035	plot(MultiMelt[, 1], tmp.HPRT1, main = paste("Pop", i, sep = ": "),
+5	197	1052	pch = 19, ylim = c(-0.28, 0.28), xlab = "T", ylab = "delta")
+5	163	1068	abline(h = 0, col = "black")
+5	163	1085	abline(v = 65, col = "blue")
+5	163	1101	points(MultiMelt[, 1], tmp.MLC2v, pch = 15, col = 2)
+5	149	1118	}
+7	149	694	# Load DMP data set.
+7	149	710	data(DMP)
+7	149	743	# Create plot with raw data.
+7	149	760	plot(DMP[, 1], DMP[, 6], xlim = c(20, 95), xlab = "T [C]",
+7	183	776	ylab = "refMFI", pch = 19, col = 8)
+7	149	809	# Add minor tick marks to the abscissa.
+7	149	826	require(Hmisc); minor.tick(nx = 20)
+7	149	912	# Define three filter strengths (highest (0.6) to lowest (1.0)) and assign them
+7	149	929	# to df.fact. Smooth the raw data and add the results as lines to the plot.
+7	149	945	f <- c(0.6, 0.8, 1.0)
+7	149	962	for (i in 1:3) {
+7	163	978	lines(mcaSmoother(DMP[, 1], DMP[, 6], df.fact = f[i]), col = i, lwd = 2)
+7	149	994	}
+7	149	1011	# Add a legend to the plot with the filter strengths.
+7	149	1027	legend(20, 1.5, paste("f", f, sep = ": "), cex = 1.2, col =
+7	567	1027	1:3,
+7	197	1044	bty = "n", lty = 1, lwd = 4)
+9	149	588	# Load MultiMelt data set.
+9	149	605	data(MultiMelt)
+9	149	638	# Draw figures on the graphics device in two columns.
+9	149	654	par(mfrow = c(1, 2))
+9	149	687	# Use mcaSmoother to check and smooth the raw data for HRPT1 (2) and MLC-2v (14)
+9	149	703	# with the default setting.
+9	149	720	# Plot the first derivative of the two samples.
+9	149	736	for (i in c(2, 14)) {
+9	163	753	tmp <- mcaSmoother(MultiMelt[, 1], MultiMelt[, i])
+9	163	769	diffQ(tmp, plot = TRUE, vertiline = TRUE)
+9	149	785	}
+9	149	1091	# Load MultiMelt data set.
+9	149	1107	data(MultiMelt)
+10	149	526	# Create an empty matrix ("HRPT1") for the diffQ2 results (e.g., Tm).
+10	149	543	HPRT1 <- matrix(NA, 12, 4, dimnames = list(colnames(MultiMelt[, 2:13]),
+10	259	559	c("Fluo", "Tm", "Tm1D2", "Tm2D2")))
+10	149	592	# Use mcaSmoother to check and smooth the raw data. Apply diffQ2 to the smoothed data,
+10	149	609	# calculate the values for the extreme (minimum) and assign the results to "HRPT1".
+10	149	625	for (i in 2:13) {
+10	163	641	tmp <- mcaSmoother(MultiMelt[, 1], MultiMelt[, i])
+10	163	658	tmpTM <- diffQ2(tmp, fct = min, verbose = TRUE)
+10	163	674	HPRT1[i-1, 1] <- max(tmp[["y.sp"]])
+10	163	691	HPRT1[i-1, 2] <- as.numeric(tmpTM[["TmD1"]][["Tm"]]) # Tm
+10	163	707	HPRT1[i-1, 3] <- as.numeric(tmpTM[["xTm1.2.D2"]][1]) # Tm1D2
+10	163	724	HPRT1[i-1, 4] <- as.numeric(tmpTM[["xTm1.2.D2"]][2]) # Tm2D2
+10	149	740	}
+10	149	810	# Plot the Tm, Tm1D2 and Tm2D2 form the matrix "HRPT1" versus the surface capture
+10	149	827	# probe density ("Fluo").
+10	149	843	plot(HPRT1[, 1], HPRT1[, 2], xlab = "refMFI", ylab = "T [C]", main = "HPRT1",
+10	183	860	xlim = c(2.1, 2.55), ylim = c(72, 82), pch = 19, col = 1:12, cex = 1.8)
+10	149	893	# Add minor tick marks to the abscissa.
+10	149	909	require(Hmisc); minor.tick(ny = 10)
+10	149	925	points(HPRT1[, 1], HPRT1[, 3], pch = 15)
+10	149	942	points(HPRT1[, 1], HPRT1[, 4], pch = 15)
+10	149	975	# Add trend lines (lm()) for the peak values.
+10	149	991	abline(lm(HPRT1[, 2] ~ HPRT1[, 1])) # Tm
+10	149	1008	abline(lm(HPRT1[, 3] ~ HPRT1[, 1])) # Tm1D2
+10	149	1024	abline(lm(HPRT1[, 4] ~ HPRT1[, 1])) # Tm2D2
+11	149	515	# Load DMP data set.
+11	149	532	data(DMP)
+11	149	565	# Use the temperature (column 1) and fluorescence (column 3, 5, 6), assign them to
+11	149	581	# a temporary data frame and add the sample names.
+11	149	597	data.tmp <- data.frame(DMP[, 1], DMP[, 3], DMP[, 5], DMP[, 6])
+11	149	614	names(data.tmp) <- c("T [C]", "Poly(dA)20 & MLC-2v",
+11	293	630	"Poly(dA)20 & aCS", "Poly(dA)20")
+11	149	663	# Create a plot with the selected raw data.
+11	149	680	plot(NA, NA, xlim = c(20, 95), ylim = c(-0.6, 0.6), xlab = "T [C]",
+11	183	696	ylab = "-d(refMFI) / d(T)", main = "", pch = 19, col = 1:12, cex = 1.8)
+11	149	729	# Add minor tick marks to the abscissa.
+11	149	745	require(Hmisc); minor.tick(nx = 10)
+11	149	881	# Create an empty matrix ("RES") for the results of the peak values (Tm) and peak
+11	149	898	# heights (F).
+11	149	914	RES <- matrix(NA, 3, 4, dimnames = list(colnames(data.tmp[, 2:4]),
+11	245	931	c("F 1", "Tm 1", "F 2", "Tm 2")))
+11	149	964	# Use mcaSmoother to preprocess the raw data.
+11	149	980	# Use a background correction (20-35 degree Celsius).
+11	149	996	# Apply the smoothed data to diffQ, calculate the peak values for the extremes
+11	149	1013	# (minimum and maximum) and assign the results to the matrix "RES".
+11	149	1029	# Plot the smoothed data with the peak values and peak heights.
+11	149	1046	for (i in c(1:3)) {
+11	163	1062	tmp <- mcaSmoother(data.tmp[, 1], data.tmp[, i + 1], bgadj = TRUE, bg = c(20, 35))
+11	163	1079	lines(data.frame(diffQ(tmp, verbose = TRUE)["xy"]), col = i)
+11	163	1095	RES[i, 1] <- round(diffQ(tmp, fct = max)[[2]], 2)
+11	540	1095	#fluoTm
+11	163	1112	RES[i, 2] <- round(diffQ(tmp, fct = max)[[1]], 2)
+11	540	1112	#Tm
+12	163	646	RES[i, 3] <- round(diffQ(tmp, fct = min)[[2]], 2)
+12	540	646	#fluoTm
+12	163	662	RES[i, 4] <- round(diffQ(tmp, fct = min)[[1]], 2)
+12	540	662	#Tm
+12	149	679	}
+12	149	695	legend(20, 0.6, names(data.tmp[, 2:4]), lty = 1, bty = "n", col = 1:3)
+12	149	712	points(RES[, 2], RES[, 1], pch = 19, col = 4, cex = 2)
+12	149	728	points(RES[, 4], RES[, 3], pch = 19, col = 1, cex = 2)
+12	149	1041	# Load DualHyb data set.
+12	149	1058	data(DualHyb)
+12	149	1090	# Create an empty matrix ("RES") for the results of the peak values (TmD1)
+13	149	536	# and calculated peak heights (fluoTm).
+13	149	553	RES <- matrix(NA, 4, 2, dimnames = list(colnames(DualHyb[, 2:5]),
+13	245	569	c("fluoTm", "TmD1")))
+13	149	602	# Use mcaSmoother to check and smooth the raw data.
+13	149	619	# Apply diffQ to the smoothed data, calculate the peak values for the extreme
+13	149	635	# (minimum) and assign the results to the matrix "RES".
+13	149	652	for (i in c(1:4)) {
+13	163	668	tmp <- mcaSmoother(DualHyb[, 1], DualHyb[, i + 1])
+13	163	684	RES[i, 1] <- round(diffQ(tmp, fct = min)[[2]], 2)
+13	533	684	# fluoTm
+13	163	701	RES[i, 2] <- round(diffQ(tmp, fct = min)[[1]], 2)
+13	533	701	# Tm
+13	149	717	}
+13	149	771	# Call RES to show the peak values and peak heights.
+13	149	787	RES
+13	259	804	fluoTm TmD1
+13	149	820	MLC2v -0.48 76.62
+13	149	837	SERCA2 -0.04 62.87
+13	149	853	VIM.w.Mutation -0.33 71.67
+13	149	870	VIM.wo.Mutation -0.32 73.29

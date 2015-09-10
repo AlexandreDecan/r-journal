@@ -1,0 +1,67 @@
+page	left	top	code
+7	149	295	library(factorplot)
+7	149	311	library(car)
+7	149	327	mod <- glm(interlocks ~ log2(assets) + nation + sector, data = Ornstein,
+7	176	344	family = poisson)
+7	149	360	fp <- factorplot(mod, adjust.method="none", factor.variable = "sector", pval = 0.05,
+7	211	377	two.sided = TRUE, order = "natural")
+7	149	393	plot(fp, abbrev.char = 100)
+7	149	1050	print(fp, sig = T)
+7	217	1066	Difference SE p.val
+8	149	104	AGR - CON 0.489 0.213 0.023
+8	149	120	CON - HLD -0.474 0.235 0.045
+8	149	137	BNK - MAN -0.288 0.102 0.005
+8	149	153	CON - MAN -0.611 0.215 0.005
+8	149	169	FIN - MAN -0.233 0.082 0.005
+8	149	186	BNK - MER -0.228 0.106 0.032
+8	149	202	CON - MER -0.551 0.220 0.013
+8	149	219	AGR - MIN -0.250 0.069 0.000
+8	149	235	BNK - MIN -0.416 0.084 0.000
+8	149	252	CON - MIN -0.739 0.210 0.001
+8	149	268	FIN - MIN -0.361 0.067 0.000
+8	149	285	HLD - MIN -0.265 0.118 0.026
+8	149	301	MER - MIN -0.188 0.085 0.029
+8	149	317	BNK - TRN -0.318 0.082 0.000
+8	149	334	CON - TRN -0.641 0.217 0.004
+8	149	350	FIN - TRN -0.263 0.070 0.000
+8	149	367	AGR - WOD -0.498 0.076 0.000
+8	149	383	BNK - WOD -0.665 0.095 0.000
+8	149	400	CON - WOD -0.988 0.215 0.000
+8	149	416	FIN - WOD -0.610 0.077 0.000
+8	149	432	HLD - WOD -0.513 0.121 0.000
+8	149	449	MAN - WOD -0.376 0.080 0.000
+8	149	465	MER - WOD -0.437 0.090 0.000
+8	149	482	MIN - WOD -0.248 0.072 0.001
+8	149	498	TRN - WOD -0.346 0.081 0.000
+8	149	673	summary(fp)
+8	176	690	sig+ sig- insig
+8	149	706	AGR 1 2 6
+8	149	722	BNK 0 5 4
+8	149	739	CON 0 7 2
+8	149	755	FIN 0 4 5
+8	149	772	HLD 1 2 6
+8	149	788	MAN 3 1 5
+8	149	805	MER 2 2 5
+8	149	821	MIN 6 1 2
+8	149	837	TRN 3 1 5
+8	149	854	WOD 9 0 0
+9	149	492	est1 <- log(c(1.00,2.12,1.44,1.31,1.44,1.46,0.90))
+9	149	508	var1 <- c(0.242,0.096,0.156,0.140,0.380,0.484,0.375)^2
+9	149	525	est2 <- log(c(1.00,4.33,3.89,4.14,10.8,21.9,15.5))
+9	149	541	var2 <- c(0.320,0.101,0.160,0.141,0.349,0.431,0.311)^2
+9	149	558	resdf <- 48+16+27+532+346+144+144+124+58+166+162+75+24+
+9	204	574	53+10+15+61+6+18+90+12-18
+9	149	590	names(est1) <- names(est2) <- c(
+9	183	607	"Normal Gas","Chronic Gas", "Chronic A. Gas",
+9	183	623	"IM I", "IM II", "IM III", "Dysplasia")
+9	149	656	plummer_fp1 <- factorplot(est1, var = var1, resdf = resdf, adjust.method = "none")
+9	149	673	plummer_fp2 <- factorplot(est2, var = var2, resdf = resdf, adjust.method = "none")
+9	149	689	plot(plummer_fp1, trans = "exp", abbrev.char = 100, scale.text = 1.5,
+9	176	706	scale.space = 1.5)
+9	149	722	plot(plummer_fp2, trans = "exp", abbrev.char = 100, scale.text = 1.5,
+9	176	738	scale.space = 1.5)
+9	149	1074	library(nnet)
+9	149	1090	data(france)
+9	149	1107	france.mod <- multinom(vote ~ retnat + lrself + male + age, data = france)
+10	149	498	fp3 <- factorplot(france.mod, variable = "age")
+10	149	514	plot(fp3)

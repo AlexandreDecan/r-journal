@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="13" family="Times" color="#000000"/>
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">13</text>
+<text top="121" left="82" width="642" height="36" font="2"><b>MCMC for Generalized Linear Mixed</b></text>
+<text top="166" left="82" width="432" height="36" font="2"><b>Models with glmmBUGS</b></text>
+<text top="218" left="82" width="216" height="15" font="0">by Patrick Brown and Lutong Zhou</text>
+<text top="253" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="252" left="160" width="255" height="15" font="0">The <b>glmmBUGS </b>package is a bridging</text>
+<text top="270" left="96" width="319" height="15" font="0">tool between Generalized Linear Mixed Mod-</text>
+<text top="288" left="96" width="319" height="15" font="0">els (GLMMs) in R and the BUGS language. It</text>
+<text top="306" left="96" width="319" height="15" font="0">provides a simple way of performing Bayesian</text>
+<text top="324" left="96" width="319" height="15" font="0">inference using Markov Chain Monte Carlo</text>
+<text top="342" left="96" width="319" height="15" font="0">(MCMC) methods, taking a model formula and</text>
+<text top="360" left="96" width="319" height="15" font="0">data frame in R and writing a BUGS model file,</text>
+<text top="378" left="96" width="319" height="15" font="0">data file, and initial values files. Functions are</text>
+<text top="396" left="96" width="319" height="15" font="0">provided to reformat and summarize the BUGS</text>
+<text top="414" left="96" width="319" height="15" font="0">results. A key aim of the package is to provide</text>
+<text top="432" left="96" width="319" height="15" font="0">files and objects that can be modified prior to</text>
+<text top="450" left="96" width="319" height="15" font="0">calling BUGS, giving users a platform for cus-</text>
+<text top="468" left="96" width="319" height="15" font="0">tomizing and extending the models to accommo-</text>
+<text top="486" left="96" width="207" height="15" font="0">date a wide variety of analyses.</text>
+<text top="532" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="572" left="82" width="346" height="15" font="0">There are two steps in model fitting that are much</text>
+<text top="590" left="82" width="346" height="15" font="0">more time consuming in WinBUGS than in R. First,</text>
+<text top="608" left="82" width="346" height="15" font="0">unbalanced multi-level data needs to be formatted</text>
+<text top="625" left="82" width="346" height="15" font="0">in a way that BUGS can handle, including changing</text>
+<text top="643" left="82" width="346" height="15" font="0">categorical variables to indicator variables. Second,</text>
+<text top="661" left="82" width="346" height="15" font="0">a BUGS model file must be written. The <b>glmmBUGS</b></text>
+<text top="679" left="82" width="346" height="15" font="0">package addresses these issues by allowing users to</text>
+<text top="697" left="82" width="346" height="15" font="0">specify models as formulas in R, as they would in the</text>
+<text top="716" left="82" width="23" height="12" font="0">glm</text>
+<text top="715" left="110" width="319" height="15" font="0">function, and provides everything necessary for</text>
+<text top="733" left="82" width="346" height="15" font="0">fitting the model with WinBUGS or OpenBUGS via</text>
+<text top="751" left="82" width="181" height="15" font="0">the <b>R2WinBUGS </b>package <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">(</a></text>
+<text top="751" left="264" width="112" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">Sturtz et al., 2005</a></text>
+<text top="751" left="376" width="9" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">).</a></text>
+<text top="769" left="105" width="324" height="15" font="0">The <b>glmmBUGS </b>package creates the necessary</text>
+<text top="787" left="82" width="346" height="15" font="0">BUGS model file, starting value function, and suit-</text>
+<text top="805" left="82" width="346" height="15" font="0">ably formatted data. Improved chain mixing is ac-</text>
+<text top="823" left="82" width="346" height="15" font="0">complished with a simple reparametrization and the</text>
+<text top="841" left="82" width="346" height="15" font="0">use of sensible starting values. Functions are pro-</text>
+<text top="859" left="82" width="346" height="15" font="0">vided for formatting and summarizing the results.</text>
+<text top="877" left="82" width="346" height="15" font="0">Although a variety of models can be implemented</text>
+<text top="895" left="82" width="346" height="15" font="0">entirely within <b>glmmBUGS</b>, the package intends to</text>
+<text top="913" left="82" width="346" height="15" font="0">provide a basic set of data and files for users to</text>
+<text top="931" left="82" width="346" height="15" font="0">modify as necessary. This allows the full flexibility</text>
+<text top="949" left="82" width="346" height="15" font="0">of BUGS model specification to be exploited, with</text>
+<text top="967" left="82" width="346" height="15" font="0">much of the initial “grunt work” being taken care of</text>
+<text top="985" left="82" width="107" height="15" font="0">by <b>glmmBUGS</b>.</text>
+<text top="1034" left="82" width="94" height="21" font="4"><b>Examples</b></text>
+<text top="1074" left="82" width="232" height="17" font="6"><b>Independent random effects</b></text>
+<text top="1106" left="82" width="344" height="15" font="0">Consider the bacteria data from the <b>MASS </b>package:</text>
+<text top="1141" left="82" width="103" height="10" font="7">&gt; library(MASS)</text>
+<text top="1157" left="82" width="110" height="10" font="7">&gt; data(bacteria)</text>
+<text top="1174" left="82" width="110" height="10" font="7">&gt; head(bacteria)</text>
+<text top="220" left="473" width="96" height="10" font="7">y ap hilo week</text>
+<text top="220" left="582" width="14" height="10" font="7">ID</text>
+<text top="220" left="630" width="21" height="10" font="7">trt</text>
+<text top="236" left="459" width="21" height="10" font="7">1 y</text>
+<text top="236" left="493" width="7" height="10" font="7">p</text>
+<text top="236" left="521" width="14" height="10" font="7">hi</text>
+<text top="236" left="562" width="89" height="10" font="7">0 X01 placebo</text>
+<text top="253" left="459" width="21" height="10" font="7">2 y</text>
+<text top="253" left="493" width="7" height="10" font="7">p</text>
+<text top="253" left="521" width="14" height="10" font="7">hi</text>
+<text top="253" left="562" width="89" height="10" font="7">2 X01 placebo</text>
+<text top="269" left="459" width="21" height="10" font="7">3 y</text>
+<text top="269" left="493" width="7" height="10" font="7">p</text>
+<text top="269" left="521" width="14" height="10" font="7">hi</text>
+<text top="269" left="562" width="89" height="10" font="7">4 X01 placebo</text>
+<text top="286" left="459" width="21" height="10" font="7">4 y</text>
+<text top="286" left="493" width="7" height="10" font="7">p</text>
+<text top="286" left="521" width="14" height="10" font="7">hi</text>
+<text top="286" left="555" width="96" height="10" font="7">11 X01 placebo</text>
+<text top="302" left="459" width="21" height="10" font="7">5 y</text>
+<text top="302" left="493" width="7" height="10" font="7">a</text>
+<text top="302" left="521" width="14" height="10" font="7">hi</text>
+<text top="302" left="562" width="34" height="10" font="7">0 X02</text>
+<text top="302" left="617" width="34" height="10" font="7">drug+</text>
+<text top="319" left="459" width="21" height="10" font="7">6 y</text>
+<text top="319" left="493" width="7" height="10" font="7">a</text>
+<text top="319" left="521" width="14" height="10" font="7">hi</text>
+<text top="319" left="562" width="34" height="10" font="7">2 X02</text>
+<text top="319" left="617" width="34" height="10" font="7">drug+</text>
+<text top="348" left="459" width="346" height="15" font="0">The variables to be considered are: y, the presence or</text>
+<text top="366" left="459" width="346" height="15" font="0">absence of bacteria in a sample coded as &#34;y&#34; and &#34;n&#34;</text>
+<text top="384" left="459" width="346" height="15" font="0">respectively; week, the time of the observation; ID, the</text>
+<text top="402" left="459" width="346" height="15" font="0">subject identifier; and trt giving the treatment group</text>
+<text top="420" left="459" width="222" height="15" font="0">as &#34;placebo&#34;, &#34;drug&#34;, or &#34;drug+&#34;.</text>
+<text top="438" left="481" width="324" height="15" font="0">A generalized linear mixed model is applied to</text>
+<text top="456" left="459" width="91" height="15" font="0">the data with:</text>
+<text top="487" left="590" width="10" height="15" font="0">Y</text>
+<text top="493" left="599" width="7" height="11" font="1">ij</text>
+<text top="486" left="611" width="12" height="15" font="8">∼</text>
+<text top="487" left="626" width="61" height="15" font="0">Bernoulli</text>
+<text top="487" left="687" width="6" height="14" font="8">(</text>
+<text top="487" left="695" width="7" height="15" font="0">p</text>
+<text top="493" left="702" width="7" height="11" font="1">ij</text>
+<text top="487" left="711" width="6" height="14" font="8">)</text>
+<text top="512" left="547" width="30" height="15" font="0">logit</text>
+<text top="512" left="578" width="6" height="14" font="8">(</text>
+<text top="512" left="585" width="7" height="15" font="0">p</text>
+<text top="517" left="593" width="7" height="11" font="1">ij</text>
+<text top="512" left="601" width="22" height="14" font="8">) =</text>
+<text top="516" left="626" width="9" height="11" font="9"><i>µ</i></text>
+<text top="512" left="638" width="12" height="14" font="8">+</text>
+<text top="512" left="654" width="7" height="15" font="0">x</text>
+<text top="517" left="662" width="7" height="11" font="1">ij</text>
+<text top="516" left="670" width="8" height="11" font="9"><i>β</i></text>
+<text top="512" left="682" width="12" height="14" font="8">+</text>
+<text top="512" left="697" width="11" height="15" font="0">V</text>
+<text top="517" left="706" width="3" height="11" font="1">i</text>
+<text top="538" left="594" width="11" height="15" font="0">V</text>
+<text top="543" left="603" width="3" height="11" font="1">i</text>
+<text top="537" left="611" width="12" height="15" font="8">∼</text>
+<text top="538" left="626" width="33" height="15" font="0">iid N</text>
+<text top="538" left="659" width="6" height="14" font="8">(</text>
+<text top="538" left="666" width="21" height="15" font="0">0, <i>σ</i></text>
+<text top="534" left="687" width="6" height="11" font="1">2</text>
+<text top="538" left="694" width="6" height="14" font="8">)</text>
+<text top="538" left="788" width="17" height="15" font="0">(1)</text>
+<text top="570" left="459" width="59" height="15" font="0">where: Y</text>
+<text top="575" left="517" width="7" height="11" font="1">ij</text>
+<text top="570" left="528" width="277" height="15" font="0">indicates the presence or absence of bacte-</text>
+<text top="588" left="459" width="276" height="15" font="0">ria of the ith person at week j; covariates x</text>
+<text top="593" left="735" width="7" height="11" font="1">ij</text>
+<text top="588" left="747" width="59" height="15" font="0">are week</text>
+<text top="606" left="459" width="259" height="15" font="0">and indicator variables for treatment; p</text>
+<text top="611" left="718" width="7" height="11" font="1">ij</text>
+<text top="606" left="729" width="76" height="15" font="0">denotes the</text>
+<text top="624" left="459" width="227" height="15" font="0">probability of bacteria presence; V</text>
+<text top="629" left="684" width="3" height="11" font="1">i</text>
+<text top="624" left="692" width="113" height="15" font="0">is the random ef-</text>
+<text top="642" left="459" width="346" height="15" font="0">fect for the ith patient, assumed to be normal with</text>
+<text top="660" left="459" width="154" height="15" font="0">mean 0 and variance <i>σ</i></text>
+<text top="657" left="614" width="6" height="11" font="1">2</text>
+<text top="660" left="620" width="185" height="15" font="0">. To improve the mixing of</text>
+<text top="677" left="459" width="346" height="15" font="0">the Markov chain, a reparametrized model is fitted</text>
+<text top="695" left="459" width="34" height="15" font="0">with:</text>
+<text top="727" left="587" width="10" height="15" font="0">Y</text>
+<text top="733" left="596" width="7" height="11" font="1">ij</text>
+<text top="726" left="607" width="12" height="15" font="8">∼</text>
+<text top="727" left="623" width="61" height="15" font="0">Bernoulli</text>
+<text top="727" left="684" width="6" height="14" font="8">(</text>
+<text top="727" left="691" width="7" height="15" font="0">p</text>
+<text top="733" left="699" width="7" height="11" font="1">ij</text>
+<text top="727" left="707" width="6" height="14" font="8">)</text>
+<text top="752" left="544" width="30" height="15" font="0">logit</text>
+<text top="752" left="574" width="6" height="14" font="8">(</text>
+<text top="752" left="581" width="7" height="15" font="0">p</text>
+<text top="757" left="589" width="7" height="11" font="1">ij</text>
+<text top="752" left="597" width="22" height="14" font="8">) =</text>
+<text top="752" left="623" width="10" height="15" font="0">R</text>
+<text top="757" left="633" width="3" height="11" font="1">i</text>
+<text top="752" left="641" width="12" height="14" font="8">+</text>
+<text top="752" left="656" width="11" height="15" font="0">w</text>
+<text top="757" left="667" width="7" height="11" font="1">ij</text>
+<text top="755" left="675" width="9" height="11" font="9"><i>γ</i></text>
+<text top="778" left="589" width="10" height="15" font="0">R</text>
+<text top="783" left="599" width="3" height="11" font="1">i</text>
+<text top="777" left="607" width="12" height="15" font="8">∼</text>
+<text top="778" left="623" width="12" height="15" font="0">N</text>
+<text top="778" left="635" width="6" height="14" font="8">(</text>
+<text top="781" left="642" width="9" height="11" font="9"><i>µ</i></text>
+<text top="778" left="654" width="12" height="14" font="8">+</text>
+<text top="778" left="669" width="7" height="15" font="0">g</text>
+<text top="783" left="677" width="3" height="11" font="1">i</text>
+<text top="781" left="681" width="8" height="11" font="9"><i>α</i></text>
+<text top="778" left="689" width="14" height="15" font="0">, <i>σ</i></text>
+<text top="774" left="704" width="6" height="11" font="1">2</text>
+<text top="778" left="710" width="6" height="14" font="8">)</text>
+<text top="778" left="716" width="4" height="15" font="0">.</text>
+<text top="778" left="788" width="17" height="15" font="0">(2)</text>
+<text top="810" left="459" width="43" height="15" font="0">Here g</text>
+<text top="815" left="502" width="3" height="11" font="1">i</text>
+<text top="810" left="510" width="296" height="15" font="0">is the (indicator variable for) treatment group</text>
+<text top="827" left="459" width="129" height="15" font="0">for subject i and w</text>
+<text top="833" left="588" width="7" height="11" font="1">ij</text>
+<text top="827" left="601" width="204" height="15" font="0">is the week that observation j</text>
+<text top="845" left="459" width="346" height="15" font="0">was taken. Note that the two models are the same,</text>
+<text top="863" left="459" width="46" height="15" font="0">with V</text>
+<text top="869" left="503" width="3" height="11" font="1">i</text>
+<text top="863" left="511" width="12" height="14" font="8">=</text>
+<text top="863" left="527" width="10" height="15" font="0">R</text>
+<text top="869" left="538" width="3" height="11" font="1">i</text>
+<text top="862" left="545" width="12" height="15" font="8">−</text>
+<text top="867" left="561" width="9" height="11" font="9"><i>µ</i></text>
+<text top="862" left="573" width="12" height="15" font="8">−</text>
+<text top="863" left="589" width="7" height="15" font="0">g</text>
+<text top="869" left="597" width="3" height="11" font="1">i</text>
+<text top="867" left="601" width="8" height="11" font="9"><i>α</i></text>
+<text top="863" left="609" width="17" height="15" font="0">, <i>β</i></text>
+<text top="863" left="630" width="22" height="14" font="8">= (</text>
+<text top="867" left="653" width="9" height="11" font="9"><i>γ</i></text>
+<text top="863" left="662" width="13" height="15" font="0">, <i>α</i></text>
+<text top="863" left="676" width="6" height="14" font="8">)</text>
+<text top="863" left="686" width="38" height="15" font="0">and x</text>
+<text top="869" left="724" width="7" height="11" font="1">ij</text>
+<text top="863" left="736" width="22" height="14" font="8">= (</text>
+<text top="863" left="759" width="11" height="15" font="0">w</text>
+<text top="869" left="770" width="7" height="11" font="1">ij</text>
+<text top="863" left="778" width="13" height="15" font="0">, g</text>
+<text top="869" left="791" width="3" height="11" font="1">i</text>
+<text top="863" left="795" width="6" height="14" font="8">)</text>
+<text top="863" left="802" width="4" height="15" font="0">.</text>
+<text top="881" left="459" width="95" height="15" font="0">The model in <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">(</a></text>
+<text top="881" left="554" width="7" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">1</a></text>
+<text top="881" left="562" width="244" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">) </a>has strong negative dependence be-</text>
+<text top="899" left="459" width="219" height="15" font="0">tween the posterior samples of V</text>
+<text top="905" left="677" width="3" height="11" font="1">i</text>
+<text top="899" left="685" width="116" height="15" font="0">and <i>µ</i>, whereas R</text>
+<text top="905" left="801" width="3" height="11" font="1">i</text>
+<text top="917" left="459" width="64" height="15" font="0">and <i>µ </i>in <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">(</a></text>
+<text top="917" left="522" width="7" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">2</a></text>
+<text top="917" left="530" width="170" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">) </a>are largely independent.</text>
+<text top="935" left="481" width="324" height="15" font="0">As BUGS only allows numeric data, and cannot</text>
+<text top="953" left="459" width="346" height="15" font="0">have the ’+’ sign in variable names, the data are re-</text>
+<text top="971" left="459" width="114" height="15" font="0">coded as follows:</text>
+<text top="1001" left="459" width="171" height="10" font="7">&gt; bacterianew &lt;- bacteria</text>
+<text top="1017" left="459" width="329" height="10" font="7">&gt; bacterianew$yInt = as.integer(bacterianew$y ==</text>
+<text top="1034" left="459" width="7" height="10" font="7">+</text>
+<text top="1034" left="500" width="27" height="10" font="7">&#34;y&#34;)</text>
+<text top="1050" left="459" width="281" height="10" font="7">&gt; levels(bacterianew$trt) &lt;- c(&#34;placebo&#34;,</text>
+<text top="1067" left="459" width="7" height="10" font="7">+</text>
+<text top="1067" left="500" width="130" height="10" font="7">&#34;drug&#34;, &#34;drugplus&#34;)</text>
+<text top="1093" left="481" width="324" height="15" font="0">The primary function in the package is glmmBUGS,</text>
+<text top="1111" left="459" width="346" height="15" font="0">which does the preparatory work for fitting the</text>
+<text top="1129" left="459" width="67" height="15" font="0">model in <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">(</a></text>
+<text top="1129" left="526" width="7" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">2</a></text>
+<text top="1129" left="534" width="43" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">) </a>with:</text>
+<text top="1159" left="459" width="130" height="10" font="7">&gt; library(glmmBUGS)</text>
+<text top="1175" left="459" width="254" height="10" font="7">&gt; bacrag &lt;- glmmBUGS(formula = yInt ~</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 2/1, June 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="11" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">14</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="7" height="10" font="7">+</text>
+<text top="127" left="124" width="213" height="10" font="7">trt + week, data = bacterianew,</text>
+<text top="144" left="82" width="7" height="10" font="7">+</text>
+<text top="144" left="124" width="274" height="10" font="7">effects = &#34;ID&#34;, modelFile = &#34;model.bug&#34;,</text>
+<text top="160" left="82" width="7" height="10" font="7">+</text>
+<text top="160" left="124" width="144" height="10" font="7">family = &#34;bernoulli&#34;)</text>
+<text top="188" left="82" width="346" height="15" font="0">This specifies yInt as a Bernoulli-valued response,</text>
+<text top="207" left="82" width="23" height="12" font="0">trt</text>
+<text top="206" left="110" width="319" height="15" font="0">and week as fixed-effect covariates, and the &#34;ID&#34;</text>
+<text top="223" left="82" width="346" height="15" font="0">column for the random effects. The result is a list</text>
+<text top="241" left="82" width="134" height="15" font="0">with three elements:</text>
+<text top="272" left="82" width="46" height="12" font="0">ragged</text>
+<text top="271" left="136" width="293" height="15" font="0">is a list containing the data to be passed to</text>
+<text top="289" left="120" width="71" height="15" font="0">WinBUGS;</text>
+<text top="320" left="82" width="23" height="12" font="0">pql</text>
+<text top="319" left="113" width="316" height="15" font="0">is the result from fitting the model with the</text>
+<text top="338" left="120" width="53" height="12" font="0">glmmPQL</text>
+<text top="337" left="177" width="183" height="15" font="0">function in <b>MASS </b>package.</text>
+<text top="368" left="82" width="107" height="12" font="0">startingValues</text>
+<text top="366" left="197" width="232" height="15" font="0">is a list of starting values for the pa-</text>
+<text top="384" left="120" width="309" height="15" font="0">rameters and random effects, which is obtained</text>
+<text top="402" left="120" width="158" height="15" font="0">from the glmmPQL result.</text>
+<text top="432" left="82" width="346" height="15" font="0">In addition, two files are written to the working di-</text>
+<text top="450" left="82" width="47" height="15" font="0">rectory</text>
+<text top="480" left="82" width="4" height="15" font="3"><b>‘</b></text>
+<text top="481" left="87" width="63" height="12" font="7">model.bug</text>
+<text top="480" left="149" width="161" height="15" font="0">’ is the BUGS model file</text>
+<text top="509" left="82" width="4" height="15" font="3"><b>‘</b></text>
+<text top="510" left="87" width="57" height="12" font="7">getInits.R</text>
+<text top="509" left="143" width="286" height="15" font="0">’ contains the R code for a function to gen-</text>
+<text top="527" left="120" width="194" height="15" font="0">erate random starting values.</text>
+<text top="557" left="105" width="324" height="15" font="0">To accommodate unbalanced designs, the data</text>
+<text top="575" left="82" width="346" height="15" font="0">are stored as ragged arrays, as described in the sec-</text>
+<text top="593" left="82" width="346" height="15" font="0">tion “Handling unbalanced datasets” of the Win-</text>
+<text top="611" left="82" width="102" height="15" font="0">BUGS manual <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">(</a></text>
+<text top="611" left="184" width="158" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">Spiegelhalter et al., 2004</a></text>
+<text top="611" left="342" width="87" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">). </a>The ragged</text>
+<text top="629" left="82" width="346" height="15" font="0">result has a vector element &#34;SID&#34; indicating the start-</text>
+<text top="647" left="82" width="346" height="15" font="0">ing position of each individual’s observations in the</text>
+<text top="665" left="82" width="346" height="15" font="0">dataset. The covariates are split into elements &#34;XID&#34;</text>
+<text top="682" left="82" width="346" height="15" font="0">and &#34;Xobservations&#34; for the individual-level and</text>
+<text top="700" left="82" width="272" height="15" font="0">observation-level covariates respectively:</text>
+<text top="731" left="82" width="151" height="10" font="7">&gt; names(bacrag$ragged)</text>
+<text top="762" left="82" width="62" height="10" font="7">[1] &#34;NID&#34;</text>
+<text top="762" left="220" width="34" height="10" font="7">&#34;SID&#34;</text>
+<text top="778" left="82" width="69" height="10" font="7">[3] &#34;yInt&#34;</text>
+<text top="778" left="220" width="34" height="10" font="7">&#34;XID&#34;</text>
+<text top="795" left="82" width="130" height="10" font="7">[5] &#34;Xobservations&#34;</text>
+<text top="825" left="82" width="346" height="15" font="0">The model file consists of an outer loop over ID levels</text>
+<text top="843" left="82" width="346" height="15" font="0">and an inner loop over observations. The details of</text>
+<text top="861" left="82" width="346" height="15" font="0">how the model is implemented are best understood</text>
+<text top="879" left="82" width="125" height="15" font="0">by examining the ‘</text>
+<text top="880" left="208" width="63" height="12" font="7">model.bug</text>
+<text top="879" left="270" width="159" height="15" font="0">’ file and consulting the</text>
+<text top="897" left="82" width="125" height="15" font="0">WinBUGS manual.</text>
+<text top="915" left="105" width="324" height="15" font="0">At this stage the user is expected to modify</text>
+<text top="933" left="82" width="346" height="15" font="0">the files and, if necessary, the data to refine the</text>
+<text top="951" left="82" width="346" height="15" font="0">model, set appropriate priors, and ensure suitabil-</text>
+<text top="969" left="82" width="346" height="15" font="0">ity of starting values. Before using the bugs func-</text>
+<text top="987" left="82" width="346" height="15" font="0">tion in the <b>R2WinBUGS </b>package to sample from the</text>
+<text top="1004" left="82" width="346" height="15" font="0">posterior, the starting value function getInits must</text>
+<text top="1022" left="82" width="198" height="15" font="0">be prepared. First, the file ‘</text>
+<text top="1023" left="281" width="57" height="12" font="7">getInits.R</text>
+<text top="1022" left="337" width="92" height="15" font="0">’ (which con-</text>
+<text top="1040" left="82" width="346" height="15" font="0">tains the source for getInits) should be edited and</text>
+<text top="1058" left="82" width="346" height="15" font="0">sourced into R. Next, the list containing the PQL-</text>
+<text top="1076" left="82" width="346" height="15" font="0">derived starting values must be assigned the name</text>
+<text top="1095" left="82" width="107" height="12" font="0">startingValues</text>
+<text top="1094" left="189" width="240" height="15" font="0">, as getInits will be accessing this</text>
+<text top="1112" left="82" width="171" height="15" font="0">object every time it is run.</text>
+<text top="1142" left="82" width="151" height="10" font="7">&gt; source(&#34;getInits.R&#34;)</text>
+<text top="1159" left="82" width="274" height="10" font="7">&gt; startingValues = bacrag$startingValues</text>
+<text top="1175" left="82" width="137" height="10" font="7">&gt; library(R2WinBUGS)</text>
+<text top="127" left="459" width="295" height="10" font="7">&gt; bacResult = bugs(bacrag$ragged, getInits,</text>
+<text top="144" left="459" width="7" height="10" font="7">+</text>
+<text top="144" left="500" width="261" height="10" font="7">model.file = &#34;model.bug&#34;, n.chain = 3,</text>
+<text top="160" left="459" width="7" height="10" font="7">+</text>
+<text top="160" left="500" width="206" height="10" font="7">n.iter = 2000, n.burnin = 100,</text>
+<text top="177" left="459" width="7" height="10" font="7">+</text>
+<text top="177" left="500" width="268" height="10" font="7">parameters.to.save = names(getInits()),</text>
+<text top="193" left="459" width="7" height="10" font="7">+</text>
+<text top="193" left="500" width="82" height="10" font="7">n.thin = 10)</text>
+<text top="232" left="459" width="218" height="17" font="6"><b>Post WinBUGS commands</b></text>
+<text top="262" left="459" width="346" height="15" font="0">After running WinBUGS, a series of functions in the</text>
+<text top="280" left="459" width="83" height="15" font="3"><b>glmmBUGS</b></text>
+<text top="280" left="546" width="260" height="15" font="0">package can be used to manipulate and</text>
+<text top="298" left="459" width="199" height="15" font="0">check the simulation results.</text>
+<text top="298" left="674" width="132" height="15" font="0">The restoreParams</text>
+<text top="316" left="459" width="346" height="15" font="0">function is used to restore the original parametriza-</text>
+<text top="334" left="459" width="75" height="15" font="0">tion from <a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">(</a></text>
+<text top="334" left="534" width="7" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">1</a></text>
+<text top="334" left="542" width="264" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#1">) </a>and assign the original names to the</text>
+<text top="352" left="459" width="182" height="15" font="0">group or subject identifiers.</text>
+<text top="381" left="459" width="261" height="10" font="7">&gt; bacParams = restoreParams(bacResult,</text>
+<text top="397" left="459" width="7" height="10" font="7">+</text>
+<text top="397" left="500" width="96" height="10" font="7">bacrag$ragged)</text>
+<text top="413" left="459" width="123" height="10" font="7">&gt; names(bacParams)</text>
+<text top="442" left="459" width="151" height="10" font="7">[1] &#34;intercept&#34; &#34;SDID&#34;</text>
+<text top="442" left="651" width="69" height="10" font="7">&#34;deviance&#34;</text>
+<text top="459" left="459" width="62" height="10" font="7">[4] &#34;RID&#34;</text>
+<text top="459" left="569" width="48" height="10" font="7">&#34;betas&#34;</text>
+<text top="486" left="459" width="346" height="15" font="0">The result is a set of posterior samples for <i>µ</i></text>
+<text top="504" left="459" width="204" height="15" font="0">(intercept), <i>σ </i>(SDID), all the V</text>
+<text top="510" left="662" width="3" height="11" font="1">i</text>
+<text top="504" left="670" width="135" height="15" font="0">(RID), and <i>β </i>(betas).</text>
+<text top="522" left="459" width="346" height="15" font="0">Posterior means and credible intervals are obtained</text>
+<text top="540" left="459" width="213" height="15" font="0">with the summaryChain function.</text>
+<text top="571" left="459" width="261" height="10" font="7">&gt; bacsummary = summaryChain(bacParams)</text>
+<text top="588" left="459" width="130" height="10" font="7">&gt; names(bacsummary)</text>
+<text top="616" left="459" width="130" height="10" font="7">[1] &#34;scalars&#34; &#34;RID&#34;</text>
+<text top="616" left="623" width="48" height="10" font="7">&#34;betas&#34;</text>
+<text top="645" left="459" width="254" height="10" font="7">&gt; signif(bacsummary$betas[, c(&#34;mean&#34;,</text>
+<text top="661" left="459" width="7" height="10" font="7">+</text>
+<text top="661" left="500" width="144" height="10" font="7">&#34;2.5%&#34;, &#34;97.5%&#34;)], 3)</text>
+<text top="690" left="562" width="27" height="10" font="7">mean</text>
+<text top="690" left="610" width="27" height="10" font="7">2.5%</text>
+<text top="690" left="658" width="34" height="10" font="7">97.5%</text>
+<text top="706" left="459" width="233" height="10" font="7">observations -0.159 -0.263 -0.0614</text>
+<text top="723" left="459" width="48" height="10" font="7">trtdrug</text>
+<text top="723" left="548" width="89" height="10" font="7">-1.500 -3.240</text>
+<text top="723" left="651" width="41" height="10" font="7">0.0164</text>
+<text top="739" left="459" width="75" height="10" font="7">trtdrugplus</text>
+<text top="739" left="548" width="89" height="10" font="7">-0.920 -2.740</text>
+<text top="739" left="651" width="41" height="10" font="7">0.6060</text>
+<text top="768" left="459" width="274" height="10" font="7">&gt; bacsummary$scalars[, c(&#34;mean&#34;, &#34;2.5%&#34;,</text>
+<text top="784" left="459" width="7" height="10" font="7">+</text>
+<text top="784" left="500" width="62" height="10" font="7">&#34;97.5%&#34;)]</text>
+<text top="813" left="555" width="27" height="10" font="7">mean</text>
+<text top="813" left="617" width="27" height="10" font="7">2.5%</text>
+<text top="813" left="671" width="34" height="10" font="7">97.5%</text>
+<text top="830" left="459" width="247" height="10" font="7">intercept 3.547556 2.243375 5.219125</text>
+<text top="846" left="459" width="27" height="10" font="7">SDID</text>
+<text top="846" left="527" width="178" height="10" font="7">1.597761 0.737010 2.716975</text>
+<text top="874" left="481" width="324" height="15" font="0">In order to check the convergence of the simu-</text>
+<text top="892" left="459" width="346" height="15" font="0">lations, we use the checkChain function to produce</text>
+<text top="910" left="459" width="295" height="15" font="0">trace plots of the intercept and <i>σ </i>parameters.</text>
+<text top="938" left="459" width="261" height="10" font="7">&gt; checkChain(bacParams, c(&#34;intercept&#34;,</text>
+<text top="955" left="459" width="7" height="10" font="7">+</text>
+<text top="955" left="500" width="55" height="10" font="7">&#34;SDID&#34;))</text>
+<text top="1163" left="488" width="6" height="11" font="10">0</text>
+<text top="1163" left="520" width="13" height="11" font="10">50</text>
+<text top="1163" left="553" width="19" height="11" font="10">100</text>
+<text top="1163" left="589" width="19" height="11" font="10">150</text>
+<text top="1136" left="480" width="0" height="11" font="11">2</text>
+<text top="1107" left="480" width="0" height="11" font="11">3</text>
+<text top="1078" left="480" width="0" height="11" font="11">4</text>
+<text top="1049" left="480" width="0" height="11" font="11">5</text>
+<text top="1020" left="480" width="0" height="11" font="11">6</text>
+<text top="991" left="480" width="0" height="11" font="11">7</text>
+<text top="978" left="531" width="57" height="12" font="12"><b>intercept</b></text>
+<text top="1074" left="470" width="0" height="11" font="11">mat</text>
+<text top="1163" left="661" width="6" height="11" font="10">0</text>
+<text top="1163" left="694" width="13" height="11" font="10">50</text>
+<text top="1163" left="726" width="19" height="11" font="10">100</text>
+<text top="1163" left="762" width="19" height="11" font="10">150</text>
+<text top="1144" left="653" width="0" height="11" font="11">0.5</text>
+<text top="1099" left="653" width="0" height="11" font="11">1.5</text>
+<text top="1055" left="653" width="0" height="11" font="11">2.5</text>
+<text top="1010" left="653" width="0" height="11" font="11">3.5</text>
+<text top="978" left="716" width="32" height="12" font="12"><b>SDID</b></text>
+<text top="1074" left="643" width="0" height="11" font="11">mat</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 2/1, June 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">15</text>
+<text top="123" left="82" width="146" height="17" font="6"><b>A spatial example</b></text>
+<text top="153" left="82" width="346" height="15" font="0">The ontario dataset contains expected and observed</text>
+<text top="171" left="82" width="346" height="15" font="0">cases of molar cancer by census sub-division in On-</text>
+<text top="189" left="82" width="93" height="15" font="0">tario, Canada.</text>
+<text top="219" left="82" width="103" height="10" font="7">&gt; data(ontario)</text>
+<text top="236" left="82" width="103" height="10" font="7">&gt; head(ontario)</text>
+<text top="266" left="144" width="185" height="10" font="7">CSDUID observed logExpected</text>
+<text top="283" left="82" width="103" height="10" font="7">3501005 3501005</text>
+<text top="283" left="233" width="14" height="10" font="7">61</text>
+<text top="283" left="275" width="55" height="10" font="7">2.118865</text>
+<text top="299" left="82" width="103" height="10" font="7">3501011 3501011</text>
+<text top="299" left="233" width="14" height="10" font="7">50</text>
+<text top="299" left="275" width="55" height="10" font="7">1.971265</text>
+<text top="316" left="82" width="103" height="10" font="7">3501012 3501012</text>
+<text top="316" left="227" width="21" height="10" font="7">117</text>
+<text top="316" left="275" width="55" height="10" font="7">3.396444</text>
+<text top="332" left="82" width="103" height="10" font="7">3501020 3501020</text>
+<text top="332" left="233" width="14" height="10" font="7">65</text>
+<text top="332" left="275" width="55" height="10" font="7">1.919814</text>
+<text top="349" left="82" width="103" height="10" font="7">3501030 3501030</text>
+<text top="349" left="233" width="14" height="10" font="7">37</text>
+<text top="349" left="275" width="55" height="10" font="7">1.779957</text>
+<text top="365" left="82" width="103" height="10" font="7">3501042 3501042</text>
+<text top="365" left="233" width="14" height="10" font="7">16</text>
+<text top="365" left="275" width="55" height="10" font="7">1.182329</text>
+<text top="395" left="105" width="226" height="15" font="0">Consider the following model (see</text>
+<text top="395" left="334" width="95" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">Rue and Held,</a></text>
+<text top="413" left="82" width="30" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">2005</a></text>
+<text top="413" left="112" width="9" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">):</a></text>
+<text top="445" left="211" width="10" height="15" font="0">Y</text>
+<text top="450" left="220" width="3" height="11" font="1">i</text>
+<text top="444" left="228" width="12" height="15" font="8">∼</text>
+<text top="445" left="243" width="51" height="15" font="0">Poisson</text>
+<text top="445" left="295" width="6" height="14" font="8">(</text>
+<text top="449" left="301" width="9" height="11" font="9"><i>λ</i></text>
+<text top="450" left="310" width="3" height="11" font="1">i</text>
+<text top="445" left="315" width="9" height="15" font="0">E</text>
+<text top="450" left="324" width="3" height="11" font="1">i</text>
+<text top="445" left="328" width="6" height="14" font="8">)</text>
+<text top="467" left="177" width="21" height="15" font="0">log</text>
+<text top="467" left="198" width="6" height="14" font="8">(</text>
+<text top="471" left="204" width="9" height="11" font="9"><i>λ</i></text>
+<text top="473" left="214" width="3" height="11" font="1">i</text>
+<text top="467" left="218" width="22" height="14" font="8">) =</text>
+<text top="471" left="244" width="9" height="11" font="9"><i>µ</i></text>
+<text top="467" left="256" width="12" height="14" font="8">+</text>
+<text top="467" left="271" width="12" height="15" font="0">U</text>
+<text top="473" left="282" width="3" height="11" font="1">i</text>
+<text top="467" left="289" width="12" height="14" font="8">+</text>
+<text top="467" left="305" width="11" height="15" font="0">V</text>
+<text top="473" left="314" width="3" height="11" font="1">i</text>
+<text top="493" left="209" width="12" height="15" font="0">U</text>
+<text top="498" left="220" width="3" height="11" font="1">i</text>
+<text top="492" left="228" width="12" height="15" font="8">∼</text>
+<text top="493" left="243" width="44" height="15" font="0">GMRF</text>
+<text top="493" left="287" width="6" height="14" font="8">(</text>
+<text top="496" left="294" width="8" height="11" font="9"><i>σ</i></text>
+<text top="489" left="302" width="6" height="11" font="1">2</text>
+<text top="499" left="301" width="9" height="11" font="1">U</text>
+<text top="493" left="312" width="6" height="14" font="8">)</text>
+<text top="518" left="211" width="11" height="15" font="0">V</text>
+<text top="523" left="220" width="3" height="11" font="1">i</text>
+<text top="517" left="228" width="12" height="15" font="8">∼</text>
+<text top="518" left="243" width="34" height="15" font="0">iid N</text>
+<text top="518" left="278" width="6" height="14" font="8">(</text>
+<text top="518" left="284" width="21" height="15" font="0">0, <i>σ</i></text>
+<text top="514" left="306" width="6" height="11" font="1">2</text>
+<text top="525" left="304" width="8" height="11" font="1">V</text>
+<text top="518" left="314" width="6" height="14" font="8">)</text>
+<text top="518" left="412" width="17" height="15" font="0">(3)</text>
+<text top="550" left="82" width="55" height="15" font="0">where Y</text>
+<text top="556" left="136" width="3" height="11" font="1">i</text>
+<text top="550" left="144" width="38" height="15" font="0">and E</text>
+<text top="556" left="182" width="3" height="11" font="1">i</text>
+<text top="550" left="190" width="239" height="15" font="0">are the observed and expected num-</text>
+<text top="568" left="82" width="271" height="15" font="0">ber of cancer cases in census division i; <i>λ</i></text>
+<text top="573" left="354" width="3" height="11" font="1">i</text>
+<text top="568" left="362" width="67" height="15" font="0">is the can-</text>
+<text top="586" left="82" width="162" height="15" font="0">cer incidence rate; the U</text>
+<text top="591" left="245" width="3" height="11" font="1">i</text>
+<text top="586" left="253" width="176" height="15" font="0">are spatial random effects,</text>
+<text top="604" left="82" width="334" height="15" font="0">a Gaussian Markov random field with variance <i>σ</i></text>
+<text top="601" left="416" width="6" height="11" font="1">2</text>
+<text top="611" left="415" width="9" height="11" font="1">U</text>
+<text top="604" left="425" width="4" height="15" font="0">;</text>
+<text top="622" left="82" width="39" height="15" font="0">and V</text>
+<text top="627" left="120" width="3" height="11" font="1">i</text>
+<text top="622" left="128" width="301" height="15" font="0">are spatially independent random effects with</text>
+<text top="640" left="82" width="68" height="15" font="0">variance <i>σ</i></text>
+<text top="637" left="151" width="6" height="11" font="1">2</text>
+<text top="647" left="150" width="8" height="11" font="1">V</text>
+<text top="640" left="160" width="4" height="15" font="0">.</text>
+<text top="658" left="105" width="242" height="15" font="0">This model is reparametrised with R</text>
+<text top="663" left="347" width="3" height="11" font="1">i</text>
+<text top="658" left="355" width="12" height="14" font="8">=</text>
+<text top="658" left="370" width="12" height="15" font="0">U</text>
+<text top="663" left="382" width="3" height="11" font="1">i</text>
+<text top="658" left="389" width="12" height="14" font="8">+</text>
+<text top="661" left="405" width="9" height="11" font="9"><i>µ</i></text>
+<text top="658" left="417" width="12" height="14" font="8">+</text>
+<text top="676" left="83" width="11" height="15" font="0">V</text>
+<text top="681" left="92" width="3" height="11" font="1">i</text>
+<text top="676" left="100" width="83" height="15" font="0">in place of V</text>
+<text top="681" left="182" width="3" height="11" font="1">i</text>
+<text top="676" left="186" width="243" height="15" font="0">. An adjacency matrix is required for</text>
+<text top="694" left="82" width="346" height="15" font="0">the spatial random effect. This was computed from</text>
+<text top="712" left="82" width="346" height="15" font="0">the spatial boundary files with the poly2nb function</text>
+<text top="729" left="82" width="346" height="15" font="0">from the <b>spdep </b>package and is stored as the ob-</text>
+<text top="747" left="82" width="346" height="15" font="0">ject popDataAdjMat. The model can be fitted with</text>
+<text top="767" left="82" width="61" height="12" font="0">glmmBUGS</text>
+<text top="765" left="147" width="70" height="15" font="0">as follows:</text>
+<text top="795" left="82" width="144" height="10" font="7">&gt; data(popDataAdjMat)</text>
+<text top="812" left="82" width="281" height="10" font="7">&gt; forBugs = glmmBUGS(formula = observed +</text>
+<text top="828" left="82" width="7" height="10" font="7">+</text>
+<text top="828" left="124" width="281" height="10" font="7">logExpected ~ 1, spatial = popDataAdjMat,</text>
+<text top="845" left="82" width="7" height="10" font="7">+</text>
+<text top="845" left="124" width="268" height="10" font="7">effects = &#34;CSDUID&#34;, family = &#34;poisson&#34;,</text>
+<text top="861" left="82" width="7" height="10" font="7">+</text>
+<text top="861" left="124" width="103" height="10" font="7">data = ontario)</text>
+<text top="888" left="105" width="324" height="15" font="0">Note that the expected counts are needed on the</text>
+<text top="906" left="82" width="346" height="15" font="0">log scale, and are passed as a second argument on the</text>
+<text top="924" left="82" width="346" height="15" font="0">left side of the model equation to denote their being</text>
+<text top="942" left="82" width="346" height="15" font="0">offset parameters without a coefficient. The random</text>
+<text top="960" left="82" width="346" height="15" font="0">effect is at the census sub-division level (CSDUID),</text>
+<text top="978" left="82" width="346" height="15" font="0">with popDataAdjMat giving the dependency struc-</text>
+<text top="996" left="82" width="342" height="15" font="0">ture. Posterior samples can be generated as follows:</text>
+<text top="1026" left="82" width="281" height="10" font="7">&gt; startingValues = forBugs$startingValues</text>
+<text top="1042" left="82" width="151" height="10" font="7">&gt; source(&#34;getInits.R&#34;)</text>
+<text top="1059" left="82" width="295" height="10" font="7">&gt; onResult = bugs(forBugs$ragged, getInits,</text>
+<text top="1075" left="82" width="7" height="10" font="7">+</text>
+<text top="1075" left="124" width="261" height="10" font="7">model.file = &#34;model.bug&#34;, n.chain = 3,</text>
+<text top="1092" left="82" width="7" height="10" font="7">+</text>
+<text top="1092" left="124" width="206" height="10" font="7">n.iter = 2000, n.burnin = 100,</text>
+<text top="1108" left="82" width="7" height="10" font="7">+</text>
+<text top="1108" left="124" width="268" height="10" font="7">parameters.to.save = names(getInits()),</text>
+<text top="1124" left="82" width="7" height="10" font="7">+</text>
+<text top="1124" left="124" width="82" height="10" font="7">n.thin = 10)</text>
+<text top="1141" left="82" width="281" height="10" font="7">&gt; ontarioParams = restoreParams(onResult,</text>
+<text top="1157" left="82" width="7" height="10" font="7">+</text>
+<text top="1157" left="124" width="103" height="10" font="7">forBugs$ragged)</text>
+<text top="1174" left="82" width="151" height="10" font="7">&gt; names(ontarioParams)</text>
+<text top="127" left="459" width="103" height="10" font="7">[1] &#34;intercept&#34;</text>
+<text top="127" left="617" width="69" height="10" font="7">&#34;SDCSDUID&#34;</text>
+<text top="144" left="459" width="144" height="10" font="7">[3] &#34;SDCSDUIDSpatial&#34;</text>
+<text top="144" left="617" width="69" height="10" font="7">&#34;deviance&#34;</text>
+<text top="160" left="459" width="89" height="10" font="7">[5] &#34;RCSDUID&#34;</text>
+<text top="160" left="617" width="110" height="10" font="7">&#34;RCSDUIDSpatial&#34;</text>
+<text top="177" left="459" width="151" height="10" font="7">[7] &#34;FittedRateCSDUID&#34;</text>
+<text top="218" left="481" width="324" height="15" font="0">There are posterior simulations for two vari-</text>
+<text top="236" left="459" width="139" height="15" font="0">ance parameters, <i>σ</i></text>
+<text top="241" left="597" width="9" height="11" font="1">U</text>
+<text top="236" left="618" width="179" height="15" font="0">(SDCSDUIDSPATIAL) and <i>σ</i></text>
+<text top="241" left="796" width="8" height="11" font="1">V</text>
+<text top="254" left="459" width="346" height="15" font="0">(SDCSDUID). Samples for the random effects are given</text>
+<text top="271" left="459" width="37" height="15" font="0">for U</text>
+<text top="277" left="495" width="3" height="11" font="1">i</text>
+<text top="271" left="505" width="139" height="15" font="0">(RCSDUIDSpatial), U</text>
+<text top="277" left="644" width="3" height="11" font="1">i</text>
+<text top="271" left="652" width="12" height="14" font="8">+</text>
+<text top="271" left="668" width="11" height="15" font="0">V</text>
+<text top="277" left="677" width="3" height="11" font="1">i</text>
+<text top="271" left="687" width="114" height="15" font="0">(RCSDUID), and <i>λ</i></text>
+<text top="277" left="801" width="3" height="11" font="1">i</text>
+<text top="289" left="459" width="346" height="15" font="0">(FittedRateCSDUID). Trace plots are shown below for</text>
+<text top="311" left="459" width="8" height="11" font="9"><i>σ</i></text>
+<text top="313" left="466" width="9" height="11" font="1">U</text>
+<text top="307" left="480" width="37" height="15" font="0">and <i>σ</i></text>
+<text top="313" left="516" width="8" height="11" font="1">V</text>
+<text top="307" left="526" width="279" height="15" font="0">, the standard deviations of the spatial and</text>
+<text top="325" left="459" width="180" height="15" font="0">non-spatial random effects.</text>
+<text top="369" left="459" width="329" height="10" font="7">&gt; checkChain(ontarioParams, c(&#34;SDCSDUIDSpatial&#34;,</text>
+<text top="386" left="459" width="7" height="10" font="7">+</text>
+<text top="386" left="500" width="82" height="10" font="7">&#34;SDCSDUID&#34;))</text>
+<text top="610" left="488" width="6" height="11" font="10">0</text>
+<text top="610" left="520" width="13" height="11" font="10">50</text>
+<text top="610" left="553" width="19" height="11" font="10">100</text>
+<text top="610" left="589" width="19" height="11" font="10">150</text>
+<text top="600" left="480" width="0" height="11" font="11">0.5</text>
+<text top="557" left="480" width="0" height="11" font="11">0.7</text>
+<text top="513" left="480" width="0" height="11" font="11">0.9</text>
+<text top="470" left="480" width="0" height="11" font="11">1.1</text>
+<text top="425" left="502" width="115" height="12" font="12"><b>SDCSDUIDSpatial</b></text>
+<text top="521" left="470" width="0" height="11" font="11">mat</text>
+<text top="610" left="661" width="6" height="11" font="10">0</text>
+<text top="610" left="694" width="13" height="11" font="10">50</text>
+<text top="610" left="726" width="19" height="11" font="10">100</text>
+<text top="610" left="762" width="19" height="11" font="10">150</text>
+<text top="592" left="653" width="0" height="11" font="11">0.70</text>
+<text top="549" left="653" width="0" height="11" font="11">0.80</text>
+<text top="506" left="653" width="0" height="11" font="11">0.90</text>
+<text top="463" left="653" width="0" height="11" font="11">1.00</text>
+<text top="425" left="697" width="70" height="12" font="12"><b>SDCSDUID</b></text>
+<text top="521" left="643" width="0" height="11" font="11">mat</text>
+<text top="638" left="459" width="346" height="15" font="0">These trace plots show poor mixing, and the Markov</text>
+<text top="656" left="459" width="346" height="15" font="0">chain should be re-run with longer chains and more</text>
+<text top="674" left="459" width="60" height="15" font="0">thinning.</text>
+<text top="694" left="481" width="294" height="15" font="0">The posterior means for the relative risk <i>λ</i></text>
+<text top="700" left="776" width="3" height="11" font="1">i</text>
+<text top="694" left="786" width="19" height="15" font="0">for</text>
+<text top="712" left="459" width="346" height="15" font="0">Toronto and Ottawa (Census Subdivisions 3506008</text>
+<text top="730" left="459" width="213" height="15" font="0">and 3530005) are extracted with:</text>
+<text top="769" left="459" width="316" height="10" font="7">&gt; ontarioSummary = summaryChain(ontarioParams)</text>
+<text top="785" left="459" width="316" height="10" font="7">&gt; ontarioSummary$FittedRateCSDUID[c(&#34;3506008&#34;,</text>
+<text top="801" left="459" width="7" height="10" font="7">+</text>
+<text top="801" left="500" width="130" height="10" font="7">&#34;3520005&#34;), &#34;mean&#34;]</text>
+<text top="843" left="486" width="48" height="10" font="7">3506008</text>
+<text top="843" left="569" width="48" height="10" font="7">3520005</text>
+<text top="860" left="459" width="158" height="10" font="7">0.119725007 0.008148696</text>
+<text top="901" left="459" width="346" height="15" font="0">The posterior probability of each region having a rel-</text>
+<text top="919" left="459" width="346" height="15" font="0">ative risk twice the provincial average is computed</text>
+<text top="937" left="459" width="30" height="15" font="0">with</text>
+<text top="975" left="459" width="281" height="10" font="7">&gt; postProb = apply(ontarioParams$RCSDUID,</text>
+<text top="992" left="459" width="7" height="10" font="7">+</text>
+<text top="992" left="500" width="219" height="10" font="7">3, function(x) mean(x &gt; log(2)))</text>
+<text top="1027" left="459" width="346" height="15" font="0">The &#34;RCSDUID&#34; element of ontarioParams is a three</text>
+<text top="1045" left="459" width="346" height="15" font="0">dimensional array, with entry i, j, k being iteration i</text>
+<text top="1063" left="459" width="346" height="15" font="0">of chain j for region k. The apply statement com-</text>
+<text top="1081" left="459" width="346" height="15" font="0">putes the proportion of log-relative risks over log(2)</text>
+<text top="1099" left="459" width="247" height="15" font="0">for each region (the third dimension).</text>
+<text top="1119" left="481" width="324" height="15" font="0">The results can be merged into the original spa-</text>
+<text top="1137" left="459" width="346" height="15" font="0">tial dataset, as described in the documentation for</text>
+<text top="1155" left="459" width="245" height="15" font="0">the <b>diseasemapping </b>package. Figure</text>
+<text top="1155" left="708" width="7" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">1</a></text>
+<text top="1155" left="719" width="87" height="15" font="0">shows a map</text>
+<text top="1173" left="459" width="191" height="15" font="0">of the posterior probabilities.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 2/1, June 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="4" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">16</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="298" left="382" width="10" height="6" font="13">0.0</text>
+<text top="265" left="382" width="10" height="6" font="13">0.2</text>
+<text top="232" left="382" width="10" height="6" font="13">0.4</text>
+<text top="199" left="382" width="10" height="6" font="13">0.6</text>
+<text top="165" left="382" width="10" height="6" font="13">0.8</text>
+<text top="132" left="382" width="10" height="6" font="13">1.0</text>
+<text top="356" left="82" width="346" height="15" font="0">Figure 1: Posterior probabilities of Ontario census</text>
+<text top="374" left="82" width="346" height="15" font="0">sub-divisions having twice the provincial average</text>
+<text top="392" left="82" width="133" height="15" font="0">risk of molar cancer.</text>
+<text top="437" left="82" width="160" height="17" font="6"><b>Additional features</b></text>
+<text top="470" left="82" width="346" height="15" font="0">The reparam argument to the glmmBUGS function</text>
+<text top="488" left="82" width="346" height="15" font="0">reparametrizes the intercept, and a set of covariates</text>
+<text top="506" left="82" width="346" height="15" font="0">for a new baseline group is provided. Recall that</text>
+<text top="524" left="82" width="346" height="15" font="0">in the bacteria example the ragged object passed to</text>
+<text top="542" left="82" width="346" height="15" font="0">WinBUGS divides covariates into observation and</text>
+<text top="560" left="82" width="346" height="15" font="0">ID level effects. ragged$Xobservations is a vector</text>
+<text top="578" left="82" width="346" height="15" font="0">and ragged$XID is a matrix of two columns, which</text>
+<text top="596" left="82" width="346" height="15" font="0">contains the week variable and indicator variables</text>
+<text top="614" left="82" width="346" height="15" font="0">for the treatments respectively. The reparam argu-</text>
+<text top="632" left="82" width="346" height="15" font="0">ment should accordingly be a list with one or more</text>
+<text top="650" left="82" width="346" height="15" font="0">of elements &#34;observations&#34; containing the week or</text>
+<text top="669" left="82" width="30" height="12" font="0">&#34;ID&#34;</text>
+<text top="668" left="116" width="313" height="15" font="0">containing the two treatment indicators. Setting</text>
+<text top="687" left="82" width="213" height="12" font="0">reparam=list(observations=2)</text>
+<text top="686" left="302" width="127" height="15" font="0">would make week</text>
+<text top="704" left="82" width="346" height="15" font="0">2 the baseline week, rather than week zero. This ar-</text>
+<text top="721" left="82" width="346" height="15" font="0">gument is useful when using spline functions as co-</text>
+<text top="739" left="82" width="346" height="15" font="0">variates, as the intercept parameter which WinBUGS</text>
+<text top="757" left="82" width="346" height="15" font="0">updates can be set to the curve evaluated in the mid-</text>
+<text top="775" left="82" width="117" height="15" font="0">dle of the dataset.</text>
+<text top="795" left="105" width="324" height="15" font="0">The prefix argument allows a character string to</text>
+<text top="813" left="82" width="346" height="15" font="0">precede all data and variable names. This can be</text>
+<text top="831" left="82" width="346" height="15" font="0">used to combine multiple model files and datasets</text>
+<text top="849" left="82" width="346" height="15" font="0">into a single BUGS model, and modifying these files</text>
+<text top="867" left="82" width="346" height="15" font="0">to allow dependence between the various compo-</text>
+<text top="885" left="82" width="346" height="15" font="0">nents. For instance, one random effects model for</text>
+<text top="902" left="82" width="346" height="15" font="0">blood pressure could be given prefix=’blood’, and</text>
+<text top="920" left="82" width="346" height="15" font="0">a model for body mass given prefix=’mass’. To</text>
+<text top="938" left="82" width="346" height="15" font="0">allow for dependence between the individual-level</text>
+<text top="956" left="82" width="346" height="15" font="0">random effects for blood pressure and mass, the</text>
+<text top="974" left="82" width="346" height="15" font="0">two data sets and starting values produced by the</text>
+<text top="993" left="82" width="61" height="12" font="0">glmmBUGS</text>
+<text top="992" left="151" width="278" height="15" font="0">function can be combined, and the two</text>
+<text top="1010" left="82" width="346" height="15" font="0">model files concatenated and modified. Were it not</text>
+<text top="1028" left="82" width="346" height="15" font="0">for the prefix, some variable names would be identi-</text>
+<text top="1046" left="82" width="346" height="15" font="0">cal in the two datasets and combining would not be</text>
+<text top="1064" left="82" width="58" height="15" font="0">possible.</text>
+<text top="1083" left="105" width="324" height="15" font="0">Finally, multi-level models can be accommodated</text>
+<text top="1101" left="82" width="346" height="15" font="0">by passing multiple variable names in the effects</text>
+<text top="1119" left="82" width="346" height="15" font="0">argument. If the bacteria data were collected from</text>
+<text top="1137" left="82" width="346" height="15" font="0">students nested within classes nested within schools,</text>
+<text top="1155" left="82" width="346" height="15" font="0">the corresponding argument would be effects =</text>
+<text top="1174" left="82" width="183" height="12" font="0">c(&#34;school&#34;,&#34;class&#34;,&#34;ID&#34;)</text>
+<text top="1173" left="265" width="4" height="15" font="0">.</text>
+<text top="125" left="481" width="324" height="15" font="0">Currently unimplemented features that would</text>
+<text top="143" left="459" width="346" height="15" font="0">enhance the package include: random coefficients</text>
+<text top="161" left="459" width="346" height="15" font="0">(specified with an lmer-type syntax); survival distri-</text>
+<text top="179" left="459" width="346" height="15" font="0">butions (with &#34;Surv&#34; objects as responses); and geo-</text>
+<text top="197" left="459" width="346" height="15" font="0">statistical models for the random effects. As Win-</text>
+<text top="215" left="459" width="346" height="15" font="0">BUGS incorporates methods for all of the above,</text>
+<text top="233" left="459" width="346" height="15" font="0">these tasks are very feasible and offers of assistance</text>
+<text top="251" left="459" width="337" height="15" font="0">from the community would be gratefully accepted.</text>
+<text top="297" left="459" width="96" height="21" font="4"><b>Summary</b></text>
+<text top="336" left="459" width="346" height="15" font="0">There are a number of methods and R packages for</text>
+<text top="354" left="459" width="346" height="15" font="0">performing Bayesian inference on generalized linear</text>
+<text top="371" left="459" width="239" height="15" font="0">mixed models, including <b>geoRglm </b><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">(</a></text>
+<text top="371" left="697" width="108" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">Christensen and</a></text>
+<text top="389" left="459" width="89" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">Ribeiro, 2002</a></text>
+<text top="389" left="548" width="120" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">), </a><b>MCMCglmm </b><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">(</a></text>
+<text top="389" left="668" width="100" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">Hadfield, 2009</a></text>
+<text top="389" left="768" width="38" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">) </a>and</text>
+<text top="407" left="459" width="82" height="15" font="3"><b>glmmGibbs</b></text>
+<text top="407" left="545" width="5" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">(</a></text>
+<text top="407" left="550" width="164" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">Myles and Clayton, 2001</a></text>
+<text top="407" left="714" width="92" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#4">). </a>Particularly</text>
+<text top="425" left="459" width="346" height="15" font="0">noteworthy is the <b>INLA </b>package which avoids the</text>
+<text top="443" left="459" width="346" height="15" font="0">use of MCMC by using Laplace approximations, as</text>
+<text top="461" left="459" width="83" height="15" font="0">described in</text>
+<text top="461" left="548" width="107" height="15" font="5"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">Rue et al. (2009</a></text>
+<text top="461" left="656" width="150" height="15" font="0"><a href="2010-1-RJournal_2010-1_Brown+Zhou.html#5">). </a>Despite this, many</text>
+<text top="479" left="459" width="346" height="15" font="0">researchers working with R (including the authors)</text>
+<text top="497" left="459" width="346" height="15" font="0">continue to use WinBUGS for model fitting. This</text>
+<text top="515" left="459" width="346" height="15" font="0">is at least partly due to the flexibility of the BUGS</text>
+<text top="533" left="459" width="346" height="15" font="0">language, which gives the user nearly full control</text>
+<text top="551" left="459" width="346" height="15" font="0">over specification of distributions and dependence</text>
+<text top="569" left="459" width="346" height="15" font="0">structures. This package aims to retain this flexi-</text>
+<text top="587" left="459" width="346" height="15" font="0">bility by providing files to be edited before model</text>
+<text top="605" left="459" width="346" height="15" font="0">fitting is carried out, rather than providing a large</text>
+<text top="622" left="459" width="346" height="15" font="0">number of options for, i.e. prior distributions. More</text>
+<text top="640" left="459" width="346" height="15" font="0">model-specific packages such as <b>INLA </b>are entirely</text>
+<text top="658" left="459" width="346" height="15" font="0">adequate (and perhaps preferable) for the two exam-</text>
+<text top="676" left="459" width="346" height="15" font="0">ples presented here. Those who wish to have full</text>
+<text top="694" left="459" width="346" height="15" font="0">control over priors or build more complex models,</text>
+<text top="712" left="459" width="346" height="15" font="0">for example multivariate or errors-in-covariate mod-</text>
+<text top="730" left="459" width="346" height="15" font="0">els, will likely appreciate the head start which the</text>
+<text top="748" left="459" width="83" height="15" font="3"><b>glmmBUGS</b></text>
+<text top="748" left="546" width="238" height="15" font="0">package can provide for these tasks.</text>
+<text top="794" left="459" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="833" left="459" width="346" height="15" font="0">Patrick Brown holds a Discovery Grant from the Nat-</text>
+<text top="851" left="459" width="346" height="15" font="0">ural Sciences and Engineering Research Council of</text>
+<text top="869" left="459" width="55" height="15" font="0">Canada.</text>
+<text top="915" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="954" left="459" width="346" height="15" font="0">O. Christensen and P. Ribeiro. geoRglm - a package</text>
+<text top="972" left="474" width="332" height="15" font="0">for generalised linear spatial models. R-NEWS,</text>
+<text top="990" left="474" width="156" height="15" font="0">2(2):26–28, 2002. URL</text>
+<text top="991" left="637" width="168" height="12" font="5"><a href="http://cran.R-project.org/doc/Rnews">http://cran.R-project.</a></text>
+<text top="1009" left="474" width="99" height="12" font="5"><a href="http://cran.R-project.org/doc/Rnews">org/doc/Rnews</a></text>
+<text top="1008" left="573" width="4" height="15" font="0"><a href="http://cran.R-project.org/doc/Rnews">.</a></text>
+<text top="1037" left="459" width="111" height="15" font="0">J. D. Hadfield.</text>
+<text top="1037" left="602" width="203" height="15" font="0">MCMC methods for multi-</text>
+<text top="1055" left="474" width="58" height="15" font="0">response</text>
+<text top="1055" left="553" width="76" height="15" font="0">generalised</text>
+<text top="1055" left="649" width="38" height="15" font="0">linear</text>
+<text top="1055" left="708" width="42" height="15" font="0">mixed</text>
+<text top="1055" left="770" width="35" height="15" font="0">mod-</text>
+<text top="1072" left="474" width="22" height="15" font="0">els:</text>
+<text top="1072" left="519" width="221" height="15" font="0">The MCMCglmm R package.</text>
+<text top="1072" left="775" width="31" height="15" font="0">URL</text>
+<text top="1092" left="474" width="298" height="12" font="5"><a href="http://cran.r-project.org/web/packages/MCMCglmm/vignettes/Tutorial.pdf">http://cran.r-project.org/web/packages/</a></text>
+<text top="1110" left="474" width="236" height="12" font="5"><a href="http://cran.r-project.org/web/packages/MCMCglmm/vignettes/Tutorial.pdf">MCMCglmm/vignettes/Tutorial.pdf</a></text>
+<text top="1108" left="710" width="41" height="15" font="0"><a href="http://cran.r-project.org/web/packages/MCMCglmm/vignettes/Tutorial.pdf">, </a>2009.</text>
+<text top="1137" left="459" width="176" height="15" font="0">J. Myles and D. Clayton.</text>
+<text top="1137" left="652" width="153" height="15" font="0">Package GLMMGibbs.</text>
+<text top="1155" left="474" width="31" height="15" font="0">URL</text>
+<text top="1156" left="515" width="290" height="12" font="5"><a href="http://cran.r-project.org/src/contrib/Archive/GLMMGibbs">http://cran.r-project.org/src/contrib/</a></text>
+<text top="1174" left="474" width="130" height="12" font="5"><a href="http://cran.r-project.org/src/contrib/Archive/GLMMGibbs">Archive/GLMMGibbs</a></text>
+<text top="1173" left="603" width="41" height="15" font="0"><a href="http://cran.r-project.org/src/contrib/Archive/GLMMGibbs">, </a>2002.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 2/1, June 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">17</text>
+<text top="125" left="82" width="346" height="15" font="0">H. Rue and L. Held. Gaussian Markov Random Fields:</text>
+<text top="143" left="97" width="332" height="15" font="0">Theory and Applications, volume 104 of Monographs</text>
+<text top="161" left="97" width="332" height="15" font="0">on Statistics and Applied Probability. Chapman &amp;</text>
+<text top="179" left="97" width="129" height="15" font="0">Hall, London, 2005.</text>
+<text top="213" left="82" width="346" height="15" font="0">H. Rue, S. Martino, and N. Chopin. Approximate</text>
+<text top="231" left="97" width="332" height="15" font="0">Bayesian inference for latent Gaussian models by</text>
+<text top="249" left="97" width="332" height="15" font="0">using integrated nested Laplace approximations.</text>
+<text top="267" left="97" width="332" height="15" font="0">Journal of the Royal Statistical Society — Series B, 71</text>
+<text top="285" left="97" width="122" height="15" font="0">(2):319 – 392, 2009.</text>
+<text top="319" left="82" width="119" height="15" font="0">D. Spiegelhalter,</text>
+<text top="319" left="219" width="87" height="15" font="0">A. Thomas,</text>
+<text top="319" left="324" width="62" height="15" font="0">N. Best,</text>
+<text top="319" left="404" width="25" height="15" font="0">and</text>
+<text top="337" left="97" width="62" height="15" font="0">D. Lunn.</text>
+<text top="337" left="176" width="206" height="15" font="0">WinBUGS user manual, 2004.</text>
+<text top="337" left="398" width="31" height="15" font="0">URL</text>
+<text top="357" left="97" width="320" height="12" font="5"><a href="http://mathstat.helsinki.fi/openbugs/data/Docu/WinBugs%20Manual.html">http://mathstat.helsinki.fi/openbugs/data/</a></text>
+<text top="374" left="97" width="198" height="12" font="5"><a href="http://mathstat.helsinki.fi/openbugs/data/Docu/WinBugs%20Manual.html">Docu/WinBugs%20Manual.html</a></text>
+<text top="373" left="296" width="4" height="15" font="0"><a href="http://mathstat.helsinki.fi/openbugs/data/Docu/WinBugs%20Manual.html">.</a></text>
+<text top="125" left="459" width="346" height="15" font="0">S. Sturtz, U. Ligges, and A. Gelman. R2WinBUGS:</text>
+<text top="143" left="474" width="332" height="15" font="0">A package for running WinBUGS from R. Jour-</text>
+<text top="161" left="474" width="332" height="15" font="0">nal of Statistical Software, 12(3):1–16, 2005. URL</text>
+<text top="180" left="474" width="183" height="12" font="5"><a href="http://www.jstatsoft.org">http://www.jstatsoft.org</a></text>
+<text top="179" left="657" width="4" height="15" font="0"><a href="http://www.jstatsoft.org">.</a></text>
+<text top="230" left="459" width="88" height="15" font="0">Patrick Brown</text>
+<text top="247" left="459" width="215" height="15" font="0">Dalla Lana School of Public Health,</text>
+<text top="265" left="459" width="160" height="15" font="0">University of Toronto, and</text>
+<text top="283" left="459" width="179" height="15" font="0">Cancer Care Ontario, Canada</text>
+<text top="303" left="459" width="191" height="12" font="5"><a href="mailto:patrick.brown@utoronto.ca">patrick.brown@utoronto.ca</a></text>
+<text top="337" left="459" width="80" height="15" font="0">Lutong Zhou</text>
+<text top="355" left="459" width="179" height="15" font="0">Cancer Care Ontario, Canada</text>
+<text top="374" left="459" width="168" height="12" font="5"><a href="mailto:carly_zhou@hotmail.com">carly_zhou@hotmail.com</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 2/1, June 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

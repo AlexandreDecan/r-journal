@@ -1,0 +1,89 @@
+page	left	top	code
+2	120	731	# Passes
+2	120	748	expect_that(10, equals(10))
+2	120	764	# Also passes
+2	120	781	expect_that(10, equals(10 + 1e-7))
+2	120	797	# Fails
+2	120	814	expect_that(10, equals(10 + 1e-6))
+2	120	830	# Definitely fails!
+2	120	847	expect_that(10, equals(11))
+2	120	944	# Passes
+2	120	961	expect_that(10, is_identical_to(10))
+2	120	977	# Fails
+2	120	994	expect_that(10, is_identical_to(10 + 1e-10))
+2	120	1091	# Fails
+2	120	1108	expect_that(c("one" = 1, "two" = 2),
+2	134	1124	equals(1:2))
+2	120	1141	# Passes
+2	120	1157	expect_that(c("one" = 1, "two" = 2),
+2	134	1173	is_equivalent_to(1:2))
+2	496	177	model <- lm(mpg ~ wt, data = mtcars)
+2	496	193	# Passes
+2	496	210	expect_that(model, is_a("lm"))
+2	496	226	# Fails
+2	496	243	expect_that(model, is_a("glm"))
+2	496	397	string <- "Testing is fun!"
+2	496	413	# Passes
+2	496	430	expect_that(string, matches("Testing"))
+2	496	446	# Fails, match is case-sensitive
+2	496	463	expect_that(string, matches("testing"))
+2	496	479	# Passes, match can be a regular expression
+2	496	495	expect_that(string, matches("t.+ting"))
+2	496	596	a <- list(1:10, letters)
+2	496	612	# Passes
+2	496	629	expect_that(str(a), prints_text("List of 2"))
+2	496	645	# Passes
+2	496	662	expect_that(str(a),
+2	510	678	prints_text(fixed("int [1:10]"))
+2	496	761	# Passes
+2	496	777	expect_that(library(mgcv),
+2	510	794	shows_message("This is mgcv"))
+2	496	876	# Passes
+2	496	893	expect_that(log(-1), gives_warning())
+2	496	909	expect_that(log(-1),
+2	510	925	gives_warning("NaNs produced"))
+2	496	942	# Fails
+2	496	958	expect_that(log(0), gives_warning())
+2	496	1077	# Fails
+2	496	1093	expect_that(1 / 2, throws_error())
+2	496	1110	# Passes
+2	496	1126	expect_that(1 / "a", throws_error())
+2	496	1142	# But better to be explicit
+2	496	1159	expect_that(1 / "a",
+2	510	1175	throws_error("non-numeric argument"))
+3	82	849	is_true <- function() {
+3	96	866	function(x) {
+3	110	882	expectation(
+3	124	899	identical(x, TRUE),
+3	124	915	"isn't true"
+3	110	932	)
+3	96	948	}
+3	82	965	}
+4	82	121	test_that("floor_date works for different units", {
+4	96	137	base <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
+4	96	170	is_time <- function(x) equals(as.POSIXct(x, tz = "UTC"))
+4	96	187	floor_base <- function(unit) floor_date(base, unit)
+4	96	220	expect_that(floor_base("second"), is_time("2009-08-03 12:01:59"))
+4	96	236	expect_that(floor_base("minute"), is_time("2009-08-03 12:01:00"))
+4	96	252	expect_that(floor_base("hour"), is_time("2009-08-03 12:00:00"))
+4	96	269	expect_that(floor_base("day"), is_time("2009-08-03 00:00:00"))
+4	96	285	expect_that(floor_base("week"), is_time("2009-08-02 00:00:00"))
+4	96	302	expect_that(floor_base("month"), is_time("2009-08-01 00:00:00"))
+4	96	318	expect_that(floor_base("year"), is_time("2009-01-01 00:00:00"))
+4	82	335	})
+5	82	145	context("String length")
+5	82	178	test_that("str_length is number of characters", {
+5	96	195	expect_that(str_length("a"), equals(1))
+5	96	211	expect_that(str_length("ab"), equals(2))
+5	96	227	expect_that(str_length("abc"), equals(3))
+5	82	244	})
+5	82	277	test_that("str_length of missing is missing", {
+5	96	293	expect_that(str_length(NA), equals(NA_integer_))
+5	96	310	expect_that(str_length(c(NA, 1)), equals(c(NA, 1)))
+5	96	326	expect_that(str_length("NA"), equals(2))
+5	82	342	})
+5	82	375	test_that("str_length of factor is length of level", {
+5	96	392	expect_that(str_length(factor("a")), equals(1))
+5	96	408	expect_that(str_length(factor("ab")), equals(2))
+5	96	425	expect_that(str_length(factor("abc")), equals(3))
+5	82	441	})

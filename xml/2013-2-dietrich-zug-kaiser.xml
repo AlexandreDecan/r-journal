@@ -1,0 +1,1168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="11" family="Times" color="#000000"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+	<fontspec id="11" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">117</text>
+<text top="98" left="149" width="254" height="30" font="2"><b>The R in Robotics</b></text>
+<text top="134" left="149" width="449" height="15" font="3"><b>rosR: A New Language Extension for the Robot Operating System</b></text>
+<text top="176" left="149" width="305" height="15" font="0">by André Dietrich, Sebastian Zug, and Jörg Kaiser</text>
+<text top="217" left="148" width="52" height="13" font="4"><b>Abstract</b></text>
+<text top="217" left="202" width="542" height="13" font="5">The aim of this contribution is to connect two previously separated worlds: robotic application</text>
+<text top="234" left="149" width="595" height="13" font="5">development with the Robot Operating System (ROS) and statistical programming with R. This</text>
+<text top="250" left="149" width="595" height="13" font="5">fruitful combination becomes apparent especially in the analysis and visualization of sensory data. We</text>
+<text top="267" left="149" width="595" height="13" font="5">therefore introduce a new language extension for ROS that allows to implement nodes in pure R. All</text>
+<text top="283" left="149" width="595" height="13" font="5">relevant aspects are described in a step-by-step development of a common sensor data transformation</text>
+<text top="299" left="149" width="597" height="13" font="5">node. This includes the reception of raw sensory data via the ROS network, message interpretation,</text>
+<text top="316" left="149" width="595" height="13" font="5">bag-file analysis, transformation and visualization, as well as the transmission of newly generated</text>
+<text top="332" left="149" width="223" height="13" font="5">messages back into the ROS network.</text>
+<text top="377" left="149" width="104" height="17" font="6"><b>Introduction</b></text>
+<text top="415" left="148" width="596" height="13" font="5">The development of robotic applications has become more and more an interdisciplinary task, ranging</text>
+<text top="432" left="149" width="597" height="13" font="5">from mechanical and electrical engineering, signal processing, control technology and cybernetics,</text>
+<text top="448" left="149" width="373" height="13" font="5">up to artificial intelligence, etc. The Robot Operating <a href="2013-2-dietrich-zug-kaiser.html#0">System</a></text>
+<text top="446" left="522" width="5" height="10" font="7"><a href="2013-2-dietrich-zug-kaiser.html#0">1</a></text>
+<text top="448" left="528" width="217" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#0">, </a>abbreviated as ROS, is a relatively</text>
+<text top="465" left="149" width="595" height="13" font="5">new framework, intended to simplify the development of any kind of robotic application by bringing</text>
+<text top="481" left="149" width="595" height="13" font="5">together the latest scientific knowledge. And by the time it has become a de facto standard in the</text>
+<text top="498" left="149" width="205" height="13" font="5">scientific robotics community (cf.</text>
+<text top="498" left="363" width="127" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Kramer and Scheutz</a></text>
+<text top="498" left="490" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="498" left="498" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2007</a></text>
+<text top="498" left="525" width="219" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">). </a>In order to disseminate a certain</text>
+<text top="514" left="149" width="596" height="13" font="5">algorithm, toolbox, or function, a large number of developers provide interfaces to ROS. Currently</text>
+<text top="530" left="149" width="596" height="13" font="5">there are more than 1700 different packages available online for various purposes, for example “Marker</text>
+<text top="547" left="149" width="595" height="13" font="5">Detection”, “Simultaneous Localization And Mapping”, “Trajectory Planning”, and many more. These</text>
+<text top="563" left="148" width="596" height="13" font="5">packages can easily be used, combined, and integrated into new applications, with only a little</text>
+<text top="580" left="149" width="595" height="13" font="5">knowledge about the ROS philosophy. Robotic applications are no longer designed as single and</text>
+<text top="596" left="149" width="597" height="13" font="5">monolithic processes, but instead as a collection of nodes, which perform a certain type of computation,</text>
+<text top="613" left="149" width="209" height="13" font="5">similar to the UNIX philosophy (cf.</text>
+<text top="613" left="364" width="31" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Salus</a></text>
+<text top="613" left="396" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">,</a></text>
+<text top="613" left="402" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">1994</a></text>
+<text top="613" left="429" width="315" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">): </a>“Write programs that do one thing and do it well. Write</text>
+<text top="629" left="149" width="595" height="14" font="5">programs to work together. Write programs to . . . ”. The development of a ROS node is mainly based on</text>
+<text top="646" left="149" width="596" height="13" font="5">two philosophical pillars (apart from open source ideology), namely multilingualism and peer-to-peer</text>
+<text top="662" left="148" width="18" height="13" font="5">(cf.</text>
+<text top="662" left="173" width="79" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Quigley et al.</a></text>
+<text top="662" left="253" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">,</a></text>
+<text top="662" left="260" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2009</a></text>
+<text top="662" left="286" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">).</a></text>
+<text top="683" left="171" width="573" height="13" font="5">Multilingualism means to implement a node in the most appropriate programming language. In</text>
+<text top="699" left="149" width="138" height="13" font="5">most cases C++ (r<a href="2013-2-dietrich-zug-kaiser.html#0">oscpp</a></text>
+<text top="697" left="287" width="5" height="10" font="7"><a href="2013-2-dietrich-zug-kaiser.html#0">2</a></text>
+<text top="699" left="293" width="265" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#0">) </a>is the ideal choice for developing a node (cf.</text>
+<text top="699" left="565" width="78" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Quigley et al.</a></text>
+<text top="699" left="643" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">,</a></text>
+<text top="699" left="650" width="26" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2013</a></text>
+<text top="699" left="676" width="69" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">), </a>especially</text>
+<text top="716" left="149" width="538" height="13" font="5">to fulfill hardware-related or computationally expensive functionalities, whereas Python <a href="http://www.ros.org/wiki/rospy">(</a></text>
+<text top="716" left="686" width="34" height="13" font="8"><a href="http://www.ros.org/wiki/rospy">rospy</a></text>
+<text top="713" left="721" width="5" height="10" font="9"><a href="http://www.ros.org/wiki/rospy">2</a></text>
+<text top="716" left="726" width="18" height="13" font="5">) is</text>
+<text top="732" left="149" width="547" height="13" font="5">suitable for rapid prototyping, scripting, and GUI development. The Lisp language support <a href="http://www.ros.org/wiki/roslisp">(</a></text>
+<text top="732" left="696" width="39" height="13" font="8"><a href="http://www.ros.org/wiki/roslisp">roslisp</a></text>
+<text top="729" left="735" width="5" height="10" font="9"><a href="http://www.ros.org/wiki/roslisp">2</a></text>
+<text top="732" left="741" width="4" height="13" font="5">)</text>
+<text top="749" left="148" width="596" height="13" font="5">was also intended for scripting, but is mostly employed for fast and interactive debugging. Next to</text>
+<text top="765" left="149" width="587" height="13" font="5">these programming languages with full ROS support, there are also other “experimental” <a href="2013-2-dietrich-zug-kaiser.html#0">language</a></text>
+<text top="762" left="736" width="5" height="10" font="7"><a href="2013-2-dietrich-zug-kaiser.html#0">3</a></text>
+<text top="765" left="742" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#0">-</a></text>
+<text top="782" left="149" width="256" height="13" font="5">extensions, serving different needs. Java <a href="http://docs.rosjava.googlecode.com/hg/rosjava_core/html/index.html">(</a></text>
+<text top="782" left="405" width="43" height="13" font="8"><a href="http://docs.rosjava.googlecode.com/hg/rosjava_core/html/index.html">rosjava</a></text>
+<text top="779" left="448" width="5" height="10" font="9"><a href="http://docs.rosjava.googlecode.com/hg/rosjava_core/html/index.html">2</a></text>
+<text top="782" left="454" width="292" height="13" font="5">) allows developers to build nodes for Android,</text>
+<text top="798" left="148" width="68" height="13" font="5">while Lua <a href="http://www.ros.org/wiki/roslua">(</a></text>
+<text top="798" left="216" width="37" height="13" font="8"><a href="http://www.ros.org/wiki/roslua">roslua</a></text>
+<text top="795" left="253" width="5" height="10" font="9"><a href="http://www.ros.org/wiki/roslua">2</a></text>
+<text top="798" left="259" width="327" height="13" font="5">) currently is used for scripting reactive robot behavior.</text>
+<text top="819" left="171" width="573" height="13" font="5">The interconnection between nodes is established at run time in a peer-to-peer topology, using</text>
+<text top="835" left="148" width="596" height="13" font="5">publish/ subscribe or service-based communication. This allows to run nodes on different hosts</text>
+<text top="852" left="149" width="595" height="13" font="5">and it enables their dynamic integration and segregation. For this purpose, ROS guarantees mutual</text>
+<text top="868" left="149" width="447" height="13" font="5">understanding (and thus interoperability) by explicit message descriptions.</text>
+<text top="889" left="171" width="573" height="13" font="5">Until now, it was not possible to develop nodes in the statistical programming language R. R</text>
+<text top="906" left="149" width="595" height="13" font="5">is probably not the best choice for implementing fancy GUIs or to develop hardware drivers, but</text>
+<text top="922" left="149" width="595" height="13" font="5">it has by far one of the richest libraries for statistical analyses, data-mining, machine learning, and</text>
+<text top="938" left="148" width="410" height="13" font="5">visualization. According to the comparison of statistical packages on</text>
+<text top="938" left="562" width="62" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Wikipedia</a></text>
+<text top="938" left="627" width="5" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="938" left="632" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2013</a></text>
+<text top="938" left="659" width="86" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">), </a>R is the only</text>
+<text top="955" left="148" width="596" height="13" font="5">product that has support for every listed demand (unlike MATLAB or SciPy). Furthermore, most of its</text>
+<text top="971" left="149" width="587" height="13" font="5">algorithms are directly implemented in C or C++, which guarantees fast and efficient computation.</text>
+<text top="992" left="171" width="575" height="13" font="5">In light of these qualities, R is an adequate programming language for sensor signal analysis,</text>
+<text top="1009" left="149" width="595" height="13" font="5">evaluation and visualization. These types of tasks are very important for embedded or robotic</text>
+<text top="1025" left="149" width="595" height="13" font="5">applications where developers cope with non-linear behavior, different measurement faults or external</text>
+<text top="1042" left="149" width="431" height="13" font="5">disturbances. An exemplary evaluation of sensor data is described in</text>
+<text top="1042" left="585" width="84" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Dietrich et al.</a></text>
+<text top="1042" left="673" width="5" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">(</a></text>
+<text top="1042" left="678" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2010</a></text>
+<text top="1042" left="705" width="39" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">). </a>The</text>
+<text top="1058" left="148" width="598" height="13" font="5">presented infrared sensors can be easily disturbed by external light, leading to faulty measurements.</text>
+<text top="1074" left="149" width="595" height="13" font="5">But these external disturbances also affect the measurement noise in such a way that it can be detected</text>
+<text top="1091" left="149" width="328" height="13" font="5">by applying statistical tests – an ideal application for R.</text>
+<text top="1116" left="165" width="4" height="9" font="10">1</text>
+<text top="1118" left="170" width="151" height="12" font="1">Official ROS project website:</text>
+<text top="1119" left="325" width="110" height="10" font="11"><a href="http://www.ROS.org">http://www.ROS.org</a></text>
+<text top="1131" left="165" width="4" height="9" font="10">2</text>
+<text top="1133" left="170" width="333" height="12" font="1">ROS language extensions for C++, Python, Lisp, Java, and Lua.</text>
+<text top="1146" left="165" width="4" height="9" font="10">3</text>
+<text top="1148" left="170" width="321" height="12" font="1">For a complete list of supported programming languages see</text>
+<text top="1148" left="495" width="238" height="10" font="11"><a href="http://www.ros.org/wiki/Client Libraries">http://www.ros.org/wiki/ClientLibraries</a></text>
+<text top="1148" left="733" width="3" height="12" font="1"><a href="http://www.ros.org/wiki/Client Libraries">.</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">118</text>
+<text top="102" left="149" width="67" height="15" font="3"><b>Overview</b></text>
+<text top="134" left="148" width="596" height="13" font="5">This work is intended to serve two tasks. On the one hand, we want to introduce ROS and present its</text>
+<text top="150" left="149" width="595" height="13" font="5">general development principles to the common R developer. On the other hand, we want to convince</text>
+<text top="167" left="149" width="595" height="13" font="5">ROS developers to use R for certain types of computation. To demonstrate the utility of combining</text>
+<text top="183" left="149" width="598" height="13" font="5">ROS and R, we chose a quite common application, the linearization of sensor distance measurements.</text>
+<text top="199" left="149" width="595" height="13" font="5">In a tutorial-like section we will highlight all relevant aspects in a step-by-step development of an</text>
+<text top="216" left="149" width="595" height="13" font="5">R node. This node will receive raw sensor data, perform a linearization, visualize and publish the</text>
+<text top="232" left="149" width="98" height="13" font="5">resulting values.</text>
+<text top="253" left="171" width="486" height="13" font="5">Before we describe how to develop a ROS node in pure R and how to install our</text>
+<text top="253" left="661" width="28" height="13" font="12"><a href="http://www.ros.org/wiki/rosR"><b>rosR</b></a></text>
+<text top="253" left="692" width="53" height="13" font="5">package,</text>
+<text top="270" left="148" width="598" height="13" font="5">we will give a brief introduction to the common ROS communication principles in the next section.</text>
+<text top="286" left="149" width="595" height="13" font="5">Some limitations of R made it difficult to implement <b>rosR </b>as a typical R library, such as single</text>
+<text top="303" left="149" width="595" height="13" font="5">threading, problems in supporting sockets and in handling raw data streams. Instead we developed a</text>
+<text top="319" left="149" width="595" height="13" font="5">common ROS package, which furthermore required to interface several ROS packages. To ease the</text>
+<text top="335" left="149" width="595" height="13" font="5">interconnection of ROS C++ functionality with R we applied the Simplified Wrapper and Interface</text>
+<text top="352" left="149" width="66" height="13" font="5">Generator <a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="352" left="215" width="55" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">SWIG-2.0</a></text>
+<text top="352" left="271" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">,</a></text>
+<text top="352" left="277" width="26" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2013</a></text>
+<text top="352" left="304" width="440" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">). </a>The second-last section deals with these implementation details as well as</text>
+<text top="368" left="149" width="598" height="13" font="5">the project structuring and should afterwards allow to extend the package with custom functionality.</text>
+<text top="385" left="148" width="241" height="13" font="5">We conclude our paper with a summary.</text>
+<text top="430" left="149" width="258" height="17" font="6"><b>ROS communication principles</b></text>
+<text top="468" left="148" width="598" height="13" font="5">As already mentioned, ROS offers two basic communication principles, publish/subscribe and service-</text>
+<text top="485" left="149" width="598" height="13" font="5">based communication. The participation of an R node within a ROS network requires the implementa-</text>
+<text top="501" left="149" width="595" height="13" font="5">tion of these paradigms. Hence, we briefly introduce both concepts, although <b>rosR </b>currently does not</text>
+<text top="518" left="149" width="101" height="13" font="5">support services.</text>
+<text top="560" left="149" width="126" height="15" font="3"><b>Publish/Subscribe</b></text>
+<text top="621" left="529" width="37" height="12" font="1">Master</text>
+<text top="834" left="522" width="50" height="12" font="1">Publisher</text>
+<text top="621" left="681" width="56" height="12" font="1">Subscriber</text>
+<text top="706" left="572" width="33" height="12" font="1">XML/RPC</text>
+<text top="839" left="618" width="107" height="12" font="1">XML/RPC: foo1234</text>
+<text top="853" left="618" width="103" height="12" font="1">TCP data: foo:2345</text>
+<text top="792" left="541" width="0" height="12" font="1">advertise(&#34;/dist&#34;,foo:123)</text>
+<text top="609" left="582" width="94" height="12" font="1">subscribe(&#34;/dist&#34;)</text>
+<text top="633" left="605" width="46" height="12" font="1">{foo:123}</text>
+<text top="760" left="584" width="50" height="12" font="1">connect(&#34;/dist&#34;,</text>
+<text top="690" left="635" width="16" height="12" font="1">TCP)</text>
+<text top="770" left="603" width="14" height="12" font="1">TCP</text>
+<text top="749" left="618" width="21" height="12" font="1">server:</text>
+<text top="717" left="642" width="23" height="12" font="1">foo:234</text>
+<text top="772" left="621" width="51" height="12" font="1">connect(foo:234)</text>
+<text top="795" left="629" width="20" height="12" font="1">Range</text>
+<text top="766" left="651" width="14" height="12" font="1">data</text>
+<text top="745" left="666" width="30" height="12" font="1">messages</text>
+<text top="904" left="514" width="53" height="13" font="4"><b>Figure 1:</b></text>
+<text top="904" left="572" width="173" height="13" font="5">Communication initialization</text>
+<text top="920" left="514" width="230" height="13" font="5">between a publishing and a subscribing</text>
+<text top="937" left="514" width="33" height="13" font="5">node.</text>
+<text top="592" left="149" width="353" height="13" font="5">The main idea behind publish/subscribe (pub/sub) is to de-</text>
+<text top="608" left="149" width="351" height="13" font="5">couple the production and consumption of data. In contrast</text>
+<text top="624" left="149" width="352" height="13" font="5">to the widely used address-based communication paradigm,</text>
+<text top="641" left="149" width="351" height="13" font="5">it offers content-based communication. But, as in most</text>
+<text top="657" left="149" width="351" height="13" font="5">cases including ROS pub/sub, this is just an overlay on</text>
+<text top="674" left="149" width="351" height="13" font="5">address-based communication. Topics in this sense define</text>
+<text top="690" left="149" width="351" height="13" font="5">logical channels that transport all related messages. In</text>
+<text top="707" left="149" width="352" height="13" font="5">ROS, a channel is tagged by a unique string, such as ‘/map’,</text>
+<text top="723" left="147" width="352" height="13" font="5">‘/odometry’, or ‘/laserscan’, which identifies the content of</text>
+<text top="740" left="149" width="351" height="13" font="5">a channel and its message format. Messages are strongly</text>
+<text top="756" left="149" width="351" height="13" font="5">typed data structures, composed of different primitive types</text>
+<text top="772" left="148" width="351" height="13" font="5">(e. g., string, integer, float, array, etc.), similar to structs</text>
+<text top="789" left="149" width="351" height="13" font="5">in C. ROS provides a number of standard data types for</text>
+<text top="805" left="149" width="351" height="13" font="5">certain sensors or tasks. But a user can define individual</text>
+<text top="822" left="149" width="351" height="13" font="5">or adapted message formats related to specific purposes. A</text>
+<text top="838" left="148" width="351" height="13" font="5">publisher (producing node) advertises its intent to publish</text>
+<text top="855" left="149" width="351" height="13" font="5">on a topic, while a subscriber (consuming node) indicates</text>
+<text top="871" left="149" width="351" height="13" font="5">its interest on one or more topics. In ROS there is a central</text>
+<text top="888" left="149" width="351" height="13" font="5">master node that provides name registration and lookup for</text>
+<text top="904" left="149" width="351" height="13" font="5">all connected nodes. The steps for establishing a connection</text>
+<text top="920" left="149" width="248" height="13" font="5">been both parties are depicted in Figure</text>
+<text top="920" left="401" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#2">1</a></text>
+<text top="920" left="408" width="91" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#2">. </a>Thus, data is</text>
+<text top="937" left="149" width="351" height="13" font="5">only transmitted, if there is at least one publisher and one</text>
+<text top="953" left="149" width="143" height="13" font="5">subscriber for one topic.</text>
+<text top="996" left="149" width="56" height="15" font="3"><b>Services</b></text>
+<text top="1027" left="149" width="595" height="13" font="5">Pub/sub is ideal for dynamic and flexible message passing, but in some cases it might be more useful</text>
+<text top="1044" left="149" width="595" height="13" font="5">to request for a certain type of data (e. g., camera parameters, robot states, etc.) or the execution of</text>
+<text top="1060" left="149" width="595" height="13" font="5">an action (e. g., grasping an object, planning a trajectory, etc.). This kind of remote procedure call is</text>
+<text top="1076" left="149" width="597" height="13" font="5">handled via services. Nodes offer their services by using string names, similar to topics in pub/sub,</text>
+<text top="1093" left="149" width="595" height="13" font="5">and clients can call these services by sending their request in an appropriate message format, awaiting</text>
+<text top="1109" left="149" width="595" height="13" font="5">the reply message. The connection between both entities is also instantiated with the help of the</text>
+<text top="1126" left="149" width="145" height="13" font="5">master, as seen in Figure</text>
+<text top="1126" left="298" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#2">1</a></text>
+<text top="1126" left="304" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#2">.</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">119</text>
+<text top="102" left="149" width="76" height="15" font="3"><b>Parameters</b></text>
+<text top="134" left="148" width="596" height="13" font="5">The access to the parameter server is often mentioned as a third communication method, comparable</text>
+<text top="150" left="149" width="595" height="13" font="5">to shared memory. Parameters are stored at runtime in a multivariate dictionary, which is also hosted</text>
+<text top="167" left="149" width="595" height="13" font="5">by the ROS master node. It is mainly applied for simple configuration purposes, but it also allows to</text>
+<text top="183" left="149" width="280" height="13" font="5">inspect and to modify the global configuration.</text>
+<text top="228" left="149" width="95" height="17" font="6"><b>Installation</b></text>
+<text top="267" left="149" width="561" height="13" font="5">First of all ROS has to be installed and configured. Good installation guides can be found on</text>
+<text top="267" left="713" width="34" height="11" font="8"><a href="http://www.ros.org/wiki/ROS/Installation">http:</a></text>
+<text top="284" left="148" width="240" height="11" font="8"><a href="http://www.ros.org/wiki/ROS/Installation">//www.ros.org/wiki/ROS/Installation</a></text>
+<text top="283" left="388" width="356" height="13" font="5"><a href="http://www.ros.org/wiki/ROS/Installation">. </a>Additionally, we put an extensive installation description</text>
+<text top="300" left="149" width="382" height="13" font="5">for Ubuntu 12.04 and ROS “Groovy Galapagos” on our project site</text>
+<text top="300" left="534" width="213" height="11" font="8"><a href="http://www.ros.org/wiki/rosR#R-Side">http://www.ros.org/wiki/rosR#R-</a></text>
+<text top="317" left="149" width="27" height="11" font="8"><a href="http://www.ros.org/wiki/rosR#R-Side">Side</a></text>
+<text top="316" left="176" width="570" height="13" font="5"><a href="http://www.ros.org/wiki/rosR#R-Side">. </a>The install manual was intended to guide R developers with no or only a little ROS experience.</text>
+<text top="332" left="149" width="595" height="13" font="5">Information on further developments and adaptations for new ROS versions will be available on the</text>
+<text top="349" left="148" width="596" height="13" font="5">project website too. Before compiling our <b>rosR </b>package, there are three things required (apart from an</text>
+<text top="365" left="149" width="145" height="13" font="5">ROS-base and a R-base):</text>
+<text top="395" left="169" width="575" height="13" font="5">1. SWIG is responsible for interfacing the C++ code (only SWIG2.0 is able to generate appropriate</text>
+<text top="412" left="186" width="98" height="13" font="5">wrappers for R),</text>
+<text top="434" left="169" width="238" height="13" font="5">2. the R development packages for C++</text>
+<text top="434" left="410" width="32" height="13" font="12"><a href="http://CRAN.R-project.org/package=Rcpp"><b>Rcpp</b></a></text>
+<text top="434" left="446" width="18" height="13" font="5">(cf.</text>
+<text top="434" left="471" width="156" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Eddelbuettel and François</a></text>
+<text top="434" left="627" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="434" left="633" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2011</a></text>
+<text top="434" left="660" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">),</a></text>
+<text top="456" left="169" width="447" height="13" font="5">3. and a running subversion client to be able to download our package via:</text>
+<text top="473" left="186" width="418" height="11" font="5">$ svn co http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR</text>
+<text top="503" left="171" width="535" height="13" font="5">Finally, simply enter the installation folder of <b>rosR </b>and run the shell-command rosmake (cf.</text>
+<text top="503" left="710" width="33" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Foote</a></text>
+<text top="503" left="742" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="519" left="149" width="26" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="519" left="175" width="571" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">). </a>If everything compiled successfully, you should be able to launch a simple test application with:</text>
+<text top="547" left="149" width="206" height="11" font="5">$ roslaunch rosR random.launch</text>
+<text top="591" left="149" width="233" height="17" font="6"><b>How-to develop a rosR node</b></text>
+<text top="630" left="148" width="596" height="13" font="5">As already mentioned, this section is intended to demonstrate how to use the <b>rosR </b>API, by developing</text>
+<text top="646" left="149" width="595" height="13" font="5">a node responsible for a common sensor data transformation. For this purpose we chose a common</text>
+<text top="663" left="149" width="282" height="13" font="5">infrared distance sensor, the Sharp GP2D120 (cf.</text>
+<text top="663" left="437" width="111" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Sharp Cooperation</a></text>
+<text top="663" left="548" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">,</a></text>
+<text top="663" left="555" width="26" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2007</a></text>
+<text top="663" left="582" width="163" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">). </a>We start with a very basic</text>
+<text top="679" left="149" width="595" height="13" font="5">application and extend it in the following subsections. The complete source code for every example</text>
+<text top="696" left="149" width="595" height="13" font="5">as well as the attached sensor measurements can be downloaded from the following ROS project</text>
+<text top="712" left="149" width="595" height="13" font="5">repository (which can be treated as any ordinary ROS package and therefore has to be built with</text>
+<text top="728" left="149" width="54" height="13" font="5">rosmake:</text>
+<text top="756" left="149" width="460" height="11" font="5">$ svn co http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos</text>
+<text top="782" left="149" width="595" height="13" font="5">Every subsection will tackle an individual development part and in doing so, will also explain some</text>
+<text top="799" left="149" width="598" height="13" font="5">internal ROS matters, which makes it necessary to switch between the R-terminal and the command-</text>
+<text top="815" left="149" width="596" height="13" font="5">line shell. ‘$’ is used to indicate the shell usage ‘&gt;’ and ‘+’ indicate R-commands, while ‘#’ is used for</text>
+<text top="831" left="149" width="144" height="13" font="5">comments in both cases.</text>
+<text top="852" left="171" width="573" height="13" font="5">With the following shell-command you start the replay of previously recorded ROS data, gathered</text>
+<text top="869" left="149" width="595" height="13" font="5">from a Sharp infrared distance sensor. It will also start a ROS master. Therefore, the user should not</text>
+<text top="885" left="149" width="596" height="13" font="5">cancel it, because then it will not be possible to subscribe to any kind of data or to publish any sensor</text>
+<text top="902" left="149" width="29" height="13" font="5">data.</text>
+<text top="929" left="149" width="556" height="11" font="5">$ # replay of data (using rosbag) from rosR_demos/nodes/RJournal/sharpGP2D120.bag</text>
+<text top="946" left="149" width="295" height="11" font="5">$ roslaunch rosR_demos sharp-playbag.launch</text>
+<text top="987" left="149" width="130" height="15" font="3"><b>Node initialization</b></text>
+<text top="1019" left="149" width="597" height="13" font="5">Because we have developed a typical ROS package, which can be located anywhere on your system,</text>
+<text top="1035" left="149" width="595" height="13" font="5">it has to be loaded manually. Run the following command in R to load all required functionality. It</text>
+<text top="1052" left="149" width="254" height="13" font="5">invokes the system call ‘rospack find’ (cf.</text>
+<text top="1052" left="406" width="76" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Gerkey et al.</a></text>
+<text top="1052" left="482" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="1052" left="489" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="1052" left="516" width="228" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">), </a>which is responsible for locating the</text>
+<text top="1068" left="149" width="204" height="13" font="5">current <b>rosR </b>installation directory.</text>
+<text top="1096" left="149" width="569" height="11" font="5">&gt; source(paste(system(&#34;rospack find rosR&#34;, intern = TRUE), &#34;/lib/ros.R&#34;, sep = &#34;&#34;),</text>
+<text top="1112" left="149" width="7" height="11" font="5">+</text>
+<text top="1112" left="176" width="89" height="11" font="5">chdir = TRUE)</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">120</text>
+<text top="103" left="171" width="573" height="13" font="5">Each command of our API starts with ‘ros.’, so that the auto-completion, after entering ‘ros.’ into</text>
+<text top="120" left="149" width="595" height="13" font="5">the R-terminal, should present the same result. These are all functions that are required to participate</text>
+<text top="136" left="149" width="390" height="13" font="5">in every ROS network and to publish and subscribe for messages.</text>
+<text top="162" left="149" width="41" height="11" font="5">&gt; ros.</text>
+<text top="179" left="149" width="75" height="11" font="5">ros.BagRead</text>
+<text top="179" left="259" width="75" height="11" font="5">ros.Logging</text>
+<text top="179" left="403" width="89" height="11" font="5">ros.ParamType</text>
+<text top="179" left="629" width="75" height="11" font="5">ros.TimeNow</text>
+<text top="195" left="149" width="62" height="11" font="5">ros.Debug</text>
+<text top="195" left="259" width="75" height="11" font="5">ros.Message</text>
+<text top="195" left="403" width="89" height="11" font="5">ros.Publisher</text>
+<text top="195" left="629" width="55" height="11" font="5">ros.Warn</text>
+<text top="211" left="149" width="62" height="11" font="5">ros.Error</text>
+<text top="211" left="259" width="41" height="11" font="5">ros.OK</text>
+<text top="211" left="403" width="103" height="11" font="5">ros.ReadMessage</text>
+<text top="211" left="629" width="110" height="11" font="5">ros.WriteMessage</text>
+<text top="228" left="149" width="62" height="11" font="5">ros.Fatal</text>
+<text top="228" left="259" width="103" height="11" font="5">ros.ParamDelete</text>
+<text top="228" left="403" width="82" height="11" font="5">ros.SpinOnce</text>
+<text top="244" left="149" width="55" height="11" font="5">ros.Info</text>
+<text top="244" left="259" width="82" height="11" font="5">ros.ParamGet</text>
+<text top="244" left="403" width="96" height="11" font="5">ros.Subscriber</text>
+<text top="261" left="149" width="55" height="11" font="5">ros.Init</text>
+<text top="261" left="259" width="82" height="11" font="5">ros.ParamSet</text>
+<text top="261" left="403" width="185" height="11" font="5">ros.SubscriberHasNewMessage</text>
+<text top="286" left="149" width="595" height="13" font="5">First of all, and as it is required for all ROS nodes, the node has to be registered as a new participant</text>
+<text top="302" left="149" width="595" height="13" font="5">by announcing at the ROS master with an arbitrary but unique identifier. This can be done with the</text>
+<text top="319" left="149" width="77" height="13" font="5">R-command:</text>
+<text top="345" left="149" width="137" height="11" font="5">&gt; ros.Init(&#34;R_demo&#34;)</text>
+<text top="370" left="149" width="296" height="13" font="5">ROS also provides a monitoring tool rxgraph (cf.</text>
+<text top="370" left="449" width="43" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Conley</a></text>
+<text top="370" left="492" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="370" left="499" width="35" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013b</a></text>
+<text top="370" left="534" width="210" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">) </a>that shows all active applications</text>
+<text top="386" left="148" width="596" height="13" font="5">(“nodes”) and active connections between them. Starting this tool from the shell should show the</text>
+<text top="403" left="149" width="207" height="13" font="5">same result, as presented in Figure</text>
+<text top="403" left="359" width="14" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#0">2a</a></text>
+<text top="403" left="376" width="369" height="13" font="5">below. By examining these nodes, you will see that our newly</text>
+<text top="419" left="149" width="528" height="13" font="5">created node is neither subscribed to nor publishing on a certain topic, while rosbag (cf.</text>
+<text top="419" left="680" width="62" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Field et al.</a></text>
+<text top="419" left="742" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="435" left="149" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="435" left="176" width="478" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">) </a>is continuously publishing Float32 data under topic ‘/sharpGP2D120/Voltage’.</text>
+<text top="616" left="241" width="14" height="12" font="13"><b>(a)</b></text>
+<text top="616" left="258" width="97" height="12" font="1">before subscribing</text>
+<text top="616" left="544" width="15" height="12" font="13"><b>(b)</b></text>
+<text top="616" left="562" width="88" height="12" font="1">after subscribing</text>
+<text top="646" left="149" width="55" height="13" font="4"><b>Figure 2:</b></text>
+<text top="646" left="212" width="532" height="13" font="5">Connectivity graphs, created with the shell-command rxgraph, both show additional</text>
+<text top="662" left="149" width="276" height="13" font="5">information about node &#34;R_demo&#34; on the right.</text>
+<text top="717" left="149" width="180" height="15" font="3"><b>Subscriptions and logging</b></text>
+<text top="749" left="148" width="598" height="13" font="5">Within this section, we will show how to subscribe to and receive messages from other ROS nodes.</text>
+<text top="765" left="148" width="596" height="13" font="5">A subscription in R can be created as easily as in other programming languages. The only relevant</text>
+<text top="782" left="148" width="596" height="13" font="5">parameters are the topic and the message type (we will handle messages in more detail within</text>
+<text top="798" left="149" width="73" height="13" font="5">subsection <a href="2013-2-dietrich-zug-kaiser.html#7">“</a></text>
+<text top="798" left="222" width="153" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#7">Publishing new messages</a></text>
+<text top="798" left="374" width="370" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#7">”). </a>The function call as listed below creates a new subscription</text>
+<text top="815" left="149" width="490" height="13" font="5">and also changes the connectivity graph of the ROS network, as depicted in Figure</text>
+<text top="815" left="642" width="14" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#0">2b</a></text>
+<text top="815" left="656" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#0">.</a></text>
+<text top="841" left="149" width="528" height="11" font="5">&gt; subscription &lt;- ros.Subscriber(&#34;/sharpGP2D120/Voltage&#34;, &#34;std_msgs/Float32&#34;)</text>
+<text top="866" left="149" width="595" height="13" font="5">Due to the fact that R is single-threaded and the lack of native support for callbacks, we have to</text>
+<text top="882" left="149" width="446" height="13" font="5">continuously poll for new messages. The code snippet below faciliates this:</text>
+<text top="908" left="149" width="130" height="11" font="5">&gt; while(ros.OK()) {</text>
+<text top="908" left="293" width="350" height="11" font="5"># evaluates to TRUE as long as the master is online</text>
+<text top="925" left="149" width="7" height="11" font="5">+</text>
+<text top="925" left="190" width="439" height="11" font="5">ros.SpinOnce() # fill the subscription buffers with new messages</text>
+<text top="941" left="149" width="7" height="11" font="5">+</text>
+<text top="941" left="190" width="322" height="11" font="5">if(ros.SubscriberHasNewMessage(subscription)) {</text>
+<text top="958" left="149" width="7" height="11" font="5">+</text>
+<text top="958" left="217" width="274" height="11" font="5">message &lt;- ros.ReadMessage(subscription)</text>
+<text top="974" left="149" width="7" height="11" font="5">+</text>
+<text top="974" left="217" width="350" height="11" font="5">ros.Info( paste(&#34;Measured Voltage&#34;, message$data) )</text>
+<text top="990" left="149" width="34" height="11" font="5">+ } }</text>
+<text top="1007" left="149" width="453" height="11" font="5">[ INFO] [1374149363.939419670]: Measured Voltage 0.675665080547333</text>
+<text top="1023" left="149" width="453" height="11" font="5">[ INFO] [1374149364.069367143]: Measured Voltage 0.713892936706543</text>
+<text top="1040" left="149" width="21" height="11" font="5">...</text>
+<text top="1065" left="149" width="595" height="13" font="5">Function ros.SpinOnce() is responsible for filling the message buffers of all generated subscribers</text>
+<text top="1081" left="148" width="596" height="13" font="5">with the newest message at once. The fact that a subscriber has received a new message or not, is</text>
+<text top="1098" left="149" width="596" height="13" font="5">indicated with the function call ros.SubscriberHasNewMessage(). This has to be called for every</text>
+<text top="1114" left="149" width="598" height="13" font="5">subscription. The last message that was received can be read out with function ros.ReadMessage().</text>
+<text top="1130" left="148" width="596" height="13" font="5">A message remains in the message buffer of a subscriber as long as it is not overwritten by a newly</text>
+<text top="1147" left="149" width="216" height="13" font="5">received message (ros.SpinOnce()).</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">121</text>
+<text top="103" left="171" width="573" height="13" font="5">Instead of using the standard print function of R to print out the content of the message, it is also</text>
+<text top="120" left="148" width="596" height="13" font="5">possible to use some of ROS’s logging functionalities ros.Logging(text,mode) or the abbreviations</text>
+<text top="136" left="149" width="597" height="13" font="5">for different modes. These are ros.Debug(text), ros.Info(text), ros.Warn(text), ros.Error(text),</text>
+<text top="152" left="149" width="595" height="13" font="5">and ros.Fatal(text). The usage of these functions enable a user to debug an application, consisting</text>
+<text top="169" left="149" width="595" height="13" font="5">of multiple nodes, since this information is published to node ‘rosout’ and can be further analyzed</text>
+<text top="185" left="148" width="238" height="13" font="5">with various tools, compare with Figure</text>
+<text top="185" left="390" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#5">3</a></text>
+<text top="185" left="397" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#5">.</a></text>
+<text top="401" left="150" width="53" height="13" font="4"><b>Figure 3:</b></text>
+<text top="401" left="207" width="180" height="13" font="5">Screenshot of rqt_console (cf.</text>
+<text top="401" left="391" width="43" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Blasdel</a></text>
+<text top="401" left="434" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="401" left="440" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="401" left="467" width="275" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">), </a>a viewer that displays logs of various nodes.</text>
+<text top="454" left="149" width="122" height="15" font="3"><b>Executable scripts</b></text>
+<text top="485" left="148" width="596" height="13" font="5">Two things are required, to start the example from above as a R-script from the shell. A comment at</text>
+<text top="502" left="149" width="371" height="13" font="5">the first line of the script, which defines the correct interpreter:</text>
+<text top="527" left="149" width="82" height="11" font="5">#!/usr/bin/r</text>
+<text top="550" left="148" width="560" height="13" font="5">The script also has to be made executable, which can be done with the shell-command ‘chmod’:</text>
+<text top="575" left="149" width="130" height="11" font="5">$ chmod +x script.R</text>
+<text top="598" left="148" width="596" height="13" font="5">Afterwards it is possible to run the script in the same way as any other ordinary ROS node. The script</text>
+<text top="615" left="149" width="278" height="13" font="5">that we had developed so far can be found at <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo0.R">‘</a></text>
+<text top="616" left="427" width="217" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo0.R">rosR_demos/nodes/RJournal/demo0.R</a></text>
+<text top="615" left="643" width="101" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo0.R">’ </a>(this folder also</text>
+<text top="631" left="149" width="425" height="13" font="5">contains further examples) and is started from the shell with rosrun (cf.</text>
+<text top="631" left="577" width="96" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Leibs and Kruse</a></text>
+<text top="631" left="673" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="631" left="680" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="631" left="707" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">):</a></text>
+<text top="656" left="149" width="185" height="11" font="5">$ rosrun rosR_demos demo0.R</text>
+<text top="697" left="149" width="157" height="15" font="3"><b>Time and visualization</b></text>
+<text top="1036" left="527" width="212" height="13" font="4"><b>F. 4: </b>$ rosrun rosR_demos demo1.R</text>
+<text top="728" left="149" width="595" height="13" font="5">Since we started out by stating how easy it is to visualize data with R, the snippet below shows an</text>
+<text top="745" left="149" width="595" height="13" font="5">improved version of the previous code. The voltage values and their reception time are stored within</text>
+<text top="761" left="149" width="595" height="13" font="5">two vectors, which are updated and plotted during every processing cycle. Furthermore, a filter is</text>
+<text top="777" left="149" width="585" height="13" font="5">applied to smooth the results of the measurements. The resulting visualization is shown in Figure</text>
+<text top="777" left="737" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#5">4</a></text>
+<text top="794" left="149" width="332" height="13" font="5">and the corresponding source code can be examined at <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo1.R">‘</a></text>
+<text top="795" left="481" width="214" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo1.R">rosR_demos/nodes/RJournal/demo1.R</a></text>
+<text top="794" left="695" width="7" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo1.R">’.</a></text>
+<text top="819" left="149" width="192" height="11" font="5">&gt; x11(width = 6, height = 4,</text>
+<text top="835" left="149" width="7" height="11" font="5">+</text>
+<text top="835" left="190" width="213" height="11" font="5">title = &#34;SharpGP2D120-Monitor&#34;)</text>
+<text top="851" left="149" width="226" height="11" font="5">&gt; Voltage &lt;- Time &lt;- rep(NA, 100)</text>
+<text top="868" left="149" width="130" height="11" font="5">&gt; while(ros.OK()) {</text>
+<text top="884" left="149" width="7" height="11" font="5">+</text>
+<text top="884" left="176" width="96" height="11" font="5">ros.SpinOnce()</text>
+<text top="901" left="149" width="7" height="11" font="5">+</text>
+<text top="901" left="176" width="322" height="11" font="5">if (ros.SubscriberHasNewMessage(subscription)){</text>
+<text top="917" left="149" width="7" height="11" font="5">+</text>
+<text top="917" left="190" width="274" height="11" font="5">message &lt;- ros.ReadMessage(subscription)</text>
+<text top="934" left="149" width="7" height="11" font="5">+</text>
+<text top="934" left="190" width="268" height="11" font="5">Voltage &lt;- c(Voltage[-1], message$data)</text>
+<text top="950" left="149" width="7" height="11" font="5">+</text>
+<text top="950" left="190" width="233" height="11" font="5">Time &lt;- c(Time[-1], ros.TimeNow())</text>
+<text top="966" left="149" width="7" height="11" font="5">+</text>
+<text top="966" left="190" width="192" height="11" font="5">plot(Time, Voltage, t = &#34;l&#34;,</text>
+<text top="983" left="149" width="7" height="11" font="5">+</text>
+<text top="983" left="224" width="178" height="11" font="5">main = &#34;Measured Voltage&#34;)</text>
+<text top="999" left="149" width="7" height="11" font="5">+</text>
+<text top="999" left="190" width="75" height="11" font="5">lines(Time,</text>
+<text top="1016" left="149" width="7" height="11" font="5">+</text>
+<text top="1016" left="204" width="281" height="11" font="5">filter(Voltage, rep(0.1, 10), sides = 1),</text>
+<text top="1032" left="149" width="7" height="11" font="5">+</text>
+<text top="1032" left="252" width="247" height="11" font="5">type = &#34;l&#34;, col = &#34;blue&#34;, lwd = 2.5)</text>
+<text top="1049" left="149" width="27" height="11" font="5">+ }}</text>
+<text top="1072" left="148" width="596" height="13" font="5">The only newly used ROS function is ros.TimeNow(). It returns the global system time of the ROS</text>
+<text top="1089" left="149" width="595" height="13" font="5">master as double value, as presented below. The dot separates between seconds since the first of</text>
+<text top="1105" left="149" width="402" height="13" font="5">January 1970 and nanoseconds (everything after the decimal point).</text>
+<text top="1130" left="149" width="329" height="11" font="5">&gt; as.POSIXlt(ros.TimeNow(), origin=&#34;1970-01-01&#34;)</text>
+<text top="1130" left="526" width="103" height="11" font="5">&gt; ros.TimeNow()</text>
+<text top="1146" left="149" width="206" height="11" font="5">[1] &#34;2013-07-18 15:46:26 CEST&#34;</text>
+<text top="1146" left="526" width="185" height="11" font="5">[1] 1374155184.932926893234</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">122</text>
+<text top="102" left="149" width="179" height="15" font="3"><b>Bag-files and linearization</b></text>
+<text top="134" left="148" width="596" height="13" font="5">The conversion of non-linear voltage outputs into usable distance measurements is a frequently</text>
+<text top="150" left="149" width="440" height="13" font="5">occurring tasks, by dealing with raw sensor data. The data sheet from the</text>
+<text top="150" left="592" width="114" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Sharp Cooperation</a></text>
+<text top="150" left="709" width="5" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="150" left="714" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2007</a></text>
+<text top="150" left="741" width="5" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">)</a></text>
+<text top="167" left="148" width="596" height="13" font="5">provides a voltage-distance characteristic, which is quite similar to our measurements depicted in</text>
+<text top="183" left="149" width="38" height="13" font="5">Figure</text>
+<text top="183" left="190" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#6">5</a></text>
+<text top="183" left="197" width="547" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#6">. </a>These measurements (sensor output voltage and manually controlled distance) were stored</text>
+<text top="199" left="149" width="596" height="13" font="5">additionally in the bag-file that is currently replayed by rosbag to publish the voltage values of Sharp</text>
+<text top="216" left="149" width="595" height="13" font="5">distance sensor. A bag is a standard format in ROS for storing any kind of ROS messages. Reading in</text>
+<text top="232" left="149" width="595" height="13" font="5">messages from a bag-file, to analyze their content in R, is therefore also provided by our API. Next to</text>
+<text top="249" left="149" width="595" height="13" font="5">replaying messages, rosbag can also be used for recording messages and inspecting bag-files, as it is</text>
+<text top="265" left="148" width="102" height="13" font="5">presented below:</text>
+<text top="292" left="149" width="384" height="11" font="5">$ rosbag info rosR_demos/nodes/RJournal/sharpGP2D120.bag</text>
+<text top="308" left="149" width="21" height="11" font="5">...</text>
+<text top="324" left="149" width="41" height="11" font="5">start:</text>
+<text top="324" left="238" width="268" height="11" font="5">Nov 19 2013 14:03:28.91 (1384866208.91)</text>
+<text top="341" left="149" width="27" height="11" font="5">end:</text>
+<text top="341" left="238" width="268" height="11" font="5">Nov 19 2013 14:28:42.09 (1384867722.09)</text>
+<text top="357" left="149" width="34" height="11" font="5">size:</text>
+<text top="357" left="238" width="48" height="11" font="5">39.6 KB</text>
+<text top="374" left="149" width="62" height="11" font="5">messages:</text>
+<text top="374" left="238" width="21" height="11" font="5">554</text>
+<text top="390" left="149" width="206" height="11" font="5">compression: none [1/1 chunks]</text>
+<text top="407" left="149" width="41" height="11" font="5">types:</text>
+<text top="407" left="238" width="405" height="11" font="5">rosR_demos/Linearization [3f7dd391cdbb9d1f72822c152e8c430f]</text>
+<text top="423" left="238" width="110" height="11" font="5">std_msgs/Float32</text>
+<text top="423" left="409" width="233" height="11" font="5">[73fcbf46b49191e672908e50842a83d4]</text>
+<text top="439" left="149" width="48" height="11" font="5">topics:</text>
+<text top="439" left="238" width="185" height="11" font="5">/sharpGP2D120/Linearization</text>
+<text top="439" left="444" width="55" height="11" font="5">240 msgs</text>
+<text top="439" left="526" width="178" height="11" font="5">: rosR_demos/Linearization</text>
+<text top="456" left="238" width="144" height="11" font="5">/sharpGP2D120/Voltage</text>
+<text top="456" left="444" width="55" height="11" font="5">314 msgs</text>
+<text top="456" left="526" width="123" height="11" font="5">: std_msgs/Float32</text>
+<text top="481" left="148" width="596" height="13" font="5">The result shows that there are two different topics in two different message formats. The voltage</text>
+<text top="498" left="148" width="597" height="13" font="5">values to which we had subscribed ‘/sharpGP2D120/Voltage’ and ‘/sharpGP2D120/Linearization’,</text>
+<text top="514" left="148" width="596" height="13" font="5">which contains the previously measured distance/voltage values. This message format is defined in</text>
+<text top="530" left="147" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/msg/Linearization.msg">‘</a></text>
+<text top="531" left="151" width="199" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/msg/Linearization.msg">rosR_demos/msg/Linearization.msg</a></text>
+<text top="530" left="349" width="395" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/msg/Linearization.msg">’ </a>and is composed of two Float32 values. Reading these messages</text>
+<text top="547" left="149" width="595" height="13" font="5">from the bag-file into R can be done with the function ros.BagRead. The required input parameters</text>
+<text top="563" left="149" width="430" height="13" font="5">are the filename and a vector of strings that defines the topics of interest:</text>
+<text top="590" left="149" width="446" height="11" font="5">&gt; file &lt;- paste(system(&#34;rospack find rosR_demos&#34;, intern = TRUE),</text>
+<text top="606" left="149" width="7" height="11" font="5">+</text>
+<text top="606" left="259" width="309" height="11" font="5">&#34;/nodes/RJournal/sharpGP2D120.bag&#34;, sep = &#34;&#34;)</text>
+<text top="622" left="149" width="89" height="11" font="5">&gt; bag.data &lt;-</text>
+<text top="622" left="252" width="329" height="11" font="5">ros.BagRead(file, c(&#34;rosR_demos/Linearization&#34;))</text>
+<text top="648" left="148" width="597" height="13" font="5">The result is a list consisting of four vectors, these are the topic names, message types, timestamps,</text>
+<text top="664" left="149" width="597" height="13" font="5">and the messages themselves (the details of message conversion are explained in the next subsection):</text>
+<text top="690" left="149" width="130" height="11" font="5">&gt; bag.data$topic[2]</text>
+<text top="690" left="464" width="144" height="11" font="5">&gt; bag.data$message[2]</text>
+<text top="707" left="149" width="226" height="11" font="5">[1] &#34;/sharpGP2D120/Linearization&#34;</text>
+<text top="707" left="464" width="34" height="11" font="5">[[1]]</text>
+<text top="723" left="149" width="158" height="11" font="5">&gt; bag.data$data_type[2]</text>
+<text top="723" left="464" width="69" height="11" font="5">[[1]]$dist</text>
+<text top="740" left="149" width="206" height="11" font="5">[1] &#34;rosR_demos/Linearization&#34;</text>
+<text top="740" left="464" width="62" height="11" font="5">[1] 0.031</text>
+<text top="756" left="149" width="165" height="11" font="5">&gt; bag.data$time_stamp[2]</text>
+<text top="756" left="464" width="69" height="11" font="5">[[1]]$volt</text>
+<text top="773" left="149" width="185" height="11" font="5">[1] 1374499648.961932659149</text>
+<text top="773" left="464" width="69" height="11" font="5">[1] 3.0251</text>
+<text top="798" left="149" width="595" height="13" font="5">Before fitting a suitable equation to describe the relation between distance and voltage, we have to</text>
+<text top="814" left="149" width="595" height="13" font="5">transform the linearization messages into an appropriate R format (data.frame). In the code example</text>
+<text top="831" left="149" width="458" height="13" font="5">below, this happens by extracting all required values with the help of sapply:</text>
+<text top="857" left="149" width="89" height="11" font="5">&gt; # Copy data</text>
+<text top="873" left="149" width="233" height="11" font="5">&gt; dist &lt;- sapply(bag.data$message,</text>
+<text top="890" left="149" width="7" height="11" font="5">+</text>
+<text top="890" left="265" width="89" height="11" font="5">&#34;[[&#34;, &#34;dist&#34;)</text>
+<text top="906" left="149" width="233" height="11" font="5">&gt; volt &lt;- sapply(bag.data$message,</text>
+<text top="923" left="149" width="7" height="11" font="5">+</text>
+<text top="923" left="265" width="89" height="11" font="5">&#34;[[&#34;, &#34;volt&#34;)</text>
+<text top="939" left="149" width="261" height="11" font="5">&gt; sharp.data &lt;- data.frame(dist, volt)</text>
+<text top="955" left="149" width="288" height="11" font="5">&gt; plot(sharp.data, main = &#34;Linearization&#34;)</text>
+<text top="972" left="149" width="7" height="11" font="5">&gt;</text>
+<text top="988" left="149" width="117" height="11" font="5">&gt; # Linearization</text>
+<text top="1005" left="149" width="268" height="11" font="5">&gt; sharp.reg &lt;- lm(dist ~ poly(volt, 8),</text>
+<text top="1021" left="149" width="7" height="11" font="5">+</text>
+<text top="1021" left="272" width="123" height="11" font="5">data = sharp.data)</text>
+<text top="1038" left="149" width="219" height="11" font="5">&gt; sharp.dist &lt;- function(volt) {</text>
+<text top="1054" left="149" width="7" height="11" font="5">+</text>
+<text top="1054" left="169" width="240" height="11" font="5">predict(sharp.reg,data.frame(volt))</text>
+<text top="1071" left="149" width="21" height="11" font="5">+ }</text>
+<text top="1087" left="149" width="7" height="11" font="5">&gt;</text>
+<text top="1103" left="149" width="69" height="11" font="5">&gt; # Test 1</text>
+<text top="1103" left="300" width="69" height="11" font="5">&gt; # Test 2</text>
+<text top="1120" left="149" width="117" height="11" font="5">&gt; sharp.dist(0.8)</text>
+<text top="1120" left="300" width="117" height="11" font="5">&gt; sharp.dist(2.0)</text>
+<text top="1136" left="149" width="89" height="11" font="5">[1] 0.1638513</text>
+<text top="1136" left="300" width="89" height="11" font="5">[1] 0.0613970</text>
+<text top="1130" left="465" width="277" height="13" font="4"><b>Figure 5: </b>&gt; plot(sharp.data,main=’Lin...’)</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">123</text>
+<text top="103" left="171" width="573" height="13" font="5">We decide to approximate the relation by a polynom. Previous investigations showed, that</text>
+<text top="120" left="149" width="595" height="13" font="5">a polynom with a degree of 8 meets our expectations related to the maximum deviation. This</text>
+<text top="136" left="149" width="595" height="13" font="5">is pretty straight forward in R and can be realized with lm within one line. The following line</text>
+<text top="152" left="149" width="595" height="13" font="5">defines a function that makes predictions based on the fitted polynom. The predictions made by the</text>
+<text top="169" left="149" width="557" height="13" font="5">resulting linearization function sharp.dist are quite close to the measurements in data sheet</text>
+<text top="169" left="709" width="36" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Sharp</a></text>
+<text top="185" left="149" width="76" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Cooperation</a></text>
+<text top="185" left="228" width="5" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="185" left="233" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2007</a></text>
+<text top="185" left="260" width="418" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">). </a>The confidence intervals of this linearization are depicted in Figure</text>
+<text top="185" left="681" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#9">6</a></text>
+<text top="185" left="688" width="56" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#9">. </a>See also</text>
+<text top="202" left="147" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo2.R">‘</a></text>
+<text top="203" left="151" width="214" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo2.R">rosR_demos/nodes/RJournal/demo2.R</a></text>
+<text top="202" left="365" width="342" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo2.R">’, </a>which contains the source code of the running example.</text>
+<text top="244" left="149" width="176" height="15" font="3"><b>Publishing new messages</b></text>
+<text top="275" left="148" width="596" height="13" font="5">This subsection concludes our attempts at developing ROS nodes in R. While the first part describes</text>
+<text top="292" left="149" width="598" height="13" font="5">message handling and conversion from ROS to R, the second part will show how simply the cal-</text>
+<text top="308" left="149" width="595" height="13" font="5">culated distance values can be published under a new topic and in an appropriate message format</text>
+<text top="325" left="148" width="136" height="13" font="5">(‘sensor_msgs/Range’).</text>
+<text top="367" left="149" width="66" height="15" font="3"><b>Messages</b></text>
+<text top="398" left="149" width="595" height="13" font="5">In ROS every topic is defined by a strongly typed message format. Messages are therefore described</text>
+<text top="415" left="149" width="119" height="13" font="5">in language-neutral</text>
+<text top="415" left="271" width="159" height="13" font="8"><a href="http://www.ros.org/wiki/msg">interface definition format</a></text>
+<text top="415" left="430" width="314" height="13" font="5"><a href="http://www.ros.org/wiki/msg">. </a>They are defined as compositions of primitive data</text>
+<text top="431" left="149" width="595" height="13" font="5">types such as int32, float64, string, arrays, etc., but they can also contain other message definitions</text>
+<text top="448" left="149" width="595" height="13" font="5">to derive more complex structures for various purposes. Furthermore, every ROS package can define</text>
+<text top="464" left="149" width="595" height="13" font="5">its own message formats. Addressing a specific message definition therefore requires two values, in</text>
+<text top="480" left="149" width="523" height="13" font="5">the format of &#34;ros-package-name/message-description-file&#34;. By applying rosmsg (cf.</text>
+<text top="480" left="675" width="69" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Conley and</a></text>
+<text top="497" left="149" width="33" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Foote</a></text>
+<text top="497" left="182" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="497" left="189" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="497" left="215" width="500" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">) </a>it is possible to examine messages that are defined in different packages as follows:</text>
+<text top="524" left="149" width="261" height="11" font="5">$ rosmsg show rosR_demos/Linearization</text>
+<text top="524" left="464" width="206" height="11" font="5">$ rosmsg show std_msgs/Float32</text>
+<text top="540" left="149" width="82" height="11" font="5">float32 dist</text>
+<text top="540" left="464" width="82" height="11" font="5">float32 data</text>
+<text top="556" left="149" width="82" height="11" font="5">float32 volt</text>
+<text top="573" left="464" width="240" height="11" font="5">$ rosmsg show sensor_msgs/LaserScan</text>
+<text top="589" left="149" width="213" height="11" font="5">$ rosmsg show sensor_msgs/Range</text>
+<text top="589" left="464" width="151" height="11" font="5">std_msgs/Header header</text>
+<text top="606" left="149" width="123" height="11" font="5">uint8 ULTRASOUND=0</text>
+<text top="606" left="478" width="69" height="11" font="5">uint32 seq</text>
+<text top="622" left="149" width="110" height="11" font="5">uint8 INFRARED=1</text>
+<text top="622" left="478" width="69" height="11" font="5">time stamp</text>
+<text top="639" left="149" width="151" height="11" font="5">std_msgs/Header header</text>
+<text top="639" left="478" width="103" height="11" font="5">string frame_id</text>
+<text top="655" left="163" width="69" height="11" font="5">uint32 seq</text>
+<text top="655" left="464" width="117" height="11" font="5">float32 angle_min</text>
+<text top="672" left="163" width="69" height="11" font="5">time stamp</text>
+<text top="672" left="464" width="117" height="11" font="5">float32 angle_max</text>
+<text top="688" left="163" width="103" height="11" font="5">string frame_id</text>
+<text top="688" left="464" width="158" height="11" font="5">float32 angle_increment</text>
+<text top="704" left="149" width="137" height="11" font="5">uint8 radiation_type</text>
+<text top="704" left="464" width="151" height="11" font="5">float32 time_increment</text>
+<text top="721" left="149" width="144" height="11" font="5">float32 field_of_view</text>
+<text top="721" left="464" width="117" height="11" font="5">float32 scan_time</text>
+<text top="737" left="149" width="117" height="11" font="5">float32 min_range</text>
+<text top="737" left="464" width="117" height="11" font="5">float32 range_min</text>
+<text top="754" left="149" width="117" height="11" font="5">float32 max_range</text>
+<text top="754" left="464" width="117" height="11" font="5">float32 range_max</text>
+<text top="770" left="149" width="89" height="11" font="5">float32 range</text>
+<text top="770" left="464" width="110" height="11" font="5">float32[] ranges</text>
+<text top="796" left="148" width="596" height="13" font="5">The listing above shows the definition formats of four different messages. The first two of them were</text>
+<text top="812" left="149" width="597" height="13" font="5">already used and you will probably recognize where the names for list elements (‘$data’, ‘$dist’,</text>
+<text top="829" left="147" width="597" height="13" font="5">‘$volt’) came from. It is notable that the more complex messages combine static information related</text>
+<text top="845" left="149" width="595" height="13" font="5">to the sensor (‘field_of_view’, ‘min_range’) and the actual measurement sets (‘stamp’, ‘range’). All</text>
+<text top="861" left="149" width="595" height="13" font="5">ROS messages are automatically converted into compositions of lists, whose format is defined by the</text>
+<text top="878" left="149" width="597" height="13" font="5">message definition. The resulting list from reading in a message, from a subscription or from a bag-file,</text>
+<text top="894" left="149" width="595" height="13" font="5">is already presented in the appropriate structure. Calling function ros.Message will also generate an</text>
+<text top="911" left="149" width="238" height="13" font="5">empty message in the requested format:</text>
+<text top="938" left="149" width="295" height="11" font="5">&gt; range &lt;- ros.Message(&#34;sensor_msgs/Range&#34;)</text>
+<text top="963" left="149" width="595" height="13" font="5">Elements of that newly generated message can simply be changed by assigning new values as follows</text>
+<text top="980" left="148" width="112" height="13" font="5">(range values from</text>
+<text top="980" left="264" width="113" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Sharp Cooperation</a></text>
+<text top="980" left="380" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="980" left="384" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2007</a></text>
+<text top="980" left="411" width="12" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">)):</a></text>
+<text top="1006" left="149" width="274" height="11" font="5">&gt; # equal to range.min_range as in rospy</text>
+<text top="1006" left="464" width="247" height="11" font="5">&gt; # or to range-&gt;min_range in roscpp</text>
+<text top="1023" left="149" width="171" height="11" font="5">&gt; range$min_range &lt;- 0.04</text>
+<text top="1023" left="464" width="158" height="11" font="5">&gt; range$header$seq &lt;- 0</text>
+<text top="1039" left="149" width="171" height="11" font="5">&gt; range$max_range &lt;- 0.30</text>
+<text top="1039" left="464" width="240" height="11" font="5">&gt; range$header$frame_id &lt;- &#34;/sharp&#34;</text>
+<text top="1065" left="147" width="599" height="13" font="5">‘header’ in this case is an example of a nested message definition. As shown in the result of rosmsg,</text>
+<text top="1081" left="149" width="595" height="13" font="5">this element of type ‘std_msgs/Header’ contains three primitive data types, which means in R that</text>
+<text top="1098" left="147" width="597" height="13" font="5">‘header’ is also translated into a list containing three further elements. Some message definitions</text>
+<text top="1114" left="149" width="595" height="13" font="5">like ‘sensor_msgs/LaserScan’ might also contain arrays, which cannot be directly translated into</text>
+<text top="1130" left="149" width="596" height="13" font="5">appropriate R elements (vectors), as it happens for primitive data types. The conversion of arrays by</text>
+<text top="1147" left="149" width="595" height="13" font="5">using SWIG2.0 can be very time consuming, at least in R. It requires that every single element has to</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">124</text>
+<text top="103" left="149" width="595" height="13" font="5">be copied into a new R vector. Just think of a camera frame with 640x480 (RGB) pixels, resulting in an</text>
+<text top="120" left="149" width="595" height="13" font="5">array with 921600 elements. We therefore choose another strategy, to enable and to speed up the access</text>
+<text top="136" left="149" width="595" height="13" font="5">to these values, if it is required. An array is handled in background as a C++ std::vector&lt;T&gt;. The</text>
+<text top="152" left="149" width="483" height="13" font="5">access to the elements of this C++ vector is enabled via R wrapper classes. See file <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">‘</a></text>
+<text top="153" left="631" width="112" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">rosR/lib/std_vector.R</a></text>
+<text top="152" left="743" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">’</a></text>
+<text top="169" left="149" width="161" height="13" font="5">for implementation details.</text>
+<text top="196" left="149" width="316" height="11" font="5">&gt; scan &lt;- ros.Message(&#34;sensor_msgs/LaserScan&#34;)</text>
+<text top="213" left="149" width="364" height="11" font="5">&gt; typeof(scan$ranges) # element defines float32 array</text>
+<text top="229" left="149" width="55" height="11" font="5">[1] &#34;S4&#34;</text>
+<text top="256" left="148" width="597" height="13" font="5">The functions that are currently used to wrap the access to these C++ vectors are length, print, show,</text>
+<text top="273" left="149" width="41" height="11" font="5">resize</text>
+<text top="272" left="190" width="554" height="13" font="5">, pop, pop_back, back, front, clear, and []. The usage of these functions allows to query the</text>
+<text top="288" left="149" width="306" height="13" font="5">length or to print the content of an array as follows:</text>
+<text top="316" left="149" width="144" height="11" font="5">&gt; length(scan$ranges)</text>
+<text top="316" left="464" width="89" height="11" font="5">&gt; scan$ranges</text>
+<text top="332" left="149" width="34" height="11" font="5">[1] 0</text>
+<text top="332" left="464" width="55" height="11" font="5">[1] NULL</text>
+<text top="359" left="149" width="595" height="13" font="5">Inherited from the SWIG2.0 conversion of std::vectors, array elements have to be added by using the</text>
+<text top="375" left="149" width="595" height="13" font="5">function append or push_back and can be removed with the functions pop or pop_back, while accessing</text>
+<text top="392" left="149" width="482" height="13" font="5">and changing already existing array elements can be done in the common R way:</text>
+<text top="419" left="149" width="165" height="11" font="5">&gt; append(scan$ranges, 0)</text>
+<text top="419" left="464" width="117" height="11" font="5">&gt; msg$ranges[2:4]</text>
+<text top="435" left="149" width="226" height="11" font="5">&gt; append(scan$ranges, c(1, 2, 3))</text>
+<text top="435" left="464" width="62" height="11" font="5">[1] 1 2 3</text>
+<text top="452" left="149" width="144" height="11" font="5">&gt; length(scan$ranges)</text>
+<text top="452" left="464" width="233" height="11" font="5">&gt; msg$ranges[2:4] &lt;- c(11, 22, 33)</text>
+<text top="468" left="149" width="34" height="11" font="5">[1] 4</text>
+<text top="468" left="464" width="117" height="11" font="5">&gt; msg$ranges[1:5]</text>
+<text top="485" left="149" width="247" height="11" font="5">&gt; push_back(scan$ranges, c(4, 5, 6))</text>
+<text top="485" left="464" width="110" height="11" font="5">[1] 0 11 22 33 4</text>
+<text top="501" left="149" width="144" height="11" font="5">&gt; length(scan$ranges)</text>
+<text top="501" left="464" width="117" height="11" font="5">&gt; pop(msg$ranges)</text>
+<text top="518" left="149" width="34" height="11" font="5">[1] 7</text>
+<text top="518" left="464" width="34" height="11" font="5">[1] 6</text>
+<text top="534" left="149" width="82" height="11" font="5">&gt; msg$ranges</text>
+<text top="534" left="464" width="82" height="11" font="5">&gt; msg$ranges</text>
+<text top="551" left="149" width="117" height="11" font="5">[1] 0 1 2 3 4 5 6</text>
+<text top="551" left="464" width="123" height="11" font="5">[1] 0 11 22 33 4 5</text>
+<text top="577" left="149" width="597" height="13" font="5">It has to be noted that [] always creates local copies of the elements stored within a C++ vector. Thus,</text>
+<text top="593" left="149" width="596" height="13" font="5">accessing and analyzing huge arrays (e. g., camera images) is possible but it may require some time for</text>
+<text top="610" left="149" width="69" height="13" font="5">conversion.</text>
+<text top="637" left="149" width="123" height="11" font="5">&gt; sum(scan$ranges)</text>
+<text top="654" left="149" width="405" height="11" font="5">Error in sum(scan$ranges) : invalid ’type’ (S4) of argument</text>
+<text top="670" left="149" width="158" height="11" font="5">&gt; sum(scan$ranges[1:6])</text>
+<text top="687" left="149" width="41" height="11" font="5">[1] 75</text>
+<text top="713" left="149" width="596" height="13" font="5">Nevertheless, it is possible to speed up the execution of required functions, such as sum, median, or</text>
+<text top="730" left="149" width="48" height="11" font="5">density</text>
+<text top="729" left="197" width="547" height="13" font="5">, by manually implementing wrapper functions in the same way as done for length or [] in</text>
+<text top="746" left="149" width="26" height="13" font="5">file <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">‘</a></text>
+<text top="747" left="174" width="114" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">rosR/lib/std_vector.R</a></text>
+<text top="746" left="288" width="169" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">’. </a>See therefore also section <a href="2013-2-dietrich-zug-kaiser.html#9">“</a></text>
+<text top="746" left="458" width="138" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#9">Implementation details</a></text>
+<text top="746" left="596" width="10" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#9">”.</a></text>
+<text top="788" left="149" width="76" height="15" font="3"><b>Publishing</b></text>
+<text top="820" left="149" width="595" height="13" font="5">Coming back to our example, the publication of converted distance measurements requires the</text>
+<text top="836" left="149" width="595" height="13" font="5">announcement of a new topic with the new message format. This is done automatically by creating a</text>
+<text top="852" left="149" width="100" height="13" font="5">new publication:</text>
+<text top="880" left="149" width="528" height="11" font="5">&gt; publication &lt;- ros.Publisher(&#34;/sharpGP2D120/Distance&#34;, &#34;sensor_msgs/Range&#34;)</text>
+<text top="906" left="148" width="596" height="13" font="5">Afterwards, the previously generated message of type ‘sensor_msgs/Range’ has to be updated with</text>
+<text top="923" left="149" width="595" height="13" font="5">the current distance value, a timestamp, and a sequence number. This can happen within the main</text>
+<text top="939" left="149" width="93" height="13" font="5">loop as follows:</text>
+<text top="967" left="149" width="226" height="11" font="5">&gt; range$range &lt;- sharp.dist(volt)</text>
+<text top="967" left="464" width="199" height="11" font="5"># convert voltage to distance</text>
+<text top="983" left="149" width="199" height="11" font="5">&gt; range$header$seq &lt;- counter</text>
+<text top="983" left="464" width="226" height="11" font="5"># store a running sequence number</text>
+<text top="1000" left="149" width="254" height="11" font="5">&gt; range$header$stamp &lt;- ros.TimeNow()</text>
+<text top="1000" left="464" width="165" height="11" font="5"># store the current time</text>
+<text top="1026" left="149" width="598" height="13" font="5">Finally, the message can be published by writing the message to the publisher. In contrast to a subscrip-</text>
+<text top="1042" left="149" width="597" height="13" font="5">tion, this information is immediately published and does not require to run function ros.SpinOnce().</text>
+<text top="1070" left="149" width="261" height="11" font="5">&gt; ros.WriteMessage(publication, range)</text>
+<text top="1070" left="464" width="199" height="11" font="5"># publish the adapted message</text>
+<text top="1096" left="171" width="39" height="13" font="5">Figure</text>
+<text top="1096" left="214" width="7" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#9">6</a></text>
+<text top="1096" left="224" width="522" height="13" font="5">shows the running example of the R node, which is publishing and visualizing the lin-</text>
+<text top="1113" left="149" width="595" height="13" font="5">earized distance measurements. The additional plot on the left shows the non-linear relation between</text>
+<text top="1129" left="148" width="382" height="13" font="5">voltage and distance as well as the current measurement. See also <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo3.R">‘</a></text>
+<text top="1130" left="530" width="210" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo3.R">rosR_demos/nodes/RJournal/demo3.R</a></text>
+<text top="1129" left="740" width="7" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR_demos/nodes/RJournal/demo3.R">’.</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">125</text>
+<text top="374" left="149" width="57" height="13" font="4"><b>Figure 6:</b></text>
+<text top="374" left="217" width="528" height="13" font="5">Screenshots of the final R application (foreground: $ rosrun rosR_demos demo3.R)</text>
+<text top="390" left="149" width="599" height="13" font="5">and the published range messages in a textual format (background: $ rostopic echo /sharp-</text>
+<text top="407" left="149" width="110" height="11" font="5">GP2D120/Distance</text>
+<text top="406" left="259" width="139" height="13" font="5">) by using rostopic (cf.</text>
+<text top="406" left="401" width="43" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Conley</a></text>
+<text top="406" left="444" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">,</a></text>
+<text top="406" left="450" width="34" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013a</a></text>
+<text top="406" left="484" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">).</a></text>
+<text top="455" left="149" width="211" height="15" font="3"><b>Accessing the parameter server</b></text>
+<text top="487" left="148" width="596" height="13" font="5">The parameter server is also part of the ROS master and allows different nodes to exchange simple</text>
+<text top="503" left="148" width="596" height="13" font="5">parameters (i. e., logical, integer, double, character). Accessing and storing parameters is enabled</text>
+<text top="520" left="149" width="595" height="13" font="5">by the functions ros.ParamSet, ros.ParamGet, ros.ParamType, and ros.ParamDelete, which can be</text>
+<text top="536" left="149" width="95" height="13" font="5">used as follows:</text>
+<text top="564" left="149" width="213" height="11" font="5">&gt; ros.ParamSet(&#34;name&#34;, &#34;value&#34;)</text>
+<text top="564" left="464" width="151" height="11" font="5">&gt; ros.ParamGet(&#34;name&#34;)</text>
+<text top="580" left="149" width="151" height="11" font="5">&gt; ros.ParamGet(&#34;name&#34;)</text>
+<text top="580" left="464" width="62" height="11" font="5">[1] 12.22</text>
+<text top="596" left="149" width="75" height="11" font="5">[1] &#34;value&#34;</text>
+<text top="596" left="464" width="158" height="11" font="5">&gt; ros.ParamType(&#34;name&#34;)</text>
+<text top="613" left="149" width="192" height="11" font="5">&gt; ros.ParamSet(&#34;name&#34;, TRUE)</text>
+<text top="613" left="464" width="82" height="11" font="5">[1] &#34;double&#34;</text>
+<text top="629" left="149" width="158" height="11" font="5">&gt; ros.ParamType(&#34;name&#34;)</text>
+<text top="629" left="464" width="171" height="11" font="5">&gt; ros.ParamDelete(&#34;name&#34;)</text>
+<text top="646" left="149" width="89" height="11" font="5">[1] &#34;logical&#34;</text>
+<text top="646" left="464" width="158" height="11" font="5">&gt; ros.ParamType(&#34;name&#34;)</text>
+<text top="662" left="149" width="199" height="11" font="5">&gt; ros.ParamSet(&#34;name&#34;, 12.22)</text>
+<text top="662" left="464" width="27" height="11" font="5">NULL</text>
+<text top="689" left="149" width="595" height="13" font="5">Function ros.ParamType checks the type of a certain parameter, but can also be used to check if a</text>
+<text top="705" left="148" width="331" height="13" font="5">parameter does not exist, in this case it will return NULL.</text>
+<text top="750" left="149" width="192" height="17" font="6"><b>Implementation details</b></text>
+<text top="789" left="148" width="598" height="13" font="5">This section will give insights into the project structure and details of implementation. Thus, adapt-</text>
+<text top="805" left="149" width="595" height="13" font="5">ing and adding new functionality is strongly recommended. As mentioned earlier, our package</text>
+<text top="821" left="148" width="598" height="13" font="5">was developed with the help of SWIG2.0. This is an “easy to use” tool for interfacing C and C++</text>
+<text top="838" left="149" width="597" height="13" font="5">libraries/programs from various languages such as Python, Tcl, Go, Guile, Java, and also R. Literally,</text>
+<text top="854" left="149" width="595" height="13" font="5">it can be seen as a compiler that takes C and C++ declarations as input and generates wrappers as</text>
+<text top="871" left="149" width="596" height="13" font="5">output. These interfaces and the conversion between different data formats for R are automatically</text>
+<text top="887" left="149" width="596" height="13" font="5">generated with the help of the <b>Rcpp </b>package, which provides required R functions and a C++ library</text>
+<text top="904" left="149" width="138" height="13" font="5">for the interconnection.</text>
+<text top="946" left="149" width="63" height="15" font="3"><b>Structure</b></text>
+<text top="978" left="148" width="596" height="13" font="5">To ease the development and the maintenance of the code and the API, the <b>rosR </b>project was separated</text>
+<text top="994" left="149" width="150" height="13" font="5">into an R and a C++ part:</text>
+<text top="1021" left="171" width="19" height="13" font="5">• <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/">‘</a></text>
+<text top="1022" left="190" width="45" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/">rosR/lib/</a></text>
+<text top="1021" left="235" width="299" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/">’: </a>Folder for all R related files that are listed below.</text>
+<text top="1046" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="1046" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">‘</a></text>
+<text top="1047" left="223" width="29" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">ros.R</a></text>
+<text top="1046" left="252" width="493" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">’: </a>Is the main file of the project, which has to be loaded by every R node. It implements</text>
+<text top="1063" left="219" width="525" height="13" font="5">the whole <b>rosR </b>API and is therefore also responsible for loading other R files. It also</text>
+<text top="1079" left="219" width="525" height="13" font="5">contains a couple of internal helper functions, responsible for message conversion and</text>
+<text top="1096" left="219" width="445" height="13" font="5">handling. Extending the <b>rosR </b>API therefore also requires adapting this file.</text>
+<text top="1118" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="1118" left="219" width="4" height="13" font="5">‘</text>
+<text top="1119" left="223" width="38" height="11" font="14">rosR.R</text>
+<text top="1118" left="260" width="36" height="13" font="5">’ and ‘</text>
+<text top="1119" left="296" width="42" height="11" font="14">rosR.so</text>
+<text top="1118" left="338" width="406" height="13" font="5">’: This is the SWIG2.0 generated wrapper code for R and the compiled</text>
+<text top="1134" left="219" width="423" height="13" font="5">C++ library, which enables to access ROS via C++ objects and methods.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">126</text>
+<text top="103" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="103" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">‘</a></text>
+<text top="104" left="223" width="67" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">std_vector.R</a></text>
+<text top="103" left="290" width="456" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/std_vector.R">’: </a>This is the handmade wrapper for accessing ROS arrays. It implements a gen-</text>
+<text top="120" left="219" width="527" height="13" font="5">eral ‘rros_vector’ class as well as classes for every primitive data type (std::vector&lt;T&gt;).</text>
+<text top="136" left="219" width="527" height="13" font="5">Based on these class definitions, different wrapper functions were implemented (i. e.,</text>
+<text top="153" left="219" width="41" height="11" font="5">length</text>
+<text top="152" left="260" width="484" height="13" font="5">, print, show, resize, pop, pop_back, back, front, clear, and []) to ease and hide</text>
+<text top="169" left="219" width="527" height="13" font="5">the complexity of array access. This is also the right place to include additional user-</text>
+<text top="185" left="219" width="527" height="13" font="5">defined functionality such as sum, mean, etc., which can increase the speed of execution.</text>
+<text top="202" left="219" width="526" height="13" font="5">Vector elements can be accessed and manipulated directly with C++ functions, which is</text>
+<text top="218" left="219" width="371" height="13" font="5">probably more advantageous than creating local vector copies.</text>
+<text top="242" left="171" width="19" height="13" font="5">• <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/">‘</a></text>
+<text top="243" left="190" width="49" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/">rosR/src/</a></text>
+<text top="242" left="239" width="381" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/">’: </a>Includes all C++ wrappers as listed below, based on roscpp by</text>
+<text top="242" left="624" width="79" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">Quigley et al.</a></text>
+<text top="242" left="707" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">(</a></text>
+<text top="242" left="711" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#12">2013</a></text>
+<text top="242" left="738" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#12">),</a></text>
+<text top="259" left="186" width="75" height="11" font="5">topic_tools</text>
+<text top="259" left="265" width="15" height="13" font="5">by</text>
+<text top="259" left="283" width="121" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Quigley and Gerkey</a></text>
+<text top="259" left="407" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">(</a></text>
+<text top="259" left="412" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="259" left="439" width="97" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">), </a>and rosbag by</text>
+<text top="259" left="539" width="62" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">Field et al.</a></text>
+<text top="259" left="604" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">(</a></text>
+<text top="259" left="608" width="27" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#11">2013</a></text>
+<text top="259" left="635" width="8" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#11">).</a></text>
+<text top="283" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="283" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.i">‘</a></text>
+<text top="284" left="223" width="33" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.i">rosR.i</a></text>
+<text top="283" left="255" width="489" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.i">’: </a>The SWIG2.0 input file, used to include all below listed classes. The result is the</text>
+<text top="299" left="219" width="146" height="13" font="5">generated wrapper file ‘</text>
+<text top="300" left="365" width="84" height="11" font="14">rosR_wrap.cpp</text>
+<text top="299" left="449" width="297" height="13" font="5">’, which allows to access all methods and classes,</text>
+<text top="316" left="219" width="152" height="13" font="5">defined in the files below.</text>
+<text top="337" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="337" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.h">‘</a></text>
+<text top="338" left="223" width="36" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.h">rosR.h</a></text>
+<text top="338" left="258" width="3" height="11" font="14"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.h">/</a></text>
+<text top="338" left="262" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.cpp">cpp</a></text>
+<text top="337" left="281" width="463" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/rosR.cpp">’: </a>Defines general functionality such as initializing a node and generating a node</text>
+<text top="353" left="219" width="527" height="13" font="5">handle, logging, timing, and spinning. It is the right place for including basic functionality.</text>
+<text top="375" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="374" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.h">‘</a></text>
+<text top="375" left="223" width="68" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.h">PublisheR.h</a></text>
+<text top="375" left="291" width="4" height="11" font="14"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.h">/</a></text>
+<text top="375" left="294" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.cpp">cpp</a></text>
+<text top="374" left="315" width="430" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.cpp">’: </a>The generation of a ROS publisher for R is more complex and was</text>
+<text top="391" left="219" width="525" height="13" font="5">therefore outsourced. The header file contains the implementation of a specific publisher</text>
+<text top="407" left="219" width="340" height="13" font="5">class developed for R. Other functions defined within the <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.cpp">‘</a></text>
+<text top="408" left="559" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.cpp">cpp</a></text>
+<text top="407" left="579" width="165" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/PublisheR.cpp">’-file, </a>only give access to this</text>
+<text top="424" left="219" width="527" height="13" font="5">specific R-publisher and allow the modification of its settings, such as topic, message type,</text>
+<text top="440" left="219" width="487" height="13" font="5">etc., but also to alter the content of its message buffer (derived from topic_tools).</text>
+<text top="461" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="461" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/SubscribeR.h">‘</a></text>
+<text top="462" left="223" width="75" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/SubscribeR.h">SubscribeR.h</a></text>
+<text top="462" left="298" width="3" height="11" font="14"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/SubscribeR.h">/</a></text>
+<text top="462" left="301" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/SubscribeR.cpp">cpp</a></text>
+<text top="461" left="321" width="423" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/SubscribeR.cpp">’: </a>The subscriber was developed similarly to the implementation of the</text>
+<text top="478" left="219" width="525" height="13" font="5">publisher. The header filer contains the implementation of a specific R subscriber. Due to</text>
+<text top="494" left="219" width="525" height="13" font="5">the fact that callbacks cannot be defined within R, every SubscribeR object also contains a</text>
+<text top="511" left="219" width="525" height="13" font="5">callback method, which comes into play when ros::SpinOnce() is activated. It receives</text>
+<text top="527" left="219" width="525" height="13" font="5">and stores every new message. Other functions defined within these files give access to</text>
+<text top="544" left="219" width="222" height="13" font="5">the subscriber and its message buffer.</text>
+<text top="565" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="565" left="219" width="4" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/BagR.h">‘</a></text>
+<text top="565" left="223" width="41" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/BagR.h">BagR.h</a></text>
+<text top="565" left="263" width="3" height="11" font="14"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/BagR.h">/</a></text>
+<text top="565" left="267" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/BagR.cpp">cpp</a></text>
+<text top="565" left="286" width="37" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/BagR.cpp">’ </a>and <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.h">‘</a></text>
+<text top="565" left="323" width="54" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.h">ParamR.h</a></text>
+<text top="565" left="377" width="3" height="11" font="14"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.h">/</a></text>
+<text top="565" left="381" width="20" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.cpp">cpp</a></text>
+<text top="565" left="400" width="344" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.cpp">’: </a>As the names suggest, these files contain the functions to</text>
+<text top="581" left="219" width="342" height="13" font="5">read out bag-files and give access to the parameter server.</text>
+<text top="602" left="205" width="7" height="13" font="4"><b>–</b></text>
+<text top="602" left="219" width="4" height="13" font="5">‘</text>
+<text top="603" left="223" width="80" height="11" font="14">rosR_wrap.cxx</text>
+<text top="602" left="303" width="441" height="13" font="5">’: This file contains the generated wrapper and conversion functionality for</text>
+<text top="619" left="219" width="178" height="13" font="5">C++, which is based on <b>Rcpp</b>.</text>
+<text top="660" left="149" width="125" height="15" font="3"><b>SWIG by example</b></text>
+<text top="692" left="148" width="266" height="13" font="5">The following two functions are taken from <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.cpp">‘</a></text>
+<text top="693" left="415" width="68" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.cpp">ParamR.cpp</a></text>
+<text top="692" left="483" width="261" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/src/ParamR.cpp">’. </a>The first function is used to retrieve string</text>
+<text top="708" left="148" width="597" height="13" font="5">parameters from the parameter server, similar functions were also defined to retrieve double, boolean,</text>
+<text top="725" left="149" width="595" height="13" font="5">and integer values. The second function identifies the type of the parameter, returning the type as a</text>
+<text top="741" left="149" width="341" height="13" font="5">string and the string NULL, if the parameter does not exist.</text>
+<text top="768" left="149" width="171" height="11" font="5">char* rrosGetParamString(</text>
+<text top="768" left="444" width="288" height="11" font="5">char* rrosGetParamType(ros::NodeHandle* h,</text>
+<text top="784" left="169" width="165" height="11" font="5">ros::NodeHandle* handle,</text>
+<text top="784" left="471" width="268" height="11" font="5">char* p)//(==param) requested parameter</text>
+<text top="800" left="169" width="82" height="11" font="5">char* param)</text>
+<text top="800" left="444" width="7" height="11" font="5">{</text>
+<text top="817" left="149" width="7" height="11" font="5">{</text>
+<text top="817" left="457" width="268" height="11" font="5">bool b; int i; double d; std::string s;</text>
+<text top="833" left="163" width="110" height="11" font="5">std::string val;</text>
+<text top="833" left="457" width="268" height="11" font="5">if(h-&gt;getParam(p, b)) return &#34;logical&#34;;</text>
+<text top="850" left="163" width="199" height="11" font="5">handle-&gt;getParam(param, val);</text>
+<text top="850" left="457" width="268" height="11" font="5">if(h-&gt;getParam(p, i)) return &#34;integer&#34;;</text>
+<text top="866" left="163" width="261" height="11" font="5">return const_cast&lt;char*&gt;(val.c_str());</text>
+<text top="866" left="457" width="21" height="11" font="5">...</text>
+<text top="883" left="149" width="7" height="11" font="5">}</text>
+<text top="883" left="457" width="110" height="11" font="5">return &#34;NULL&#34;; }</text>
+<text top="908" left="148" width="596" height="13" font="5">After SWIG2.0 did its magic, these C++ functions are also callable from R (with their pervious</text>
+<text top="924" left="149" width="595" height="13" font="5">C++ function names). The API functions ros.ParamGet and ros.ParamType are simple workarounds</text>
+<text top="940" left="148" width="71" height="13" font="5">(defined in <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">‘</a></text>
+<text top="941" left="219" width="74" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">rosR/lib/ros.R</a></text>
+<text top="940" left="293" width="453" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">’) </a>that hide the different data types and therefore different C++ function calls:</text>
+<text top="967" left="149" width="226" height="11" font="5">ros.ParamGet &lt;- function(param) {</text>
+<text top="967" left="444" width="295" height="11" font="5"># &#34;rros_node&#34; is a pointer to the ROS node-</text>
+<text top="983" left="163" width="178" height="11" font="5">p &lt;- param; h &lt;-rros_node;</text>
+<text top="983" left="444" width="295" height="11" font="5"># handle, which was created during the ini-</text>
+<text top="1000" left="163" width="192" height="11" font="5">type &lt;- ros.ParamType(param)</text>
+<text top="1000" left="444" width="206" height="11" font="5"># tialization by &#34;ros.Init()&#34;.</text>
+<text top="1016" left="163" width="165" height="11" font="5">if (type == &#34;logical&#34;) {</text>
+<text top="1016" left="444" width="295" height="11" font="5"># It is stored as a global variable and re-</text>
+<text top="1032" left="176" width="226" height="11" font="5">return(rrosGetParamBoolean(h, p))</text>
+<text top="1032" left="444" width="295" height="11" font="5"># quired by most of the rosR API functions.</text>
+<text top="1049" left="163" width="213" height="11" font="5">} else if (type == &#34;integer&#34;) {</text>
+<text top="1065" left="176" width="226" height="11" font="5">return(rrosGetParamInteger(h, p))</text>
+<text top="1065" left="444" width="233" height="11" font="5">ros.ParamType &lt;- function(param) {</text>
+<text top="1082" left="163" width="206" height="11" font="5">} else if (type == &#34;double&#34;) {</text>
+<text top="1082" left="457" width="178" height="11" font="5">p &lt;- param; h &lt;-rros_node;</text>
+<text top="1098" left="176" width="219" height="11" font="5">return(rrosGetParamDouble(h, p))</text>
+<text top="1098" left="457" width="206" height="11" font="5">type &lt;- rrosGetParamType(h, p)</text>
+<text top="1115" left="163" width="226" height="11" font="5">} else if (type == &#34;character&#34;) {</text>
+<text top="1115" left="457" width="144" height="11" font="5">if (type == &#34;NULL&#34;) {</text>
+<text top="1131" left="176" width="219" height="11" font="5">return(rrosGetParamString(h, p))</text>
+<text top="1131" left="471" width="96" height="11" font="5">return(NULL) }</text>
+<text top="1147" left="163" width="171" height="11" font="5">} else { return(NULL) } }</text>
+<text top="1147" left="457" width="96" height="11" font="5">return(type) }</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">127</text>
+<text top="103" left="148" width="515" height="13" font="5">The other functions of our API were also implemented in the same manner (cf. <a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">‘</a></text>
+<text top="104" left="663" width="30" height="11" font="11"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">ros.R</a></text>
+<text top="103" left="693" width="51" height="13" font="5"><a href="http://svn.code.sf.net/p/ivs-ros-pkg/code/trunk/rosR/lib/ros.R">’), </a>while</text>
+<text top="120" left="149" width="595" height="13" font="5">announcing a subscriber or a publisher (and also the initialization with ros.Init) also generate</text>
+<text top="136" left="149" width="595" height="13" font="5">specified objects. The wrapper functions for writing and reading out messages therefore always</text>
+<text top="152" left="149" width="461" height="13" font="5">require the pointer to these objects, to get access to their public class methods.</text>
+<text top="197" left="149" width="80" height="17" font="6"><b>Summary</b></text>
+<text top="235" left="148" width="596" height="13" font="5">We have developed the first interface for ROS in R and demonstrated its utility as well as its main</text>
+<text top="252" left="149" width="595" height="13" font="5">concepts, which represents a fruitful combination of the (interdisciplinary) world of robotics with</text>
+<text top="268" left="149" width="595" height="13" font="5">the world of statistics. On the one hand, it gives ROS developers full access to the huge amount of</text>
+<text top="285" left="149" width="595" height="13" font="5">R algorithms and functionality for analyzing, visualizing, combining and filtering data. And on the</text>
+<text top="301" left="149" width="595" height="13" font="5">other hand, it will probably open up a new branch to the R community, by giving online access to real</text>
+<text top="318" left="149" width="490" height="13" font="5">hardware devices and their data, in contrast to the traditional offline data analysis.</text>
+<text top="339" left="171" width="521" height="13" font="5">But, there is still a lot of work to do. The next extensions should cover the integration of</text>
+<text top="339" left="695" width="47" height="13" font="8"><a href="http://www.ros.org/wiki/Services">services</a></text>
+<text top="339" left="742" width="3" height="13" font="5"><a href="http://www.ros.org/wiki/Services">,</a></text>
+<text top="355" left="148" width="598" height="13" font="5">which could be used for parameter fitting, clustering, machine learning, or pattern matching. Fur-</text>
+<text top="371" left="149" width="596" height="13" font="5">thermore, it would be beneficial to develop methods in R that would enable callback mechanisms or</text>
+<text top="388" left="149" width="332" height="13" font="5">multi-threading, to overcome polling for new messages.</text>
+<text top="432" left="149" width="163" height="17" font="6"><b>Acknowledgements</b></text>
+<text top="471" left="148" width="596" height="13" font="5">This work is funded and supported by the German Ministry of Education and research within the</text>
+<text top="487" left="148" width="41" height="13" font="5">project</text>
+<text top="487" left="194" width="78" height="13" font="8"><a href="http://www.vivera.org/ViERforES">ViERforES-II</a></text>
+<text top="487" left="276" width="468" height="13" font="5">(grant no. 01IM10002B) and by the EU FP7-ICT program under the contract</text>
+<text top="504" left="149" width="431" height="13" font="5">number 288195 “Kernel-based ARchitecture for safetY-critical cONtrol” <a href="http://www.karyon-project.eu">(</a></text>
+<text top="504" left="580" width="59" height="13" font="8"><a href="http://www.karyon-project.eu">KARYON</a></text>
+<text top="504" left="639" width="8" height="13" font="5"><a href="http://www.karyon-project.eu">).</a></text>
+<text top="548" left="149" width="109" height="17" font="6"><b>Bibliography</b></text>
+<text top="587" left="149" width="596" height="13" font="5">A. Blasdel. rqt_console: A GUI plugin for displaying and filtering ROS messages, 2013. URL</text>
+<text top="604" left="164" width="213" height="11" font="8"><a href="http://wiki.ros.org/rqt_console">http://wiki.ros.org/rqt_console</a></text>
+<text top="603" left="376" width="249" height="13" font="5"><a href="http://wiki.ros.org/rqt_console">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#5">[p</a></text>
+<text top="603" left="625" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#5">121</a></text>
+<text top="603" left="646" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#5">]</a></text>
+<text top="630" left="149" width="514" height="13" font="5">K. Conley. rostopic: Command-line tool for displaying debug information, 2013a. URL</text>
+<text top="631" left="667" width="82" height="11" font="8"><a href="http://wiki.ros.org/rostopic">http://wiki.</a></text>
+<text top="647" left="164" width="110" height="11" font="8"><a href="http://wiki.ros.org/rostopic">ros.org/rostopic</a></text>
+<text top="647" left="274" width="249" height="13" font="5"><a href="http://wiki.ros.org/rostopic">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#9">[p</a></text>
+<text top="647" left="523" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#9">125</a></text>
+<text top="647" left="543" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#9">]</a></text>
+<text top="674" left="149" width="596" height="13" font="5">K. Conley. rxgraph: Command-line tool for visualizing a ROS computation graph, 2013b. URL</text>
+<text top="691" left="164" width="213" height="11" font="8"><a href="http://www.ros.org/wiki/rxgraph">http://www.ros.org/wiki/rxgraph</a></text>
+<text top="690" left="376" width="249" height="13" font="5"><a href="http://www.ros.org/wiki/rxgraph">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#4">[p</a></text>
+<text top="690" left="625" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#4">120</a></text>
+<text top="690" left="646" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#4">]</a></text>
+<text top="717" left="149" width="595" height="13" font="5">K. Conley and T. Foote. rosmsg: Command-line tool for displaying information about ROS message</text>
+<text top="734" left="164" width="102" height="13" font="5">types, 2013. URL</text>
+<text top="734" left="269" width="178" height="11" font="8"><a href="http://wiki.ros.org/rosmsg">http://wiki.ros.org/rosmsg</a></text>
+<text top="734" left="447" width="249" height="13" font="5"><a href="http://wiki.ros.org/rosmsg">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#7">[p</a></text>
+<text top="734" left="696" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#7">123</a></text>
+<text top="734" left="716" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#7">]</a></text>
+<text top="761" left="149" width="595" height="13" font="5">A. Dietrich, S. Zug, and J. Kaiser. Detecting external measurement disturbances based on statistical</text>
+<text top="777" left="164" width="580" height="13" font="5">analysis for smart sensors. In Proceedings of the IEEE International Symposium on Industrial Electronics</text>
+<text top="793" left="163" width="220" height="14" font="5">(ISIE), pages 2067–2072, July 2010. <a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="794" left="383" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="794" left="403" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">]</a></text>
+<text top="821" left="149" width="597" height="13" font="5">D. Eddelbuettel and R. François. Rcpp: Seamless R and C++ integration. Journal of Statistical Software,</text>
+<text top="837" left="164" width="129" height="13" font="5">40(8):1–18, 2011. URL</text>
+<text top="838" left="296" width="226" height="11" font="8"><a href="http://www.jstatsoft.org/v40/i08/">http://www.jstatsoft.org/v40/i08/</a></text>
+<text top="837" left="522" width="21" height="13" font="5"><a href="http://www.jstatsoft.org/v40/i08/">. </a><a href="2013-2-dietrich-zug-kaiser.html#3">[p</a></text>
+<text top="837" left="543" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#3">119</a></text>
+<text top="837" left="563" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#3">]</a></text>
+<text top="864" left="149" width="595" height="13" font="5">T. Field, J. Leibs, and J. Bowman. rosbag: A set of tools for recording from and playing back to ROS</text>
+<text top="880" left="164" width="103" height="13" font="5">topics, 2013. URL</text>
+<text top="881" left="270" width="178" height="11" font="8"><a href="http://wiki.ros.org/rosbag">http://wiki.ros.org/rosbag</a></text>
+<text top="880" left="449" width="245" height="13" font="5"><a href="http://wiki.ros.org/rosbag">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#4">[p</a></text>
+<text top="880" left="693" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#4">120</a></text>
+<text top="880" left="713" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#4">,</a></text>
+<text top="880" left="720" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#10">126</a></text>
+<text top="880" left="740" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#10">]</a></text>
+<text top="907" left="149" width="406" height="13" font="5">T. Foote. rosmake: A ROS dependency aware build tool, 2013. URL</text>
+<text top="908" left="558" width="185" height="11" font="8"><a href="http://wiki.ros.org/rosmake">http://wiki.ros.org/rosmake</a></text>
+<text top="907" left="743" width="3" height="13" font="5"><a href="http://wiki.ros.org/rosmake">.</a></text>
+<text top="924" left="164" width="241" height="13" font="5">[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#3">[p</a></text>
+<text top="924" left="405" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#3">119</a></text>
+<text top="924" left="425" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#3">]</a></text>
+<text top="951" left="149" width="561" height="13" font="5">B. Gerkey, M. Quigley, and D. Thomas. rospack: ROS package management tool, 2013. URL</text>
+<text top="951" left="713" width="34" height="11" font="8"><a href="http://docs.ros.org/independent/api/rospkg/html/rospack.html">http:</a></text>
+<text top="968" left="163" width="377" height="11" font="8"><a href="http://docs.ros.org/independent/api/rospkg/html/rospack.html">//docs.ros.org/independent/api/rospkg/html/rospack.html</a></text>
+<text top="967" left="540" width="206" height="13" font="5"><a href="http://docs.ros.org/independent/api/rospkg/html/rospack.html">. </a>[Online; accessed 16-December-</text>
+<text top="984" left="164" width="52" height="13" font="5">2013]. <a href="2013-2-dietrich-zug-kaiser.html#3">[p</a></text>
+<text top="984" left="216" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#3">119</a></text>
+<text top="984" left="236" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#3">]</a></text>
+<text top="1011" left="149" width="598" height="13" font="5">J. Kramer and M. Scheutz. Development environments for autonomous mobile robots: A survey.</text>
+<text top="1027" left="163" width="235" height="14" font="5">Autonomous Robots, 22:101–132, 2007. <a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="1027" left="399" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="1027" left="419" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">]</a></text>
+<text top="1054" left="149" width="595" height="13" font="5">J. Leibs and T. Kruse. rosrun: Allows you to run an executable in an arbitrary package from anywhere</text>
+<text top="1071" left="163" width="287" height="13" font="5">without having to give its full path, 2013. URL</text>
+<text top="1071" left="454" width="233" height="11" font="8"><a href="http://wiki.ros.org/rosbash#rosrun">http://wiki.ros.org/rosbash#rosrun</a></text>
+<text top="1071" left="687" width="59" height="13" font="5"><a href="http://wiki.ros.org/rosbash#rosrun">. </a>[Online;</text>
+<text top="1087" left="164" width="189" height="13" font="5">accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#5">[p</a></text>
+<text top="1087" left="353" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#5">121</a></text>
+<text top="1087" left="373" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#5">]</a></text>
+<text top="1114" left="149" width="595" height="13" font="5">M. Quigley and B. Gerkey. topic_tools: Directing, throttling, selecting, and otherwise messing with</text>
+<text top="1130" left="164" width="242" height="13" font="5">ROS topics at a meta level, 2013. URL</text>
+<text top="1131" left="411" width="213" height="11" font="8"><a href="http://wiki.ros.org/topic_tools">http://wiki.ros.org/topic_tools</a></text>
+<text top="1130" left="624" width="120" height="13" font="5"><a href="http://wiki.ros.org/topic_tools">. </a>[Online; accessed</text>
+<text top="1147" left="163" width="135" height="13" font="5">16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#10">[p</a></text>
+<text top="1147" left="298" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#10">126</a></text>
+<text top="1147" left="318" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#10">]</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">128</text>
+<text top="103" left="149" width="595" height="13" font="5">M. Quigley, K. Conley, B. Gerkey, J. Faust, T. Foote, J. Leibs, R. Wheeler, and A. Ng. ROS: An</text>
+<text top="120" left="164" width="523" height="13" font="5">open-source robot operating system. In ICRA Workshop on Open Source Software, 2009. <a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="120" left="686" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="120" left="707" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">]</a></text>
+<text top="148" left="149" width="596" height="13" font="5">M. Quigley, J. Faust, B. Gerkey, and T. Straszheim. roscpp: C++ implementation of ROS, 2013. URL</text>
+<text top="165" left="164" width="178" height="11" font="8"><a href="http://wiki.ros.org/roscpp">http://wiki.ros.org/roscpp</a></text>
+<text top="164" left="342" width="249" height="13" font="5"><a href="http://wiki.ros.org/roscpp">. </a>[Online; accessed 16-December-2013]. <a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="164" left="591" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="164" left="611" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">,</a></text>
+<text top="164" left="618" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#10">126</a></text>
+<text top="164" left="638" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#10">]</a></text>
+<text top="193" left="149" width="443" height="13" font="5">P. H. Salus. A Quarter Century of Unix. Addison-Wesley Longman, 1994. <a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="193" left="592" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="193" left="612" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">]</a></text>
+<text top="221" left="149" width="428" height="13" font="5">Sharp Cooperation. Sharp GP2D120 – Optoelectronic Device, 2007. URL</text>
+<text top="222" left="581" width="165" height="11" font="8"><a href="http://www.sharpsma.com/webfm_send/1205">http://www.sharpsma.com/</a></text>
+<text top="238" left="163" width="103" height="11" font="8"><a href="http://www.sharpsma.com/webfm_send/1205">webfm_send/1205</a></text>
+<text top="238" left="266" width="21" height="13" font="5"><a href="http://www.sharpsma.com/webfm_send/1205">. </a><a href="2013-2-dietrich-zug-kaiser.html#3">[p</a></text>
+<text top="238" left="287" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#3">119</a></text>
+<text top="238" left="307" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#3">,</a></text>
+<text top="238" left="314" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#6">122</a></text>
+<text top="238" left="334" width="3" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#6">,</a></text>
+<text top="238" left="341" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#7">123</a></text>
+<text top="238" left="361" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#7">]</a></text>
+<text top="266" left="149" width="223" height="13" font="5">SWIG-2.0. Documentation, 2013. URL</text>
+<text top="267" left="375" width="336" height="11" font="8"><a href="http://www.swig.org/Doc2.0/SWIGDocumentation.html">http://www.swig.org/Doc2.0/SWIGDocumentation.html</a></text>
+<text top="266" left="711" width="35" height="13" font="5"><a href="http://www.swig.org/Doc2.0/SWIGDocumentation.html">. </a>[On-</text>
+<text top="282" left="164" width="182" height="13" font="5">line; accessed 21-July-2013]. <a href="2013-2-dietrich-zug-kaiser.html#2">[p</a></text>
+<text top="282" left="346" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#2">118</a></text>
+<text top="282" left="366" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#2">]</a></text>
+<text top="311" left="149" width="546" height="13" font="5">Wikipedia. Comparison of statistical packages – Wikipedia, The Free Encyclopedia, 2013. URL</text>
+<text top="311" left="697" width="48" height="11" font="8"><a href="http://en.wikipedia.org/wiki/Comparison_of_statistical_packages">http://</a></text>
+<text top="328" left="164" width="384" height="11" font="8"><a href="http://en.wikipedia.org/wiki/Comparison_of_statistical_packages">en.wikipedia.org/wiki/Comparison_of_statistical_packages</a></text>
+<text top="327" left="548" width="199" height="13" font="5"><a href="http://en.wikipedia.org/wiki/Comparison_of_statistical_packages">. </a>[Online; accessed 21-July-2013].</text>
+<text top="344" left="164" width="13" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">[p</a></text>
+<text top="344" left="176" width="20" height="13" font="8"><a href="2013-2-dietrich-zug-kaiser.html#1">117</a></text>
+<text top="344" left="196" width="4" height="13" font="5"><a href="2013-2-dietrich-zug-kaiser.html#1">]</a></text>
+<text top="390" left="148" width="258" height="13" font="5">André Dietrich, Sebastian Zug, and Jörg Kaiser</text>
+<text top="406" left="148" width="193" height="13" font="5">Department of Distributed Systems</text>
+<text top="423" left="148" width="324" height="13" font="5">Embedded Systems and Operating Systems Working Group</text>
+<text top="439" left="148" width="236" height="13" font="5">Otto-von-Guericke-Universität Magdeburg</text>
+<text top="456" left="148" width="269" height="13" font="5">Universitätsplatz 2, 39106 Magdeburg, Germany</text>
+<text top="473" left="146" width="322" height="11" font="8"><a href="mailto:\protect \T1\textbraceleft dietrich, zug, kaiser\protect \T1\textbraceright @ivs.cs.uni-magdeburg.de">{dietrich, zug, kaiser}@ivs.cs.uni-magdeburg.de</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

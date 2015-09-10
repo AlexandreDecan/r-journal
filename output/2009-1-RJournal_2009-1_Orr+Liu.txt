@@ -1,0 +1,335 @@
+page	left	top	code
+1	790	67	47
+1	82	262	by Megan Orr and Peng Liu
+1	82	344	Microarray experiments are becoming more and
+1	82	362	more popular and critical in many biological disci-
+1	82	380	plines. As in any statistical experiment, appropriate
+1	82	398	experimental design is essential for reliable statisti-
+1	82	415	cal inference, and sample size has a crucial role in ex-
+1	82	433	perimental design. Because microarray experiments
+1	82	451	are rather costly, it is important to have an adequate
+1	82	469	sample size that will achieve a desired power with-
+1	82	487	out wasting resources.
+1	105	506	For a given microarray data set, thousands of
+1	82	524	hypotheses, one for each gene, are simultaneously
+1	82	560	trolling false discovery rate (FDR) is more reasonable
+1	82	578	and more powerful than controlling family-wise er-
+1	82	596	ror rate (FWER) in genomic data. However, the most
+1	82	614	common procedure used to calculate sample size in-
+1	82	631	volves controlling FWER, not FDR.
+1	82	668	quick sample size calculation for microarray experi-
+1	82	686	ments while controlling FDR. In this paper, we intro-
+1	82	704	duce the R package ssize.fdr which implements the
+1	82	740	package can be applied for designing one-sample,
+1	82	758	two-sample, or multi-sample experiments. The prac-
+1	82	776	titioner defines the desired power, the level of FDR
+1	82	794	to control, the proportion of non-differentially ex-
+1	82	812	pressed genes, as well as effect size and variance.
+1	82	830	More specifically, the effect size and variance can be
+1	82	847	set as fixed or random quantities coming from appro-
+1	82	865	priate distributions. Based on user-defined parame-
+1	82	883	ters, this package creates plots of power vs. sample
+1	82	901	size. These plots allow for visualization of trade-offs
+1	82	919	between power and sample size, in addition to the
+1	82	937	changes between power and sample size when the
+1	82	955	user-defined quantities are modified.
+1	105	974	For more in-depth details and evaluation of this
+1	82	1101	For a given microarray experiment, for each gene, let
+1	82	1137	alternative hypothesis is true. In a microarray exper-
+1	459	280	sume each test is Bernoulli distributed with the prob-
+1	459	352	trol FDR at the level of α:
+1	459	446	gion of the test. For each proposed hypothesis (test)
+1	459	464	with given user-defined quantities, the sample size is
+1	459	482	calculated using the following steps:
+1	478	589	3. Determine sample size based on desired
+1	496	606	power.
+1	459	636	For specific experimental designs, the numerator and
+1	459	672	by corresponding functions that calculate the type I
+1	459	690	error and power of the test, respectively.
+1	459	775	The package ssize.fdr has six functions which in-
+1	459	793	cludes three new functions that have recently been
+1	459	811	developed as well as three functions translated from
+1	459	829	the previous available Matlab codes. The six func-
+1	459	847	tions and their descriptions are listed below.
+1	82	1218	The R Journal Vol. 1/1, May 2009
+1	704	1218	ISSN 2073-4859
+2	82	67	48
+2	82	327	propriate sample sizes for one- and two-sample mi-
+2	82	345	croarray experiments, respectively, for fixed effect
+2	82	363	size (delta) and standard deviation (sigma). For one-
+2	82	380	sample designs, the effect size is defined as the dif-
+2	82	398	ference in the true mean expression level and its pro-
+2	82	416	posed value under the null hypothesis for each gene.
+2	82	434	For two-sample designs, the effect size is defined
+2	82	452	as the difference in mean expression levels between
+2	82	470	treatment groups for each gene. In the two-sample
+2	82	488	case, sigma is the pooled standard deviation of treat-
+2	82	506	ment expression levels.
+2	82	543	compute appropriate sample sizes for one- and
+2	82	560	two-sample microarray experiments, respectively,
+2	82	578	in which effect sizes and standard deviations vary
+2	82	596	among genes. Effect sizes among genes are assumed
+2	82	614	to follow a normal distribution with mean deltaMean
+2	82	632	and standard deviation deltaSE, while variances (the
+2	82	650	square of the standard deviations) among genes are
+2	82	668	assumed to follow an Inverse Gamma distribution
+2	82	686	with shape parameter a and scale parameter b.
+2	82	723	multi-sample microarray experiments. Additional
+2	82	741	inputs include the design matrix (X), the parameter
+2	82	758	vector (beta), the coefficient matrix for linear con-
+2	82	776	trasts of interest (L), a function of n for the degrees
+2	82	794	of freedom of the experimental design (dn), and the
+2	82	812	pooled standard deviation of treatment expression
+2	82	830	levels (sigma), assumed to be identical for all genes.
+2	82	867	for multi-sample microarray experiments in which
+2	82	885	the parameter vector is fixed for all genes, but the
+2	82	903	variances are assumed to vary among genes and fol-
+2	82	921	low an Inverse Gamma distribution with shape pa-
+2	82	939	rameter a and scale parameter b.
+2	82	993	obtained from a pilot study. If a pilot study is not
+2	82	1011	available, a guess based on a biological system un-
+2	82	1029	der study could be used. In this case, we recommend
+2	82	1065	that the desired power will still be achieved. The in-
+2	82	1101	lations are performed for each element of the vector.
+2	82	1119	This allows one to assess the changes of power due
+2	105	1155	For functions that assume variances follow an In-
+2	82	1173	verse Gamma distribution, it is important to note
+2	481	180	Each function outputs the following results: a
+2	459	198	plot of power vs. sample size, the smallest sample
+2	459	216	size that achieves the desired power, a table of cal-
+2	459	234	culated powers for each sample size, and a table of
+2	459	252	calculated critical values for each sample size.
+2	459	349	Unless otherwise noted, all data sets analyzed in this
+2	459	489	To illustrate the use of the functions ssize.oneSamp
+2	459	543	are used to study early development in vertebrates.
+2	459	560	Swirl is a point mutation in the BMP2 gene in ze-
+2	459	578	brafish that affects the dorsal/ventral body axis. The
+2	459	596	goal of this experiment is to identify gene expres-
+2	459	614	sion levels that differ between zebrafish with the
+2	459	632	swirl mutation and wild-type zebrafish. This data
+2	459	650	set (Swirl) includes 8448 gene expression levels from
+2	459	668	both types of the organism. The experimental de-
+2	459	686	sign includes two sets of dye-swap pairs. For more
+2	459	704	details on the microarray technology used and the
+2	459	722	experimental design of this experiment, see Smyth
+2	459	740	(2004). The limma package performs both normal-
+2	459	758	ization and analysis of microarray data sets. See Sec-
+2	459	794	of the Swirl data set, along with the R code for this
+2	459	812	analysis.
+2	481	831	After normalizing the data, the limma package is
+2	459	849	applied to test if genes are differentially expressed
+2	459	903	of mean gene expressions between swirl mutant ze-
+2	459	921	brafish and the wild type zebrafish are significantly
+2	459	938	different from zero or not. We then apply the qvalue
+2	459	956	function (in the qvalue package) to the vector of p-
+2	459	992	mated to be 0.63.
+2	481	1012	Now suppose we are interested in performing a
+2	459	1030	similar experiment and want to find an appropri-
+2	459	1048	ate sample size to use. We want to be able to de-
+2	459	1065	tect a two-fold change in expression levels between
+2	459	1083	the two genotypes, corresponding to a difference in
+2	459	1137	tests will be two-sided. We also want to obtain 80%
+2	459	1155	power while controlling FDR at 5%. We will use the
+3	790	67	49
+3	82	143	size.
+3	82	179	use of the ssize.oneSamp function, we need to assign
+3	82	197	a common value for the standard deviations of all
+3	82	233	standard deviations from the swirl experiment. This
+3	82	251	value is 0.44. It is important to note that power cal-
+3	82	268	culations will be overestimated for genes with higher
+3	82	286	standard deviation than this. Similarly, power will be
+3	82	304	conservative for genes with smaller standard devia-
+3	82	322	tion than 0.44. To calculate appropriate sample sizes
+3	82	340	using ssize.oneSamp, the following code is used.
+3	82	809	Figure 1: Sample size vs. power for one-sample two-
+3	82	827	sided t-test with effect size of one, standard deviation
+3	82	845	of 0.44, and various proportions of non-differentially
+3	82	863	expressed genes with FDR controlled at 5%.
+3	105	897	We see that appropriate samples sizes are 4, 5,
+3	82	933	0.50, 0.63, 0.75, and 0.90. Notice that although a
+3	82	951	sample size of five was calculated to be adequate
+3	82	987	ment, so it is better to have an even number of slides.
+3	82	1005	Because of this, we recommend six slides for a dye-
+3	82	1023	swap experiment with two pairs. Sample size infor-
+3	82	1041	mation, along with the calculated powers and critical
+3	82	1059	values can be obtained using the following code.
+3	82	1173	pose we are interested in representing the standard
+3	459	125	deviations of the log ratios more precisely. This can
+3	459	161	models the variances of normalized expression lev-
+3	459	179	els as
+3	459	342	equivalent to
+3	459	486	ing the lmFit and eBayes functions in the limma
+3	459	522	croarray data set. For the Swirl data set, these val-
+3	459	576	of the log ratios follow an Inverse Gamma distribu-
+3	459	594	tion with shape parameter 2.09 and scale parame-
+3	459	612	ter 0.106. From this information, we find appropri-
+3	459	629	ate sample sizes for a future experiment using the
+3	459	819	power versus sample size for each proportion of
+3	459	837	non-differentially expressed genes that was input.
+3	459	855	Note that we are simply interested in finding genes
+3	459	873	that have a two-fold change in expression levels, so
+3	459	891	we want the effect size to be held constant at one.
+3	459	909	This is done by setting the mean of the effect sizes
+3	459	927	(deltaMean) at the desired value with standard devi-
+3	459	945	ation (deltaSE) equal to zero.
+3	459	988	ple sizes are 3, 4, 4, and 5, respectively, to achieve
+3	459	1006	80% average power with a FDR of 5%. These values
+3	459	1024	are smaller than those in the previous example. In
+3	459	1042	order to obtain appropriate sample size information
+3	459	1060	more directly, along with the calculated powers and
+3	459	1078	critical values, use the following code.
+4	82	67	50
+4	82	482	Figure 2: Sample size vs. power for one-sample two-
+4	82	500	sided t-test with effect size of one and various pro-
+4	82	518	portions of non-differentially expressed genes with
+4	82	536	FDR controlled at 5%. Variances are assumed to fol-
+4	82	554	low an Inverse Gamma(2.09, 0.106) distribution.
+4	82	651	In order to illustrate the uses of the ssize.twoSamp
+4	82	669	and ssize.twoSampVary functions, another data ex-
+4	82	705	gene plays an important role in high density lipopro-
+4	82	723	tein (HDL) metabolism, as mice with this gene
+4	82	741	knocked out have very low HDL levels. The goal
+4	82	759	of this study is to determine how the absence of the
+4	82	777	ApoAI gene affects other genes in the liver. In order
+4	82	794	to do this, gene expression levels of ApoAI knockout
+4	82	812	mice and control mice were compared using a com-
+4	82	848	in-depth description of the study. This is an exam-
+4	82	866	ple of a two sample microarray experiment. For full
+4	82	884	analysis of this data sets using the limma package,
+4	105	921	Similar to the previous example, the limma pack-
+4	82	939	age is applied to analyze the data. From the resulting
+4	82	957	p-values, we use the qvalue function to estimate the
+4	82	1012	use of the ssize.twoSamp function, we can choose a
+4	82	1030	common value to represent the standard deviation
+4	82	1048	for all genes. Similar to the ssize.oneSamp example,
+4	82	1083	standard deviations. In this case, this value is 0.42.
+4	82	1101	Again assume we are interested in genes showing a
+4	82	1119	two-fold change, but this time we are only concerned
+4	82	1137	with up-regulated genes, so we will be performing
+4	82	1155	a one-sided upper tail t-test for each gene. We also
+4	82	1173	want to achieve 80% power while controlling FDR at
+4	459	125	5%. The ssize.twoSamp function can be used to cal-
+4	459	143	culate an appropriate sample size for a simliar exper-
+4	459	161	iment with the following code. This code also pro-
+4	459	646	Figure 3: Sample size vs. power for two-sample one-
+4	459	664	sided upper t-test with effect size of one, standard
+4	459	682	deviation of 0.42, and various proportions of non-
+4	459	699	differentially expressed genes with FDR controlled at
+4	459	717	5%.
+4	459	766	sizes are 4, 5, 6, and 7 for each genotype group for
+4	459	802	lated critical values and power along with the sam-
+4	459	820	ple size estimates can be obtained with the following
+4	459	838	code.
+4	459	1002	variances of the gene expression levels follow an In-
+4	459	1020	verse Gamma distribution with shape parameter 1.94
+4	459	1038	and scale parameter 0.10. With these values, we can
+4	459	1056	use the ssize.twoSampVary function to calculate ap-
+4	459	1074	propriate sample sizes for experiments for detecting
+4	459	1092	a fold change of one in up-regulated genes. We also
+4	459	1110	want our results to have at least 80% average power
+4	459	1128	with FDR conrolled at 5%.
+5	790	67	51
+5	82	544	Figure 4: Sample size vs. power for two-sample one-
+5	82	562	sided upper t-test with effect size of one, gene vari-
+5	82	580	ances following an Inverse Gamma(1.94, 0.10) distri-
+5	82	598	bution, and various proportions of non-differentially
+5	82	615	expressed genes with FDR controlled at 5%.
+5	82	668	have decreased from the previous example (3, 3, 4,
+5	82	704	information along with the power and critical value
+5	82	722	estimates, the following code can be used.
+5	82	850	Lastly, we will use data from an experiment with
+5	82	868	a 2x2 factorial design to illustrate the uses of the
+5	82	904	case are gene expression levels from MCF7 breast
+5	82	922	cancer cells obtained from Affymetrix HGV5av2 mi-
+5	82	940	croarrays. The two treatment factors are estrogen
+5	82	958	(present/absent) and exposure length (10 hours/48
+5	82	976	hours), and the goal of this experiment is to identify
+5	82	994	genes that respond to an estrogen treatment and clas-
+5	82	1012	sify these genes as early or late responders. Data for
+5	82	1030	this experiment can be found in the estrogen pack-
+5	82	1065	full analysis of this data set using the limma package
+5	82	1083	and more details of the experiment, see Section 11.4
+5	105	1119	Because there are two factors with two levels
+5	82	1137	each, there are a total of four treatments, and we de-
+5	82	1173	ues for a given gene g in the table below. In this table,
+5	459	143	levels for cells with no estrogen at 10 hours, τ rep-
+5	459	161	resents the effect of time in the absence of estrogen,
+5	459	197	hours, and γ represents the change for cells with es-
+5	521	250	Treatment Mean
+5	481	358	One design matrix that corresponds to this exper-
+5	459	376	iment and the means in the table above is
+5	459	511	this design, there are four parameters to estimate and
+5	459	529	four slides for each sample, thus the degrees of free-
+5	459	565	effect of estrogen and how this changes over time, we
+5	459	583	only care about the parameters α and γ. Thus, we let
+5	459	601	L be the matrix of the linear contrasts of interest or
+5	631	685	0 1
+5	481	737	In order to calculate samples sizes for a similar
+5	459	755	experiment that will result in tests with 80% power
+5	459	773	and FDR controlled at 5%, we must have a reason-
+5	459	809	functions of the limma package in conjunction with
+5	459	845	Similar to the other examples, we will include this
+5	459	881	how power varies.
+5	459	935	residual standard deviations to be 0.29 (or we can
+5	459	953	find any other percentile that is preferred). Also, let
+5	459	989	that the values of the µ and τ parameters do not af-
+5	459	1007	fect any sample size calculations because we are only
+5	459	1042	the following code will calculate the sample size re-
+5	459	1060	quired to achieve 80% power while controlling the
+5	459	1078	FDR at 5%.
+6	82	67	52
+6	82	567	Figure 5: Sample size vs. power for F-test with
+6	82	603	pression standard deviation of 0.29, and various pro-
+6	82	621	portions of non-differentially expressed genes with
+6	82	639	FDR controlled at 5%.
+6	82	708	ues of 0.9, 0.944, 0.975, and 0.995, respectively. It is
+6	82	725	important to note that in this experiment, one sam-
+6	82	743	ple includes a set of four gene chips (one for each
+6	82	761	treatment). So a sample size of 4 would require a to-
+6	82	779	tal of 16 chips, with 4 for each of the four treatment
+6	82	797	groups.
+6	105	817	For other useful information, use the following
+6	82	835	code.
+6	82	1013	2.24 and 0.049. Using the same parameter vector as
+6	82	1031	in the previous example, sample sizes for future ex-
+6	82	1049	periments can be calculated with the following com-
+6	82	1067	mands, where we wish to control the FDR at 5% and
+6	82	1085	achieve an average test power of 80%.
+6	459	482	Figure 6: Sample size vs. power for F-test with pa-
+6	459	518	ances following an Inverse Gamma(2.24,0.049), and
+6	459	536	various proportions of non-differentially expressed
+6	459	554	genes with FDR controlled at 5%.
+6	459	643	sizes, critical values, and powers, use the following
+6	459	661	code.
+6	459	814	Functions ssize.oneSampVary, ssize.twoSampVary,
+6	459	832	and ssize.Fvary calculate sample sizes using the as-
+6	459	850	sumption that at least one parameter is random. Cur-
+6	459	868	rently, these assumptions are that effect sizes follow
+6	459	886	Normal distributions and variances follow Inverse
+6	459	904	Gamma distributions. If users desire to assume that
+6	459	922	parameters follow other distributions, the code can
+6	459	940	be modified accordingly.
+6	459	1030	This material is based upon work partially sup-
+6	459	1048	ported by the National Science Foundation under
+6	459	1066	Grant Number 0714978.
+6	459	1155	P. Liu and J. T. G. Hwang. Quick calculation for sam-
+6	474	1173	ple size while controlling false discovery rate with
+7	790	67	53
+7	97	125	application to microarray analysis. Bioinformatics,
+7	97	143	23(6):739–746, 2007.
+7	82	170	G. K. Smyth. Linear models and empirical bayes
+7	97	188	methods for assessing differential expression in
+7	97	206	microarray experiments. Statistical Applications in
+7	97	224	Genetics and Molecular Biology, 3(1):1–4, 2004.
+7	82	252	G. K. Smyth, M. Ritchie, N. Thorne, and
+7	97	269	J. Wettenhall. limma: Linear models for
+7	97	287	microarray data user’s guide. 2008. URL
+7	82	351	J. D. Storey and R. Tibshirani. Statistical significance
+7	474	125	for genomewide studies. Proc. Natl. Acad. Sci. USA,
+7	474	143	100(16):9440–9445, 2003.
+7	459	204	Megan Orr
+7	459	222	Department of Statistics & Statistical Laboratory
+7	459	240	Iowa State University, USA
+7	459	297	Peng Liu
+7	459	315	Department of Statistics & Statistical Laboratory
+7	459	333	Iowa State University, USA

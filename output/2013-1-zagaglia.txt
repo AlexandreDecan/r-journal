@@ -1,0 +1,27 @@
+page	left	top	code
+4	149	950	library(zoo)
+4	149	966	library(xts)
+4	149	983	library(highfrequency)
+4	149	999	library(TTR)
+4	149	1016	library(timeDate)
+4	149	1032	library(quantmod)
+4	149	1048	library(PIN)
+5	149	104	#Load data samples
+5	149	120	data(sample_tdata)
+5	149	137	data(sample_qdata)
+5	149	169	#Match the trade and quote data
+5	149	186	tqdata <- matchTradesQuotes(sample_tdata, sample_qdata)
+5	149	289	x <- getTradeDirection(tqdata)
+5	149	322	tradeDirection <- matrix(x)
+5	149	355	buy_side <- which(tradeDirection > 0)
+5	149	388	num_buy_side <- length(matrix(buy_side))
+5	149	404	num_sell_side <- length(tradeDirection) - length(matrix(buy_side))
+5	149	437	ntrades <- cbind(num_buy_side, num_sell_side)
+5	149	540	initparams <- cbind(0.15, 0.05, 0.5, 0.5)
+5	149	573	options(warn = -1)
+5	149	589	param_optim <- optim(initparams, pin_likelihood, gr = NULL, ntrades)
+5	149	713	epsi <- param_optim$par[1]
+5	149	730	miu <- param_optim$par[2]
+5	149	746	alph <- param_optim$par[3]
+5	149	763	delt <- param_optim$par[4]
+5	149	796	pin <- (alph*miu)/(alph*miu + 2*epsi)

@@ -1,0 +1,138 @@
+page	left	top	code
+3	459	743	for all weights{
+3	486	760	if (grad.old*grad>0){
+3	514	776	delta := min(delta*eta.plus, delta.max)
+3	514	793	weights := weights - sign(grad)*delta
+3	514	809	grad.old := grad
+3	486	826	}
+3	486	842	else if (grad.old*grad<0){
+3	514	858	weights := weights + sign(grad.old)*delta
+3	514	875	delta := max(delta*eta.minus, delta.min)
+3	514	891	grad.old := 0
+3	486	908	}
+3	486	924	else if (grad.old*grad=0){
+3	514	941	weights := weights - sign(grad)*delta
+3	514	957	grad.old := grad
+3	486	973	}
+3	459	990	}
+3	459	1055	for all weights{
+3	486	1072	weights := weights - grad*delta
+3	459	1088	}
+5	82	392	> library(neuralnet)
+5	82	408	Loading required package: grid
+5	82	425	Loading required package: MASS
+5	82	441	>
+5	82	458	> nn <- neuralnet(
+5	82	474	+ case~age+parity+induced+spontaneous,
+5	82	491	+ data=infert, hidden=2, err.fct="ce",
+5	82	507	+ linear.output=FALSE)
+5	82	523	> nn
+5	82	540	Call:
+5	96	556	neuralnet(
+5	96	573	formula = case~age+parity+induced+spontaneous,
+5	96	589	data = infert, hidden = 2, err.fct = "ce",
+5	96	606	linear.output = FALSE)
+5	82	638	1 repetition was calculated.
+5	137	671	Error Reached Threshold Steps
+5	82	688	1 125.2126851 0.008779243419 5254
+5	459	127	> nn$result.matrix
+5	733	144	1
+5	459	160	error 125.212685099732
+5	459	177	reached.threshold 0.008779243419
+5	459	193	steps 5254.000000000000
+5	459	210	Intercept.to.1layhid1 5.593787533788
+5	459	226	age.to.1layhid1 -0.117576380283
+5	459	242	parity.to.1layhid1 1.765945780047
+5	459	259	induced.to.1layhid1 -2.200113693672
+5	459	275	spontaneous.to.1layhid1 -3.369491912508
+5	459	292	Intercept.to.1layhid2 1.060701883258
+5	459	308	age.to.1layhid2 2.925601414213
+5	459	325	parity.to.1layhid2 0.259809664488
+5	459	341	induced.to.1layhid2 -0.120043540527
+5	459	357	spontaneous.to.1layhid2 -0.033475146593
+5	459	374	Intercept.to.case 0.722297491596
+5	459	390	1layhid.1.to.case -5.141324077052
+5	459	407	1layhid.2.to.case 2.623245311046
+5	459	751	> out <- cbind(nn$covariate,
+5	459	768	+ nn$net.result[[1]])
+5	459	784	> dimnames(out) <- list(NULL,
+5	459	801	+ c("age","parity","induced",
+5	459	817	+ "spontaneous","nn-output"))
+5	459	833	> head(out)
+5	493	850	age parity induced spontaneous nn-output
+5	459	866	[1,] 26 6 1 2 0.1519579877
+5	459	883	[2,] 42 1 1 0 0.6204480608
+5	459	899	[3,] 39 6 2 0 0.1428325816
+5	459	916	[4,] 34 4 2 0 0.1513351888
+5	459	932	[5,] 35 3 1 1 0.3516163154
+5	459	949	[6,] 36 4 2 1 0.4904344475
+6	82	127	> nn.bp <- neuralnet(
+6	82	144	+ case~age+parity+induced+spontaneous,
+6	82	160	+ data=infert, hidden=2, err.fct="ce",
+6	82	177	+ linear.output=FALSE,
+6	82	193	+ algorithm="backprop",
+6	82	210	+ learningrate=0.01)
+6	82	226	> nn.bp
+6	82	242	Call:
+6	96	259	neuralnet(
+6	96	275	formula = case~age+parity+induced+spontaneous,
+6	96	292	data = infert, hidden = 2, learningrate = 0.01,
+6	96	308	algorithm = "backprop", err.fct = "ce",
+6	96	325	linear.output = FALSE)
+6	82	357	1 repetition was calculated.
+6	131	390	Error Reached Threshold Steps
+6	82	407	1 158.085556 0.008087314995 4
+6	82	423	>
+6	82	440	>
+6	82	456	> nn.nnet <- nnet(
+6	82	473	+ case~age+parity+induced+spontaneous,
+6	82	489	+ data=infert, size=2, entropy=T,
+6	82	505	+ abstol=0.01)
+6	82	522	# weights: 13
+6	82	538	initial value 158.121035
+6	82	555	final value 158.085463
+6	82	571	converged
+6	82	1014	> head(nn$generalized.weights[[1]])
+6	131	1031	[,1] [,2] [,3] [,4]
+6	82	1047	1 0.0088556 -0.1330079 0.1657087 0.2537842
+6	82	1064	2 0.1492874 -2.2422321 2.7934978 4.2782645
+6	82	1080	3 0.0004489 -0.0067430 0.0084008 0.0128660
+6	82	1097	4 0.0083028 -0.1247051 0.1553646 0.2379421
+6	82	1113	5 0.1071413 -1.6092161 2.0048511 3.0704457
+6	82	1129	6 0.1360035 -2.0427123 2.5449249 3.8975730
+6	459	301	> plot(nn)
+6	459	1093	> par(mfrow=c(2,2))
+6	459	1110	> gwplot(nn,selected.covariate="age",
+6	459	1126	+ min=-2.5, max=5)
+6	459	1142	> gwplot(nn,selected.covariate="parity",
+6	459	1159	+ min=-2.5, max=5)
+6	459	1175	> gwplot(nn,selected.covariate="induced",
+7	82	127	+ min=-2.5, max=5)
+7	82	144	> gwplot(nn,selected.covariate="spontaneous",
+7	144	160	min=-2.5, max=5)
+7	459	265	> new.output <- compute(nn,
+7	569	281	covariate=matrix(c(22,1,0,0,
+7	699	298	22,1,1,0,
+7	699	314	22,1,0,1,
+7	699	331	22,1,1,1),
+7	637	347	byrow=TRUE, ncol=4))
+7	459	364	> new.output$net.result
+7	527	380	[,1]
+7	459	396	[1,] 0.1477097
+7	459	413	[2,] 0.1929026
+7	459	429	[3,] 0.3139651
+7	459	446	[4,] 0.8516760
+7	459	1060	> ci <- confidence.interval(nn.new, alpha=0.05)
+7	459	1077	> ci$lower.ci
+7	459	1093	[[1]]
+7	459	1110	[[1]][[1]]
+7	555	1126	[,1] [,2]
+7	459	1142	[1,] 1.830803796 -2.680895286
+7	459	1159	[2,] 1.673863304 -2.839908343
+7	459	1175	[3,] -8.883004913 -37.232020925
+8	82	127	[4,] -48.906348154 -18.748849335
+8	82	160	[[1]][[2]]
+8	172	177	[,1]
+8	82	193	[1,] 1.283391149
+8	82	210	[2,] -3.724315385
+8	82	226	[3,] -2.650545922

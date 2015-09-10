@@ -1,0 +1,32 @@
+page	left	top	code
+3	149	730	check.table(ecopath_guinee)
+4	149	947	# default choice, constant sigmaLN
+4	149	963	create.smooth(ecopath_guinee)
+4	149	980	# sigmaLN = smooth_param*ln(TL-0.05)
+4	149	996	create.smooth(ecopath_guinee, smooth_type = 2)
+4	149	1083	plot(create.smooth(ecopath_guinee))
+5	149	703	A <- create.smooth(ecopath_guinee)
+5	149	719	# Transpose of the biomass column
+5	149	735	T_biomass <- Transpose(A, ecopath_guinee, "biomass")
+5	149	752	# Transpose of the catch.1 column
+5	149	768	Transpose(A, ecopath_guinee, "catch.1")
+5	171	866	plot(tab_Trans,title = NULL,scale = NULL)
+5	149	909	# title and log scale for the biomass
+5	149	926	plot(T_biomass, title = "biomass", log)
+5	149	1098	# constant sigmaLN
+5	149	1115	create.ETmain(ecopath_guinee)
+5	149	1131	# sigmaLN = smooth_param*ln(TL-0.05)
+5	149	1147	create.ETmain(ecopath_guinee, smooth_type = 2)
+7	149	557	# constant sigmaLN
+7	149	573	ET_Main <- create.ETmain(ecopath_guinee)\$ET_Main
+7	149	590	ET_Main
+7	149	805	> names(create.ETmain(ecopath_guinee))
+7	149	821	[1] "ET_Main" "biomass" "biomass_acc" "prod" "prod_acc" "tab_smooth" "Y"
+7	149	931	plot(create.ETmain(ecopath_guinee),log)
+8	149	552	ETmain <- create.ETmain(ecopath_guinee)
+8	149	568	create.ETdiagnosis(ETmain)
+8	149	585	# change of the top-down parameter
+8	149	601	create.ETdiagnosis(ETmain, TopD = 0.6)
+8	149	775	# log scale for the BTS
+8	149	791	diag <- create.ETdiagnosis(ETmain)
+8	149	808	plot(diag, log)

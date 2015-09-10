@@ -1,0 +1,68 @@
+page	left	top	code
+3	82	888	# binary response variable
+3	82	905	n <- 20
+3	82	923	set.seed(4278)
+3	82	941	x1 <- rnorm(n)
+3	82	959	x0 <- rnorm(n)+x1
+3	82	977	y1 <- ifelse(x0+x1+2*rnorm(n)>0,1,0)
+3	82	995	test1 <- prr.test(y1~x0+x1,
+3	166	1013	var="x0", family=binomial())
+3	82	1031	x2 <- rbinom(n,1,0.6)
+3	82	1049	y2 <- ifelse(x1+x2+rnorm(n)>0,1,0)
+3	82	1067	test2 <- prr.test(y2~x1+x2, var="x1",
+3	166	1085	nrep=10000,family=binomial())
+3	82	1121	# Poisson response variable
+3	82	1139	set.seed(4278)
+3	82	1156	x1 <- rnorm(n)
+3	82	1174	x0 <- rnorm(n) + x1
+3	459	126	nu <- rgamma(n, shape = 2, scale = 1)
+3	459	144	y <- rpois(n, lambda = exp(2) * nu)
+3	459	162	test3 <- prr.test(y~x0+x1,
+3	543	180	var="x0", family=poisson())
+3	459	198	test4 <- prr.test(y~x0, var="x0",
+3	543	216	nrep=1000,family=poisson())
+3	459	308	> summary(test2)
+3	459	326	-----------------------------------------
+3	459	344	Results based on chi-squared distribution
+3	459	362	-----------------------------------------
+3	459	380	observed p-value: 0.0332
+3	459	398	--------------------
+3	459	416	Results based on PRR
+3	459	434	--------------------
+3	459	452	permutation p-value for simulated p-values <=
+3	459	469	observed p-value: 0.0522 (Std.err: 0.0018)
+3	459	487	permutation p-value for simulated p-values <=
+3	459	505	1.02 observed p-value: 0.0531 (Std.err: 0.0018)
+4	82	285	# example with family=poisson()
+4	82	303	data(treepipit, package="coin")
+4	82	321	test5<-prr.test(counts~cbpiles+coverstorey
+4	90	339	+coniferous+coverregen,data=treepipit,
+4	90	357	var="cbpiles",family=poisson())
+4	82	374	summary(test5)
+4	82	392	-----------------------------------------
+4	82	410	Results based on chi-squared distribution
+4	82	428	-----------------------------------------
+4	82	446	observed p-value: 0.0037
+4	82	464	--------------------
+4	82	482	Results based on PRR
+4	82	500	--------------------
+4	82	518	permutation p-value for simulated p-values <=
+4	82	536	observed p-value: 0.083 (Std.err: 0.0019)
+4	82	554	permutation p-value for simulated p-values <=
+4	82	572	1.02 observed p-value: 0.084 (Std.err: 0.0019)
+4	82	608	# example with family=quasipoisson()
+4	82	626	test6<-prr.test(counts~cbpiles+coverstorey
+4	90	643	+coniferous+coverregen,data=treepipit,
+4	90	661	var="cbpiles",family=quasipoisson())
+4	82	679	summary(test6)
+4	82	697	-----------------------------------------
+4	82	715	Results based on chi-squared distribution
+4	82	733	-----------------------------------------
+4	82	751	observed p-value: 0.0651
+4	82	769	--------------------
+4	82	787	Results based on PRR
+4	82	805	--------------------
+4	82	823	permutation p-value for simulated p-values <=
+4	82	841	observed p-value: 0.07 (Std.err: 0.0078)
+4	82	859	permutation p-value for simulated p-values <=
+4	82	877	1.02 observed p-value: 0.071 (Std.err: 0.0079)

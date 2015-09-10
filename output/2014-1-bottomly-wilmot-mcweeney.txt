@@ -1,0 +1,35 @@
+page	left	top	code
+2	149	902	library(oligoMask)
+2	149	918	library(oligoMaskData)
+2	149	934	library(om.NOD.mogene.1.0.st)
+2	149	951	library(pd.mogene.1.0.st.v1)
+2	149	967	library(limma)
+2	149	984	data(oligoMaskData)
+2	149	1017	var.parms <- VariantMaskParams(om.NOD.mogene.1.0.st, geno.filter = FALSE,
+2	163	1033	rm.unmap = FALSE, rm.mult = FALSE)
+2	149	1066	sun.gfs.mask <- maskRMA(oligoMaskData, target = "core", apply.mask = TRUE,
+2	163	1082	mask.params = var.parms)
+3	149	186	rma method from oligo. In addition it requires specification of a "VariantMaskParams" object and
+3	149	372	sun.exprs.mask <- exprs(sun.gfs.mask)
+3	149	389	phen.dta <- data.frame(t(sapply(strsplit(colnames(sun.exprs.mask), "_"), c))[, 1:3])
+3	149	405	names(phen.dta) <- c("tissue", "strain", "exposure")
+3	149	422	use.mod <- model.matrix(~strain, data = phen.dta)
+3	149	438	fit <- lmFit(sun.exprs.mask, use.mod)
+3	149	455	fit <- eBayes(fit)
+3	149	471	sun.exprs.mask.res <- decideTests(fit)
+3	149	547	sun.gfs.unmask <- maskRMA(oligoMaskData, target = "core", apply.mask = FALSE,
+3	211	564	mask.params = var.parms)
+3	149	597	sun.exprs.unmask <- exprs(sun.gfs.unmask)
+3	149	613	um.phen.dta <-
+3	176	629	data.frame(t(sapply(strsplit(colnames(sun.exprs.unmask), "_"), c))[, 1:3])
+3	149	646	names(um.phen.dta) <- c("tissue" , "strain" , "exposure")
+3	149	662	um.mod <- model.matrix(~strain , data = um.phen.dta)
+3	149	679	um.fit <- lmFit(sun.exprs.unmask , um.mod)
+3	149	695	um.fit <- eBayes(um.fit)
+3	149	712	sun.exprs.unmask.res <- decideTests(um.fit)
+3	149	771	comb.mat <- cbind(sun.exprs.unmask.res[ , "strainNOD", drop = FALSE], Masked = 0)
+3	149	788	comb.mat[rownames(sun.exprs.mask.res), "Masked"] <-
+3	163	804	sun.exprs.mask.res[, "strainNOD"]
+3	149	821	colnames(comb.mat)[1] <- "UnMasked"
+3	149	837	vennDiagram(vennCounts(comb.mat))
+3	149	930	Stangle(system.file("doc/oligoMask.Rnw" , package = "oligoMask"))

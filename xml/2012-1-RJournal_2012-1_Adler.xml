@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="15" family="Times" color="#000000"/>
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+	<fontspec id="9" size="9" family="Times" color="#00004c"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">30</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="426" height="36" font="2"><b>Foreign Library Interface</b></text>
+<text top="173" left="82" width="97" height="15" font="0">by Daniel Adler</text>
+<text top="208" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="207" left="179" width="236" height="15" font="0">We present an improved Foreign</text>
+<text top="225" left="96" width="319" height="15" font="0">Function Interface (FFI) for R to call arbitary na-</text>
+<text top="243" left="96" width="319" height="15" font="0">tive functions without the need for C wrapper</text>
+<text top="261" left="96" width="35" height="15" font="0">code.</text>
+<text top="261" left="147" width="268" height="15" font="0">Further we discuss a dynamic linkage</text>
+<text top="279" left="96" width="319" height="15" font="0">framework for binding standard C libraries to</text>
+<text top="297" left="96" width="319" height="15" font="0">R across platforms using a universal type infor-</text>
+<text top="315" left="96" width="319" height="15" font="0">mation format. The package <b>rdyncall </b>comprises</text>
+<text top="333" left="96" width="319" height="15" font="0">the framework and an initial repository of cross-</text>
+<text top="351" left="96" width="319" height="15" font="0">platform bindings for standard libraries such as</text>
+<text top="369" left="96" width="319" height="15" font="0">(legacy and modern) OpenGL, the family of SDL</text>
+<text top="387" left="96" width="319" height="15" font="0">libraries and Expat. The package enables system-</text>
+<text top="405" left="96" width="319" height="15" font="0">level programming using the R language; sam-</text>
+<text top="423" left="96" width="319" height="15" font="0">ple applications are given in the article. We out-</text>
+<text top="441" left="96" width="319" height="15" font="0">line the underlying automation tool-chain that</text>
+<text top="458" left="96" width="319" height="15" font="0">extracts cross-platform bindings from C headers,</text>
+<text top="476" left="96" width="319" height="15" font="0">making the repository extendable and open for</text>
+<text top="494" left="96" width="125" height="15" font="0">library developers.</text>
+<text top="539" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="579" left="82" width="346" height="15" font="0">We present an improved Foreign Function Interface</text>
+<text top="596" left="82" width="346" height="15" font="0">(FFI) for R that significantly reduces the amount of</text>
+<text top="614" left="82" width="346" height="15" font="0">C wrapper code needed to interface with C. We also</text>
+<text top="632" left="82" width="346" height="15" font="0">introduce a dynamic linkage that binds the C inter-</text>
+<text top="650" left="82" width="346" height="15" font="0">face of a pre-compiled library (as a whole) to an inter-</text>
+<text top="668" left="82" width="346" height="15" font="0">preted programming environment such as R - hence</text>
+<text top="686" left="82" width="278" height="15" font="0">the name Foreign Library Interface. Table</text>
+<text top="686" left="367" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#2">1</a></text>
+<text top="686" left="381" width="48" height="15" font="0">gives a</text>
+<text top="704" left="82" width="346" height="15" font="0">list of the C libraries currently supported across ma-</text>
+<text top="722" left="82" width="110" height="15" font="0">jor R platforms.</text>
+<text top="722" left="209" width="220" height="15" font="0">For each library supported, ab-</text>
+<text top="740" left="82" width="346" height="15" font="0">stract interface specifications are declared in a com-</text>
+<text top="758" left="82" width="346" height="15" font="0">pact platform-neutral text-based format stored in so-</text>
+<text top="776" left="82" width="261" height="15" font="0">called DynPort file on a local repository.</text>
+<text top="794" left="105" width="324" height="15" font="0">R was choosen as the first language to implement</text>
+<text top="812" left="82" width="346" height="15" font="0">a proof-of-concept implementation for this approach.</text>
+<text top="830" left="82" width="160" height="15" font="0">This article describes the</text>
+<text top="830" left="246" width="56" height="15" font="6"><a href="http://cran.r-project.org/package=rdyncall"><b>rdyncall</b></a></text>
+<text top="830" left="305" width="124" height="15" font="0">package which im-</text>
+<text top="848" left="82" width="346" height="15" font="0">plements a toolkit of low-level facilities that can be</text>
+<text top="866" left="82" width="346" height="15" font="0">used as an alternative FFI to interface with C. It also</text>
+<text top="884" left="82" width="346" height="15" font="0">facilitates direct and convenient access to common C</text>
+<text top="902" left="82" width="246" height="15" font="0">libraries from R without compilation.</text>
+<text top="920" left="105" width="324" height="15" font="0">The project was motivated by the fact that high-</text>
+<text top="938" left="82" width="346" height="15" font="0">quality software solutions implemented in portable</text>
+<text top="956" left="82" width="346" height="15" font="0">C are often not available in interpreter-based lan-</text>
+<text top="973" left="82" width="346" height="15" font="0">guages such as R. The pool of freely available C li-</text>
+<text top="991" left="82" width="346" height="15" font="0">braries is quite large and represents an invaluable</text>
+<text top="1009" left="82" width="346" height="15" font="0">resource for software development. For example,</text>
+<text top="1027" left="82" width="62" height="15" font="0">OpenGL <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="1027" left="145" width="281" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">OpenGL Architecture Review Board et al.</a></text>
+<text top="1027" left="425" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="1045" left="82" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2005</a></text>
+<text top="1045" left="112" width="317" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>is the most portable and standard interface to</text>
+<text top="1063" left="82" width="346" height="15" font="0">accelerated graphics hardware for developing real-</text>
+<text top="1081" left="82" width="346" height="15" font="0">time graphics software. The combination of OpenGL</text>
+<text top="1099" left="82" width="284" height="15" font="0">with the Simple DirectMedia Layer (SDL) <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="1099" left="366" width="59" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Lantinga</a></text>
+<text top="1099" left="425" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="1117" left="82" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2009</a></text>
+<text top="1117" left="112" width="317" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>core and extension libraries offers a founda-</text>
+<text top="1135" left="82" width="346" height="15" font="0">tion framework for developing interactive multime-</text>
+<text top="173" left="459" width="346" height="15" font="0">dia applications that can run on a multitude of plat-</text>
+<text top="191" left="459" width="42" height="15" font="0">forms.</text>
+<text top="242" left="459" width="265" height="21" font="4"><b>Foreign function interfaces</b></text>
+<text top="282" left="459" width="346" height="15" font="0">FFIs provide the backbone of a language to inter-</text>
+<text top="300" left="459" width="346" height="15" font="0">face with foreign code. Depending on the design of</text>
+<text top="318" left="459" width="346" height="15" font="0">this service, it can largely unburden developers from</text>
+<text top="336" left="459" width="346" height="15" font="0">writing additional wrapper code. In this section, we</text>
+<text top="354" left="459" width="346" height="15" font="0">compare the built-in R FFI with that provided by</text>
+<text top="372" left="459" width="56" height="15" font="3"><b>rdyncall</b></text>
+<text top="372" left="515" width="290" height="15" font="0">. We use a simple example that sketches the</text>
+<text top="390" left="459" width="346" height="15" font="0">different work flow paths for making an R binding to</text>
+<text top="408" left="459" width="229" height="15" font="0">a function from a foreign C library.</text>
+<text top="454" left="459" width="107" height="17" font="7"><b>FFI of base R</b></text>
+<text top="486" left="459" width="346" height="15" font="0">Suppose that we wish to invoke the C function sqrt</text>
+<text top="504" left="459" width="346" height="15" font="0">of the Standard C Math library. The function is de-</text>
+<text top="522" left="459" width="145" height="15" font="0">clared as follows in C:</text>
+<text top="556" left="459" width="168" height="12" font="0">double sqrt(double x);</text>
+<text top="587" left="481" width="324" height="15" font="0">The .C function from the base R FFI offers a call</text>
+<text top="605" left="459" width="346" height="15" font="0">gate to C code with very strict conversion rules, and</text>
+<text top="623" left="459" width="346" height="15" font="0">strong limitations regarding argument- and return-</text>
+<text top="641" left="459" width="346" height="15" font="0">types: R arguments are passed as C pointers and C</text>
+<text top="659" left="459" width="346" height="15" font="0">return types are not supported, so only C void func-</text>
+<text top="677" left="459" width="346" height="15" font="0">tions, which are procedures, can be called. Given</text>
+<text top="695" left="459" width="346" height="15" font="0">these limitations, we are not able to invoke the for-</text>
+<text top="713" left="459" width="346" height="15" font="0">eign sqrt function directly; intermediate wrapper</text>
+<text top="731" left="459" width="185" height="15" font="0">code written in C is needed:</text>
+<text top="768" left="459" width="117" height="10" font="8">#include &lt;math.h&gt;</text>
+<text top="785" left="459" width="219" height="10" font="8">void R_C_sqrt(double * ptr_to_x)</text>
+<text top="801" left="459" width="7" height="10" font="8">{</text>
+<text top="818" left="473" width="192" height="10" font="8">double x = ptr_to_x[0], ans;</text>
+<text top="834" left="473" width="96" height="10" font="8">ans = sqrt(x);</text>
+<text top="850" left="473" width="123" height="10" font="8">ptr_to_x[0] = ans;</text>
+<text top="867" left="459" width="7" height="10" font="8">}</text>
+<text top="901" left="481" width="324" height="15" font="0">We assume that the wrapper code is deployed as</text>
+<text top="919" left="459" width="346" height="15" font="0">a shared library in a package named testsqrt which</text>
+<text top="936" left="459" width="237" height="15" font="0">links to the Standard C Math <a href="2012-1-RJournal_2012-1_Adler.html#1">library</a></text>
+<text top="934" left="696" width="6" height="11" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#1">1</a></text>
+<text top="936" left="702" width="103" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#1">. </a>Then we load</text>
+<text top="954" left="459" width="346" height="15" font="0">the testsqrt package and call the C wrapper function</text>
+<text top="972" left="459" width="97" height="15" font="0">directly via .C.</text>
+<text top="1011" left="459" width="145" height="12" font="0">&gt; library(testsqrt)</text>
+<text top="1028" left="459" width="312" height="12" font="0">&gt; .C(&#34;R_C_sqrt&#34;, 144, PACKAGE=&#34;testsqrt&#34;)</text>
+<text top="1046" left="459" width="38" height="12" font="0">[[1]]</text>
+<text top="1064" left="459" width="46" height="12" font="0">[1] 12</text>
+<text top="1099" left="481" width="324" height="15" font="0">To make sqrt available as a public function, an</text>
+<text top="1117" left="459" width="346" height="15" font="0">additional R wrapper layer is needed to carry out</text>
+<text top="1135" left="459" width="125" height="15" font="0">type-safety checks:</text>
+<text top="1159" left="99" width="4" height="9" font="10">1</text>
+<text top="1161" left="104" width="655" height="12" font="1">We omit here the details such as registering C functions which is described in detail in the R Manual ’Writing R Extensions’ <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="1161" left="759" width="46" height="12" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#11">R Devel-</a></text>
+<text top="1175" left="82" width="101" height="12" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#11">opment Core Team</a></text>
+<text top="1175" left="183" width="3" height="12" font="1"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="1175" left="189" width="24" height="12" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#11">2010</a></text>
+<text top="1175" left="213" width="7" height="12" font="1"><a href="2012-1-RJournal_2012-1_Adler.html#11">).</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">31</text>
+<text top="128" left="141" width="87" height="15" font="0">Lib/DynPort</text>
+<text top="128" left="247" width="77" height="15" font="0">Description</text>
+<text top="128" left="489" width="65" height="15" font="0">Functions</text>
+<text top="128" left="573" width="66" height="15" font="0">Constants</text>
+<text top="128" left="658" width="90" height="15" font="0">Struct/Union</text>
+<text top="155" left="141" width="15" height="12" font="0">GL</text>
+<text top="154" left="247" width="57" height="15" font="0">OpenGL</text>
+<text top="154" left="511" width="22" height="15" font="0">336</text>
+<text top="154" left="591" width="30" height="15" font="0">3254</text>
+<text top="154" left="700" width="5" height="15" font="0">-</text>
+<text top="173" left="141" width="23" height="12" font="0">GLU</text>
+<text top="172" left="247" width="104" height="15" font="0">OpenGL Utility</text>
+<text top="172" left="514" width="15" height="15" font="0">59</text>
+<text top="172" left="595" width="22" height="15" font="0">155</text>
+<text top="172" left="700" width="5" height="15" font="0">-</text>
+<text top="191" left="141" width="8" height="12" font="0">R</text>
+<text top="190" left="247" width="58" height="15" font="0">R library</text>
+<text top="190" left="511" width="22" height="15" font="0">238</text>
+<text top="190" left="595" width="22" height="15" font="0">700</text>
+<text top="190" left="695" width="15" height="15" font="0">27</text>
+<text top="209" left="141" width="23" height="12" font="0">SDL</text>
+<text top="208" left="247" width="193" height="15" font="0">Audio/Video/UI abstraction</text>
+<text top="208" left="511" width="22" height="15" font="0">201</text>
+<text top="208" left="595" width="22" height="15" font="0">416</text>
+<text top="208" left="695" width="15" height="15" font="0">34</text>
+<text top="227" left="141" width="69" height="12" font="0">SDL_image</text>
+<text top="226" left="247" width="133" height="15" font="0">Pixel format loaders</text>
+<text top="226" left="514" width="15" height="15" font="0">35</text>
+<text top="226" left="602" width="7" height="15" font="0">3</text>
+<text top="226" left="700" width="5" height="15" font="0">-</text>
+<text top="245" left="141" width="69" height="12" font="0">SDL_mixer</text>
+<text top="244" left="247" width="224" height="15" font="0">Music format loaders and playing</text>
+<text top="244" left="514" width="15" height="15" font="0">71</text>
+<text top="244" left="598" width="15" height="15" font="0">27</text>
+<text top="244" left="700" width="5" height="15" font="0">-</text>
+<text top="263" left="141" width="53" height="12" font="0">SDL_net</text>
+<text top="262" left="247" width="155" height="15" font="0">Network programming</text>
+<text top="262" left="514" width="15" height="15" font="0">34</text>
+<text top="262" left="602" width="7" height="15" font="0">5</text>
+<text top="262" left="699" width="7" height="15" font="0">3</text>
+<text top="281" left="141" width="53" height="12" font="0">SDL_ttf</text>
+<text top="279" left="247" width="131" height="15" font="0">Font format loaders</text>
+<text top="279" left="514" width="15" height="15" font="0">38</text>
+<text top="279" left="602" width="7" height="15" font="0">7</text>
+<text top="279" left="700" width="5" height="15" font="0">-</text>
+<text top="299" left="141" width="30" height="12" font="0">cuda</text>
+<text top="297" left="247" width="128" height="15" font="0">GPU programming</text>
+<text top="297" left="511" width="22" height="15" font="0">387</text>
+<text top="297" left="595" width="22" height="15" font="0">665</text>
+<text top="297" left="695" width="15" height="15" font="0">84</text>
+<text top="317" left="141" width="38" height="12" font="0">expat</text>
+<text top="315" left="247" width="164" height="15" font="0">XML parsing framework</text>
+<text top="315" left="514" width="15" height="15" font="0">65</text>
+<text top="315" left="598" width="15" height="15" font="0">70</text>
+<text top="315" left="700" width="5" height="15" font="0">-</text>
+<text top="335" left="141" width="30" height="12" font="0">glew</text>
+<text top="333" left="247" width="94" height="15" font="0">GL extensions</text>
+<text top="333" left="507" width="30" height="15" font="0">1857</text>
+<text top="333" left="603" width="5" height="15" font="0">-</text>
+<text top="333" left="700" width="5" height="15" font="0">-</text>
+<text top="353" left="141" width="23" height="12" font="0">gl3</text>
+<text top="351" left="247" width="115" height="15" font="0">OpenGL 3 (strict)</text>
+<text top="351" left="511" width="22" height="15" font="0">317</text>
+<text top="351" left="595" width="22" height="15" font="0">838</text>
+<text top="351" left="699" width="7" height="15" font="0">1</text>
+<text top="370" left="141" width="23" height="12" font="0">ode</text>
+<text top="369" left="247" width="140" height="15" font="0">Rigid Physics Engine</text>
+<text top="369" left="511" width="22" height="15" font="0">547</text>
+<text top="369" left="595" width="22" height="15" font="0">109</text>
+<text top="369" left="695" width="15" height="15" font="0">11</text>
+<text top="388" left="141" width="46" height="12" font="0">opencl</text>
+<text top="387" left="247" width="128" height="15" font="0">GPU programming</text>
+<text top="387" left="514" width="15" height="15" font="0">79</text>
+<text top="387" left="595" width="22" height="15" font="0">263</text>
+<text top="387" left="695" width="15" height="15" font="0">10</text>
+<text top="406" left="141" width="38" height="12" font="0">stdio</text>
+<text top="405" left="247" width="90" height="15" font="0">Standard I/O</text>
+<text top="405" left="514" width="15" height="15" font="0">75</text>
+<text top="405" left="602" width="7" height="15" font="0">3</text>
+<text top="405" left="700" width="5" height="15" font="0">-</text>
+<text top="442" left="229" width="430" height="15" font="0">Table 1: Overview of available DynPorts for portable C Libraries</text>
+<text top="493" left="82" width="158" height="10" font="8">sqrtViaC &lt;- function(x)</text>
+<text top="509" left="82" width="7" height="10" font="8">{</text>
+<text top="526" left="96" width="329" height="10" font="8">x &lt;- as.numeric(x) # type(x) should be C double.</text>
+<text top="542" left="96" width="158" height="10" font="8"># make sure length &gt; 0:</text>
+<text top="559" left="96" width="206" height="10" font="8">length(x) &lt;- max(1, length(x))</text>
+<text top="575" left="96" width="281" height="10" font="8">.C(&#34;R_C_sqrt&#34;, x, PACKAGE=&#34;example&#34;)[[1]]</text>
+<text top="591" left="82" width="7" height="10" font="8">}</text>
+<text top="625" left="105" width="324" height="15" font="0">We can conclude that – in realistic settings – the</text>
+<text top="643" left="82" width="346" height="15" font="0">built-in FFI of R almost always needs support by a</text>
+<text top="661" left="82" width="346" height="15" font="0">wrapper layer written in C. The &#34;foreign&#34; in the FFI</text>
+<text top="679" left="82" width="327" height="15" font="0">of <b>base </b>is in fact relegated to the C wrapper layer.</text>
+<text top="725" left="82" width="121" height="17" font="7"><b>FFI of rdyncall</b></text>
+<text top="757" left="82" width="56" height="15" font="3"><b>rdyncall</b></text>
+<text top="756" left="143" width="286" height="15" font="0">provides an alternative FFI for R that is ac-</text>
+<text top="774" left="82" width="346" height="15" font="0">cessible via the function .dyncall. In contrast to the</text>
+<text top="792" left="82" width="346" height="15" font="0">base R FFI, which uses a C wrapper layer, the sqrt</text>
+<text top="810" left="82" width="346" height="15" font="0">function is invoked dynamically and directly by the</text>
+<text top="828" left="82" width="346" height="15" font="0">interpreter at run-time. Whereas the Standard C Math</text>
+<text top="846" left="82" width="346" height="15" font="0">library was loaded implicitly via the testsqrt package,</text>
+<text top="864" left="82" width="220" height="15" font="0">it now has to be loaded explicitly.</text>
+<text top="883" left="105" width="324" height="15" font="0">R offers functions to deal with shared libraries</text>
+<text top="901" left="82" width="346" height="15" font="0">at run-time, but the location has to be specified as</text>
+<text top="919" left="82" width="346" height="15" font="0">an absolute file path, which is platform-specific. A</text>
+<text top="936" left="82" width="346" height="15" font="0">platform-portable solution is discussed in a follow-</text>
+<text top="954" left="82" width="346" height="15" font="0">ing section on Portable loading of shared library. For</text>
+<text top="972" left="82" width="346" height="15" font="0">now, we assume that the example is done on Mac OS</text>
+<text top="990" left="82" width="346" height="15" font="0">X where the Standard C Math library has the file path</text>
+<text top="1008" left="82" width="4" height="15" font="0">‘</text>
+<text top="1009" left="87" width="99" height="12" font="8">/usr/lib/libm.dylib</text>
+<text top="1008" left="186" width="8" height="15" font="0">’:</text>
+<text top="1046" left="82" width="312" height="12" font="0">&gt; libm &lt;- dyn.load(&#34;/usr/lib/libm.dylib&#34;)</text>
+<text top="1064" left="82" width="236" height="12" font="0">&gt; sqrtAddr &lt;- libm$sqrt$address</text>
+<text top="1098" left="105" width="296" height="15" font="0">We first need to load the R package <b>rdyncall</b>:</text>
+<text top="1136" left="82" width="145" height="12" font="0">&gt; library(rdyncall)</text>
+<text top="491" left="481" width="324" height="15" font="0">Finally, we invoke the foreign C function sqrt di-</text>
+<text top="508" left="459" width="126" height="15" font="0">rectly via .dyncall:</text>
+<text top="537" left="459" width="244" height="12" font="0">&gt; .dyncall(sqrtAddr, &#34;d)d&#34;, 144)</text>
+<text top="555" left="459" width="46" height="12" font="0">[1] 12</text>
+<text top="580" left="481" width="324" height="15" font="0">The last call pinpoints the core solution for a di-</text>
+<text top="598" left="459" width="346" height="15" font="0">rect invocation of foreign code within R: The first</text>
+<text top="616" left="459" width="346" height="15" font="0">argument specifies the address of the foreign code,</text>
+<text top="634" left="459" width="346" height="15" font="0">given as an external pointer. The second argument</text>
+<text top="652" left="459" width="346" height="15" font="0">is a call signature that specifies the argument- and re-</text>
+<text top="670" left="459" width="346" height="15" font="0">turn types of the target C function. This string &#34;d)d&#34;</text>
+<text top="688" left="459" width="346" height="15" font="0">specifies that the foreign function expects a double</text>
+<text top="705" left="459" width="346" height="15" font="0">scalar argument and returns a double scalar value</text>
+<text top="723" left="459" width="346" height="15" font="0">in accordance with the C declaration of sqrt. Argu-</text>
+<text top="741" left="459" width="346" height="15" font="0">ments following the call signature are passed to the</text>
+<text top="759" left="459" width="346" height="15" font="0">foreign function in the form specified by the call sig-</text>
+<text top="777" left="459" width="346" height="15" font="0">nature. In the example we pass 144 as a C double ar-</text>
+<text top="795" left="459" width="346" height="15" font="0">gument type as first argument and receive a C double</text>
+<text top="813" left="459" width="218" height="15" font="0">value converted to an R numeric.</text>
+<text top="854" left="459" width="123" height="17" font="7"><b>Call signatures</b></text>
+<text top="884" left="459" width="346" height="15" font="0">The introduction of a type descriptor for foreign</text>
+<text top="902" left="459" width="346" height="15" font="0">functions is a key component that makes the FFI flex-</text>
+<text top="920" left="459" width="346" height="15" font="0">ible and type-safe. The format of the call signature</text>
+<text top="938" left="459" width="170" height="15" font="0">has the following pattern:</text>
+<text top="965" left="533" width="198" height="15" font="0">argument-types ')' return-type</text>
+<text top="991" left="481" width="324" height="15" font="0">The signature can be derived from the C function</text>
+<text top="1009" left="459" width="346" height="15" font="0">declaration: Argument types are specified first, in the</text>
+<text top="1027" left="459" width="346" height="15" font="0">direct left-to-right order of the corresponding C func-</text>
+<text top="1045" left="459" width="346" height="15" font="0">tion prototyp declaration, and are terminated by the</text>
+<text top="1063" left="459" width="346" height="15" font="0">symbol ')' followed by a single return type signa-</text>
+<text top="1081" left="459" width="30" height="15" font="0">ture.</text>
+<text top="1099" left="481" width="324" height="15" font="0">Almost all fundamental C types are supported</text>
+<text top="1117" left="459" width="171" height="15" font="0">and there is no r<a href="2012-1-RJournal_2012-1_Adler.html#2">estriction</a></text>
+<text top="1114" left="630" width="6" height="11" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#2">2</a></text>
+<text top="1117" left="641" width="164" height="15" font="0">regarding the number of</text>
+<text top="1135" left="459" width="277" height="15" font="0">arguments supported to issue a call. Table</text>
+<text top="1135" left="740" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#3">2</a></text>
+<text top="1135" left="751" width="54" height="15" font="0">gives an</text>
+<text top="1159" left="99" width="4" height="9" font="10">2</text>
+<text top="1161" left="104" width="701" height="12" font="1">The maximum number of arguments is limited by the amount of memory required for prebuffering a single call. It is currently fixed</text>
+<text top="1175" left="82" width="229" height="12" font="1">to 4 kilobyte (approx. 512-1024 arguments).</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">32</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="128" left="269" width="32" height="15" font="0">Type</text>
+<text top="128" left="356" width="33" height="15" font="0">Sign.</text>
+<text top="128" left="408" width="32" height="15" font="0">Type</text>
+<text top="128" left="563" width="33" height="15" font="0">Sign.</text>
+<text top="155" left="269" width="30" height="12" font="0">void</text>
+<text top="155" left="356" width="8" height="12" font="0">v</text>
+<text top="155" left="408" width="30" height="12" font="0">bool</text>
+<text top="155" left="563" width="8" height="12" font="0">B</text>
+<text top="173" left="269" width="30" height="12" font="0">char</text>
+<text top="173" left="356" width="8" height="12" font="0">c</text>
+<text top="173" left="408" width="99" height="12" font="0">unsigned char</text>
+<text top="173" left="563" width="8" height="12" font="0">C</text>
+<text top="191" left="269" width="38" height="12" font="0">short</text>
+<text top="191" left="356" width="8" height="12" font="0">s</text>
+<text top="191" left="408" width="107" height="12" font="0">unsigned short</text>
+<text top="191" left="563" width="8" height="12" font="0">S</text>
+<text top="209" left="269" width="23" height="12" font="0">int</text>
+<text top="209" left="356" width="8" height="12" font="0">i</text>
+<text top="209" left="408" width="91" height="12" font="0">unsigned int</text>
+<text top="209" left="563" width="8" height="12" font="0">I</text>
+<text top="227" left="269" width="30" height="12" font="0">long</text>
+<text top="227" left="356" width="8" height="12" font="0">j</text>
+<text top="227" left="408" width="99" height="12" font="0">unsigned long</text>
+<text top="227" left="563" width="8" height="12" font="0">J</text>
+<text top="245" left="269" width="69" height="12" font="0">long long</text>
+<text top="245" left="356" width="8" height="12" font="0">l</text>
+<text top="245" left="408" width="137" height="12" font="0">unsigned long long</text>
+<text top="245" left="563" width="8" height="12" font="0">L</text>
+<text top="263" left="269" width="38" height="12" font="0">float</text>
+<text top="263" left="356" width="8" height="12" font="0">f</text>
+<text top="263" left="408" width="46" height="12" font="0">double</text>
+<text top="263" left="563" width="8" height="12" font="0">d</text>
+<text top="281" left="269" width="38" height="12" font="0">void*</text>
+<text top="281" left="356" width="8" height="12" font="0">p</text>
+<text top="281" left="408" width="46" height="12" font="0">struct</text>
+<text top="279" left="457" width="44" height="15" font="0">name *</text>
+<text top="281" left="563" width="15" height="12" font="0">*&lt;</text>
+<text top="279" left="579" width="40" height="15" font="0">name&gt;</text>
+<text top="297" left="269" width="33" height="15" font="0">type*</text>
+<text top="299" left="356" width="8" height="12" font="0">*</text>
+<text top="297" left="364" width="11" height="15" font="0">...</text>
+<text top="299" left="408" width="84" height="12" font="0">const char*</text>
+<text top="299" left="563" width="8" height="12" font="0">Z</text>
+<text top="349" left="318" width="252" height="15" font="0">Table 2: C/C++ Types and Signatures</text>
+<text top="389" left="156" width="148" height="15" font="0">C function declaration</text>
+<text top="389" left="587" width="92" height="15" font="0">Call signature</text>
+<text top="416" left="156" width="30" height="12" font="0">void</text>
+<text top="416" left="263" width="274" height="12" font="0">rsort_with_index(double*,int*,int n)</text>
+<text top="416" left="587" width="53" height="12" font="0">*d*ii)v</text>
+<text top="434" left="156" width="396" height="12" font="0">SDL_Surface * SDL_SetVideoMode(int,int,int,Uint32_t)</text>
+<text top="434" left="587" width="145" height="12" font="0">iiiI)*&lt;SDL_Surface&gt;</text>
+<text top="452" left="156" width="30" height="12" font="0">void</text>
+<text top="452" left="263" width="305" height="12" font="0">glClear(GLfloat,GLfloat,GLfloat,GLfloat)</text>
+<text top="452" left="587" width="46" height="12" font="0">ffff)v</text>
+<text top="487" left="220" width="448" height="15" font="0">Table 3: Examples of C functions and corresponding call signatures</text>
+<text top="536" left="82" width="346" height="15" font="0">overview of supported C types and the correspond-</text>
+<text top="554" left="82" width="162" height="15" font="0">ing text encoding; Table</text>
+<text top="554" left="250" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#3">3</a></text>
+<text top="554" left="263" width="166" height="15" font="0">provides some examples</text>
+<text top="572" left="82" width="224" height="15" font="0">of C functions and call signatures.</text>
+<text top="590" left="105" width="324" height="15" font="0">A public R function that encapsulates the details</text>
+<text top="608" left="82" width="236" height="15" font="0">of the sqrt call is simply defined by</text>
+<text top="644" left="82" width="252" height="12" font="0">&gt; sqrtViaDynCall &lt;- function(...)</text>
+<text top="662" left="82" width="244" height="12" font="0">+ .dyncall(sqrtAddr, &#34;d)d&#34;, ...)</text>
+<text top="695" left="105" width="324" height="15" font="0">No further guard code is needed here because</text>
+<text top="714" left="82" width="61" height="12" font="0">.dyncall</text>
+<text top="713" left="152" width="277" height="15" font="0">has built-in type checks that are speci-</text>
+<text top="731" left="82" width="346" height="15" font="0">fied by the signature. In contrast to the R wrap-</text>
+<text top="749" left="82" width="346" height="15" font="0">per code using .C, no explicit cast of the arguments</text>
+<text top="767" left="82" width="346" height="15" font="0">via as.numeric is required, because automatic coer-</text>
+<text top="784" left="82" width="346" height="15" font="0">cion rules for fundamental types are implemented as</text>
+<text top="802" left="82" width="346" height="15" font="0">specified by the call signature. For example, using</text>
+<text top="820" left="82" width="346" height="15" font="0">the integer literal 144L instead of double works here</text>
+<text top="838" left="82" width="50" height="15" font="0">as well.</text>
+<text top="873" left="82" width="151" height="10" font="8">&gt; sqrtViaDyncall(144L)</text>
+<text top="890" left="82" width="41" height="10" font="8">[1] 12</text>
+<text top="922" left="105" width="324" height="15" font="0">If any incompatibility is detected, such as a</text>
+<text top="940" left="82" width="346" height="15" font="0">wrong number of arguments, empty atomic vectors</text>
+<text top="958" left="82" width="346" height="15" font="0">or incompatible type mappings, the invocation is</text>
+<text top="976" left="82" width="346" height="15" font="0">aborted and an error is reported without risking an</text>
+<text top="993" left="82" width="117" height="15" font="0">application crash.</text>
+<text top="1012" left="105" width="324" height="15" font="0">Pointer type arguments, expressed via 'p', are</text>
+<text top="1030" left="82" width="346" height="15" font="0">handled differently. The type signature 'p' indicates</text>
+<text top="1048" left="82" width="346" height="15" font="0">that the argument is an address. When passing R</text>
+<text top="1065" left="82" width="346" height="15" font="0">atomic vectors, the C argument value is the address</text>
+<text top="1083" left="82" width="346" height="15" font="0">of the first element of the vector. External pointers</text>
+<text top="1101" left="82" width="346" height="15" font="0">and the NULL object can also be passed as values for</text>
+<text top="1119" left="82" width="346" height="15" font="0">pointer type arguments. Automatic coercion is de-</text>
+<text top="1137" left="82" width="346" height="15" font="0">liberately not implemented for pointer types. This is</text>
+<text top="1155" left="82" width="346" height="15" font="0">to support C functions that write into memory refer-</text>
+<text top="1173" left="82" width="178" height="15" font="0">enced by out pointer types.</text>
+<text top="536" left="481" width="324" height="15" font="0">Typed pointers, specified by the prefix '*' fol-</text>
+<text top="554" left="459" width="346" height="15" font="0">lowed by the signature of the base type, offer a mea-</text>
+<text top="572" left="459" width="346" height="15" font="0">sure of type-safety for pointer types; if an R vector</text>
+<text top="590" left="459" width="346" height="15" font="0">is passed and the R atomic type does not match the</text>
+<text top="608" left="459" width="346" height="15" font="0">base type, the call will be rejected. Typed pointers</text>
+<text top="626" left="459" width="346" height="15" font="0">to C struct and union types are also supported; they</text>
+<text top="644" left="459" width="346" height="15" font="0">are briefly described in the section Handling of C Types</text>
+<text top="662" left="459" width="30" height="15" font="0">in R.</text>
+<text top="680" left="481" width="324" height="15" font="0">In contrast to the R FFI, where the argument con-</text>
+<text top="698" left="459" width="346" height="15" font="0">version is dictated solely by the R argument type at</text>
+<text top="716" left="459" width="346" height="15" font="0">call-time in a one-way fashion, the introduction of</text>
+<text top="734" left="459" width="346" height="15" font="0">an additional specification with a call signature gives</text>
+<text top="752" left="459" width="130" height="15" font="0">several advantages.</text>
+<text top="788" left="480" width="326" height="15" font="0">• Almost all possible C functions can be invoked</text>
+<text top="806" left="496" width="309" height="15" font="0">by a single interface; no additional C wrapper</text>
+<text top="824" left="496" width="75" height="15" font="0">is required.</text>
+<text top="856" left="480" width="326" height="15" font="0">• The built-in type-safety checks enhance stabil-</text>
+<text top="874" left="496" width="309" height="15" font="0">ity and significantly reduce the need for asser-</text>
+<text top="892" left="496" width="65" height="15" font="0">tion code.</text>
+<text top="924" left="480" width="326" height="15" font="0">• The same call signature works across plat-</text>
+<text top="942" left="496" width="309" height="15" font="0">forms, given that the C function type remains</text>
+<text top="960" left="496" width="59" height="15" font="0">constant.</text>
+<text top="993" left="480" width="326" height="15" font="0">• Given that our FFI is implemented in multiple</text>
+<text top="1011" left="496" width="309" height="15" font="0">languages (e.g. Python, Ruby, Perl, Lua), call</text>
+<text top="1029" left="496" width="309" height="15" font="0">signatures represent a universal type descrip-</text>
+<text top="1047" left="496" width="125" height="15" font="0">tion for C libraries.</text>
+<text top="1097" left="459" width="176" height="21" font="4"><b>Package overview</b></text>
+<text top="1137" left="459" width="346" height="15" font="0">Besides dynamic calling of foreign code, the pack-</text>
+<text top="1155" left="459" width="346" height="15" font="0">age provides essential facilities for interoperability</text>
+<text top="1173" left="459" width="346" height="15" font="0">between the R and C programming languages. An</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="8" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">33</text>
+<text top="373" left="349" width="191" height="15" font="0">Figure 1: Package Overview</text>
+<text top="422" left="82" width="346" height="15" font="0">overview of components that make up the package</text>
+<text top="440" left="82" width="115" height="15" font="0">is given in Figure</text>
+<text top="440" left="201" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#4">1</a></text>
+<text top="440" left="208" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#4">.</a></text>
+<text top="459" left="105" width="324" height="15" font="0">We already described the .dyncall FFI. It is fol-</text>
+<text top="477" left="82" width="346" height="15" font="0">lowed by a brief description of portable loading of</text>
+<text top="495" left="82" width="346" height="15" font="0">shared libraries using dynfind, installation of wrap-</text>
+<text top="513" left="82" width="346" height="15" font="0">pers via dynbind, handling of foreign data types</text>
+<text top="531" left="82" width="346" height="15" font="0">via new.struct and wrapping of R functions as C</text>
+<text top="549" left="82" width="346" height="15" font="0">callbacks via new.callback. Finally the high-level</text>
+<text top="568" left="82" width="53" height="12" font="0">dynport</text>
+<text top="567" left="142" width="287" height="15" font="0">interface for accessing whole C libraries is</text>
+<text top="585" left="82" width="346" height="15" font="0">briefly discussed. The technical details at low-level</text>
+<text top="603" left="82" width="346" height="15" font="0">of some components are described briefly in the sec-</text>
+<text top="621" left="82" width="109" height="15" font="0">tion Architecture.</text>
+<text top="668" left="82" width="290" height="17" font="7"><b>Portable loading of shared libraries</b></text>
+<text top="700" left="82" width="346" height="15" font="0">The portable loading of shared libraries across plat-</text>
+<text top="718" left="82" width="346" height="15" font="0">forms is not trivial because the file path is differ-</text>
+<text top="736" left="82" width="346" height="15" font="0">ent across operating systems. Referring back to the</text>
+<text top="754" left="82" width="346" height="15" font="0">previous example, to load a particular library in a</text>
+<text top="772" left="82" width="346" height="15" font="0">portable fashion, one would have to check the plat-</text>
+<text top="790" left="82" width="181" height="15" font="0">form to locate the C library<a href="2012-1-RJournal_2012-1_Adler.html#4">.</a></text>
+<text top="787" left="263" width="6" height="11" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#4">3</a></text>
+<text top="808" left="105" width="324" height="15" font="0">Although there is variation among the operating</text>
+<text top="826" left="82" width="346" height="15" font="0">systems, library file paths and search patterns have</text>
+<text top="844" left="82" width="346" height="15" font="0">common structures. For example, among all the dif-</text>
+<text top="862" left="82" width="346" height="15" font="0">ferent locations, prefixes and suffixes, there is a part</text>
+<text top="880" left="82" width="346" height="15" font="0">within a full library filename that can be taken as a</text>
+<text top="898" left="82" width="168" height="15" font="0">short library name or label.</text>
+<text top="917" left="105" width="324" height="15" font="0">The function dynfind takes a list of short li-</text>
+<text top="935" left="82" width="346" height="15" font="0">brary names to locate a library using common search</text>
+<text top="953" left="82" width="346" height="15" font="0">heuristics. For example, to load the Standard C Math</text>
+<text top="971" left="82" width="346" height="15" font="0">library, depending on the operating system the li-</text>
+<text top="989" left="82" width="346" height="15" font="0">brary is either the Microsoft Visual C Run-Time DLL</text>
+<text top="1007" left="82" width="57" height="15" font="0">labeled ‘</text>
+<text top="1008" left="139" width="40" height="12" font="8">msvcrt</text>
+<text top="1007" left="179" width="250" height="15" font="0">’ on Windows or the Standard C Math</text>
+<text top="1025" left="82" width="158" height="15" font="0">shared library labeled ‘</text>
+<text top="1026" left="241" width="11" height="12" font="8">m</text>
+<text top="1025" left="252" width="34" height="15" font="0">’ or ‘</text>
+<text top="1026" left="285" width="7" height="12" font="8">c</text>
+<text top="1025" left="292" width="137" height="15" font="0">’ on other operating</text>
+<text top="1043" left="82" width="56" height="15" font="0">systems.</text>
+<text top="1082" left="82" width="290" height="12" font="0">&gt; mLib &lt;- dynfind(c(&#34;msvcrt&#34;,&#34;m&#34;,&#34;c&#34;))</text>
+<text top="1118" left="105" width="53" height="12" font="0">dynfind</text>
+<text top="1117" left="162" width="267" height="15" font="0">also supports more exotic schemes, such</text>
+<text top="1135" left="82" width="346" height="15" font="0">as Mac OS X Framework folders. Depending on the</text>
+<text top="422" left="459" width="346" height="15" font="0">library, it is sometimes enough to have a single short</text>
+<text top="440" left="459" width="287" height="15" font="0">filename - e.g. &#34;expat&#34; for the Expat library.</text>
+<text top="482" left="459" width="172" height="17" font="7"><b>Wrapping C libraries</b></text>
+<text top="512" left="459" width="346" height="15" font="0">Functional R interfaces to foreign code can be de-</text>
+<text top="530" left="459" width="346" height="15" font="0">fined with small R wrapper functions, which effec-</text>
+<text top="548" left="459" width="346" height="15" font="0">tively delegate to .dyncall. Each function interface</text>
+<text top="566" left="459" width="346" height="15" font="0">is parameterized by a target address and a matching</text>
+<text top="584" left="459" width="92" height="15" font="0">call signature.</text>
+<text top="617" left="459" width="336" height="10" font="8">f &lt;- function(...) .dyncall(target,signature,...)</text>
+<text top="647" left="481" width="324" height="15" font="0">Since an Application Programming Interface (API)</text>
+<text top="665" left="459" width="325" height="15" font="0">often consist of hundreds of functions (see Table</text>
+<text top="665" left="789" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#2">1</a></text>
+<text top="665" left="797" width="9" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#2">),</a></text>
+<text top="684" left="459" width="53" height="12" font="0">dynbind</text>
+<text top="683" left="519" width="286" height="15" font="0">can create and install a batch of function</text>
+<text top="701" left="459" width="346" height="15" font="0">wrappers for a library with a single call by using a li-</text>
+<text top="719" left="459" width="346" height="15" font="0">brary signature that consists of concatenated function</text>
+<text top="737" left="459" width="313" height="15" font="0">names and signatures separated by semicolons.</text>
+<text top="755" left="481" width="324" height="15" font="0">For example, to install wrappers to the C func-</text>
+<text top="773" left="459" width="346" height="15" font="0">tions sqrt, sin and cos from the math library, one</text>
+<text top="791" left="459" width="64" height="15" font="0">could use</text>
+<text top="824" left="459" width="236" height="12" font="0">&gt; dynbind( c(&#34;msvcrt&#34;,&#34;m&#34;,&#34;c&#34;),</text>
+<text top="842" left="459" width="244" height="12" font="0">+ &#34;sqrt(d)d;sin(d)d);cos(d)d;&#34; )</text>
+<text top="873" left="481" width="324" height="15" font="0">The function call has the side-effect that three R</text>
+<text top="891" left="459" width="346" height="15" font="0">wrapper functions are created and stored in an envi-</text>
+<text top="909" left="459" width="346" height="15" font="0">ronment that defaults to the global environment. Let</text>
+<text top="927" left="459" width="346" height="15" font="0">us review the sin wrapper (on the 64-bit Version of</text>
+<text top="945" left="459" width="195" height="15" font="0">R running on Mac OS X 10.6):</text>
+<text top="978" left="459" width="38" height="12" font="0">&gt; sin</text>
+<text top="996" left="459" width="107" height="12" font="0">function (...)</text>
+<text top="1014" left="459" width="312" height="12" font="0">.dyncall.cdecl(&lt;pointer: 0x7fff81fd13f0&gt;,</text>
+<text top="1032" left="466" width="91" height="12" font="0">&#34;d)d)&#34;, ...)</text>
+<text top="1063" left="481" width="324" height="15" font="0">The wrapper directly uses the address of the sin</text>
+<text top="1081" left="459" width="346" height="15" font="0">symbol from the Standard C Math library. In addi-</text>
+<text top="1099" left="459" width="346" height="15" font="0">tion, the wrapper uses .dyncall.cdecl, which is a</text>
+<text top="1117" left="459" width="346" height="15" font="0">concrete selector of a particular calling convention,</text>
+<text top="1135" left="459" width="120" height="15" font="0">as outlined below.</text>
+<text top="1159" left="99" width="4" height="9" font="10">3</text>
+<text top="1161" left="104" width="225" height="12" font="1">Possible C math library names are ‘</text>
+<text top="1162" left="329" width="34" height="10" font="11">libm.so</text>
+<text top="1161" left="363" width="46" height="12" font="1">’ and ‘</text>
+<text top="1162" left="409" width="67" height="10" font="11">MSVCRT.DLL</text>
+<text top="1161" left="475" width="147" height="12" font="1">’ in locations such as ‘</text>
+<text top="1162" left="622" width="14" height="10" font="11">/lib</text>
+<text top="1161" left="636" width="21" height="12" font="1">’, ‘</text>
+<text top="1162" left="657" width="32" height="10" font="11">/usr/lib</text>
+<text top="1161" left="688" width="21" height="12" font="1">’, ‘</text>
+<text top="1162" left="709" width="26" height="10" font="11">/lib64</text>
+<text top="1161" left="735" width="21" height="12" font="1">’, ‘</text>
+<text top="1162" left="755" width="44" height="10" font="11">/usr/lib64</text>
+<text top="1161" left="799" width="6" height="12" font="1">’,</text>
+<text top="1175" left="82" width="3" height="12" font="1">‘</text>
+<text top="1176" left="86" width="127" height="10" font="11">C:\WINDOWS\SYSTEM32</text>
+<text top="1175" left="213" width="27" height="12" font="1">’ etc..</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">34</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="123" left="82" width="165" height="17" font="7"><b>Calling conventions</b></text>
+<text top="154" left="82" width="346" height="15" font="0">Calling conventions specify how arguments and re-</text>
+<text top="172" left="82" width="346" height="15" font="0">turn values are passed across sub-routines and func-</text>
+<text top="190" left="82" width="346" height="15" font="0">tions at machine-level. This information is vital for</text>
+<text top="208" left="82" width="346" height="15" font="0">interfacing with the binary interface of C libraries.</text>
+<text top="226" left="82" width="346" height="15" font="0">The package has support for multiple calling con-</text>
+<text top="243" left="82" width="60" height="15" font="0">ventions.</text>
+<text top="243" left="162" width="267" height="15" font="0">Calling conventions are controlled by</text>
+<text top="263" left="82" width="61" height="12" font="0">.dyncall</text>
+<text top="261" left="147" width="282" height="15" font="0">via the named argument callmode to spec-</text>
+<text top="279" left="82" width="346" height="15" font="0">ify a non-default calling convention. Most supported</text>
+<text top="297" left="82" width="346" height="15" font="0">operating systems and platforms only have support</text>
+<text top="315" left="82" width="346" height="15" font="0">for a single &#34;default&#34; calling convention at run-time.</text>
+<text top="333" left="82" width="346" height="15" font="0">An exception to this is the Microsoft Windows plat-</text>
+<text top="351" left="82" width="346" height="15" font="0">form on the Intel i386 processor architecture: While</text>
+<text top="369" left="82" width="346" height="15" font="0">the default C calling convention on i386 (excluding</text>
+<text top="387" left="82" width="346" height="15" font="0">Plan9) is &#34;default&#34;, system shared libraries from</text>
+<text top="405" left="82" width="128" height="15" font="0">Microsoft such as ‘</text>
+<text top="406" left="210" width="97" height="12" font="8">KERNEL32.DLL</text>
+<text top="405" left="308" width="17" height="15" font="0">’, ‘</text>
+<text top="406" left="325" width="81" height="12" font="8">USER32.DLL</text>
+<text top="405" left="406" width="23" height="15" font="0">’ as</text>
+<text top="423" left="82" width="189" height="15" font="0">well as the OpenGL library ‘</text>
+<text top="424" left="272" width="99" height="12" font="8">OPENGL32.DLL</text>
+<text top="423" left="371" width="58" height="15" font="0">’ use the</text>
+<text top="442" left="82" width="69" height="12" font="0">&#34;stdcall&#34;</text>
+<text top="441" left="155" width="274" height="15" font="0">calling convention. Only on this platform</text>
+<text top="459" left="82" width="346" height="15" font="0">does the callmode argument have an effect. All other</text>
+<text top="477" left="82" width="274" height="15" font="0">platforms currently ignore this argument.</text>
+<text top="519" left="82" width="205" height="17" font="7"><b>Handling of C types in R</b></text>
+<text top="550" left="82" width="346" height="15" font="0">C APIs often make use of high-level C struct and</text>
+<text top="569" left="82" width="38" height="12" font="0">union</text>
+<text top="568" left="127" width="302" height="15" font="0">types for exchanging information. Thus, to</text>
+<text top="586" left="82" width="346" height="15" font="0">make interoperability work at that level the handling</text>
+<text top="604" left="82" width="292" height="15" font="0">of C data types is addressed by the package.</text>
+<text top="622" left="105" width="324" height="15" font="0">To illustrate this concept we consider the follow-</text>
+<text top="640" left="82" width="346" height="15" font="0">ing example: A user-interface library has a function</text>
+<text top="658" left="82" width="346" height="15" font="0">to set the 2D coordinates and dimension of a graph-</text>
+<text top="676" left="82" width="346" height="15" font="0">ical output window. The coordinates are specified</text>
+<text top="694" left="82" width="346" height="15" font="0">using a C struct Rect data type and the C function</text>
+<text top="711" left="82" width="208" height="15" font="0">receives a pointer to that object:</text>
+<text top="746" left="82" width="268" height="10" font="8">void setWindowRect(struct Rect *pRect);</text>
+<text top="777" left="105" width="263" height="15" font="0">The structure type is defined as follows:</text>
+<text top="812" left="82" width="89" height="10" font="8">struct Rect {</text>
+<text top="828" left="96" width="34" height="10" font="8">short</text>
+<text top="828" left="199" width="34" height="10" font="8">x, y;</text>
+<text top="845" left="96" width="137" height="10" font="8">unsigned short w, h;</text>
+<text top="861" left="82" width="14" height="10" font="8">};</text>
+<text top="892" left="105" width="324" height="15" font="0">Before we can issue a call, we have to allocate an</text>
+<text top="910" left="82" width="346" height="15" font="0">object of that size and initialize the fields with val-</text>
+<text top="928" left="82" width="346" height="15" font="0">ues encoded in C types that are not part of the sup-</text>
+<text top="946" left="82" width="346" height="15" font="0">ported set of R data types. The framework provides</text>
+<text top="964" left="82" width="346" height="15" font="0">R helper functions and objects to deal with C data</text>
+<text top="982" left="82" width="346" height="15" font="0">types. Type information objects can be created with</text>
+<text top="1000" left="82" width="346" height="15" font="0">a description of the C structure type. First, we create</text>
+<text top="1018" left="82" width="346" height="15" font="0">a type information object in R for the struct Rect C</text>
+<text top="1036" left="82" width="346" height="15" font="0">data type with the function parseStructInfos using</text>
+<text top="1054" left="82" width="161" height="15" font="0">a structure type signature.</text>
+<text top="1088" left="82" width="274" height="10" font="8">&gt; parseStructInfos(&#34;Rect{ssSS}x y w h;&#34;)</text>
+<text top="1119" left="105" width="324" height="15" font="0">After registration, an R object named Rect is in-</text>
+<text top="1137" left="82" width="346" height="15" font="0">stalled that contains C type information that corre-</text>
+<text top="1155" left="82" width="346" height="15" font="0">sponds to struct Rect. The format of a structure type</text>
+<text top="1173" left="82" width="231" height="15" font="0">signature has the following pattern:</text>
+<text top="125" left="477" width="311" height="15" font="0">Struct-name '{' Field-types '}' Field-names ';'</text>
+<text top="152" left="481" width="324" height="15" font="0">Field-types use the same type signature encod-</text>
+<text top="170" left="459" width="346" height="15" font="0">ing as that of call signatures for argument and return</text>
+<text top="188" left="459" width="80" height="15" font="0">types (Table</text>
+<text top="188" left="543" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#3">2</a></text>
+<text top="188" left="550" width="255" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#3">). </a>Field-names consist of a list of white-</text>
+<text top="206" left="459" width="346" height="15" font="0">space separated names, that label each field compo-</text>
+<text top="224" left="459" width="111" height="15" font="0">nent left to right.</text>
+<text top="242" left="481" width="324" height="15" font="0">An instance of a C type can be allocated via</text>
+<text top="261" left="459" width="76" height="12" font="0">new.struct</text>
+<text top="260" left="535" width="4" height="15" font="0">:</text>
+<text top="288" left="459" width="158" height="10" font="8">&gt; r &lt;- new.struct(Rect)</text>
+<text top="312" left="481" width="48" height="15" font="0">Finally,</text>
+<text top="312" left="551" width="21" height="15" font="0">the</text>
+<text top="312" left="590" width="66" height="15" font="0">extraction</text>
+<text top="312" left="675" width="34" height="15" font="0">('$',</text>
+<text top="314" left="731" width="26" height="12" font="0">'['</text>
+<text top="312" left="757" width="5" height="15" font="0">)</text>
+<text top="312" left="780" width="25" height="15" font="0">and</text>
+<text top="330" left="459" width="346" height="15" font="0">replacement('$&lt;-', '[&lt;-') operators can be used</text>
+<text top="348" left="459" width="346" height="15" font="0">to access structure fields symbolically. During value</text>
+<text top="366" left="459" width="346" height="15" font="0">transfer between R and C, automatic conversion of</text>
+<text top="384" left="459" width="346" height="15" font="0">values with respect to the underlying C field type</text>
+<text top="402" left="459" width="76" height="15" font="0">takes place.</text>
+<text top="430" left="459" width="336" height="10" font="8">&gt; r$x &lt;- -10 ; r$y &lt;- -20 ; r$w &lt;- 40 ; r$h &lt;- 30</text>
+<text top="455" left="481" width="324" height="15" font="0">In this example, R numeric values are converted</text>
+<text top="473" left="459" width="346" height="15" font="0">on the fly to signed and unsigned short integers</text>
+<text top="491" left="459" width="346" height="15" font="0">(usually 16-bit values). On printing r a detailed pic-</text>
+<text top="508" left="459" width="202" height="15" font="0">ture of the data object is given:</text>
+<text top="536" left="459" width="21" height="10" font="8">&gt; r</text>
+<text top="553" left="459" width="89" height="10" font="8">struct Rect {</text>
+<text top="569" left="466" width="41" height="10" font="8">x: -10</text>
+<text top="586" left="466" width="41" height="10" font="8">y: -20</text>
+<text top="602" left="466" width="14" height="10" font="8">w:</text>
+<text top="602" left="493" width="14" height="10" font="8">40</text>
+<text top="619" left="466" width="14" height="10" font="8">h:</text>
+<text top="619" left="493" width="14" height="10" font="8">30</text>
+<text top="635" left="459" width="7" height="10" font="8">}</text>
+<text top="660" left="481" width="324" height="15" font="0">At low-level, one can see that r is stored as an R</text>
+<text top="679" left="459" width="23" height="12" font="0">raw</text>
+<text top="678" left="485" width="87" height="15" font="0">vector object:</text>
+<text top="706" left="459" width="34" height="10" font="8">&gt; r[]</text>
+<text top="722" left="459" width="185" height="10" font="8">[1] f6 ff ec ff 28 00 1e 00</text>
+<text top="738" left="459" width="103" height="10" font="8">attr(,&#34;struct&#34;)</text>
+<text top="755" left="459" width="69" height="10" font="8">[1] &#34;Rect&#34;</text>
+<text top="780" left="481" width="324" height="15" font="0">To follow the example, we issue a foreign func-</text>
+<text top="798" left="459" width="346" height="15" font="0">tion call to setRect via .dyncall and pass in the r</text>
+<text top="816" left="459" width="346" height="15" font="0">object, assuming the library is loaded and the sym-</text>
+<text top="833" left="459" width="346" height="15" font="0">bol is resolved and stored in an external pointer ob-</text>
+<text top="851" left="459" width="209" height="15" font="0">ject named setWindowRectAddr:</text>
+<text top="879" left="459" width="316" height="10" font="8">&gt; .dyncall( setWindowRectAddr, &#34;*&lt;Rect&gt;)v&#34;, r)</text>
+<text top="904" left="481" width="324" height="15" font="0">We make use of a typed pointer expression</text>
+<text top="923" left="459" width="71" height="12" font="0">'*&lt;Rect&gt;'</text>
+<text top="922" left="535" width="271" height="15" font="0">instead of the untyped pointer signature</text>
+<text top="941" left="459" width="26" height="12" font="0">'p'</text>
+<text top="940" left="484" width="321" height="15" font="0">, which would also work but does not prevent</text>
+<text top="958" left="459" width="346" height="15" font="0">users from passing other objects that do not refer-</text>
+<text top="976" left="459" width="346" height="15" font="0">ence a struct Rect data object. Typed pointer ex-</text>
+<text top="994" left="459" width="346" height="15" font="0">pressions increase type-safety and use the pattern</text>
+<text top="1013" left="459" width="24" height="12" font="0">'*&lt;</text>
+<text top="1012" left="483" width="322" height="15" font="0">Type-Name&gt;'. The invocation will be rejected if</text>
+<text top="1030" left="459" width="346" height="15" font="0">the argument passed in is not of C type Rect. As</text>
+<text top="1049" left="459" width="8" height="12" font="0">r</text>
+<text top="1048" left="473" width="332" height="15" font="0">is tagged with an attribute struct that refers to</text>
+<text top="1067" left="459" width="30" height="12" font="0">Rect</text>
+<text top="1065" left="489" width="316" height="15" font="0">, the call will be issued. Typed pointers can also</text>
+<text top="1083" left="459" width="346" height="15" font="0">occur as return types that permit the manipulation</text>
+<text top="1101" left="459" width="346" height="15" font="0">of returned objects in the same symbolic manner as</text>
+<text top="1119" left="459" width="43" height="15" font="0">above.</text>
+<text top="1137" left="481" width="324" height="15" font="0">C union types are supported as well but use the</text>
+<text top="1156" left="459" width="114" height="12" font="0">parseUnionInfos</text>
+<text top="1155" left="581" width="225" height="15" font="0">function instead for registration,</text>
+<text top="1173" left="459" width="268" height="15" font="0">and a slightly different signature format:</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">35</text>
+<text top="125" left="100" width="311" height="15" font="0">Union-name '|' Field-types '}' Field-names ';'</text>
+<text top="156" left="105" width="324" height="15" font="0">The underlying low-level C type read and write</text>
+<text top="174" left="82" width="346" height="15" font="0">operations and conversions from R data types are</text>
+<text top="191" left="82" width="346" height="15" font="0">performed by the functions .pack and .unpack.</text>
+<text top="209" left="82" width="346" height="15" font="0">These can be used for various low-level operations</text>
+<text top="227" left="82" width="343" height="15" font="0">as well, such as dereferencing of pointer to pointers.</text>
+<text top="245" left="105" width="324" height="15" font="0">R objects such as external pointers and atomic</text>
+<text top="263" left="82" width="346" height="15" font="0">raw, integer and numeric vectors can be used as C</text>
+<text top="281" left="82" width="346" height="15" font="0">struct/union types via the attribute struct. To cast a</text>
+<text top="299" left="82" width="297" height="15" font="0">type in the style of C, one can use as.struct.</text>
+<text top="340" left="82" width="300" height="17" font="7"><b>Wrapping R functions as C callbacks</b></text>
+<text top="371" left="82" width="346" height="15" font="0">Some C libraries, such as user-interface toolkits and</text>
+<text top="389" left="82" width="346" height="15" font="0">I/O processing frameworks, use callbacks as part of</text>
+<text top="407" left="82" width="346" height="15" font="0">their interface to enable registration and activation</text>
+<text top="425" left="82" width="346" height="15" font="0">of user-supplied event handlers. A callback is a user-</text>
+<text top="442" left="82" width="346" height="15" font="0">defined function that has a library-defined function</text>
+<text top="460" left="82" width="346" height="15" font="0">type. Callbacks are usually registered via a registra-</text>
+<text top="478" left="82" width="346" height="15" font="0">tion function offered by the library interface and are</text>
+<text top="496" left="82" width="346" height="15" font="0">activated later from within a library run-time con-</text>
+<text top="514" left="82" width="28" height="15" font="0">text.</text>
+<text top="532" left="105" width="56" height="15" font="3"><b>rdyncall</b></text>
+<text top="532" left="172" width="257" height="15" font="0">has support for wrapping ordinary</text>
+<text top="550" left="82" width="346" height="15" font="0">R functions as C callbacks via the function</text>
+<text top="569" left="82" width="91" height="12" font="0">new.callback</text>
+<text top="568" left="174" width="255" height="15" font="0">. Callback wrappers are defined by a</text>
+<text top="586" left="82" width="346" height="15" font="0">callback signature and the user-supplied R function to</text>
+<text top="604" left="82" width="346" height="15" font="0">be wrapped. Callback signatures look very similar to</text>
+<text top="622" left="82" width="346" height="15" font="0">call signatures and should match the functional type</text>
+<text top="640" left="82" width="346" height="15" font="0">of the underlying C callback. new.callback returns</text>
+<text top="658" left="82" width="346" height="15" font="0">an external pointer that can be used as a low-level</text>
+<text top="676" left="82" width="346" height="15" font="0">function pointer for the registration as a C callback.</text>
+<text top="694" left="82" width="346" height="15" font="0">See Section Parsing XML using Expat below for appli-</text>
+<text top="711" left="82" width="162" height="15" font="0">cations of new.callback.</text>
+<text top="753" left="82" width="199" height="17" font="7"><b>Foreign library interface</b></text>
+<text top="783" left="82" width="346" height="15" font="0">At the highest level, <b>rdyncall </b>provides the front-end</text>
+<text top="801" left="82" width="346" height="15" font="0">function dynport to dynamically set up an interface</text>
+<text top="819" left="82" width="346" height="15" font="0">to a C Application Programming Interface. This in-</text>
+<text top="837" left="82" width="346" height="15" font="0">cludes loading of the corresponding shared C library</text>
+<text top="855" left="82" width="346" height="15" font="0">and resolving of symbols. During the binding pro-</text>
+<text top="873" left="82" width="196" height="15" font="0">cess, a new R name space <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="873" left="279" width="50" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Tierney</a></text>
+<text top="873" left="329" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="873" left="339" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2003</a></text>
+<text top="873" left="369" width="60" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>will be</text>
+<text top="891" left="82" width="346" height="15" font="0">populated with thin R wrapper objects that repre-</text>
+<text top="909" left="82" width="346" height="15" font="0">sent abstractions to C counterparts such as functions,</text>
+<text top="927" left="82" width="346" height="15" font="0">pointers-to-functions, type-information objects for C</text>
+<text top="945" left="82" width="346" height="15" font="0">struct and union types and symbolic constant equiv-</text>
+<text top="963" left="82" width="346" height="15" font="0">alents of C enums and macro definitions. The mech-</text>
+<text top="980" left="82" width="346" height="15" font="0">anism works across platforms; as long as the corre-</text>
+<text top="998" left="82" width="346" height="15" font="0">sponding shared libraries of a DynPort have been in-</text>
+<text top="1016" left="82" width="321" height="15" font="0">stalled in a system standard location on the host.</text>
+<text top="1034" left="105" width="324" height="15" font="0">An initial repository of DynPorts is available in</text>
+<text top="1052" left="82" width="346" height="15" font="0">the package that provides bindings for several pop-</text>
+<text top="1070" left="82" width="144" height="15" font="0">ular C APIs; see Table</text>
+<text top="1070" left="230" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#2">1</a></text>
+<text top="1070" left="241" width="148" height="15" font="0">for available bindings.</text>
+<text top="1117" left="82" width="200" height="21" font="4"><b>Sample applications</b></text>
+<text top="1155" left="82" width="346" height="15" font="0">We give examples that demonstrate the direct usage</text>
+<text top="1173" left="82" width="346" height="15" font="0">of C APIs from within R through the <b>rdyncall </b>pack-</text>
+<text top="125" left="459" width="346" height="15" font="0">age. The R interface to C libraries looks very simi-</text>
+<text top="143" left="459" width="346" height="15" font="0">lar to the actual C API. For details on the usage of a</text>
+<text top="161" left="459" width="346" height="15" font="0">particular C library, the programming manuals and</text>
+<text top="179" left="459" width="340" height="15" font="0">documentation of the libraries should be consulted.</text>
+<text top="198" left="481" width="324" height="15" font="0">Before loading R bindings via dynport, the shared</text>
+<text top="215" left="459" width="346" height="15" font="0">library should have been installed onto the system.</text>
+<text top="233" left="459" width="346" height="15" font="0">Currently this is to be done manually and the instal-</text>
+<text top="251" left="459" width="346" height="15" font="0">lation method depends on the target operating sys-</text>
+<text top="269" left="459" width="346" height="15" font="0">tem. While OpenGL and Expat is often pre-installed</text>
+<text top="287" left="459" width="346" height="15" font="0">on typical desktop-systems, SDL usually has to be in-</text>
+<text top="305" left="459" width="346" height="15" font="0">stalled explicitly which is described in the package;</text>
+<text top="323" left="459" width="231" height="15" font="0">see ?'rdyncall-demos' for details.</text>
+<text top="369" left="459" width="228" height="17" font="7"><b>OpenGL programming in R</b></text>
+<text top="744" left="564" width="136" height="15" font="0">Figure 2: demo(SDL)</text>
+<text top="779" left="481" width="324" height="15" font="0">In the first example, we make use of the Simple Di-</text>
+<text top="797" left="459" width="204" height="15" font="0">rectMedia Layer library (SDL) <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="797" left="663" width="67" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Pendleton</a></text>
+<text top="797" left="730" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="797" left="740" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2003</a></text>
+<text top="797" left="770" width="36" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>and</text>
+<text top="815" left="459" width="243" height="15" font="0">the Open Graphics Library (OpenGL) <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="815" left="702" width="104" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">OpenGL Archi-</a></text>
+<text top="833" left="459" width="189" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">tecture Review Board et al.</a></text>
+<text top="833" left="648" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="833" left="658" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2005</a></text>
+<text top="833" left="688" width="117" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>to implement a</text>
+<text top="851" left="459" width="307" height="15" font="0">portable multimedia application skeleton in R.</text>
+<text top="870" left="481" width="324" height="15" font="0">We first need to load bindings to SDL and</text>
+<text top="888" left="459" width="142" height="15" font="0">OpenGL via dynport:</text>
+<text top="926" left="459" width="107" height="12" font="0">&gt; dynport(SDL)</text>
+<text top="944" left="459" width="99" height="12" font="0">&gt; dynport(GL)</text>
+<text top="978" left="481" width="324" height="15" font="0">Now we initialize the SDL library, e.g. we initial-</text>
+<text top="996" left="459" width="346" height="15" font="0">ize the video subsystem, and open a 640x480 win-</text>
+<text top="1014" left="459" width="346" height="15" font="0">dow surface in 32-bit color depths with support for</text>
+<text top="1032" left="459" width="130" height="15" font="0">OpenGL rendering:</text>
+<text top="1069" left="459" width="178" height="10" font="8">&gt; SDL_Init(SDL_INIT_VIDEO)</text>
+<text top="1086" left="459" width="357" height="10" font="8">&gt; surface &lt;- SDL_SetVideoMode(640,480,32,SDL_OPENGL)</text>
+<text top="1119" left="481" width="324" height="15" font="0">Next, we implement the application loop which</text>
+<text top="1137" left="459" width="346" height="15" font="0">updates the display repeatedly and processes the</text>
+<text top="1155" left="459" width="346" height="15" font="0">event queue until a quit request is issued by the user</text>
+<text top="1173" left="459" width="191" height="15" font="0">via the window close button.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">36</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="165" height="10" font="8">&gt; mainloop &lt;- function()</text>
+<text top="144" left="82" width="7" height="10" font="8">{</text>
+<text top="160" left="96" width="185" height="10" font="8">ev &lt;- new.struct(SDL_Event)</text>
+<text top="177" left="96" width="89" height="10" font="8">quit &lt;- FALSE</text>
+<text top="193" left="96" width="96" height="10" font="8">while(!quit) {</text>
+<text top="210" left="110" width="41" height="10" font="8">draw()</text>
+<text top="226" left="110" width="178" height="10" font="8">while(SDL_PollEvent(ev)) {</text>
+<text top="242" left="124" width="178" height="10" font="8">if (ev$type == SDL_QUIT) {</text>
+<text top="259" left="137" width="82" height="10" font="8">quit &lt;- TRUE</text>
+<text top="275" left="124" width="7" height="10" font="8">}</text>
+<text top="292" left="110" width="7" height="10" font="8">}</text>
+<text top="308" left="96" width="7" height="10" font="8">}</text>
+<text top="325" left="82" width="7" height="10" font="8">}</text>
+<text top="356" left="105" width="324" height="15" font="0">SDL event processing is implemented by collect-</text>
+<text top="374" left="82" width="346" height="15" font="0">ing events that occur in a queue. Typical SDL appli-</text>
+<text top="392" left="82" width="346" height="15" font="0">cations poll the event queue once per update frame</text>
+<text top="410" left="82" width="346" height="15" font="0">by calling SDL_PollEvent with a pointer to a user-</text>
+<text top="428" left="82" width="346" height="15" font="0">allocated buffer of C type union SDL_Event. Event</text>
+<text top="446" left="82" width="346" height="15" font="0">records have a common type identifier which is set to</text>
+<text top="465" left="82" width="61" height="12" font="0">SDL_QUIT</text>
+<text top="464" left="147" width="281" height="15" font="0">when a quit event has occurred, e.g. when</text>
+<text top="481" left="82" width="261" height="15" font="0">users press a close button on a window.</text>
+<text top="500" left="105" width="324" height="15" font="0">Next we implement our draw function making</text>
+<text top="518" left="82" width="346" height="15" font="0">use of the OpenGL API. We clear the background</text>
+<text top="535" left="82" width="334" height="15" font="0">with a blue color and draw a light-green rectangle.</text>
+<text top="570" left="82" width="137" height="10" font="8">&gt; draw &lt;- function()</text>
+<text top="586" left="82" width="7" height="10" font="8">{</text>
+<text top="603" left="96" width="144" height="10" font="8">glClearColor(0,0,1,0)</text>
+<text top="619" left="96" width="192" height="10" font="8">glClear(GL_COLOR_BUFFER_BIT)</text>
+<text top="636" left="96" width="137" height="10" font="8">glColor3f(0.5,1,0.5)</text>
+<text top="652" left="96" width="178" height="10" font="8">glRectf(-0.5,-0.5,0.5,0.5)</text>
+<text top="669" left="96" width="137" height="10" font="8">SDL_GL_SwapBuffers()</text>
+<text top="685" left="82" width="7" height="10" font="8">}</text>
+<text top="716" left="105" width="284" height="15" font="0">Now we can run the application mainloop.</text>
+<text top="751" left="82" width="82" height="10" font="8">&gt; mainloop()</text>
+<text top="782" left="105" width="324" height="15" font="0">To stop the application, we press the close button</text>
+<text top="800" left="82" width="346" height="15" font="0">of the window. A similar example is also available</text>
+<text top="818" left="82" width="346" height="15" font="0">via demo(SDL). Here the draw function displays a ro-</text>
+<text top="836" left="82" width="228" height="15" font="0">tating 3D cube displayed in Figure</text>
+<text top="836" left="315" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#6">2</a></text>
+<text top="836" left="322" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#6">.</a></text>
+<text top="1176" left="157" width="197" height="15" font="0">Figure 3: demo(randomfield)</text>
+<text top="126" left="481" width="130" height="12" font="0">demo(randomfield)</text>
+<text top="125" left="617" width="188" height="15" font="0">gives a slightly more scien-</text>
+<text top="143" left="459" width="346" height="15" font="0">tific application of OpenGL and R: Random fields of</text>
+<text top="161" left="459" width="346" height="15" font="0">512x512 size are generated via blending of 5000 tex-</text>
+<text top="179" left="459" width="346" height="15" font="0">ture mapped 2D gaussian kernels. The counter in the</text>
+<text top="197" left="459" width="346" height="15" font="0">window title bar gives the number of matrices gen-</text>
+<text top="215" left="459" width="198" height="15" font="0">erated per second (see Figure</text>
+<text top="215" left="662" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#7">3</a></text>
+<text top="215" left="670" width="135" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#7">). </a>When clicking on</text>
+<text top="233" left="459" width="346" height="15" font="0">the animation window, the current frame and matrix</text>
+<text top="251" left="459" width="346" height="15" font="0">is passed to R and plotted. While several dozens of</text>
+<text top="268" left="459" width="346" height="15" font="0">matrices are computed and drawn per second using</text>
+<text top="286" left="459" width="346" height="15" font="0">OpenGL, it takes several seconds to plot a single ma-</text>
+<text top="304" left="459" width="155" height="15" font="0">trix in R using image().</text>
+<text top="346" left="459" width="208" height="17" font="7"><b>Parsing XML using Expat</b></text>
+<text top="376" left="459" width="346" height="15" font="0">In the second example, we use the Expat XML Parser</text>
+<text top="394" left="459" width="59" height="15" font="0">library <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="394" left="517" width="37" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Clark</a></text>
+<text top="394" left="554" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="394" left="567" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2007</a></text>
+<text top="394" left="597" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">;</a></text>
+<text top="394" left="610" width="28" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Kim</a></text>
+<text top="394" left="638" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="394" left="651" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2001</a></text>
+<text top="394" left="681" width="125" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>to implement a</text>
+<text top="412" left="459" width="346" height="15" font="0">stream-oriented XML parser suitable for very large</text>
+<text top="430" left="459" width="346" height="15" font="0">documents. In Expat, custom XML parsers are im-</text>
+<text top="448" left="459" width="346" height="15" font="0">plemented by defining functions that are registered</text>
+<text top="466" left="459" width="346" height="15" font="0">as callbacks to be invoked on events that occur dur-</text>
+<text top="484" left="459" width="346" height="15" font="0">ing parsing, such as the start and end of XML tags. In</text>
+<text top="502" left="459" width="346" height="15" font="0">our second example, we create a simple parser skele-</text>
+<text top="520" left="459" width="284" height="15" font="0">ton that prints the start and end tag names.</text>
+<text top="538" left="481" width="311" height="15" font="0">First we load R bindings for Expat via dynport.</text>
+<text top="569" left="459" width="110" height="10" font="8">&gt; dynport(expat)</text>
+<text top="598" left="481" width="324" height="15" font="0">Next we create an abstract parser object via the</text>
+<text top="616" left="459" width="346" height="15" font="0">C function XML_ParserCreate that receives one argu-</text>
+<text top="634" left="459" width="346" height="15" font="0">ment of type C string to specify a desired character</text>
+<text top="652" left="459" width="346" height="15" font="0">encoding that overrides the document encoding dec-</text>
+<text top="670" left="459" width="346" height="15" font="0">laration. We want to pass a null pointer (NULL) here.</text>
+<text top="688" left="459" width="346" height="15" font="0">In the .dyncall FFI C null pointer values for pointer</text>
+<text top="706" left="459" width="269" height="15" font="0">types are expressed via the R NULL value:</text>
+<text top="737" left="459" width="199" height="10" font="8">&gt; p &lt;- XML_ParserCreate(NULL)</text>
+<text top="766" left="481" width="324" height="15" font="0">The C interface for registering start- and end-tag</text>
+<text top="784" left="459" width="258" height="15" font="0">event handler callbacks is given below:</text>
+<text top="816" left="459" width="247" height="10" font="8">/* Language C, from file expat.h: */</text>
+<text top="832" left="459" width="268" height="10" font="8">typedef void (*XML_StartElementHandler)</text>
+<text top="849" left="473" width="261" height="10" font="8">(void *userData, const XML_Char *name,</text>
+<text top="865" left="479" width="158" height="10" font="8">const XML_Char **atts);</text>
+<text top="881" left="459" width="254" height="10" font="8">typedef void (*XML_EndElementHandler)</text>
+<text top="898" left="473" width="268" height="10" font="8">(void *userData, const XML_Char *name);</text>
+<text top="914" left="459" width="309" height="10" font="8">void XML_SetElementHandler(XML_Parser parser,</text>
+<text top="931" left="473" width="206" height="10" font="8">XML_StartElementHandler start,</text>
+<text top="947" left="473" width="185" height="10" font="8">XML_EndElementHandler end);</text>
+<text top="976" left="481" width="324" height="15" font="0">We implement the callbacks as R functions that</text>
+<text top="994" left="459" width="346" height="15" font="0">print the event and tag name. They are wrapped as C</text>
+<text top="1012" left="459" width="346" height="15" font="0">callback pointers via new.callback using a matching</text>
+<text top="1030" left="459" width="346" height="15" font="0">callback signature. The second argument name of type</text>
+<text top="1048" left="459" width="346" height="15" font="0">C string in both callbacks, XML_StartElementHandler</text>
+<text top="1065" left="459" width="346" height="15" font="0">and XML_EndElementHandler, is of primary interest</text>
+<text top="1083" left="459" width="346" height="15" font="0">in this example; this argument passes over the XML</text>
+<text top="1101" left="459" width="346" height="15" font="0">tag name. C strings are handled in a special way by</text>
+<text top="1119" left="459" width="346" height="15" font="0">the .dyncall FFI because they have to be copied as R</text>
+<text top="1139" left="459" width="69" height="12" font="0">character</text>
+<text top="1137" left="532" width="274" height="15" font="0">objects. The special type signature 'Z' is</text>
+<text top="1155" left="459" width="346" height="15" font="0">used to denote a C string type. The other arguments</text>
+<text top="1173" left="459" width="337" height="15" font="0">are simply denoted as untyped pointers using 'p':</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">37</text>
+<text top="127" left="82" width="219" height="10" font="8">&gt; start &lt;- new.callback(&#34;pZp)v&#34;,</text>
+<text top="144" left="96" width="213" height="10" font="8">function(ignored1,tag,ignored2)</text>
+<text top="160" left="110" width="192" height="10" font="8">cat(&#34;Start tag:&#34;, tag, &#34;\n&#34;)</text>
+<text top="177" left="82" width="7" height="10" font="8">)</text>
+<text top="193" left="82" width="199" height="10" font="8">&gt; end &lt;- new.callback(&#34;pZ)v&#34;,</text>
+<text top="210" left="96" width="144" height="10" font="8">function(ignored,tag)</text>
+<text top="226" left="110" width="185" height="10" font="8">cat(&#34;Stop tag:&#34;, tag, &#34;\n&#34;)</text>
+<text top="242" left="82" width="7" height="10" font="8">)</text>
+<text top="259" left="82" width="261" height="10" font="8">&gt; XML_SetElementHandler(p, start, end)</text>
+<text top="290" left="105" width="324" height="15" font="0">To test the parser we create a sample document</text>
+<text top="308" left="82" width="346" height="15" font="0">stored in a character object named text and pass it</text>
+<text top="326" left="82" width="212" height="15" font="0">to the parse function XML_Parse:</text>
+<text top="361" left="82" width="309" height="10" font="8">&gt; text &lt;- &#34;&lt;hello&gt; &lt;world&gt; &lt;/world&gt; &lt;/hello&gt;&#34;</text>
+<text top="377" left="82" width="254" height="10" font="8">&gt; XML_Parse( p, text, nchar(text), 1)</text>
+<text top="408" left="105" width="151" height="15" font="0">The resulting output is</text>
+<text top="443" left="82" width="110" height="10" font="8">Start tag: hello</text>
+<text top="459" left="82" width="110" height="10" font="8">Start tag: world</text>
+<text top="476" left="82" width="96" height="10" font="8">End tag: world</text>
+<text top="492" left="82" width="96" height="10" font="8">End tag: hello</text>
+<text top="524" left="105" width="324" height="15" font="0">Expat supports processing of very large XML</text>
+<text top="542" left="82" width="346" height="15" font="0">documents in a chunk-based manner by calling</text>
+<text top="561" left="82" width="69" height="12" font="0">XML_Parse</text>
+<text top="560" left="156" width="273" height="15" font="0">several times, where the last argument is</text>
+<text top="577" left="82" width="346" height="15" font="0">used as indicator for the final chunk of the document.</text>
+<text top="625" left="82" width="122" height="21" font="4"><b>Architecture</b></text>
+<text top="664" left="82" width="346" height="15" font="0">The core implementation of the FFI, callback wrap-</text>
+<text top="682" left="82" width="346" height="15" font="0">ping and loading of code is based on small C libraries</text>
+<text top="700" left="82" width="151" height="15" font="0">of the DynCall project <a href="2012-1-RJournal_2012-1_Adler.html#10">(</a></text>
+<text top="700" left="234" width="120" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">Adler and Philipp</a></text>
+<text top="700" left="353" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">,</a></text>
+<text top="700" left="361" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">2011</a></text>
+<text top="700" left="391" width="9" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">).</a></text>
+<text top="718" left="105" width="324" height="15" font="0">The implementation of the FFI is based on the</text>
+<text top="736" left="82" width="51" height="15" font="3"><b>dyncall</b></text>
+<text top="736" left="138" width="291" height="15" font="0">C library, which provides an abstraction for</text>
+<text top="754" left="82" width="346" height="15" font="0">making arbitrary machine-level calls offering a uni-</text>
+<text top="772" left="82" width="346" height="15" font="0">versal C interface for scripting language interpreters.</text>
+<text top="790" left="82" width="346" height="15" font="0">It has support for almost all fundamental C argu-</text>
+<text top="808" left="82" width="128" height="15" font="0">ment/return <a href="2012-1-RJournal_2012-1_Adler.html#8">types</a></text>
+<text top="805" left="211" width="6" height="11" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#8">4</a></text>
+<text top="808" left="225" width="203" height="15" font="0">and multiple calling conven-</text>
+<text top="826" left="82" width="346" height="15" font="0">tions, and is open for extension to other platforms</text>
+<text top="844" left="82" width="346" height="15" font="0">and binary standards. Generic call implementations</text>
+<text top="862" left="82" width="346" height="15" font="0">for the following processor architectures are sup-</text>
+<text top="880" left="82" width="346" height="15" font="0">ported: Intel i386 32-bit, AMD 64-bit, PowerPC 32-</text>
+<text top="898" left="82" width="346" height="15" font="0">bit, ARM (including Thumb extension), MIPS 32/64-</text>
+<text top="916" left="82" width="346" height="15" font="0">bit and SPARC 32/64-bit including support for sev-</text>
+<text top="934" left="82" width="346" height="15" font="0">eral platform-, processor- and compiler-specific call-</text>
+<text top="951" left="82" width="109" height="15" font="0">ing conventions.</text>
+<text top="970" left="105" width="324" height="15" font="0">The <b>dyncallback </b>C library implements generic</text>
+<text top="987" left="82" width="346" height="15" font="0">callback handling. Callback handlers receive calls</text>
+<text top="1005" left="82" width="346" height="15" font="0">from C and they forward the call, including con-</text>
+<text top="1023" left="82" width="346" height="15" font="0">version of arguments, to a function of a scripting-</text>
+<text top="1041" left="82" width="346" height="15" font="0">language interpreter. A subset of architectures from</text>
+<text top="1059" left="82" width="346" height="15" font="0">the above is currently supported here: i386, AMD64</text>
+<text top="1077" left="82" width="346" height="15" font="0">and ARM, and partial support for PowerPC 32-bit on</text>
+<text top="1095" left="82" width="129" height="15" font="0">Mac OS X/Darwin.</text>
+<text top="1113" left="105" width="324" height="15" font="0">Besides the processor architecture, the libraries</text>
+<text top="1131" left="82" width="346" height="15" font="0">support various operating systems such as Linux,</text>
+<text top="1149" left="82" width="346" height="15" font="0">Mac OS X, Windows, the BSD family, Solaris, Haiku,</text>
+<text top="125" left="459" width="346" height="15" font="0">Minix and Plan9. Support for embedded platforms</text>
+<text top="143" left="459" width="346" height="15" font="0">such as Playstation Portable, Nintendo DS and iOS</text>
+<text top="161" left="459" width="346" height="15" font="0">is available as well. FFI implementations for other</text>
+<text top="179" left="459" width="184" height="15" font="0">languages such as Python <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="179" left="643" width="162" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">van Rossum and Drake,</a></text>
+<text top="197" left="459" width="14" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Jr.</a></text>
+<text top="197" left="472" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="197" left="481" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2005</a></text>
+<text top="197" left="511" width="50" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">), </a>Lua <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="197" left="561" width="130" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Ierusalimschy et al.</a></text>
+<text top="197" left="691" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="197" left="700" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">1996</a></text>
+<text top="197" left="729" width="76" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>and Ruby</text>
+<text top="215" left="459" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="215" left="464" width="172" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Flanagan and Matsumoto</a></text>
+<text top="215" left="636" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="215" left="644" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2008</a></text>
+<text top="215" left="674" width="131" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>are available from</text>
+<text top="233" left="459" width="246" height="15" font="0">the DynCall project source repository.</text>
+<text top="251" left="481" width="324" height="15" font="0">The source tree supports various build tools such</text>
+<text top="269" left="459" width="346" height="15" font="0">as gcc, msvc, SunPro, pcc, llvm and supports sev-</text>
+<text top="286" left="459" width="346" height="15" font="0">eral make tools (BSD,C,GNU,N,Sun). A common</text>
+<text top="304" left="459" width="346" height="15" font="0">abstraction layer for assembler dialects helps to de-</text>
+<text top="322" left="459" width="346" height="15" font="0">velop cross-operating system call kernel. Due to the</text>
+<text top="340" left="459" width="346" height="15" font="0">generic implementation and simple design, the li-</text>
+<text top="358" left="459" width="346" height="15" font="0">braries are quite small (the dyncall library for Mac</text>
+<text top="376" left="459" width="157" height="15" font="0">OS X/AMD64 is 24 kb).</text>
+<text top="394" left="481" width="324" height="15" font="0">To test stability of the libraries, a suite of test-</text>
+<text top="412" left="459" width="346" height="15" font="0">ing frameworks is available, including test-case gen-</text>
+<text top="430" left="459" width="346" height="15" font="0">erators with support for structured or random case</text>
+<text top="448" left="459" width="346" height="15" font="0">studies and for testing extreme scenarios with large</text>
+<text top="466" left="459" width="346" height="15" font="0">number of arguments. Prior to each release, the li-</text>
+<text top="484" left="459" width="346" height="15" font="0">braries and tests are built for a large set of architec-</text>
+<text top="502" left="459" width="123" height="15" font="0">tures on <b>DynOS </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="502" left="582" width="49" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Philipp</a></text>
+<text top="502" left="630" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="502" left="640" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="502" left="670" width="136" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">); </a>a batch-build sys-</text>
+<text top="520" left="459" width="296" height="15" font="0">tem using CPU emulators such as <b>QEmu </b><a href="2012-1-RJournal_2012-1_Adler.html#10">(</a></text>
+<text top="520" left="754" width="47" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">Bellard</a></text>
+<text top="520" left="802" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">,</a></text>
+<text top="538" left="459" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">2005</a></text>
+<text top="538" left="489" width="109" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">) </a>and <b>GXEmul </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="538" left="598" width="48" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Gavare</a></text>
+<text top="538" left="646" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="538" left="654" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2010</a></text>
+<text top="538" left="684" width="121" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">), </a>and various op-</text>
+<text top="555" left="459" width="346" height="15" font="0">erating system images to test the release candidates</text>
+<text top="573" left="459" width="340" height="15" font="0">and to create pre-built binary releases of the library.</text>
+<text top="615" left="459" width="205" height="17" font="7"><b>Creation of DynPort files</b></text>
+<text top="646" left="459" width="346" height="15" font="0">The creation of DynPort files from C header files is</text>
+<text top="664" left="459" width="346" height="15" font="0">briefly described next. A tool chain, comprising of</text>
+<text top="681" left="459" width="346" height="15" font="0">freely available components, is applied once on a</text>
+<text top="699" left="459" width="237" height="15" font="0">build machine as depicted in Figure</text>
+<text top="699" left="700" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#8">4</a></text>
+<text top="699" left="707" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#8">.</a></text>
+<text top="1083" left="459" width="346" height="15" font="0">Figure 4: Tool-chain to create DynPort files from C</text>
+<text top="1101" left="459" width="52" height="15" font="0">headers</text>
+<text top="1131" left="481" width="324" height="15" font="0">At first a main source file references the C header</text>
+<text top="1149" left="459" width="346" height="15" font="0">files of the library that should be made accessable via</text>
+<text top="1173" left="99" width="4" height="9" font="10">4</text>
+<text top="1175" left="104" width="559" height="12" font="1">Passing of long double, struct and union argument/return C value types are currently work in progress.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">38</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">dynport. In a preprocessing phase the <b>GNU C Macro</b></text>
+<text top="143" left="82" width="65" height="15" font="3"><b>Processor</b></text>
+<text top="143" left="151" width="278" height="15" font="0">is used to process all #include statements</text>
+<text top="161" left="82" width="346" height="15" font="0">using standard system search paths to create a con-</text>
+<text top="179" left="82" width="311" height="15" font="0">catenated All-In-One source file. <b>GCC-XML </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="179" left="393" width="32" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">King</a></text>
+<text top="179" left="425" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="197" left="82" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2004</a></text>
+<text top="197" left="112" width="317" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">), </a>a modified version of the GNU C compiler,</text>
+<text top="215" left="82" width="346" height="15" font="0">transforms C header declarations to XML. The XML</text>
+<text top="233" left="82" width="346" height="15" font="0">is further transformed to the final type signature for-</text>
+<text top="251" left="82" width="128" height="15" font="0">mat using <b>xslproc </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="251" left="210" width="122" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Veillard and Reese</a></text>
+<text top="251" left="333" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="251" left="340" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2009</a></text>
+<text top="251" left="370" width="59" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">), </a>a XSLT</text>
+<text top="268" left="82" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="268" left="87" width="37" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Clark</a></text>
+<text top="268" left="124" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="268" left="132" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2001</a></text>
+<text top="268" left="162" width="267" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>processor, and a custom XSL stylesheet</text>
+<text top="286" left="82" width="346" height="15" font="0">that has been implemented for the actual transforma-</text>
+<text top="304" left="82" width="346" height="15" font="0">tion from GCC-XML to the type signature text for-</text>
+<text top="322" left="82" width="29" height="15" font="0">mat.</text>
+<text top="341" left="105" width="324" height="15" font="0">C Macro #define statements are handled sepa-</text>
+<text top="359" left="82" width="346" height="15" font="0">rately by a custom C Preprocessor implemented in</text>
+<text top="377" left="82" width="232" height="15" font="0">C++ using the <b>boost wave </b>library <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="377" left="315" width="42" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Kaiser</a></text>
+<text top="377" left="357" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="377" left="365" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="377" left="395" width="34" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">). </a>An</text>
+<text top="395" left="82" width="346" height="15" font="0">optional filter stage is used to include only elements</text>
+<text top="413" left="82" width="346" height="15" font="0">with a certain pattern, such as a common prefix usu-</text>
+<text top="431" left="82" width="346" height="15" font="0">ally found in many libraries, e.g. ’SDL_’. In a last</text>
+<text top="449" left="82" width="346" height="15" font="0">step, the various fragments are assembled into a sin-</text>
+<text top="467" left="82" width="285" height="15" font="0">gle text-file that represents the DynPort file.</text>
+<text top="520" left="82" width="114" height="21" font="4"><b>Limitations</b></text>
+<text top="561" left="82" width="346" height="15" font="0">During the creation of DynPort files, we encountered</text>
+<text top="579" left="82" width="346" height="15" font="0">some cases (mainly for the SDL library) where we</text>
+<text top="597" left="82" width="346" height="15" font="0">had to comment out some symbolic assignments (de-</text>
+<text top="615" left="82" width="346" height="15" font="0">rived from C macro definitions) manually. These</text>
+<text top="633" left="82" width="346" height="15" font="0">could not be converted as-is into valid R assignments</text>
+<text top="651" left="82" width="346" height="15" font="0">because they consist of complex C expressions such</text>
+<text top="669" left="82" width="346" height="15" font="0">as bit-shift operations. One could solve this problem</text>
+<text top="687" left="82" width="346" height="15" font="0">by integrating a C interpreter within the tool-chain</text>
+<text top="705" left="82" width="346" height="15" font="0">that deduces the appropriate type and value infor-</text>
+<text top="722" left="82" width="346" height="15" font="0">mation from the replacement part of each C macro</text>
+<text top="740" left="82" width="346" height="15" font="0">definitions; definitions with incomplete type could</text>
+<text top="758" left="82" width="346" height="15" font="0">be rejected and constant values could be stored in a</text>
+<text top="776" left="82" width="182" height="15" font="0">language-neutral encoding.</text>
+<text top="795" left="105" width="324" height="15" font="0">In order to use a single DynPort for a given C</text>
+<text top="813" left="82" width="346" height="15" font="0">library across multiple platforms, its interface must</text>
+<text top="831" left="82" width="346" height="15" font="0">be constant across platforms. DynPort does not sup-</text>
+<text top="849" left="82" width="346" height="15" font="0">port the conditional statements of the C preproces-</text>
+<text top="867" left="82" width="346" height="15" font="0">sor. Thus interfaces that use different types for argu-</text>
+<text top="885" left="82" width="346" height="15" font="0">ments or structure fields depending on the architec-</text>
+<text top="903" left="82" width="346" height="15" font="0">ture cannot be supported in a universal manner. For</text>
+<text top="921" left="82" width="346" height="15" font="0">example, the Objective-C Run-Time C library of Mac</text>
+<text top="939" left="82" width="346" height="15" font="0">OS X uses a different number of fields within certain</text>
+<text top="958" left="82" width="46" height="12" font="0">struct</text>
+<text top="957" left="133" width="296" height="15" font="0">data types depending on whether the archi-</text>
+<text top="975" left="82" width="346" height="15" font="0">tecture is i386 or alternative AMD64 in which case</text>
+<text top="993" left="82" width="346" height="15" font="0">padding fields are inserted in the middle of the struc-</text>
+<text top="1011" left="82" width="346" height="15" font="0">ture. We are aware of this problem although we have</text>
+<text top="1028" left="82" width="346" height="15" font="0">not encountered a conflict with the given palette of</text>
+<text top="1046" left="82" width="346" height="15" font="0">C libraries available via DynPorts to R. A possible</text>
+<text top="1064" left="82" width="346" height="15" font="0">work around for such cases would be to offer sep-</text>
+<text top="1082" left="82" width="272" height="15" font="0">arate DynPorts for different architectures.</text>
+<text top="1101" left="105" width="51" height="15" font="3"><b>dyncall</b></text>
+<text top="1101" left="161" width="268" height="15" font="0">and <b>dyncallback </b>currently lack support</text>
+<text top="1119" left="82" width="346" height="15" font="0">for handling long double, struct and union ar-</text>
+<text top="1137" left="82" width="346" height="15" font="0">gument and return value types and architecture-</text>
+<text top="1155" left="82" width="346" height="15" font="0">specific vector types. Work is in progress to over-</text>
+<text top="1173" left="82" width="299" height="15" font="0">come this limitation. The middleware <b>BridJ </b><a href="2012-1-RJournal_2012-1_Adler.html#10">(</a></text>
+<text top="1173" left="381" width="44" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">Chafik</a></text>
+<text top="1173" left="425" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">,</a></text>
+<text top="125" left="459" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">2011</a></text>
+<text top="125" left="489" width="317" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">) </a>for the Java VM and C/C++ libraries, which</text>
+<text top="143" left="459" width="346" height="15" font="0">uses <b>dyncall</b>, provides support for passing struct</text>
+<text top="161" left="459" width="346" height="15" font="0">value types for a number of i386 and AMD64 plat-</text>
+<text top="179" left="459" width="42" height="15" font="0">forms.</text>
+<text top="198" left="481" width="324" height="15" font="0">R character strings have a maximum size that can</text>
+<text top="216" left="459" width="346" height="15" font="0">limit the number of library functions per dynbind</text>
+<text top="234" left="459" width="346" height="15" font="0">function call. An improved DynPort file format and</text>
+<text top="252" left="459" width="346" height="15" font="0">parser are being developed and are already available</text>
+<text top="269" left="459" width="99" height="15" font="0">for <b>luadyncall</b>.</text>
+<text top="288" left="481" width="324" height="15" font="0">This version of DynPort does not capture the full</text>
+<text top="306" left="459" width="200" height="15" font="0">range of the C type system.</text>
+<text top="306" left="676" width="129" height="15" font="0">For example array</text>
+<text top="324" left="459" width="346" height="15" font="0">and bit-field types are not supported; the pointer-to-</text>
+<text top="342" left="459" width="346" height="15" font="0">function type in an argument list can only be spec-</text>
+<text top="360" left="459" width="346" height="15" font="0">ified using the void pointer '*v' or 'p' instead of</text>
+<text top="378" left="459" width="346" height="15" font="0">this (more informative) explicit type. An extended</text>
+<text top="396" left="459" width="346" height="15" font="0">version of DynPort, that overcomes these inconve-</text>
+<text top="414" left="459" width="346" height="15" font="0">niences and that improves type safety, is being de-</text>
+<text top="432" left="459" width="57" height="15" font="0">veloped.</text>
+<text top="451" left="481" width="324" height="15" font="0">Certain restrictions apply when <b>rdyncall </b>is used</text>
+<text top="469" left="459" width="346" height="15" font="0">to work with C libraries. These arise from limitations</text>
+<text top="487" left="459" width="346" height="15" font="0">in R. For example the handling of C float point-</text>
+<text top="505" left="459" width="346" height="15" font="0">ers/arrays and char pointer-to-pointer types are not</text>
+<text top="522" left="459" width="346" height="15" font="0">implemented in R. The functions .unpack and .pack</text>
+<text top="540" left="459" width="346" height="15" font="0">are powerful helper functions designed to over-</text>
+<text top="558" left="459" width="346" height="15" font="0">come these and some other restrictions. Additional</text>
+<text top="576" left="459" width="346" height="15" font="0">helper functions are included, such as floatraw and</text>
+<text top="596" left="459" width="122" height="12" font="0">floatraw2numeric</text>
+<text top="594" left="587" width="219" height="15" font="0">that translate numeric R vectors</text>
+<text top="612" left="459" width="216" height="15" font="0">to C float arrays and vice versa.</text>
+<text top="631" left="481" width="324" height="15" font="0">The portable loading of shared libraries via</text>
+<text top="650" left="459" width="53" height="12" font="0">dynfind</text>
+<text top="649" left="519" width="287" height="15" font="0">might require fine-tuning the list of short</text>
+<text top="667" left="459" width="346" height="15" font="0">names when using less common R platforms such as</text>
+<text top="685" left="459" width="116" height="15" font="0">BSDs and Solaris.</text>
+<text top="737" left="459" width="132" height="21" font="4"><b>Related work</b></text>
+<text top="778" left="459" width="346" height="15" font="0">Several dynamic languages offer a flexible FFI, e.g.</text>
+<text top="796" left="459" width="43" height="15" font="3"><b>ctypes</b></text>
+<text top="796" left="509" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="796" left="514" width="41" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Heller</a></text>
+<text top="796" left="555" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="796" left="565" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="796" left="595" width="142" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>for Python, <b>alien </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="796" left="737" width="69" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Mascaren-</a></text>
+<text top="813" left="459" width="23" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">has</a></text>
+<text top="813" left="481" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="813" left="491" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2009</a></text>
+<text top="813" left="521" width="65" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>for Lua,</text>
+<text top="814" left="592" width="25" height="15" font="6"><a href="http://cran.r-project.org/package=Rffi"><b>Rffi</b></a></text>
+<text top="813" left="623" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="813" left="628" width="88" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Temple Lang</a></text>
+<text top="813" left="716" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="813" left="726" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="813" left="756" width="49" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>for R,</text>
+<text top="832" left="459" width="33" height="15" font="3"><b>CFFI</b></text>
+<text top="831" left="496" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">(</a></text>
+<text top="831" left="501" width="54" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">Bielman</a></text>
+<text top="831" left="556" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">,</a></text>
+<text top="831" left="564" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">2010</a></text>
+<text top="831" left="594" width="212" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">) </a>for Common LISP and the <b>FFI</b></text>
+<text top="849" left="459" width="110" height="15" font="0">module for Perl <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="849" left="569" width="77" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Moore et al.</a></text>
+<text top="849" left="646" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="849" left="653" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2008</a></text>
+<text top="849" left="682" width="80" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>and Ruby <a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="849" left="762" width="43" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Meiss-</a></text>
+<text top="867" left="459" width="22" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">ner</a></text>
+<text top="867" left="481" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="867" left="488" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="867" left="518" width="288" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">). </a>These all facilitate similar services such as</text>
+<text top="885" left="459" width="346" height="15" font="0">foreign function calls and handling of foreign data.</text>
+<text top="903" left="459" width="346" height="15" font="0">With the exception of <b>Rffi</b>, these also support wrap-</text>
+<text top="921" left="459" width="346" height="15" font="0">ping of scripting functions as C callbacks. In most</text>
+<text top="939" left="459" width="346" height="15" font="0">cases, the type information is specified in the gram-</text>
+<text top="957" left="459" width="346" height="15" font="0">mar of the dynamic language. An exception to this</text>
+<text top="975" left="459" width="346" height="15" font="0">is the <b>Perl FFI </b>that uses text-based type signatures</text>
+<text top="993" left="459" width="127" height="15" font="0">similar to <b>rdyncall</b>.</text>
+<text top="1012" left="481" width="62" height="15" font="3"><b>ctypeslib</b></text>
+<text top="1012" left="549" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="1012" left="554" width="36" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Kloss</a></text>
+<text top="1012" left="590" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="1012" left="599" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2008</a></text>
+<text top="1012" left="628" width="177" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>is an extension to <b>ctypes</b></text>
+<text top="1030" left="459" width="346" height="15" font="0">that comes closest to the idea of DynPorts in which</text>
+<text top="1048" left="459" width="346" height="15" font="0">Python <b>ctypes </b>statements are automatically gener-</text>
+<text top="1065" left="459" width="346" height="15" font="0">ated from C library header files, also using <b>GCC-</b></text>
+<text top="1084" left="459" width="34" height="15" font="3"><b>XML</b></text>
+<text top="1083" left="493" width="312" height="15" font="0">. In contrast, the DynPort framework con-</text>
+<text top="1101" left="459" width="346" height="15" font="0">tributes a compact text-based type information format</text>
+<text top="1119" left="459" width="346" height="15" font="0">that is also used as the main user-interface for var-</text>
+<text top="1137" left="459" width="346" height="15" font="0">ious tasks in <b>rdyncall</b>. This software design is ap-</text>
+<text top="1155" left="459" width="346" height="15" font="0">plicable across languages and thus type information</text>
+<text top="1173" left="459" width="346" height="15" font="0">can be shared across platforms and languages at the</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">39</text>
+<text top="125" left="82" width="71" height="15" font="0">same time.</text>
+<text top="143" left="105" width="324" height="15" font="0">Specific alternatives to <b>dyncall </b>include <b>libffi</b></text>
+<text top="161" left="82" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="161" left="87" width="40" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Green</a></text>
+<text top="161" left="128" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="161" left="138" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="161" left="168" width="90" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>and <b>ffcall </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="161" left="258" width="44" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Haible</a></text>
+<text top="161" left="302" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="161" left="312" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2004</a></text>
+<text top="161" left="342" width="87" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">). </a>These are</text>
+<text top="179" left="82" width="346" height="15" font="0">mature FFI libraries that use a data-driven C inter-</text>
+<text top="197" left="82" width="346" height="15" font="0">face and have support for many platforms. Although</text>
+<text top="215" left="82" width="346" height="15" font="0">not as popular as the first two, the <b>C/Invoke </b>library</text>
+<text top="233" left="82" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="233" left="87" width="51" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Weisser</a></text>
+<text top="233" left="138" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="233" left="145" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2007</a></text>
+<text top="233" left="175" width="254" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">) </a>also offers a similar service with bind-</text>
+<text top="251" left="82" width="346" height="15" font="0">ings to Lua, Java and Kite. The <b>dyncall </b>library of-</text>
+<text top="269" left="82" width="346" height="15" font="0">fers a functional C interface (inspired by the OpenGL</text>
+<text top="287" left="82" width="346" height="15" font="0">API). It includes a comprehensive test suite and de-</text>
+<text top="305" left="82" width="346" height="15" font="0">tailed documentation of calling conventions on a va-</text>
+<text top="323" left="82" width="346" height="15" font="0">riety of platforms and compilers. As the framework</text>
+<text top="341" left="82" width="346" height="15" font="0">was developed &#34;de novo&#34; we were free to introduce</text>
+<text top="359" left="82" width="346" height="15" font="0">our own strategy to support open as well as com-</text>
+<text top="376" left="82" width="346" height="15" font="0">mercial and embedded platforms. For example, the</text>
+<text top="394" left="82" width="346" height="15" font="0">i386 Assembly (except for Plan9) is implemented in a</text>
+<text top="412" left="82" width="346" height="15" font="0">common abstract syntax that translates to GNU and</text>
+<text top="430" left="82" width="346" height="15" font="0">Microsoft Assembler. This makes sense here, because</text>
+<text top="448" left="82" width="346" height="15" font="0">i386-based operating systems use a common C call-</text>
+<text top="466" left="82" width="346" height="15" font="0">ing convention which we address using a single As-</text>
+<text top="484" left="82" width="346" height="15" font="0">sembly source. A by-product of this feature is that</text>
+<text top="502" left="82" width="51" height="15" font="3"><b>dyncall</b></text>
+<text top="502" left="137" width="292" height="15" font="0">enables the user to call operating system for-</text>
+<text top="520" left="82" width="214" height="15" font="0">eign code on some architectures.</text>
+<text top="538" left="105" width="324" height="15" font="0">In contrast to the dynamic zero-compilation ap-</text>
+<text top="556" left="82" width="346" height="15" font="0">proach of <b>ctypeslib </b>and <b>rdyncall</b>, the majority of lan-</text>
+<text top="574" left="82" width="346" height="15" font="0">guage bindings to libraries use a compiled approach</text>
+<text top="592" left="82" width="346" height="15" font="0">in which code (handwritten or auto-generated) is</text>
+<text top="610" left="82" width="239" height="15" font="0">compiled for each platform. <b>SWIG </b><a href="2012-1-RJournal_2012-1_Adler.html#10">(</a></text>
+<text top="610" left="321" width="51" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">Beazley</a></text>
+<text top="610" left="372" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">,</a></text>
+<text top="610" left="380" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#10">2003</a></text>
+<text top="610" left="410" width="19" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#10">) </a>is</text>
+<text top="628" left="82" width="346" height="15" font="0">a development tool for the automatic generation of</text>
+<text top="646" left="82" width="346" height="15" font="0">language bindings. The user specifies the interface</text>
+<text top="664" left="82" width="346" height="15" font="0">for a particular library in a C-like language and then</text>
+<text top="682" left="82" width="346" height="15" font="0">chooses among the several supported languages (in-</text>
+<text top="700" left="82" width="346" height="15" font="0">cluding R) to generate C sources that implement the</text>
+<text top="718" left="82" width="346" height="15" font="0">binding for that particular library/language combi-</text>
+<text top="736" left="82" width="113" height="15" font="0">nation. <b>RGtk2 </b><a href="2012-1-RJournal_2012-1_Adler.html#11">(</a></text>
+<text top="736" left="195" width="189" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">Lawrence and Temple Lang</a></text>
+<text top="736" left="385" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">,</a></text>
+<text top="736" left="394" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Adler.html#11">2011</a></text>
+<text top="736" left="424" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Adler.html#11">)</a></text>
+<text top="753" left="82" width="346" height="15" font="0">offers R bindings for the <b>GTK+ </b>GUI framework con-</text>
+<text top="771" left="82" width="346" height="15" font="0">sisting of R and C code. These are produced by a cus-</text>
+<text top="789" left="82" width="346" height="15" font="0">tom code generator to offer carefully conceived map-</text>
+<text top="807" left="82" width="346" height="15" font="0">pings to the object-oriented <b>GObject </b>framework.</text>
+<text top="825" left="82" width="346" height="15" font="0">The generated code includes features such as owner-</text>
+<text top="843" left="82" width="346" height="15" font="0">ship management of returned objects using human</text>
+<text top="861" left="82" width="346" height="15" font="0">annotations. While custom bindings offer the abil-</text>
+<text top="879" left="82" width="346" height="15" font="0">ity to take into account the features of a particu-</text>
+<text top="897" left="82" width="346" height="15" font="0">lar library and framework to offer very user-friendly</text>
+<text top="915" left="82" width="346" height="15" font="0">mapping schemes, <b>rdyncall </b>aims to offer convenient</text>
+<text top="933" left="82" width="346" height="15" font="0">access to C libraries in general but it requires users</text>
+<text top="951" left="82" width="346" height="15" font="0">to know the details of the particular interface of a C</text>
+<text top="969" left="82" width="266" height="15" font="0">library and the R run-time environment.</text>
+<text top="1018" left="82" width="226" height="21" font="4"><b>Summary and Outlook</b></text>
+<text top="1059" left="82" width="307" height="15" font="0">This paper introduces the <b>rdyncall </b><a href="2012-1-RJournal_2012-1_Adler.html#10">package</a></text>
+<text top="1057" left="389" width="6" height="11" font="9"><a href="2012-1-RJournal_2012-1_Adler.html#10">5</a></text>
+<text top="1059" left="403" width="26" height="15" font="0">that</text>
+<text top="1077" left="82" width="346" height="15" font="0">contributes an improved Foreign Function Interface</text>
+<text top="1095" left="82" width="346" height="15" font="0">for R. The FFI facilitates direct invocation of for-</text>
+<text top="1113" left="82" width="346" height="15" font="0">eign functions without the need to compile wrappers</text>
+<text top="1131" left="82" width="346" height="15" font="0">in C. The FFI offers a dynamic cross-platform link-</text>
+<text top="1149" left="82" width="346" height="15" font="0">age framework to wrap and access whole C inter-</text>
+<text top="125" left="459" width="346" height="15" font="0">faces of native libraries from R. Instead of compil-</text>
+<text top="143" left="459" width="346" height="15" font="0">ing bindings for every library/language combination,</text>
+<text top="161" left="459" width="346" height="15" font="0">R bindings of a library are created dynamically at</text>
+<text top="179" left="459" width="346" height="15" font="0">run-time in a data-driven manner via DynPort files,</text>
+<text top="197" left="459" width="346" height="15" font="0">a cross-platform universal type information format.</text>
+<text top="215" left="459" width="346" height="15" font="0">C libraries are made accessible in R as though they</text>
+<text top="233" left="459" width="346" height="15" font="0">were extension packages and the R interface looks</text>
+<text top="251" left="459" width="346" height="15" font="0">very similar to that of C. This enables system-level</text>
+<text top="268" left="459" width="346" height="15" font="0">programming in R and brings a new wave of pos-</text>
+<text top="286" left="459" width="346" height="15" font="0">sibilities to R developers such as direct access to</text>
+<text top="304" left="459" width="346" height="15" font="0">OpenGL across platforms as illustrated in the exam-</text>
+<text top="322" left="459" width="346" height="15" font="0">ple. An initial repository of DynPorts for standard</text>
+<text top="340" left="459" width="346" height="15" font="0">cross-platform portable C libraries comes with the</text>
+<text top="358" left="459" width="346" height="15" font="0">package. Work is in progress for implementation of</text>
+<text top="376" left="459" width="346" height="15" font="0">callback support on architectures already supported</text>
+<text top="394" left="459" width="346" height="15" font="0">by the <b>dyncall </b>C library. The handling of foreign data</text>
+<text top="412" left="459" width="346" height="15" font="0">types, which is currently implemented in R and C, is</text>
+<text top="430" left="459" width="346" height="15" font="0">planned to be reimplemented as a C library and part</text>
+<text top="448" left="459" width="146" height="15" font="0">of the DynCall project.</text>
+<text top="467" left="481" width="324" height="15" font="0">The DynPort facility in <b>rdyncall </b>consitutes an ini-</text>
+<text top="485" left="459" width="346" height="15" font="0">tial step in building up an infrastructure between</text>
+<text top="503" left="459" width="346" height="15" font="0">scripting languages and C libraries. Analogous to</text>
+<text top="521" left="459" width="346" height="15" font="0">the way in which R users enjoy quick access to the</text>
+<text top="539" left="459" width="346" height="15" font="0">large pool of R software managed by CRAN, we en-</text>
+<text top="557" left="459" width="346" height="15" font="0">vision an archive network in which C library de-</text>
+<text top="575" left="459" width="346" height="15" font="0">velopers can distribute their work across languages,</text>
+<text top="593" left="459" width="346" height="15" font="0">users could then get quick access to the pool of C</text>
+<text top="610" left="459" width="346" height="15" font="0">libraries from within scripting languages via auto-</text>
+<text top="628" left="459" width="346" height="15" font="0">matic installation of precompiled components and</text>
+<text top="646" left="459" width="346" height="15" font="0">using universal type information for cross-platform</text>
+<text top="664" left="459" width="255" height="15" font="0">and cross-language dynamic bindings.</text>
+<text top="718" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="758" left="459" width="172" height="15" font="0">D. Adler and T. Philipp.</text>
+<text top="758" left="647" width="111" height="15" font="0">DynCall project.</text>
+<text top="758" left="775" width="31" height="15" font="0">URL</text>
+<text top="777" left="474" width="137" height="12" font="5"><a href="http://dyncall.org">http://dyncall.org</a></text>
+<text top="776" left="611" width="194" height="15" font="0"><a href="http://dyncall.org">, </a>November 2011. C library</text>
+<text top="794" left="474" width="75" height="15" font="0">version 0.7.</text>
+<text top="829" left="459" width="346" height="15" font="0">D. M. Beazley. Automated scientific software script-</text>
+<text top="847" left="474" width="332" height="15" font="0">ing with SWIG. Future Gener. Comput. Syst., 19:</text>
+<text top="865" left="474" width="332" height="15" font="0">599–609, July 2003. ISSN 0167-739X. doi: 10.1016/</text>
+<text top="883" left="474" width="191" height="15" font="0">S0167-739X(02)00171-1. URL</text>
+<text top="884" left="668" width="137" height="12" font="5"><a href="http://portal.acm.org/citation.cfm?id=860016.860018">http://portal.acm.</a></text>
+<text top="902" left="474" width="252" height="12" font="5"><a href="http://portal.acm.org/citation.cfm?id=860016.860018">org/citation.cfm?id=860016.860018</a></text>
+<text top="901" left="725" width="4" height="15" font="0"><a href="http://portal.acm.org/citation.cfm?id=860016.860018">.</a></text>
+<text top="936" left="459" width="69" height="15" font="0">F. Bellard.</text>
+<text top="936" left="547" width="259" height="15" font="0">QEMU, a fast and portable dynamic</text>
+<text top="954" left="474" width="67" height="15" font="0">translator.</text>
+<text top="954" left="557" width="248" height="15" font="0">In USENIX Annual Technical Confer-</text>
+<text top="971" left="474" width="332" height="15" font="0">ence, FREENIX Track, pages 41–46. USENIX, 2005.</text>
+<text top="989" left="474" width="31" height="15" font="0">URL</text>
+<text top="991" left="516" width="290" height="12" font="5"><a href="http://www.usenix.org/events/usenix05/tech/freenix/bellard.html">http://www.usenix.org/events/usenix05/</a></text>
+<text top="1009" left="474" width="191" height="12" font="5"><a href="http://www.usenix.org/events/usenix05/tech/freenix/bellard.html">tech/freenix/bellard.html</a></text>
+<text top="1007" left="664" width="4" height="15" font="0"><a href="http://www.usenix.org/events/usenix05/tech/freenix/bellard.html">.</a></text>
+<text top="1042" left="459" width="74" height="15" font="0">J. Bielman.</text>
+<text top="1042" left="551" width="254" height="15" font="0">CFFI - common foreign function in-</text>
+<text top="1060" left="474" width="89" height="15" font="0">terface. URL</text>
+<text top="1062" left="568" width="237" height="12" font="5"><a href="http://common-lisp.net/project/cffi/">http://common-lisp.net/project/</a></text>
+<text top="1080" left="474" width="38" height="12" font="5"><a href="http://common-lisp.net/project/cffi/">cffi/</a></text>
+<text top="1078" left="512" width="265" height="15" font="0"><a href="http://common-lisp.net/project/cffi/">, </a>August 2010. CL library version 0.10.6.</text>
+<text top="1113" left="459" width="70" height="15" font="0">O. Chafik.</text>
+<text top="1113" left="545" width="260" height="15" font="0">BridJ - Let Java &amp; Scala call C, C++,</text>
+<text top="1131" left="474" width="152" height="15" font="0">Objective-C, C#... URL</text>
+<text top="1132" left="630" width="175" height="12" font="5"><a href="http://code.google.com/p/bridj/">http://code.google.com/</a></text>
+<text top="1150" left="474" width="61" height="12" font="5"><a href="http://code.google.com/p/bridj/">p/bridj/</a></text>
+<text top="1149" left="535" width="238" height="15" font="0"><a href="http://code.google.com/p/bridj/">, </a>Jun 2011. Java package version 0.5.</text>
+<text top="1173" left="99" width="4" height="9" font="10">5</text>
+<text top="1175" left="104" width="217" height="12" font="1">Version 0.7.4 on CRAN as of this writing.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">40</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="56" height="15" font="0">J. Clark.</text>
+<text top="125" left="153" width="276" height="15" font="0">XSL transformations (XSLT) version 1.1.</text>
+<text top="143" left="97" width="289" height="15" font="0">W3C working draft, W3C, Aug. 2001. URL</text>
+<text top="144" left="391" width="38" height="12" font="5"><a href="http://www.w3.org/TR/2001/WD-xslt11-20010824/">http:</a></text>
+<text top="162" left="97" width="306" height="12" font="5"><a href="http://www.w3.org/TR/2001/WD-xslt11-20010824/">//www.w3.org/TR/2001/WD-xslt11-20010824/</a></text>
+<text top="161" left="404" width="4" height="15" font="0"><a href="http://www.w3.org/TR/2001/WD-xslt11-20010824/">.</a></text>
+<text top="191" left="82" width="244" height="15" font="0">J. Clark. The Expat XML parser. URL</text>
+<text top="193" left="330" width="99" height="12" font="5"><a href="http://expat.sourceforge.net/">http://expat.</a></text>
+<text top="211" left="97" width="122" height="12" font="5"><a href="http://expat.sourceforge.net/">sourceforge.net/</a></text>
+<text top="209" left="219" width="210" height="15" font="0"><a href="http://expat.sourceforge.net/">, </a>June 2007. C library version</text>
+<text top="227" left="97" width="34" height="15" font="0">2.0.1.</text>
+<text top="258" left="82" width="346" height="15" font="0">D. Flanagan and Y. Matsumoto. The Ruby Program-</text>
+<text top="276" left="97" width="279" height="15" font="0">ming Language. O’Reilly, Cambridge, 2008.</text>
+<text top="306" left="82" width="346" height="15" font="0">A. Gavare. GXEmul: a framework for full-system</text>
+<text top="324" left="97" width="272" height="15" font="0">computer architecture emulation. URL</text>
+<text top="326" left="376" width="53" height="12" font="5"><a href="http://gxemul.sourceforge.net/">http://</a></text>
+<text top="344" left="97" width="175" height="12" font="5"><a href="http://gxemul.sourceforge.net/">gxemul.sourceforge.net/</a></text>
+<text top="342" left="273" width="112" height="15" font="0"><a href="http://gxemul.sourceforge.net/">, </a>February 2010.</text>
+<text top="342" left="401" width="28" height="15" font="0">Pro-</text>
+<text top="360" left="97" width="125" height="15" font="0">gram version 0.6.0.</text>
+<text top="391" left="82" width="346" height="15" font="0">A. Green. libffi - a portable foreign function interface</text>
+<text top="409" left="97" width="47" height="15" font="0">library.</text>
+<text top="409" left="165" width="31" height="15" font="0">URL</text>
+<text top="410" left="204" width="221" height="12" font="5"><a href="http://sourceware.org/libffi/">http://sourceware.org/libffi/</a></text>
+<text top="409" left="425" width="4" height="15" font="0"><a href="http://sourceware.org/libffi/">,</a></text>
+<text top="427" left="97" width="248" height="15" font="0">August 2011. C library version 3.0.10.</text>
+<text top="457" left="82" width="346" height="15" font="0">B. Haible. ffcall - foreign function call libraries. URL</text>
+<text top="477" left="97" width="236" height="12" font="5"><a href="http://www.gnu.org/s/libffcall/">http://www.gnu.org/s/libffcall/</a></text>
+<text top="475" left="334" width="95" height="15" font="0"><a href="http://www.gnu.org/s/libffcall/">, </a>June 2004. C</text>
+<text top="493" left="97" width="131" height="15" font="0">library version 1.10.</text>
+<text top="524" left="82" width="66" height="15" font="0">T. Heller.</text>
+<text top="524" left="173" width="256" height="15" font="0">ctypes - A foreign function library</text>
+<text top="542" left="97" width="120" height="15" font="0">for Python. URL</text>
+<text top="543" left="223" width="206" height="12" font="5"><a href="http://starship.python.net/crew/theller/ctypes/">http://starship.python.net/</a></text>
+<text top="561" left="97" width="152" height="12" font="5"><a href="http://starship.python.net/crew/theller/ctypes/">crew/theller/ctypes/</a></text>
+<text top="560" left="250" width="98" height="15" font="0"><a href="http://starship.python.net/crew/theller/ctypes/">, </a>October 2011.</text>
+<text top="590" left="82" width="346" height="15" font="0">R. Ierusalimschy, L. H. de Figueiredo, and W. C.</text>
+<text top="608" left="97" width="332" height="15" font="0">Filho. Lua – an extensible extension language. Soft-</text>
+<text top="626" left="97" width="332" height="15" font="0">ware – Practice and Experience, 26(6):635–652, June</text>
+<text top="644" left="97" width="34" height="15" font="0">1996.</text>
+<text top="675" left="82" width="71" height="15" font="0">H. Kaiser.</text>
+<text top="675" left="179" width="250" height="15" font="0">Wave V2.0 - Boost C++ Libraries.</text>
+<text top="692" left="97" width="31" height="15" font="0">URL</text>
+<text top="694" left="139" width="290" height="12" font="5"><a href="http://www.boost.org/doc/libs/release/libs/wave/index.html">http://www.boost.org/doc/libs/release/</a></text>
+<text top="712" left="97" width="152" height="12" font="5"><a href="http://www.boost.org/doc/libs/release/libs/wave/index.html">libs/wave/index.html</a></text>
+<text top="710" left="250" width="179" height="15" font="0"><a href="http://www.boost.org/doc/libs/release/libs/wave/index.html">, </a>July 2011. Boost C++ Li-</text>
+<text top="728" left="97" width="332" height="15" font="0">brary Version 1.45, Wave C++ Library Version</text>
+<text top="746" left="97" width="34" height="15" font="0">2.1.0.</text>
+<text top="777" left="82" width="346" height="15" font="0">E. E. Kim. A triumph of simplicity: James Clark on</text>
+<text top="795" left="97" width="332" height="15" font="0">markup languages and XML. Dr. Dobb’s Journal</text>
+<text top="813" left="97" width="332" height="15" font="0">of Software Tools, 26(7):56, 58–60, July 2001. ISSN</text>
+<text top="831" left="97" width="107" height="15" font="0">1044-789X. URL</text>
+<text top="832" left="208" width="145" height="12" font="5"><a href="http://www.ddj.com/">http://www.ddj.com/</a></text>
+<text top="831" left="353" width="4" height="15" font="0"><a href="http://www.ddj.com/">.</a></text>
+<text top="861" left="82" width="178" height="15" font="0">B. King. GCC-XML. URL</text>
+<text top="863" left="265" width="160" height="12" font="5"><a href="http://www.gccxml.org">http://www.gccxml.org</a></text>
+<text top="861" left="425" width="4" height="15" font="0"><a href="http://www.gccxml.org">,</a></text>
+<text top="879" left="97" width="251" height="15" font="0">February 2004. Program version 0.6.0.</text>
+<text top="910" left="82" width="346" height="15" font="0">G. K. Kloss. Automatic C library wrapping – ctypes</text>
+<text top="928" left="97" width="332" height="15" font="0">from the trenches. The Python Papers, 3(3), 2008.</text>
+<text top="946" left="97" width="105" height="15" font="0">ISSN 1834-3147.</text>
+<text top="976" left="82" width="346" height="15" font="0">S. Lantinga. libSDL: Simple DirectMedia layer. URL</text>
+<text top="995" left="97" width="168" height="12" font="5"><a href="http://www.libsdl.org/">http://www.libsdl.org/</a></text>
+<text top="994" left="265" width="164" height="15" font="0"><a href="http://www.libsdl.org/">, </a>October 2009. C library</text>
+<text top="1012" left="97" width="94" height="15" font="0">version 1.2.14.</text>
+<text top="1043" left="82" width="346" height="15" font="0">M. Lawrence and D. Temple Lang. RGtk2: A graph-</text>
+<text top="1061" left="97" width="332" height="15" font="0">ical user interface toolkit for R. Journal of Statis-</text>
+<text top="1078" left="97" width="287" height="15" font="0">tical Software, 2011. ISSN 15487660. URL</text>
+<text top="1080" left="391" width="38" height="12" font="5"><a href="http://www.jstatsoft.org/v37/i08/paper">http:</a></text>
+<text top="1098" left="97" width="252" height="12" font="5"><a href="http://www.jstatsoft.org/v37/i08/paper">//www.jstatsoft.org/v37/i08/paper</a></text>
+<text top="1096" left="349" width="4" height="15" font="0"><a href="http://www.jstatsoft.org/v37/i08/paper">.</a></text>
+<text top="125" left="459" width="346" height="15" font="0">F. Mascarenhas. Alien - pure Lua extensions. URL</text>
+<text top="144" left="474" width="198" height="12" font="5"><a href="http://alien.luaforge.net/">http://alien.luaforge.net/</a></text>
+<text top="143" left="672" width="133" height="15" font="0"><a href="http://alien.luaforge.net/">, </a>October 2009. Lua</text>
+<text top="161" left="474" width="141" height="15" font="0">module version 0.5.1.</text>
+<text top="191" left="459" width="197" height="15" font="0">W. Meissner. Ruby-FFI. URL</text>
+<text top="192" left="661" width="145" height="12" font="5"><a href="https://github.com/ffi/ffi/wiki">https://github.com/</a></text>
+<text top="210" left="474" width="91" height="12" font="5"><a href="https://github.com/ffi/ffi/wiki">ffi/ffi/wiki</a></text>
+<text top="209" left="565" width="240" height="15" font="0"><a href="https://github.com/ffi/ffi/wiki">, </a>October 2011. Ruby package ver-</text>
+<text top="227" left="474" width="72" height="15" font="0">sion 1.0.10.</text>
+<text top="257" left="459" width="346" height="15" font="0">P. Moore, G. Yahas, and A. Vorobey. FFI - Perl foreign</text>
+<text top="274" left="474" width="153" height="15" font="0">function interface. URL</text>
+<text top="276" left="630" width="175" height="12" font="5"><a href="http://search.cpan.org/~gaal/FFI/FFI.pm">http://search.cpan.org/</a></text>
+<text top="294" left="474" width="122" height="12" font="5"><a href="http://search.cpan.org/~gaal/FFI/FFI.pm">~gaal/FFI/FFI.pm</a></text>
+<text top="292" left="596" width="210" height="15" font="0"><a href="http://search.cpan.org/~gaal/FFI/FFI.pm">, </a>September 2008. Perl module</text>
+<text top="310" left="474" width="83" height="15" font="0">version 1.04.</text>
+<text top="340" left="459" width="346" height="15" font="0">OpenGL Architecture Review Board, D. Shreiner,</text>
+<text top="358" left="474" width="240" height="15" font="0">M. Woo, J. Neider, and T. Davis.</text>
+<text top="358" left="733" width="72" height="15" font="0">OpenGL(R)</text>
+<text top="376" left="474" width="332" height="15" font="0">Programming Guide: The Official Guide to Learning</text>
+<text top="394" left="474" width="293" height="15" font="0">OpenGL(R), Version 2. Addison Wesley, 2005.</text>
+<text top="424" left="459" width="346" height="15" font="0">B. Pendleton. Game programming with the Simple</text>
+<text top="442" left="474" width="332" height="15" font="0">DirectMedia Layer (SDL). Linux Journal, 110:42, 44,</text>
+<text top="460" left="474" width="223" height="15" font="0">46, 48, June 2003. ISSN 1075-3583.</text>
+<text top="490" left="459" width="226" height="15" font="0">T. Philipp. DynOS Project. URL</text>
+<text top="491" left="691" width="114" height="12" font="5"><a href="http://dyncall.org/dynos">http://dyncall.</a></text>
+<text top="509" left="474" width="69" height="12" font="5"><a href="http://dyncall.org/dynos">org/dynos</a></text>
+<text top="508" left="542" width="75" height="15" font="0"><a href="http://dyncall.org/dynos">, </a>May 2011.</text>
+<text top="537" left="459" width="193" height="15" font="0">R Development Core Team.</text>
+<text top="537" left="670" width="136" height="15" font="0">Writing R Extesions.</text>
+<text top="555" left="474" width="332" height="15" font="0">R Foundation for Statistical Computing, Vienna,</text>
+<text top="573" left="474" width="138" height="15" font="0">Austria, 2010. URL</text>
+<text top="575" left="618" width="184" height="12" font="5"><a href="http://www.R-project.org">http://www.R-project.org</a></text>
+<text top="573" left="802" width="4" height="15" font="0"><a href="http://www.R-project.org">.</a></text>
+<text top="591" left="474" width="132" height="15" font="0">ISBN 3-900051-11-9.</text>
+<text top="621" left="459" width="116" height="15" font="0">D. Temple Lang.</text>
+<text top="621" left="592" width="213" height="15" font="0">Rffi for run-time invocation of</text>
+<text top="639" left="474" width="287" height="15" font="0">arbitrary compiled routines from R. URL</text>
+<text top="640" left="767" width="38" height="12" font="5"><a href="http://www.omegahat.org/Rffi/">http:</a></text>
+<text top="658" left="474" width="183" height="12" font="5"><a href="http://www.omegahat.org/Rffi/">//www.omegahat.org/Rffi/</a></text>
+<text top="657" left="657" width="149" height="15" font="0"><a href="http://www.omegahat.org/Rffi/">, </a>January 2011. R pack-</text>
+<text top="675" left="474" width="114" height="15" font="0">age version 0.3-0.</text>
+<text top="705" left="459" width="346" height="15" font="0">L. Tierney. A simple implementation of name spaces</text>
+<text top="723" left="474" width="82" height="15" font="0">for R. URL</text>
+<text top="724" left="561" width="244" height="12" font="5"><a href="http://www.stat.uiowa.edu/~luke/R/namespaces/morenames.pdf">http://www.stat.uiowa.edu/~luke/</a></text>
+<text top="742" left="474" width="198" height="12" font="5"><a href="http://www.stat.uiowa.edu/~luke/R/namespaces/morenames.pdf">R/namespaces/morenames.pdf</a></text>
+<text top="741" left="672" width="75" height="15" font="0"><a href="http://www.stat.uiowa.edu/~luke/R/namespaces/morenames.pdf">, </a>May 2003.</text>
+<text top="771" left="459" width="251" height="15" font="0">G. van Rossum and F. L. Drake, Jr.</text>
+<text top="771" left="726" width="79" height="15" font="0">Python Lan-</text>
+<text top="788" left="474" width="160" height="15" font="0">guage Reference Manual.</text>
+<text top="789" left="653" width="153" height="15" font="0">Network Theory Ltd.,</text>
+<text top="806" left="474" width="34" height="15" font="0">2005.</text>
+<text top="806" left="527" width="136" height="15" font="0">ISBN 0-9541617-8-5.</text>
+<text top="806" left="683" width="31" height="15" font="0">URL</text>
+<text top="808" left="721" width="84" height="12" font="5"><a href="http://www.network-theory.co.uk/python/language/">http://www.</a></text>
+<text top="826" left="474" width="283" height="12" font="5"><a href="http://www.network-theory.co.uk/python/language/">network-theory.co.uk/python/language/</a></text>
+<text top="824" left="757" width="4" height="15" font="0"><a href="http://www.network-theory.co.uk/python/language/">.</a></text>
+<text top="854" left="459" width="182" height="15" font="0">D. Veillard and B. Reese.</text>
+<text top="854" left="663" width="142" height="15" font="0">The XSLT C library</text>
+<text top="872" left="474" width="89" height="15" font="0">for GNOME.</text>
+<text top="872" left="580" width="31" height="15" font="0">URL</text>
+<text top="874" left="619" width="183" height="12" font="5"><a href="http://xmlsoft.org/XSLT/">http://xmlsoft.org/XSLT/</a></text>
+<text top="872" left="802" width="4" height="15" font="0"><a href="http://xmlsoft.org/XSLT/">,</a></text>
+<text top="890" left="474" width="270" height="15" font="0">September 2009. C library version 1.1.26.</text>
+<text top="920" left="459" width="346" height="15" font="0">W. Weisser. C/Invoke - version 1.0 - easily call C from</text>
+<text top="938" left="474" width="129" height="15" font="0">any language. URL</text>
+<text top="939" left="607" width="198" height="12" font="5"><a href="http://cinvoke.teegra.net/index.html">http://cinvoke.teegra.net/</a></text>
+<text top="957" left="474" width="76" height="12" font="5"><a href="http://cinvoke.teegra.net/index.html">index.html</a></text>
+<text top="956" left="550" width="240" height="15" font="0"><a href="http://cinvoke.teegra.net/index.html">, </a>January 2007. C library version 1.0.</text>
+<text top="1007" left="459" width="78" height="15" font="0">Daniel Adler</text>
+<text top="1025" left="459" width="160" height="15" font="0">Georg-August Universität</text>
+<text top="1042" left="459" width="227" height="15" font="0">Institute for Statistics and Economics</text>
+<text top="1060" left="459" width="171" height="15" font="0">Platz der Göttinger Sieben 5</text>
+<text top="1078" left="459" width="166" height="15" font="0">37079 Göttingen, Germany</text>
+<text top="1098" left="459" width="183" height="12" font="5"><a href="mailto:dadler@uni-goettingen.de">dadler@uni-goettingen.de</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

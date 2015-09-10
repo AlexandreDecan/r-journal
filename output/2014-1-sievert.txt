@@ -1,0 +1,224 @@
+page	left	top	code
+2	149	674	inning_all.xml file contains the PITCHf/x data for that game. It’s important to note that this file
+2	149	842	player, coach, and umpire tables are extracted from players.xml and are classified as game-by-game
+3	149	1082	urls <- makeUrls(start = "2011-06-01", end = "2011-06-01")
+3	149	1099	sub("http://gd2.mlb.com/components/game/mlb/", "", head(urls))
+3	149	1127	#> [1] "year_2011/month_06/day_01/gid_2011_06_01_anamlb_kcamlb_1"
+3	149	1144	#> [2] "year_2011/month_06/day_01/gid_2011_06_01_balmlb_seamlb_1"
+4	149	100	#> [3] "year_2011/month_06/day_01/gid_2011_06_01_chamlb_bosmlb_1"
+4	149	116	#> [4] "year_2011/month_06/day_01/gid_2011_06_01_clemlb_tormlb_1"
+4	149	133	#> [5] "year_2011/month_06/day_01/gid_2011_06_01_colmlb_lanmlb_1"
+4	149	149	#> [6] "year_2011/month_06/day_01/gid_2011_06_01_flomlb_arimlb_1"
+4	149	316	library(XML2R)
+4	149	332	files <- paste0(urls, "/inning/inning_all.xml")
+4	149	348	obs <- XML2Obs(files, url.map = TRUE, quiet = TRUE)
+4	149	365	table(names(obs))
+4	149	395	#>
+4	149	412	#> game game//inning
+4	149	428	#> 2 18
+4	149	444	#> game//inning//bottom//action game//inning//bottom//atbat
+4	149	461	#> 13 69
+4	149	477	#> game//inning//bottom//atbat//pitch game//inning//bottom//atbat//po
+4	149	494	#> 247 4
+4	149	510	#> game//inning//bottom//atbat//runner game//inning//top//action
+4	149	527	#> 50 20
+4	149	543	#> game//inning//top//atbat game//inning//top//atbat//pitch
+4	149	559	#> 79 278
+4	149	576	#> game//inning//top//atbat//po game//inning//top//atbat//runner
+4	149	592	#> 17 89
+4	149	609	#> url_map
+4	149	625	#> 1
+4	149	688	url_map is not considered an observation and was included since url.map = TRUE. This helps avoid
+4	149	748	obs[1]
+4	149	778	#> $`game//inning//top//atbat//pitch`
+4	149	794	#> des id type tfs tfs_zulu x y
+4	149	811	#> [1,] "Called Strike" "3" "S" "191018" "2011-06-01T23:10:18Z" "109.87" "145.06"
+4	149	827	#> sv_id start_speed end_speed sz_top sz_bot pfx_x pfx_z px
+4	149	843	#> [1,] "110601_191020" "87.9" "82.1" "3.6" "1.65" "-6.7" "4.36" "-0.213"
+4	149	860	#> pz x0 y0 z0 vx0 vy0 vz0 ax
+4	149	876	#> [1,] "2.611" "-1.612" "50.0" "5.633" "5.808" "-128.728" "-2.903" "-11.406"
+4	149	893	#> ay az break_y break_angle break_length pitch_type
+4	149	909	#> [1,] "22.954" "-24.681" "23.9" "22.5" "6.5" "SI"
+4	149	926	#> type_confidence zone nasty spin_dir spin_rate cc mt url_key
+4	149	942	#> [1,] ".798" "5" "39" "236.697" "1538.041" "" "" "url1"
+4	149	1092	tmp <- re_name(obs, equiv = c("game//inning//top//atbat",
+4	163	1109	"game//inning//bottom//atbat"), diff.name = "inning_side")
+5	149	192	tmp[grep("game//inning//atbat", names(tmp))][1:2]
+5	149	221	#> $`game//inning//atbat`
+5	149	238	#> num b s o start_tfs start_tfs_zulu batter stand b_height
+5	149	254	#> [1,] "1" "0" "1" "0" "190935" "2011-06-01T23:09:35Z" "430001" "R" "5-10"
+5	149	271	#> pitcher p_throws
+5	149	287	#> [1,] "502190" "R"
+5	149	304	#> des event score
+5	149	320	#> [1,] "Rickie Weeks homers (10) on a fly ball to left field. " "Home Run" "T"
+5	149	337	#> home_team_runs away_team_runs url_key inning_side
+5	149	353	#> [1,] "0" "1" "url1" "top"
+5	149	369	#>
+5	149	386	#> $`game//inning//atbat`
+5	149	402	#> num b s o start_tfs start_tfs_zulu batter stand b_height
+5	149	419	#> [1,] "2" "0" "0" "0" "191105" "2011-06-01T23:11:05Z" "460579" "L" "6-0"
+5	149	435	#> pitcher p_throws
+5	149	452	#> [1,] "502190" "R"
+5	149	468	#> des
+5	149	484	#> [1,] "Nyjer Morgan triples (3) on a line drive to right fielder Jay Bruce. "
+5	149	501	#> event url_key inning_side
+5	149	517	#> [1,] "Triple" "url1" "top"
+5	149	573	tmp <- re_name(tmp, equiv = c("game//inning//top//atbat//runner",
+5	163	590	"game//inning//bottom//atbat//runner"), diff.name = "inning_side")
+5	149	606	tmp <- re_name(tmp, equiv = c("game//inning//top//action",
+5	163	623	"game//inning//bottom//action"), diff.name = "inning_side")
+5	149	639	tmp <- re_name(tmp, equiv = c("game//inning//top//atbat//po",
+5	163	656	"game//inning//bottom//atbat//po"), diff.name = "inning_side")
+5	149	672	obs2 <- re_name(tmp, equiv = c("game//inning//top//atbat//pitch",
+5	163	688	"game//inning//bottom//atbat//pitch"), diff.name = "inning_side")
+5	149	705	table(names(obs2))
+5	149	734	#>
+5	149	751	#> game game//inning
+5	149	767	#> 2 18
+5	149	784	#> game//inning//action game//inning//atbat
+5	149	800	#> 33 148
+5	149	816	#> game//inning//atbat//pitch game//inning//atbat//po
+5	149	833	#> 525 21
+5	149	849	#> game//inning//atbat//runner url_map
+5	149	866	#> 139 1
+5	149	983	obs2[grep("^game//inning$", names(obs2))][1:3]
+5	149	1012	#> $`game//inning`
+5	149	1028	#> num away_team home_team next url_key
+5	149	1045	#> [1,] "1" "mil" "cin" "Y" "url1"
+5	149	1061	#>
+5	149	1078	#> $`game//inning`
+5	149	1094	#> num away_team home_team next url_key
+5	149	1111	#> [1,] "2" "mil" "cin" "Y" "url1"
+5	149	1127	#>
+5	149	1144	#> $`game//inning`
+6	149	100	#> num away_team home_team next url_key
+6	149	116	#> [1,] "3" "mil" "cin" "Y" "url1"
+6	149	216	obswkey <- add_key(obs2, parent = "game//inning", recycle = "num", key.name = "inning")
+6	149	242	#> A key for the following children will be generated for the game//inning node:
+6	149	258	#> game//inning//atbat//pitch
+6	149	274	#> game//inning//atbat//runner
+6	149	291	#> game//inning//atbat
+6	149	307	#> game//inning//atbat//po
+6	149	324	#> game//inning//action
+6	149	407	obswkey <- add_key(obswkey, parent = "game//inning", recycle = "next")
+6	149	433	#> A key for the following children will be generated for the game//inning node:
+6	149	449	#> game//inning//atbat//pitch
+6	149	466	#> game//inning//atbat//runner
+6	149	482	#> game//inning//atbat
+6	149	498	#> game//inning//atbat//po
+6	149	515	#> game//inning//action
+6	149	581	obswkey <- add_key(obswkey, parent = "game//inning//atbat", recycle = "num")
+6	149	607	#> A key for the following children will be generated for the game//inning//atbat node:
+6	149	624	#> game//inning//atbat//pitch
+6	149	640	#> game//inning//atbat//runner
+6	149	657	#> game//inning//atbat//po
+6	149	819	tables <- collapse_obs(obswkey)
+6	149	836	#As mentioned before, we do not need the 'inning' table
+6	149	852	tables <- tables[!grepl("^game//inning$", names(tables))]
+6	149	869	table.names <- c("game", "action", "atbat", "pitch", "po", "runner")
+6	149	885	tables <- setNames(tables, table.names)
+6	149	902	head(tables[["runner"]])
+6	149	928	#> id start end event score rbi earned url_key inning_side
+6	149	944	#> [1,] "430001" "" "" "Home Run" "T" "T" "T" "url1" "top"
+6	149	960	#> [2,] "460579" "" "3B" "Triple" NA NA NA "url1" "top"
+6	149	977	#> [3,] "460579" "3B" "" "Groundout" "T" "T" "T" "url1" "top"
+6	149	993	#> [4,] "425902" "" "1B" "Single" NA NA NA "url1" "top"
+6	149	1010	#> [5,] "425902" "1B" "" "Pop Out" NA NA NA "url1" "top"
+6	149	1026	#> [6,] "458015" "" "1B" "Single" NA NA NA "url1" "bottom"
+6	149	1043	#> inning next num
+6	149	1059	#> [1,] "1" "Y" "1"
+6	149	1075	#> [2,] "1" "Y" "2"
+6	149	1092	#> [3,] "1" "Y" "3"
+6	149	1108	#> [4,] "1" "Y" "4"
+6	149	1125	#> [5,] "1" "Y" "6"
+6	149	1141	#> [6,] "1" "Y" "9"
+7	149	212	library(pitchRx)
+7	149	228	files <- c("inning/inning_all.xml", "inning/inning_hit.xml",
+7	163	245	"miniscoreboard.xml", "players.xml")
+7	149	261	dat <- scrape(start = "2011-06-01", end = "2011-06-01", suffix = files)
+7	149	348	data(gids, package = "pitchRx")
+7	149	364	gids11 <- gids[grep("2011_06_01", gids)]
+7	149	381	head(gids11)
+7	149	410	#> [1] "gid_2011_06_01_anamlb_kcamlb_1" "gid_2011_06_01_balmlb_seamlb_1"
+7	149	427	#> [3] "gid_2011_06_01_chamlb_bosmlb_1" "gid_2011_06_01_clemlb_tormlb_1"
+7	149	443	#> [5] "gid_2011_06_01_colmlb_lanmlb_1" "gid_2011_06_01_flomlb_arimlb_1"
+7	149	473	dat <- scrape(game.ids = gids11, suffix = files)
+7	149	794	library(dplyr)
+7	149	811	db <- src_sqlite("GamedayDB.sqlite3", create = TRUE)
+7	149	827	# Collect and store all PITCHf/x data from 2008 to now
+7	149	844	scrape(start = "2008-01-01", end = Sys.Date(),
+7	163	860	suffix = "inning/inning_all.xml", connect = db$con)
+7	149	936	pitcher_name field (in the atbat table), the pitch_type field (in the pitch table), and the date field
+7	149	996	library(DBI)
+7	149	1013	dbSendQuery(db$con, "CREATE INDEX pitcher_index ON atbat(pitcher_name)")
+7	149	1029	dbSendQuery(db$con, "CREATE INDEX type_index ON pitch(pitch_type)")
+7	149	1045	dbSendQuery(db$con, "CREATE INDEX date_atbat ON atbat(date)")
+8	149	100	dbSendQuery(db$con, 'CREATE INDEX pitch_join ON pitch(gameday_link, num)')
+8	149	116	dbSendQuery(db$con, 'CREATE INDEX atbat_join ON atbat(gameday_link, num)')
+8	149	236	at.bat <- tbl(db, "atbat") %>%
+8	163	252	filter(pitcher_name %in% c("Mariano Rivera", "Phil Hughes"))
+8	149	322	fbs <- tbl(db, "pitch") %>%
+8	163	339	filter(pitch_type %in% c("FF", "FC"))
+8	149	442	pitches <- inner_join(fbs, at.bat) %>%
+8	163	458	filter(date >= "2011_01_01" & date <= "2012_01_01") %>%
+8	163	475	collect()
+8	149	958	# First, add an index on the pitch description to speed up run-time
+8	149	974	dbSendQuery(db$con, "CREATE INDEX des_index ON pitch(des)")
+8	149	1007	pitch <- tbl(db, "pitch") %>%
+8	163	1023	filter(des %in% c("Called Strike", "Ball")) %>%
+8	163	1040	# Keep pitch location, descriptions
+8	163	1056	select(px, pz, des, gameday_link, num) %>%
+8	163	1073	# 0-1 indicator of strike/ball
+8	163	1089	mutate(strike = as.numeric(des == "Called Strike"))
+8	149	1122	atbat <- tbl(db, "atbat") %>%
+8	163	1138	# Select variables to be used later as covariates in probabilistic models
+9	163	100	select(b_height, p_throws, stand, inning_side, date, gameday_link, num)
+9	149	133	decisions <- inner_join(pitch, atbat) %>%
+9	163	149	filter(date <= "2014_01_01") %>%
+9	163	165	collect()
+9	149	315	# strikeFX uses the stand variable to calculate strike-zones
+9	149	331	# Here is a slick way to create better facet titles without changing data values
+9	149	348	relabel <- function(variable, value) {
+9	163	364	value <- sub("^R$", "Right-Handed Batter", value)
+9	163	381	sub("^L$", "Left-Handed Batter", value)
+9	149	397	}
+9	149	414	strikes <- subset(decisions, strike == 1)
+9	149	430	strikeFX(strikes, geom = "raster", layer = facet_grid(. ~ stand, labeller = relabel))
+9	149	1041	density1 and density2 options.
+9	149	1068	strikeFX(decisions, geom = "raster", density1 = list(des = "Called Strike"),
+9	163	1084	density2 = list(des = "Called Strike")) + facet_grid(. ~ stand, labeller = relabel)
+9	149	1144	density2, differenced densities are easily generated. In this case, a grid of density estimates for
+10	149	100	density2 are subtracted from the corresponding grid of density estimates for density1. Note that the
+10	149	165	density1 as called strikes and define density2 as balls. As expected, we see positive density values
+10	149	209	strikeFX(decisions, geom = "raster", density1 = list(des = "Called Strike"),
+10	163	225	density2 = list(des = "Ball"), layer = facet_grid(. ~ stand, labeller = relabel))
+10	149	934	library(parallel)
+10	149	950	cl <- makeCluster(detectCores() - 1)
+10	149	967	library(mgcv)
+10	149	983	m <- bam(strike ~ interaction(stand, p_throws, inning_side) +
+10	163	1000	s(px, pz, by = interaction(stand, p_throws, inning_side)),
+10	163	1016	data = decisions, family = binomial(link = 'logit'), cluster = cl)
+11	148	133	var.summary is used to identify model covariates, as well their default conditioning values. In our
+11	149	224	away <- list(inning_side = factor("bottom", levels = c("top", "bottom")))
+11	149	241	m$var.summary <- modifyList(m$var.summary, away)
+11	149	257	strikeFX(decisions, model = m, layer = facet_grid(. ~ stand, labeller = relabel))
+11	149	740	# Function to create better labels for both stand and p_throws
+11	149	756	relabel2 <- function(variable, value) {
+11	163	772	if (variable %in% "stand")
+11	176	789	return(sub("^L$", "Left-Handed Batter",
+11	190	805	sub("^R$", "Right-Handed Batter", value)))
+11	163	822	if (variable %in% "p_throws")
+11	176	838	return(sub("^L$", "Left-Handed Pitcher",
+11	190	855	sub("^R$", "Right-Handed Pitcher", value)))
+11	149	871	}
+11	149	888	strikeFX(decisions, model = m, layer = facet_grid(p_throws ~ stand, labeller = relabel2),
+11	163	904	density1 = list(inning_side = "top"), density2 = list(inning_side = "bottom"))
+11	149	946	p_throws and stand. In general, provided that a pitcher throws to a batter in the blue region, the
+12	149	619	animateFX provides convenient and flexible functionality for animating the trajectory of any desired
+12	171	706	animateFX tracks three dimensional pitch locations over a sequence of two dimensional plots. The
+12	149	967	animateFX(pitches, layer=list(theme_bw(), coord_equal(),
+12	163	984	facet_grid(pitcher_name~stand, labeller = relabel)))
+13	149	733	animateFX(pitches, avg.by = "pitch_types", layer = list(coord_equal(), theme_bw(),
+13	163	749	facet_grid(pitcher_name~stand, labeller = relabel)))
+13	149	922	Rivera <- subset(pitches, pitcher_name == "Mariano Rivera")
+13	149	938	interactiveFX(Rivera, avg.by = "pitch_types")

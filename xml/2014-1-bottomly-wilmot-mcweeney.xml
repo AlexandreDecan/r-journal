@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">159</text>
+<text top="98" left="149" width="561" height="30" font="2"><b>oligoMask: A Framework for Assessing</b></text>
+<text top="137" left="149" width="505" height="30" font="2"><b>and Removing the Effect of Genetic</b></text>
+<text top="177" left="148" width="430" height="30" font="2"><b>Variants on Microarray Probes</b></text>
+<text top="213" left="149" width="374" height="15" font="0">by Daniel Bottomly, Beth Wilmot and Shannon K. McWeeney</text>
+<text top="254" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="254" left="211" width="534" height="13" font="4">As expression microarrays are typically designed relative to a reference genome, any</text>
+<text top="270" left="149" width="595" height="13" font="4">individual genetic variant that overlaps a probe’s genomic position can possibly cause a reduction</text>
+<text top="286" left="149" width="595" height="13" font="4">in hybridization due to the probe no longer being a perfect match to a given sample’s mRNA at</text>
+<text top="303" left="149" width="597" height="13" font="4">that locus. If the samples or groups used in a microarray study differ in terms of genetic variants,</text>
+<text top="319" left="149" width="595" height="13" font="4">the results of the microarray experiment can be negatively impacted. The <b>oligoMask </b>package is an</text>
+<text top="336" left="149" width="595" height="13" font="4">R/SQLite framework which can utilize publicly available genetic variants and works in conjunction</text>
+<text top="352" left="148" width="596" height="13" font="4">with the <b>oligo </b>package to read in the expression data and remove microarray probes which are likely</text>
+<text top="369" left="149" width="595" height="13" font="4">to impact a given microarray experiment prior to analysis. Tools are provided for creating an SQLite</text>
+<text top="385" left="149" width="596" height="13" font="4">database containing the probe and variant annotations and for performing the commonly used RMA</text>
+<text top="402" left="148" width="596" height="13" font="4">preprocessing procedure for Affymetrix microarrays. The <b>oligoMask </b>package is freely available at</text>
+<text top="415" left="149" width="261" height="18" font="5"><a href="https://github.com/dbottomly/oligoMask">https://github.com/dbottomly/oligoMask</a></text>
+<text top="418" left="409" width="3" height="13" font="4"><a href="https://github.com/dbottomly/oligoMask">.</a></text>
+<text top="463" left="149" width="104" height="17" font="6"><b>Introduction</b></text>
+<text top="502" left="149" width="595" height="13" font="4">It has been observed that for mRNA microarrays from a given sample, genetic differences of that</text>
+<text top="518" left="149" width="595" height="13" font="4">sample relative to the probe sequences can affect hybridization to short oligonucleotide probes</text>
+<text top="534" left="149" width="524" height="13" font="4">resulting in false positives or negatives depending on the experimental and array design <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="534" left="673" width="69" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Walter et al.</a></text>
+<text top="534" left="742" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="551" left="149" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2007</a></text>
+<text top="551" left="176" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">;</a></text>
+<text top="551" left="182" width="75" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Alberts et al.</a></text>
+<text top="551" left="257" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="551" left="264" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2007</a></text>
+<text top="551" left="291" width="453" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">). </a>Several approaches currently exist to identify and flag/remove probes that</text>
+<text top="567" left="149" width="595" height="13" font="4">have hybridization artifacts due to genetic variants. Removal of probes based on pre-defined genetic</text>
+<text top="584" left="148" width="249" height="13" font="4">variant databases is one such approach <a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="584" left="398" width="87" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Benovoy et al.</a></text>
+<text top="584" left="485" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="584" left="492" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2008</a></text>
+<text top="584" left="520" width="77" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">). </a>Software <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="584" left="597" width="80" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Kumari et al.</a></text>
+<text top="584" left="677" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="584" left="685" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2007</a></text>
+<text top="584" left="712" width="32" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">) </a>and</text>
+<text top="600" left="149" width="64" height="13" font="4">databases <a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="600" left="213" width="63" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Duan et al.</a></text>
+<text top="600" left="276" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="600" left="282" width="26" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2008</a></text>
+<text top="600" left="309" width="436" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>allowing the interrogation of the relationships between microarray probes</text>
+<text top="617" left="149" width="490" height="13" font="4">and single nucleotide variants have been described. The R package <b>CustomCDF </b><a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="617" left="639" width="53" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Dai et al.</a></text>
+<text top="617" left="692" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="617" left="699" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2005</a></text>
+<text top="617" left="726" width="18" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>is</text>
+<text top="633" left="149" width="596" height="13" font="4">an example of this approach that removes probes from an environment formed from the Affymetrix</text>
+<text top="650" left="149" width="595" height="13" font="4">chip description file (CDF) prior to analysis. One potential limitation of the CDF filtering approach</text>
+<text top="666" left="149" width="595" height="13" font="4">is that for some of the more recent arrays platforms such as the Affymetrix Gene or Exon arrays the</text>
+<text top="682" left="149" width="472" height="13" font="4">use of such environments has been superseded (e.g. the SQLite databases in the</text>
+<text top="683" left="624" width="31" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/oligo.html"><b>oligo</b></a></text>
+<text top="682" left="659" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="682" left="663" width="81" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Carvalho and</a></text>
+<text top="699" left="149" width="45" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Irizarry</a></text>
+<text top="699" left="194" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="699" left="201" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2010</a></text>
+<text top="699" left="228" width="243" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>package or ROOT scheme files as in the</text>
+<text top="699" left="474" width="21" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/xps.html"><b>xps</b></a></text>
+<text top="699" left="498" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="699" left="502" width="85" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Stratowa et al.</a></text>
+<text top="699" left="587" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="699" left="594" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2013</a></text>
+<text top="699" left="621" width="65" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">) </a>package).</text>
+<text top="720" left="171" width="575" height="13" font="4">In addition, the actual expression data itself can be interrogated to identify and mask out variants.</text>
+<text top="736" left="149" width="595" height="13" font="4">R packages exist to effectively deal with a two group comparison between several strains or species</text>
+<text top="753" left="149" width="380" height="13" font="4">through procedures based mainly on the expression data such as</text>
+<text top="753" left="533" width="64" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/maskBAD.html"><b>maskBAD</b></a></text>
+<text top="753" left="599" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="753" left="604" width="104" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Dannemann et al.</a></text>
+<text top="753" left="708" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="753" left="714" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2012</a></text>
+<text top="753" left="741" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">)</a></text>
+<text top="769" left="149" width="69" height="13" font="4">and <b>SNEP </b><a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="769" left="218" width="83" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Fujisawa et al.</a></text>
+<text top="769" left="301" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="769" left="308" width="26" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2009</a></text>
+<text top="769" left="334" width="410" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">). </a>However, models based on two (genetic) groups have limited utility</text>
+<text top="786" left="148" width="596" height="13" font="4">when analyzing more complicated experimental designs such as those found in expression-based</text>
+<text top="802" left="149" width="475" height="13" font="4">analyses using more genetically diverse mouse lines such as Diversity Outbred <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="802" left="623" width="81" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Svenson et al.</a></text>
+<text top="802" left="704" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="802" left="711" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2012</a></text>
+<text top="802" left="738" width="8" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">),</a></text>
+<text top="818" left="149" width="125" height="13" font="4">Collaborative Cross <a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="818" left="273" width="191" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Collaborative Cross Consortium</a></text>
+<text top="818" left="465" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="818" left="471" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2012</a></text>
+<text top="818" left="498" width="185" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>or other Heterogenous Stock <a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="818" left="683" width="59" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">Chia et al.</a></text>
+<text top="818" left="742" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="835" left="149" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2005</a></text>
+<text top="835" left="176" width="39" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>mice.</text>
+<text top="856" left="171" width="573" height="13" font="4">In order to facilitate eQTL mapping and other expression analyses in complex mouse crosses we</text>
+<text top="872" left="149" width="595" height="13" font="4">devised an R package <b>oligoMask </b>based on the use of high quality publicly available genetic variant</text>
+<text top="889" left="149" width="595" height="13" font="4">databases to screen microarray probes identifying probes impacted by variants. The key to this is the</text>
+<text top="905" left="149" width="595" height="13" font="4">relatively recent availability of genome-wide variant databases in the variant call format (VCF) such as</text>
+<text top="922" left="149" width="282" height="13" font="4">those from the Sanger Mouse Genomes Project <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="922" left="431" width="68" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Keane et al.</a></text>
+<text top="922" left="499" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="922" left="505" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2011</a></text>
+<text top="922" left="532" width="212" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">) </a>and the 1000 Genomes for humans</text>
+<text top="938" left="148" width="5" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">(</a></text>
+<text top="938" left="153" width="206" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">1000 Genomes Project Consortium</a></text>
+<text top="938" left="359" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">,</a></text>
+<text top="938" left="366" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">2012</a></text>
+<text top="938" left="393" width="351" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">) </a>as well as the ability to query and parse these files via the</text>
+<text top="955" left="148" width="115" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/VariantAnnotation.html"><b>VariantAnnotation</b></a></text>
+<text top="954" left="267" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="954" left="271" width="96" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Obenchain et al.</a></text>
+<text top="954" left="367" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="954" left="374" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2014</a></text>
+<text top="954" left="401" width="343" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">) </a>package. The <b>oligoMask </b>package is designed to work in</text>
+<text top="971" left="149" width="595" height="13" font="4">conjunction with the <b>oligo </b>Bioconductor package to facilitate removal of aberrant probe expression</text>
+<text top="987" left="148" width="387" height="13" font="4">prior to the commonly used robust multi-array average (RMA) <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="987" left="535" width="78" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Irizarry et al.</a></text>
+<text top="987" left="613" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="987" left="620" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2003</a></text>
+<text top="987" left="647" width="97" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">) </a>pre-processing</text>
+<text top="1004" left="148" width="596" height="13" font="4">procedure for Affymetrix arrays. Our package works by removing potentially impacted probes from</text>
+<text top="1020" left="149" width="595" height="13" font="4">the overall expression matrix prior to the call to the RMA processing functions. This can be done before</text>
+<text top="1037" left="149" width="595" height="13" font="4">the background correction step or after the normalization step. The annotation for these impacted</text>
+<text top="1053" left="148" width="598" height="13" font="4">probes are most easily derived from VCF files with the parsed data stored in an SQLite database.</text>
+<text top="1069" left="148" width="596" height="13" font="4">This database can be optionally wrapped in an R package with appropriate metadata to facilitate</text>
+<text top="1086" left="149" width="595" height="13" font="4">sharing and reproducibility. High-level S4 classes and methods provide a convenient interface with</text>
+<text top="1102" left="149" width="66" height="13" font="3"><b>oligoMask</b></text>
+<text top="1102" left="218" width="526" height="13" font="4">and <b>oligo</b>. In addition, users can define new database schemas, add custom data as well</text>
+<text top="1119" left="149" width="596" height="13" font="4">as create their own functionality. Below we give an overview as well as demonstrate using publicly</text>
+<text top="1135" left="149" width="349" height="13" font="4">available data the steps involved for the use of <b>oligoMask</b>.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">160</text>
+<text top="100" left="149" width="110" height="17" font="6"><b>Example data</b></text>
+<text top="139" left="148" width="598" height="13" font="4">The example data presented in this article and in the vignette was downloaded from the gene expres-</text>
+<text top="155" left="149" width="329" height="13" font="4">sion omnibus (GEO) with accession number GSE33822 <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="155" left="478" width="54" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Sun et al.</a></text>
+<text top="155" left="532" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="155" left="538" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2012</a></text>
+<text top="155" left="565" width="179" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">). </a>For demonstration purposes</text>
+<text top="172" left="148" width="596" height="13" font="4">we use a subset (n=8) of the dataset including only those samples derived from whole brain which</text>
+<text top="188" left="149" width="596" height="13" font="4">received the vehicle treatment and that were run on version 1 of the Mouse Gene ST array. In our</text>
+<text top="205" left="149" width="595" height="13" font="4">example, we are looking for expression differences between the NOD/ShiLtJ (NOD) inbred strain</text>
+<text top="221" left="149" width="595" height="13" font="4">and the C57BL/6J (B6) inbred strain, the genome of which serves as the mouse reference genome. As</text>
+<text top="237" left="148" width="598" height="13" font="4">we can expect the microarray probe sequences to be heavily biased towards the reference genome,</text>
+<text top="254" left="149" width="595" height="13" font="4">looking for differential expression between these two strains may be problematic as differences in</text>
+<text top="270" left="149" width="595" height="13" font="4">expression may be due to hybridization artifacts or true gene expression differences. First we create a</text>
+<text top="287" left="149" width="595" height="13" font="4">NOD-specific database and then filter out those probes that are impacted by at least one variant in</text>
+<text top="303" left="149" width="596" height="13" font="4">the NOD strain but not in the B6 strain and then carry out the differential expression analysis as per</text>
+<text top="320" left="149" width="182" height="13" font="4">standard statistical workflows.</text>
+<text top="364" left="149" width="80" height="17" font="6"><b>Workflow</b></text>
+<text top="406" left="149" width="186" height="15" font="8"><b>Creating a variant database</b></text>
+<text top="437" left="148" width="596" height="13" font="4">The first step in the use of <b>oligoMask </b>is the creation of an SQLite database containing the probe</text>
+<text top="454" left="149" width="597" height="13" font="4">annotation (including alignments to a given genome), variant annotation and the overlap,if any,</text>
+<text top="470" left="149" width="595" height="13" font="4">between probes and variants. In a general sense, the probes sequences are first realigned to the given</text>
+<text top="487" left="149" width="106" height="13" font="4">genome using the</text>
+<text top="487" left="258" width="66" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/BSgenome.html"><b>BSgenome</b></a></text>
+<text top="487" left="327" width="23" height="13" font="4">and</text>
+<text top="487" left="354" width="63" height="13" font="7"><a href="http://www.bioconductor.org/packages/release/bioc/html/Biostrings.html"><b>Biostrings</b></a></text>
+<text top="487" left="420" width="146" height="13" font="4">Bioconductor packages <a href="2014-1-bottomly-wilmot-mcweeney.html#5">(</a></text>
+<text top="487" left="566" width="35" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Pages</a></text>
+<text top="487" left="601" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="487" left="607" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2013</a></text>
+<text top="487" left="634" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">;</a></text>
+<text top="487" left="641" width="66" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">Pages et al.</a></text>
+<text top="487" left="707" width="3" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">,</a></text>
+<text top="487" left="714" width="27" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">2013</a></text>
+<text top="487" left="741" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#5">)</a></text>
+<text top="503" left="148" width="596" height="13" font="4">with the probe location and mappability of the probes being recorded. The locations of the uniquely</text>
+<text top="519" left="149" width="595" height="13" font="4">mapping probes are then used to compute overlap with the variants in the specified VCF file using</text>
+<text top="536" left="149" width="595" height="13" font="4">import and overlap functionality in the <b>VariantAnnotation </b>package. The locations of the variants</text>
+<text top="552" left="149" width="595" height="13" font="4">in the genome, type of variant and the individual/population it was observed in is also recorded</text>
+<text top="569" left="149" width="595" height="13" font="4">along with the overlap between probe alignments and variants. A convenience function for database</text>
+<text top="585" left="149" width="130" height="13" font="4">creation is provided (</text>
+<text top="582" left="279" width="465" height="18" font="4">create.sanger.mouse.vcf.db) for use with the case of variants derived from</text>
+<text top="602" left="148" width="596" height="13" font="4">VCF files from the Sanger Mouse Genomes Project and variants of the Affymetrix Mouse Gene ST</text>
+<text top="618" left="149" width="595" height="13" font="4">arrays. The <b>oligoMask </b>Vignette demonstrates in the section ’Data preparation’ how the NOD variant</text>
+<text top="635" left="149" width="465" height="13" font="4">database package (<b>om.NOD.mogene.1.0.st</b>) can be created using this function.</text>
+<text top="655" left="171" width="575" height="13" font="4">Additional array platforms and variant genotype file types can be supported through a modifica-</text>
+<text top="672" left="149" width="37" height="13" font="4">tion of</text>
+<text top="668" left="189" width="562" height="18" font="4">create.sanger.mouse.vcf.db as well as specifying the database schema as a &#34;TableSchemaList&#34;</text>
+<text top="688" left="149" width="222" height="13" font="4">object as returned in the pre-defined</text>
+<text top="685" left="375" width="369" height="18" font="4">SangerTableSchemaList function. The &#34;TableSchemaList&#34; S4</text>
+<text top="705" left="149" width="595" height="13" font="4">class serves a similar role as an object-relational mapping approach (ORM) in other languages and</text>
+<text top="721" left="149" width="404" height="13" font="4">allows the R code to interact with a given database in a general way.</text>
+<text top="763" left="149" width="133" height="15" font="8"><b>Masking procedure</b></text>
+<text top="795" left="148" width="596" height="13" font="4">The masking procedure first requires the installation of the <b>oligo </b>package along with the appropriate</text>
+<text top="811" left="148" width="596" height="13" font="4">platform design databases that can be downloaded from Bioconductor. In our use case of Affymetrix</text>
+<text top="828" left="149" width="327" height="13" font="4">Gene ST arrays, the CEL files are first read in using the</text>
+<text top="824" left="479" width="265" height="18" font="4">read.celfiles function of <b>oligo </b>resulting in</text>
+<text top="844" left="149" width="7" height="13" font="4">a</text>
+<text top="841" left="159" width="585" height="18" font="4">&#34;GeneFeatureSet&#34; object. Next, the <b>oligoMask </b>database package is loaded, the parameters for the</text>
+<text top="860" left="149" width="596" height="13" font="4">masking procedure are defined and finally the RMA summarization is performed as is shown below</text>
+<text top="877" left="149" width="100" height="13" font="4">starting from the</text>
+<text top="873" left="252" width="350" height="18" font="4">&#34;GeneFeatureSet&#34; object distributed with <b>oligoMaskData</b>.</text>
+<text top="902" left="149" width="123" height="18" font="4">library(oligoMask)</text>
+<text top="918" left="149" width="151" height="18" font="4">library(oligoMaskData)</text>
+<text top="934" left="149" width="199" height="18" font="4">library(om.NOD.mogene.1.0.st)</text>
+<text top="951" left="149" width="192" height="18" font="4">library(pd.mogene.1.0.st.v1)</text>
+<text top="967" left="149" width="96" height="18" font="4">library(limma)</text>
+<text top="984" left="149" width="130" height="18" font="4">data(oligoMaskData)</text>
+<text top="1017" left="149" width="501" height="18" font="4">var.parms &lt;- VariantMaskParams(om.NOD.mogene.1.0.st, geno.filter = FALSE,</text>
+<text top="1033" left="163" width="233" height="18" font="4">rm.unmap = FALSE, rm.mult = FALSE)</text>
+<text top="1066" left="149" width="508" height="18" font="4">sun.gfs.mask &lt;- maskRMA(oligoMaskData, target = &#34;core&#34;, apply.mask = TRUE,</text>
+<text top="1082" left="163" width="165" height="18" font="4">mask.params = var.parms)</text>
+<text top="1114" left="171" width="279" height="13" font="4">The result of these commands is a summarized</text>
+<text top="1111" left="453" width="293" height="18" font="4">&#34;GeneFeatureSet&#34; object with all probes overlap-</text>
+<text top="1130" left="148" width="596" height="13" font="4">ping variants from the NOD inbred strain of mouse removed prior to the background correction step</text>
+<text top="1147" left="149" width="596" height="13" font="4">of RMA. Users can control several aspects of the masking procedure through creation of a parameter</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">161</text>
+<text top="103" left="149" width="595" height="13" font="4">object. For instance users can additionally remove probes that map to multiple locations as well as</text>
+<text top="120" left="149" width="386" height="13" font="4">those that do not map at all to the reference genome by supplying</text>
+<text top="116" left="538" width="209" height="18" font="4">TRUE to rm.multi and/or rm.unmap.</text>
+<text top="136" left="149" width="595" height="13" font="4">Similarly, masking can be performed using only those variants that passed quality filters encoded in</text>
+<text top="152" left="149" width="132" height="13" font="4">the VCF file by setting</text>
+<text top="149" left="285" width="125" height="18" font="4">geno.filter to TRUE.</text>
+<text top="173" left="171" width="23" height="13" font="4">The</text>
+<text top="170" left="199" width="545" height="18" font="4">maskRMA method carries out the RMA procedure and provides a similar interface to the</text>
+<text top="186" left="149" width="595" height="18" font="4">rma method from <b>oligo</b>. In addition it requires specification of a &#34;VariantMaskParams&#34; object and</text>
+<text top="206" left="148" width="596" height="13" font="4">whether the masking procedure should be performed before the background correction function or</text>
+<text top="223" left="149" width="530" height="13" font="4">after background correction and normalization but before summarization by setting the</text>
+<text top="219" left="682" width="62" height="18" font="4">mask.type</text>
+<text top="239" left="149" width="73" height="13" font="4">argument to</text>
+<text top="236" left="225" width="261" height="18" font="4">before.rma or before.summary respectively.</text>
+<text top="281" left="149" width="234" height="15" font="8"><b>Assessment of masking procedure</b></text>
+<text top="313" left="148" width="596" height="13" font="4">As a demonstration of <b>oligoMask </b>next we perform a basic linear-model based differential expression</text>
+<text top="329" left="149" width="598" height="13" font="4">analysis with the Sun et al. 2012 data comparing results with and without the NOD mask applied.</text>
+<text top="346" left="149" width="370" height="13" font="4">Below we illustrate the basic approach using the masked data.</text>
+<text top="372" left="149" width="254" height="18" font="4">sun.exprs.mask &lt;- exprs(sun.gfs.mask)</text>
+<text top="389" left="149" width="576" height="18" font="4">phen.dta &lt;- data.frame(t(sapply(strsplit(colnames(sun.exprs.mask), &#34;_&#34;), c))[, 1:3])</text>
+<text top="405" left="149" width="357" height="18" font="4">names(phen.dta) &lt;- c(&#34;tissue&#34;, &#34;strain&#34;, &#34;exposure&#34;)</text>
+<text top="422" left="149" width="336" height="18" font="4">use.mod &lt;- model.matrix(~strain, data = phen.dta)</text>
+<text top="438" left="149" width="254" height="18" font="4">fit &lt;- lmFit(sun.exprs.mask, use.mod)</text>
+<text top="455" left="149" width="123" height="18" font="4">fit &lt;- eBayes(fit)</text>
+<text top="471" left="149" width="261" height="18" font="4">sun.exprs.mask.res &lt;- decideTests(fit)</text>
+<text top="504" left="171" width="294" height="13" font="4">We then repeat this procedure but this time setting</text>
+<text top="501" left="469" width="275" height="18" font="4">apply.mask = FALSE in maskRMA to provide the</text>
+<text top="521" left="149" width="301" height="13" font="4">baseline standard RMA values for the comparison.</text>
+<text top="547" left="149" width="528" height="18" font="4">sun.gfs.unmask &lt;- maskRMA(oligoMaskData, target = &#34;core&#34;, apply.mask = FALSE,</text>
+<text top="564" left="211" width="165" height="18" font="4">mask.params = var.parms)</text>
+<text top="597" left="149" width="281" height="18" font="4">sun.exprs.unmask &lt;- exprs(sun.gfs.unmask)</text>
+<text top="613" left="149" width="96" height="18" font="4">um.phen.dta &lt;-</text>
+<text top="629" left="176" width="508" height="18" font="4">data.frame(t(sapply(strsplit(colnames(sun.exprs.unmask), &#34;_&#34;), c))[, 1:3])</text>
+<text top="646" left="149" width="391" height="18" font="4">names(um.phen.dta) &lt;- c(&#34;tissue&#34; , &#34;strain&#34; , &#34;exposure&#34;)</text>
+<text top="662" left="149" width="357" height="18" font="4">um.mod &lt;- model.matrix(~strain , data = um.phen.dta)</text>
+<text top="679" left="149" width="288" height="18" font="4">um.fit &lt;- lmFit(sun.exprs.unmask , um.mod)</text>
+<text top="695" left="149" width="165" height="18" font="4">um.fit &lt;- eBayes(um.fit)</text>
+<text top="712" left="149" width="295" height="18" font="4">sun.exprs.unmask.res &lt;- decideTests(um.fit)</text>
+<text top="745" left="171" width="355" height="13" font="4">Finally we produce a summary venn diagram of the results.</text>
+<text top="771" left="149" width="556" height="18" font="4">comb.mat &lt;- cbind(sun.exprs.unmask.res[ , &#34;strainNOD&#34;, drop = FALSE], Masked = 0)</text>
+<text top="788" left="149" width="350" height="18" font="4">comb.mat[rownames(sun.exprs.mask.res), &#34;Masked&#34;] &lt;-</text>
+<text top="804" left="163" width="226" height="18" font="4">sun.exprs.mask.res[, &#34;strainNOD&#34;]</text>
+<text top="821" left="149" width="240" height="18" font="4">colnames(comb.mat)[1] &lt;- &#34;UnMasked&#34;</text>
+<text top="837" left="149" width="226" height="18" font="4">vennDiagram(vennCounts(comb.mat))</text>
+<text top="870" left="171" width="575" height="13" font="4">The Venn diagram provides a visual comparison between the masked and unmasked results,</text>
+<text top="887" left="149" width="401" height="13" font="4">allowing the user to assess impact of variants on expression (Figure</text>
+<text top="887" left="553" width="7" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">1</a></text>
+<text top="887" left="560" width="184" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#4">). </a>An executable version of this</text>
+<text top="903" left="149" width="355" height="13" font="4">code is provided in the accompanying vignette accessed by:</text>
+<text top="930" left="149" width="446" height="18" font="4">Stangle(system.file(&#34;doc/oligoMask.Rnw&#34; , package = &#34;oligoMask&#34;))</text>
+<text top="987" left="149" width="94" height="17" font="6"><b>Conclusion</b></text>
+<text top="1026" left="149" width="66" height="13" font="3"><b>oligoMask</b></text>
+<text top="1026" left="218" width="526" height="13" font="4">is a flexible R/SQLite framework for pre-processing and QA/QC of hybridization based</text>
+<text top="1042" left="149" width="595" height="13" font="4">expression data. Not only can it remove the effect of spurious probe intensities due to genetic variants</text>
+<text top="1059" left="149" width="595" height="13" font="4">but it can additionally correct for design artifacts (probes mapping to multiple places or not mapping</text>
+<text top="1075" left="149" width="596" height="13" font="4">at all). It utilizes SQLite and works in conjunction with the <b>oligo </b>Bioconductor package. Currently</text>
+<text top="1092" left="149" width="596" height="13" font="4">it supports the Affymetrix Mouse Gene ST array though support could be easily added for other</text>
+<text top="1108" left="149" width="595" height="13" font="4">array types or species as described above. Approaches for removal of probes based off of the variant</text>
+<text top="1124" left="149" width="595" height="13" font="4">and mapping information in the SQLite database are already implemented. More sophisticated</text>
+<text top="1141" left="149" width="595" height="13" font="4">algorithms could be built on top of the database to provide masking additionally based off of the</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">162</text>
+<text top="295" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="295" left="206" width="538" height="13" font="4">Concordance of differentially expressed genes between the masked and unmasked versions</text>
+<text top="311" left="149" width="85" height="13" font="4">of the analysis</text>
+<text top="361" left="149" width="595" height="13" font="4">expression data itself or inferred haplotypes. We are currently working on allowing the masking to</text>
+<text top="377" left="149" width="595" height="13" font="4">be further controlled by enforcing positional constraints on the variants relative to the probes as well</text>
+<text top="394" left="149" width="595" height="13" font="4">as enabling masking to be based solely on the mapping information. Source code is freely available</text>
+<text top="410" left="149" width="96" height="13" font="4">to all users from</text>
+<text top="407" left="248" width="261" height="18" font="5"><a href="https://github.com/dbottomly/oligoMask">https://github.com/dbottomly/oligoMask</a></text>
+<text top="410" left="509" width="235" height="13" font="4"><a href="https://github.com/dbottomly/oligoMask">. </a>Note that <b>om.NOD.mogene.1.0.st </b>and</text>
+<text top="427" left="149" width="95" height="13" font="3"><b>oligoMaskData</b></text>
+<text top="427" left="247" width="299" height="13" font="4">are available as part of release 0.99.08 on github <a href="https://github.com/dbottomly/oligoMask/releases">(</a></text>
+<text top="423" left="547" width="199" height="18" font="5"><a href="https://github.com/dbottomly/oligoMask/releases">https://github.com/dbottomly/</a></text>
+<text top="440" left="149" width="123" height="18" font="5"><a href="https://github.com/dbottomly/oligoMask/releases">oligoMask/releases</a></text>
+<text top="443" left="272" width="8" height="13" font="4"><a href="https://github.com/dbottomly/oligoMask/releases">).</a></text>
+<text top="488" left="149" width="163" height="17" font="6"><b>Acknowledgements</b></text>
+<text top="527" left="148" width="596" height="13" font="4">We thank the two anonymous reviewers for their comments. This work was supported in part by</text>
+<text top="543" left="149" width="595" height="13" font="4">grants from the National Institute of Allergy and Infectious Disease (1U19AI100625), the National</text>
+<text top="560" left="149" width="595" height="13" font="4">Center for Advancing Translational Sciences (5UL1RR024140) and the National Cancer Institute</text>
+<text top="576" left="148" width="119" height="13" font="4">(5P30CA069533-13).</text>
+<text top="621" left="149" width="109" height="17" font="6"><b>Bibliography</b></text>
+<text top="660" left="149" width="595" height="13" font="4">1000 Genomes Project Consortium. An Integrated Map of Genetic Variation From 1,092 Human</text>
+<text top="676" left="164" width="194" height="13" font="4">Genomes. Nature, 491:1, 2012. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="676" left="358" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="676" left="378" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="705" left="149" width="595" height="13" font="4">R. Alberts, P. Terpstra, Y. Li, R. Breitling, J.-P. Nap, and R. C. Jansen. Sequence Polymorphisms Cause</text>
+<text top="721" left="164" width="313" height="13" font="4">Many False Cis eQTLs. PloS ONE, 2(7):e622, 2007. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="721" left="477" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="721" left="497" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="749" left="149" width="595" height="13" font="4">D. Benovoy, T. Kwan, and J. Majewski. Effect of Polymorphisms Within Probe-Target Sequences on</text>
+<text top="766" left="164" width="583" height="13" font="4">Olignonucleotide Microarray Experiments. Nucleic Acids Research, 36(13):4417–4423, 2008. doi: 10.</text>
+<text top="782" left="163" width="141" height="13" font="4">1093/nar/gkn409. URL</text>
+<text top="779" left="308" width="391" height="18" font="5"><a href="http://nar.oxfordjournals.org/content/36/13/4417.abstract">http://nar.oxfordjournals.org/content/36/13/4417.abstract</a></text>
+<text top="782" left="699" width="21" height="13" font="4"><a href="http://nar.oxfordjournals.org/content/36/13/4417.abstract">. </a><a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="782" left="719" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="782" left="740" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="811" left="149" width="598" height="13" font="4">B. S. Carvalho and R. A. Irizarry. A Framework for Oligonucleotide Microarray Preprocessing.</text>
+<text top="827" left="163" width="557" height="14" font="4">Bioinformatics, 2010. ISSN 1367-4803. doi: http://dx.doi.org/10.1093/bioinformatics/btq431. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="827" left="720" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="827" left="740" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="855" left="149" width="598" height="13" font="4">R. Chia, F. Achilli, M. F. Festing, and E. M. Fisher. The Origins and Uses of Mouse Outbred Stocks.</text>
+<text top="872" left="164" width="249" height="14" font="4">Nature Genetics, 37(11):1181–1186, 2005. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="872" left="413" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="872" left="433" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="900" left="149" width="595" height="13" font="4">Collaborative Cross Consortium. The Genome Architecture of the Collaborative Cross Mouse Genetic</text>
+<text top="917" left="164" width="314" height="13" font="4">Reference Population. Genetics, 190:389–401, 2012. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="917" left="477" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="917" left="498" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="945" left="149" width="598" height="13" font="4">M. Dai, P. Wang, A. D. Boyd, G. Kostov, B. Athey, E. G. Jones, W. E. Bunney, R. M. Myers, T. P.</text>
+<text top="962" left="164" width="580" height="13" font="4">Speed, H. Akil, et al. Evolving Gene/Transcript Definitions Significantly Alter the Interpretation of</text>
+<text top="978" left="164" width="387" height="13" font="4">GeneChip Data. Nucleic Acids Research, 33(20):e175–e175, 2005. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="978" left="551" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="978" left="571" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="1006" left="149" width="595" height="13" font="4">M. Dannemann, M. Lachmann, and A. Lorenc. ’maskBAD’ - A Package to Detect and Remove</text>
+<text top="1023" left="163" width="581" height="13" font="4">Affymetrix Probes With Binding Affinity Differences. BMC Bioinformatics, 13(1):56, 2012. ISSN</text>
+<text top="1039" left="163" width="274" height="13" font="4">1471-2105. doi: 10.1186/1471-2105-13-56. URL</text>
+<text top="1036" left="441" width="303" height="18" font="5"><a href="http://www.biomedcentral.com/1471-2105/13/56">http://www.biomedcentral.com/1471-2105/13/56</a></text>
+<text top="1039" left="743" width="3" height="13" font="4"><a href="http://www.biomedcentral.com/1471-2105/13/56">.</a></text>
+<text top="1056" left="164" width="13" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="1056" left="176" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="1056" left="196" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="1084" left="149" width="596" height="13" font="4">S. Duan, W. Zhang, W. K. Bleibel, N. J. Cox, and M. E. Dolan. SNPinProbe_1. 0: A Database for</text>
+<text top="1101" left="164" width="580" height="13" font="4">Filtering Out Probes in the Affymetrix GeneChip® Human Exon 1.0 ST Array Potentially Affected</text>
+<text top="1117" left="164" width="255" height="13" font="4">by SNPs. Bioinformation, 2(10):469, 2008. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="1117" left="418" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="1117" left="438" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">163</text>
+<text top="103" left="149" width="597" height="13" font="4">H. Fujisawa, Y. Horiuchi, Y. Harushima, T. Takada, S. Eguchi, T. Mochizuki, T. Sakaguchi, T. Shiroishi,</text>
+<text top="120" left="164" width="580" height="13" font="4">and N. Kurata. SNEP: Simultaneous Detection of Nucleotide and Expression Polymorphisms Using</text>
+<text top="136" left="163" width="582" height="13" font="4">Affymetrix GeneChip. BMC Bioinformatics, 10(1):131, 2009. ISSN 1471-2105. doi: 10.1186/1471-2105-</text>
+<text top="152" left="163" width="75" height="13" font="4">10-131. URL</text>
+<text top="149" left="241" width="309" height="18" font="5"><a href="http://www.biomedcentral.com/1471-2105/10/131">http://www.biomedcentral.com/1471-2105/10/131</a></text>
+<text top="152" left="551" width="21" height="13" font="4"><a href="http://www.biomedcentral.com/1471-2105/10/131">. </a><a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="152" left="571" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="152" left="592" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="181" left="149" width="598" height="13" font="4">R. A. Irizarry, B. Hobbs, F. Collin, Y. D. Beazer-Barclay, K. J. Antonellis, U. Scherf, and T. P. Speed.</text>
+<text top="197" left="164" width="580" height="13" font="4">Exploration, Normalization, and Summaries of High Density Oligonucleotide Array Probe Level</text>
+<text top="214" left="164" width="236" height="13" font="4">Data. Biostatistics, 4(2):249–264, 2003. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="214" left="400" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="214" left="420" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="242" left="149" width="597" height="13" font="4">T. M. Keane, L. Goodstadt, P. Danecek, M. A. White, K. Wong, B. Yalcin, A. Heger, A. Agam, G. Slater,</text>
+<text top="259" left="164" width="583" height="13" font="4">M. Goodson, et al. Mouse Genomic Variation and Its Effect on Phenotypes and Gene Regulation.</text>
+<text top="275" left="164" width="206" height="14" font="4">Nature, 477(7364):289–294, 2011. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="275" left="370" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="275" left="390" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="303" left="149" width="596" height="13" font="4">S. Kumari, L. Verma, and J. Weller. AffyMAPSDetector: A Software Tool to Characterize Affymetrix</text>
+<text top="320" left="164" width="580" height="13" font="4">GeneChip® Expression Arrays With Respect to SNPs. BMC Bioinformatics, 8(1):276, 2007. ISSN</text>
+<text top="336" left="163" width="274" height="13" font="4">1471-2105. doi: 10.1186/1471-2105-8-276. URL</text>
+<text top="333" left="441" width="303" height="18" font="5"><a href="http://www.biomedcentral.com/1471-2105/8/276">http://www.biomedcentral.com/1471-2105/8/276</a></text>
+<text top="336" left="743" width="3" height="13" font="4"><a href="http://www.biomedcentral.com/1471-2105/8/276">.</a></text>
+<text top="353" left="164" width="13" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="353" left="176" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="353" left="196" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="381" left="149" width="597" height="13" font="4">V. Obenchain, M. Lawrence, V. Carey, S. Gogarten, P. Shannon, and M. Morgan. VariantAnnotation:</text>
+<text top="398" left="163" width="583" height="13" font="4">A Bioconductor Package for Exploration and Annotation of Genetic Variants. Bioinformatics, 2014.</text>
+<text top="414" left="164" width="243" height="13" font="4">doi: 10.1093/bioinformatics/btu168. URL</text>
+<text top="411" left="409" width="336" height="18" font="5"><a href="http://bioinformatics.oxfordjournals.org/content/early/2014/03/28/bioinformatics.btu168.abstract">http://bioinformatics.oxfordjournals.org/content/</a></text>
+<text top="427" left="164" width="322" height="18" font="5"><a href="http://bioinformatics.oxfordjournals.org/content/early/2014/03/28/bioinformatics.btu168.abstract">early/2014/03/28/bioinformatics.btu168.abstract</a></text>
+<text top="430" left="486" width="21" height="13" font="4"><a href="http://bioinformatics.oxfordjournals.org/content/early/2014/03/28/bioinformatics.btu168.abstract">. </a><a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="430" left="507" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="430" left="527" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="459" left="149" width="595" height="13" font="4">H. Pages. BSgenome: Infrastructure for Biostrings-Based Genome Data Packages, 2013. R package version</text>
+<text top="475" left="163" width="54" height="13" font="4">1.30.0. <a href="2014-1-bottomly-wilmot-mcweeney.html#2">[p</a></text>
+<text top="475" left="217" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">160</a></text>
+<text top="475" left="238" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">]</a></text>
+<text top="504" left="149" width="595" height="13" font="4">H. Pages, P. Aboyoun, R. Gentleman, and S. DebRoy. Biostrings: String Objects Representing Biological</text>
+<text top="520" left="163" width="412" height="14" font="4">Sequences, and Matching Algorithms, 2013. R package version 2.30.0. <a href="2014-1-bottomly-wilmot-mcweeney.html#2">[p</a></text>
+<text top="520" left="576" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">160</a></text>
+<text top="520" left="596" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">]</a></text>
+<text top="548" left="149" width="595" height="13" font="4">C. Stratowa, Vienna, and Austria. xps: Processing and Analysis of Affymetrix Oligonucleotide Arrays</text>
+<text top="565" left="164" width="406" height="14" font="4">including Exon Arrays, Whole Genome Arrays and Plate Arrays, 2013. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="565" left="570" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="565" left="590" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="593" left="149" width="597" height="13" font="4">W. Sun, S. Lee, V. Zhabotynsky, F. Zou, F. A. Wright, J. J. Crowley, Z. Yun, R. J. Buus, D. R. Miller,</text>
+<text top="610" left="164" width="581" height="13" font="4">J. Wang, et al. Transcriptome Atlases of Mouse Brain Reveals Differential Expression Across Brain</text>
+<text top="626" left="164" width="522" height="13" font="4">Regions and Genetic Backgrounds. G3: Genes| Genomes| Genetics, 2(2):203–211, 2012. <a href="2014-1-bottomly-wilmot-mcweeney.html#2">[p</a></text>
+<text top="626" left="686" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">160</a></text>
+<text top="626" left="706" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#2">]</a></text>
+<text top="655" left="149" width="597" height="13" font="4">K. L. Svenson, D. M. Gatti, W. Valdar, C. E. Welsh, R. Cheng, E. J. Chesler, A. A. Palmer, L. McMillan,</text>
+<text top="671" left="164" width="580" height="13" font="4">and G. A. Churchill. High-Resolution Genetic Mapping Using the Mouse Diversity Outbred</text>
+<text top="687" left="164" width="268" height="13" font="4">Population. Genetics, 190(2):437–447, 2012. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="687" left="432" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="687" left="452" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="716" left="149" width="597" height="13" font="4">N. A. Walter, S. K. McWeeney, S. T. Peters, J. K. Belknap, R. Hitzemann, and K. J. Buck. SNPs Matter:</text>
+<text top="732" left="164" width="507" height="13" font="4">Impact on Detection of Differential Expression. Nature Methods, 4(9):679–680, 2007. <a href="2014-1-bottomly-wilmot-mcweeney.html#1">[p</a></text>
+<text top="732" left="670" width="20" height="13" font="5"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">159</a></text>
+<text top="732" left="691" width="4" height="13" font="4"><a href="2014-1-bottomly-wilmot-mcweeney.html#1">]</a></text>
+<text top="779" left="148" width="90" height="13" font="4">Daniel Bottomly</text>
+<text top="795" left="148" width="287" height="13" font="4">Oregon Clinical and Translational Research Institute</text>
+<text top="811" left="148" width="210" height="13" font="4">Oregon Health and Science University</text>
+<text top="828" left="149" width="173" height="13" font="4">3181 SW Sam Jackson Park Rd.</text>
+<text top="844" left="148" width="132" height="13" font="4">Portland, Oregon 97239</text>
+<text top="861" left="148" width="28" height="13" font="4">USA</text>
+<text top="857" left="179" width="117" height="18" font="5"><a href="mailto:bottomly@ohsu.edu">bottomly@ohsu.edu</a></text>
+<text top="898" left="148" width="69" height="13" font="4">Beth Wilmot</text>
+<text top="915" left="148" width="287" height="13" font="4">Oregon Clinical and Translational Research Institute</text>
+<text top="931" left="148" width="347" height="13" font="4">Division of Bioinformatics and Computational Biology, DMICE</text>
+<text top="947" left="149" width="173" height="13" font="4">3181 SW Sam Jackson Park Rd.</text>
+<text top="964" left="148" width="132" height="13" font="4">Portland, Oregon 97239</text>
+<text top="980" left="148" width="28" height="13" font="4">USA</text>
+<text top="977" left="179" width="110" height="18" font="5"><a href="mailto:wilmotb@ohsu.edu">wilmotb@ohsu.edu</a></text>
+<text top="1018" left="148" width="128" height="13" font="4">Shannon K. McWeeney</text>
+<text top="1034" left="148" width="287" height="13" font="4">Oregon Clinical and Translational Research Institute</text>
+<text top="1050" left="148" width="130" height="13" font="4">Knight Cancer Institute</text>
+<text top="1067" left="148" width="347" height="13" font="4">Division of Bioinformatics and Computational Biology, DMICE</text>
+<text top="1083" left="148" width="176" height="13" font="4">Division of Biostatistics, PHPM</text>
+<text top="1100" left="149" width="173" height="13" font="4">3181 SW Sam Jackson Park Rd.</text>
+<text top="1116" left="148" width="132" height="13" font="4">Portland, Oregon 97239</text>
+<text top="1133" left="148" width="28" height="13" font="4">USA</text>
+<text top="1129" left="179" width="117" height="18" font="5"><a href="mailto:mcweeney@ohsu.edu">mcweeney@ohsu.edu</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

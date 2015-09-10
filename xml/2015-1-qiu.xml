@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+	<fontspec id="11" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">99</text>
+<text top="98" left="149" width="493" height="30" font="2"><b>showtext: Using System Fonts in R</b></text>
+<text top="137" left="149" width="129" height="30" font="2"><b>Graphics</b></text>
+<text top="173" left="149" width="90" height="15" font="0">by Yixuan Qiu</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="208" width="536" height="13" font="4">This article introduces the <b>showtext </b>package that makes it easy to use system fonts in R</text>
+<text top="231" left="149" width="595" height="13" font="4">graphics. Unlike other methods to embed fonts into graphics, <b>showtext </b>converts text into raster images</text>
+<text top="247" left="149" width="595" height="13" font="4">or polygons, and then adds them to the plot canvas. This method produces platform-independent</text>
+<text top="264" left="149" width="595" height="13" font="4">image files that do not rely on the fonts that create them. It supports a large number of font formats</text>
+<text top="280" left="149" width="595" height="13" font="4">and R graphics devices, and meanwhile provides convenient features such as using web fonts and</text>
+<text top="297" left="149" width="597" height="13" font="4">integrating with <b>knitr</b>. This article provides an elaborate introduction to the <b>showtext </b>package,</text>
+<text top="313" left="149" width="251" height="13" font="4">including its design, usage, and examples.</text>
+<text top="358" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="397" left="149" width="595" height="13" font="4">Using fonts in R graphics is neither a new topic nor a difficult task, if only the standard font families</text>
+<text top="413" left="149" width="595" height="13" font="4">such as “sans”, “serif” and “mono” are needed. However, problems occur when one wants to select</text>
+<text top="430" left="149" width="595" height="13" font="4">fonts that are installed in the system but not among the standard families inside R, especially for the</text>
+<text top="446" left="149" width="597" height="13" font="4">PDF graphics device. With the evolution of R graphics device as well as related extension packages,</text>
+<text top="462" left="149" width="546" height="13" font="4">there are more and more solutions emerging to solve the font problem. The R News article</text>
+<text top="462" left="698" width="46" height="13" font="6"><a href="2015-1-qiu.html#10">Murrell</a></text>
+<text top="479" left="149" width="65" height="13" font="6"><a href="2015-1-qiu.html#10">and Ripley</a></text>
+<text top="479" left="217" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="479" left="222" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2006</a></text>
+<text top="479" left="249" width="496" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>systematically describes the working mechanism of PostScript and PDF devices to</text>
+<text top="495" left="149" width="467" height="13" font="4">handle nonstandard fonts, and more recently, the blog post by Winston <a href="2015-1-qiu.html#0">Chang</a></text>
+<text top="493" left="616" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">1</a></text>
+<text top="495" left="625" width="119" height="13" font="4">serves as an tutorial</text>
+<text top="512" left="149" width="39" height="13" font="4">for the</text>
+<text top="512" left="191" width="55" height="13" font="8"><a href="http://CRAN.R-project.org/package=extrafont"><b>extrafont</b></a></text>
+<text top="512" left="250" width="56" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="512" left="306" width="39" height="13" font="6"><a href="2015-1-qiu.html#10">Chang</a></text>
+<text top="512" left="345" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="512" left="351" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2014</a></text>
+<text top="512" left="378" width="366" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>which makes it easy to use TrueType fonts in PostScript, PDF</text>
+<text top="528" left="149" width="180" height="13" font="4">and Windows bitmap devices.</text>
+<text top="549" left="171" width="283" height="13" font="4">With the same target, this article introduces the</text>
+<text top="549" left="458" width="55" height="13" font="8"><a href="http://CRAN.R-project.org/package=showtext"><b>showtext</b></a></text>
+<text top="549" left="517" width="57" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="549" left="574" width="23" height="13" font="6"><a href="2015-1-qiu.html#10">Qiu</a></text>
+<text top="549" left="597" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="549" left="604" width="34" height="13" font="6"><a href="2015-1-qiu.html#10">2015a</a></text>
+<text top="549" left="638" width="106" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>that provides an</text>
+<text top="566" left="149" width="595" height="13" font="4">alternative way to use fonts in R graphics. It has good support for various font formats and most</text>
+<text top="582" left="149" width="595" height="13" font="4">graphics devices in R, and meanwhile provides some extra features such as loading web fonts and</text>
+<text top="598" left="149" width="97" height="13" font="4">integration with</text>
+<text top="598" left="249" width="31" height="13" font="8"><a href="http://CRAN.R-project.org/package=knitr"><b>knitr</b></a></text>
+<text top="598" left="283" width="5" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="598" left="288" width="20" height="13" font="6"><a href="2015-1-qiu.html#10">Xie</a></text>
+<text top="598" left="308" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="598" left="314" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2013</a></text>
+<text top="598" left="341" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="598" left="348" width="34" height="13" font="6"><a href="2015-1-qiu.html#10">2014a</a></text>
+<text top="598" left="382" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="598" left="386" width="8" height="13" font="6"><a href="2015-1-qiu.html#0">b</a></text>
+<text top="598" left="393" width="351" height="13" font="4"><a href="2015-1-qiu.html#0">). </a>All efforts devoted to the <b>showtext </b>package are trying to</text>
+<text top="615" left="149" width="438" height="13" font="4">seek an easy and elegant way to make use of different fonts in R graphics.</text>
+<text top="636" left="171" width="575" height="13" font="4">In the remaining part, this article will first review some existing methods of font selection in R,</text>
+<text top="652" left="149" width="595" height="13" font="4">and then give an introduction to the <b>showtext </b>package, including its design, usage, examples and a</text>
+<text top="669" left="149" width="183" height="13" font="4">number of suggestions for use.</text>
+<text top="713" left="149" width="241" height="17" font="5"><b>Existing methods to use fonts</b></text>
+<text top="755" left="149" width="202" height="15" font="9"><b>Built-in graphics devices in R</b></text>
+<text top="787" left="149" width="595" height="13" font="4">It is possible to let R’s built-in graphics devices (e.g., PNG and PDF) to use installed fonts in the</text>
+<text top="803" left="149" width="538" height="13" font="4">system. However, the implementation is quite configuration dependent. If Cairo <a href="2015-1-qiu.html#0">graphics</a></text>
+<text top="800" left="687" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">2</a></text>
+<text top="803" left="696" width="48" height="13" font="4">support</text>
+<text top="820" left="149" width="192" height="13" font="4">has been compiled in R such that</text>
+<text top="816" left="344" width="400" height="18" font="4">png(type = &#34;cairo&#34;) and cairo_pdf() are available, then it is quite</text>
+<text top="836" left="149" width="595" height="13" font="4">straightforward to use system fonts in the plots. One only needs to specify the family name of font as</text>
+<text top="852" left="149" width="177" height="13" font="4">is used by the system. (Figure</text>
+<text top="852" left="329" width="7" height="13" font="6"><a href="2015-1-qiu.html#2">1</a></text>
+<text top="852" left="336" width="4" height="13" font="4"><a href="2015-1-qiu.html#2">)</a></text>
+<text top="879" left="149" width="123" height="18" font="4">&gt; library(ggplot2)</text>
+<text top="895" left="149" width="261" height="18" font="4">&gt; # background for various plots later</text>
+<text top="912" left="149" width="398" height="18" font="4">&gt; bg &lt;- ggplot(NULL, aes(x = 1, y = 1)) + ylim(0.8, 1.2) +</text>
+<text top="928" left="149" width="7" height="18" font="4">+</text>
+<text top="928" left="190" width="446" height="18" font="4">theme(axis.title = element_blank(), axis.ticks = element_blank(),</text>
+<text top="945" left="149" width="7" height="18" font="4">+</text>
+<text top="945" left="231" width="192" height="18" font="4">axis.text = element_blank())</text>
+<text top="961" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="978" left="149" width="199" height="18" font="4">&gt; if(capabilities(&#34;cairo&#34;)) {</text>
+<text top="994" left="149" width="7" height="18" font="4">+</text>
+<text top="994" left="190" width="384" height="18" font="4">png(&#34;builtin-1.png&#34;, 672, 384, type = &#34;cairo&#34;, res = 96)</text>
+<text top="1010" left="149" width="7" height="18" font="4">+</text>
+<text top="1010" left="190" width="487" height="18" font="4">txt1 &lt;- annotate(&#34;text&#34;, 1, 1, label = &#34;A sample of\nDejaVu Sans Mono&#34;,</text>
+<text top="1027" left="149" width="7" height="18" font="4">+</text>
+<text top="1027" left="307" width="268" height="18" font="4">family = &#34;DejaVu Sans Mono&#34;, size = 15)</text>
+<text top="1043" left="149" width="7" height="18" font="4">+</text>
+<text top="1043" left="190" width="110" height="18" font="4">print(bg + txt1)</text>
+<text top="1060" left="149" width="7" height="18" font="4">+</text>
+<text top="1060" left="190" width="62" height="18" font="4">dev.off()</text>
+<text top="1076" left="149" width="7" height="18" font="4">+</text>
+<text top="1093" left="149" width="7" height="18" font="4">+</text>
+<text top="1093" left="190" width="219" height="18" font="4">cairo_pdf(&#34;builtin-2.pdf&#34;, 7, 4)</text>
+<text top="1121" left="165" width="4" height="9" font="10"><a href="http://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html">1</a></text>
+<text top="1120" left="170" width="561" height="16" font="11"><a href="http://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html">http://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html</a></text>
+<text top="1136" left="165" width="4" height="9" font="10"><a href="http://cairographics.org/">2</a></text>
+<text top="1135" left="170" width="152" height="16" font="11"><a href="http://cairographics.org/">http://cairographics.org/</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="22" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">100</text>
+<text top="100" left="149" width="7" height="18" font="4">+</text>
+<text top="100" left="190" width="508" height="18" font="4">txt2 &lt;- annotate(&#34;text&#34;, 1, 1, label = &#34;A sample of\nDejaVu Serif Italic&#34;,</text>
+<text top="116" left="149" width="7" height="18" font="4">+</text>
+<text top="116" left="307" width="384" height="18" font="4">family = &#34;DejaVu Serif&#34;, fontface = &#34;italic&#34;, size = 15)</text>
+<text top="133" left="149" width="7" height="18" font="4">+</text>
+<text top="133" left="190" width="110" height="18" font="4">print(bg + txt2)</text>
+<text top="149" left="149" width="7" height="18" font="4">+</text>
+<text top="149" left="190" width="62" height="18" font="4">dev.off()</text>
+<text top="165" left="149" width="21" height="18" font="4">+ }</text>
+<text top="257" left="520" width="148" height="29" font="12"><i>A sample of</i></text>
+<text top="292" left="479" width="230" height="29" font="12"><i>DejaVu Serif Italic</i></text>
+<text top="391" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="391" left="206" width="540" height="13" font="4">Specify full family name when Cairo graphics is compiled into R. Left: graph in PNG format;</text>
+<text top="407" left="149" width="161" height="14" font="4">right: graph in PDF format.</text>
+<text top="444" left="171" width="575" height="13" font="4">However, when Cairo graphics is not available, it will require more effort to customize the font.</text>
+<text top="460" left="149" width="595" height="13" font="4">For PNG graphs, the user needs to first register a font family name in R which is mapped to a font that</text>
+<text top="477" left="149" width="595" height="13" font="4">is installed in the system, and then specify the font family name in plotting functions. Below is an</text>
+<text top="493" left="149" width="320" height="13" font="4">example to show this procedure on Windows. (Figure</text>
+<text top="493" left="472" width="7" height="13" font="6"><a href="2015-1-qiu.html#2">2</a></text>
+<text top="493" left="479" width="4" height="13" font="4"><a href="2015-1-qiu.html#2">)</a></text>
+<text top="519" left="149" width="261" height="18" font="4">&gt; if(.Platform$OS.type == &#34;windows&#34;) {</text>
+<text top="536" left="149" width="7" height="18" font="4">+</text>
+<text top="536" left="190" width="274" height="18" font="4">windowsFonts(century = &#34;Century Gothic&#34;)</text>
+<text top="552" left="149" width="7" height="18" font="4">+</text>
+<text top="552" left="190" width="274" height="18" font="4">png(&#34;builtin-3.png&#34;, 672, 384, res = 96)</text>
+<text top="569" left="149" width="7" height="18" font="4">+</text>
+<text top="569" left="190" width="473" height="18" font="4">txt3 &lt;- annotate(&#34;text&#34;, 1, 1, label = &#34;A sample of\nCentury Gothic&#34;,</text>
+<text top="585" left="149" width="7" height="18" font="4">+</text>
+<text top="585" left="307" width="206" height="18" font="4">family = &#34;century&#34;, size = 20)</text>
+<text top="602" left="149" width="7" height="18" font="4">+</text>
+<text top="602" left="190" width="110" height="18" font="4">print(bg + txt3)</text>
+<text top="618" left="149" width="7" height="18" font="4">+</text>
+<text top="618" left="190" width="62" height="18" font="4">dev.off()</text>
+<text top="635" left="149" width="21" height="18" font="4">+ }</text>
+<text top="860" left="229" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="860" left="287" width="377" height="13" font="4">Use system fonts for PNG on Windows without Cairo graphics.</text>
+<text top="897" left="171" width="193" height="13" font="4">Notice that we use the function</text>
+<text top="893" left="368" width="376" height="18" font="4">windowsFonts() to register font and create name mapping. In</text>
+<text top="913" left="149" width="371" height="13" font="4">other operating systems, there are analogous functions such as</text>
+<text top="910" left="523" width="221" height="18" font="4">X11Fonts() and quartzFonts() to do</text>
+<text top="930" left="149" width="88" height="13" font="4">the similar job.</text>
+<text top="950" left="171" width="503" height="13" font="4">For PDF graphs, the setup is more complicated. The first step is similar: one should call</text>
+<text top="947" left="677" width="69" height="18" font="4">pdfFonts()</text>
+<text top="967" left="149" width="595" height="13" font="4">to register new family names in R, and then use them in the plot. However, the obstacle here is that</text>
+<text top="980" left="149" width="595" height="18" font="4">pdfFonts() requires the Adobe Font Metrics files (.afm), which may be unavailable for users. On</text>
+<text top="1000" left="149" width="175" height="13" font="4">the contrary, TrueType fonts (</text>
+<text top="996" left="323" width="421" height="18" font="4">.ttf) and OpenType fonts (mostly .otf) are most commonly used, but</text>
+<text top="1016" left="149" width="367" height="13" font="4">unfortunately, these font formats are not directly supported by</text>
+<text top="1013" left="519" width="225" height="18" font="4">pdfFonts(). Additionally, to make the</text>
+<text top="1033" left="148" width="596" height="13" font="4">plot have consistent appearance across different PDF viewers, it is usually suggested to embed the</text>
+<text top="1049" left="149" width="247" height="13" font="4">font within the file by calling the function</text>
+<text top="1046" left="399" width="345" height="18" font="4">embedFonts(), which further invokes an external software</text>
+<text top="1066" left="149" width="69" height="13" font="4"><a href="2015-1-qiu.html#0">Ghostscript</a></text>
+<text top="1063" left="218" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">3</a></text>
+<text top="1066" left="224" width="404" height="13" font="4"><a href="2015-1-qiu.html#0">. </a>For the details, interested readers are referred to the R News article</text>
+<text top="1066" left="631" width="114" height="13" font="6"><a href="2015-1-qiu.html#10">Murrell and Ripley</a></text>
+<text top="1082" left="148" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="1082" left="153" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2006</a></text>
+<text top="1082" left="180" width="8" height="13" font="4"><a href="2015-1-qiu.html#10">).</a></text>
+<text top="1103" left="171" width="573" height="13" font="4">Due to this complexity, when creating PDF graphs users are most likely to only select the built-in</text>
+<text top="1119" left="149" width="341" height="13" font="4">PDF font families, which can be queried by the command</text>
+<text top="1116" left="493" width="120" height="18" font="4">names(pdfFonts()).</text>
+<text top="1146" left="165" width="4" height="9" font="10"><a href="http://www.ghostscript.com/">3</a></text>
+<text top="1145" left="170" width="165" height="16" font="11"><a href="http://www.ghostscript.com/">http://www.ghostscript.com/</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="17" family="Times" color="#000000"/>
+	<fontspec id="14" size="17" family="Times" color="#000000"/>
+	<fontspec id="15" size="14" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">101</text>
+<text top="102" left="149" width="127" height="15" font="9"><b>The Cairo package</b></text>
+<text top="134" left="148" width="23" height="13" font="4">The</text>
+<text top="134" left="174" width="34" height="13" font="8"><a href="http://CRAN.R-project.org/package=Cairo"><b>Cairo</b></a></text>
+<text top="134" left="211" width="57" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="134" left="268" width="125" height="13" font="6"><a href="2015-1-qiu.html#10">Urbanek and Horner</a></text>
+<text top="134" left="394" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="134" left="400" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2014</a></text>
+<text top="134" left="428" width="317" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>provides a number of high-quality graphics devices</text>
+<text top="150" left="149" width="595" height="13" font="4">that are driven by a unified back-end based on Cairo graphics. When the Cairo library is configured</text>
+<text top="167" left="148" width="375" height="13" font="4">with FreeType and Fontconfig support, one can make use of the</text>
+<text top="163" left="527" width="217" height="18" font="4">CairoFonts() function to specify the</text>
+<text top="183" left="149" width="545" height="13" font="4">fonts that will be used by all the devices in <b>Cairo</b>. Below is an example to show this. (Figure</text>
+<text top="183" left="698" width="7" height="13" font="6"><a href="2015-1-qiu.html#3">3</a></text>
+<text top="183" left="704" width="30" height="13" font="4"><a href="2015-1-qiu.html#3">, </a>left)</text>
+<text top="209" left="149" width="110" height="18" font="4">&gt; library(Cairo)</text>
+<text top="226" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="242" left="149" width="377" height="18" font="4">&gt; CairoFonts(regular = &#34;Liberation Sans:style=Regular&#34;,</text>
+<text top="259" left="149" width="7" height="18" font="4">+</text>
+<text top="259" left="238" width="281" height="18" font="4">italic = &#34;Liberation Serif:style=Italic&#34;)</text>
+<text top="275" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="292" left="149" width="213" height="18" font="4">&gt; CairoPDF(&#34;Cairo-1.pdf&#34;, 7, 4)</text>
+<text top="308" left="149" width="576" height="18" font="4">&gt; txt4 &lt;- annotate(&#34;text&#34;, 1, 1.1, label = &#34;A sample of Liberation Sans&#34;, size = 12)</text>
+<text top="325" left="149" width="508" height="18" font="4">&gt; txt5 &lt;- annotate(&#34;text&#34;, 1, 0.9, label = &#34;A sample of Liberation Serif&#34;,</text>
+<text top="341" left="149" width="7" height="18" font="4">+</text>
+<text top="341" left="279" width="213" height="18" font="4">fontface = &#34;italic&#34;, size = 12)</text>
+<text top="357" left="149" width="171" height="18" font="4">&gt; print(bg + txt4 + txt5)</text>
+<text top="374" left="149" width="75" height="18" font="4">&gt; dev.off()</text>
+<text top="407" left="171" width="573" height="13" font="4">For systems where Cairo is not configured with FreeType or Fontconfig (e.g., Windows), the</text>
+<text top="424" left="149" width="254" height="13" font="4">method to specify fonts is similar to that of</text>
+<text top="420" left="407" width="286" height="18" font="4">png(type = &#34;cairo&#34;) and cairo_pdf(). (Figure</text>
+<text top="424" left="696" width="7" height="13" font="6"><a href="2015-1-qiu.html#3">3</a></text>
+<text top="424" left="702" width="40" height="13" font="4"><a href="2015-1-qiu.html#3">, </a>right)</text>
+<text top="450" left="149" width="261" height="18" font="4">&gt; if(.Platform$OS.type == &#34;windows&#34;) {</text>
+<text top="467" left="149" width="7" height="18" font="4">+</text>
+<text top="467" left="190" width="199" height="18" font="4">CairoPDF(&#34;Cairo-2.pdf&#34;, 7, 4)</text>
+<text top="483" left="149" width="7" height="18" font="4">+</text>
+<text top="483" left="190" width="453" height="18" font="4">txt6 &lt;- annotate(&#34;text&#34;, 1, 1.1, label = &#34;A sample of Constantia&#34;,</text>
+<text top="499" left="149" width="7" height="18" font="4">+</text>
+<text top="499" left="307" width="226" height="18" font="4">family = &#34;Constantia&#34;, size = 12)</text>
+<text top="516" left="149" width="7" height="18" font="4">+</text>
+<text top="516" left="190" width="480" height="18" font="4">txt7 &lt;- annotate(&#34;text&#34;, 1, 0.9, label = &#34;A sample of Lucida Console&#34;,</text>
+<text top="532" left="149" width="7" height="18" font="4">+</text>
+<text top="532" left="307" width="254" height="18" font="4">family = &#34;Lucida Console&#34;, size = 10)</text>
+<text top="549" left="149" width="7" height="18" font="4">+</text>
+<text top="549" left="190" width="158" height="18" font="4">print(bg + txt6 + txt7)</text>
+<text top="565" left="149" width="7" height="18" font="4">+</text>
+<text top="565" left="190" width="62" height="18" font="4">dev.off()</text>
+<text top="582" left="149" width="21" height="18" font="4">+ }</text>
+<text top="661" left="176" width="253" height="22" font="13">A sample of Liberation Sans</text>
+<text top="727" left="188" width="229" height="22" font="14"><i>A sample of Liberation Serif</i></text>
+<text top="664" left="494" width="201" height="20" font="13">A sample of Constantia</text>
+<text top="730" left="464" width="261" height="17" font="15">A sample of Lucida Console</text>
+<text top="807" left="149" width="54" height="13" font="3"><b>Figure 3:</b></text>
+<text top="807" left="210" width="535" height="13" font="4">Specify fonts in the <b>Cairo </b>package. Left: with FreeType and Fontconfig support; right:</text>
+<text top="824" left="148" width="162" height="13" font="4">without (e.g. on Windows).</text>
+<text top="882" left="149" width="151" height="15" font="9"><b>The extrafont package</b></text>
+<text top="914" left="149" width="55" height="13" font="3"><b>extrafont</b></text>
+<text top="914" left="209" width="536" height="13" font="4">is an R package mainly used to simplify the use of system fonts in PDF and PostScript</text>
+<text top="930" left="149" width="247" height="13" font="4">graphics. It is able to extract metric files (</text>
+<text top="927" left="396" width="349" height="18" font="4">.afm) from TrueType fonts (.ttf) so that the R PDF device</text>
+<text top="947" left="149" width="543" height="13" font="4">can utilize that information to place text in graphics. This procedure is accomplished by the</text>
+<text top="947" left="695" width="50" height="13" font="8"><a href="http://CRAN.R-project.org/package=Rttf2pt1"><b>Rttf2pt1</b></a></text>
+<text top="963" left="148" width="58" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="963" left="207" width="40" height="13" font="6"><a href="2015-1-qiu.html#10">Chang</a></text>
+<text top="963" left="247" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="963" left="254" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2015</a></text>
+<text top="963" left="281" width="464" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>that <b>extrafont </b>depends on. Also, for the same reason previously described,</text>
+<text top="980" left="149" width="55" height="13" font="3"><b>extrafont</b></text>
+<text top="980" left="207" width="128" height="13" font="4">provides the function</text>
+<text top="976" left="338" width="368" height="18" font="4">embed_fonts() to call Ghostscript to embed fonts in PDF files.</text>
+<text top="1001" left="171" width="55" height="13" font="3"><b>extrafont</b></text>
+<text top="1000" left="230" width="514" height="13" font="4">requires a first-time configuration, during which it will scan for TrueType fonts installed</text>
+<text top="1017" left="149" width="598" height="13" font="4">in the system and generate corresponding metric files along with other necessary configuration files.</text>
+<text top="1033" left="148" width="174" height="13" font="4">Afterwards, one needs to call</text>
+<text top="1030" left="326" width="418" height="18" font="4">loadfonts() to register the newly created metric fonts in R. These two</text>
+<text top="1050" left="149" width="436" height="13" font="4">steps only need to be done once and are not necessary in a new R session.</text>
+<text top="1076" left="149" width="137" height="18" font="4">&gt; library(extrafont)</text>
+<text top="1093" left="149" width="89" height="18" font="4">&gt; ## Run once</text>
+<text top="1109" left="149" width="103" height="18" font="4">&gt; font_import()</text>
+<text top="1126" left="149" width="89" height="18" font="4">&gt; loadfonts()</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">102</text>
+<text top="103" left="171" width="573" height="13" font="4">After this set-up, the user may query the available font families for the PDF device by calling</text>
+<text top="120" left="149" width="57" height="13" font="4">functions</text>
+<text top="116" left="209" width="537" height="18" font="4">fonts() or fonttable(), and use them in any plotting functions involving font selection.</text>
+<text top="136" left="149" width="595" height="13" font="4">Since we are now using metric font files, it is best practice to embed the fonts into the PDF file. This is</text>
+<text top="152" left="149" width="166" height="13" font="4">done by calling the function</text>
+<text top="149" left="319" width="140" height="18" font="4">embed_fonts(). (Figure</text>
+<text top="152" left="462" width="7" height="13" font="6"><a href="2015-1-qiu.html#4">4</a></text>
+<text top="152" left="468" width="4" height="13" font="4"><a href="2015-1-qiu.html#4">)</a></text>
+<text top="179" left="149" width="137" height="18" font="4">&gt; library(extrafont)</text>
+<text top="195" left="149" width="281" height="18" font="4">&gt; pdf(&#34;extrafont-1-unembedded.pdf&#34;, 7, 4)</text>
+<text top="212" left="149" width="480" height="18" font="4">&gt; txt8 &lt;- annotate(&#34;text&#34;, 1, 1.1, label = &#34;A sample of Ubuntu Light&#34;,</text>
+<text top="228" left="149" width="7" height="18" font="4">+</text>
+<text top="228" left="279" width="240" height="18" font="4">family = &#34;Ubuntu Light&#34;, size = 12)</text>
+<text top="245" left="149" width="508" height="18" font="4">&gt; txt9 &lt;- annotate(&#34;text&#34;, 1, 0.9, label = &#34;A sample of Ubuntu Condensed&#34;,</text>
+<text top="261" left="149" width="7" height="18" font="4">+</text>
+<text top="261" left="279" width="268" height="18" font="4">family = &#34;Ubuntu Condensed&#34;, size = 12)</text>
+<text top="278" left="149" width="171" height="18" font="4">&gt; print(bg + txt8 + txt9)</text>
+<text top="294" left="149" width="75" height="18" font="4">&gt; dev.off()</text>
+<text top="310" left="149" width="494" height="18" font="4">&gt; embed_fonts(&#34;extrafont-1-unembedded.pdf&#34;, outfile = &#34;extrafont-1.pdf&#34;)</text>
+<text top="392" left="337" width="223" height="19" font="13">A sample of Ubuntu Light</text>
+<text top="459" left="336" width="226" height="19" font="13">A sample of Ubuntu Condensed</text>
+<text top="536" left="247" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="536" left="304" width="343" height="13" font="4">Using the <b>extrafont </b>package to select fonts in PDF device.</text>
+<text top="573" left="171" width="573" height="13" font="4">The embedding procedure requires the Ghostscript program to be installed in the system and</text>
+<text top="590" left="149" width="492" height="13" font="4">findable to R. On Windows, the command below is an example to tell R where it is.</text>
+<text top="616" left="149" width="473" height="18" font="4">&gt; Sys.setenv(R_GSCMD = &#34;C:/Program Files/gs/gs9.05/bin/gswin32c.exe&#34;)</text>
+<text top="649" left="171" width="372" height="13" font="4">More details about <b>extrafont </b>can be found in the README <a href="2015-1-qiu.html#0">file</a></text>
+<text top="647" left="543" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">4</a></text>
+<text top="649" left="553" width="93" height="13" font="4">of this package.</text>
+<text top="694" left="149" width="235" height="17" font="5"><b>The new approach: showtext</b></text>
+<text top="733" left="148" width="596" height="13" font="4">The previous section describes a number of ways to use system fonts in R graphics. While they could</text>
+<text top="749" left="149" width="595" height="13" font="4">be helpful in many situations when dealing with fonts in R, there is still room for seeking more elegant</text>
+<text top="766" left="148" width="596" height="13" font="4">ways to achieve that target, among which the <b>showtext </b>package is one trying to meet such a goal. The</text>
+<text top="782" left="149" width="355" height="13" font="4">following are a number of highlighted features of <b>showtext</b>:</text>
+<text top="809" left="169" width="452" height="13" font="4">1. <b>Easy installation</b>. <b>showtext </b>only requires the lightweight FreeType <a href="2015-1-qiu.html#0">library</a></text>
+<text top="807" left="621" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">5</a></text>
+<text top="809" left="630" width="114" height="13" font="4">for installation, and</text>
+<text top="826" left="186" width="558" height="13" font="4">works without dependence on external software such as Ghostscript. This would be helpful</text>
+<text top="842" left="186" width="561" height="13" font="4">when other solutions are not possible, e.g., when the Cairo library is unavailable in the system.</text>
+<text top="865" left="169" width="575" height="13" font="4">2. <b>Support for various font formats</b>. A certain type of font is supported as long as the back-end</text>
+<text top="881" left="186" width="558" height="13" font="4">FreeType library can read it, including but not limited to TrueType fonts, OpenType fonts, Type</text>
+<text top="897" left="186" width="67" height="13" font="4">1 fonts, etc.</text>
+<text top="920" left="169" width="575" height="13" font="4">3. <b>Support for various R graphics devices</b>. Technically <b>showtext </b>can work on almost any graphics</text>
+<text top="936" left="186" width="368" height="13" font="4">device, regardless of if it is in PNG, PDF, SVG or JPEG format.</text>
+<text top="959" left="169" width="575" height="13" font="4">4. The output graph produced by <b>showtext </b>has a <b>platform-independent appearance </b>. There is no</text>
+<text top="975" left="186" width="558" height="13" font="4">need to embed fonts into the graph, and viewers can read the text without installing the fonts</text>
+<text top="992" left="186" width="172" height="13" font="4">that actually produced them.</text>
+<text top="1014" left="169" width="575" height="13" font="4">5. It also features functions to <b>automatically search and download </b>many beautiful, accessible</text>
+<text top="1030" left="186" width="558" height="13" font="4">and open source fonts on the web, and users can use these fonts without installing them to the</text>
+<text top="1047" left="186" width="555" height="13" font="4">operating system, which means that the system level font library can be kept intact and clean.</text>
+<text top="1069" left="169" width="276" height="13" font="4">6. <b>showtext </b>has a neat <b>integration with knitr</b>.</text>
+<text top="1096" left="165" width="4" height="9" font="10"><a href="http://CRAN.R-project.org/package=extrafont/README.html">4</a></text>
+<text top="1095" left="170" width="336" height="16" font="11"><a href="http://CRAN.R-project.org/package=extrafont/README.html">http://CRAN.R-project.org/package=extrafont/README.html</a></text>
+<text top="1110" left="165" width="4" height="9" font="10"><a href="http://www.freetype.org/">5</a></text>
+<text top="1110" left="170" width="146" height="16" font="11"><a href="http://www.freetype.org/">http://www.freetype.org/</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="7" family="Times" color="#000000"/>
+	<fontspec id="17" size="7" family="Times" color="#000000"/>
+	<fontspec id="18" size="9" family="Times" color="#000000"/>
+	<fontspec id="19" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">103</text>
+<text top="103" left="148" width="596" height="13" font="4">The basic idea behind <b>showtext </b>is quite simple: it converts text into raster images (for bitmap and</text>
+<text top="120" left="149" width="595" height="13" font="4">on-screen devices) or polygons (for vector graphics), and then put them in the graphics. This design</text>
+<text top="136" left="149" width="595" height="13" font="4">comes from the fact that handling text is a very complicated task for graphics devices, but polygons</text>
+<text top="152" left="149" width="595" height="13" font="4">and raster images are lower-level operations that are easier to deal with. Therefore, as long as a device</text>
+<text top="169" left="149" width="595" height="13" font="4">understands how to draw polygons or overlay bitmap on its canvas, it will also be able to show text</text>
+<text top="185" left="148" width="175" height="13" font="4">with the help of this package.</text>
+<text top="206" left="171" width="575" height="13" font="4">More specifically, the <b>showtext </b>package develops a general framework to render text in R graphics.</text>
+<text top="223" left="149" width="597" height="13" font="4">First, it overrides the functions contained in the graphics device that are responsible for drawing text,</text>
+<text top="239" left="149" width="595" height="13" font="4">so that <b>showtext </b>will take over the text rendering procedure. Then, it uses the FreeType library to read</text>
+<text top="256" left="149" width="595" height="13" font="4">the font file and analyze the character string that is going to be displayed in the graph. Finally, the</text>
+<text top="272" left="149" width="596" height="13" font="4">text is transformed into basic graphical components (raster images or polygons) that can be easily</text>
+<text top="288" left="149" width="595" height="13" font="4">rendered by the device. As a result, the created graph does not rely on the original font file, thus being</text>
+<text top="305" left="148" width="136" height="13" font="4">platform-independent.</text>
+<text top="326" left="171" width="381" height="13" font="4">This procedure can be better explained by the diagram in Figure</text>
+<text top="326" left="556" width="7" height="13" font="6"><a href="2015-1-qiu.html#5">5</a></text>
+<text top="326" left="563" width="3" height="13" font="4"><a href="2015-1-qiu.html#5">.</a></text>
+<text top="421" left="172" width="52" height="12" font="16">R function</text>
+<text top="434" left="180" width="36" height="12" font="16">text()</text>
+<text top="421" left="282" width="58" height="12" font="16">Is <b>showtext</b></text>
+<text top="434" left="289" width="45" height="12" font="16">enabled?</text>
+<text top="361" left="407" width="70" height="12" font="16">Default device</text>
+<text top="374" left="422" width="42" height="12" font="16">function</text>
+<text top="387" left="425" width="36" height="12" font="16">text()</text>
+<text top="468" left="405" width="82" height="12" font="17"><b>showtext</b> device</text>
+<text top="481" left="425" width="42" height="12" font="16">function</text>
+<text top="494" left="428" width="36" height="12" font="16">text()</text>
+<text top="413" left="634" width="70" height="12" font="16">Text displayed</text>
+<text top="425" left="619" width="101" height="12" font="16">on graphics window</text>
+<text top="438" left="638" width="62" height="12" font="16">or image ﬁle</text>
+<text top="384" left="348" width="21" height="16" font="4">NO</text>
+<text top="462" left="346" width="25" height="16" font="4">YES</text>
+<text top="642" left="194" width="56" height="12" font="16">Locate font</text>
+<text top="654" left="214" width="15" height="12" font="16">ﬁle</text>
+<text top="636" left="313" width="35" height="12" font="16">Extract</text>
+<text top="647" left="317" width="28" height="12" font="16">glyph</text>
+<text top="657" left="302" width="59" height="12" font="16">information</text>
+<text top="636" left="426" width="37" height="12" font="16">Bitmap</text>
+<text top="647" left="423" width="43" height="12" font="16">or vector</text>
+<text top="657" left="421" width="47" height="12" font="16">graphics?</text>
+<text top="588" left="631" width="70" height="12" font="16">Default device</text>
+<text top="600" left="645" width="42" height="12" font="16">function</text>
+<text top="613" left="642" width="48" height="12" font="16">raster()</text>
+<text top="682" left="633" width="70" height="12" font="16">Default device</text>
+<text top="694" left="647" width="42" height="12" font="16">function</text>
+<text top="707" left="650" width="36" height="12" font="16">path()</text>
+<text top="562" left="529" width="55" height="10" font="10">Raster image</text>
+<text top="735" left="539" width="33" height="10" font="10">Polygon</text>
+<text top="620" left="477" width="40" height="14" font="18">Bitmap</text>
+<text top="672" left="474" width="24" height="17" font="19">Vect</text>
+<text top="681" left="497" width="11" height="14" font="19">or</text>
+<text top="522" left="424" width="45" height="16" font="4">Details</text>
+<text top="773" left="279" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="773" left="336" width="277" height="13" font="4">How <b>showtext </b>works with R graphics devices.</text>
+<text top="833" left="149" width="149" height="17" font="5"><b>Usage of showtext</b></text>
+<text top="871" left="148" width="596" height="13" font="4">The usage of <b>showtext </b>is easy and intuitive, consisting of two major steps: registering system fonts</text>
+<text top="888" left="149" width="595" height="13" font="4">into R, and enabling <b>showtext </b>when executing plotting commands. As an additional feature, its</text>
+<text top="904" left="149" width="328" height="13" font="4">integration with <b>knitr </b>is also introduced in this section.</text>
+<text top="947" left="149" width="117" height="15" font="9"><b>Registering fonts</b></text>
+<text top="978" left="148" width="596" height="13" font="4">The purpose of this step is to create a mapping between the font family name used by R and the path</text>
+<text top="995" left="149" width="597" height="13" font="4">of the corresponding font file, so that every time the graphics device requests a font with a given name,</text>
+<text top="1011" left="149" width="55" height="13" font="3"><b>showtext</b></text>
+<text top="1011" left="207" width="483" height="13" font="4">can locate and open that font file. The actual work of registering fonts is done by the</text>
+<text top="1011" left="693" width="51" height="13" font="8"><a href="http://CRAN.R-project.org/package=sysfonts"><b>sysfonts</b></a></text>
+<text top="1027" left="148" width="59" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="1027" left="207" width="23" height="13" font="6"><a href="2015-1-qiu.html#10">Qiu</a></text>
+<text top="1027" left="230" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="1027" left="238" width="35" height="13" font="6"><a href="2015-1-qiu.html#10">2015b</a></text>
+<text top="1027" left="273" width="382" height="13" font="4"><a href="2015-1-qiu.html#10">), </a>on which <b>showtext </b>depends. <b>sysfonts </b>provides the function</text>
+<text top="1024" left="659" width="85" height="18" font="4">font.add() to</text>
+<text top="1044" left="149" width="598" height="13" font="4">register font families for <b>showtext</b>, with six arguments in total, of which the first two are mandatory.</text>
+<text top="1060" left="148" width="119" height="13" font="4">The first parameter,</text>
+<text top="1057" left="271" width="475" height="18" font="4">family, is the family name that the user wants to use in the plotting functions.</text>
+<text top="1077" left="148" width="94" height="13" font="4">The second one,</text>
+<text top="1073" left="245" width="500" height="18" font="4">regular, should give the path to the font file for a regular font face. Other parameters,</text>
+<text top="1093" left="149" width="42" height="13" font="4">such as</text>
+<text top="1090" left="194" width="552" height="18" font="4">bold and italic, are similar to regular, but pointing to the files with corresponding font faces.</text>
+<text top="1110" left="149" width="272" height="13" font="4">If any of the extra font face parameter is set to</text>
+<text top="1106" left="424" width="302" height="18" font="4">NULL, the font file for regular font face will be used.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">104</text>
+<text top="103" left="171" width="329" height="13" font="4">Below is an example to download and register the <a href="2015-1-qiu.html#0">xkcd</a></text>
+<text top="100" left="501" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">6</a></text>
+<text top="103" left="510" width="107" height="13" font="4">font for <b>showtext</b>.</text>
+<text top="130" left="149" width="130" height="18" font="4">&gt; library(showtext)</text>
+<text top="146" left="149" width="288" height="18" font="4">&gt; dest &lt;- file.path(tempdir(), &#34;xkcd.ttf&#34;)</text>
+<text top="162" left="149" width="521" height="18" font="4">&gt; download.file(&#34;http://simonsoftware.se/other/xkcd.ttf&#34;, dest, mode = &#34;wb&#34;)</text>
+<text top="179" left="149" width="247" height="18" font="4">&gt; font.add(&#34;myxkcd&#34;, regular = dest)</text>
+<text top="212" left="171" width="380" height="13" font="4">If successful, “myxkcd” should appear in the result returned by</text>
+<text top="209" left="554" width="190" height="18" font="4">font.families(). This function</text>
+<text top="229" left="149" width="598" height="13" font="4">lists all font families that are available in <b>showtext</b>, among which “sans”, “serif”, “mono” and “wqy-</text>
+<text top="245" left="149" width="435" height="13" font="4">microhei” are built-in and will be loaded automatically with the package.</text>
+<text top="266" left="171" width="573" height="13" font="4">For most operating systems, fonts are usually installed in some standard locations. To add fonts</text>
+<text top="282" left="149" width="595" height="13" font="4">located in these directories, users can provide the filename rather than the absolute path to save some</text>
+<text top="299" left="149" width="595" height="13" font="4">typing. For example on Windows, <b>sysfonts </b>knows about the standard font directory, so we can use</text>
+<text top="315" left="149" width="381" height="13" font="4">the following code to register the Consolas families to <b>showtext</b>:</text>
+<text top="342" left="149" width="261" height="18" font="4">&gt; if(.Platform$OS.type == &#34;windows&#34;) {</text>
+<text top="358" left="149" width="7" height="18" font="4">+</text>
+<text top="358" left="190" width="466" height="18" font="4">font.add(&#34;consolas&#34;, regular = &#34;consola.ttf&#34;, bold = &#34;consolab.ttf&#34;,</text>
+<text top="375" left="149" width="7" height="18" font="4">+</text>
+<text top="375" left="224" width="364" height="18" font="4">italic = &#34;consolai.ttf&#34;, bolditalic = &#34;consolaz.ttf&#34;)</text>
+<text top="391" left="149" width="7" height="18" font="4">+</text>
+<text top="391" left="190" width="103" height="18" font="4">font.families()</text>
+<text top="408" left="149" width="21" height="18" font="4">+ }</text>
+<text top="437" left="149" width="69" height="18" font="4">[1] &#34;sans&#34;</text>
+<text top="437" left="279" width="48" height="18" font="4">&#34;serif&#34;</text>
+<text top="437" left="382" width="41" height="18" font="4">&#34;mono&#34;</text>
+<text top="437" left="485" width="96" height="18" font="4">&#34;wqy-microhei&#34;</text>
+<text top="454" left="149" width="82" height="18" font="4">[5] &#34;myxkcd&#34;</text>
+<text top="454" left="279" width="69" height="18" font="4">&#34;consolas&#34;</text>
+<text top="487" left="171" width="348" height="13" font="4">Users can view or set such search paths through function</text>
+<text top="484" left="523" width="221" height="18" font="4">font.paths(), and list available font</text>
+<text top="504" left="149" width="170" height="13" font="4">files in those paths by calling</text>
+<text top="500" left="323" width="422" height="18" font="4">font.files(). While it may take some efforts to figure out the filename</text>
+<text top="520" left="149" width="595" height="13" font="4">of a font with a given family name (and perhaps also font face), the naming convention of font files is</text>
+<text top="537" left="149" width="595" height="13" font="4">usually intuitive and fixed. Also, some font file viewers can help mapping the font name to its real file</text>
+<text top="553" left="149" width="118" height="13" font="4">name in the system.</text>
+<text top="574" left="171" width="552" height="13" font="4">To make the font adding process easier, <b>sysfonts </b>also makes use of the Google Fonts pr<a href="2015-1-qiu.html#0">oject</a></text>
+<text top="571" left="723" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">7</a></text>
+<text top="574" left="732" width="12" height="13" font="4">to</text>
+<text top="590" left="149" width="595" height="13" font="4">simplify the process of downloading and registering fonts available on the web. Google Fonts hosts</text>
+<text top="607" left="149" width="443" height="13" font="4">more than 600 open source fonts, and is still enriching its collection. Function</text>
+<text top="603" left="595" width="151" height="18" font="4">font.families.google()</text>
+<text top="623" left="149" width="322" height="13" font="4">lists the presently accessible fonts in the repository, and</text>
+<text top="620" left="474" width="270" height="18" font="4">font.add.google() could search for a specific</text>
+<text top="640" left="149" width="595" height="13" font="4">font family, download its font files for all possible faces, and add them to <b>showtext</b>. These two</text>
+<text top="656" left="149" width="124" height="13" font="4">functions require the</text>
+<text top="656" left="276" width="37" height="13" font="8"><a href="http://CRAN.R-project.org/package=RCurl"><b>RCurl</b></a></text>
+<text top="656" left="317" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="656" left="321" width="78" height="13" font="6"><a href="2015-1-qiu.html#10">Temple Lang</a></text>
+<text top="656" left="399" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="656" left="406" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2015</a></text>
+<text top="656" left="433" width="31" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>and</text>
+<text top="656" left="467" width="46" height="13" font="8"><a href="http://CRAN.R-project.org/package=jsonlite"><b>jsonlite</b></a></text>
+<text top="656" left="516" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="656" left="521" width="36" height="13" font="6"><a href="2015-1-qiu.html#10">Ooms</a></text>
+<text top="656" left="557" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="656" left="563" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2014</a></text>
+<text top="656" left="590" width="154" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>packages. The following</text>
+<text top="673" left="149" width="188" height="13" font="4">code demonstrates this process.</text>
+<text top="699" left="149" width="233" height="18" font="4">&gt; head(font.families.google(), 10)</text>
+<text top="729" left="156" width="89" height="18" font="4">[1] &#34;ABeeZee&#34;</text>
+<text top="729" left="307" width="41" height="18" font="4">&#34;Abel&#34;</text>
+<text top="729" left="430" width="103" height="18" font="4">&#34;Abril Fatface&#34;</text>
+<text top="745" left="156" width="96" height="18" font="4">[4] &#34;Aclonica&#34;</text>
+<text top="745" left="307" width="41" height="18" font="4">&#34;Acme&#34;</text>
+<text top="745" left="430" width="48" height="18" font="4">&#34;Actor&#34;</text>
+<text top="762" left="156" width="89" height="18" font="4">[7] &#34;Adamina&#34;</text>
+<text top="762" left="307" width="82" height="18" font="4">&#34;Advent Pro&#34;</text>
+<text top="762" left="430" width="117" height="18" font="4">&#34;Aguafina Script&#34;</text>
+<text top="778" left="149" width="96" height="18" font="4">[10] &#34;Akronim&#34;</text>
+<text top="808" left="149" width="226" height="18" font="4">&gt; font.add.google(&#34;Lato&#34;, &#34;lato&#34;)</text>
+<text top="825" left="149" width="117" height="18" font="4">&gt; font.families()</text>
+<text top="854" left="149" width="69" height="18" font="4">[1] &#34;sans&#34;</text>
+<text top="854" left="279" width="48" height="18" font="4">&#34;serif&#34;</text>
+<text top="854" left="382" width="41" height="18" font="4">&#34;mono&#34;</text>
+<text top="854" left="485" width="96" height="18" font="4">&#34;wqy-microhei&#34;</text>
+<text top="871" left="149" width="82" height="18" font="4">[5] &#34;myxkcd&#34;</text>
+<text top="871" left="279" width="69" height="18" font="4">&#34;consolas&#34;</text>
+<text top="871" left="382" width="41" height="18" font="4">&#34;lato&#34;</text>
+<text top="904" left="171" width="573" height="13" font="4">Note that the Lato font has multiple font faces (regular, bold, italic, etc.) in the Google Fonts</text>
+<text top="921" left="149" width="63" height="13" font="4">repository.</text>
+<text top="917" left="216" width="456" height="18" font="4">font.add.google() is aware of this and will register all of the font faces in R.</text>
+<text top="963" left="149" width="183" height="15" font="9"><b>Enabling showtext in plots</b></text>
+<text top="994" left="148" width="596" height="13" font="4">After registering the fonts, using them in plotting functions will be straightforward. The simplest way</text>
+<text top="1011" left="149" width="257" height="13" font="4">to enable <b>showtext </b>in R graphs is to call the</text>
+<text top="1007" left="409" width="335" height="18" font="4">showtext.auto() function, after which users are allowed</text>
+<text top="1027" left="149" width="236" height="13" font="4">to use the font families that are listed in</text>
+<text top="1024" left="388" width="358" height="18" font="4">font.families() to draw text. When it is no longer needed,</text>
+<text top="1044" left="149" width="87" height="13" font="4">users may call</text>
+<text top="1040" left="240" width="310" height="18" font="4">showtext.auto(FALSE) to turn <b>showtext </b>off. Figure</text>
+<text top="1044" left="554" width="7" height="13" font="6"><a href="2015-1-qiu.html#7">6</a></text>
+<text top="1044" left="565" width="179" height="13" font="4">is an example to demonstrate</text>
+<text top="1060" left="149" width="91" height="13" font="4">this usage with</text>
+<text top="1060" left="243" width="46" height="13" font="8"><a href="http://CRAN.R-project.org/package=ggplot2"><b>ggplot2</b></a></text>
+<text top="1060" left="293" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="1060" left="297" width="87" height="13" font="6"><a href="2015-1-qiu.html#10">Wickham 2009</a></text>
+<text top="1060" left="384" width="259" height="13" font="4"><a href="2015-1-qiu.html#10">; </a>credit goes to the answer in <a href="2015-1-qiu.html#0">Stackoverflow</a></text>
+<text top="1057" left="643" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">8</a></text>
+<text top="1060" left="653" width="92" height="13" font="4">for inserting an</text>
+<text top="1077" left="149" width="109" height="13" font="4">image in <b>ggplot2</b>):</text>
+<text top="1103" left="165" width="4" height="9" font="10"><a href="http://xkcd.com/">6</a></text>
+<text top="1102" left="170" width="98" height="16" font="11"><a href="http://xkcd.com/">http://xkcd.com/</a></text>
+<text top="1118" left="165" width="4" height="9" font="10"><a href="http://www.google.com/fonts">7</a></text>
+<text top="1117" left="170" width="165" height="16" font="11"><a href="http://www.google.com/fonts">http://www.google.com/fonts</a></text>
+<text top="1133" left="165" width="4" height="9" font="10"><a href="http://stackoverflow.com/questions/9917049/inserting-an-image-to-ggplot2">8</a></text>
+<text top="1132" left="170" width="442" height="16" font="11"><a href="http://stackoverflow.com/questions/9917049/inserting-an-image-to-ggplot2">http://stackoverflow.com/questions/9917049/inserting-an-image-to-ggplot2</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">105</text>
+<text top="100" left="149" width="96" height="18" font="4">&gt; library(png)</text>
+<text top="116" left="149" width="103" height="18" font="4">&gt; library(grid)</text>
+<text top="133" left="149" width="123" height="18" font="4">&gt; library(ggplot2)</text>
+<text top="149" left="149" width="213" height="18" font="4">&gt; ## download and read an image</text>
+<text top="165" left="149" width="281" height="18" font="4">&gt; dest &lt;- file.path(tempdir(), &#34;pic.png&#34;)</text>
+<text top="182" left="149" width="569" height="18" font="4">&gt; download.file(&#34;http://china-r.org/img/China-R-Logo-trans.png&#34;, dest, mode = &#34;wb&#34;)</text>
+<text top="198" left="149" width="357" height="18" font="4">&gt; g &lt;- rasterGrob(readPNG(dest), interpolate = TRUE)</text>
+<text top="215" left="149" width="158" height="18" font="4">&gt; ## load font and plot</text>
+<text top="231" left="149" width="226" height="18" font="4">&gt; font.add.google(&#34;Lato&#34;, &#34;lato&#34;)</text>
+<text top="248" left="149" width="528" height="18" font="4">&gt; ttl &lt;- &#34;\u6b22\u8fce\u5173\u6ce8\u4e2d\u56fd\u0052\u8bed\u8a00\u4f1a\u8bae&#34;</text>
+<text top="264" left="149" width="501" height="18" font="4">&gt; plt &lt;- ggplot(NULL, aes(x = 1, y = 1)) + xlim(73, 135) + ylim(17, 54) +</text>
+<text top="281" left="149" width="7" height="18" font="4">+</text>
+<text top="281" left="190" width="460" height="18" font="4">annotation_custom(g, xmin = 73, xmax = 135, ymin = 17, ymax = 54) +</text>
+<text top="297" left="149" width="7" height="18" font="4">+</text>
+<text top="297" left="190" width="466" height="18" font="4">annotate(&#34;text&#34;, -Inf, -Inf, label = &#34;http://china-r.org&#34;, size = 8,</text>
+<text top="313" left="149" width="7" height="18" font="4">+</text>
+<text top="313" left="252" width="446" height="18" font="4">family = &#34;lato&#34;, fontface = &#34;italic&#34;, hjust = -0.1, vjust = -1) +</text>
+<text top="330" left="149" width="7" height="18" font="4">+</text>
+<text top="330" left="190" width="405" height="18" font="4">coord_fixed() + ggtitle(ttl) + theme_grey(base_size = 20) +</text>
+<text top="346" left="149" width="7" height="18" font="4">+</text>
+<text top="346" left="190" width="240" height="18" font="4">theme(axis.title = element_blank(),</text>
+<text top="363" left="149" width="7" height="18" font="4">+</text>
+<text top="363" left="231" width="350" height="18" font="4">plot.title = element_text(family = &#34;wqy-microhei&#34;))</text>
+<text top="379" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="396" left="149" width="171" height="18" font="4">&gt; showtext.opts(dpi = 96)</text>
+<text top="412" left="149" width="117" height="18" font="4">&gt; showtext.auto()</text>
+<text top="428" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="445" left="149" width="460" height="18" font="4">&gt; ggsave(&#34;showtext-1.png&#34;, plt, width = 8.75, height = 5, dpi = 96)</text>
+<text top="742" left="335" width="53" height="13" font="3"><b>Figure 6:</b></text>
+<text top="742" left="393" width="165" height="13" font="4">Use <b>showtext </b>with <b>ggplot2</b>.</text>
+<text top="779" left="171" width="464" height="13" font="4">In this example, “wqy-microhei” is the name for the WenQuanYi Micro <a href="2015-1-qiu.html#0">Hei</a></text>
+<text top="776" left="636" width="5" height="10" font="7"><a href="2015-1-qiu.html#0">9</a></text>
+<text top="779" left="646" width="98" height="13" font="4">font that will be</text>
+<text top="796" left="149" width="597" height="13" font="4">automatically loaded by <b>showtext</b>. WenQuanYi Micro Hei contains a large number of CJK (<b>C</b>hinese,</text>
+<text top="812" left="149" width="5" height="13" font="3"><b>J</b></text>
+<text top="812" left="154" width="590" height="13" font="4">apanese and <b>K</b>orean) characters, so combined with <b>showtext </b>it can be useful to show text in those</text>
+<text top="828" left="149" width="64" height="13" font="4">languages.</text>
+<text top="849" left="171" width="573" height="13" font="4">Note that when working with bitmap image formats (e.g. PNG, JPEG, TIFF), users should be</text>
+<text top="866" left="149" width="596" height="13" font="4">careful about the resolution of the image. Since <b>showtext </b>is unable to query the DPI that is used by</text>
+<text top="882" left="149" width="392" height="13" font="4">the graphics device, users should set it manually by the command</text>
+<text top="879" left="545" width="168" height="18" font="4">showtext.opts(dpi = ...).</text>
+<text top="903" left="171" width="36" height="13" font="4">While</text>
+<text top="900" left="210" width="534" height="18" font="4">showtext.auto() should be enough for most cases in using <b>showtext</b>, users actually have</text>
+<text top="920" left="149" width="598" height="13" font="4">more freedom to control which part of the graph should be rendered by <b>showtext </b>and which not.</text>
+<text top="936" left="149" width="597" height="13" font="4">Generally speaking, users could enclose code that wants to use <b>showtext </b>by a pair of function calls:</text>
+<text top="949" left="149" width="595" height="18" font="4">showtext.begin() and showtext.end(). The code outside of these parts will still use the standard</text>
+<text top="969" left="148" width="147" height="13" font="4">way to draw text. Figure</text>
+<text top="969" left="298" width="7" height="13" font="6"><a href="2015-1-qiu.html#8">7</a></text>
+<text top="969" left="309" width="160" height="13" font="4">is an example to show this.</text>
+<text top="995" left="149" width="96" height="18" font="4">&gt; ## load font</text>
+<text top="1012" left="149" width="288" height="18" font="4">&gt; dest &lt;- file.path(tempdir(), &#34;xkcd.ttf&#34;)</text>
+<text top="1028" left="149" width="521" height="18" font="4">&gt; download.file(&#34;http://simonsoftware.se/other/xkcd.ttf&#34;, dest, mode = &#34;wb&#34;)</text>
+<text top="1045" left="149" width="247" height="18" font="4">&gt; font.add(&#34;myxkcd&#34;, regular = dest)</text>
+<text top="1061" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="1078" left="149" width="199" height="18" font="4">&gt; pdf(&#34;showtext-2.pdf&#34;, 7, 3)</text>
+<text top="1094" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="1110" left="149" width="89" height="18" font="4">&gt; set.seed(0)</text>
+<text top="1139" left="165" width="4" height="9" font="10"><a href="http://wenq.org/en">9</a></text>
+<text top="1138" left="170" width="110" height="16" font="11"><a href="http://wenq.org/en">http://wenq.org/en</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="20" size="9" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">106</text>
+<text top="100" left="149" width="103" height="18" font="4">&gt; p &lt;- runif(1)</text>
+<text top="116" left="149" width="123" height="18" font="4">&gt; showtext.begin()</text>
+<text top="133" left="149" width="405" height="18" font="4">&gt; op &lt;- par(family = &#34;myxkcd&#34;, mar = c(0.1, 0.1, 3.1, 1.1))</text>
+<text top="149" left="149" width="494" height="18" font="4">&gt; pie(c(1 - p, p), cex = 1.2, labels = c(&#34;Those who understand\nbinary&#34;,</text>
+<text top="165" left="149" width="7" height="18" font="4">+</text>
+<text top="165" left="430" width="130" height="18" font="4">&#34;Those who don't&#34;),</text>
+<text top="182" left="149" width="7" height="18" font="4">+</text>
+<text top="182" left="190" width="391" height="18" font="4">col = c(&#34;#F8766D&#34;, &#34;#00BFC4&#34;), border = NA, radius = 0.9)</text>
+<text top="198" left="149" width="48" height="18" font="4">&gt; box()</text>
+<text top="215" left="149" width="62" height="18" font="4">&gt; par(op)</text>
+<text top="231" left="149" width="110" height="18" font="4">&gt; showtext.end()</text>
+<text top="248" left="149" width="460" height="18" font="4">&gt; title(&#34;There are 10 types of people in the world&#34;, font.main = 4)</text>
+<text top="264" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="281" left="149" width="75" height="18" font="4">&gt; dev.off()</text>
+<text top="343" left="346" width="224" height="11" font="20"><i><b>There are 10 types of people in the world</b></i></text>
+<text top="518" left="149" width="53" height="13" font="3"><b>Figure 7:</b></text>
+<text top="518" left="207" width="538" height="13" font="4">Use <b>showtext </b>in part of the graph. The title is drawn using a standard font, while the pie</text>
+<text top="535" left="149" width="283" height="13" font="4">chart labels are using fonts loaded by <b>showtext</b>.</text>
+<text top="572" left="171" width="38" height="13" font="4">Figure</text>
+<text top="572" left="212" width="7" height="13" font="6"><a href="2015-1-qiu.html#8">7</a></text>
+<text top="572" left="222" width="522" height="13" font="4">uses the xkcd font we added in the previous section. More interesting graphs of this style</text>
+<text top="588" left="149" width="114" height="13" font="4">can be found in the</text>
+<text top="588" left="266" width="29" height="13" font="8"><a href="http://CRAN.R-project.org/package=xkcd"><b>xkcd</b></a></text>
+<text top="588" left="299" width="57" height="13" font="4">package <a href="2015-1-qiu.html#10">(</a></text>
+<text top="588" left="356" width="67" height="13" font="6"><a href="2015-1-qiu.html#10">Manzanera</a></text>
+<text top="588" left="423" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="588" left="429" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2014</a></text>
+<text top="588" left="456" width="8" height="13" font="4"><a href="2015-1-qiu.html#10">).</a></text>
+<text top="630" left="149" width="149" height="15" font="9"><b>Integration with knitr</b></text>
+<text top="662" left="149" width="31" height="13" font="3"><b>knitr</b></text>
+<text top="662" left="183" width="561" height="13" font="4">is an R package and engine to generate dynamic documents with R. It is similar to the built-in</text>
+<text top="678" left="149" width="597" height="13" font="4">Sweave engine inside R, but brings in many extensions and enhancements. Starting from version 1.7,</text>
+<text top="695" left="149" width="31" height="13" font="3"><b>knitr</b></text>
+<text top="695" left="183" width="283" height="13" font="4">began to support <b>showtext </b>through the option</text>
+<text top="691" left="471" width="273" height="18" font="4">fig.showtext. Code chunks with this option</text>
+<text top="711" left="149" width="33" height="13" font="4">being</text>
+<text top="708" left="185" width="560" height="18" font="4">TRUE will automatically invoke the showtext.begin() function, so there is no need to manually</text>
+<text top="728" left="149" width="487" height="13" font="4">call it from the user. Here is a minimal example of an Rmd file that uses <b>showtext</b>.</text>
+<text top="767" left="185" width="206" height="18" font="4">We first do some setup work...</text>
+<text top="800" left="185" width="82" height="18" font="4">```{r setup}</text>
+<text top="816" left="185" width="96" height="18" font="4">library(knitr)</text>
+<text top="833" left="185" width="117" height="18" font="4">library(showtext)</text>
+<text top="849" left="185" width="158" height="18" font="4">showtext.opts(dpi = 72)</text>
+<text top="866" left="185" width="377" height="18" font="4">opts_chunk$set(fig.width = 7, fig.height = 7, dpi = 72)</text>
+<text top="882" left="185" width="21" height="18" font="4">```</text>
+<text top="915" left="185" width="268" height="18" font="4">Then register a font from Google Fonts.</text>
+<text top="948" left="185" width="185" height="18" font="4">```{r fonts, message=FALSE}</text>
+<text top="964" left="185" width="254" height="18" font="4">font.add.google(&#34;Lobster&#34;, &#34;lobster&#34;)</text>
+<text top="981" left="185" width="21" height="18" font="4">```</text>
+<text top="1014" left="185" width="233" height="18" font="4">Finally we create some fancy plot.</text>
+<text top="1047" left="185" width="350" height="18" font="4">```{r fancy, fig.showtext=TRUE, fig.align='center'}</text>
+<text top="1063" left="185" width="178" height="18" font="4">plot(1, pch = 16, cex = 3)</text>
+<text top="1079" left="185" width="514" height="18" font="4">text(1, 1.1, &#34;A fancy dot&#34;, family = &#34;lobster&#34;, col = &#34;steelblue&#34;, cex = 3)</text>
+<text top="1096" left="185" width="21" height="18" font="4">```</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">107</text>
+<text top="100" left="149" width="210" height="17" font="5"><b>Limitations and solutions</b></text>
+<text top="139" left="148" width="596" height="13" font="4">The goal of <b>showtext </b>is to provide an elegant way to allow R to use system fonts in graphics. While</text>
+<text top="155" left="149" width="595" height="13" font="4">it should be useful in most situations, there are a few limitations that need to be taken care of. This</text>
+<text top="172" left="149" width="588" height="13" font="4">section lists these limitations of <b>showtext</b>, as well as some hints about how to use it in the best way.</text>
+<text top="193" left="171" width="573" height="13" font="4">First, <b>showtext </b>looks for fonts according to their filenames rather than the usual “font names” in</text>
+<text top="209" left="149" width="595" height="13" font="4">the system. This design is intentional since font names can be ambiguous. For example, the same font</text>
+<text top="226" left="149" width="595" height="13" font="4">can have multiple names given by different font management software. In contrast, the font file is the</text>
+<text top="242" left="149" width="595" height="13" font="4">entity that actually contains the glyphs of a specific font, hence it helps to avoid such confusion. While</text>
+<text top="258" left="149" width="595" height="13" font="4">this setting may cause some problems for users who are searching for the filename for the first time, it</text>
+<text top="275" left="149" width="595" height="13" font="4">should be quite convenient afterwards, and one possible solution is to use the fonts in Google Fonts</text>
+<text top="291" left="149" width="125" height="13" font="4">through the function</text>
+<text top="288" left="277" width="467" height="18" font="4">font.add.google(), which maintains a standard and stable interface to access</text>
+<text top="308" left="149" width="33" height="13" font="4">fonts.</text>
+<text top="329" left="171" width="575" height="13" font="4">Second, for vector graphics such as PDF and SVG, since text will be converted into polygons,</text>
+<text top="345" left="149" width="596" height="13" font="4">it is no longer real text that can be searched in a PDF or SVG viewer. Also, the size of the PDF or</text>
+<text top="362" left="149" width="595" height="13" font="4">SVG file created by <b>showtext </b>is usually larger than the one produced in the standard way. For users</text>
+<text top="378" left="149" width="270" height="13" font="4">concerned by these issues, it is advisable touse</text>
+<text top="375" left="422" width="322" height="18" font="4">cairo_pdf() or <b>Cairo </b>to generate PDF graphics, and to</text>
+<text top="394" left="149" width="20" height="13" font="4">use</text>
+<text top="394" left="172" width="75" height="13" font="8"><a href="http://CRAN.R-project.org/package=RSvgDevice"><b>RSvgDevice</b></a></text>
+<text top="394" left="251" width="4" height="13" font="4"><a href="2015-1-qiu.html#10">(</a></text>
+<text top="394" left="256" width="76" height="13" font="6"><a href="2015-1-qiu.html#10">Luciani et al.</a></text>
+<text top="394" left="332" width="3" height="13" font="4"><a href="2015-1-qiu.html#10">,</a></text>
+<text top="394" left="339" width="27" height="13" font="6"><a href="2015-1-qiu.html#10">2014</a></text>
+<text top="394" left="366" width="103" height="13" font="4"><a href="2015-1-qiu.html#10">) </a>for SVG output.</text>
+<text top="415" left="171" width="573" height="13" font="4">In addition, at the time of writing <b>showtext </b>is not working well with the plot window provided</text>
+<text top="432" left="149" width="113" height="13" font="4">by the RStudio <a href="2015-1-qiu.html#0">IDE</a></text>
+<text top="429" left="262" width="10" height="10" font="7"><a href="2015-1-qiu.html#0">10</a></text>
+<text top="432" left="273" width="471" height="13" font="4"><a href="2015-1-qiu.html#0">. </a>The simple solution is to manually open a graphics device using functions such</text>
+<text top="448" left="149" width="12" height="13" font="4">as</text>
+<text top="445" left="165" width="580" height="18" font="4">windows() and x11(), and then draw plots inside this window, rather than the built-in one offered</text>
+<text top="465" left="149" width="96" height="13" font="4">by RStudio IDE.</text>
+<text top="486" left="171" width="573" height="13" font="4">Finally, in terms of the overall design, <b>showtext </b>is in some sense intrusive, since when user calls</text>
+<text top="499" left="149" width="595" height="18" font="4">showtext.begin(), it temporarily replaces the device functions by its own ones, and later restores</text>
+<text top="518" left="149" width="63" height="13" font="4">them after</text>
+<text top="515" left="215" width="529" height="18" font="4">showtext.end() is called. An alternative and probably more elegant way to address the</text>
+<text top="535" left="149" width="595" height="13" font="4">font problem is to develop new graphics devices that are based on <b>showtext</b>, so that they can make use</text>
+<text top="551" left="149" width="595" height="13" font="4">of the text handling functionality contained in <b>showtext</b>. This possibility is left to future developers of</text>
+<text top="568" left="149" width="102" height="13" font="4">graphics devices.</text>
+<text top="612" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="651" left="148" width="597" height="13" font="4">This article introduces the <b>showtext </b>package, which helps to use various types of fonts in R graphics,</text>
+<text top="667" left="148" width="596" height="13" font="4">with both highlighted features and its limitations. We have also discussed a number of alternative</text>
+<text top="684" left="148" width="596" height="13" font="4">ways in R to create graphs using non-standard fonts. While there is hardly a universally best way to</text>
+<text top="700" left="149" width="565" height="13" font="4">use fonts in R, some situations were described in which a certain approach is most appropriate.</text>
+<text top="725" left="171" width="574" height="13" font="4">• The built-in devices in R without Cairo support have the least dependency on external libraries</text>
+<text top="742" left="186" width="558" height="13" font="4">and software. More effort needs to be taken in this situation compared with others, but this may</text>
+<text top="758" left="186" width="518" height="13" font="4">be the only possible solution, especially when R is compiled in a minimal environment.</text>
+<text top="779" left="171" width="336" height="13" font="4">• When Cairo graphics is compiled in R, devices such as</text>
+<text top="775" left="510" width="235" height="18" font="4">png(type = &#34;cairo&#34;) and cairo_pdf()</text>
+<text top="795" left="186" width="558" height="13" font="4">allow users to select fonts by their family names. This should be the easiest way to use fonts in</text>
+<text top="812" left="186" width="226" height="13" font="4">R graphs without extension packages.</text>
+<text top="832" left="171" width="299" height="13" font="4">• The <b>Cairo </b>package has similar functionality to</text>
+<text top="829" left="473" width="271" height="18" font="4">png(type = &#34;cairo&#34;) and cairo_pdf(), and</text>
+<text top="849" left="186" width="558" height="13" font="4">additionally provides a global font selector, which is useful when choosing a default font for all</text>
+<text top="865" left="186" width="34" height="13" font="3"><b>Cairo</b></text>
+<text top="865" left="223" width="48" height="13" font="4">devices.</text>
+<text top="886" left="171" width="346" height="13" font="4">• The <b>extrafont </b>package provides a complete solution for</text>
+<text top="882" left="519" width="225" height="18" font="4">pdf() and postscript() devices with</text>
+<text top="902" left="186" width="558" height="13" font="4">TrueType fonts, as well as support for Windows bitmap output. It introduces an easy way to</text>
+<text top="919" left="186" width="522" height="13" font="4">import system fonts into R, so that users only need to make configuration changes once.</text>
+<text top="939" left="171" width="576" height="13" font="4">• <b>showtext </b>supports various font formats and most graphics devices. It also offers some conve-</text>
+<text top="956" left="186" width="558" height="13" font="4">nient features like using web fonts obtained from Google Fonts, and integration with the <b>knitr</b></text>
+<text top="972" left="186" width="288" height="13" font="4">package. Some suggestions are given in Section <a href="2015-1-qiu.html#8">“</a></text>
+<text top="972" left="473" width="149" height="13" font="6"><a href="2015-1-qiu.html#8">Limitations and solutions</a></text>
+<text top="972" left="623" width="121" height="13" font="4"><a href="2015-1-qiu.html#8">” </a>in order to use it in</text>
+<text top="989" left="186" width="77" height="13" font="4">the best way.</text>
+<text top="1033" left="149" width="154" height="17" font="5"><b>Acknowledgments</b></text>
+<text top="1072" left="148" width="596" height="13" font="4">The author of this article would like to thank Yihui Xie, for his kind work of adding the support for</text>
+<text top="1088" left="149" width="55" height="13" font="3"><b>showtext</b></text>
+<text top="1088" left="208" width="536" height="13" font="4">in his <b>knitr </b>package, and Barret Schloerke, who provided a lot of helpful comments and</text>
+<text top="1104" left="149" width="595" height="13" font="4">corrections of the original manuscript. The author is also grateful to the editor and two anonymous</text>
+<text top="1121" left="149" width="368" height="13" font="4">reviewers, who made many helpful suggestions to this article.</text>
+<text top="1146" left="161" width="9" height="9" font="10"><a href="http://www.rstudio.com/products/RStudio/">10</a></text>
+<text top="1145" left="170" width="244" height="16" font="11"><a href="http://www.rstudio.com/products/RStudio/">http://www.rstudio.com/products/RStudio/</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">108</text>
+<text top="100" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="139" left="149" width="66" height="13" font="4">W. Chang.</text>
+<text top="139" left="229" width="233" height="14" font="4">extrafont: Tools for Using Fonts, 2014.</text>
+<text top="139" left="476" width="28" height="13" font="4">URL</text>
+<text top="135" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=extrafont">http://CRAN.R-project.org/package=</a></text>
+<text top="152" left="164" width="62" height="18" font="6"><a href="http://CRAN.R-project.org/package=extrafont">extrafont</a></text>
+<text top="155" left="225" width="165" height="13" font="4"><a href="http://CRAN.R-project.org/package=extrafont">. </a>R package version 0.17. <a href="2015-1-qiu.html#1">[p</a></text>
+<text top="155" left="390" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="155" left="404" width="4" height="13" font="4"><a href="2015-1-qiu.html#1">]</a></text>
+<text top="184" left="149" width="357" height="13" font="4">W. Chang. Rttf2pt1: Package for ttf2pt1 Program, 2015. URL</text>
+<text top="180" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=Rttf2pt1">http://CRAN.R-project.org/package=</a></text>
+<text top="197" left="164" width="55" height="18" font="6"><a href="http://CRAN.R-project.org/package=Rttf2pt1">Rttf2pt1</a></text>
+<text top="200" left="219" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=Rttf2pt1">. </a>R package version 1.3.3. <a href="2015-1-qiu.html#3">[p</a></text>
+<text top="200" left="387" width="20" height="13" font="6"><a href="2015-1-qiu.html#3">101</a></text>
+<text top="200" left="407" width="4" height="13" font="4"><a href="2015-1-qiu.html#3">]</a></text>
+<text top="229" left="149" width="560" height="13" font="4">T. J. Luciani, M. Decorde, and V. Lise. RSvgDevice: An R SVG Graphics Device, 2014. URL</text>
+<text top="225" left="713" width="34" height="18" font="6"><a href="http://CRAN.R-project.org/package=RSvgDevice">http:</a></text>
+<text top="242" left="163" width="268" height="18" font="6"><a href="http://CRAN.R-project.org/package=RSvgDevice">//CRAN.R-project.org/package=RSvgDevice</a></text>
+<text top="245" left="431" width="178" height="13" font="4"><a href="http://CRAN.R-project.org/package=RSvgDevice">. </a>R package version 0.6.4.4. <a href="2015-1-qiu.html#9">[p</a></text>
+<text top="245" left="609" width="20" height="13" font="6"><a href="2015-1-qiu.html#9">107</a></text>
+<text top="245" left="630" width="4" height="13" font="4"><a href="2015-1-qiu.html#9">]</a></text>
+<text top="273" left="149" width="445" height="13" font="4">E. T. Manzanera. xkcd: Plotting ggplot2 Graphics in a XKCD Style, 2014. URL</text>
+<text top="270" left="597" width="152" height="18" font="6"><a href="http://CRAN.R-project.org/package=xkcd">http://CRAN.R-project.</a></text>
+<text top="286" left="164" width="110" height="18" font="6"><a href="http://CRAN.R-project.org/package=xkcd">org/package=xkcd</a></text>
+<text top="290" left="274" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=xkcd">. </a>R package version 0.0.4. <a href="2015-1-qiu.html#8">[p</a></text>
+<text top="290" left="441" width="20" height="13" font="6"><a href="2015-1-qiu.html#8">106</a></text>
+<text top="290" left="462" width="4" height="13" font="4"><a href="2015-1-qiu.html#8">]</a></text>
+<text top="318" left="149" width="596" height="13" font="4">P. Murrell and B. Ripley. Non-standard fonts in PostScript and PDF graphics. R News, 6(2):41–47, May</text>
+<text top="335" left="164" width="63" height="13" font="4">2006. URL</text>
+<text top="331" left="230" width="248" height="18" font="6"><a href="http://CRAN.R-project.org/doc/Rnews/">http://CRAN.R-project.org/doc/Rnews/</a></text>
+<text top="335" left="478" width="21" height="13" font="4"><a href="http://CRAN.R-project.org/doc/Rnews/">. </a><a href="2015-1-qiu.html#1">[p</a></text>
+<text top="335" left="498" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="335" left="512" width="3" height="13" font="4"><a href="2015-1-qiu.html#1">,</a></text>
+<text top="335" left="519" width="20" height="13" font="6"><a href="2015-1-qiu.html#2">100</a></text>
+<text top="335" left="539" width="4" height="13" font="4"><a href="2015-1-qiu.html#2">]</a></text>
+<text top="363" left="149" width="598" height="13" font="4">J. Ooms. The jsonlite package: A practical and consistent mapping between JSON data and R objects.</text>
+<text top="379" left="164" width="217" height="14" font="4">arXiv:1403.2805 [stat.CO], 2014. URL</text>
+<text top="376" left="384" width="206" height="18" font="6"><a href="http://arxiv.org/abs/1403.2805">http://arxiv.org/abs/1403.2805</a></text>
+<text top="379" left="590" width="21" height="13" font="4"><a href="http://arxiv.org/abs/1403.2805">. </a><a href="2015-1-qiu.html#6">[p</a></text>
+<text top="379" left="610" width="20" height="13" font="6"><a href="2015-1-qiu.html#6">104</a></text>
+<text top="379" left="631" width="4" height="13" font="4"><a href="2015-1-qiu.html#6">]</a></text>
+<text top="408" left="149" width="413" height="13" font="4">Y. Qiu. showtext: Using Fonts More Easily in R Graphs, 2015a. URL</text>
+<text top="404" left="566" width="179" height="18" font="6"><a href="http://CRAN.R-project.org/package=showtext">http://CRAN.R-project.org/</a></text>
+<text top="421" left="164" width="110" height="18" font="6"><a href="http://CRAN.R-project.org/package=showtext">package=showtext</a></text>
+<text top="424" left="274" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=showtext">. </a>R package version 0.4-2. <a href="2015-1-qiu.html#1">[p</a></text>
+<text top="424" left="443" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="424" left="456" width="4" height="13" font="4"><a href="2015-1-qiu.html#1">]</a></text>
+<text top="453" left="149" width="357" height="13" font="4">Y. Qiu. sysfonts: Loading System Fonts into R, 2015b. URL</text>
+<text top="449" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=sysfonts">http://CRAN.R-project.org/package=</a></text>
+<text top="466" left="164" width="55" height="18" font="6"><a href="http://CRAN.R-project.org/package=sysfonts">sysfonts</a></text>
+<text top="469" left="219" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=sysfonts">. </a>R package version 0.5. <a href="2015-1-qiu.html#5">[p</a></text>
+<text top="469" left="377" width="20" height="13" font="6"><a href="2015-1-qiu.html#5">103</a></text>
+<text top="469" left="397" width="4" height="13" font="4"><a href="2015-1-qiu.html#5">]</a></text>
+<text top="498" left="149" width="499" height="13" font="4">D. Temple Lang. RCurl: General Network (HTTP/FTP/...) Client Interface for R, 2015. URL</text>
+<text top="494" left="651" width="96" height="18" font="6"><a href="http://CRAN.R-project.org/package=RCurl">http://CRAN.R-</a></text>
+<text top="511" left="164" width="171" height="18" font="6"><a href="http://CRAN.R-project.org/package=RCurl">project.org/package=RCurl</a></text>
+<text top="514" left="335" width="186" height="13" font="4"><a href="http://CRAN.R-project.org/package=RCurl">. </a>R package version 1.95-4.6. <a href="2015-1-qiu.html#6">[p</a></text>
+<text top="514" left="521" width="20" height="13" font="6"><a href="2015-1-qiu.html#6">104</a></text>
+<text top="514" left="541" width="4" height="13" font="4"><a href="2015-1-qiu.html#6">]</a></text>
+<text top="542" left="149" width="595" height="13" font="4">S. Urbanek and J. Horner. Cairo: R Graphics Device using Cairo Graphics Library for Creating High-Quality</text>
+<text top="559" left="163" width="583" height="14" font="4">Bitmap (PNG, JPEG, TIFF), Vector (PDF, SVG, PostScript) and Display (X11 and Win32) Output, 2014.</text>
+<text top="575" left="164" width="28" height="13" font="4">URL</text>
+<text top="572" left="195" width="268" height="18" font="6"><a href="http://CRAN.R-project.org/package=Cairo">http://CRAN.R-project.org/package=Cairo</a></text>
+<text top="575" left="463" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=Cairo">. </a>R package version 1.5-6. <a href="2015-1-qiu.html#3">[p</a></text>
+<text top="575" left="632" width="20" height="13" font="6"><a href="2015-1-qiu.html#3">101</a></text>
+<text top="575" left="652" width="4" height="13" font="4"><a href="2015-1-qiu.html#3">]</a></text>
+<text top="604" left="149" width="476" height="13" font="4">H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer, 2009. URL</text>
+<text top="600" left="629" width="117" height="18" font="6"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/</a></text>
+<text top="617" left="164" width="82" height="18" font="6"><a href="http://had.co.nz/ggplot2/book">ggplot2/book</a></text>
+<text top="620" left="246" width="21" height="13" font="4"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2015-1-qiu.html#6">[p</a></text>
+<text top="620" left="267" width="20" height="13" font="6"><a href="2015-1-qiu.html#6">104</a></text>
+<text top="620" left="287" width="3" height="13" font="4"><a href="2015-1-qiu.html#6">,</a></text>
+<text top="620" left="294" width="20" height="13" font="6"><a href="2015-1-qiu.html#0">125</a></text>
+<text top="620" left="314" width="4" height="13" font="4"><a href="2015-1-qiu.html#0">]</a></text>
+<text top="648" left="149" width="498" height="13" font="4">Y. Xie. Dynamic Documents with R and knitr. Chapman and Hall/CRC, 2013. URL</text>
+<text top="645" left="651" width="96" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">http://CRAN.R-</a></text>
+<text top="661" left="164" width="171" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">project.org/package=knitr</a></text>
+<text top="665" left="335" width="21" height="13" font="4"><a href="http://CRAN.R-project.org/package=knitr">. </a><a href="2015-1-qiu.html#1">[p</a></text>
+<text top="665" left="356" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="665" left="369" width="4" height="13" font="4"><a href="2015-1-qiu.html#1">]</a></text>
+<text top="693" left="149" width="598" height="13" font="4">Y. Xie. knitr: A comprehensive tool for reproducible research in R. In V. Stodden, F. Leisch, and R. D.</text>
+<text top="710" left="164" width="583" height="13" font="4">Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC, 2014a.</text>
+<text top="726" left="164" width="13" height="13" font="4"><a href="2015-1-qiu.html#1">[p</a></text>
+<text top="726" left="176" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="726" left="190" width="4" height="13" font="4"><a href="2015-1-qiu.html#1">]</a></text>
+<text top="755" left="149" width="499" height="13" font="4">Y. Xie. knitr: A General-Purpose Package for Dynamic Report Generation in R, 2014b. URL</text>
+<text top="751" left="651" width="96" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">http://CRAN.R-</a></text>
+<text top="768" left="164" width="171" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">project.org/package=knitr</a></text>
+<text top="771" left="335" width="175" height="13" font="4"><a href="http://CRAN.R-project.org/package=knitr">. </a>R package version 1.6.10. <a href="2015-1-qiu.html#0">[p</a></text>
+<text top="771" left="510" width="13" height="13" font="6"><a href="2015-1-qiu.html#0">28</a></text>
+<text top="771" left="523" width="3" height="13" font="4"><a href="2015-1-qiu.html#0">,</a></text>
+<text top="771" left="530" width="13" height="13" font="6"><a href="2015-1-qiu.html#1">99</a></text>
+<text top="771" left="544" width="4" height="13" font="4"><a href="2015-1-qiu.html#1">]</a></text>
+<text top="817" left="148" width="65" height="13" font="4">Yixuan Qiu</text>
+<text top="834" left="148" width="103" height="13" font="4">Purdue University</text>
+<text top="850" left="148" width="278" height="13" font="4">Department of Statistics, West Lafayette, IN 47906</text>
+<text top="867" left="148" width="28" height="13" font="4">USA</text>
+<text top="880" left="149" width="117" height="18" font="6"><a href="mailto:yixuanq@gmail.com">yixuanq@gmail.com</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

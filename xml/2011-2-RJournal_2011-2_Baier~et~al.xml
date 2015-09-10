@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">5</text>
+<text top="121" left="82" width="673" height="36" font="2"><b>Creating and Deploying an Application</b></text>
+<text top="166" left="81" width="338" height="36" font="2"><b>with (R)Excel and R</b></text>
+<text top="218" left="82" width="313" height="15" font="0">Thomas Baier, Erich Neuwirth and Michele De Meo</text>
+<text top="251" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="251" left="167" width="248" height="15" font="0">We present some ways of using R in</text>
+<text top="269" left="96" width="319" height="15" font="0">Excel and build an example application using the</text>
+<text top="287" left="96" width="319" height="15" font="0">package <b>rpart</b>. Starting with simple interactive</text>
+<text top="305" left="96" width="319" height="15" font="0">use of <b>rpart </b>in Excel, we eventually package the</text>
+<text top="323" left="96" width="319" height="15" font="0">code into an Excel-based application, hiding all</text>
+<text top="341" left="96" width="319" height="15" font="0">details (including R itself) from the end user. In</text>
+<text top="359" left="96" width="321" height="15" font="0">the end, our application implements a service-</text>
+<text top="377" left="96" width="321" height="15" font="0">oriented architecture (SOA) with a clean separa-</text>
+<text top="395" left="96" width="286" height="15" font="0">tion of presentation and computation layer.</text>
+<text top="446" left="82" width="110" height="21" font="4"><b>Motivation</b></text>
+<text top="486" left="82" width="349" height="15" font="0">Building an application for end users is a very chal-</text>
+<text top="504" left="82" width="349" height="15" font="0">lenging goal. Building a statistics application nor-</text>
+<text top="522" left="82" width="349" height="15" font="0">mally involves three different roles: application de-</text>
+<text top="540" left="82" width="347" height="15" font="0">veloper, statistician, and user. Often, statisticians</text>
+<text top="558" left="82" width="349" height="15" font="0">are programmers too, but are only (or mostly) fa-</text>
+<text top="576" left="82" width="346" height="15" font="0">miliar with statistical programming (languages) and</text>
+<text top="594" left="82" width="349" height="15" font="0">definitely are not experts in creating rich user inter-</text>
+<text top="612" left="82" width="242" height="15" font="0">faces/applications for (casual) users.</text>
+<text top="631" left="105" width="324" height="15" font="0">For many—maybe even for most—applications of</text>
+<text top="649" left="82" width="347" height="15" font="0">statistics, Microsoft Excel is used as the primary user</text>
+<text top="667" left="82" width="346" height="15" font="0">interface. Users are familiar with performing simple</text>
+<text top="685" left="82" width="347" height="15" font="0">computations using the spreadsheet and can easily</text>
+<text top="703" left="82" width="349" height="15" font="0">format the result of the analyses for printing or inclu-</text>
+<text top="721" left="82" width="346" height="15" font="0">sion in reports or presentations. Unfortunately, Excel</text>
+<text top="739" left="82" width="347" height="15" font="0">does not provide support for doing more complex</text>
+<text top="756" left="82" width="346" height="15" font="0">computations and analyses and also has documented</text>
+<text top="774" left="82" width="305" height="15" font="0">weaknesses for certain numerical calculations.</text>
+<text top="793" left="105" width="324" height="15" font="0">Statisticians know a solution for this problem, and</text>
+<text top="811" left="82" width="349" height="15" font="0">this solution is called R. R is a very powerful pro-</text>
+<text top="829" left="82" width="349" height="15" font="0">gramming language for statistics with lots of meth-</text>
+<text top="847" left="82" width="346" height="15" font="0">ods from different statistical areas implemented in</text>
+<text top="865" left="82" width="347" height="15" font="0">various packages by thousands of contributors. But</text>
+<text top="883" left="82" width="347" height="15" font="0">unfortunately, R’s user interface is not what everyday</text>
+<text top="901" left="82" width="239" height="15" font="0">users of statistics in business expect.</text>
+<text top="920" left="105" width="324" height="15" font="0">The following sections will show a very simple</text>
+<text top="938" left="82" width="349" height="15" font="0">approach allowing a statistician to develop an easy-</text>
+<text top="956" left="82" width="347" height="15" font="0">to-use and maintainable end-user application. Our</text>
+<text top="974" left="82" width="308" height="15" font="0">example will make use of R and the package</text>
+<text top="974" left="396" width="33" height="15" font="5"><a href="http://cran.r-project.org/package=rpart"><b>rpart</b></a></text>
+<text top="992" left="82" width="346" height="15" font="0">and the resulting application will completely hide the</text>
+<text top="1010" left="82" width="329" height="15" font="0">complexity and the R user interface from the user.</text>
+<text top="1029" left="105" width="33" height="15" font="3"><b>rpart</b></text>
+<text top="1029" left="144" width="288" height="15" font="0">implements recursive partitioning and re-</text>
+<text top="1047" left="82" width="346" height="15" font="0">gression trees. These methods have become powerful</text>
+<text top="1064" left="82" width="346" height="15" font="0">tools for analyzing complex data structures and have</text>
+<text top="1082" left="82" width="349" height="15" font="0">been employed in the most varied fields: CRM, fi-</text>
+<text top="1100" left="82" width="346" height="15" font="0">nancial risk management, insurance, pharmaceuticals</text>
+<text top="1118" left="82" width="191" height="15" font="0">and so on (for example, see:</text>
+<text top="1118" left="280" width="51" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Altman</a></text>
+<text top="1118" left="336" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1118" left="341" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2002</a></text>
+<text top="1118" left="372" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">),</a></text>
+<text top="1118" left="385" width="43" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Hastie</a></text>
+<text top="1136" left="82" width="31" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">et al.</a></text>
+<text top="1136" left="118" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1136" left="123" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2009</a></text>
+<text top="1136" left="152" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">),</a></text>
+<text top="1136" left="165" width="118" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Zhang and Singer</a></text>
+<text top="1136" left="287" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1136" left="292" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">1999</a></text>
+<text top="1136" left="322" width="14" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)).</a></text>
+<text top="1155" left="105" width="327" height="15" font="0">The main reason for the wide distribution of tree-</text>
+<text top="1173" left="82" width="349" height="15" font="0">based methods is their simplicity and intuitiveness.</text>
+<text top="218" left="459" width="348" height="15" font="0">Prediction of a quantitative or categorical variable,</text>
+<text top="236" left="459" width="349" height="15" font="0">is done through a tree structure, which even non-</text>
+<text top="254" left="458" width="347" height="15" font="0">professionals can read and understand easily. The</text>
+<text top="271" left="459" width="346" height="15" font="0">application of a computationally complex algorithm</text>
+<text top="289" left="459" width="349" height="15" font="0">thus results in an intuitive and easy to use tool. Pre-</text>
+<text top="307" left="459" width="346" height="15" font="0">diction of a categorical variable is performed by a</text>
+<text top="325" left="459" width="346" height="15" font="0">classification tree, while the term regression tree is used</text>
+<text top="343" left="459" width="289" height="15" font="0">for the estimation of a quantitative variable.</text>
+<text top="361" left="481" width="324" height="15" font="0">Our application will be built for Microsoft Excel</text>
+<text top="379" left="459" width="346" height="15" font="0">and will make use of R and <b>rpart </b>to implement the</text>
+<text top="397" left="459" width="347" height="15" font="0">functionality. We have chosen Excel as the primary</text>
+<text top="415" left="459" width="346" height="15" font="0">tool for performing the analysis because of various</text>
+<text top="433" left="459" width="79" height="15" font="0">advantages:</text>
+<text top="464" left="480" width="328" height="15" font="0">• Excel has a familiar and easy-to-use user inter-</text>
+<text top="481" left="496" width="30" height="15" font="0">face.</text>
+<text top="511" left="480" width="328" height="15" font="0">• Excel is already installed on most of the work-</text>
+<text top="528" left="496" width="264" height="15" font="0">stations in the industries we mentioned.</text>
+<text top="557" left="480" width="328" height="15" font="0">• In many cases, data collection has been per-</text>
+<text top="575" left="496" width="312" height="15" font="0">formed using Excel, so using Excel for the anal-</text>
+<text top="593" left="496" width="226" height="15" font="0">ysis seems to be the logical choice.</text>
+<text top="622" left="480" width="326" height="15" font="0">• Excel provides many features to allow a</text>
+<text top="640" left="496" width="312" height="15" font="0">high-quality presentation of the results. Pre-</text>
+<text top="658" left="496" width="310" height="15" font="0">configured presentation options can easily</text>
+<text top="676" left="496" width="214" height="15" font="0">adapted even by the casual user.</text>
+<text top="705" left="480" width="328" height="15" font="0">• Output data (mostly graphical or tabular pre-</text>
+<text top="723" left="496" width="309" height="15" font="0">sentation of the results) can easily be used in</text>
+<text top="741" left="496" width="312" height="15" font="0">further processing— e.g., embedded in Power-</text>
+<text top="759" left="496" width="309" height="15" font="0">Point slides or Word documents using OLE (a</text>
+<text top="777" left="496" width="133" height="15" font="0">subset of COM, as in</text>
+<text top="777" left="632" width="173" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Microsoft Corporation and</a></text>
+<text top="795" left="496" width="208" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Digital Equipment Corporation</a></text>
+<text top="795" left="708" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="795" left="713" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">1995</a></text>
+<text top="795" left="743" width="14" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)).</a></text>
+<text top="826" left="481" width="271" height="15" font="0">We are using R for the following reasons:</text>
+<text top="854" left="480" width="326" height="15" font="0">• One cannot rely on Microsoft Excel’s numerical</text>
+<text top="872" left="496" width="309" height="15" font="0">and statistical functions (they do not even give</text>
+<text top="890" left="496" width="309" height="15" font="0">the same results when run in different versions</text>
+<text top="908" left="496" width="93" height="15" font="0">of Excel). See</text>
+<text top="908" left="594" width="167" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">McCullough and Wilson</a></text>
+<text top="908" left="766" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="908" left="771" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2002</a></text>
+<text top="908" left="802" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)</a></text>
+<text top="925" left="496" width="143" height="15" font="0">for more information.</text>
+<text top="954" left="480" width="326" height="15" font="0">• We are re-using an already existing, tested and</text>
+<text top="972" left="496" width="259" height="15" font="0">proven package for doing the statistics.</text>
+<text top="1001" left="480" width="328" height="15" font="0">• Statistical programmers often use R for perform-</text>
+<text top="1019" left="496" width="312" height="15" font="0">ing statistical analysis and implementing func-</text>
+<text top="1037" left="496" width="36" height="15" font="0">tions.</text>
+<text top="1065" left="481" width="327" height="15" font="0">Our goal for creating an <b>RExcel</b>-based applica-</text>
+<text top="1083" left="459" width="346" height="15" font="0">tion is to enable any user to be able to perform the</text>
+<text top="1101" left="459" width="346" height="15" font="0">computations and use the results without any special</text>
+<text top="1119" left="459" width="313" height="15" font="0">knowledge of R (or even of <b>RExcel</b>). See Figure</text>
+<text top="1119" left="775" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#2">1</a></text>
+<text top="1119" left="786" width="19" height="15" font="0">for</text>
+<text top="1137" left="459" width="346" height="15" font="0">an example of the application’s user interface. The</text>
+<text top="1155" left="459" width="346" height="15" font="0">results of running the application are shown in Figure</text>
+<text top="1173" left="459" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#2">2</a></text>
+<text top="1173" left="466" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#2">.</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="7" height="15" font="0">6</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="298" left="209" width="471" height="15" font="0">Figure 1: Basic user interface of the <b>RExcel </b>based end-user application.</text>
+<text top="505" left="341" width="206" height="15" font="0">Figure 2: Computation results.</text>
+<text top="555" left="105" width="327" height="15" font="0">There are a few alternatives to <b>RExcel </b>for connect-</text>
+<text top="573" left="82" width="112" height="15" font="0">ing Excel with R:</text>
+<text top="604" left="82" width="54" height="15" font="3"><b>XLLoop</b></text>
+<text top="604" left="144" width="285" height="15" font="0">provides an Excel Add-In which is able to</text>
+<text top="622" left="120" width="309" height="15" font="0">access various programming languages from</text>
+<text top="640" left="119" width="312" height="15" font="0">within formulae. It supports languages like R,</text>
+<text top="658" left="120" width="309" height="15" font="0">Javascript and others. The “backend” languages</text>
+<text top="676" left="120" width="309" height="15" font="0">are accessed using TCP/IP communication. In</text>
+<text top="694" left="120" width="309" height="15" font="0">contrast to this, <b>RExcel </b>uses COM, which has a</text>
+<text top="712" left="119" width="312" height="15" font="0">very low latency (and hence is very fast). Ad-</text>
+<text top="730" left="120" width="309" height="15" font="0">ditionally, the architecture of <b>RExcel </b>supports</text>
+<text top="748" left="120" width="309" height="15" font="0">a completely invisible R server process (which</text>
+<text top="766" left="120" width="311" height="15" font="0">is what we need for deploying the application),</text>
+<text top="784" left="120" width="309" height="15" font="0">or can provide access to the R window while</text>
+<text top="801" left="120" width="132" height="15" font="0">developing/testing.</text>
+<text top="833" left="82" width="102" height="15" font="3"><b>inference for R</b></text>
+<text top="833" left="192" width="237" height="15" font="0">provides similar functionality as</text>
+<text top="851" left="120" width="46" height="15" font="3"><b>RExcel</b></text>
+<text top="851" left="166" width="263" height="15" font="0">. From the website, the latest supported</text>
+<text top="869" left="120" width="309" height="15" font="0">R version is 2.9.1, while <b>RExcel </b>supports current</text>
+<text top="887" left="120" width="310" height="15" font="0">R versions immediately after release (typically</text>
+<text top="905" left="120" width="309" height="15" font="0">new versions work right out of the box without</text>
+<text top="923" left="120" width="272" height="15" font="0">an update in <b>RExcel </b>or <b>statconnDCOM</b>).</text>
+<text top="972" left="82" width="331" height="21" font="4"><b>Integrating R and Microsoft Excel</b></text>
+<text top="1011" left="82" width="347" height="15" font="0">Work on integration of Excel and R is ongoing since</text>
+<text top="1029" left="82" width="347" height="15" font="0">1998. Since 2001, a stable environment is available</text>
+<text top="1047" left="82" width="346" height="15" font="0">for building Excel documents based upon statistical</text>
+<text top="1065" left="82" width="349" height="15" font="0">methods implemented in R. This environment con-</text>
+<text top="1083" left="82" width="346" height="15" font="0">sists of plain R (for Windows) and a toolbox called</text>
+<text top="1101" left="82" width="108" height="15" font="3"><b>statconnDCOM</b></text>
+<text top="1101" left="195" width="234" height="15" font="0">with its full integration with Excel</text>
+<text top="1119" left="82" width="347" height="15" font="0">using <b>RExcel </b>(which is implemented as an add-in for</text>
+<text top="1137" left="82" width="111" height="15" font="0">Microsoft Excel).</text>
+<text top="1155" left="105" width="324" height="15" font="0">Like all Microsoft Office applications and some</text>
+<text top="1173" left="82" width="346" height="15" font="0">third-party applications, Excel provides a powerful</text>
+<text top="555" left="459" width="346" height="15" font="0">scripting engine combined with a highly productive</text>
+<text top="573" left="458" width="347" height="15" font="0">visual development environment. This environment</text>
+<text top="591" left="459" width="347" height="15" font="0">is called Visual Basic for Applications, or VBA for</text>
+<text top="609" left="459" width="63" height="15" font="0">short (see</text>
+<text top="609" left="525" width="146" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Microsoft Corporation</a></text>
+<text top="609" left="675" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="609" left="680" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2001</a></text>
+<text top="609" left="710" width="96" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)). </a>VBA allows</text>
+<text top="627" left="459" width="347" height="15" font="0">creation of “worksheet-functions” (also called user</text>
+<text top="645" left="459" width="346" height="15" font="0">defined functions or UDFs), which can be used in</text>
+<text top="663" left="459" width="348" height="15" font="0">a similar way as Excel’s built-in functions (like, e.g.,</text>
+<text top="681" left="457" width="349" height="15" font="0">“SUM” or “MEAN”) to dynamically compute values to be</text>
+<text top="699" left="459" width="349" height="15" font="0">shown in spreadsheet cells, and Subs which allow ar-</text>
+<text top="717" left="459" width="346" height="15" font="0">bitrary computations, putting results into spreadsheet</text>
+<text top="734" left="459" width="347" height="15" font="0">ranges. VBA code can be bundled as an “Add-In” for</text>
+<text top="752" left="459" width="346" height="15" font="0">Microsoft Excel which provides an extension both in</text>
+<text top="770" left="459" width="346" height="15" font="0">the user interface (e.g., new menus or dialogs) and</text>
+<text top="788" left="459" width="346" height="15" font="0">in functionality (additional sheet-functions similar to</text>
+<text top="806" left="459" width="185" height="15" font="0">the built-in sheet functions).</text>
+<text top="828" left="481" width="325" height="15" font="0">Extensions written in VBA can access third-party</text>
+<text top="846" left="459" width="346" height="15" font="0">components compatible with Microsoft’s Component</text>
+<text top="864" left="459" width="164" height="15" font="0">Object Model (COM, see</text>
+<text top="864" left="626" width="179" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Microsoft Corporation and</a></text>
+<text top="882" left="459" width="211" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Digital Equipment Corporation</a></text>
+<text top="882" left="674" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="882" left="679" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">1995</a></text>
+<text top="882" left="709" width="98" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)). </a>The link be-</text>
+<text top="900" left="459" width="348" height="15" font="0">tween R and Excel is built on top of two components:</text>
+<text top="918" left="459" width="46" height="15" font="3"><b>RExcel</b></text>
+<text top="918" left="509" width="299" height="15" font="0">is an Add-In for Microsoft Excel implement-</text>
+<text top="936" left="459" width="349" height="15" font="0">ing a spreadsheet-style interface to R and <b>statconn-</b></text>
+<text top="954" left="459" width="51" height="15" font="3"><b>DCOM</b></text>
+<text top="954" left="509" width="296" height="15" font="0">. <b>statconnDCOM </b>exposes a COM component</text>
+<text top="972" left="459" width="346" height="15" font="0">to any Windows application which encapsulates R’s</text>
+<text top="990" left="459" width="234" height="15" font="0">functionality in an easy-to-use way.</text>
+<text top="1012" left="481" width="108" height="15" font="3"><b>statconnDCOM</b></text>
+<text top="1012" left="594" width="212" height="15" font="0">is built on an extensible design</text>
+<text top="1030" left="458" width="347" height="15" font="0">with exchangeable front-end and back-end parts. In</text>
+<text top="1048" left="459" width="349" height="15" font="0">the context of this article, the back-end is R. A back-</text>
+<text top="1065" left="459" width="209" height="15" font="0">end implementation for Scilab <a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1065" left="668" width="44" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">INRIA</a></text>
+<text top="1065" left="716" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1065" left="721" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">1989</a></text>
+<text top="1065" left="751" width="55" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)) </a>is also</text>
+<text top="1083" left="459" width="349" height="15" font="0">available. The front-end component is the COM in-</text>
+<text top="1101" left="459" width="349" height="15" font="0">terface implemented by <b>statconnDCOM</b>. This imple-</text>
+<text top="1119" left="459" width="349" height="15" font="0">mentation is used to integrate R or Scilab into Win-</text>
+<text top="1137" left="459" width="292" height="15" font="0">dows applications. A first version of an Uno <a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1137" left="751" width="57" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">OpenOf-</a></text>
+<text top="1155" left="459" width="50" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">fice.org</a></text>
+<text top="1155" left="513" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="1155" left="518" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2009</a></text>
+<text top="1155" left="549" width="257" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)) </a>front-end has already been released</text>
+<text top="1173" left="459" width="346" height="15" font="0">for testing and download. Using this front-end R and</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">7</text>
+<text top="125" left="82" width="346" height="15" font="0">Scilab can easily be integrated into OpenOffice.org</text>
+<text top="143" left="82" width="184" height="15" font="0">applications, like Calc (see</text>
+<text top="143" left="273" width="104" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">OpenOffice.org</a></text>
+<text top="143" left="382" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="143" left="387" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2006</a></text>
+<text top="143" left="418" width="14" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">)).</a></text>
+<text top="161" left="82" width="44" height="15" font="3"><b>ROOo</b></text>
+<text top="161" left="130" width="97" height="15" font="0">is available via</text>
+<text top="161" left="231" width="43" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Drexel</a></text>
+<text top="161" left="278" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="161" left="283" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2009</a></text>
+<text top="161" left="312" width="119" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">) </a>and already sup-</text>
+<text top="179" left="82" width="246" height="15" font="0">ports Windows, Linux and MacOS X.</text>
+<text top="197" left="105" width="46" height="15" font="3"><b>RExcel</b></text>
+<text top="197" left="155" width="270" height="15" font="0">supports various user interaction modes:</text>
+<text top="226" left="82" width="240" height="15" font="3"><b>Scratchpad and data transfer mode:</b></text>
+<text top="226" left="330" width="99" height="15" font="0">Menus control</text>
+<text top="244" left="120" width="312" height="15" font="0">data transfer from R to Excel and back; com-</text>
+<text top="262" left="120" width="309" height="15" font="0">mands can be executed immediately, either from</text>
+<text top="280" left="120" width="233" height="15" font="0">Excel cells or from R command line</text>
+<text top="310" left="82" width="89" height="15" font="3"><b>Macro mode:</b></text>
+<text top="310" left="179" width="250" height="15" font="0">Macros, invisible to the user, control</text>
+<text top="328" left="120" width="264" height="15" font="0">data transfer and R command execution</text>
+<text top="357" left="82" width="130" height="15" font="3"><b>Spreadsheet mode:</b></text>
+<text top="357" left="219" width="209" height="15" font="0">Formulas in Excel cells control</text>
+<text top="375" left="120" width="312" height="15" font="0">data transfer and command execution, auto-</text>
+<text top="393" left="120" width="269" height="15" font="0">matic recalculation is controlled by Excel</text>
+<text top="422" left="105" width="324" height="15" font="0">Throughout the rest of this article, we will describe</text>
+<text top="440" left="82" width="349" height="15" font="0">how to use scratchpad mode and macro mode for proto-</text>
+<text top="458" left="82" width="276" height="15" font="0">typing and implementing the application.</text>
+<text top="476" left="105" width="327" height="15" font="0">For more information on <b>RExcel </b>and <b>statconn-</b></text>
+<text top="494" left="82" width="51" height="15" font="3"><b>DCOM</b></text>
+<text top="494" left="137" width="21" height="15" font="0">see</text>
+<text top="494" left="161" width="132" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">Baier and Neuwirth</a></text>
+<text top="494" left="297" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">(</a></text>
+<text top="494" left="302" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">2007</a></text>
+<text top="494" left="331" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#7">).</a></text>
+<text top="541" left="82" width="141" height="21" font="4"><b>Implementing</b></text>
+<text top="541" left="247" width="31" height="21" font="4"><b>the</b></text>
+<text top="541" left="302" width="127" height="21" font="4"><b>classification</b></text>
+<text top="568" left="82" width="186" height="21" font="4"><b>and regression tree</b></text>
+<text top="606" left="82" width="350" height="15" font="0">With <b>RExcel</b>’s tool set we can start developing our ap-</text>
+<text top="624" left="82" width="349" height="15" font="0">plication in Excel immediately. <b>RExcel </b>has a “scratch-</text>
+<text top="642" left="82" width="348" height="15" font="0">pad” mode which allows you to write R code directly</text>
+<text top="660" left="82" width="346" height="15" font="0">into a worksheet and to run it from there. Scratchpad</text>
+<text top="678" left="82" width="349" height="15" font="0">mode is the user interaction mode we use when pro-</text>
+<text top="696" left="82" width="346" height="15" font="0">totyping the application. We will then transform the</text>
+<text top="714" left="82" width="349" height="15" font="0">prototypical code into a “real” application. In prac-</text>
+<text top="732" left="82" width="346" height="15" font="0">tice, the prototyping phase in scratchpad mode will</text>
+<text top="750" left="82" width="346" height="15" font="0">be omitted for simple applications. In an Excel hosted</text>
+<text top="768" left="82" width="346" height="15" font="0">R application we also want to transfer data between</text>
+<text top="786" left="82" width="349" height="15" font="0">Excel and R, and transfer commands may be embed-</text>
+<text top="804" left="82" width="346" height="15" font="0">ded in R code. An extremely simplistic example of</text>
+<text top="822" left="82" width="346" height="15" font="0">code in an R code scratchpad range in Excel might</text>
+<text top="840" left="82" width="89" height="15" font="0">look like this:</text>
+<text top="873" left="82" width="46" height="12" font="0">#!rput</text>
+<text top="873" left="159" width="38" height="12" font="0">inval</text>
+<text top="873" left="235" width="87" height="12" font="0">'Sheet1'!A1</text>
+<text top="891" left="82" width="137" height="12" font="0">result&lt;-sin(inval)</text>
+<text top="909" left="82" width="46" height="12" font="0">#!rget</text>
+<text top="909" left="159" width="46" height="12" font="0">result</text>
+<text top="909" left="235" width="87" height="12" font="0">'Sheet1'!A2</text>
+<text top="940" left="105" width="327" height="15" font="0">R code is run simply by selecting the range con-</text>
+<text top="958" left="82" width="349" height="15" font="0">taining code and choosing Run R Code from the pop-</text>
+<text top="976" left="82" width="64" height="15" font="0">up menu.</text>
+<text top="994" left="105" width="324" height="15" font="0">Lines starting with #! are treated as special <b>RExcel</b></text>
+<text top="1012" left="82" width="346" height="15" font="0">commands. rput will send the value (contents) of a</text>
+<text top="1030" left="82" width="346" height="15" font="0">cell or range to R, rget will read a value from R and</text>
+<text top="1048" left="82" width="175" height="15" font="0">store it into a cell or range.</text>
+<text top="1065" left="105" width="324" height="15" font="0">In the example, the value stored in cell A1 of sheet</text>
+<text top="1085" left="82" width="46" height="12" font="0">Sheet1</text>
+<text top="1083" left="133" width="297" height="15" font="0">will be stored in the R variable inval. After</text>
+<text top="1101" left="82" width="346" height="15" font="0">evaluating the R expression result&lt;-sin(inval), the</text>
+<text top="1119" left="82" width="323" height="15" font="0">value of the R variable result is stored in cell A2.</text>
+<text top="1137" left="105" width="34" height="15" font="0">Table</text>
+<text top="1137" left="143" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#4">1</a></text>
+<text top="1137" left="154" width="278" height="15" font="0">lists all special <b>RExcel </b>commands and pro-</text>
+<text top="1155" left="82" width="347" height="15" font="0">vides a short description. More information can be</text>
+<text top="1173" left="82" width="256" height="15" font="0">found in the documentation of <b>RExcel</b>.</text>
+<text top="125" left="481" width="324" height="15" font="0">In the example below, we have a dataset on the</text>
+<text top="143" left="459" width="346" height="15" font="0">credit approval process for 690 subjects. For each</text>
+<text top="161" left="459" width="346" height="15" font="0">record, we have 15 input variables (qualitative and</text>
+<text top="179" left="458" width="347" height="15" font="0">quantitative) while variable 16 indicates the outcome</text>
+<text top="197" left="459" width="225" height="15" font="0">of the credit application: positive (</text>
+<text top="196" left="684" width="12" height="16" font="7">+</text>
+<text top="197" left="696" width="91" height="15" font="0">) or negative (</text>
+<text top="195" left="787" width="12" height="18" font="7">−</text>
+<text top="197" left="799" width="9" height="15" font="0">).</text>
+<text top="215" left="459" width="349" height="15" font="0">Based on this training dataset, we develop our classi-</text>
+<text top="233" left="459" width="346" height="15" font="0">fication tree which is used to show the influence of 15</text>
+<text top="251" left="458" width="347" height="15" font="0">variables on the loan application and to distinguish</text>
+<text top="268" left="457" width="349" height="15" font="0">“good” applicants from “risky” applicants (so as to</text>
+<text top="286" left="459" width="346" height="15" font="0">estimate variable 16). The risk manager will use this</text>
+<text top="304" left="459" width="346" height="15" font="0">model fully integrated into Excel for further credit</text>
+<text top="322" left="459" width="116" height="15" font="0">approval process.</text>
+<text top="340" left="481" width="324" height="15" font="0">The goal of the code snippet below is to estimate</text>
+<text top="358" left="459" width="346" height="15" font="0">the model and display the chart with the classification</text>
+<text top="376" left="459" width="346" height="15" font="0">tree. The risk manager can easily view the binary tree</text>
+<text top="394" left="459" width="347" height="15" font="0">and use this chart to highlight the splits. This will help</text>
+<text top="412" left="459" width="346" height="15" font="0">discover the most significant variables for the credit</text>
+<text top="430" left="459" width="347" height="15" font="0">approval process. For example, in this case it is clear</text>
+<text top="448" left="459" width="346" height="15" font="0">that the predictor variables V9 determines the best</text>
+<text top="466" left="459" width="347" height="15" font="0">binary partition in terms of minimizing the “impurity</text>
+<text top="484" left="459" width="346" height="15" font="0">measure”. In addition, the risk manager will notice</text>
+<text top="502" left="459" width="346" height="15" font="0">that when V9 equals a, the only significant variable</text>
+<text top="520" left="459" width="346" height="15" font="0">to observe is V4. The graphical representation of the</text>
+<text top="538" left="459" width="239" height="15" font="0">classification tree is shown in Figure</text>
+<text top="538" left="702" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#4">3</a></text>
+<text top="538" left="713" width="53" height="15" font="0">on page</text>
+<text top="538" left="769" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#4">8</a></text>
+<text top="538" left="777" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#4">.</a></text>
+<text top="572" left="459" width="107" height="12" font="0">library(rpart)</text>
+<text top="590" left="459" width="114" height="12" font="0">#!rputdataframe</text>
+<text top="590" left="604" width="91" height="12" font="0">trainingdata</text>
+<text top="590" left="779" width="8" height="12" font="0">\</text>
+<text top="608" left="505" width="140" height="12" font="0">'database'!A1:P691</text>
+<text top="626" left="459" width="267" height="12" font="0">fit&lt;-rpart(V16~.,data=trainingdata)</text>
+<text top="644" left="459" width="305" height="12" font="0">plot(fit,branch=0.1,uniform=T,margin=.1,</text>
+<text top="644" left="779" width="8" height="12" font="0">\</text>
+<text top="662" left="505" width="168" height="12" font="0">compress=T,nspace=0.1)</text>
+<text top="680" left="459" width="191" height="12" font="0">text(fit,fancy=T,use.n=T)</text>
+<text top="698" left="459" width="152" height="12" font="0">#!insertcurrentrplot</text>
+<text top="698" left="642" width="109" height="12" font="0">'database'!T10</text>
+<text top="716" left="459" width="107" height="12" font="0">graphics.off()</text>
+<text top="748" left="459" width="52" height="15" font="3"><b>Note: </b>\</text>
+<text top="748" left="515" width="293" height="15" font="0">in the code denotes a line break for readabil-</text>
+<text top="766" left="496" width="312" height="15" font="0">ity and should not be used in the real spread-</text>
+<text top="784" left="496" width="34" height="15" font="0">sheet</text>
+<text top="817" left="481" width="327" height="15" font="0">After estimating the model andvisualizing the re-</text>
+<text top="835" left="459" width="349" height="15" font="0">sults, you can use the Classification Tree to make pre-</text>
+<text top="853" left="459" width="346" height="15" font="0">dictions about the variable V16: the applicants will</text>
+<text top="871" left="459" width="346" height="15" font="0">be classified as “good” or “risky.” By running the</text>
+<text top="889" left="459" width="346" height="15" font="0">following code, the 15 observed variables for two</text>
+<text top="907" left="458" width="347" height="15" font="0">people are used to estimate the probability of credit</text>
+<text top="924" left="459" width="260" height="15" font="0">approval. Generally, a “positive” value (</text>
+<text top="923" left="719" width="12" height="16" font="7">+</text>
+<text top="924" left="731" width="77" height="15" font="0">) with prob-</text>
+<text top="942" left="459" width="349" height="15" font="0">ability higher than 0.5 will indicate to grant the loan.</text>
+<text top="960" left="459" width="346" height="15" font="0">So the risk manager using this model will decide to</text>
+<text top="978" left="459" width="193" height="15" font="0">grant the credit in both cases.</text>
+<text top="1013" left="459" width="107" height="12" font="0">library(rpart)</text>
+<text top="1031" left="459" width="213" height="12" font="0">#!rputdataframe trainingdata</text>
+<text top="1031" left="779" width="8" height="12" font="0">\</text>
+<text top="1049" left="505" width="140" height="12" font="0">'database'!A1:P691</text>
+<text top="1067" left="459" width="183" height="12" font="0">#!rputdataframe newcases</text>
+<text top="1067" left="779" width="8" height="12" font="0">\</text>
+<text top="1085" left="505" width="117" height="12" font="0">'predict'!A1:O3</text>
+<text top="1103" left="459" width="328" height="12" font="0">outdf&lt;-as.data.frame(predict(fit,newcases))</text>
+<text top="1121" left="459" width="259" height="12" font="0">predGroup &lt;- ifelse(outdf[,1]&gt;0.5,</text>
+<text top="1121" left="779" width="8" height="12" font="0">\</text>
+<text top="1139" left="505" width="244" height="12" font="0">names(outdf[1]),names(outdf[2]))</text>
+<text top="1156" left="459" width="206" height="12" font="0">res&lt;-cbind(predGroup,outdf)</text>
+<text top="1174" left="459" width="145" height="12" font="0">#!rgetdataframe res</text>
+<text top="1174" left="642" width="94" height="12" font="0">'predict'!R1</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="7" height="15" font="0">8</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="243" left="123" width="62" height="15" font="0">Command</text>
+<text top="243" left="381" width="71" height="15" font="0">Description</text>
+<text top="270" left="123" width="46" height="12" font="0">#!rput</text>
+<text top="269" left="172" width="95" height="15" font="0">variable range</text>
+<text top="269" left="381" width="343" height="15" font="0">store the value (contents) of a range in an R variable</text>
+<text top="288" left="123" width="114" height="12" font="0">#!rputdataframe</text>
+<text top="286" left="241" width="95" height="15" font="0">variable range</text>
+<text top="286" left="381" width="292" height="15" font="0">store the value of a range in an R data frame</text>
+<text top="306" left="123" width="122" height="12" font="0">#!rputpivottable</text>
+<text top="304" left="249" width="95" height="15" font="0">variable range</text>
+<text top="304" left="381" width="274" height="15" font="0">store the value of a range in an R variable</text>
+<text top="324" left="123" width="46" height="12" font="0">#!rget</text>
+<text top="322" left="172" width="122" height="15" font="0">r-expression range</text>
+<text top="322" left="381" width="309" height="15" font="0">store the value of the R expression in the range</text>
+<text top="342" left="123" width="114" height="12" font="0">#!rgetdataframe</text>
+<text top="340" left="241" width="122" height="15" font="0">r-expression range</text>
+<text top="340" left="381" width="384" height="15" font="0">store the data frame value of the R expression in the range</text>
+<text top="360" left="123" width="145" height="12" font="0">#!insertcurrentplot</text>
+<text top="358" left="271" width="79" height="15" font="0">cell-address</text>
+<text top="358" left="381" width="262" height="15" font="0">insert the active plot into the worksheet</text>
+<text top="395" left="281" width="325" height="15" font="0">Table 1: Special <b>RExcel </b>commands used in sheets</text>
+<text top="1053" left="142" width="604" height="15" font="0">Figure 3: Graphical representation of the classification tree in the <b>RExcel </b>based application.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">9</text>
+<text top="125" left="105" width="325" height="15" font="0">The potential of this approach is obvious: Very</text>
+<text top="143" left="82" width="346" height="15" font="0">complex models, such as classification and regression</text>
+<text top="161" left="82" width="346" height="15" font="0">trees, are made available to decision makers (in this</text>
+<text top="179" left="82" width="349" height="15" font="0">case, the risk manager) directly in Microsoft Excel.</text>
+<text top="197" left="82" width="68" height="15" font="0">See Figure</text>
+<text top="197" left="154" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#2">2</a></text>
+<text top="197" left="165" width="52" height="15" font="0">on page</text>
+<text top="197" left="221" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#2">6</a></text>
+<text top="197" left="232" width="200" height="15" font="0">for a screen-shot of the presen-</text>
+<text top="215" left="82" width="131" height="15" font="0">tation of the results.</text>
+<text top="262" left="82" width="268" height="21" font="4"><b>Tidying up the spreadsheet</b></text>
+<text top="300" left="82" width="346" height="15" font="0">In an application to be deployed to end users, R code</text>
+<text top="318" left="82" width="346" height="15" font="0">should not be visible to the users. Excel’s mechanism</text>
+<text top="336" left="82" width="346" height="15" font="0">for performing operations on data is to run macros</text>
+<text top="354" left="82" width="347" height="15" font="0">written in VBA (Visual Basic for Applications, the</text>
+<text top="372" left="82" width="347" height="15" font="0">programming language embedded in Excel). <b>RExcel</b></text>
+<text top="390" left="82" width="346" height="15" font="0">implements a few functions and subroutines which</text>
+<text top="408" left="82" width="349" height="15" font="0">can be used from VBA. Here is a minimalistic exam-</text>
+<text top="426" left="82" width="24" height="15" font="0">ple:</text>
+<text top="460" left="82" width="122" height="12" font="0">Sub RExcelDemo()</text>
+<text top="478" left="113" width="175" height="12" font="0">RInterface.StartRServer</text>
+<text top="496" left="113" width="221" height="12" font="0">RInterface.GetRApply &#34;sin&#34;, _</text>
+<text top="514" left="136" width="183" height="12" font="0">Range(&#34;A2&#34;), Range(&#34;A1&#34;)</text>
+<text top="532" left="113" width="168" height="12" font="0">RInterface.StopRServer</text>
+<text top="550" left="82" width="53" height="12" font="0">End Sub</text>
+<text top="583" left="105" width="69" height="12" font="0">GetRApply</text>
+<text top="581" left="180" width="249" height="15" font="0">applies an R function to arguments</text>
+<text top="599" left="82" width="349" height="15" font="0">taken from Excel ranges and puts the result in a range.</text>
+<text top="617" left="82" width="347" height="15" font="0">These arguments can be scalars, vectors, matrices or</text>
+<text top="635" left="82" width="346" height="15" font="0">dataframes. In the above example, the function sin is</text>
+<text top="653" left="82" width="346" height="15" font="0">applied to the value from cell A1 and the result is put</text>
+<text top="671" left="82" width="346" height="15" font="0">in cell A2. The R function given as the first argument</text>
+<text top="689" left="82" width="346" height="15" font="0">to GetRApply does not necessarily have to be a named</text>
+<text top="707" left="82" width="306" height="15" font="0">function, any function expression can be used.</text>
+<text top="725" left="105" width="46" height="15" font="3"><b>RExcel</b></text>
+<text top="725" left="160" width="269" height="15" font="0">has several other functions that may</text>
+<text top="743" left="82" width="186" height="15" font="0">be called in VBA macros.</text>
+<text top="744" left="287" width="30" height="12" font="0">RRun</text>
+<text top="743" left="325" width="104" height="15" font="0">runs any code</text>
+<text top="761" left="82" width="113" height="15" font="0">given as string.</text>
+<text top="762" left="215" width="30" height="12" font="0">RPut</text>
+<text top="761" left="255" width="177" height="15" font="0">and RGet transfer matri-</text>
+<text top="779" left="82" width="347" height="15" font="0">ces, and RPutDataframe and RGetDataframe transfer</text>
+<text top="796" left="82" width="346" height="15" font="0">dataframes. RunRCall similar to GetRApply calls an</text>
+<text top="814" left="82" width="346" height="15" font="0">R function but does not transfer any return value to</text>
+<text top="832" left="82" width="346" height="15" font="0">Excel. A typical use of RunRCall is for calling plot</text>
+<text top="850" left="82" width="349" height="15" font="0">functions in R. InsertCurrentRPlot embeds the cur-</text>
+<text top="868" left="82" width="346" height="15" font="0">rent R plot into Excel as an image embedded in a</text>
+<text top="886" left="82" width="73" height="15" font="0">worksheet.</text>
+<text top="904" left="105" width="324" height="15" font="0">In many cases, we need to define one or more</text>
+<text top="922" left="82" width="347" height="15" font="0">R functions to be used with GetRApply or the other</text>
+<text top="940" left="82" width="347" height="15" font="0">VBA support functions and subroutines. <b>RExcel </b>has</text>
+<text top="958" left="82" width="349" height="15" font="0">a mechanism for that. When <b>RExcel </b>connects to R (us-</text>
+<text top="976" left="82" width="347" height="15" font="0">ing the command RInterface.StartRServer), it will check</text>
+<text top="994" left="82" width="348" height="15" font="0">whether the directory containing the active workbook</text>
+<text top="1012" left="82" width="346" height="15" font="0">also contains a file named RExcelStart.R. If it finds</text>
+<text top="1030" left="82" width="346" height="15" font="0">such a file, it will read its contents and evaluate them</text>
+<text top="1048" left="82" width="350" height="15" font="0">with R (source command in R). After doing this, <b>REx-</b></text>
+<text top="1066" left="82" width="19" height="15" font="3"><b>cel</b></text>
+<text top="1065" left="105" width="326" height="15" font="0">will check if the active workbook contains a work-</text>
+<text top="1083" left="82" width="346" height="15" font="0">sheet named RCode. If such a worksheet exists, its</text>
+<text top="1101" left="82" width="323" height="15" font="0">contents also will be read and evaluated using R.</text>
+<text top="1119" left="105" width="327" height="15" font="0">Some notes on handling R errors in Excel: The R im-</text>
+<text top="1137" left="82" width="347" height="15" font="0">plementation should check for all errors which are</text>
+<text top="1155" left="82" width="346" height="15" font="0">expected to occur in the application. The application</text>
+<text top="1173" left="82" width="346" height="15" font="0">itself is required to pass correctly typed arguments</text>
+<text top="125" left="458" width="350" height="15" font="0">when invoking an R/ function. If <b>RExcel </b>calls a func-</text>
+<text top="143" left="459" width="347" height="15" font="0">tion in R and R throws an error, an Excel dialog box</text>
+<text top="161" left="458" width="350" height="15" font="0">will pop up informing the user of the error. An alterna-</text>
+<text top="179" left="459" width="346" height="15" font="0">tive to extensive checking is to use R’s try mechanism</text>
+<text top="197" left="459" width="337" height="15" font="0">to catch errors in R and handle them appropriately.</text>
+<text top="215" left="481" width="327" height="15" font="0">Using these tools, we now can define a macro per-</text>
+<text top="233" left="459" width="346" height="15" font="0">forming the actions our scratchpad code did in the</text>
+<text top="251" left="458" width="349" height="15" font="0">previous section. Since we can define auxiliary fun-</text>
+<text top="269" left="459" width="346" height="15" font="0">cions easily, we can also now make our design more</text>
+<text top="286" left="459" width="60" height="15" font="0">modular.</text>
+<text top="304" left="481" width="324" height="15" font="0">The workhorse of our application is the following</text>
+<text top="322" left="458" width="80" height="15" font="0">VBA macro:</text>
+<text top="357" left="459" width="122" height="12" font="0">Sub PredictApp()</text>
+<text top="375" left="489" width="160" height="12" font="0">Dim outRange As Range</text>
+<text top="392" left="489" width="290" height="12" font="0">ActiveWorkbook.Worksheets(&#34;predict&#34;) _</text>
+<text top="410" left="505" width="69" height="12" font="0">.Activate</text>
+<text top="428" left="489" width="175" height="12" font="0">If Err.Number &lt;&gt; 0 Then</text>
+<text top="446" left="505" width="244" height="12" font="0">MsgBox &#34;This workbook does not &#34;</text>
+<text top="446" left="771" width="8" height="12" font="0">_</text>
+<text top="464" left="520" width="229" height="12" font="0">&amp; &#34;contain data for rpartDemo&#34;</text>
+<text top="482" left="505" width="61" height="12" font="0">Exit Sub</text>
+<text top="500" left="489" width="46" height="12" font="0">End If</text>
+<text top="518" left="489" width="84" height="12" font="0">ClearOutput</text>
+<text top="536" left="489" width="175" height="12" font="0">RInterface.StartRServer</text>
+<text top="554" left="489" width="213" height="12" font="0">RInterface.RunRCodeFromRange</text>
+<text top="554" left="771" width="8" height="12" font="0">_</text>
+<text top="572" left="505" width="244" height="12" font="0">ThisWorkbook.Worksheets(&#34;RCode&#34;)</text>
+<text top="572" left="771" width="8" height="12" font="0">_</text>
+<text top="590" left="520" width="76" height="12" font="0">.UsedRange</text>
+<text top="626" left="489" width="152" height="12" font="0">RInterface.GetRApply</text>
+<text top="626" left="771" width="8" height="12" font="0">_</text>
+<text top="644" left="505" width="84" height="12" font="0">&#34;function(&#34;</text>
+<text top="644" left="627" width="8" height="12" font="0">_</text>
+<text top="661" left="520" width="229" height="12" font="0">&amp; &#34;trainingdata,groupvarname,&#34;</text>
+<text top="661" left="771" width="8" height="12" font="0">_</text>
+<text top="679" left="520" width="259" height="12" font="0">&amp; &#34;newdata)predictResult(fitApp(&#34;_</text>
+<text top="697" left="520" width="236" height="12" font="0">&amp; &#34;trainingdata,groupvarname),&#34;</text>
+<text top="697" left="771" width="8" height="12" font="0">_</text>
+<text top="715" left="520" width="114" height="12" font="0">&amp; &#34;newdata)&#34;, _</text>
+<text top="733" left="505" width="198" height="12" font="0">ActiveWorkbook.Worksheets(</text>
+<text top="733" left="771" width="8" height="12" font="0">_</text>
+<text top="751" left="520" width="175" height="12" font="0">&#34;predict&#34;).Range(&#34;R1&#34;),</text>
+<text top="751" left="771" width="8" height="12" font="0">_</text>
+<text top="769" left="505" width="191" height="12" font="0">AsSimpleDF(DownRightFrom(</text>
+<text top="769" left="771" width="8" height="12" font="0">_</text>
+<text top="787" left="520" width="183" height="12" font="0">ThisWorkbook.Worksheets(</text>
+<text top="787" left="771" width="8" height="12" font="0">_</text>
+<text top="805" left="535" width="198" height="12" font="0">&#34;database&#34;).Range(&#34;A1&#34;))),</text>
+<text top="805" left="771" width="8" height="12" font="0">_</text>
+<text top="823" left="520" width="46" height="12" font="0">&#34;V16&#34;,</text>
+<text top="823" left="771" width="8" height="12" font="0">_</text>
+<text top="841" left="505" width="191" height="12" font="0">AsSimpleDF(ActiveWorkbook</text>
+<text top="841" left="771" width="8" height="12" font="0">_</text>
+<text top="859" left="520" width="221" height="12" font="0">.Worksheets(&#34;predict&#34;).Range(</text>
+<text top="859" left="771" width="8" height="12" font="0">_</text>
+<text top="877" left="535" width="152" height="12" font="0">&#34;A1&#34;).CurrentRegion)</text>
+<text top="912" left="489" width="168" height="12" font="0">RInterface.StopRServer</text>
+<text top="930" left="489" width="221" height="12" font="0">Set outRange = ActiveWorkbook</text>
+<text top="930" left="771" width="8" height="12" font="0">_</text>
+<text top="948" left="505" width="274" height="12" font="0">.Worksheets(&#34;predict&#34;).Range(&#34;R1&#34;) _</text>
+<text top="966" left="520" width="107" height="12" font="0">.CurrentRegion</text>
+<text top="984" left="489" width="137" height="12" font="0">HighLight outRange</text>
+<text top="1002" left="459" width="53" height="12" font="0">End Sub</text>
+<text top="1034" left="481" width="324" height="15" font="0">The function predictResult is defined in the</text>
+<text top="1052" left="458" width="115" height="15" font="0">worksheet RCode.</text>
+<text top="1099" left="459" width="255" height="21" font="4"><b>Packaging the application</b></text>
+<text top="1137" left="459" width="346" height="15" font="0">So far, both our code (the R commands) and data have</text>
+<text top="1155" left="459" width="349" height="15" font="0">been part of the same spreadsheet. This may be conve-</text>
+<text top="1173" left="459" width="346" height="15" font="0">nient while developing the <b>RExcel</b>-based application</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="15" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">10</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="348" height="15" font="0">or if you are only using the application for yourself,</text>
+<text top="143" left="82" width="347" height="15" font="0">but it has to be changed for redistribution to a wider</text>
+<text top="161" left="82" width="63" height="15" font="0">audience.</text>
+<text top="179" left="105" width="324" height="15" font="0">We will show how to divide the application into</text>
+<text top="197" left="82" width="346" height="15" font="0">two parts, the first being the Excel part, the second</text>
+<text top="215" left="82" width="348" height="15" font="0">being the R part. With a clear interface between these,</text>
+<text top="233" left="82" width="346" height="15" font="0">it will be easy to update one of them without affecting</text>
+<text top="251" left="82" width="349" height="15" font="0">the other. This will make testing and updating easier.</text>
+<text top="268" left="82" width="347" height="15" font="0">Separating the R implementation from the Excel (or</text>
+<text top="287" left="82" width="46" height="15" font="3"><b>RExcel</b></text>
+<text top="286" left="129" width="300" height="15" font="0">) implementation will also allow an R expert</text>
+<text top="304" left="82" width="346" height="15" font="0">to work on the R part and an Excel expert to work on</text>
+<text top="322" left="82" width="94" height="15" font="0">the Excel part.</text>
+<text top="340" left="105" width="324" height="15" font="0">As an additional benefit, exchanging the Excel</text>
+<text top="358" left="82" width="346" height="15" font="0">front-end with a custom application (e.g., written in a</text>
+<text top="376" left="82" width="347" height="15" font="0">programming language like C#) will be easier, too, as</text>
+<text top="394" left="82" width="347" height="15" font="0">the R implementation will not have to be changed (or</text>
+<text top="412" left="82" width="124" height="15" font="0">tested) in this case.</text>
+<text top="430" left="105" width="324" height="15" font="0">The application’s R code interface is simple, yet</text>
+<text top="448" left="82" width="347" height="15" font="0">powerful. <b>RExcel </b>will only have to call a single R</text>
+<text top="466" left="82" width="346" height="15" font="0">function called approval. Everything else is hidden</text>
+<text top="484" left="82" width="346" height="15" font="0">from the user (including the training data). approval</text>
+<text top="502" left="82" width="346" height="15" font="0">takes a data frame with the data for the cases to be</text>
+<text top="520" left="82" width="349" height="15" font="0">decided upon as input and returns a data frame con-</text>
+<text top="537" left="82" width="346" height="15" font="0">taining the group classification and the probabilities</text>
+<text top="555" left="82" width="346" height="15" font="0">for all possible groups. Of course, the return value</text>
+<text top="573" left="82" width="195" height="15" font="0">can also be shown in a figure.</text>
+<text top="615" left="82" width="184" height="17" font="8"><b>Creating an R package</b></text>
+<text top="645" left="82" width="314" height="15" font="0">The macro-based application built in section <a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">“</a></text>
+<text top="645" left="396" width="36" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">Tidy-</a></text>
+<text top="663" left="82" width="150" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">ing up the spreadsheet</a></text>
+<text top="663" left="233" width="196" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">” </a>still contains the R code and</text>
+<text top="681" left="82" width="349" height="15" font="0">the training data. We will now separate the imple-</text>
+<text top="699" left="82" width="346" height="15" font="0">mentation of the methodology and the user interface</text>
+<text top="717" left="82" width="346" height="15" font="0">by putting all our R functions and the training data</text>
+<text top="735" left="82" width="346" height="15" font="0">into an R package. This R package will only expose a</text>
+<text top="753" left="82" width="346" height="15" font="0">single function which gets data for the new cases as</text>
+<text top="771" left="82" width="346" height="15" font="0">input and returns the predicted group membership as</text>
+<text top="789" left="82" width="346" height="15" font="0">result. Using this approach, our application now has</text>
+<text top="807" left="82" width="346" height="15" font="0">a clear architecture. The end user workbook contains</text>
+<text top="824" left="82" width="137" height="15" font="0">the following macro:</text>
+<text top="857" left="82" width="122" height="12" font="0">Sub PredictApp()</text>
+<text top="875" left="113" width="160" height="12" font="0">Dim outRange As Range</text>
+<text top="893" left="113" width="84" height="12" font="0">ClearOutput</text>
+<text top="910" left="113" width="175" height="12" font="0">RInterface.StartRServer</text>
+<text top="946" left="113" width="290" height="12" font="0">RInterface.RRun &#34;library(RExcelrpart)&#34;</text>
+<text top="964" left="113" width="244" height="12" font="0">RInterface.GetRApply &#34;approval&#34;,</text>
+<text top="964" left="403" width="8" height="12" font="0">_</text>
+<text top="982" left="128" width="170" height="12" font="0">Range(&#34;'predict'!R1&#34;),</text>
+<text top="982" left="405" width="8" height="12" font="0">_</text>
+<text top="1000" left="128" width="229" height="12" font="0">AsSimpleDF(Range(&#34;predict!A1&#34;)</text>
+<text top="1000" left="403" width="8" height="12" font="0">_</text>
+<text top="1018" left="143" width="114" height="12" font="0">.CurrentRegion)</text>
+<text top="1054" left="113" width="168" height="12" font="0">RInterface.StopRServer</text>
+<text top="1072" left="113" width="259" height="12" font="0">Set outRange = Range(&#34;predict!R1&#34;)</text>
+<text top="1072" left="403" width="8" height="12" font="0">_</text>
+<text top="1090" left="128" width="107" height="12" font="0">.CurrentRegion</text>
+<text top="1108" left="113" width="137" height="12" font="0">HighLight outRange</text>
+<text top="1126" left="82" width="53" height="12" font="0">End Sub</text>
+<text top="1155" left="105" width="324" height="15" font="0">In this macro, we start a connection to R, load the</text>
+<text top="1173" left="82" width="349" height="15" font="0">R package and call the function provided by this pack-</text>
+<text top="125" left="459" width="346" height="15" font="0">age and then immediately close the the connection to</text>
+<text top="143" left="459" width="14" height="15" font="0">R.</text>
+<text top="161" left="481" width="324" height="15" font="0">The <b>statconnDCOM </b>server can reside on another</text>
+<text top="179" left="459" width="346" height="15" font="0">machine than the one where the Excel application</text>
+<text top="197" left="459" width="346" height="15" font="0">is running. The server to be used by <b>RExcel </b>can be</text>
+<text top="215" left="459" width="346" height="15" font="0">configured in a configuration dialog or even from</text>
+<text top="233" left="458" width="347" height="15" font="0">within VBA macros. So with minimal changes, the</text>
+<text top="251" left="459" width="346" height="15" font="0">application created can be turned into an application</text>
+<text top="268" left="458" width="347" height="15" font="0">which uses a remote server. A further advantage of</text>
+<text top="286" left="459" width="346" height="15" font="0">this approach is that the R functions and data used</text>
+<text top="304" left="459" width="346" height="15" font="0">by the application can be managed centrally on one</text>
+<text top="322" left="459" width="346" height="15" font="0">server. If any changes or updates are necessary, the</text>
+<text top="340" left="459" width="346" height="15" font="0">Excel workbooks installed on the end users’ machines</text>
+<text top="358" left="459" width="178" height="15" font="0">do not need to be changed.</text>
+<text top="399" left="459" width="264" height="17" font="8"><b>Building a VBA add-in for Excel</b></text>
+<text top="429" left="458" width="347" height="15" font="0">The implementation using an R package still has some</text>
+<text top="447" left="459" width="346" height="15" font="0">shortcomings. The end user Excel workbook contains</text>
+<text top="465" left="459" width="347" height="15" font="0">macros, and often IT security policies do to not allow</text>
+<text top="483" left="459" width="346" height="15" font="0">end user workbooks to contain any executable code</text>
+<text top="501" left="458" width="347" height="15" font="0">(macros). Choosing a slightly different approach, we</text>
+<text top="519" left="459" width="346" height="15" font="0">can put all the VBA macro code in an Excel add-in. In</text>
+<text top="537" left="459" width="346" height="15" font="0">the end user workbook, we just place buttons which</text>
+<text top="555" left="459" width="346" height="15" font="0">trigger the macros from the add-in. When opening a</text>
+<text top="573" left="459" width="346" height="15" font="0">new spreadsheet to be used with this add-in, Excel’s</text>
+<text top="591" left="459" width="346" height="15" font="0">template mechanism can be used to create the buttons</text>
+<text top="609" left="459" width="347" height="15" font="0">on the new worksheet. The code from the workbook</text>
+<text top="627" left="459" width="137" height="15" font="0">described in section <a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">“</a></text>
+<text top="627" left="596" width="175" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">Tidying up the spreadsheet</a></text>
+<text top="627" left="770" width="37" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">” </a>can-</text>
+<text top="645" left="459" width="349" height="15" font="0">not be used “as is” since it is written under the as-</text>
+<text top="662" left="459" width="347" height="15" font="0">sumption that both the training data and the data for</text>
+<text top="680" left="459" width="349" height="15" font="0">the new cases are contained in the same workbook.</text>
+<text top="698" left="458" width="349" height="15" font="0">The necessary changes, however, are minimal. Con-</text>
+<text top="716" left="458" width="247" height="15" font="0">verting the workbook from section <a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">“</a></text>
+<text top="716" left="705" width="100" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">Tidying up the</a></text>
+<text top="734" left="459" width="81" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">spreadsheet</a></text>
+<text top="734" left="539" width="266" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#5">” </a>again poses the problem that the data</text>
+<text top="752" left="459" width="346" height="15" font="0">and the methodology are now deployed on the end</text>
+<text top="770" left="459" width="349" height="15" font="0">users’ machines. Therefore updating implies replac-</text>
+<text top="788" left="459" width="346" height="15" font="0">ing the add-in on all these machines. Combining the</text>
+<text top="806" left="459" width="346" height="15" font="0">add-in approach with the packaging approach from</text>
+<text top="824" left="459" width="58" height="15" font="0">section <a href="2011-2-RJournal_2011-2_Baier~et~al.html#6">“</a></text>
+<text top="824" left="517" width="151" height="15" font="6"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#6">Creating an R package</a></text>
+<text top="824" left="669" width="139" height="15" font="0"><a href="2011-2-RJournal_2011-2_Baier~et~al.html#6">” </a>increases modular-</text>
+<text top="842" left="459" width="242" height="15" font="0">ization. With this approach we have:</text>
+<text top="870" left="480" width="321" height="15" font="0">• End user workbooks without any macro code.</text>
+<text top="897" left="480" width="328" height="15" font="0">• Methodology and base data residing on a cen-</text>
+<text top="915" left="496" width="162" height="15" font="0">trally maintained server.</text>
+<text top="943" left="480" width="326" height="15" font="0">• Connection technology for end users installed</text>
+<text top="961" left="496" width="309" height="15" font="0">for all users in one place, not separately for each</text>
+<text top="979" left="496" width="31" height="15" font="0">user.</text>
+<text top="1025" left="459" width="264" height="21" font="4"><b>Deploying the Application</b></text>
+<text top="1064" left="459" width="349" height="15" font="0">Using the application on a computer requires installa-</text>
+<text top="1082" left="459" width="307" height="15" font="0">tion and configuration of various components.</text>
+<text top="1099" left="481" width="249" height="15" font="0">The required (major) components are:</text>
+<text top="1127" left="480" width="328" height="15" font="0">• Microsoft Excel, including <b>RExcel </b>and <b>statconn-</b></text>
+<text top="1145" left="496" width="51" height="15" font="3"><b>DCOM</b></text>
+<text top="1173" left="480" width="159" height="15" font="0">• R, including <b>rscproxy</b></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">11</text>
+<text top="125" left="103" width="326" height="15" font="0">• The VBA Add-In and the R package created</text>
+<text top="143" left="120" width="148" height="15" font="0">throughout this article</text>
+<text top="172" left="105" width="327" height="15" font="0">For the simplest setup, all compontents are in-</text>
+<text top="190" left="82" width="346" height="15" font="0">stalled locally. As an alternative, you can also install</text>
+<text top="208" left="82" width="346" height="15" font="0">Excel, <b>RExcel </b>and our newly built VBA Add-In on</text>
+<text top="226" left="82" width="346" height="15" font="0">every workstation locally and install everything else</text>
+<text top="244" left="82" width="348" height="15" font="0">on a (centralized) server machine. In this case, R,</text>
+<text top="262" left="82" width="58" height="15" font="3"><b>rscproxy</b></text>
+<text top="262" left="141" width="291" height="15" font="0">, our application’s R package and <b>statconn-</b></text>
+<text top="280" left="82" width="51" height="15" font="3"><b>DCOM</b></text>
+<text top="280" left="137" width="292" height="15" font="0">are installed on the server machine and one</text>
+<text top="298" left="82" width="346" height="15" font="0">has to configure <b>RExcel </b>to use R via <b>statconnDCOM</b></text>
+<text top="316" left="82" width="346" height="15" font="0">on a remote server machine. Please beware that this</text>
+<text top="334" left="82" width="349" height="15" font="0">kind of setup can be a bit tricky, as it requires a cor-</text>
+<text top="352" left="82" width="346" height="15" font="0">rect DCOM security setup (using the Windows tool</text>
+<text top="369" left="82" width="67" height="15" font="0">dcomcnfg).</text>
+<text top="416" left="82" width="136" height="21" font="4"><b>Downloading</b></text>
+<text top="454" left="82" width="347" height="15" font="0">All examples are available for download from the</text>
+<text top="472" left="82" width="119" height="15" font="0">Download page on</text>
+<text top="474" left="204" width="183" height="12" font="6"><a href="http://rcom.univie.ac.at">http://rcom.univie.ac.at</a></text>
+<text top="472" left="387" width="4" height="15" font="0"><a href="http://rcom.univie.ac.at">.</a></text>
+<text top="518" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="557" left="82" width="346" height="15" font="0">E. I. Altman. Bankruptcy, Credit Risk, and High Yield</text>
+<text top="575" left="97" width="285" height="15" font="0">Junk Bonds. Blackwell Publishers Inc., 2002.</text>
+<text top="603" left="82" width="346" height="15" font="0">T. Baier. rcom: R COM Client Interface and internal</text>
+<text top="621" left="97" width="284" height="15" font="0">COM Server, 2007. R package version 1.5-1.</text>
+<text top="650" left="82" width="348" height="15" font="0">T. Baier and E. Neuwirth. R (D)COM Server V2.00,</text>
+<text top="668" left="97" width="34" height="15" font="0">2005.</text>
+<text top="668" left="148" width="31" height="15" font="0">URL</text>
+<text top="669" left="186" width="245" height="12" font="6"><a href="http://cran.r-project.org/other/DCOM">http://cran.r-project.org/other/</a></text>
+<text top="687" left="97" width="30" height="12" font="6"><a href="http://cran.r-project.org/other/DCOM">DCOM</a></text>
+<text top="686" left="128" width="4" height="15" font="0"><a href="http://cran.r-project.org/other/DCOM">.</a></text>
+<text top="714" left="82" width="349" height="15" font="0">T. Baier and E. Neuwirth. Excel :: COM :: R. Com-</text>
+<text top="732" left="97" width="334" height="15" font="0">putational Statistics, 22(1):91–108, April 2007.</text>
+<text top="750" left="97" width="31" height="15" font="0">URL</text>
+<text top="751" left="156" width="274" height="12" font="6"><a href="http://www.springerlink.com/content/uv6667814108258m/">http://www.springerlink.com/content/</a></text>
+<text top="769" left="97" width="130" height="12" font="6"><a href="http://www.springerlink.com/content/uv6667814108258m/">uv6667814108258m/</a></text>
+<text top="768" left="227" width="4" height="15" font="0"><a href="http://www.springerlink.com/content/uv6667814108258m/">.</a></text>
+<text top="796" left="82" width="349" height="15" font="0">Basel Committee on Banking Supervision. Interna-</text>
+<text top="814" left="97" width="332" height="15" font="0">tional Convergence of Capital Measurement and</text>
+<text top="832" left="97" width="334" height="15" font="0">Capital Standards. Technical report, Bank for In-</text>
+<text top="850" left="97" width="242" height="15" font="0">ternational Settlements, June 2006.</text>
+<text top="850" left="356" width="31" height="15" font="0">URL</text>
+<text top="852" left="395" width="38" height="12" font="6"><a href="http://www.bis.org/publ/bcbs128.pdf">http:</a></text>
+<text top="870" left="97" width="229" height="12" font="6"><a href="http://www.bis.org/publ/bcbs128.pdf">//www.bis.org/publ/bcbs128.pdf</a></text>
+<text top="868" left="325" width="4" height="15" font="0"><a href="http://www.bis.org/publ/bcbs128.pdf">.</a></text>
+<text top="897" left="82" width="349" height="15" font="0">L. Breiman, J. Friedman, R. Olshen, and C. Stone.</text>
+<text top="914" left="97" width="332" height="15" font="0">Classification and Regression Trees. Wadsworth and</text>
+<text top="932" left="97" width="186" height="15" font="0">Brooks, Monterey, CA, 1984.</text>
+<text top="961" left="82" width="348" height="15" font="0">J. M. Chambers. Programming with Data. Springer,</text>
+<text top="979" left="97" width="122" height="15" font="0">New York, 1998.</text>
+<text top="979" left="241" width="31" height="15" font="0">URL</text>
+<text top="980" left="281" width="153" height="12" font="6"><a href="http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/">http://cm.bell-labs.</a></text>
+<text top="998" left="97" width="244" height="12" font="6"><a href="http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/">com/cm/ms/departments/sia/Sbook/</a></text>
+<text top="997" left="341" width="90" height="15" font="0"><a href="http://cm.bell-labs.com/cm/ms/departments/sia/Sbook/">. </a>ISBN 0-387-</text>
+<text top="1015" left="97" width="54" height="15" font="0">98503-4.</text>
+<text top="1043" left="82" width="181" height="15" font="0">R. Drexel. ROOo, 2009. URL</text>
+<text top="1045" left="267" width="168" height="12" font="6"><a href="http://rcom.univie.ac.at/">http://rcom.univie.ac.</a></text>
+<text top="1062" left="97" width="23" height="12" font="6"><a href="http://rcom.univie.ac.at/">at/</a></text>
+<text top="1061" left="120" width="4" height="15" font="0"><a href="http://rcom.univie.ac.at/">.</a></text>
+<text top="125" left="459" width="346" height="15" font="0">T. Hastie, R. Tibshirani, and J. Friedman. The Elements</text>
+<text top="143" left="474" width="332" height="15" font="0">of Statistical Learning: Data Mining, Inference, and</text>
+<text top="161" left="473" width="169" height="15" font="0">Prediction. Springer, 2009.</text>
+<text top="194" left="459" width="49" height="15" font="0">INRIA.</text>
+<text top="194" left="523" width="41" height="15" font="0">Scilab.</text>
+<text top="194" left="579" width="139" height="15" font="0">INRIA ENPC, 1989.</text>
+<text top="194" left="733" width="31" height="15" font="0">URL</text>
+<text top="196" left="771" width="38" height="12" font="6"><a href="http://www.scilab.org">http:</a></text>
+<text top="214" left="473" width="122" height="12" font="6"><a href="http://www.scilab.org">//www.scilab.org</a></text>
+<text top="212" left="595" width="4" height="15" font="0"><a href="http://www.scilab.org">.</a></text>
+<text top="246" left="459" width="346" height="15" font="0">B. D. McCullough and B. Wilson. On the accuracy of</text>
+<text top="264" left="474" width="332" height="15" font="0">statistical procedures in Microsoft Excel 2000 and</text>
+<text top="282" left="474" width="333" height="15" font="0">Excel XP. Computational Statistics and Data Analysis,</text>
+<text top="300" left="474" width="112" height="15" font="0">40:713–721, 2002.</text>
+<text top="333" left="459" width="349" height="15" font="0">Microsoft Corporation. Microsoft Office 2000/Vi-</text>
+<text top="351" left="474" width="226" height="15" font="0">sual Basic Programmer’s Guide.</text>
+<text top="351" left="716" width="92" height="15" font="0">In MSDN Li-</text>
+<text top="369" left="474" width="334" height="15" font="0">brary, volume Office 2000 Documentation. Mi-</text>
+<text top="387" left="474" width="243" height="15" font="0">crosoft Corporation, October 2001.</text>
+<text top="387" left="733" width="31" height="15" font="0">URL</text>
+<text top="388" left="771" width="38" height="12" font="6"><a href="http://msdn.microsoft.com/">http:</a></text>
+<text top="406" left="473" width="160" height="12" font="6"><a href="http://msdn.microsoft.com/">//msdn.microsoft.com/</a></text>
+<text top="405" left="633" width="4" height="15" font="0"><a href="http://msdn.microsoft.com/">.</a></text>
+<text top="438" left="459" width="349" height="15" font="0">Microsoft Corporation and Digital Equipment Corpo-</text>
+<text top="456" left="474" width="334" height="15" font="0">ration. The component object model specification.</text>
+<text top="474" left="473" width="334" height="15" font="0">Technical Report 0.9, Microsoft Corporation, Octo-</text>
+<text top="492" left="474" width="103" height="15" font="0">ber 1995. Draft.</text>
+<text top="526" left="459" width="264" height="15" font="0">OpenOffice.org. OpenOffice, 2006. URL</text>
+<text top="527" left="727" width="84" height="12" font="6"><a href="http://www.openoffice.org/">http://www.</a></text>
+<text top="545" left="474" width="114" height="12" font="6"><a href="http://www.openoffice.org/">openoffice.org/</a></text>
+<text top="543" left="588" width="4" height="15" font="0"><a href="http://www.openoffice.org/">.</a></text>
+<text top="577" left="459" width="108" height="15" font="0">OpenOffice.org.</text>
+<text top="577" left="585" width="76" height="15" font="0">Uno, 2009.</text>
+<text top="577" left="680" width="31" height="15" font="0">URL</text>
+<text top="578" left="719" width="91" height="12" font="6"><a href="http://wiki.services.openoffice.org/wiki/Uno/">http://wiki.</a></text>
+<text top="596" left="474" width="252" height="12" font="6"><a href="http://wiki.services.openoffice.org/wiki/Uno/">services.openoffice.org/wiki/Uno/</a></text>
+<text top="595" left="725" width="4" height="15" font="0"><a href="http://wiki.services.openoffice.org/wiki/Uno/">.</a></text>
+<text top="628" left="459" width="346" height="15" font="0">H. Zhang and B. Singer. Recursive Partitioning in the</text>
+<text top="646" left="473" width="335" height="15" font="0">Health Sciences. Springer-Verlag, New York, 1999.</text>
+<text top="664" left="474" width="132" height="15" font="0">ISBN 0-387-98671-5.</text>
+<text top="719" left="458" width="83" height="15" font="0">Thomas Baier</text>
+<text top="736" left="458" width="220" height="15" font="0">Department of Scientific Computing</text>
+<text top="754" left="458" width="136" height="15" font="0">Universitity of Vienna</text>
+<text top="772" left="458" width="77" height="15" font="0">1010 Vienna</text>
+<text top="790" left="458" width="46" height="15" font="0">Austria</text>
+<text top="810" left="459" width="191" height="12" font="6"><a href="mailto:thomas.baier@univie.ac.at">thomas.baier@univie.ac.at</a></text>
+<text top="845" left="458" width="95" height="15" font="0">Erich Neuwirth</text>
+<text top="863" left="458" width="220" height="15" font="0">Department of Scientific Computing</text>
+<text top="881" left="458" width="136" height="15" font="0">Universitity of Vienna</text>
+<text top="899" left="458" width="77" height="15" font="0">1010 Vienna</text>
+<text top="917" left="458" width="46" height="15" font="0">Austria</text>
+<text top="936" left="459" width="206" height="12" font="6"><a href="mailto:erich.neuwirth@univie.ac.at">erich.neuwirth@univie.ac.at</a></text>
+<text top="971" left="459" width="99" height="15" font="0">Michele De Meo</text>
+<text top="989" left="458" width="93" height="15" font="0">Venere Net Spa</text>
+<text top="1007" left="458" width="158" height="15" font="0">Via della Camilluccia, 693</text>
+<text top="1025" left="459" width="76" height="15" font="0">00135 Roma</text>
+<text top="1043" left="459" width="28" height="15" font="0">Italy</text>
+<text top="1062" left="459" width="168" height="12" font="6"><a href="mailto:micheledemeo@gmail.com">micheledemeo@gmail.com</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

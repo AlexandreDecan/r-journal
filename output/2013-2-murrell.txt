@@ -1,0 +1,154 @@
+page	left	top	code
+1	149	463	> library(grid)
+1	149	492	> grid.xaxis(at=c(0, .5, 1), name="axis-1")
+1	149	706	> grid.ls(fullNames=TRUE)
+1	149	736	xaxis[axis-1]
+1	163	753	lines[major]
+1	163	769	segments[ticks]
+1	163	786	text[labels]
+1	149	878	> grid.edit("major|ticks", grep=TRUE, global=TRUE, gp=gpar(col="grey"))
+1	149	895	> grid.edit("labels", gp=gpar(fontface="bold"))
+1	149	1130	> grid.xaxis(name="axis-2")
+2	149	178	> grid.ls(fullNames=TRUE)
+2	149	207	xaxis[axis-2]
+2	149	454	> grid.force()
+2	149	483	> grid.ls(fullNames=TRUE)
+2	149	512	forcedgrob[axis-2]
+2	163	529	lines[major]
+2	163	545	segments[ticks]
+2	163	562	text[labels]
+2	149	591	> grid.edit("major|ticks", grep=TRUE, global=TRUE, gp=gpar(col="grey"))
+2	149	607	> grid.edit("labels", gp=gpar(fontface="bold"))
+2	149	1003	> library(grid)
+2	149	1032	> textbox <- function(label) {
+2	149	1049	+ tg <- textGrob(label, name="text")
+2	149	1065	+ rr <- roundrectGrob(width=1.5*stringWidth(label),
+2	149	1082	+ height=1.5*stringHeight(label),
+2	149	1098	+ name="box")
+2	149	1115	+ grid.draw(tg)
+2	149	1131	+ grid.draw(rr)
+2	149	1147	+ }
+3	149	130	> grid.newpage()
+3	149	147	> textbox("test")
+3	149	296	> grid.ls(fullNames=TRUE)
+3	149	322	text[text]
+3	149	339	roundrect[box]
+3	149	425	> grid.edit("text", label="hello world")
+3	149	607	> textbox <- function(label) {
+3	149	623	+ tg <- textGrob(label, name="text")
+3	149	640	+ rr <- roundrectGrob(width=1.5*stringWidth(label),
+3	149	656	+ height=1.5*stringHeight(label),
+3	149	673	+ name="box")
+3	149	689	+ gt <- gTree(children=gList(tg, rr), name="tb")
+3	149	706	+ grid.draw(gt)
+3	149	722	+ }
+3	149	792	> grid.newpage()
+3	149	808	> textbox("test")
+3	149	926	> grid.ls(fullNames=TRUE)
+3	149	953	gTree[tb]
+3	163	969	text[text]
+3	163	986	roundrect[box]
+3	149	1055	> grid.edit("tb::text", label="hello world")
+4	149	287	> textbox <- function(label,
+4	149	304	+ name=NULL, gp=NULL, vp=NULL) {
+4	149	320	+ g <- grob(label=label,
+4	149	337	+ name=name, gp=gp, vp=vp,
+4	149	353	+ cl="textbox")
+4	149	369	+ grid.draw(g)
+4	149	386	+ }
+4	149	492	> drawDetails.textbox <- function(x, ...) {
+4	149	508	+ tg <- textGrob(x$label, name="text")
+4	149	525	+ rr <- roundrectGrob(width=1.5*stringWidth(x$label),
+4	149	541	+ height=1.5*stringHeight(x$label),
+4	149	557	+ name="box")
+4	149	574	+ gt <- gTree(children=gList(tg, rr), name=x$name)
+4	149	590	+ grid.draw(gt)
+4	149	607	+ }
+4	149	680	> grid.newpage()
+4	149	696	> textbox("test", name="tb")
+4	149	869	> grid.ls(fullNames=TRUE)
+4	149	897	textbox[tb]
+4	149	970	> grid.edit("tb", label="hello world")
+5	149	352	> textbox <- function(label,
+5	149	368	+ name=NULL, gp=NULL, vp=NULL) {
+5	149	384	+ gt <- gTree(label=label,
+5	149	401	+ name=name, gp=gp, vp=vp,
+5	149	417	+ cl="textboxtree")
+5	149	434	+ grid.draw(gt)
+5	149	450	+ }
+5	149	570	> makeContent.textboxtree <- function(x) {
+5	149	586	+ t <- textGrob(x$label,
+5	149	603	+ name="text")
+5	149	619	+ rr <- roundrectGrob(width=1.5*grobWidth(t),
+5	149	635	+ height=1.5*grobHeight(t),
+5	149	652	+ name="box")
+5	149	668	+ setChildren(x, gList(t, rr))
+5	149	685	+ }
+5	149	755	> grid.newpage()
+5	149	771	> textbox("test", name="tbt")
+5	149	938	> grid.ls(fullNames=TRUE)
+5	149	965	textboxtree[tbt]
+5	149	1019	> grid.edit("tbt", label="hello world")
+6	149	304	> grid.force()
+6	149	484	> grid.ls(fullNames=TRUE)
+6	149	514	forcedgrob[tbt]
+6	163	530	text[text]
+6	163	547	forcedgrob[box]
+6	149	639	> grid.edit("box", gp=gpar(col="grey"))
+6	149	942	> class(grid.get("tbt"))
+6	149	972	[1] "forcedgrob" "textboxtree" "gTree" "grob" "gDesc"
+6	149	1081	> class(grid.get("box"))
+6	149	1111	[1] "forcedgrob" "polygon" "grob" "gDesc"
+7	149	185	> grid.edit("tbt", label="test")
+7	149	395	> grid.revert()
+7	149	1115	> textbox <- function(label,
+7	300	1131	name=NULL, gp=NULL, vp=NULL) {
+7	149	1147	+ gt <- gTree(label=label,
+8	149	104	+ name=name, gp=gp, vp=vp,
+8	149	120	+ cl="textboxtree")
+8	149	137	+ grid.draw(gt)
+8	149	153	+ }
+8	149	328	> preDrawDetails.textboxtree <- function(x) {
+8	149	345	+ tbvp <- viewport(width=1.5*stringWidth(x$label),
+8	149	361	+ height=1.5*stringHeight(x$label))
+8	149	378	+ pushViewport(tbvp)
+8	149	394	+ }
+8	149	497	> makeContent.textboxtree <- function(x) {
+8	149	513	+ t <- textGrob(x$label, name="text")
+8	149	530	+ rr <- roundrectGrob(name="box")
+8	149	546	+ setChildren(x, gList(t, rr))
+8	149	563	+ }
+8	149	633	> postDrawDetails.textboxtree <- function(x) {
+8	149	649	+ popViewport()
+8	149	666	+ }
+8	149	719	> grid.newpage()
+8	149	736	> textbox("test", name="tbt")
+8	149	902	> grid.edit("tbt", label="hello world")
+9	149	104	> makeContext.textboxtree <- function(x) {
+9	190	120	tbvp <- viewport(width=1.5*stringWidth(x$label),
+9	307	137	height=1.5*stringHeight(x$label))
+9	149	153	+ if (is.null(x$vp))
+9	149	169	+ x$vp <- tbvp
+9	149	186	+ else
+9	149	202	+ x$vp <- vpStack(x$vp, tbvp)
+9	149	219	+ x
+9	149	235	+ }
+9	149	344	> rm("preDrawDetails.textboxtree")
+9	149	361	> rm("postDrawDetails.textboxtree")
+9	149	437	> grid.newpage()
+9	149	453	> textbox("test", name="tbt")
+9	149	583	> grid.edit("tbt", label="hello world")
+11	149	492	> library(gridExtra)
+11	149	568	> grid.newpage()
+11	149	585	> grid.table(head(iris),
+11	149	601	+ v.even.alpha=0.3, v.odd.alpha=1)
+11	149	888	> grid.ls()
+11	149	918	GRID.table.2
+11	149	994	> library(gridSVG)
+11	149	1024	> gridToSVG("blank.svg")
+12	149	429	> grid.newpage()
+12	149	445	> grid.table(head(iris),
+12	149	462	+ v.even.alpha=0.3, v.odd.alpha=1)
+12	149	478	> grid.force()
+12	149	495	> grid.edit("core-fill-1", gp=gpar(fill="red"))
+12	149	723	> gridToSVG("notblank.svg")

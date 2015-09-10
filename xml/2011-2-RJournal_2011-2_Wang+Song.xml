@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="35" family="Times" color="#000000"/>
+	<fontspec id="4" size="12" family="Times" color="#000000"/>
+	<fontspec id="5" size="19" family="Times" color="#000000"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#00004c"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">29</text>
+<text top="122" left="82" width="576" height="36" font="2"><b>Ckmeans.1d.dp: Optimal </b>k<b>-means</b></text>
+<text top="166" left="82" width="722" height="36" font="2"><b>Clustering in One Dimension by Dynamic</b></text>
+<text top="211" left="82" width="233" height="36" font="2"><b>Programming</b></text>
+<text top="263" left="82" width="237" height="15" font="0">by Haizhou Wang and Mingzhou Song</text>
+<text top="298" left="96" width="57" height="15" font="4"><b>Abstract</b></text>
+<text top="315" left="96" width="319" height="15" font="0">The heuristic k-means algorithm, widely used</text>
+<text top="333" left="96" width="321" height="15" font="0">for cluster analysis, does not guarantee optimal-</text>
+<text top="351" left="96" width="321" height="15" font="0">ity. We developed a dynamic programming al-</text>
+<text top="369" left="96" width="321" height="15" font="0">gorithm for optimal one-dimensional clustering.</text>
+<text top="387" left="96" width="319" height="15" font="0">The algorithm is implemented as an R package</text>
+<text top="405" left="96" width="321" height="15" font="0">called <b>Ckmeans.1d.dp</b>. We demonstrate its ad-</text>
+<text top="423" left="96" width="322" height="15" font="0">vantage in optimality and runtime over the stan-</text>
+<text top="441" left="96" width="221" height="15" font="0">dard iterative k-means algorithm.</text>
+<text top="488" left="82" width="124" height="21" font="5"><b>Introduction</b></text>
+<text top="527" left="82" width="346" height="15" font="0">Cluster analysis offers a useful way to organize and</text>
+<text top="545" left="82" width="347" height="15" font="0">represent complex data sets. It is used routinely for</text>
+<text top="563" left="82" width="346" height="15" font="0">data analysis in fields such as bioinformatics. The</text>
+<text top="581" left="83" width="346" height="15" font="0">k-means problem is to partition data into k groups</text>
+<text top="599" left="82" width="346" height="15" font="0">such that the sum of squared Euclidean distances to</text>
+<text top="617" left="82" width="349" height="15" font="0">each group mean is minimized. However, the prob-</text>
+<text top="635" left="82" width="346" height="15" font="0">lem is NP-hard in a general Euclidean space, even</text>
+<text top="653" left="82" width="232" height="15" font="0">when the number of clusters k is 2 <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="653" left="314" width="76" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Aloise et al.</a></text>
+<text top="653" left="390" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="653" left="398" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2009</a></text>
+<text top="653" left="427" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">;</a></text>
+<text top="671" left="82" width="143" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Dasgupta and Freund</a></text>
+<text top="671" left="226" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="671" left="233" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2009</a></text>
+<text top="671" left="263" width="169" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">), </a>or when the dimension-</text>
+<text top="688" left="82" width="68" height="15" font="0">ality is 2 <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="688" left="150" width="96" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Mahajan et al.</a></text>
+<text top="688" left="246" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="688" left="254" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2009</a></text>
+<text top="688" left="285" width="146" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">). </a>The standard itera-</text>
+<text top="706" left="82" width="158" height="15" font="0">tive k-means algorithm <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="706" left="241" width="38" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Lloyd</a></text>
+<text top="706" left="279" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="706" left="286" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">1982</a></text>
+<text top="706" left="316" width="113" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">) </a>is a widely used</text>
+<text top="724" left="82" width="346" height="15" font="0">heuristic solution. The algorithm iteratively calculates</text>
+<text top="742" left="82" width="346" height="15" font="0">the within-cluster sum of squared distances, modifies</text>
+<text top="760" left="82" width="349" height="15" font="0">group membership of each point to reduce the within-</text>
+<text top="778" left="82" width="347" height="15" font="0">cluster sum of squared distances, and computes new</text>
+<text top="796" left="82" width="349" height="15" font="0">cluster centers until local convergence is achieved.</text>
+<text top="814" left="82" width="349" height="15" font="0">The time complexity of this standard k-means algo-</text>
+<text top="832" left="82" width="66" height="15" font="0">rithm is O</text>
+<text top="831" left="149" width="6" height="16" font="7">(</text>
+<text top="832" left="155" width="31" height="15" font="0">qknp</text>
+<text top="831" left="187" width="6" height="16" font="7">)</text>
+<text top="832" left="193" width="238" height="15" font="0">, where q is the number of iterations,</text>
+<text top="850" left="83" width="346" height="15" font="0">k is the number of clusters, n is the sample size, and p</text>
+<text top="868" left="82" width="147" height="15" font="0">is the dimensionality <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="868" left="230" width="95" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Manning et al.</a></text>
+<text top="868" left="325" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="868" left="332" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2008</a></text>
+<text top="868" left="362" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">).</a></text>
+<text top="886" left="105" width="324" height="15" font="0">However, the disadvantages of various heuristic</text>
+<text top="904" left="83" width="346" height="15" font="0">k-means algorithms in repeatability, optimality, and</text>
+<text top="922" left="82" width="349" height="15" font="0">runtime may limit their usage in medical and scien-</text>
+<text top="940" left="82" width="346" height="15" font="0">tific applications. For example, when patients are</text>
+<text top="958" left="82" width="346" height="15" font="0">clustered according to diagnostic measurements on</text>
+<text top="976" left="82" width="346" height="15" font="0">expression of marker genes, it can be critical that a</text>
+<text top="994" left="82" width="347" height="15" font="0">patient consistently falls into a same diagnostic group</text>
+<text top="1012" left="82" width="347" height="15" font="0">to receive appropriate treatment, regardless of how</text>
+<text top="1030" left="82" width="348" height="15" font="0">many times the clustering is applied. In this case,</text>
+<text top="1048" left="82" width="349" height="15" font="0">both cluster repeatability and optimality are impor-</text>
+<text top="1065" left="82" width="349" height="15" font="0">tant. The result of heuristic k-means clustering, heav-</text>
+<text top="1083" left="82" width="347" height="15" font="0">ily dependent on the initial cluster centers, is neither</text>
+<text top="1101" left="82" width="346" height="15" font="0">always optimal nor repeatable. Often one restarts the</text>
+<text top="1119" left="82" width="350" height="15" font="0">procedure a number of times to mitigate the problem.</text>
+<text top="1137" left="82" width="347" height="15" font="0">However, when k is big, the number of restarts for</text>
+<text top="1155" left="83" width="349" height="15" font="0">k-means to approach an optimal solution can be pro-</text>
+<text top="1173" left="82" width="346" height="15" font="0">hibitively high and may lead to a substantial increase</text>
+<text top="263" left="459" width="347" height="15" font="0">in runtime. As clustering is often a preprocessing step</text>
+<text top="281" left="459" width="346" height="15" font="0">in data analysis or modeling, such inadequacy can</text>
+<text top="299" left="458" width="218" height="15" font="0">pose a nuisance for further steps.</text>
+<text top="317" left="481" width="327" height="15" font="0">In response to this challenge, our objective is to de-</text>
+<text top="335" left="458" width="347" height="15" font="0">velop a practical and convenient clustering algorithm</text>
+<text top="353" left="459" width="346" height="15" font="0">in R to guarantee optimality in a one-dimensional</text>
+<text top="371" left="458" width="347" height="15" font="0">(1-D) space. The motivation originated from discrete</text>
+<text top="389" left="459" width="306" height="15" font="0">system modeling such as Boolean networks <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="389" left="765" width="43" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Kauff-</a></text>
+<text top="407" left="459" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">man</a></text>
+<text top="407" left="489" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="407" left="498" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">1969</a></text>
+<text top="407" left="528" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="407" left="537" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">1993</a></text>
+<text top="407" left="568" width="238" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">) </a>and generalized logical networks</text>
+<text top="425" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="425" left="463" width="74" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Song et al.</a></text>
+<text top="425" left="537" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="425" left="547" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2009</a></text>
+<text top="425" left="577" width="228" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">), </a>where continuous values must</text>
+<text top="443" left="459" width="347" height="15" font="0">be converted to discrete ones before modeling. Our</text>
+<text top="461" left="459" width="349" height="15" font="0">algorithm follows a comparable dynamic program-</text>
+<text top="479" left="459" width="346" height="15" font="0">ming strategy used in a 1-D quantization problem to</text>
+<text top="497" left="458" width="233" height="15" font="0">preserve probability distributions <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="497" left="692" width="69" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Song et al.</a></text>
+<text top="497" left="761" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="497" left="768" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2010</a></text>
+<text top="497" left="798" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">),</a></text>
+<text top="515" left="459" width="349" height="15" font="0">the segmented least squares problem and the knap-</text>
+<text top="533" left="459" width="99" height="15" font="0">sack problem <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="533" left="558" width="145" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Kleinberg and Tardos</a></text>
+<text top="533" left="704" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="533" left="711" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2006</a></text>
+<text top="533" left="742" width="66" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">). </a>The ob-</text>
+<text top="550" left="459" width="346" height="15" font="0">jective function in the k-means problem is the sum</text>
+<text top="568" left="459" width="346" height="15" font="0">of squares of within-cluster distances. We present an</text>
+<text top="586" left="459" width="346" height="15" font="0">exact dynamic programming solution with a runtime</text>
+<text top="604" left="459" width="28" height="15" font="0">of O</text>
+<text top="603" left="488" width="6" height="16" font="7">(</text>
+<text top="604" left="494" width="8" height="15" font="0">n</text>
+<text top="601" left="502" width="6" height="11" font="1">2</text>
+<text top="604" left="509" width="7" height="15" font="0">k</text>
+<text top="603" left="516" width="6" height="16" font="7">)</text>
+<text top="604" left="526" width="187" height="15" font="0">to the 1-D k-means problem.</text>
+<text top="623" left="481" width="327" height="15" font="0">We implemented the algorithm in the R pack-</text>
+<text top="641" left="459" width="23" height="15" font="0">age</text>
+<text top="641" left="485" width="106" height="15" font="8"><a href="http://cran.r-project.org/package=Ckmeans.1d.dp"><b>Ckmeans.1d.dp</b></a></text>
+<text top="641" left="595" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="641" left="600" width="102" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Song and Wang</a></text>
+<text top="641" left="702" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="641" left="709" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2011</a></text>
+<text top="641" left="739" width="69" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">) </a>and eval-</text>
+<text top="659" left="459" width="346" height="15" font="0">uated its performance by simulation studies. We</text>
+<text top="677" left="459" width="346" height="15" font="0">demonstrate how the standard k-means algorithm</text>
+<text top="695" left="459" width="347" height="15" font="0">may return unstable clustering results, while our</text>
+<text top="713" left="459" width="349" height="15" font="0">method guarantees optimality. Our method is im-</text>
+<text top="731" left="458" width="347" height="15" font="0">plemented in C++ to take advantage of the practical</text>
+<text top="749" left="459" width="349" height="15" font="0">speedup of a compiled program. This C++ implemen-</text>
+<text top="766" left="459" width="346" height="15" font="0">tation is further wrapped in an R package so that it</text>
+<text top="784" left="459" width="208" height="15" font="0">can be conveniently called in R.</text>
+<text top="836" left="459" width="346" height="21" font="5"><b>Optimal 1-D clustering by dynamic</b></text>
+<text top="863" left="458" width="135" height="21" font="5"><b>programming</b></text>
+<text top="903" left="458" width="278" height="15" font="0">We first define the k-means problem. Let x</text>
+<text top="909" left="736" width="6" height="11" font="1">1</text>
+<text top="903" left="743" width="36" height="15" font="0">, . . . , x</text>
+<text top="908" left="779" width="6" height="11" font="1">n</text>
+<text top="903" left="790" width="15" height="15" font="0">be</text>
+<text top="921" left="459" width="346" height="15" font="0">an input array of n numbers sorted in non-descending</text>
+<text top="939" left="459" width="349" height="15" font="0">order. The problem of 1-D k-means clustering is de-</text>
+<text top="957" left="459" width="347" height="15" font="0">fined as assigning elements of the input 1-D array</text>
+<text top="975" left="459" width="349" height="15" font="0">into k clusters so that the sum of squares of within-</text>
+<text top="993" left="459" width="349" height="15" font="0">cluster distances from each element to its correspond-</text>
+<text top="1011" left="459" width="346" height="15" font="0">ing cluster mean is minimized. We refer to this sum</text>
+<text top="1029" left="459" width="349" height="15" font="0">as within-cluster sum of squares, or withinss for short.</text>
+<text top="1048" left="481" width="324" height="15" font="0">We introduce a dynamic programming algorithm</text>
+<text top="1065" left="459" width="349" height="15" font="0">to guarantee optimality of clustering in 1-D. We de-</text>
+<text top="1083" left="459" width="346" height="15" font="0">fine a sub-problem as finding the minimum withinss of</text>
+<text top="1101" left="459" width="76" height="15" font="0">clustering x</text>
+<text top="1107" left="535" width="6" height="11" font="1">1</text>
+<text top="1101" left="542" width="36" height="15" font="0">, . . . , x</text>
+<text top="1107" left="578" width="3" height="11" font="1">i</text>
+<text top="1101" left="586" width="222" height="15" font="0">into m clusters. We record the cor-</text>
+<text top="1119" left="459" width="277" height="15" font="0">responding minimum withinss in entry D</text>
+<text top="1118" left="737" width="4" height="16" font="7">[</text>
+<text top="1119" left="741" width="22" height="15" font="0">i, m</text>
+<text top="1118" left="763" width="4" height="16" font="7">]</text>
+<text top="1119" left="772" width="34" height="15" font="0">of an</text>
+<text top="1137" left="459" width="8" height="15" font="0">n</text>
+<text top="1136" left="471" width="12" height="16" font="7">+</text>
+<text top="1137" left="486" width="38" height="15" font="0">1 by k</text>
+<text top="1136" left="527" width="12" height="16" font="7">+</text>
+<text top="1137" left="542" width="126" height="15" font="0">1 matrix D. Thus D</text>
+<text top="1136" left="669" width="4" height="16" font="7">[</text>
+<text top="1137" left="673" width="21" height="15" font="0">n, k</text>
+<text top="1136" left="694" width="4" height="16" font="7">]</text>
+<text top="1137" left="703" width="103" height="15" font="0">is the minimum</text>
+<text top="1155" left="459" width="349" height="15" font="0">withinss value to the original problem. Let j be the in-</text>
+<text top="1173" left="459" width="346" height="15" font="0">dex of the smallest number in cluster m in an optimal</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+	<fontspec id="10" size="15" family="Times" color="#000000"/>
+	<fontspec id="11" size="19" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">30</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="90" height="15" font="0">solution to D</text>
+<text top="124" left="173" width="4" height="16" font="7">[</text>
+<text top="125" left="177" width="22" height="15" font="0">i, m</text>
+<text top="124" left="199" width="4" height="16" font="7">]</text>
+<text top="125" left="204" width="140" height="15" font="0">. It is evident that D</text>
+<text top="124" left="344" width="4" height="16" font="7">[</text>
+<text top="125" left="349" width="4" height="15" font="0">j</text>
+<text top="124" left="357" width="12" height="18" font="7">−</text>
+<text top="125" left="373" width="25" height="15" font="0">1, m</text>
+<text top="124" left="401" width="12" height="18" font="7">−</text>
+<text top="125" left="417" width="8" height="15" font="0">1</text>
+<text top="124" left="424" width="4" height="16" font="7">]</text>
+<text top="143" left="82" width="275" height="15" font="0">must be the optimal withinss for the first j</text>
+<text top="142" left="361" width="12" height="18" font="7">−</text>
+<text top="143" left="376" width="53" height="15" font="0">1 points</text>
+<text top="161" left="82" width="28" height="15" font="0">in m</text>
+<text top="160" left="114" width="12" height="18" font="7">−</text>
+<text top="161" left="129" width="302" height="15" font="0">1 clusters, for otherwise one would have a bet-</text>
+<text top="179" left="82" width="113" height="15" font="0">ter solution to D</text>
+<text top="178" left="196" width="4" height="16" font="7">[</text>
+<text top="179" left="201" width="22" height="15" font="0">i, m</text>
+<text top="178" left="223" width="4" height="16" font="7">]</text>
+<text top="179" left="227" width="202" height="15" font="0">. This establishes the optimal</text>
+<text top="197" left="82" width="346" height="15" font="0">substructure for dynamic programming and leads to</text>
+<text top="215" left="82" width="156" height="15" font="0">the recurrence equation</text>
+<text top="249" left="98" width="12" height="15" font="0">D</text>
+<text top="248" left="110" width="4" height="16" font="7">[</text>
+<text top="249" left="115" width="22" height="15" font="0">i, m</text>
+<text top="248" left="137" width="20" height="16" font="7">] =</text>
+<text top="249" left="165" width="26" height="15" font="0">min</text>
+<text top="262" left="160" width="9" height="11" font="1">m</text>
+<text top="261" left="170" width="26" height="14" font="1">≤j≤i</text>
+<text top="247" left="198" width="21" height="17" font="0"> D</text>
+<text top="248" left="219" width="4" height="16" font="7">[</text>
+<text top="249" left="224" width="4" height="15" font="0">j</text>
+<text top="247" left="232" width="12" height="18" font="7">−</text>
+<text top="249" left="247" width="25" height="15" font="0">1, m</text>
+<text top="247" left="275" width="12" height="18" font="7">−</text>
+<text top="249" left="290" width="7" height="15" font="0">1</text>
+<text top="248" left="298" width="20" height="16" font="7">] +</text>
+<text top="249" left="321" width="7" height="15" font="0">d</text>
+<text top="248" left="329" width="6" height="16" font="7">(</text>
+<text top="249" left="335" width="7" height="15" font="0">x</text>
+<text top="254" left="343" width="3" height="11" font="1">j</text>
+<text top="249" left="347" width="36" height="15" font="0">, . . . , x</text>
+<text top="254" left="384" width="3" height="11" font="1">i</text>
+<text top="248" left="388" width="6" height="16" font="7">)</text>
+<text top="247" left="394" width="14" height="17" font="0">	 ,</text>
+<text top="283" left="285" width="7" height="15" font="0">1</text>
+<text top="281" left="296" width="12" height="18" font="7">≤</text>
+<text top="283" left="312" width="4" height="15" font="0">i</text>
+<text top="281" left="320" width="12" height="18" font="7">≤</text>
+<text top="283" left="335" width="21" height="15" font="0">n, 1</text>
+<text top="281" left="360" width="12" height="18" font="7">≤</text>
+<text top="283" left="376" width="12" height="15" font="0">m</text>
+<text top="281" left="391" width="12" height="18" font="7">≤</text>
+<text top="283" left="407" width="7" height="15" font="0">k</text>
+<text top="312" left="82" width="55" height="15" font="0">where d</text>
+<text top="311" left="138" width="6" height="16" font="7">(</text>
+<text top="312" left="144" width="7" height="15" font="0">x</text>
+<text top="318" left="152" width="3" height="11" font="1">j</text>
+<text top="312" left="157" width="36" height="15" font="0">, . . . , x</text>
+<text top="318" left="193" width="3" height="11" font="1">i</text>
+<text top="311" left="197" width="6" height="16" font="7">)</text>
+<text top="312" left="209" width="220" height="15" font="0">is the sum of squared distances</text>
+<text top="330" left="82" width="44" height="15" font="0">from x</text>
+<text top="336" left="127" width="3" height="11" font="1">j</text>
+<text top="330" left="131" width="36" height="15" font="0">, . . . , x</text>
+<text top="336" left="167" width="3" height="11" font="1">i</text>
+<text top="330" left="175" width="254" height="15" font="0">to their mean. The matrix is initialized</text>
+<text top="348" left="82" width="30" height="15" font="0">as D</text>
+<text top="347" left="113" width="4" height="16" font="7">[</text>
+<text top="348" left="117" width="22" height="15" font="0">i, m</text>
+<text top="347" left="139" width="20" height="16" font="7">] =</text>
+<text top="348" left="163" width="68" height="15" font="0">0, when m</text>
+<text top="347" left="234" width="12" height="16" font="7">=</text>
+<text top="348" left="250" width="33" height="15" font="0">0 or i</text>
+<text top="347" left="287" width="12" height="16" font="7">=</text>
+<text top="348" left="302" width="11" height="15" font="0">0.</text>
+<text top="366" left="105" width="291" height="15" font="0">Using the above recurrence, we can obtain D</text>
+<text top="365" left="397" width="4" height="16" font="7">[</text>
+<text top="366" left="402" width="21" height="15" font="0">n, k</text>
+<text top="365" left="423" width="4" height="16" font="7">]</text>
+<text top="366" left="427" width="4" height="15" font="0">,</text>
+<text top="384" left="82" width="346" height="15" font="0">the minimum withinss achievable by a clustering of</text>
+<text top="402" left="82" width="268" height="15" font="0">the given data. In the meanwhile, D</text>
+<text top="401" left="351" width="4" height="16" font="7">[</text>
+<text top="402" left="356" width="26" height="15" font="0">n, m</text>
+<text top="401" left="382" width="4" height="16" font="7">]</text>
+<text top="402" left="394" width="35" height="15" font="0">gives</text>
+<text top="420" left="82" width="346" height="15" font="0">the minimum withinss if all n numbers are clustered</text>
+<text top="438" left="82" width="346" height="15" font="0">into m groups. By definition each entry requires</text>
+<text top="456" left="82" width="12" height="15" font="0">O</text>
+<text top="455" left="94" width="6" height="16" font="7">(</text>
+<text top="456" left="101" width="8" height="15" font="0">n</text>
+<text top="453" left="109" width="6" height="11" font="1">2</text>
+<text top="455" left="116" width="6" height="16" font="7">)</text>
+<text top="456" left="127" width="302" height="15" font="0">time to compute using the given recurrence</text>
+<text top="474" left="82" width="21" height="15" font="0">if d</text>
+<text top="473" left="104" width="6" height="16" font="7">(</text>
+<text top="474" left="110" width="7" height="15" font="0">x</text>
+<text top="479" left="118" width="3" height="11" font="1">j</text>
+<text top="474" left="122" width="36" height="15" font="0">, . . . , x</text>
+<text top="479" left="159" width="3" height="11" font="1">i</text>
+<text top="473" left="163" width="6" height="16" font="7">)</text>
+<text top="474" left="173" width="256" height="15" font="0">is computed in linear time, resulting in</text>
+<text top="494" left="82" width="12" height="15" font="0">O</text>
+<text top="493" left="94" width="6" height="16" font="7">(</text>
+<text top="494" left="101" width="8" height="15" font="0">n</text>
+<text top="492" left="109" width="6" height="11" font="1">3</text>
+<text top="494" left="116" width="7" height="15" font="0">k</text>
+<text top="493" left="123" width="6" height="16" font="7">)</text>
+<text top="494" left="134" width="180" height="15" font="0">total runtime. However, d</text>
+<text top="493" left="314" width="6" height="16" font="7">(</text>
+<text top="494" left="321" width="7" height="15" font="0">x</text>
+<text top="500" left="329" width="3" height="11" font="1">j</text>
+<text top="494" left="333" width="36" height="15" font="0">, . . . , x</text>
+<text top="500" left="370" width="3" height="11" font="1">i</text>
+<text top="493" left="374" width="6" height="16" font="7">)</text>
+<text top="494" left="385" width="44" height="15" font="0">can be</text>
+<text top="512" left="82" width="346" height="15" font="0">computed in constant time in the recurrence. This</text>
+<text top="530" left="82" width="135" height="15" font="0">is possible because d</text>
+<text top="529" left="218" width="6" height="16" font="7">(</text>
+<text top="530" left="225" width="7" height="15" font="0">x</text>
+<text top="536" left="233" width="3" height="11" font="1">j</text>
+<text top="530" left="237" width="36" height="15" font="0">, . . . , x</text>
+<text top="536" left="273" width="3" height="11" font="1">i</text>
+<text top="529" left="278" width="6" height="16" font="7">)</text>
+<text top="530" left="287" width="144" height="15" font="0">can be computed pro-</text>
+<text top="548" left="82" width="137" height="15" font="0">gressively based on d</text>
+<text top="547" left="220" width="6" height="16" font="7">(</text>
+<text top="548" left="227" width="7" height="15" font="0">x</text>
+<text top="554" left="235" width="18" height="11" font="1">j+1</text>
+<text top="548" left="254" width="30" height="15" font="0">, ..., x</text>
+<text top="554" left="284" width="3" height="11" font="1">i</text>
+<text top="547" left="288" width="6" height="16" font="7">)</text>
+<text top="548" left="298" width="134" height="15" font="0">in constant time. Us-</text>
+<text top="566" left="82" width="346" height="15" font="0">ing a general index from 1 to i, we iteratively compute</text>
+<text top="604" left="98" width="7" height="15" font="0">d</text>
+<text top="603" left="106" width="6" height="16" font="7">(</text>
+<text top="604" left="112" width="7" height="15" font="0">x</text>
+<text top="610" left="120" width="6" height="11" font="1">1</text>
+<text top="604" left="127" width="36" height="15" font="0">, . . . , x</text>
+<text top="610" left="163" width="3" height="11" font="1">i</text>
+<text top="603" left="167" width="22" height="16" font="7">) =</text>
+<text top="604" left="193" width="7" height="15" font="0">d</text>
+<text top="603" left="201" width="6" height="16" font="7">(</text>
+<text top="604" left="207" width="7" height="15" font="0">x</text>
+<text top="610" left="215" width="6" height="11" font="1">1</text>
+<text top="604" left="221" width="36" height="15" font="0">, . . . , x</text>
+<text top="610" left="258" width="3" height="11" font="1">i</text>
+<text top="609" left="261" width="15" height="14" font="1">−1</text>
+<text top="603" left="277" width="21" height="16" font="7">) +</text>
+<text top="594" left="303" width="4" height="15" font="0">i</text>
+<text top="593" left="311" width="12" height="18" font="7">−</text>
+<text top="594" left="326" width="7" height="15" font="0">1</text>
+<text top="615" left="316" width="4" height="15" font="0">i</text>
+<text top="603" left="336" width="6" height="16" font="7">(</text>
+<text top="604" left="342" width="7" height="15" font="0">x</text>
+<text top="610" left="350" width="3" height="11" font="1">i</text>
+<text top="603" left="357" width="12" height="18" font="7">−</text>
+<text top="608" left="373" width="9" height="11" font="9"><i>µ</i></text>
+<text top="610" left="382" width="3" height="11" font="1">i</text>
+<text top="609" left="385" width="15" height="14" font="1">−1</text>
+<text top="603" left="401" width="6" height="16" font="7">)</text>
+<text top="601" left="407" width="6" height="11" font="1">2</text>
+<text top="646" left="160" width="9" height="11" font="9"><i>µ</i></text>
+<text top="648" left="169" width="3" height="11" font="1">i</text>
+<text top="642" left="177" width="12" height="16" font="7">=</text>
+<text top="632" left="195" width="7" height="15" font="0">x</text>
+<text top="638" left="202" width="3" height="11" font="1">i</text>
+<text top="631" left="210" width="21" height="16" font="7">+ (</text>
+<text top="632" left="231" width="4" height="15" font="0">i</text>
+<text top="631" left="239" width="12" height="18" font="7">−</text>
+<text top="632" left="254" width="7" height="15" font="0">1</text>
+<text top="631" left="262" width="6" height="16" font="7">)</text>
+<text top="636" left="268" width="9" height="11" font="9"><i>µ</i></text>
+<text top="638" left="277" width="3" height="11" font="1">i</text>
+<text top="637" left="281" width="15" height="14" font="1">−1</text>
+<text top="653" left="243" width="4" height="15" font="0">i</text>
+<text top="677" left="82" width="54" height="15" font="0">where <i>µ</i></text>
+<text top="682" left="136" width="3" height="11" font="1">i</text>
+<text top="677" left="144" width="287" height="15" font="0">is the mean of the first i elements. This iter-</text>
+<text top="695" left="82" width="150" height="15" font="0">ative computation of d</text>
+<text top="694" left="233" width="6" height="16" font="7">(</text>
+<text top="695" left="240" width="7" height="15" font="0">x</text>
+<text top="700" left="248" width="3" height="11" font="1">j</text>
+<text top="695" left="252" width="36" height="15" font="0">, . . . , x</text>
+<text top="700" left="288" width="3" height="11" font="1">i</text>
+<text top="694" left="293" width="6" height="16" font="7">)</text>
+<text top="695" left="303" width="126" height="15" font="0">reduces the overall</text>
+<text top="713" left="82" width="346" height="15" font="0">runtime of the dynamic programming algorithm to</text>
+<text top="731" left="82" width="12" height="15" font="0">O</text>
+<text top="730" left="94" width="6" height="16" font="7">(</text>
+<text top="731" left="101" width="8" height="15" font="0">n</text>
+<text top="728" left="109" width="6" height="11" font="1">2</text>
+<text top="731" left="116" width="7" height="15" font="0">k</text>
+<text top="730" left="123" width="6" height="16" font="7">)</text>
+<text top="731" left="129" width="4" height="15" font="0">.</text>
+<text top="749" left="105" width="324" height="15" font="0">To find a clustering of data with the minimum</text>
+<text top="767" left="82" width="86" height="15" font="0">withinss of D</text>
+<text top="766" left="169" width="4" height="16" font="7">[</text>
+<text top="767" left="173" width="21" height="15" font="0">n, k</text>
+<text top="766" left="195" width="4" height="16" font="7">]</text>
+<text top="767" left="199" width="232" height="15" font="0">, we define an auxiliary n by k ma-</text>
+<text top="785" left="82" width="346" height="15" font="0">trix B to record the index of the smallest number in</text>
+<text top="803" left="82" width="64" height="15" font="0">cluster m:</text>
+<text top="837" left="98" width="9" height="15" font="0">B</text>
+<text top="836" left="107" width="4" height="16" font="7">[</text>
+<text top="837" left="112" width="22" height="15" font="0">i, m</text>
+<text top="836" left="134" width="20" height="16" font="7">] =</text>
+<text top="837" left="158" width="48" height="15" font="0">argmin</text>
+<text top="854" left="164" width="9" height="11" font="1">m</text>
+<text top="853" left="173" width="26" height="14" font="1">≤j≤i</text>
+<text top="835" left="207" width="21" height="17" font="0"> D</text>
+<text top="836" left="229" width="4" height="16" font="7">[</text>
+<text top="837" left="234" width="4" height="15" font="0">j</text>
+<text top="835" left="241" width="12" height="18" font="7">−</text>
+<text top="837" left="257" width="25" height="15" font="0">1, m</text>
+<text top="835" left="285" width="12" height="18" font="7">−</text>
+<text top="837" left="300" width="7" height="15" font="0">1</text>
+<text top="836" left="307" width="20" height="16" font="7">] +</text>
+<text top="837" left="330" width="7" height="15" font="0">d</text>
+<text top="836" left="338" width="6" height="16" font="7">(</text>
+<text top="837" left="345" width="7" height="15" font="0">x</text>
+<text top="842" left="353" width="3" height="11" font="1">j</text>
+<text top="837" left="357" width="36" height="15" font="0">, . . . , x</text>
+<text top="842" left="393" width="3" height="11" font="1">i</text>
+<text top="836" left="398" width="6" height="16" font="7">)</text>
+<text top="835" left="404" width="14" height="17" font="0">	 ,</text>
+<text top="875" left="285" width="7" height="15" font="0">1</text>
+<text top="873" left="296" width="12" height="18" font="7">≤</text>
+<text top="875" left="312" width="4" height="15" font="0">i</text>
+<text top="873" left="320" width="12" height="18" font="7">≤</text>
+<text top="875" left="335" width="21" height="15" font="0">n, 1</text>
+<text top="873" left="360" width="12" height="18" font="7">≤</text>
+<text top="875" left="376" width="12" height="15" font="0">m</text>
+<text top="873" left="391" width="12" height="18" font="7">≤</text>
+<text top="875" left="407" width="7" height="15" font="0">k</text>
+<text top="904" left="82" width="174" height="15" font="0">Then we backtrack from B</text>
+<text top="903" left="257" width="4" height="16" font="7">[</text>
+<text top="904" left="261" width="21" height="15" font="0">n, k</text>
+<text top="903" left="283" width="4" height="16" font="7">]</text>
+<text top="904" left="291" width="138" height="15" font="0">to obtain the starting</text>
+<text top="922" left="82" width="349" height="15" font="0">and ending indices for all clusters and generate an op-</text>
+<text top="940" left="82" width="347" height="15" font="0">timal solution to the k-means problem. The backtrack</text>
+<text top="958" left="82" width="80" height="15" font="0">is done in O</text>
+<text top="957" left="162" width="6" height="16" font="7">(</text>
+<text top="958" left="169" width="7" height="15" font="0">k</text>
+<text top="957" left="176" width="6" height="16" font="7">)</text>
+<text top="958" left="186" width="33" height="15" font="0">time.</text>
+<text top="976" left="105" width="327" height="15" font="0">The space complexity of the dynamic program-</text>
+<text top="994" left="82" width="67" height="15" font="0">ming is O</text>
+<text top="993" left="150" width="6" height="16" font="7">(</text>
+<text top="994" left="157" width="15" height="15" font="0">nk</text>
+<text top="993" left="173" width="6" height="16" font="7">)</text>
+<text top="994" left="184" width="127" height="15" font="0">because we use an</text>
+<text top="993" left="316" width="6" height="16" font="7">(</text>
+<text top="994" left="323" width="8" height="15" font="0">n</text>
+<text top="993" left="335" width="12" height="16" font="7">+</text>
+<text top="994" left="350" width="8" height="15" font="0">1</text>
+<text top="993" left="358" width="6" height="16" font="7">)</text>
+<text top="993" left="368" width="22" height="18" font="7">× (</text>
+<text top="994" left="390" width="7" height="15" font="0">k</text>
+<text top="993" left="401" width="12" height="16" font="7">+</text>
+<text top="994" left="416" width="8" height="15" font="0">1</text>
+<text top="993" left="424" width="6" height="16" font="7">)</text>
+<text top="1012" left="82" width="320" height="15" font="0">matrix D to record minimum withinss and an n</text>
+<text top="1010" left="406" width="12" height="18" font="7">×</text>
+<text top="1012" left="422" width="7" height="15" font="0">k</text>
+<text top="1030" left="82" width="173" height="15" font="0">matrix B for backtracking.</text>
+<text top="1071" left="82" width="132" height="17" font="10"><b>Implementation</b></text>
+<text top="1101" left="82" width="350" height="15" font="0">We implemented this dynamic programming algo-</text>
+<text top="1119" left="82" width="346" height="15" font="0">rithm and created an R package <b>Ckmeans.1d.dp</b>. To</text>
+<text top="1137" left="82" width="346" height="15" font="0">take advantage of the runtime speed up by a compiled</text>
+<text top="1155" left="82" width="349" height="15" font="0">language over R, an interpreted language, we de-</text>
+<text top="1173" left="82" width="349" height="15" font="0">veloped the dynamic programming solution in C++.</text>
+<text top="125" left="458" width="350" height="15" font="0">We compiled the C++ code to a binary dynamic li-</text>
+<text top="143" left="459" width="346" height="15" font="0">brary, which can be called within R through function</text>
+<text top="162" left="459" width="114" height="12" font="0">Ckmeans.1d.dp()</text>
+<text top="161" left="577" width="164" height="15" font="0">provided in the package.</text>
+<text top="217" left="459" width="350" height="21" font="5"><b>Performance evaluation and com-</b></text>
+<text top="244" left="458" width="339" height="21" font="5"><b>parison with the standard </b>k<b>-means</b></text>
+<text top="286" left="459" width="159" height="17" font="10"><b>Simulated data sets</b></text>
+<text top="320" left="458" width="347" height="15" font="0">We simulated data sets containing clusters using 1-D</text>
+<text top="338" left="459" width="346" height="15" font="0">Gaussian mixture models. In a Gaussian mixture</text>
+<text top="356" left="459" width="347" height="15" font="0">model, the number of components is the true number</text>
+<text top="374" left="459" width="346" height="15" font="0">of clusters. The mean of each Gaussian component</text>
+<text top="391" left="459" width="346" height="15" font="0">is randomly sampled from the uniform distribution</text>
+<text top="409" left="459" width="32" height="15" font="0">from</text>
+<text top="408" left="495" width="12" height="18" font="7">−</text>
+<text top="409" left="507" width="301" height="15" font="0">1 to 1 and the standard deviation of a compo-</text>
+<text top="427" left="459" width="281" height="15" font="0">nent is uniformly distributed from 0 to 0.2.</text>
+<text top="478" left="459" width="91" height="17" font="10"><b>Optimality</b></text>
+<text top="511" left="458" width="349" height="15" font="0">We first compared the optimality of Ckmeans.1d.dp()</text>
+<text top="529" left="459" width="346" height="15" font="0">and the standard k-means method on 1-D data. We</text>
+<text top="547" left="459" width="57" height="15" font="0">used the</text>
+<text top="547" left="519" width="132" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Hartigan and Wong</a></text>
+<text top="547" left="655" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="547" left="660" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">1979</a></text>
+<text top="547" left="690" width="115" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">) </a>implementation</text>
+<text top="565" left="459" width="349" height="15" font="0">of k-means, as provided by the kmeans() function in R.</text>
+<text top="583" left="458" width="347" height="15" font="0">The core of the kmeans() function is also implemented</text>
+<text top="601" left="459" width="349" height="15" font="0">in C/C++. As Ckmeans.1d.dp() guarantees optimal-</text>
+<text top="619" left="459" width="346" height="15" font="0">ity of clustering, we define the relative difference from</text>
+<text top="637" left="459" width="346" height="15" font="0">the kmeans() clustering result to the optimal value</text>
+<text top="655" left="458" width="220" height="15" font="0">produced by Ckmeans.1d.dp() as</text>
+<text top="690" left="480" width="54" height="15" font="0">withinss</text>
+<text top="689" left="534" width="6" height="16" font="7">(</text>
+<text top="692" left="540" width="53" height="12" font="0">k-means</text>
+<text top="689" left="594" width="6" height="16" font="7">)</text>
+<text top="689" left="603" width="12" height="18" font="7">−</text>
+<text top="690" left="619" width="54" height="15" font="0">withinss</text>
+<text top="689" left="673" width="6" height="16" font="7">(</text>
+<text top="692" left="679" width="99" height="12" font="0">Ckmeans.1d.dp</text>
+<text top="689" left="779" width="6" height="16" font="7">)</text>
+<text top="711" left="549" width="54" height="15" font="0">withinss</text>
+<text top="710" left="604" width="6" height="16" font="7">(</text>
+<text top="712" left="610" width="99" height="12" font="0">Ckmeans.1d.dp</text>
+<text top="710" left="709" width="6" height="16" font="7">)</text>
+<text top="745" left="458" width="347" height="15" font="0">which measures deviation of the k-means result from</text>
+<text top="763" left="459" width="120" height="15" font="0">the optimal value.</text>
+<text top="783" left="481" width="324" height="15" font="0">The data sets were randomly generated from</text>
+<text top="800" left="459" width="349" height="15" font="0">Gaussian mixture models with 2 to 50 components.</text>
+<text top="818" left="458" width="347" height="15" font="0">We ran Ckmeans.1d.dp() and kmeans() on input data</text>
+<text top="836" left="459" width="346" height="15" font="0">given the correct number of clusters k. The relative</text>
+<text top="854" left="459" width="349" height="15" font="0">difference in withinss from the kmeans() to the opti-</text>
+<text top="872" left="459" width="346" height="15" font="0">mal value produced by Ckmeans.1d.dp() is shown as</text>
+<text top="890" left="459" width="158" height="15" font="0">a function of k in Figure</text>
+<text top="890" left="620" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">1</a></text>
+<text top="890" left="628" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">.</a></text>
+<text top="910" left="481" width="325" height="15" font="0">Although one hopes to get better clusters by</text>
+<text top="928" left="459" width="349" height="15" font="0">restarting k-means several times, the simulation sug-</text>
+<text top="946" left="459" width="346" height="15" font="0">gests that it still cannot guarantee optimality when</text>
+<text top="963" left="459" width="347" height="15" font="0">there are many clusters in the data. This clearly</text>
+<text top="981" left="459" width="346" height="15" font="0">demonstrates the advantage of Ckmeans.1d.dp() in</text>
+<text top="999" left="459" width="71" height="15" font="0">optimality.</text>
+<text top="1050" left="459" width="72" height="17" font="10"><b>Runtime</b></text>
+<text top="1083" left="458" width="347" height="15" font="0">We then compared the empirical runtime of</text>
+<text top="1103" left="459" width="114" height="12" font="0">Ckmeans.1d.dp()</text>
+<text top="1101" left="577" width="228" height="15" font="0">with the standard k-means method</text>
+<text top="1119" left="459" width="346" height="15" font="0">on 1-D data. Using 1-D Gaussian mixture models, we</text>
+<text top="1137" left="459" width="348" height="15" font="0">generated five input arrays of size 100, 1, 000, 10, 000,</text>
+<text top="1155" left="458" width="347" height="15" font="0">100, 000, and 1, 000, 000, respectively. The Gaussian</text>
+<text top="1173" left="459" width="268" height="15" font="0">mixture models had 2 to 50 components.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="10" family="Helvetica" color="#000000"/>
+	<fontspec id="16" size="10" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="11" family="Times" color="#000000"/>
+	<fontspec id="18" size="3" family="Times" color="#000000"/>
+	<fontspec id="19" size="5" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">31</text>
+<text top="429" left="173" width="9" height="8" font="12">10</text>
+<text top="429" left="228" width="9" height="8" font="12">20</text>
+<text top="429" left="283" width="9" height="8" font="12">30</text>
+<text top="429" left="338" width="9" height="8" font="12">40</text>
+<text top="429" left="393" width="9" height="8" font="12">50</text>
+<text top="409" left="111" width="0" height="8" font="13">0.00</text>
+<text top="372" left="111" width="0" height="8" font="13">0.02</text>
+<text top="335" left="111" width="0" height="8" font="13">0.04</text>
+<text top="298" left="111" width="0" height="8" font="13">0.06</text>
+<text top="261" left="111" width="0" height="8" font="13">0.08</text>
+<text top="224" left="111" width="0" height="8" font="13">0.10</text>
+<text top="187" left="111" width="0" height="8" font="13">0.12</text>
+<text top="132" left="153" width="225" height="9" font="14"><b>Accuracy of standard k−means algorithm relative</b></text>
+<text top="144" left="223" width="86" height="9" font="14"><b>to optimal solution</b></text>
+<text top="446" left="209" width="113" height="11" font="15">Number of clusters k</text>
+<text top="331" left="91" width="0" height="11" font="16">Relativ</text>
+<text top="294" left="91" width="0" height="11" font="16">e diff</text>
+<text top="267" left="91" width="0" height="11" font="16">erence</text>
+<text top="484" left="82" width="57" height="15" font="0">Figure 1:</text>
+<text top="485" left="148" width="281" height="13" font="17">The accuracy of kmeans() becomes worse as the</text>
+<text top="502" left="82" width="346" height="13" font="17">number of clusters increases. Accuracy is indicated by the</text>
+<text top="518" left="82" width="346" height="13" font="17">relative difference in withinss from kmeans() to the optimal</text>
+<text top="534" left="82" width="347" height="13" font="17">value returned by Ckmeans.1d.dp(). The input data sets of</text>
+<text top="551" left="82" width="346" height="13" font="17">size 10, 000 were sampled from Gaussian mixture models</text>
+<text top="567" left="82" width="346" height="13" font="17">of 2 to 50 components. kmeans() was set to restart 20 times</text>
+<text top="584" left="82" width="100" height="13" font="17">for each data set.</text>
+<text top="628" left="105" width="324" height="15" font="0">We ran both programs on each input array ten</text>
+<text top="646" left="82" width="346" height="15" font="0">times to obtain average empirical runtimes in three</text>
+<text top="664" left="82" width="349" height="15" font="0">different settings. All simulations were run on a desk-</text>
+<text top="682" left="82" width="346" height="15" font="0">top computer with an Intel Core i7 860 processor and</text>
+<text top="700" left="82" width="341" height="15" font="0">8GB memory, running OpenSUSE 11.3 and R 2.11.1.</text>
+<text top="729" left="105" width="170" height="15" font="0">In the first setting (Figure</text>
+<text top="729" left="278" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">2</a></text>
+<text top="729" left="286" width="143" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">), </a>runtime is obtained</text>
+<text top="747" left="82" width="346" height="15" font="0">as a function of input data size from 100 to 1, 000, 000</text>
+<text top="765" left="82" width="349" height="15" font="0">for both Ckmeans.1d.dp() and kmeans() without con-</text>
+<text top="783" left="82" width="346" height="15" font="0">straints on optimality. The number of components in</text>
+<text top="801" left="82" width="276" height="15" font="0">the Gaussian mixture models is fixed to 2.</text>
+<text top="829" left="105" width="133" height="15" font="0">According to Figure</text>
+<text top="829" left="241" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">2</a></text>
+<text top="829" left="249" width="182" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">, </a>as the input size increases,</text>
+<text top="847" left="82" width="346" height="15" font="0">the runtime of Ckmeans.1d.dp() increases faster than</text>
+<text top="865" left="82" width="349" height="15" font="0">the runtime of kmeans(). However, the result re-</text>
+<text top="883" left="82" width="346" height="15" font="0">turned by kmeans() may not be optimal (the restart</text>
+<text top="901" left="82" width="346" height="15" font="0">of kmeans() was set to 1). Without any constraints on</text>
+<text top="919" left="82" width="346" height="15" font="0">optimality, kmeans() demonstrates an advantage in</text>
+<text top="937" left="82" width="346" height="15" font="0">runtime over Ckmeans.1d.dp() of runtime quadratic</text>
+<text top="955" left="82" width="29" height="15" font="0">in n.</text>
+<text top="983" left="105" width="213" height="15" font="0">In the second setting (Figure</text>
+<text top="983" left="328" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">3</a></text>
+<text top="983" left="335" width="94" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">), </a>runtime is</text>
+<text top="1001" left="82" width="347" height="15" font="0">obtained as a function of number of clusters for</text>
+<text top="1020" left="82" width="114" height="12" font="0">Ckmeans.1d.dp()</text>
+<text top="1019" left="201" width="228" height="15" font="0">and kmeans() without constraints</text>
+<text top="1037" left="82" width="346" height="15" font="0">on optimality. All input data sets are of the same size</text>
+<text top="1055" left="82" width="347" height="15" font="0">10, 000 and were generated from Gaussian mixture</text>
+<text top="1073" left="82" width="217" height="15" font="0">models with 2 to 25 components.</text>
+<text top="1101" left="105" width="63" height="15" font="0">In Figure</text>
+<text top="1101" left="173" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">3</a></text>
+<text top="1101" left="180" width="251" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#3">, </a>the runtime of Ckmeans.1d.dp() in-</text>
+<text top="1119" left="82" width="346" height="15" font="0">creases linearly with the number of clusters k, as does</text>
+<text top="1137" left="82" width="349" height="15" font="0">the runtime of kmeans(). kmeans(), without any con-</text>
+<text top="1155" left="82" width="346" height="15" font="0">straints on optimality, still shows an advantage in</text>
+<text top="1173" left="82" width="268" height="15" font="0">absolute runtime over Ckmeans.1d.dp().</text>
+<text top="405" left="508" width="4" height="5" font="18">●</text>
+<text top="350" left="574" width="4" height="5" font="18">●</text>
+<text top="289" left="640" width="4" height="5" font="18">●</text>
+<text top="229" left="706" width="4" height="5" font="18">●</text>
+<text top="168" left="772" width="4" height="5" font="18">●</text>
+<text top="429" left="498" width="23" height="8" font="12">1e+02</text>
+<text top="429" left="564" width="23" height="8" font="12">1e+03</text>
+<text top="429" left="630" width="23" height="8" font="12">1e+04</text>
+<text top="429" left="696" width="23" height="8" font="12">1e+05</text>
+<text top="429" left="762" width="23" height="8" font="12">1e+06</text>
+<text top="394" left="488" width="0" height="8" font="13">1e−03</text>
+<text top="334" left="488" width="0" height="8" font="13">1e−01</text>
+<text top="274" left="488" width="0" height="8" font="13">1e+01</text>
+<text top="213" left="488" width="0" height="8" font="13">1e+03</text>
+<text top="138" left="562" width="159" height="9" font="14"><b>Runtime as a function of input size</b></text>
+<text top="446" left="610" width="63" height="11" font="15">Input size n</text>
+<text top="332" left="468" width="0" height="11" font="16">Runtime (seconds)</text>
+<text top="173" left="511" width="6" height="7" font="19">●</text>
+<text top="172" left="536" width="86" height="11" font="15">Ckmeans.1d.dp</text>
+<text top="187" left="536" width="43" height="11" font="15">kmeans</text>
+<text top="484" left="459" width="63" height="15" font="0">Figure 2:</text>
+<text top="485" left="544" width="261" height="13" font="17">Runtime as a function of input size for</text>
+<text top="503" left="459" width="103" height="10" font="17">Ckmeans.1d.dp()</text>
+<text top="502" left="565" width="243" height="13" font="17">and kmeans(). kmeans() shows an advan-</text>
+<text top="518" left="459" width="346" height="13" font="17">tage in runtime without any constraints on optimality. The</text>
+<text top="534" left="459" width="343" height="13" font="17">number of clusters is 2 and there is no restart for k-means.</text>
+<text top="726" left="508" width="4" height="5" font="18">●</text>
+<text top="713" left="519" width="4" height="5" font="18">●</text>
+<text top="704" left="531" width="4" height="5" font="18">●</text>
+<text top="699" left="542" width="4" height="5" font="18">●</text>
+<text top="694" left="554" width="4" height="5" font="18">●</text>
+<text top="690" left="565" width="4" height="5" font="18">●</text>
+<text top="687" left="577" width="4" height="5" font="18">●</text>
+<text top="685" left="588" width="4" height="5" font="18">●</text>
+<text top="682" left="600" width="4" height="5" font="18">●</text>
+<text top="680" left="611" width="4" height="5" font="18">●</text>
+<text top="678" left="623" width="4" height="5" font="18">●</text>
+<text top="676" left="634" width="4" height="5" font="18">●</text>
+<text top="675" left="646" width="4" height="5" font="18">●</text>
+<text top="673" left="657" width="4" height="5" font="18">●</text>
+<text top="672" left="669" width="4" height="5" font="18">●</text>
+<text top="670" left="680" width="4" height="5" font="18">●</text>
+<text top="669" left="692" width="4" height="5" font="18">●</text>
+<text top="668" left="703" width="4" height="5" font="18">●</text>
+<text top="667" left="715" width="4" height="5" font="18">●</text>
+<text top="666" left="726" width="4" height="5" font="18">●</text>
+<text top="665" left="738" width="4" height="5" font="18">●</text>
+<text top="664" left="749" width="4" height="5" font="18">●</text>
+<text top="663" left="760" width="4" height="5" font="18">●</text>
+<text top="662" left="772" width="4" height="5" font="18">●</text>
+<text top="885" left="542" width="5" height="8" font="12">5</text>
+<text top="885" left="597" width="9" height="8" font="12">10</text>
+<text top="885" left="655" width="9" height="8" font="12">15</text>
+<text top="885" left="712" width="9" height="8" font="12">20</text>
+<text top="885" left="769" width="9" height="8" font="12">25</text>
+<text top="869" left="488" width="0" height="8" font="13">1e−03</text>
+<text top="774" left="488" width="0" height="8" font="13">1e−01</text>
+<text top="680" left="488" width="0" height="8" font="13">1e+01</text>
+<text top="593" left="542" width="201" height="9" font="14"><b>Runtime comparison (k−means not optimal)</b></text>
+<text top="901" left="585" width="113" height="11" font="15">Number of clusters k</text>
+<text top="788" left="468" width="0" height="11" font="16">Runtime (seconds)</text>
+<text top="628" left="511" width="6" height="7" font="19">●</text>
+<text top="628" left="536" width="86" height="11" font="15">Ckmeans.1d.dp</text>
+<text top="642" left="536" width="43" height="11" font="15">kmeans</text>
+<text top="940" left="459" width="57" height="15" font="0">Figure 3:</text>
+<text top="941" left="524" width="281" height="13" font="17">Comparison of runtime as a function of number</text>
+<text top="957" left="459" width="349" height="13" font="17">of clusters between Ckmeans.1d.dp() and kmeans(). The in-</text>
+<text top="974" left="458" width="347" height="13" font="17">put data are mixed Gaussian of fixed size 10, 000 but with an</text>
+<text top="990" left="459" width="346" height="13" font="17">increasing number of components, representing the clusters</text>
+<text top="1007" left="459" width="348" height="13" font="17">in data. Although the k-means algorithm took less runtime,</text>
+<text top="1023" left="459" width="329" height="13" font="17">it was run with no restart and thus may not be optimal.</text>
+<text top="1065" left="481" width="185" height="15" font="0">In the third setting (Figure</text>
+<text top="1065" left="672" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#4">4</a></text>
+<text top="1065" left="679" width="129" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#4">), </a>we plot the run-</text>
+<text top="1083" left="459" width="349" height="15" font="0">time of Ckmeans.1d.dp() and kmeans() as a func-</text>
+<text top="1101" left="459" width="346" height="15" font="0">tion of the number of clusters, obtained from</text>
+<text top="1119" left="459" width="349" height="15" font="0">exactly the same input data in the second set-</text>
+<text top="1137" left="459" width="346" height="15" font="0">ting, but with a constraint on the optimality of</text>
+<text top="1155" left="459" width="349" height="15" font="0">k-means such that its withinss has a relative dif-</text>
+<text top="1173" left="459" width="148" height="15" font="0">ference less than 10</text>
+<text top="1169" left="607" width="15" height="14" font="1">−6</text>
+<text top="1173" left="632" width="176" height="15" font="0">from the optimal value.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="20" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="21" size="8" family="Times" color="#000000"/>
+	<fontspec id="22" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="23" size="7" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">32</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="311" left="132" width="4" height="5" font="18">●</text>
+<text top="302" left="143" width="4" height="5" font="18">●</text>
+<text top="296" left="155" width="4" height="5" font="18">●</text>
+<text top="292" left="166" width="4" height="5" font="18">●</text>
+<text top="289" left="178" width="4" height="5" font="18">●</text>
+<text top="286" left="189" width="4" height="5" font="18">●</text>
+<text top="284" left="200" width="4" height="5" font="18">●</text>
+<text top="282" left="212" width="4" height="5" font="18">●</text>
+<text top="280" left="223" width="4" height="5" font="18">●</text>
+<text top="279" left="235" width="4" height="5" font="18">●</text>
+<text top="278" left="246" width="4" height="5" font="18">●</text>
+<text top="276" left="258" width="4" height="5" font="18">●</text>
+<text top="275" left="269" width="4" height="5" font="18">●</text>
+<text top="274" left="281" width="4" height="5" font="18">●</text>
+<text top="273" left="292" width="4" height="5" font="18">●</text>
+<text top="272" left="304" width="4" height="5" font="18">●</text>
+<text top="271" left="315" width="4" height="5" font="18">●</text>
+<text top="271" left="327" width="4" height="5" font="18">●</text>
+<text top="270" left="338" width="4" height="5" font="18">●</text>
+<text top="269" left="350" width="4" height="5" font="18">●</text>
+<text top="268" left="361" width="4" height="5" font="18">●</text>
+<text top="268" left="373" width="4" height="5" font="18">●</text>
+<text top="267" left="384" width="4" height="5" font="18">●</text>
+<text top="267" left="396" width="4" height="5" font="18">●</text>
+<text top="429" left="166" width="5" height="8" font="12">5</text>
+<text top="429" left="221" width="9" height="8" font="12">10</text>
+<text top="429" left="278" width="9" height="8" font="12">15</text>
+<text top="429" left="336" width="9" height="8" font="12">20</text>
+<text top="429" left="393" width="9" height="8" font="12">25</text>
+<text top="413" left="111" width="0" height="8" font="13">1e−03</text>
+<text top="347" left="111" width="0" height="8" font="13">1e−01</text>
+<text top="281" left="111" width="0" height="8" font="13">1e+01</text>
+<text top="215" left="111" width="0" height="8" font="13">1e+03</text>
+<text top="138" left="163" width="206" height="9" font="14"><b>Runtime comparison (k−means near optimal)</b></text>
+<text top="446" left="209" width="113" height="11" font="15">Number of clusters k</text>
+<text top="332" left="91" width="0" height="11" font="16">Runtime (seconds)</text>
+<text top="173" left="135" width="6" height="7" font="19">●</text>
+<text top="172" left="160" width="86" height="11" font="15">Ckmeans.1d.dp</text>
+<text top="187" left="160" width="43" height="11" font="15">kmeans</text>
+<text top="396" left="132" width="4" height="6" font="20">1</text>
+<text top="402" left="143" width="4" height="6" font="20">1</text>
+<text top="392" left="155" width="4" height="6" font="20">1</text>
+<text top="386" left="166" width="4" height="6" font="20">1</text>
+<text top="366" left="178" width="4" height="6" font="20">2</text>
+<text top="377" left="189" width="4" height="6" font="20">1</text>
+<text top="374" left="201" width="4" height="6" font="20">1</text>
+<text top="277" left="206" width="15" height="6" font="20">1047</text>
+<text top="351" left="224" width="4" height="6" font="20">5</text>
+<text top="295" left="231" width="11" height="6" font="20">234</text>
+<text top="361" left="247" width="4" height="6" font="20">2</text>
+<text top="314" left="256" width="8" height="6" font="20">57</text>
+<text top="305" left="268" width="8" height="6" font="20">93</text>
+<text top="315" left="279" width="8" height="6" font="20">40</text>
+<text top="253" left="287" width="15" height="6" font="20">3476</text>
+<text top="261" left="298" width="15" height="6" font="20">1839</text>
+<text top="239" left="310" width="15" height="6" font="20">9089</text>
+<text top="263" left="321" width="15" height="6" font="20">1564</text>
+<text top="200" left="331" width="19" height="6" font="20">98859</text>
+<text top="177" left="340" width="23" height="6" font="20">548208</text>
+<text top="173" left="352" width="23" height="6" font="20">756801</text>
+<text top="284" left="369" width="11" height="6" font="20">286</text>
+<text top="197" left="375" width="23" height="6" font="20">127617</text>
+<text top="228" left="388" width="19" height="6" font="20">15916</text>
+<text top="484" left="82" width="56" height="15" font="0">Figure 4:</text>
+<text top="485" left="146" width="283" height="13" font="17">Runtime as a function of number of clusters with</text>
+<text top="502" left="82" width="346" height="13" font="17">restart of kmeans() to guarantee a relative difference less</text>
+<text top="518" left="82" width="44" height="13" font="17">than 10</text>
+<text top="514" left="127" width="14" height="13" font="21">−6</text>
+<text top="518" left="145" width="284" height="13" font="17">to the optimal value. The sample size is always</text>
+<text top="534" left="82" width="347" height="13" font="17">10,000. The number next to each blue square is the number</text>
+<text top="551" left="82" width="348" height="13" font="17">of restarts needed for kmeans(). The runtime of kmeans()</text>
+<text top="567" left="82" width="348" height="13" font="17">appears to grow exponentially and that of Ckmeans.1d.dp()</text>
+<text top="584" left="82" width="301" height="13" font="17">always grows linearly with the number of clusters.</text>
+<text top="619" left="105" width="324" height="15" font="0">Since Ckmeans.1d.dp() returns an optimal result</text>
+<text top="637" left="82" width="349" height="15" font="0">in only one run, its runtime is the same as setting 2.</text>
+<text top="655" left="82" width="349" height="15" font="0">On the other hand, kmeans() was restarted a num-</text>
+<text top="673" left="82" width="346" height="15" font="0">ber of times in order to approach an optimal solution</text>
+<text top="691" left="82" width="347" height="15" font="0">within the given tolerance. The number of restarts</text>
+<text top="709" left="82" width="349" height="15" font="0">increases substantially to produce a nearly optimal so-</text>
+<text top="727" left="82" width="346" height="15" font="0">lution as the number of clusters k increases. As shown</text>
+<text top="745" left="82" width="58" height="15" font="0">in Figure</text>
+<text top="745" left="144" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#4">4</a></text>
+<text top="745" left="151" width="278" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#4">, </a>the runtime of Ckmeans.1d.dp() increases</text>
+<text top="763" left="82" width="346" height="15" font="0">linearly with k, but the runtime of kmeans() appears</text>
+<text top="780" left="82" width="346" height="15" font="0">to increase exponentially with k. The runtime of</text>
+<text top="800" left="82" width="61" height="12" font="0">kmeans()</text>
+<text top="798" left="147" width="284" height="15" font="0">almost always far exceeds Ckmeans.1d.dp()</text>
+<text top="816" left="82" width="347" height="15" font="0">when k is above 15. This suggests an advantage of</text>
+<text top="836" left="82" width="114" height="12" font="0">Ckmeans.1d.dp()</text>
+<text top="834" left="201" width="228" height="15" font="0">over kmeans() in both runtime and</text>
+<text top="852" left="82" width="163" height="15" font="0">optimality when k is big.</text>
+<text top="871" left="105" width="324" height="15" font="0">The R source code for the simulation studies is</text>
+<text top="889" left="82" width="93" height="15" font="0">available from</text>
+<text top="891" left="179" width="252" height="12" font="6"><a href="http://www.cs.nmsu.edu/~joemsong/R-Journal/Ckmeans-Simulation.zip">http://www.cs.nmsu.edu/~joemsong/</a></text>
+<text top="908" left="82" width="245" height="12" font="6"><a href="http://www.cs.nmsu.edu/~joemsong/R-Journal/Ckmeans-Simulation.zip">R-Journal/Ckmeans-Simulation.zip</a></text>
+<text top="907" left="328" width="4" height="15" font="0"><a href="http://www.cs.nmsu.edu/~joemsong/R-Journal/Ckmeans-Simulation.zip">.</a></text>
+<text top="961" left="82" width="350" height="21" font="5"><b>Introduction to the R package Ck-</b></text>
+<text top="988" left="82" width="124" height="21" font="5"><b>means.1d.dp</b></text>
+<text top="1028" left="82" width="349" height="15" font="0">The <b>Ckmeans.1d.dp </b>package implements the dy-</text>
+<text top="1046" left="82" width="346" height="15" font="0">namic programming algorithm for 1-D clustering</text>
+<text top="1064" left="82" width="183" height="15" font="0">that we described above.</text>
+<text top="1064" left="285" width="144" height="15" font="0">In the package, the</text>
+<text top="1084" left="82" width="114" height="12" font="0">Ckmeans.1d.dp()</text>
+<text top="1082" left="200" width="229" height="15" font="0">function performs the clustering on</text>
+<text top="1100" left="82" width="343" height="15" font="0">a 1-D input vector using a given number of clusters.</text>
+<text top="1119" left="105" width="324" height="15" font="0">The following example illustrates how to use the</text>
+<text top="1137" left="82" width="109" height="15" font="0">package. Figure</text>
+<text top="1137" left="195" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#4">5</a></text>
+<text top="1137" left="207" width="222" height="15" font="0">visualizes the input data and the</text>
+<text top="1155" left="82" width="346" height="15" font="0">cluster result obtained by Ckmeans.1d.dp() in this</text>
+<text top="1173" left="82" width="60" height="15" font="0">example.</text>
+<text top="126" left="459" width="206" height="12" font="0"># a one-dimensional example</text>
+<text top="144" left="459" width="343" height="12" font="0"># with a two-component Gaussian mixture model</text>
+<text top="162" left="458" width="259" height="12" font="0">x &lt;- rnorm(50, mean = 1, sd = 0.3)</text>
+<text top="180" left="458" width="274" height="12" font="0">x &lt;- append(x, rnorm(50, sd = 0.3) )</text>
+<text top="198" left="459" width="221" height="12" font="0">result &lt;- Ckmeans.1d.dp(x, 2)</text>
+<text top="216" left="459" width="221" height="12" font="0">plot(x, col = result$cluster)</text>
+<text top="234" left="459" width="351" height="12" font="0">abline(h = result$centers, col = 1:2, pch = 8,</text>
+<text top="252" left="512" width="61" height="12" font="0">cex = 2)</text>
+<text top="389" left="511" width="4" height="5" font="18">●</text>
+<text top="372" left="514" width="4" height="5" font="18">●</text>
+<text top="383" left="517" width="4" height="5" font="18">●</text>
+<text top="374" left="519" width="4" height="5" font="18">●</text>
+<text top="452" left="522" width="4" height="5" font="18">●</text>
+<text top="389" left="524" width="4" height="5" font="18">●</text>
+<text top="424" left="527" width="4" height="5" font="18">●</text>
+<text top="411" left="530" width="4" height="5" font="18">●</text>
+<text top="369" left="532" width="7" height="7" font="18">●●</text>
+<text top="407" left="537" width="4" height="5" font="18">●</text>
+<text top="338" left="540" width="4" height="5" font="18">●</text>
+<text top="399" left="543" width="4" height="5" font="18">●</text>
+<text top="481" left="545" width="4" height="5" font="18">●</text>
+<text top="386" left="548" width="4" height="5" font="18">●</text>
+<text top="338" left="551" width="4" height="5" font="18">●</text>
+<text top="373" left="553" width="4" height="5" font="18">●</text>
+<text top="396" left="556" width="4" height="5" font="18">●</text>
+<text top="365" left="558" width="4" height="5" font="18">●</text>
+<text top="405" left="561" width="4" height="5" font="18">●</text>
+<text top="392" left="564" width="4" height="5" font="18">●</text>
+<text top="416" left="566" width="4" height="5" font="18">●</text>
+<text top="382" left="569" width="7" height="5" font="18">●●</text>
+<text top="361" left="574" width="4" height="5" font="18">●</text>
+<text top="431" left="577" width="4" height="5" font="18">●</text>
+<text top="390" left="579" width="4" height="5" font="18">●</text>
+<text top="330" left="582" width="4" height="5" font="18">●</text>
+<text top="336" left="585" width="4" height="5" font="18">●</text>
+<text top="345" left="587" width="4" height="5" font="18">●</text>
+<text top="447" left="590" width="4" height="5" font="18">●</text>
+<text top="336" left="592" width="4" height="5" font="18">●</text>
+<text top="356" left="595" width="4" height="5" font="18">●</text>
+<text top="343" left="598" width="4" height="5" font="18">●</text>
+<text top="417" left="600" width="4" height="5" font="18">●</text>
+<text top="411" left="603" width="4" height="5" font="18">●</text>
+<text top="388" left="605" width="4" height="5" font="18">●</text>
+<text top="376" left="608" width="4" height="5" font="18">●</text>
+<text top="384" left="611" width="4" height="5" font="18">●</text>
+<text top="344" left="613" width="4" height="5" font="18">●</text>
+<text top="391" left="616" width="4" height="5" font="18">●</text>
+<text top="380" left="619" width="4" height="5" font="18">●</text>
+<text top="400" left="621" width="4" height="5" font="18">●</text>
+<text top="396" left="624" width="4" height="5" font="18">●</text>
+<text top="380" left="626" width="4" height="5" font="18">●</text>
+<text top="351" left="629" width="4" height="5" font="18">●</text>
+<text top="336" left="632" width="4" height="5" font="18">●</text>
+<text top="384" left="634" width="7" height="5" font="18">●●</text>
+<text top="359" left="639" width="4" height="5" font="18">●</text>
+<text top="553" left="642" width="4" height="5" font="18">●</text>
+<text top="472" left="645" width="4" height="5" font="18">●</text>
+<text top="499" left="647" width="4" height="5" font="18">●</text>
+<text top="488" left="650" width="4" height="5" font="18">●</text>
+<text top="505" left="653" width="4" height="5" font="18">●</text>
+<text top="453" left="655" width="4" height="5" font="18">●</text>
+<text top="459" left="658" width="4" height="5" font="18">●</text>
+<text top="452" left="660" width="4" height="5" font="18">●</text>
+<text top="500" left="663" width="4" height="5" font="18">●</text>
+<text top="531" left="666" width="4" height="5" font="18">●</text>
+<text top="443" left="668" width="4" height="5" font="18">●</text>
+<text top="526" left="671" width="4" height="5" font="18">●</text>
+<text top="497" left="673" width="4" height="5" font="18">●</text>
+<text top="523" left="676" width="4" height="5" font="18">●</text>
+<text top="451" left="679" width="4" height="5" font="18">●</text>
+<text top="497" left="681" width="4" height="5" font="18">●</text>
+<text top="479" left="684" width="4" height="5" font="18">●</text>
+<text top="485" left="687" width="4" height="5" font="18">●</text>
+<text top="509" left="689" width="4" height="5" font="18">●</text>
+<text top="502" left="692" width="4" height="5" font="18">●</text>
+<text top="540" left="694" width="4" height="5" font="18">●</text>
+<text top="545" left="697" width="4" height="5" font="18">●</text>
+<text top="475" left="700" width="4" height="5" font="18">●</text>
+<text top="511" left="702" width="4" height="5" font="18">●</text>
+<text top="478" left="705" width="4" height="5" font="18">●</text>
+<text top="485" left="707" width="4" height="5" font="18">●</text>
+<text top="492" left="710" width="4" height="5" font="18">●</text>
+<text top="546" left="713" width="4" height="5" font="18">●</text>
+<text top="542" left="715" width="4" height="5" font="18">●</text>
+<text top="495" left="718" width="4" height="5" font="18">●</text>
+<text top="505" left="721" width="4" height="5" font="18">●</text>
+<text top="474" left="723" width="4" height="5" font="18">●</text>
+<text top="540" left="726" width="4" height="5" font="18">●</text>
+<text top="524" left="728" width="4" height="5" font="18">●</text>
+<text top="439" left="731" width="4" height="5" font="18">●</text>
+<text top="558" left="734" width="4" height="5" font="18">●</text>
+<text top="536" left="736" width="4" height="5" font="18">●</text>
+<text top="486" left="739" width="7" height="8" font="18">●●</text>
+<text top="478" left="744" width="4" height="5" font="18">●</text>
+<text top="466" left="747" width="4" height="5" font="18">●</text>
+<text top="520" left="749" width="4" height="5" font="18">●</text>
+<text top="473" left="752" width="4" height="5" font="18">●</text>
+<text top="539" left="755" width="4" height="5" font="18">●</text>
+<text top="549" left="757" width="4" height="5" font="18">●</text>
+<text top="542" left="760" width="4" height="5" font="18">●</text>
+<text top="466" left="762" width="4" height="5" font="18">●</text>
+<text top="474" left="765" width="4" height="5" font="18">●</text>
+<text top="429" left="768" width="4" height="5" font="18">●</text>
+<text top="473" left="770" width="4" height="5" font="18">●</text>
+<text top="583" left="508" width="5" height="8" font="22">0</text>
+<text top="583" left="558" width="10" height="8" font="22">20</text>
+<text top="583" left="611" width="10" height="8" font="22">40</text>
+<text top="583" left="663" width="10" height="8" font="22">60</text>
+<text top="583" left="715" width="10" height="8" font="22">80</text>
+<text top="583" left="765" width="15" height="8" font="22">100</text>
+<text top="557" left="490" width="0" height="8" font="23">−0.5</text>
+<text top="499" left="490" width="0" height="8" font="23">0.0</text>
+<text top="444" left="490" width="0" height="8" font="23">0.5</text>
+<text top="389" left="490" width="0" height="8" font="23">1.0</text>
+<text top="333" left="490" width="0" height="8" font="23">1.5</text>
+<text top="605" left="632" width="22" height="8" font="22">Index</text>
+<text top="443" left="469" width="0" height="8" font="23">x</text>
+<text top="642" left="459" width="59" height="15" font="0">Figure 5:</text>
+<text top="643" left="527" width="278" height="13" font="17">Two clusters obtained from applying function</text>
+<text top="661" left="459" width="103" height="10" font="17">Ckmeans.1d.dp()</text>
+<text top="660" left="565" width="242" height="13" font="17">on input x sampled from a Gaussian mix-</text>
+<text top="676" left="459" width="346" height="13" font="17">ture model with two components. The horizontal axis is</text>
+<text top="692" left="459" width="346" height="13" font="17">the index number of each point in x. The two clusters are</text>
+<text top="709" left="459" width="346" height="13" font="17">indicated using red and black circles. The two horizontal</text>
+<text top="725" left="459" width="245" height="13" font="17">lines represent the centers of each cluster.</text>
+<text top="772" left="459" width="96" height="21" font="5"><b>Summary</b></text>
+<text top="812" left="458" width="349" height="15" font="0">The main purpose of our work is to develop an ex-</text>
+<text top="830" left="459" width="346" height="15" font="0">act solution to 1-D clustering in a practical amount of</text>
+<text top="848" left="459" width="349" height="15" font="0">time, as an alternative to heuristic k-means algorithms.</text>
+<text top="866" left="458" width="350" height="15" font="0">We thus developed the <b>Ckmeans.1d.dp </b>package us-</text>
+<text top="884" left="459" width="346" height="15" font="0">ing dynamic programming to guarantee clustering</text>
+<text top="902" left="459" width="105" height="15" font="0">optimality in O</text>
+<text top="901" left="564" width="6" height="16" font="7">(</text>
+<text top="902" left="571" width="8" height="15" font="0">n</text>
+<text top="899" left="579" width="6" height="11" font="1">2</text>
+<text top="902" left="586" width="7" height="15" font="0">k</text>
+<text top="901" left="593" width="6" height="16" font="7">)</text>
+<text top="902" left="604" width="204" height="15" font="0">time. The algorithm is imple-</text>
+<text top="920" left="459" width="349" height="15" font="0">mented in C++ with an interface to the R language.</text>
+<text top="938" left="459" width="346" height="15" font="0">It is provided as a package to R and has been tested</text>
+<text top="956" left="459" width="348" height="15" font="0">under recent operating system versions of Windows,</text>
+<text top="974" left="459" width="349" height="15" font="0">Linux and MacOS. By simulation studies, we demon-</text>
+<text top="992" left="459" width="349" height="15" font="0">strated its advantage over the standard k-means algo-</text>
+<text top="1010" left="459" width="229" height="15" font="0">rithm when optimality is required.</text>
+<text top="1029" left="481" width="325" height="15" font="0">There are two limitations of our <b>Ckmeans.1d.dp</b></text>
+<text top="1047" left="459" width="346" height="15" font="0">method. It only applies to 1-D data and its quadratic</text>
+<text top="1064" left="459" width="346" height="15" font="0">runtime in the sample size may not be acceptable in</text>
+<text top="1082" left="459" width="104" height="15" font="0">all applications.</text>
+<text top="1101" left="481" width="324" height="15" font="0">However, where applicable, the impact of our</text>
+<text top="1119" left="459" width="347" height="15" font="0">method is its optimality and repeatability. As our</text>
+<text top="1137" left="459" width="346" height="15" font="0">simulation studies show, when the number of clusters</text>
+<text top="1155" left="459" width="346" height="15" font="0">is big, our method not only guarantees optimality but</text>
+<text top="1173" left="459" width="346" height="15" font="0">also has a fast runtime. In this situation, our method</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">33</text>
+<text top="125" left="82" width="349" height="15" font="0">is preferred. We applied our <b>Ckmeans.1d.dp </b>to quan-</text>
+<text top="143" left="82" width="318" height="15" font="0">tize biological data in the DREAM Challenges <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="143" left="400" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Prill</a></text>
+<text top="161" left="82" width="32" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">et al.</a></text>
+<text top="161" left="114" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="161" left="122" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2010</a></text>
+<text top="161" left="152" width="276" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">) </a>for qualitative dynamic modeling using</text>
+<text top="179" left="82" width="199" height="15" font="0">generalized logical networks <a href="2011-2-RJournal_2011-2_Wang+Song.html#5">(</a></text>
+<text top="179" left="281" width="68" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">Song et al.</a></text>
+<text top="179" left="349" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">,</a></text>
+<text top="179" left="357" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">2009</a></text>
+<text top="179" left="387" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Wang+Song.html#5">).</a></text>
+<text top="198" left="105" width="327" height="15" font="0">It is of great interest if the 1-D dynamic program-</text>
+<text top="215" left="82" width="349" height="15" font="0">ming strategy can be extended to multiple dimen-</text>
+<text top="233" left="82" width="349" height="15" font="0">sional spaces so that clustering can be done in poly-</text>
+<text top="251" left="82" width="346" height="15" font="0">nomial time to k. However, this seems to us to remain</text>
+<text top="269" left="82" width="115" height="15" font="0">open indefinitely.</text>
+<text top="320" left="82" width="186" height="21" font="5"><b>Acknowledgement</b></text>
+<text top="361" left="82" width="347" height="15" font="0">We gratefully acknowledge the financial support to</text>
+<text top="378" left="82" width="347" height="15" font="0">the reported work by the grant number HRD-0420407</text>
+<text top="396" left="82" width="285" height="15" font="0">from the U.S. National Science Foundation.</text>
+<text top="448" left="82" width="130" height="21" font="5"><b>Bibliography</b></text>
+<text top="487" left="82" width="349" height="15" font="0">D. Aloise, A. Deshpande, P. Hansen, and P. Popat. NP-</text>
+<text top="505" left="97" width="334" height="15" font="0">hardness of Euclidean sum-of-squares clustering.</text>
+<text top="523" left="97" width="217" height="15" font="0">Mach. Learn., 75(2):245–248, 2009.</text>
+<text top="556" left="82" width="346" height="15" font="0">S. Dasgupta and Y. Freund. Random projection trees</text>
+<text top="574" left="97" width="332" height="15" font="0">for vector quantization. IEEE T. Inform. Theory, 55</text>
+<text top="592" left="97" width="130" height="15" font="0">(7):3229–3242, 2009.</text>
+<text top="625" left="82" width="348" height="15" font="0">J. A. Hartigan and M. A. Wong. Algorithm AS 136:</text>
+<text top="642" left="97" width="334" height="15" font="0">A k-means clustering algorithm. J. Roy. Stat. Soc.</text>
+<text top="660" left="97" width="181" height="15" font="0">C-App., 28(1):100–108, 1979.</text>
+<text top="693" left="82" width="346" height="15" font="0">S. A. Kauffman. Metabolic stability and epigenesis</text>
+<text top="711" left="97" width="332" height="15" font="0">in randomly constructed genetic nets. J. Theoretical</text>
+<text top="729" left="97" width="183" height="15" font="0">Biology, 22(3):437–467, 1969.</text>
+<text top="762" left="82" width="346" height="15" font="0">S. A. Kauffman. The Origins of Order: Self-Organization</text>
+<text top="780" left="97" width="333" height="15" font="0">and Selection in Evolution. Oxford University Press,</text>
+<text top="798" left="97" width="106" height="15" font="0">USA, June 1993.</text>
+<text top="831" left="82" width="349" height="15" font="0">J. Kleinberg and E. Tardos. Algorithm Design. Addison-</text>
+<text top="849" left="97" width="125" height="15" font="0">Wesley, USA, 2006.</text>
+<text top="882" left="82" width="346" height="15" font="0">S. P. Lloyd. Least squares quantization in PCM. IEEE</text>
+<text top="900" left="97" width="234" height="15" font="0">T. Inform. Theory, 28:129 – 137, 1982.</text>
+<text top="125" left="459" width="346" height="15" font="0">M. Mahajan, P. Nimbhorkar, and K. Varadarajan. The</text>
+<text top="143" left="473" width="332" height="15" font="0">planar k-means problem is NP-hard. In WALCOM</text>
+<text top="161" left="471" width="334" height="15" font="0">’09: Proceedings of the 3rd International Workshop on</text>
+<text top="179" left="473" width="334" height="15" font="0">Algorithms and Computation, pages 274–285, Berlin,</text>
+<text top="197" left="474" width="227" height="15" font="0">Heidelberg, 2009. Springer-Verlag.</text>
+<text top="227" left="459" width="349" height="15" font="0">C. D. Manning, P. Raghavan, and H. Schtze. Introduc-</text>
+<text top="245" left="474" width="332" height="15" font="0">tion to Information Retrieval. Cambridge University</text>
+<text top="263" left="474" width="333" height="15" font="0">Press, New York, NY, USA, 2008. ISBN 0521865719,</text>
+<text top="281" left="474" width="101" height="15" font="0">9780521865715.</text>
+<text top="311" left="459" width="348" height="15" font="0">R. J. Prill, D. Marbach, J. Saez-Rodriguez, P. K. Sorger,</text>
+<text top="328" left="474" width="334" height="15" font="0">L. G. Alexopoulos, X. Xue, N. D. Clarke, G. Altan-</text>
+<text top="346" left="474" width="334" height="15" font="0">Bonnet, and G. Stolovitzky. Towards a rigorous as-</text>
+<text top="364" left="474" width="332" height="15" font="0">sessment of systems biology models: The DREAM3</text>
+<text top="382" left="474" width="280" height="15" font="0">challenges. PLoS ONE, 5(2):e9202, 02 2010.</text>
+<text top="412" left="459" width="167" height="15" font="0">M. Song and H. Wang.</text>
+<text top="412" left="644" width="162" height="15" font="0">Ckmeans.1d.dp: Optimal</text>
+<text top="430" left="474" width="333" height="15" font="0">distance-based clustering for one-dimensional data,</text>
+<text top="448" left="474" width="68" height="15" font="0">2011. URL</text>
+<text top="449" left="545" width="260" height="12" font="6"><a href="http://CRAN.R-project.org/package=Ckmeans.1d.dp">http://CRAN.R-project.org/package=</a></text>
+<text top="467" left="474" width="99" height="12" font="6"><a href="http://CRAN.R-project.org/package=Ckmeans.1d.dp">Ckmeans.1d.dp</a></text>
+<text top="466" left="573" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=Ckmeans.1d.dp">. </a>R package version 2.2.</text>
+<text top="496" left="459" width="348" height="15" font="0">M. Song, C. K. Lewis, E. R. Lance, E. J. Chesler,</text>
+<text top="514" left="474" width="333" height="15" font="0">R. K. Yordanova, M. A. Langston, K. H. Lodowski,</text>
+<text top="532" left="474" width="332" height="15" font="0">and S. E. Bergeson. Reconstructing generalized</text>
+<text top="550" left="474" width="332" height="15" font="0">logical networks of transcriptional regulation in</text>
+<text top="568" left="474" width="334" height="15" font="0">mouse brain from temporal gene expression data.</text>
+<text top="586" left="473" width="322" height="15" font="0">EURASIP J. Bioinform. Syst. Biol., 2009:1–13, 2009.</text>
+<text top="616" left="459" width="346" height="15" font="0">M. Song, R. M. Haralick, and S. Boissinot. Efficient</text>
+<text top="634" left="474" width="334" height="15" font="0">and exact maximum likelihood quantisation of ge-</text>
+<text top="652" left="474" width="333" height="15" font="0">nomic features using dynamic programming. Int. J.</text>
+<text top="669" left="473" width="262" height="15" font="0">Data Min. Bioinform., 4(2):123–141, 2010.</text>
+<text top="720" left="459" width="98" height="15" font="0">Mingzhou Song</text>
+<text top="738" left="458" width="200" height="15" font="0">Department of Computer Science</text>
+<text top="756" left="459" width="180" height="15" font="0">New Mexico State University</text>
+<text top="774" left="458" width="83" height="15" font="0">United States</text>
+<text top="793" left="459" width="152" height="12" font="6"><a href="mailto:joemsong@cs.nmsu.edu">joemsong@cs.nmsu.edu</a></text>
+<text top="828" left="458" width="91" height="15" font="0">Haizhou Wang</text>
+<text top="846" left="458" width="200" height="15" font="0">Department of Computer Science</text>
+<text top="864" left="459" width="180" height="15" font="0">New Mexico State University</text>
+<text top="882" left="458" width="83" height="15" font="0">United States</text>
+<text top="901" left="459" width="130" height="12" font="6"><a href="mailto:hwang@cs.nmsu.edu">hwang@cs.nmsu.edu</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

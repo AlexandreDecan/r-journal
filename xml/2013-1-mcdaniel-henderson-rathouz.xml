@@ -1,0 +1,1171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="5" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">181</text>
+<text top="98" left="149" width="513" height="30" font="2"><b>Fast Pure R Implementation of GEE:</b></text>
+<text top="137" left="148" width="484" height="30" font="2"><b>Application of the Matrix Package</b></text>
+<text top="173" left="149" width="390" height="15" font="0">by Lee S. McDaniel, Nicholas C. Henderson and Paul J. Rathouz</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="538" height="13" font="4">Generalized estimating equation solvers in R only allow for a few pre-determined options</text>
+<text top="231" left="149" width="595" height="13" font="4">for the link and variance functions. We provide a package, <b>geeM</b>, which is implemented entirely in R</text>
+<text top="247" left="149" width="595" height="13" font="4">and allows for user specified link and variance functions. The sparse matrix representations provided</text>
+<text top="264" left="149" width="595" height="13" font="4">in the <b>Matrix </b>package enable a fast implementation. To gain speed, we make use of analytic inverses</text>
+<text top="280" left="149" width="595" height="13" font="4">of the working correlation when possible and a trick to find quick numeric inverses when an analytic</text>
+<text top="297" left="149" width="595" height="13" font="4">inverse is not available. Through three examples, we demonstrate the speed of <b>geeM</b>, which is not</text>
+<text top="313" left="149" width="595" height="13" font="4">much worse than C implementations like <b>geepack </b>and <b>gee </b>on small data sets and faster on large data</text>
+<text top="329" left="149" width="26" height="13" font="4">sets.</text>
+<text top="374" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="413" left="148" width="379" height="13" font="4">An extension of generalized linear models and quasilikelihood <a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="413" left="527" width="137" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">McCullagh and Nelder</a></text>
+<text top="413" left="664" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="413" left="671" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">1986</a></text>
+<text top="413" left="698" width="49" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">), </a>gener-</text>
+<text top="430" left="149" width="203" height="13" font="4">alized estimating equations (GEEs;</text>
+<text top="430" left="355" width="96" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Liang and Zeger</a></text>
+<text top="430" left="451" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="430" left="458" width="26" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">1986</a></text>
+<text top="430" left="484" width="260" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">) </a>are a useful method for analyzing clustered</text>
+<text top="446" left="148" width="593" height="13" font="4">(or longitudinal) data which may be correlated within cluster but are independent between clusters.</text>
+<text top="467" left="171" width="575" height="13" font="4">There are two packages on CRAN which will solve GEEs and produce standard errors in R:</text>
+<text top="483" left="149" width="50" height="13" font="7"><a href="http://CRAN.R-project.org/package=geepack"><b>geepack</b></a></text>
+<text top="483" left="203" width="5" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">(</a></text>
+<text top="483" left="207" width="96" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">Højsgaard et al.</a></text>
+<text top="483" left="304" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">,</a></text>
+<text top="483" left="311" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">2006</a></text>
+<text top="483" left="339" width="32" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">) </a>and</text>
+<text top="483" left="375" width="21" height="13" font="7"><a href="http://CRAN.R-project.org/package=gee"><b>gee</b></a></text>
+<text top="483" left="400" width="5" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">(</a></text>
+<text top="483" left="404" width="74" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">Carey. et al.</a></text>
+<text top="483" left="478" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">,</a></text>
+<text top="483" left="485" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">2012</a></text>
+<text top="483" left="513" width="232" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">). </a><b>gee </b>provides the basic functionality</text>
+<text top="500" left="149" width="595" height="13" font="4">necessary for fitting GEEs, while <b>geepack </b>also allows for regression models for both the scale and</text>
+<text top="516" left="149" width="239" height="13" font="4">correlation parameters, as described in</text>
+<text top="516" left="393" width="81" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Yan and Fine</a></text>
+<text top="516" left="478" width="5" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="516" left="483" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2004</a></text>
+<text top="516" left="510" width="234" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">). </a>Both of these packages rely heavily</text>
+<text top="533" left="149" width="595" height="13" font="4">on a computational engine implemented in C and called by the R function wrapper. They use the</text>
+<text top="550" left="149" width="41" height="11" font="4">family</text>
+<text top="549" left="194" width="550" height="13" font="4">object as input and hard code each of the link and variance function options within the C</text>
+<text top="566" left="149" width="595" height="13" font="4">code. Whereas this configuration yields computational speed, it has two important drawbacks: it does</text>
+<text top="582" left="149" width="595" height="13" font="4">not allow the user to create and specify his own link and variance functions, and it is not easy for a</text>
+<text top="598" left="148" width="596" height="13" font="4">programmer with only modest programming skills to alter the code for methodological developments</text>
+<text top="615" left="149" width="169" height="13" font="4">related to or extending GEE.</text>
+<text top="636" left="171" width="573" height="13" font="4">To see why the user may need to define link and variance functions, consider the methodology</text>
+<text top="652" left="148" width="73" height="13" font="4">presented in</text>
+<text top="652" left="225" width="146" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Schildcrout and Rathouz</a></text>
+<text top="652" left="374" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="652" left="378" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2010</a></text>
+<text top="652" left="405" width="339" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">). </a>The authors look at binary response data in an outcome</text>
+<text top="669" left="149" width="595" height="13" font="4">dependent sampling situation. Because the response is binary, the authors are able to use the offset</text>
+<text top="685" left="149" width="595" height="13" font="4">option in standard GEE software to correct the bias from the sampling scheme. However, if the</text>
+<text top="701" left="149" width="595" height="13" font="4">response takes some other form (e.g. counts or a continuous response), then we would need to define</text>
+<text top="718" left="149" width="595" height="13" font="4">link and variance functions to correct this bias. These link and variance functions involve integrals</text>
+<text top="734" left="149" width="491" height="13" font="4">that need to be computed whenever the functions are evaluated at different points.</text>
+<text top="755" left="171" width="149" height="13" font="4">Our new package, called</text>
+<text top="755" left="324" width="34" height="13" font="7"><a href="http://CRAN.R-project.org/package=geeM"><b>geeM</b></a></text>
+<text top="755" left="361" width="220" height="13" font="4">(the M is to emphasize the use of the</text>
+<text top="755" left="585" width="41" height="13" font="7"><a href="http://CRAN.R-project.org/package=Matrix"><b>Matrix</b></a></text>
+<text top="755" left="629" width="53" height="13" font="4">package;</text>
+<text top="755" left="686" width="58" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">Bates and</a></text>
+<text top="772" left="149" width="56" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">Maechler</a></text>
+<text top="772" left="205" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">,</a></text>
+<text top="772" left="213" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">2013</a></text>
+<text top="772" left="241" width="504" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">) </a>is coded completely in R, which grants the user the flexibility to define link and</text>
+<text top="788" left="148" width="318" height="13" font="4">variance functions as part of the model specification <a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="788" left="466" width="154" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">McDaniel and Henderson</a></text>
+<text top="788" left="620" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="788" left="627" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2013</a></text>
+<text top="788" left="654" width="90" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">). </a>It also allows</text>
+<text top="805" left="149" width="595" height="13" font="4">for easy modification of the code by method developers. The main function in the package, geem, takes</text>
+<text top="821" left="149" width="595" height="13" font="4">a list that includes the link function, variance function, inverse link function, and the derivative of the</text>
+<text top="837" left="149" width="460" height="13" font="4">inverse link function, as an argument. These functions must all be vectorized.</text>
+<text top="858" left="171" width="573" height="13" font="4">In spite of this, we are still able to solve the estimating equations quickly for many problems. To</text>
+<text top="875" left="149" width="595" height="13" font="4">accomplish this, the package relies heavily on the recently developed <b>Matrix </b>package for speed. We</text>
+<text top="891" left="149" width="595" height="13" font="4">especially exploit the sparse matrix representation objects contained therein, which allow for efficient</text>
+<text top="908" left="149" width="595" height="13" font="4">operations on matrices in which most elements are zero. Besides introducing our package, a key aim</text>
+<text top="924" left="149" width="595" height="13" font="4">of this article is to demonstrate in the context of a well-known statistical algorithm the power, speed</text>
+<text top="941" left="149" width="220" height="13" font="4">and flexibility of the <b>Matrix </b>package.</text>
+<text top="962" left="171" width="575" height="13" font="4">We first give the details of the implementation, and then describe some limitations of the package.</text>
+<text top="978" left="149" width="595" height="13" font="4">Finally, we show through examples and simulations the relative speed of the new R package. Along</text>
+<text top="994" left="149" width="399" height="13" font="4">the way, we point out innovative uses of <b>Matrix </b>package functions.</text>
+<text top="1039" left="149" width="117" height="17" font="5"><b>GEE solutions</b></text>
+<text top="1080" left="148" width="205" height="13" font="4">To set up the problem, consider Y</text>
+<text top="1085" left="353" width="3" height="10" font="8">i</text>
+<text top="1080" left="356" width="104" height="13" font="4">, a multivariate n</text>
+<text top="1085" left="461" width="3" height="10" font="8">i</text>
+<text top="1080" left="465" width="134" height="13" font="4">-vector of responses Y</text>
+<text top="1085" left="598" width="3" height="10" font="8">i</text>
+<text top="1080" left="606" width="21" height="12" font="0">= (</text>
+<text top="1080" left="628" width="9" height="13" font="4">Y</text>
+<text top="1085" left="636" width="8" height="11" font="8">i1</text>
+<text top="1080" left="645" width="38" height="13" font="4">, . . . , Y</text>
+<text top="1085" left="682" width="7" height="10" font="8">it</text>
+<text top="1080" left="689" width="38" height="13" font="4">, . . . , Y</text>
+<text top="1085" left="727" width="9" height="10" font="8">in</text>
+<text top="1089" left="736" width="2" height="7" font="9">i</text>
+<text top="1080" left="740" width="5" height="12" font="0">)</text>
+<text top="1096" left="148" width="117" height="13" font="4">with mean vector <i>µ</i></text>
+<text top="1101" left="266" width="3" height="10" font="8">i</text>
+<text top="1096" left="274" width="20" height="12" font="0">= (</text>
+<text top="1099" left="294" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1101" left="302" width="8" height="11" font="8">i1</text>
+<text top="1096" left="312" width="37" height="13" font="4">, . . . , <i>µ</i></text>
+<text top="1101" left="349" width="7" height="10" font="8">it</text>
+<text top="1096" left="357" width="37" height="13" font="4">, . . . , <i>µ</i></text>
+<text top="1101" left="394" width="9" height="10" font="8">in</text>
+<text top="1105" left="403" width="2" height="7" font="9">i</text>
+<text top="1096" left="407" width="5" height="12" font="0">)</text>
+<text top="1096" left="413" width="63" height="13" font="4">. Denote E</text>
+<text top="1096" left="476" width="5" height="12" font="0">(</text>
+<text top="1096" left="482" width="9" height="13" font="4">Y</text>
+<text top="1101" left="490" width="7" height="10" font="8">it</text>
+<text top="1096" left="498" width="20" height="12" font="0">) =</text>
+<text top="1099" left="522" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1101" left="530" width="7" height="10" font="8">it</text>
+<text top="1096" left="538" width="41" height="13" font="4">. Let X</text>
+<text top="1101" left="578" width="3" height="10" font="8">i</text>
+<text top="1096" left="586" width="20" height="12" font="0">= (</text>
+<text top="1096" left="607" width="7" height="13" font="4">x</text>
+<text top="1101" left="614" width="8" height="11" font="8">i1</text>
+<text top="1096" left="623" width="36" height="13" font="4">, . . . , x</text>
+<text top="1101" left="660" width="7" height="10" font="8">it</text>
+<text top="1096" left="667" width="36" height="13" font="4">, . . . , x</text>
+<text top="1101" left="704" width="9" height="10" font="8">in</text>
+<text top="1105" left="713" width="2" height="7" font="9">i</text>
+<text top="1096" left="717" width="5" height="12" font="0">)</text>
+<text top="1093" left="723" width="3" height="13" font="8">0</text>
+<text top="1096" left="730" width="14" height="13" font="4">be</text>
+<text top="1113" left="149" width="18" height="13" font="4">a n</text>
+<text top="1118" left="167" width="3" height="10" font="8">i</text>
+<text top="1112" left="173" width="11" height="16" font="0">×</text>
+<text top="1113" left="188" width="528" height="14" font="4">p design matrix of covariate vectors corresponding to each observation for the ith cluster.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="16" family="Times" color="#000000"/>
+	<fontspec id="12" size="8" family="Times" color="#000000"/>
+	<fontspec id="13" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">182</text>
+<text top="103" left="171" width="575" height="13" font="4">In the typical specification, the expectations are related to the mean by the monotone link function,</text>
+<text top="134" left="388" width="7" height="13" font="4">g</text>
+<text top="134" left="395" width="5" height="12" font="0">(</text>
+<text top="137" left="400" width="8" height="10" font="10"><i>µ</i></text>
+<text top="139" left="409" width="7" height="10" font="8">it</text>
+<text top="134" left="416" width="20" height="12" font="0">) =</text>
+<text top="137" left="441" width="7" height="10" font="10"><i>η</i></text>
+<text top="139" left="448" width="7" height="10" font="8">it</text>
+<text top="134" left="459" width="11" height="12" font="0">=</text>
+<text top="134" left="475" width="7" height="13" font="4">x</text>
+<text top="130" left="482" width="8" height="13" font="8">&gt;</text>
+<text top="140" left="482" width="7" height="10" font="8">it</text>
+<text top="137" left="492" width="7" height="10" font="10"><i>β</i></text>
+<text top="134" left="502" width="3" height="13" font="4">,</text>
+<text top="163" left="149" width="263" height="13" font="4">and the variances are a function of the mean</text>
+<text top="193" left="369" width="20" height="13" font="4">var</text>
+<text top="192" left="389" width="5" height="12" font="0">(</text>
+<text top="192" left="394" width="9" height="13" font="4">Y</text>
+<text top="197" left="402" width="7" height="10" font="8">it</text>
+<text top="192" left="410" width="20" height="12" font="0">) =</text>
+<text top="196" left="434" width="14" height="10" font="10"><i>φ</i>a</text>
+<text top="197" left="449" width="7" height="10" font="8">it</text>
+<text top="192" left="460" width="11" height="12" font="0">=</text>
+<text top="196" left="475" width="14" height="10" font="10"><i>φ</i>a</text>
+<text top="192" left="490" width="5" height="12" font="0">(</text>
+<text top="196" left="496" width="8" height="10" font="10"><i>µ</i></text>
+<text top="197" left="504" width="7" height="10" font="8">it</text>
+<text top="192" left="512" width="5" height="12" font="0">)</text>
+<text top="193" left="521" width="3" height="13" font="4">,</text>
+<text top="222" left="148" width="248" height="13" font="4">where <i>φ </i>is a dispersion parameter. Let A</text>
+<text top="227" left="396" width="3" height="10" font="8">i</text>
+<text top="222" left="404" width="340" height="13" font="4">be a diagonal matrix with kth diagonal element equal to</text>
+<text top="238" left="149" width="6" height="13" font="4">a</text>
+<text top="238" left="158" width="5" height="12" font="0">(</text>
+<text top="241" left="164" width="8" height="10" font="10"><i>µ</i></text>
+<text top="243" left="172" width="8" height="10" font="8">ik</text>
+<text top="238" left="181" width="5" height="12" font="0">)</text>
+<text top="238" left="186" width="98" height="13" font="4">. Next we define</text>
+<text top="261" left="388" width="10" height="13" font="4">V</text>
+<text top="266" left="397" width="3" height="10" font="8">i</text>
+<text top="261" left="405" width="11" height="12" font="0">=</text>
+<text top="264" left="420" width="19" height="10" font="10"><i>φ</i>A</text>
+<text top="253" left="440" width="4" height="7" font="9">1</text>
+<text top="261" left="440" width="4" height="7" font="9">2</text>
+<text top="268" left="438" width="3" height="10" font="8">i</text>
+<text top="261" left="447" width="9" height="13" font="4">R</text>
+<text top="266" left="456" width="3" height="10" font="8">i</text>
+<text top="261" left="460" width="5" height="12" font="0">(</text>
+<text top="264" left="466" width="7" height="10" font="10"><i>α</i></text>
+<text top="261" left="473" width="5" height="12" font="0">)</text>
+<text top="261" left="480" width="10" height="13" font="4">A</text>
+<text top="253" left="491" width="4" height="7" font="9">1</text>
+<text top="261" left="491" width="4" height="7" font="9">2</text>
+<text top="268" left="490" width="3" height="10" font="8">i</text>
+<text top="261" left="501" width="3" height="13" font="4">,</text>
+<text top="261" left="728" width="16" height="13" font="4">(1)</text>
+<text top="283" left="148" width="50" height="13" font="4">where R</text>
+<text top="288" left="198" width="3" height="10" font="8">i</text>
+<text top="283" left="202" width="5" height="12" font="0">(</text>
+<text top="286" left="208" width="7" height="10" font="10"><i>α</i></text>
+<text top="283" left="215" width="5" height="12" font="0">)</text>
+<text top="283" left="224" width="520" height="13" font="4">is the working correlation matrix for the ith cluster, parameterized by <i>α</i>, which may be a</text>
+<text top="300" left="148" width="39" height="13" font="4">vector.</text>
+<text top="321" left="171" width="148" height="13" font="4">Using these conventions,</text>
+<text top="321" left="323" width="98" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Liang and Zeger</a></text>
+<text top="321" left="424" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="321" left="429" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">1986</a></text>
+<text top="321" left="456" width="289" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">) </a>describe a modified Fisher scoring algorithm to</text>
+<text top="337" left="149" width="502" height="13" font="4">estimate regression coefficients <i>β</i>. The generalized estimating equations are given by</text>
+<text top="366" left="397" width="7" height="10" font="8">K</text>
+<text top="373" left="393" width="14" height="24" font="11">∑</text>
+<text top="395" left="392" width="17" height="11" font="8">i=1</text>
+<text top="378" left="412" width="10" height="13" font="4">D</text>
+<text top="374" left="423" width="8" height="13" font="8">&gt;</text>
+<text top="384" left="422" width="3" height="10" font="8">i</text>
+<text top="378" left="432" width="10" height="13" font="4">V</text>
+<text top="374" left="443" width="14" height="13" font="8">−1</text>
+<text top="385" left="440" width="3" height="10" font="8">i</text>
+<text top="378" left="457" width="7" height="13" font="4">S</text>
+<text top="383" left="465" width="3" height="10" font="8">i</text>
+<text top="378" left="473" width="11" height="12" font="0">=</text>
+<text top="378" left="488" width="13" height="13" font="4">0 ,</text>
+<text top="378" left="728" width="16" height="13" font="4">(2)</text>
+<text top="425" left="148" width="51" height="13" font="4">where D</text>
+<text top="430" left="200" width="3" height="10" font="8">i</text>
+<text top="425" left="207" width="11" height="12" font="0">=</text>
+<text top="425" left="223" width="10" height="13" font="4">A</text>
+<text top="430" left="233" width="3" height="10" font="8">i</text>
+<text top="422" left="237" width="9" height="17" font="4">∆</text>
+<text top="430" left="246" width="3" height="10" font="8">i</text>
+<text top="425" left="250" width="10" height="13" font="4">X</text>
+<text top="430" left="260" width="3" height="10" font="8">i</text>
+<text top="425" left="267" width="23" height="13" font="4">and</text>
+<text top="422" left="294" width="9" height="17" font="4">∆</text>
+<text top="430" left="303" width="3" height="10" font="8">i</text>
+<text top="425" left="310" width="256" height="13" font="4">is a diagonal matrix with kth entry equal to</text>
+<text top="420" left="572" width="11" height="10" font="8">dg</text>
+<text top="417" left="583" width="10" height="9" font="9">−1</text>
+<text top="420" left="594" width="10" height="10" font="8">(<i>η</i></text>
+<text top="424" left="604" width="6" height="7" font="9">ik</text>
+<text top="420" left="611" width="4" height="10" font="8">)</text>
+<text top="432" left="585" width="11" height="10" font="8">d<i>η</i></text>
+<text top="436" left="596" width="6" height="7" font="9">ik</text>
+<text top="425" left="617" width="62" height="13" font="4">. Finally, S</text>
+<text top="430" left="678" width="3" height="10" font="8">i</text>
+<text top="425" left="686" width="11" height="12" font="0">=</text>
+<text top="425" left="701" width="9" height="13" font="4">Y</text>
+<text top="430" left="709" width="3" height="10" font="8">i</text>
+<text top="424" left="716" width="11" height="16" font="0">−</text>
+<text top="428" left="729" width="8" height="10" font="10"><i>µ</i></text>
+<text top="430" left="737" width="3" height="10" font="8">i</text>
+<text top="425" left="741" width="3" height="13" font="4">.</text>
+<text top="451" left="171" width="494" height="13" font="4">Instead of using a summation, we can instead put all of this in matrix form. Let N</text>
+<text top="451" left="669" width="11" height="12" font="0">=</text>
+<text top="449" left="684" width="10" height="17" font="4">∑</text>
+<text top="448" left="695" width="7" height="10" font="8">K</text>
+<text top="458" left="695" width="17" height="11" font="8">i=1</text>
+<text top="451" left="715" width="7" height="13" font="4">n</text>
+<text top="456" left="723" width="3" height="10" font="8">i</text>
+<text top="451" left="727" width="17" height="13" font="4">, X</text>
+<text top="468" left="149" width="40" height="13" font="4">be a N</text>
+<text top="466" left="192" width="11" height="16" font="0">×</text>
+<text top="468" left="207" width="119" height="14" font="4">p matrix with the X</text>
+<text top="473" left="325" width="3" height="10" font="8">i</text>
+<text top="468" left="333" width="238" height="13" font="4">matrices stacked on top of one another,</text>
+<text top="465" left="575" width="83" height="17" font="4">∆ and A be N</text>
+<text top="466" left="662" width="11" height="16" font="0">×</text>
+<text top="468" left="676" width="68" height="14" font="4">N diagonal</text>
+<text top="484" left="149" width="252" height="13" font="4">matrices with the appropriate entries from</text>
+<text top="481" left="404" width="9" height="17" font="4">∆</text>
+<text top="489" left="413" width="3" height="10" font="8">i</text>
+<text top="484" left="421" width="37" height="13" font="4">and A</text>
+<text top="489" left="457" width="3" height="10" font="8">i</text>
+<text top="484" left="465" width="279" height="13" font="4">on the diagonal, and S be a N-vector generated</text>
+<text top="501" left="149" width="126" height="13" font="4">by stacking up the S</text>
+<text top="505" left="275" width="3" height="10" font="8">i</text>
+<text top="501" left="279" width="78" height="13" font="4">’s. Finally, R</text>
+<text top="501" left="357" width="5" height="12" font="0">(</text>
+<text top="504" left="363" width="7" height="10" font="10"><i>α</i></text>
+<text top="501" left="370" width="5" height="12" font="0">)</text>
+<text top="501" left="380" width="36" height="13" font="4">is a N</text>
+<text top="499" left="420" width="11" height="16" font="0">×</text>
+<text top="501" left="435" width="287" height="14" font="4">N block diagonal matrix with the individual R</text>
+<text top="505" left="722" width="3" height="10" font="8">i</text>
+<text top="501" left="726" width="5" height="12" font="0">(</text>
+<text top="504" left="732" width="7" height="10" font="10"><i>α</i></text>
+<text top="501" left="740" width="5" height="12" font="0">)</text>
+<text top="517" left="149" width="404" height="13" font="4">matrices as blocks. With these definitions, our GEE representation is</text>
+<text top="554" left="357" width="10" height="13" font="4">X</text>
+<text top="549" left="368" width="8" height="13" font="8">&gt;</text>
+<text top="551" left="377" width="20" height="17" font="4">∆A</text>
+<text top="548" left="400" width="8" height="6" font="4"></text>
+<text top="554" left="409" width="10" height="13" font="4">A</text>
+<text top="548" left="420" width="4" height="7" font="9">1</text>
+<text top="556" left="420" width="4" height="7" font="9">2</text>
+<text top="554" left="427" width="9" height="13" font="4">R</text>
+<text top="554" left="436" width="5" height="12" font="0">(</text>
+<text top="557" left="442" width="7" height="10" font="10"><i>α</i></text>
+<text top="554" left="450" width="5" height="12" font="0">)</text>
+<text top="554" left="456" width="10" height="13" font="4">A</text>
+<text top="548" left="468" width="4" height="7" font="9">1</text>
+<text top="556" left="468" width="4" height="7" font="9">2</text>
+<text top="548" left="474" width="8" height="6" font="4"></text>
+<text top="544" left="482" width="14" height="13" font="8">−1</text>
+<text top="554" left="499" width="7" height="13" font="4">S</text>
+<text top="554" left="511" width="11" height="12" font="0">=</text>
+<text top="554" left="526" width="10" height="13" font="4">0.</text>
+<text top="554" left="728" width="16" height="13" font="4">(3)</text>
+<text top="603" left="149" width="192" height="17" font="5"><b>Implementation details</b></text>
+<text top="641" left="148" width="596" height="13" font="4">The <b>geeM </b>package is coded entirely in R. This allows for easier modification by methodologists</text>
+<text top="658" left="149" width="598" height="13" font="4">considering variants and extensions of GEE, as well as increased flexibility for some specific analyses.</text>
+<text top="700" left="149" width="184" height="15" font="13"><b>Uses of the Matrix package</b></text>
+<text top="732" left="149" width="596" height="13" font="4">Creating large matrices to solve the estimating equations leads to large sparse matrices. The <b>Matrix</b></text>
+<text top="748" left="148" width="596" height="13" font="4">package allows us to easily exploit this sparsity with its sparse matrix representations, which store</text>
+<text top="765" left="149" width="595" height="13" font="4">only the non-zero elements of a matrix. Without the memory savings from these representations, even</text>
+<text top="781" left="149" width="396" height="13" font="4">moderately sized problems would lead to huge memory demands.</text>
+<text top="802" left="171" width="575" height="13" font="4">Further, we benefit from an impressive gain in the speed of operating on these large sparse matrices.</text>
+<text top="818" left="149" width="595" height="13" font="4">Multiplication is the largest burden computationally, and the speed gains in very large, very sparse</text>
+<text top="835" left="149" width="595" height="13" font="4">matrices are immense. This is accomplished by a separately defined %*% method for objects in the</text>
+<text top="851" left="147" width="354" height="13" font="4">“sparseMatrix” class. When multiplication is of the form B</text>
+<text top="848" left="501" width="8" height="13" font="8">&gt;</text>
+<text top="851" left="511" width="37" height="14" font="4">C or B</text>
+<text top="848" left="549" width="8" height="13" font="8">&gt;</text>
+<text top="851" left="558" width="186" height="14" font="4">B we can take advantage of the</text>
+<text top="868" left="149" width="62" height="11" font="4">crossprod</text>
+<text top="868" left="214" width="53" height="13" font="4">function.</text>
+<text top="889" left="171" width="565" height="13" font="4">In the modified Fisher scoring algorithm, we have many opportunities to take advantage of the</text>
+<text top="910" left="147" width="366" height="13" font="4">“sparseMatrix” class. Two diagonal matrices are used, A and</text>
+<text top="906" left="516" width="228" height="17" font="4">∆, which we create using the Diagonal</text>
+<text top="926" left="149" width="356" height="13" font="4">function. We also have the working correlation matrix, R</text>
+<text top="926" left="505" width="5" height="12" font="0">(</text>
+<text top="929" left="510" width="7" height="10" font="10"><i>α</i></text>
+<text top="926" left="518" width="5" height="12" font="0">)</text>
+<text top="926" left="524" width="221" height="13" font="4">, which is a sparse symmetric block</text>
+<text top="942" left="149" width="595" height="13" font="4">diagonal matrix because observations within clusters may be correlated but observations between</text>
+<text top="959" left="149" width="149" height="13" font="4">clusters are independent.</text>
+<text top="980" left="171" width="573" height="13" font="4">Additionally, the Fisher scoring algorithm requires that we compute the inverse of the working</text>
+<text top="996" left="149" width="123" height="13" font="4">correlation matrix, R</text>
+<text top="996" left="272" width="5" height="12" font="0">(</text>
+<text top="999" left="278" width="7" height="10" font="10"><i>α</i></text>
+<text top="996" left="285" width="5" height="12" font="0">)</text>
+<text top="996" left="291" width="158" height="13" font="4">. Because we never need R</text>
+<text top="996" left="449" width="5" height="12" font="0">(</text>
+<text top="999" left="455" width="7" height="10" font="10"><i>α</i></text>
+<text top="996" left="462" width="5" height="12" font="0">)</text>
+<text top="996" left="471" width="166" height="13" font="4">directly, we only compute R</text>
+<text top="996" left="638" width="5" height="12" font="0">(</text>
+<text top="999" left="644" width="7" height="10" font="10"><i>α</i></text>
+<text top="996" left="651" width="5" height="12" font="0">)</text>
+<text top="992" left="657" width="14" height="13" font="8">−1</text>
+<text top="996" left="675" width="69" height="13" font="4">and build it</text>
+<text top="1013" left="149" width="595" height="13" font="4">directly for any given <i>α</i>. For that we use the sparseMatrix function, to which we supply three vectors</text>
+<text top="1029" left="149" width="595" height="13" font="4">of the same length: an integer vector i of row positions of non-zero entries, an integer vector j of</text>
+<text top="1046" left="149" width="370" height="13" font="4">column positions of non-zero entries, and a vector x of entries.</text>
+<text top="1088" left="149" width="118" height="15" font="13"><b>Analytic inverses</b></text>
+<text top="1119" left="149" width="595" height="13" font="4">For three common correlation structures, independence, exchangeable, and AR-1, analytic inverses are</text>
+<text top="1136" left="149" width="389" height="13" font="4">available. In these cases we use these analytic inverses to create R</text>
+<text top="1136" left="538" width="5" height="12" font="0">(</text>
+<text top="1139" left="544" width="7" height="10" font="10"><i>α</i></text>
+<text top="1136" left="551" width="5" height="12" font="0">)</text>
+<text top="1132" left="557" width="14" height="13" font="8">−1</text>
+<text top="1136" left="572" width="3" height="13" font="4">.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">183</text>
+<text top="103" left="171" width="573" height="13" font="4">In the AR-1 case, we are able to quickly construct the inverse correlation matrix as a linear</text>
+<text top="120" left="149" width="507" height="13" font="4">combination of three basic matrices, with coefficients depending on the value of <i>α </i><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="120" left="656" width="88" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Sutradhar and</a></text>
+<text top="136" left="149" width="42" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Kumar</a></text>
+<text top="136" left="191" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="136" left="197" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2003</a></text>
+<text top="136" left="224" width="211" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">). </a>The inverse can be constructed as</text>
+<text top="177" left="318" width="9" height="13" font="4">R</text>
+<text top="177" left="327" width="5" height="12" font="0">(</text>
+<text top="180" left="333" width="7" height="10" font="10"><i>α</i></text>
+<text top="177" left="340" width="5" height="12" font="0">)</text>
+<text top="173" left="346" width="14" height="13" font="8">−1</text>
+<text top="177" left="365" width="11" height="12" font="0">=</text>
+<text top="168" left="396" width="7" height="13" font="4">1</text>
+<text top="186" left="381" width="7" height="13" font="4">1</text>
+<text top="185" left="391" width="11" height="16" font="0">−</text>
+<text top="190" left="405" width="7" height="10" font="10"><i>α</i></text>
+<text top="185" left="412" width="5" height="10" font="8">2</text>
+<text top="171" left="422" width="9" height="6" font="4">n</text>
+<text top="177" left="432" width="7" height="13" font="4">L</text>
+<text top="176" left="442" width="11" height="16" font="0">−</text>
+<text top="180" left="456" width="21" height="10" font="10"><i>α</i>M</text>
+<text top="177" left="480" width="11" height="12" font="0">+</text>
+<text top="171" left="494" width="8" height="6" font="4"></text>
+<text top="177" left="502" width="7" height="13" font="4">1</text>
+<text top="177" left="511" width="11" height="12" font="0">+</text>
+<text top="180" left="525" width="7" height="10" font="10"><i>α</i></text>
+<text top="174" left="532" width="5" height="10" font="8">2</text>
+<text top="171" left="538" width="8" height="6" font="4"></text>
+<text top="177" left="550" width="10" height="13" font="4">N</text>
+<text top="171" left="561" width="9" height="6" font="4">o</text>
+<text top="177" left="572" width="3" height="13" font="4">,</text>
+<text top="205" left="148" width="460" height="13" font="4">where L, M, and N are all block diagonals, the blocks of which take the forms</text>
+<text top="273" left="365" width="7" height="13" font="4">L</text>
+<text top="278" left="372" width="3" height="10" font="8">i</text>
+<text top="273" left="380" width="11" height="12" font="0">=</text>
+<text top="235" left="395" width="12" height="6" font="4"></text>
+<text top="258" left="395" width="12" height="6" font="4"></text>
+<text top="266" left="395" width="12" height="6" font="4"></text>
+<text top="274" left="395" width="12" height="6" font="4"></text>
+<text top="283" left="395" width="12" height="6" font="4"></text>
+<text top="291" left="395" width="12" height="6" font="4"></text>
+<text top="299" left="395" width="12" height="6" font="4"></text>
+<text top="234" left="407" width="7" height="13" font="4">1</text>
+<text top="234" left="429" width="7" height="13" font="4">0</text>
+<text top="233" left="451" width="17" height="16" font="0">· · ·</text>
+<text top="234" left="483" width="7" height="13" font="4">0</text>
+<text top="234" left="504" width="7" height="13" font="4">0</text>
+<text top="251" left="407" width="7" height="13" font="4">0</text>
+<text top="251" left="429" width="7" height="13" font="4">0</text>
+<text top="250" left="451" width="17" height="16" font="0">· · ·</text>
+<text top="251" left="483" width="7" height="13" font="4">0</text>
+<text top="251" left="504" width="7" height="13" font="4">0</text>
+<text top="266" left="409" width="3" height="19" font="4">..</text>
+<text top="278" left="409" width="3" height="13" font="4">.</text>
+<text top="268" left="453" width="8" height="18" font="4">. .</text>
+<text top="277" left="462" width="3" height="13" font="4">.</text>
+<text top="266" left="506" width="3" height="19" font="4">..</text>
+<text top="278" left="506" width="3" height="13" font="4">.</text>
+<text top="295" left="407" width="7" height="13" font="4">0</text>
+<text top="295" left="429" width="7" height="13" font="4">0</text>
+<text top="293" left="451" width="17" height="16" font="0">· · ·</text>
+<text top="295" left="483" width="7" height="13" font="4">0</text>
+<text top="295" left="504" width="7" height="13" font="4">0</text>
+<text top="311" left="407" width="7" height="13" font="4">0</text>
+<text top="311" left="429" width="7" height="13" font="4">0</text>
+<text top="310" left="451" width="17" height="16" font="0">· · ·</text>
+<text top="311" left="483" width="7" height="13" font="4">0</text>
+<text top="311" left="504" width="7" height="13" font="4">1</text>
+<text top="235" left="511" width="12" height="6" font="4"></text>
+<text top="258" left="511" width="12" height="6" font="4"></text>
+<text top="266" left="511" width="12" height="6" font="4"></text>
+<text top="274" left="511" width="12" height="6" font="4"></text>
+<text top="283" left="511" width="12" height="6" font="4"></text>
+<text top="291" left="511" width="12" height="6" font="4"></text>
+<text top="299" left="511" width="12" height="6" font="4"></text>
+<text top="273" left="525" width="3" height="13" font="4">,</text>
+<text top="396" left="341" width="13" height="13" font="4">M</text>
+<text top="401" left="353" width="3" height="10" font="8">i</text>
+<text top="396" left="361" width="11" height="12" font="0">=</text>
+<text top="342" left="376" width="12" height="6" font="4"></text>
+<text top="366" left="376" width="12" height="6" font="4"></text>
+<text top="374" left="376" width="12" height="6" font="4"></text>
+<text top="382" left="376" width="12" height="6" font="4"></text>
+<text top="390" left="376" width="12" height="6" font="4"></text>
+<text top="398" left="376" width="12" height="6" font="4"></text>
+<text top="406" left="376" width="12" height="6" font="4"></text>
+<text top="414" left="376" width="12" height="6" font="4"></text>
+<text top="422" left="376" width="12" height="6" font="4"></text>
+<text top="431" left="376" width="12" height="6" font="4"></text>
+<text top="439" left="376" width="12" height="6" font="4"></text>
+<text top="342" left="388" width="7" height="13" font="4">0</text>
+<text top="342" left="410" width="7" height="13" font="4">1</text>
+<text top="342" left="431" width="7" height="13" font="4">0</text>
+<text top="340" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="342" left="485" width="7" height="13" font="4">0</text>
+<text top="342" left="507" width="7" height="13" font="4">0</text>
+<text top="342" left="529" width="7" height="13" font="4">0</text>
+<text top="358" left="388" width="7" height="13" font="4">1</text>
+<text top="358" left="410" width="7" height="13" font="4">0</text>
+<text top="358" left="431" width="7" height="13" font="4">1</text>
+<text top="357" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="358" left="485" width="7" height="13" font="4">0</text>
+<text top="358" left="507" width="7" height="13" font="4">0</text>
+<text top="358" left="529" width="7" height="13" font="4">0</text>
+<text top="375" left="388" width="7" height="13" font="4">0</text>
+<text top="375" left="410" width="7" height="13" font="4">1</text>
+<text top="375" left="431" width="7" height="13" font="4">0</text>
+<text top="373" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="375" left="485" width="7" height="13" font="4">0</text>
+<text top="375" left="507" width="7" height="13" font="4">0</text>
+<text top="375" left="529" width="7" height="13" font="4">0</text>
+<text top="390" left="390" width="3" height="19" font="4">..</text>
+<text top="402" left="390" width="3" height="13" font="4">.</text>
+<text top="392" left="455" width="8" height="18" font="4">. .</text>
+<text top="401" left="465" width="3" height="13" font="4">.</text>
+<text top="390" left="530" width="3" height="19" font="4">..</text>
+<text top="402" left="530" width="3" height="13" font="4">.</text>
+<text top="418" left="388" width="7" height="13" font="4">0</text>
+<text top="418" left="410" width="7" height="13" font="4">0</text>
+<text top="418" left="431" width="7" height="13" font="4">0</text>
+<text top="417" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="418" left="485" width="7" height="13" font="4">0</text>
+<text top="418" left="507" width="7" height="13" font="4">1</text>
+<text top="418" left="529" width="7" height="13" font="4">0</text>
+<text top="435" left="388" width="7" height="13" font="4">0</text>
+<text top="435" left="410" width="7" height="13" font="4">0</text>
+<text top="435" left="431" width="7" height="13" font="4">0</text>
+<text top="434" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="435" left="485" width="7" height="13" font="4">1</text>
+<text top="435" left="507" width="7" height="13" font="4">0</text>
+<text top="435" left="529" width="7" height="13" font="4">1</text>
+<text top="451" left="388" width="7" height="13" font="4">0</text>
+<text top="451" left="410" width="7" height="13" font="4">0</text>
+<text top="451" left="431" width="7" height="13" font="4">0</text>
+<text top="450" left="453" width="17" height="16" font="0">· · ·</text>
+<text top="451" left="485" width="7" height="13" font="4">0</text>
+<text top="451" left="507" width="7" height="13" font="4">1</text>
+<text top="451" left="529" width="7" height="13" font="4">0</text>
+<text top="342" left="535" width="12" height="6" font="4"></text>
+<text top="366" left="535" width="12" height="6" font="4"></text>
+<text top="374" left="535" width="12" height="6" font="4"></text>
+<text top="382" left="535" width="12" height="6" font="4"></text>
+<text top="390" left="535" width="12" height="6" font="4"></text>
+<text top="398" left="535" width="12" height="6" font="4"></text>
+<text top="406" left="535" width="12" height="6" font="4"></text>
+<text top="414" left="535" width="12" height="6" font="4"></text>
+<text top="422" left="535" width="12" height="6" font="4"></text>
+<text top="431" left="535" width="12" height="6" font="4"></text>
+<text top="439" left="535" width="12" height="6" font="4"></text>
+<text top="397" left="550" width="3" height="13" font="4">,</text>
+<text top="473" left="149" width="23" height="13" font="4">and</text>
+<text top="525" left="364" width="10" height="13" font="4">N</text>
+<text top="530" left="374" width="3" height="10" font="8">i</text>
+<text top="525" left="381" width="11" height="12" font="0">=</text>
+<text top="487" left="396" width="12" height="6" font="4"></text>
+<text top="510" left="396" width="12" height="6" font="4"></text>
+<text top="519" left="396" width="12" height="6" font="4"></text>
+<text top="527" left="396" width="12" height="6" font="4"></text>
+<text top="535" left="396" width="12" height="6" font="4"></text>
+<text top="543" left="396" width="12" height="6" font="4"></text>
+<text top="551" left="396" width="12" height="6" font="4"></text>
+<text top="486" left="408" width="7" height="13" font="4">0</text>
+<text top="486" left="430" width="7" height="13" font="4">0</text>
+<text top="485" left="452" width="17" height="16" font="0">· · ·</text>
+<text top="486" left="484" width="7" height="13" font="4">0</text>
+<text top="486" left="505" width="7" height="13" font="4">0</text>
+<text top="503" left="408" width="7" height="13" font="4">0</text>
+<text top="503" left="430" width="7" height="13" font="4">1</text>
+<text top="502" left="452" width="17" height="16" font="0">· · ·</text>
+<text top="503" left="484" width="7" height="13" font="4">0</text>
+<text top="503" left="505" width="7" height="13" font="4">0</text>
+<text top="518" left="410" width="3" height="19" font="4">..</text>
+<text top="530" left="410" width="3" height="13" font="4">.</text>
+<text top="520" left="454" width="8" height="18" font="4">. .</text>
+<text top="529" left="463" width="3" height="13" font="4">.</text>
+<text top="518" left="507" width="3" height="19" font="4">..</text>
+<text top="530" left="507" width="3" height="13" font="4">.</text>
+<text top="547" left="408" width="7" height="13" font="4">0</text>
+<text top="547" left="430" width="7" height="13" font="4">0</text>
+<text top="546" left="452" width="17" height="16" font="0">· · ·</text>
+<text top="547" left="484" width="7" height="13" font="4">1</text>
+<text top="547" left="505" width="7" height="13" font="4">0</text>
+<text top="563" left="408" width="7" height="13" font="4">0</text>
+<text top="563" left="430" width="7" height="13" font="4">0</text>
+<text top="562" left="452" width="17" height="16" font="0">· · ·</text>
+<text top="563" left="484" width="7" height="13" font="4">0</text>
+<text top="563" left="505" width="7" height="13" font="4">0</text>
+<text top="487" left="512" width="12" height="6" font="4"></text>
+<text top="510" left="512" width="12" height="6" font="4"></text>
+<text top="519" left="512" width="12" height="6" font="4"></text>
+<text top="527" left="512" width="12" height="6" font="4"></text>
+<text top="535" left="512" width="12" height="6" font="4"></text>
+<text top="543" left="512" width="12" height="6" font="4"></text>
+<text top="551" left="512" width="12" height="6" font="4"></text>
+<text top="525" left="527" width="3" height="13" font="4">.</text>
+<text top="585" left="148" width="587" height="13" font="4">These basic matrices are constructed only once at the beginning of the code and saved for later use.</text>
+<text top="606" left="171" width="573" height="13" font="4">The exchangeable correlation matrix is a little more complicated because the entries in the inverse</text>
+<text top="623" left="149" width="163" height="13" font="4">depend on the cluster size <a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="623" left="312" width="131" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Sutradhar and Kumar</a></text>
+<text top="623" left="443" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="623" left="449" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2003</a></text>
+<text top="623" left="476" width="252" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">). </a>The analytic inverse can be computed as</text>
+<text top="660" left="365" width="9" height="13" font="4">R</text>
+<text top="665" left="374" width="3" height="10" font="8">i</text>
+<text top="660" left="378" width="5" height="12" font="0">(</text>
+<text top="663" left="384" width="7" height="10" font="10"><i>α</i></text>
+<text top="660" left="392" width="5" height="12" font="0">)</text>
+<text top="656" left="397" width="14" height="13" font="8">−1</text>
+<text top="660" left="416" width="20" height="12" font="0">= (</text>
+<text top="660" left="437" width="6" height="13" font="4">a</text>
+<text top="659" left="446" width="11" height="16" font="0">−</text>
+<text top="660" left="460" width="6" height="13" font="4">b</text>
+<text top="660" left="466" width="5" height="12" font="0">)</text>
+<text top="660" left="473" width="4" height="13" font="4">I</text>
+<text top="664" left="477" width="6" height="10" font="8">n</text>
+<text top="668" left="483" width="2" height="7" font="9">i</text>
+<text top="660" left="489" width="11" height="12" font="0">+</text>
+<text top="660" left="503" width="12" height="13" font="4">bJ</text>
+<text top="664" left="515" width="6" height="10" font="8">n</text>
+<text top="668" left="521" width="2" height="7" font="9">i</text>
+<text top="660" left="525" width="3" height="13" font="4">,</text>
+<text top="682" left="148" width="37" height="13" font="4">where</text>
+<text top="704" left="363" width="6" height="13" font="4">a</text>
+<text top="704" left="373" width="11" height="12" font="0">=</text>
+<text top="695" left="419" width="7" height="13" font="4">1</text>
+<text top="695" left="428" width="19" height="12" font="0">+ (</text>
+<text top="695" left="448" width="7" height="13" font="4">n</text>
+<text top="700" left="456" width="3" height="10" font="8">i</text>
+<text top="694" left="462" width="11" height="16" font="0">−</text>
+<text top="695" left="476" width="7" height="13" font="4">2</text>
+<text top="695" left="483" width="5" height="12" font="0">)</text>
+<text top="698" left="489" width="7" height="10" font="10"><i>α</i></text>
+<text top="713" left="389" width="5" height="12" font="0">(</text>
+<text top="713" left="395" width="7" height="13" font="4">1</text>
+<text top="712" left="405" width="11" height="16" font="0">−</text>
+<text top="716" left="418" width="7" height="10" font="10"><i>α</i></text>
+<text top="713" left="426" width="5" height="12" font="0">)</text>
+<text top="712" left="434" width="7" height="16" font="0">{</text>
+<text top="713" left="441" width="7" height="13" font="4">1</text>
+<text top="713" left="451" width="19" height="12" font="0">+ (</text>
+<text top="713" left="470" width="7" height="13" font="4">n</text>
+<text top="718" left="478" width="3" height="10" font="8">i</text>
+<text top="712" left="485" width="11" height="16" font="0">−</text>
+<text top="713" left="498" width="7" height="13" font="4">1</text>
+<text top="713" left="505" width="5" height="12" font="0">)</text>
+<text top="716" left="511" width="7" height="10" font="10"><i>α</i></text>
+<text top="712" left="518" width="7" height="16" font="0">}</text>
+<text top="704" left="527" width="3" height="13" font="4">,</text>
+<text top="740" left="357" width="6" height="13" font="4">b</text>
+<text top="740" left="367" width="11" height="12" font="0">=</text>
+<text top="739" left="382" width="11" height="16" font="0">−</text>
+<text top="734" left="459" width="7" height="10" font="10"><i>α</i></text>
+<text top="749" left="395" width="5" height="12" font="0">(</text>
+<text top="749" left="401" width="7" height="13" font="4">1</text>
+<text top="748" left="410" width="11" height="16" font="0">−</text>
+<text top="752" left="424" width="7" height="10" font="10"><i>α</i></text>
+<text top="749" left="431" width="5" height="12" font="0">)</text>
+<text top="748" left="440" width="7" height="16" font="0">{</text>
+<text top="749" left="447" width="7" height="13" font="4">1</text>
+<text top="749" left="456" width="19" height="12" font="0">+ (</text>
+<text top="749" left="476" width="7" height="13" font="4">n</text>
+<text top="754" left="484" width="3" height="10" font="8">i</text>
+<text top="748" left="490" width="11" height="16" font="0">−</text>
+<text top="749" left="504" width="7" height="13" font="4">1</text>
+<text top="749" left="511" width="5" height="12" font="0">)</text>
+<text top="752" left="516" width="7" height="10" font="10"><i>α</i></text>
+<text top="748" left="524" width="7" height="16" font="0">}</text>
+<text top="740" left="533" width="3" height="13" font="4">,</text>
+<text top="770" left="150" width="4" height="13" font="4">I</text>
+<text top="774" left="154" width="6" height="10" font="8">n</text>
+<text top="778" left="160" width="2" height="7" font="9">i</text>
+<text top="770" left="168" width="46" height="13" font="4">is the n</text>
+<text top="775" left="214" width="3" height="10" font="8">i</text>
+<text top="769" left="222" width="11" height="16" font="0">×</text>
+<text top="770" left="236" width="7" height="13" font="4">n</text>
+<text top="775" left="244" width="3" height="10" font="8">i</text>
+<text top="770" left="252" width="134" height="13" font="4">identity matrix, and J</text>
+<text top="774" left="386" width="6" height="10" font="8">n</text>
+<text top="778" left="392" width="2" height="7" font="9">i</text>
+<text top="770" left="400" width="42" height="13" font="4">is an n</text>
+<text top="775" left="442" width="3" height="10" font="8">i</text>
+<text top="769" left="449" width="11" height="16" font="0">×</text>
+<text top="770" left="463" width="7" height="13" font="4">n</text>
+<text top="775" left="471" width="3" height="10" font="8">i</text>
+<text top="770" left="479" width="265" height="13" font="4">matrix of ones. In the implementation, we</text>
+<text top="786" left="149" width="458" height="13" font="4">compute a vector with every entry in the correlation matrix (a vector of length</text>
+<text top="784" left="610" width="10" height="17" font="4">∑</text>
+<text top="783" left="620" width="7" height="10" font="8">K</text>
+<text top="793" left="620" width="17" height="11" font="8">i=1</text>
+<text top="786" left="641" width="7" height="13" font="4">n</text>
+<text top="784" left="648" width="5" height="10" font="8">2</text>
+<text top="793" left="648" width="3" height="10" font="8">i</text>
+<text top="786" left="654" width="90" height="13" font="4">) and create the</text>
+<text top="803" left="149" width="263" height="13" font="4">new matrix with the sparseMatrix function.</text>
+<text top="845" left="149" width="120" height="15" font="13"><b>Numeric inverses</b></text>
+<text top="877" left="149" width="595" height="13" font="4">For all other correlation structures, we use the solve command in R. To describe the method, let us</text>
+<text top="893" left="149" width="283" height="13" font="4">suppose that we have k different cluster sizes, n</text>
+<text top="898" left="432" width="5" height="10" font="8">1</text>
+<text top="893" left="438" width="37" height="13" font="4">, . . . , n</text>
+<text top="898" left="475" width="5" height="10" font="8">k</text>
+<text top="893" left="480" width="128" height="13" font="4">, in descending order.</text>
+<text top="914" left="171" width="423" height="13" font="4">We first construct the working correlation matrix for all clusters of size n</text>
+<text top="919" left="595" width="5" height="10" font="8">1</text>
+<text top="914" left="601" width="143" height="13" font="4">, then take the upper left</text>
+<text top="930" left="149" width="546" height="13" font="4">corner of this matrix to construct correlation matrices of appropriate size for clusters of size n</text>
+<text top="935" left="695" width="5" height="10" font="8">2</text>
+<text top="930" left="701" width="37" height="13" font="4">, . . . , n</text>
+<text top="935" left="738" width="5" height="10" font="8">k</text>
+<text top="930" left="743" width="3" height="13" font="4">.</text>
+<text top="947" left="148" width="596" height="13" font="4">We then calculate the inverses of each of these k matrices. Finally, we construct the block diagonal</text>
+<text top="963" left="148" width="540" height="13" font="4">working correlation matrix for the whole sample using the inverses of the appropriate size.</text>
+<text top="984" left="171" width="573" height="13" font="4">This technique exploits the fact that the inverse of a block diagonal matrix is the inverse of the</text>
+<text top="1001" left="149" width="595" height="13" font="4">blocks, allowing us to reduce the number of invocations of the solve function to k, the number of</text>
+<text top="1017" left="149" width="120" height="13" font="4">unique cluster sizes.</text>
+<text top="1038" left="171" width="575" height="13" font="4">Using this technique, we have support for M-dependence (M should be specified by the user), un-</text>
+<text top="1054" left="149" width="597" height="13" font="4">structured correlation, fixed correlation, and user-defined correlation structures. Under M-dependence,</text>
+<text top="1071" left="149" width="117" height="13" font="4">two observations, x</text>
+<text top="1076" left="266" width="7" height="10" font="8">it</text>
+<text top="1071" left="277" width="34" height="13" font="4">and x</text>
+<text top="1076" left="311" width="7" height="10" font="8">it</text>
+<text top="1074" left="318" width="2" height="9" font="9">0</text>
+<text top="1071" left="325" width="108" height="13" font="4">have correlation <i>α</i></text>
+<text top="1076" left="434" width="19" height="13" font="8">|t−t</text>
+<text top="1075" left="453" width="2" height="9" font="9">0</text>
+<text top="1076" left="456" width="3" height="13" font="8">|</text>
+<text top="1071" left="464" width="9" height="13" font="4">if</text>
+<text top="1070" left="476" width="4" height="16" font="0">|</text>
+<text top="1071" left="480" width="4" height="13" font="4">t</text>
+<text top="1070" left="487" width="11" height="16" font="0">−</text>
+<text top="1071" left="501" width="4" height="13" font="4">t</text>
+<text top="1067" left="506" width="3" height="13" font="8">0</text>
+<text top="1070" left="510" width="19" height="16" font="0">| ≤</text>
+<text top="1071" left="534" width="213" height="14" font="4">M and 0 otherwise. Under unstruc-</text>
+<text top="1087" left="149" width="251" height="13" font="4">tured correlation, the correlation between x</text>
+<text top="1092" left="400" width="7" height="10" font="8">it</text>
+<text top="1087" left="411" width="33" height="13" font="4">and x</text>
+<text top="1092" left="444" width="7" height="10" font="8">it</text>
+<text top="1091" left="451" width="2" height="9" font="9">0</text>
+<text top="1087" left="457" width="106" height="13" font="4">is assumed to be <i>α</i></text>
+<text top="1092" left="564" width="7" height="10" font="8">tt</text>
+<text top="1091" left="571" width="2" height="9" font="9">0</text>
+<text top="1087" left="575" width="169" height="13" font="4">. The fixed correlation option</text>
+<text top="1104" left="149" width="595" height="13" font="4">requires that the user provides a correlation matrix giving the correlations between all observations in</text>
+<text top="1120" left="149" width="595" height="13" font="4">the largest cluster. For a user-defined correlation structure, the function accepts a square matrix of the</text>
+<text top="1137" left="149" width="593" height="13" font="4">size of the largest cluster which defines the entries in the correlation matrix assumed to be the same.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">184</text>
+<text top="103" left="171" width="575" height="13" font="4">Note that in all correlation structures, if any variables are missing, then those rows are dropped.</text>
+<text top="120" left="149" width="597" height="13" font="4">So, if rows have missing data, or a given subject has fewer than the maximum number of observations,</text>
+<text top="136" left="149" width="595" height="13" font="4">then the leading principal submatrices of the appropriate dimensions are used. This may not preserve</text>
+<text top="152" left="149" width="595" height="13" font="4">the desired correlation structure. The desired structure can be recovered by including rows with</text>
+<text top="169" left="148" width="331" height="13" font="4">weights of zero for those time points with missing data.</text>
+<text top="211" left="149" width="249" height="15" font="13"><b>Estimation of correlation parameters</b></text>
+<text top="243" left="149" width="595" height="13" font="4">For all supported correlation structures, we use simple moment estimators. These are the exact same</text>
+<text top="259" left="149" width="239" height="13" font="4">estimators used by SAS proc genmod <a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="259" left="388" width="106" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">SAS Institute Inc.</a></text>
+<text top="259" left="494" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">,</a></text>
+<text top="259" left="502" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">2010</a></text>
+<text top="259" left="529" width="215" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">) </a>and are estimated solely from the</text>
+<text top="276" left="149" width="108" height="13" font="4">Pearson residuals.</text>
+<text top="318" left="149" width="103" height="15" font="13"><b>Missing values</b></text>
+<text top="350" left="148" width="596" height="13" font="4">The weights argument can be used to handle missing values in the response by creating a new row</text>
+<text top="366" left="149" width="595" height="13" font="4">for the missing observation and assigning a weight of 0. This will maintain the desired correlation</text>
+<text top="382" left="149" width="595" height="13" font="4">structure and is equivalent to how SAS proc genmod handles missing data. Observations with a</text>
+<text top="399" left="148" width="596" height="13" font="4">weight of 0 do not contribute to estimation of the coefficients or the variance and only observations</text>
+<text top="415" left="148" width="596" height="13" font="4">with a positive weight are used to calculate the correlation parameters. Any observation with an NA in</text>
+<text top="432" left="149" width="391" height="13" font="4">the response or predictors is automatically assigned a weight of 0.</text>
+<text top="477" left="149" width="95" height="17" font="5"><b>Limitations</b></text>
+<text top="515" left="148" width="596" height="13" font="4">The <b>geeM </b>package calculates the inverse correlation matrix directly, possibly resulting in a less</text>
+<text top="532" left="149" width="598" height="13" font="4">stable algorithm than <b>gee </b>and <b>geepack </b>which solve systems of equations instead of inverting directly.</text>
+<text top="548" left="148" width="596" height="13" font="4">Therefore it is possible that the <b>geeM </b>package may have problems with numerical stability on some</text>
+<text top="565" left="148" width="596" height="13" font="4">problems, especially for correlation structures for which inverses are calculated numerically. We have</text>
+<text top="581" left="149" width="281" height="13" font="4">not seen any such issues in testing at this point.</text>
+<text top="602" left="171" width="573" height="13" font="4">Another issue has to do with how the calculations are completed. In testing the largest dataset</text>
+<text top="618" left="148" width="596" height="13" font="4">(presented later as the birth outcomes data) we found that <b>geeM </b>was more likely to have memory</text>
+<text top="635" left="148" width="596" height="13" font="4">problems than <b>gee </b>or <b>geepack</b>. This is probably because <b>geeM </b>creates large sparse matrices for</text>
+<text top="651" left="149" width="344" height="13" font="4">computing its estimates as opposed to the technique in</text>
+<text top="651" left="497" width="103" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Liang and Zeger</a></text>
+<text top="651" left="605" width="5" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="651" left="610" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">1986</a></text>
+<text top="651" left="637" width="107" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">), </a>which involves</text>
+<text top="668" left="149" width="289" height="13" font="4">summing over many more small dense matrices.</text>
+<text top="713" left="149" width="159" height="17" font="5"><b>Speed comparisons</b></text>
+<text top="751" left="148" width="596" height="13" font="4">All speed comparisons were run on a computer with an Intel Core 2 Duo 3.0 GHz processor and 4 GB</text>
+<text top="768" left="149" width="461" height="13" font="4">of RAM. Windows 7 was the operating system and R version 2.15.1 was used.</text>
+<text top="789" left="171" width="573" height="13" font="4">For these comparisons, we fit the same model to the same data set multiple times in order to gain</text>
+<text top="805" left="149" width="596" height="13" font="4">some stability in the estimates of run time. The packages <b>geepack </b>and <b>gee </b>test convergence differently</text>
+<text top="822" left="149" width="595" height="13" font="4">than <b>geeM</b>, so the tolerance used for <b>geeM </b>was chosen to be no less strict than the other two. Because</text>
+<text top="838" left="149" width="34" height="13" font="3"><b>geeM</b></text>
+<text top="838" left="187" width="558" height="13" font="4">assesses convergence relative to the magnitude of parameters, this requires some knowledge of</text>
+<text top="855" left="149" width="206" height="13" font="4">the values of the fitted parameters.</text>
+<text top="897" left="149" width="90" height="15" font="13"><b>Ohio data set</b></text>
+<text top="929" left="149" width="50" height="13" font="3"><b>geepack</b></text>
+<text top="928" left="202" width="542" height="13" font="4">contains a data set on the wheezing status of children in Ohio. The data are 537 clusters each</text>
+<text top="945" left="148" width="596" height="13" font="4">with 4 observations. The response (resp) is a binary variable with 1 corresponding to wheezing and 0</text>
+<text top="961" left="149" width="595" height="13" font="4">not. We fit the model resp ~ age + smoke + age:smoke, where age is the age of the child and smoke</text>
+<text top="978" left="149" width="595" height="13" font="4">is an indicator of maternal smoking at the first year of the study. In this case we use a logit link and</text>
+<text top="994" left="149" width="30" height="13" font="4">the <i>µ</i></text>
+<text top="994" left="179" width="5" height="12" font="0">(</text>
+<text top="994" left="185" width="7" height="13" font="4">1</text>
+<text top="993" left="194" width="11" height="16" font="0">−</text>
+<text top="997" left="208" width="8" height="10" font="10"><i>µ</i></text>
+<text top="994" left="216" width="5" height="12" font="0">)</text>
+<text top="994" left="225" width="107" height="13" font="4">variance function.</text>
+<text top="1015" left="171" width="32" height="13" font="4">Table</text>
+<text top="1015" left="207" width="7" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">1</a></text>
+<text top="1015" left="218" width="526" height="13" font="4">shows the speed results under four different correlation structures. The average speed</text>
+<text top="1032" left="148" width="597" height="13" font="4">(Avg.) is calculated based on fitting the same data 5 times for each method and the relative speed (Rel.)</text>
+<text top="1048" left="149" width="525" height="13" font="4">is the average speed of each method divided by the average speed of the fastest method.</text>
+<text top="1069" left="171" width="573" height="13" font="4">This is a relatively small data set, so all solvers perform very quickly in this case. The longest</text>
+<text top="1085" left="149" width="598" height="13" font="4">average time for any of them is 0.20 seconds, so speed does not appear to be too much of an issue here.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">185</text>
+<text top="105" left="266" width="94" height="15" font="0">Independence</text>
+<text top="105" left="409" width="34" height="15" font="0">AR-1</text>
+<text top="105" left="495" width="91" height="15" font="0">Exchangeable</text>
+<text top="105" left="609" width="89" height="15" font="0">Unstructured</text>
+<text top="123" left="265" width="52" height="15" font="0">Avg. (s)</text>
+<text top="123" left="335" width="25" height="15" font="0">Rel.</text>
+<text top="123" left="379" width="52" height="15" font="0">Avg. (s)</text>
+<text top="123" left="449" width="25" height="15" font="0">Rel.</text>
+<text top="123" left="492" width="52" height="15" font="0">Avg. (s)</text>
+<text top="123" left="562" width="25" height="15" font="0">Rel.</text>
+<text top="123" left="606" width="52" height="15" font="0">Avg. (s)</text>
+<text top="123" left="676" width="25" height="15" font="0">Rel.</text>
+<text top="149" left="191" width="38" height="15" font="13"><b>geeM</b></text>
+<text top="148" left="278" width="26" height="15" font="0">0.11</text>
+<text top="148" left="334" width="26" height="15" font="0">1.83</text>
+<text top="148" left="391" width="26" height="15" font="0">0.11</text>
+<text top="148" left="448" width="26" height="15" font="0">1.00</text>
+<text top="148" left="505" width="26" height="15" font="0">0.11</text>
+<text top="148" left="562" width="26" height="15" font="0">1.33</text>
+<text top="148" left="619" width="26" height="15" font="0">0.16</text>
+<text top="148" left="675" width="26" height="15" font="0">1.11</text>
+<text top="166" left="191" width="23" height="15" font="13"><b>gee</b></text>
+<text top="166" left="278" width="26" height="15" font="0">0.07</text>
+<text top="166" left="334" width="26" height="15" font="0">1.17</text>
+<text top="166" left="391" width="26" height="15" font="0">0.12</text>
+<text top="166" left="448" width="26" height="15" font="0">1.07</text>
+<text top="166" left="505" width="26" height="15" font="0">0.08</text>
+<text top="166" left="562" width="26" height="15" font="0">1.00</text>
+<text top="166" left="619" width="26" height="15" font="0">0.15</text>
+<text top="166" left="675" width="26" height="15" font="0">1.00</text>
+<text top="184" left="191" width="56" height="15" font="13"><b>geepack</b></text>
+<text top="184" left="278" width="26" height="15" font="0">0.06</text>
+<text top="184" left="334" width="26" height="15" font="0">1.00</text>
+<text top="184" left="391" width="26" height="15" font="0">0.18</text>
+<text top="184" left="448" width="26" height="15" font="0">1.53</text>
+<text top="184" left="505" width="26" height="15" font="0">0.12</text>
+<text top="184" left="562" width="26" height="15" font="0">1.48</text>
+<text top="184" left="619" width="26" height="15" font="0">0.20</text>
+<text top="184" left="675" width="26" height="15" font="0">1.34</text>
+<text top="221" left="311" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="221" left="362" width="219" height="13" font="4">Speed comparisons for ohio data set.</text>
+<text top="270" left="149" width="145" height="15" font="13"><b>Simulated count data</b></text>
+<text top="301" left="149" width="598" height="13" font="4">For a slightly larger data set, we simulated count data from an overdispersed Poisson distribution.</text>
+<text top="318" left="148" width="598" height="13" font="4">There are 10,000 clusters with 5 observations in each cluster. The formula we use is count ~ time.</text>
+<text top="334" left="149" width="392" height="13" font="4">Here we use the log-linear link and the identity variance function.</text>
+<text top="355" left="171" width="32" height="13" font="4">Table</text>
+<text top="355" left="206" width="7" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">2</a></text>
+<text top="355" left="216" width="528" height="13" font="4">shows the speed results under four different working correlation structures. The average</text>
+<text top="372" left="149" width="595" height="13" font="4">speed (Avg.) is calculated based on fitting the same data 5 times for each method and the relative</text>
+<text top="388" left="149" width="598" height="13" font="4">speed (Rel.) is the average speed of each method divided by the average speed of the fastest method.</text>
+<text top="427" left="266" width="94" height="15" font="0">Independence</text>
+<text top="427" left="409" width="34" height="15" font="0">AR-1</text>
+<text top="427" left="495" width="91" height="15" font="0">Exchangeable</text>
+<text top="427" left="609" width="89" height="15" font="0">Unstructured</text>
+<text top="444" left="265" width="52" height="15" font="0">Avg. (s)</text>
+<text top="444" left="335" width="25" height="15" font="0">Rel.</text>
+<text top="444" left="379" width="52" height="15" font="0">Avg. (s)</text>
+<text top="444" left="449" width="25" height="15" font="0">Rel.</text>
+<text top="444" left="492" width="52" height="15" font="0">Avg. (s)</text>
+<text top="444" left="562" width="25" height="15" font="0">Rel.</text>
+<text top="444" left="606" width="52" height="15" font="0">Avg. (s)</text>
+<text top="444" left="676" width="25" height="15" font="0">Rel.</text>
+<text top="470" left="191" width="38" height="15" font="13"><b>geeM</b></text>
+<text top="470" left="278" width="26" height="15" font="0">1.36</text>
+<text top="470" left="334" width="26" height="15" font="0">1.00</text>
+<text top="470" left="391" width="26" height="15" font="0">1.56</text>
+<text top="470" left="448" width="26" height="15" font="0">1.00</text>
+<text top="470" left="505" width="26" height="15" font="0">1.58</text>
+<text top="470" left="562" width="26" height="15" font="0">1.00</text>
+<text top="470" left="619" width="26" height="15" font="0">2.30</text>
+<text top="470" left="675" width="26" height="15" font="0">1.00</text>
+<text top="488" left="191" width="23" height="15" font="13"><b>gee</b></text>
+<text top="488" left="278" width="26" height="15" font="0">2.16</text>
+<text top="488" left="334" width="26" height="15" font="0">1.59</text>
+<text top="488" left="391" width="26" height="15" font="0">4.06</text>
+<text top="488" left="448" width="26" height="15" font="0">2.60</text>
+<text top="488" left="505" width="26" height="15" font="0">2.45</text>
+<text top="488" left="562" width="26" height="15" font="0">1.55</text>
+<text top="488" left="619" width="26" height="15" font="0">3.26</text>
+<text top="488" left="675" width="26" height="15" font="0">1.42</text>
+<text top="506" left="191" width="56" height="15" font="13"><b>geepack</b></text>
+<text top="506" left="278" width="26" height="15" font="0">1.55</text>
+<text top="506" left="334" width="26" height="15" font="0">1.14</text>
+<text top="506" left="391" width="26" height="15" font="0">3.27</text>
+<text top="506" left="448" width="26" height="15" font="0">2.10</text>
+<text top="506" left="505" width="26" height="15" font="0">2.95</text>
+<text top="506" left="562" width="26" height="15" font="0">1.86</text>
+<text top="506" left="619" width="26" height="15" font="0">5.64</text>
+<text top="506" left="675" width="26" height="15" font="0">2.46</text>
+<text top="543" left="265" width="47" height="13" font="3"><b>Table 2:</b></text>
+<text top="542" left="317" width="310" height="13" font="4">Speed comparisons for the simulated count data set.</text>
+<text top="599" left="149" width="136" height="15" font="13"><b>Birth outcomes data</b></text>
+<text top="631" left="149" width="595" height="13" font="4">Finally, we move to a large data set. These data contains the information on birth outcomes from</text>
+<text top="647" left="148" width="59" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">Abrevaya</a></text>
+<text top="647" left="211" width="5" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">(</a></text>
+<text top="647" left="216" width="27" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">2006</a></text>
+<text top="647" left="243" width="502" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#6">). </a>We use gestational age as the continuous response, and mother’s age as the only</text>
+<text top="664" left="149" width="438" height="13" font="4">covariate. We use the Gaussian family for the link and variance functions.</text>
+<text top="685" left="171" width="575" height="13" font="4">The data contain 141,929 clusters of size 2 or 3 each. This results in a total of 296,218 observations.</text>
+<text top="701" left="149" width="595" height="13" font="4">It is worth noting that for a data set this size, all other programs except R needed to be shut down. If</text>
+<text top="718" left="149" width="591" height="13" font="4">too many other programs are open, <b>geeM </b>may take a much longer time or even run out of memory.</text>
+<text top="739" left="171" width="32" height="13" font="4">Table</text>
+<text top="739" left="206" width="7" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">3</a></text>
+<text top="739" left="216" width="528" height="13" font="4">shows the speed results under four different working correlation structures. The average</text>
+<text top="755" left="149" width="595" height="13" font="4">speed (Avg.) is calculated based on fitting the data 5 times for each method and the relative speed</text>
+<text top="771" left="148" width="560" height="13" font="4">(Rel.) is the average speed of each method divided by the average speed of the fastest method.</text>
+<text top="810" left="266" width="94" height="15" font="0">Independence</text>
+<text top="810" left="409" width="34" height="15" font="0">AR-1</text>
+<text top="810" left="495" width="91" height="15" font="0">Exchangeable</text>
+<text top="810" left="609" width="89" height="15" font="0">Unstructured</text>
+<text top="828" left="265" width="52" height="15" font="0">Avg. (s)</text>
+<text top="828" left="335" width="25" height="15" font="0">Rel.</text>
+<text top="828" left="379" width="52" height="15" font="0">Avg. (s)</text>
+<text top="828" left="449" width="25" height="15" font="0">Rel.</text>
+<text top="828" left="492" width="52" height="15" font="0">Avg. (s)</text>
+<text top="828" left="562" width="25" height="15" font="0">Rel.</text>
+<text top="828" left="606" width="52" height="15" font="0">Avg. (s)</text>
+<text top="828" left="676" width="25" height="15" font="0">Rel.</text>
+<text top="853" left="191" width="38" height="15" font="13"><b>geeM</b></text>
+<text top="853" left="278" width="26" height="15" font="0">5.28</text>
+<text top="853" left="334" width="26" height="15" font="0">1.00</text>
+<text top="853" left="391" width="26" height="15" font="0">9.87</text>
+<text top="853" left="448" width="26" height="15" font="0">1.00</text>
+<text top="853" left="505" width="26" height="15" font="0">7.33</text>
+<text top="853" left="562" width="26" height="15" font="0">1.00</text>
+<text top="853" left="619" width="26" height="15" font="0">8.18</text>
+<text top="853" left="675" width="26" height="15" font="0">1.00</text>
+<text top="871" left="191" width="23" height="15" font="13"><b>gee</b></text>
+<text top="871" left="274" width="34" height="15" font="0">10.02</text>
+<text top="871" left="334" width="26" height="15" font="0">1.90</text>
+<text top="871" left="388" width="34" height="15" font="0">29.39</text>
+<text top="871" left="448" width="26" height="15" font="0">2.98</text>
+<text top="871" left="501" width="34" height="15" font="0">20.09</text>
+<text top="871" left="562" width="26" height="15" font="0">2.74</text>
+<text top="871" left="615" width="34" height="15" font="0">21.49</text>
+<text top="871" left="675" width="26" height="15" font="0">2.63</text>
+<text top="889" left="191" width="56" height="15" font="13"><b>geepack</b></text>
+<text top="889" left="278" width="26" height="15" font="0">9.66</text>
+<text top="889" left="334" width="26" height="15" font="0">1.83</text>
+<text top="889" left="388" width="34" height="15" font="0">23.67</text>
+<text top="889" left="448" width="26" height="15" font="0">2.40</text>
+<text top="889" left="501" width="34" height="15" font="0">22.59</text>
+<text top="889" left="562" width="26" height="15" font="0">3.08</text>
+<text top="889" left="615" width="34" height="15" font="0">25.67</text>
+<text top="889" left="675" width="26" height="15" font="0">3.14</text>
+<text top="926" left="279" width="47" height="13" font="3"><b>Table 3:</b></text>
+<text top="926" left="330" width="283" height="13" font="4">Speed comparisons for the birth outcomes data.</text>
+<text top="985" left="149" width="123" height="17" font="5"><b>Illustrative use</b></text>
+<text top="1024" left="149" width="595" height="13" font="4">Before concluding, we provide examples of how to use the geem function. Here we fit the ohio</text>
+<text top="1041" left="149" width="595" height="13" font="4">data with different link and variance functions. In this case, we use a skewed logit link function, as</text>
+<text top="1057" left="149" width="72" height="13" font="4">described in</text>
+<text top="1057" left="224" width="47" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">Prentice</a></text>
+<text top="1057" left="275" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">(</a></text>
+<text top="1057" left="279" width="26" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">1976</a></text>
+<text top="1057" left="306" width="439" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#7">), </a>which allows us to remove the symmetry constraint imposed by the logit</text>
+<text top="1073" left="149" width="595" height="13" font="4">and probit link functions. According to Prentice, this type of skewed logit link may provide a better fit</text>
+<text top="1090" left="149" width="373" height="13" font="4">to dose response data. The inverse link function takes the form</text>
+<text top="1135" left="391" width="7" height="13" font="4">p</text>
+<text top="1135" left="402" width="11" height="12" font="0">=</text>
+<text top="1121" left="417" width="11" height="6" font="4"> </text>
+<text top="1126" left="442" width="5" height="13" font="4">e</text>
+<text top="1123" left="447" width="5" height="10" font="8">x</text>
+<text top="1121" left="453" width="6" height="9" font="9">&gt;</text>
+<text top="1126" left="460" width="6" height="8" font="12"><i>β</i></text>
+<text top="1146" left="430" width="7" height="13" font="4">1</text>
+<text top="1146" left="439" width="11" height="12" font="0">+</text>
+<text top="1146" left="453" width="5" height="13" font="4">e</text>
+<text top="1144" left="459" width="5" height="10" font="8">x</text>
+<text top="1142" left="464" width="6" height="9" font="9">&gt;</text>
+<text top="1146" left="472" width="6" height="8" font="12"><i>β</i></text>
+<text top="1121" left="480" width="11" height="6" font="4">!</text>
+<text top="1118" left="491" width="5" height="10" font="8">k</text>
+<text top="1135" left="499" width="3" height="13" font="4">,</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">186</text>
+<text top="103" left="148" width="158" height="13" font="4">where k is known. When k</text>
+<text top="103" left="310" width="11" height="12" font="0">=</text>
+<text top="103" left="325" width="219" height="13" font="4">1 we have the logistic model, when k</text>
+<text top="103" left="548" width="11" height="12" font="0">&lt;</text>
+<text top="103" left="563" width="182" height="13" font="4">1 the distribution is negatively</text>
+<text top="120" left="149" width="118" height="13" font="4">skewed, and when k</text>
+<text top="119" left="271" width="11" height="12" font="0">&gt;</text>
+<text top="120" left="286" width="364" height="13" font="4">1 the distribution is positively skewed. In the example, we let k</text>
+<text top="119" left="654" width="11" height="12" font="0">=</text>
+<text top="120" left="669" width="75" height="13" font="4">2 and choose</text>
+<text top="139" left="149" width="8" height="10" font="10"><i>µ</i></text>
+<text top="136" left="157" width="5" height="12" font="0">(</text>
+<text top="136" left="163" width="7" height="13" font="4">1</text>
+<text top="135" left="172" width="11" height="16" font="0">−</text>
+<text top="139" left="186" width="8" height="10" font="10"><i>µ</i></text>
+<text top="136" left="194" width="5" height="12" font="0">)</text>
+<text top="136" left="203" width="541" height="13" font="4">as the variance function. When defining these four functions, it is essential that they all be</text>
+<text top="152" left="148" width="524" height="13" font="4">vectorized, that is, they accept a vector argument and return a vector of the same length.</text>
+<text top="182" left="149" width="41" height="11" font="4">k &lt;- 2</text>
+<text top="198" left="149" width="165" height="11" font="4">linkfun &lt;- function(p) {</text>
+<text top="214" left="163" width="192" height="11" font="4">log((p^(1/k))/(1 - p^(1/k)))</text>
+<text top="231" left="149" width="7" height="11" font="4">}</text>
+<text top="247" left="149" width="171" height="11" font="4">variance &lt;- function(p) {</text>
+<text top="264" left="163" width="62" height="11" font="4">p * (1-p)</text>
+<text top="280" left="149" width="7" height="11" font="4">}</text>
+<text top="297" left="149" width="178" height="11" font="4">linkinv &lt;- function(eta) {</text>
+<text top="313" left="163" width="185" height="11" font="4">(exp(eta)/(1 + exp(eta)))^k</text>
+<text top="329" left="149" width="7" height="11" font="4">}</text>
+<text top="346" left="149" width="171" height="11" font="4">mu.eta &lt;- function(eta) {</text>
+<text top="362" left="163" width="295" height="11" font="4">k * (exp(eta))^(k-1) / (1 + exp(eta))^(k+1)</text>
+<text top="379" left="149" width="7" height="11" font="4">}</text>
+<text top="395" left="149" width="350" height="11" font="4">FunList &lt;- list(linkfun, variance, linkinv, mu.eta)</text>
+<text top="412" left="149" width="508" height="11" font="4">geem(resp ~ age + smoke + age:smoke, id=id, data = ohio, family = FunList,</text>
+<text top="428" left="156" width="165" height="11" font="4">corstr = &#34;unstructured&#34;)</text>
+<text top="456" left="171" width="455" height="13" font="4">If we just want to use the binomial family to fit the ohio data, then the call is:</text>
+<text top="485" left="149" width="514" height="11" font="4">geem(resp ~ age + smoke + age:smoke, id=id, data = ohio, family = binomial,</text>
+<text top="502" left="156" width="165" height="11" font="4">corstr = &#34;unstructured&#34;)</text>
+<text top="545" left="149" width="94" height="17" font="5"><b>Conclusion</b></text>
+<text top="584" left="148" width="596" height="13" font="4">This paper describes a pure R implementation of a generalized estimating equation solver relying</text>
+<text top="601" left="149" width="595" height="13" font="4">heavily on the <b>Matrix </b>package. Coding in R allows for the use of user-defined link and variance</text>
+<text top="617" left="149" width="258" height="13" font="4">functions, giving a useful kind of flexibility.</text>
+<text top="638" left="171" width="573" height="13" font="4">The <b>Matrix </b>package is what enables a fast implementation. Sparse matrix representations give</text>
+<text top="654" left="148" width="596" height="13" font="4">ways to efficiently build the large, sparse matrices needed to solve the GEEs without using too much</text>
+<text top="671" left="149" width="395" height="13" font="4">memory. Operations on these sparse matrices are also much faster.</text>
+<text top="692" left="171" width="575" height="13" font="4">Much of the work in fitting GEEs comes from matrix inversion or solving a system of equations.</text>
+<text top="708" left="149" width="595" height="13" font="4">For three correlation structures, we are able to analytically invert the largest matrix. For the rest of the</text>
+<text top="725" left="149" width="597" height="13" font="4">correlation structures, we rely on inversion of a relatively small number of blocks to find the inverse.</text>
+<text top="746" left="171" width="573" height="13" font="4">Unfortunately, this technique of gaining speed in matrix inversion can cause problems. Because</text>
+<text top="762" left="148" width="596" height="13" font="4">we invert matrices instead of solving systems, it is possible that the function may be less numerically</text>
+<text top="778" left="149" width="38" height="13" font="4">stable.</text>
+<text top="799" left="171" width="573" height="13" font="4">Finally, we show that, in some cases, the <b>geeM </b>package is faster than <b>gee </b>or <b>geepack</b>. In other</text>
+<text top="816" left="149" width="470" height="13" font="4">cases it is not much slower, with <b>geeM </b>tending to run faster on larger data sets.</text>
+<text top="860" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="899" left="149" width="595" height="13" font="4">McDaniel’s and Henderson’s efforts were funded by NIGMS grant 5T32GM074904. Rathouz’s effort</text>
+<text top="916" left="148" width="246" height="13" font="4">was funded by NIH grant R01 HL094786.</text>
+<text top="960" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="999" left="149" width="598" height="13" font="4">J. Abrevaya. Estimating the effect of smoking on birth outcomes using a matched panel data approach.</text>
+<text top="1015" left="164" width="316" height="14" font="4">Journal of Applied Econometrics, 21(4):489–519, 2006. <a href="2013-1-mcdaniel-henderson-rathouz.html#5">[p</a></text>
+<text top="1015" left="480" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">185</a></text>
+<text top="1015" left="500" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">]</a></text>
+<text top="1043" left="149" width="560" height="13" font="4">D. Bates and M. Maechler. Matrix: Sparse and Dense Matrix Classes and Methods, 2013. URL</text>
+<text top="1043" left="713" width="34" height="11" font="6"><a href="http://CRAN.R-project.org/package=Matrix">http:</a></text>
+<text top="1060" left="163" width="241" height="11" font="6"><a href="http://CRAN.R-project.org/package=Matrix">//CRAN.R-project.org/package=Matrix</a></text>
+<text top="1059" left="404" width="176" height="13" font="4"><a href="http://CRAN.R-project.org/package=Matrix">. </a>R package version 1.0-12. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="1059" left="580" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="1059" left="600" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="1087" left="149" width="560" height="13" font="4">V. J. Carey., T. Lumley, and B. Ripley. gee: Generalized Estimation Equation solver, 2012. URL</text>
+<text top="1087" left="713" width="34" height="11" font="6"><a href="http://CRAN.R-project.org/package=gee">http:</a></text>
+<text top="1104" left="163" width="220" height="11" font="6"><a href="http://CRAN.R-project.org/package=gee">//CRAN.R-project.org/package=gee</a></text>
+<text top="1103" left="383" width="183" height="13" font="4"><a href="http://CRAN.R-project.org/package=gee">. </a>R package version 4.13-18. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="1103" left="566" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="1103" left="586" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="1130" left="149" width="598" height="13" font="4">S. Højsgaard, U. Halekoh, and J. Yan. The R package geepack for generalized estimating equations.</text>
+<text top="1147" left="164" width="283" height="14" font="4">Journal of Statistical Software, 15(2):1–11, 2006. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="1147" left="447" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="1147" left="467" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">187</text>
+<text top="103" left="149" width="597" height="13" font="4">K. Liang and S. Zeger. Longitudinal data analysis using generalized linear models. Biometrika, 73(1):</text>
+<text top="120" left="163" width="88" height="13" font="4">13–22, 1986. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="120" left="251" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="120" left="271" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">,</a></text>
+<text top="120" left="278" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#2">182</a></text>
+<text top="120" left="298" width="3" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#2">,</a></text>
+<text top="120" left="305" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#4">184</a></text>
+<text top="120" left="325" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#4">]</a></text>
+<text top="148" left="149" width="571" height="13" font="4">P. McCullagh and J. Nelder. Generalized Linear Models. Chapman and Hall, second edition, 1986. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="148" left="720" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="148" left="740" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="176" left="149" width="499" height="13" font="4">L. McDaniel and N. Henderson. geeM: Fit Generalized Estimating Equations, 2013. URL</text>
+<text top="177" left="651" width="96" height="11" font="6"><a href="http://CRAN.R-project.org/package=geeM">http://CRAN.R-</a></text>
+<text top="193" left="164" width="165" height="11" font="6"><a href="http://CRAN.R-project.org/package=geeM">project.org/package=geeM</a></text>
+<text top="193" left="328" width="165" height="13" font="4"><a href="http://CRAN.R-project.org/package=geeM">. </a>R package version 0.06. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="193" left="493" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="193" left="513" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="221" left="149" width="595" height="13" font="4">R. Prentice. A generalization of the probit and logit methods for dose response curves. Biometrics, 32</text>
+<text top="238" left="163" width="121" height="13" font="4">(4):761–768, 1976. <a href="2013-1-mcdaniel-henderson-rathouz.html#5">[p</a></text>
+<text top="238" left="284" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">185</a></text>
+<text top="238" left="304" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#5">]</a></text>
+<text top="266" left="149" width="435" height="13" font="4">SAS Institute Inc. SAS/STAT Software, Version 9.22. Cary, NC, 2010. URL</text>
+<text top="267" left="588" width="158" height="11" font="6"><a href="http://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_genmod_sect049.htm">http://support.sas.com/</a></text>
+<text top="283" left="164" width="569" height="11" font="6"><a href="http://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_genmod_sect049.htm">documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_genmod_sect049.htm</a></text>
+<text top="282" left="733" width="3" height="13" font="4"><a href="http://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_genmod_sect049.htm">.</a></text>
+<text top="299" left="164" width="13" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#4">[p</a></text>
+<text top="299" left="176" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#4">184</a></text>
+<text top="299" left="196" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#4">]</a></text>
+<text top="327" left="149" width="595" height="13" font="4">J. Schildcrout and P. Rathouz. Longitudinal studies of binary response data following case-control and</text>
+<text top="344" left="164" width="518" height="13" font="4">stratified case-control sampling: design and analysis. Biometrics, 66(2):365–373, 2010. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="344" left="682" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="344" left="702" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="372" left="149" width="595" height="13" font="4">B. Sutradhar and P. Kumar. The inversion of correlation matrix for MA(1) process. Applied Mathematics</text>
+<text top="388" left="163" width="178" height="14" font="4">Letters, 16(3):317–321, 2003. <a href="2013-1-mcdaniel-henderson-rathouz.html#3">[p</a></text>
+<text top="389" left="341" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#3">183</a></text>
+<text top="389" left="362" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#3">]</a></text>
+<text top="417" left="149" width="597" height="13" font="4">J. Yan and J. P. Fine. Estimating equations for association structures. Statistics in Medicine, 23(6):859–880,</text>
+<text top="433" left="164" width="48" height="13" font="4">2004. <a href="2013-1-mcdaniel-henderson-rathouz.html#1">[p</a></text>
+<text top="433" left="211" width="20" height="13" font="6"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">181</a></text>
+<text top="433" left="232" width="4" height="13" font="4"><a href="2013-1-mcdaniel-henderson-rathouz.html#1">]</a></text>
+<text top="480" left="148" width="90" height="13" font="4">Lee S. McDaniel</text>
+<text top="496" left="148" width="185" height="13" font="4">University of Wisconsin-Madison</text>
+<text top="513" left="148" width="117" height="13" font="4">1300 University Ave.</text>
+<text top="529" left="149" width="140" height="13" font="4">Madison, WI 53706 USA</text>
+<text top="546" left="149" width="151" height="11" font="6"><a href="mailto:mcdaniel@stat.wisc.edu">mcdaniel@stat.wisc.edu</a></text>
+<text top="583" left="149" width="125" height="13" font="4">Nicholas C. Henderson</text>
+<text top="599" left="148" width="185" height="13" font="4">University of Wisconsin-Madison</text>
+<text top="616" left="148" width="117" height="13" font="4">1300 University Ave.</text>
+<text top="632" left="149" width="140" height="13" font="4">Madison, WI 53706 USA</text>
+<text top="649" left="149" width="151" height="11" font="6"><a href="mailto:nhenders@stat.wisc.edu">nhenders@stat.wisc.edu</a></text>
+<text top="686" left="148" width="86" height="13" font="4">Paul J. Rathouz</text>
+<text top="702" left="148" width="185" height="13" font="4">University of Wisconsin-Madison</text>
+<text top="719" left="148" width="117" height="13" font="4">1300 University Ave.</text>
+<text top="735" left="149" width="140" height="13" font="4">Madison, WI 53706 USA</text>
+<text top="752" left="149" width="165" height="11" font="6"><a href="mailto:rathouz@biostat.wisc.edu">rathouz@biostat.wisc.edu</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

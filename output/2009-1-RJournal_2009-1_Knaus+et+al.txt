@@ -1,0 +1,77 @@
+page	left	top	code
+2	91	126	library(snowfall)
+2	91	142	# 1. Initialisation of snowfall.
+2	91	159	# (if used with sfCluster, just call sfInit())
+2	91	175	sfInit(parallel=TRUE, cpus=4, type="SOCK")
+2	91	208	# 2. Loading data.
+2	91	225	require(mvna)
+2	91	241	data(sir.adm)
+2	91	274	# 3. Wrapper, which can be parallelised.
+2	91	290	wrapper <- function(idx) {
+2	105	307	# Output progress in worker logfile
+2	105	323	cat( "Current index: ", idx, "\n" )
+2	105	340	index <- sample(1:nrow(sir.adm), replace=TRUE)
+2	105	356	temp <- sir.adm[index, ]
+2	105	373	fit <- crr(temp$time, temp$status, temp$pneu)
+2	105	389	return(fit$coef)
+2	91	406	}
+2	91	438	# 4. Exporting needed data and loading required
+2	91	455	# packages on workers.
+2	91	471	sfExport("sir.adm")
+2	91	488	sfLibrary(cmprsk)
+2	91	521	# 5. Start network random number generator
+2	91	537	# (as "sample" is using random numbers).
+2	91	553	sfClusterSetupRNG()
+2	91	586	# 6. Distribute calculation
+2	91	603	result <- sfLapply(1:1000, wrapper)
+2	91	636	# Result is always in list form.
+2	91	652	mean(unlist(result))
+2	91	685	# 7. Stop snowfall
+2	91	701	sfStop()
+3	183	126	# Start a socket cluster on local machine using 3 processors
+3	183	142	R CMD BATCH myParPrg.R --args --parallel --cpus=3
+3	183	175	# Start a socket cluster with 5 cores (3 on localhost, 2 on machine "other")
+3	183	192	R --args --parallel --hosts=localhost:3,other:2 < myParPrg.R
+3	183	225	# Start using MPI with 5 cores on R interactive shell.
+3	183	241	R --args --parallel --type=MPI --cpus=5
+6	108	342	jo@biom9:~$ sfCluster -o
+6	108	358	SESSION | STATE | M | MASTER #N RUNTIME R-FILE / R-OUT
+6	108	375	-----------------+-------+----+---------------------------------------------------
+6	108	391	LrtpdV7T_R-2.8.1 | run | MO | biom9.imbi 9 2:46:51 coxBst081223.R / coxBst081223.Rout
+6	108	407	baYwQ0GB_R-2.5.1 | run | IN | biom9.imbi 2 0:00:18 -undef- / -undef-
+6	108	440	jo@biom9:~$ sfCluster -o --all
+6	108	457	SESSION | STATE | USR | M | MASTER #N
+6	492	457	RUNTIME R-FILE / R-OUT
+6	108	473	-----------------+-------+-----+----+---------------------------------------------
+6	108	490	LrtpdV7T_R-2.8.1 | run | jo | MO | biom9.imbi
+6	464	490	9 3:16:09 coxBst081223.R / coxBst081223.Rout
+6	108	506	jlXUhxtP_R-2.5.1 | run | jo | IN | biom9.imbi
+6	464	506	2 0:00:22 -undef- / -undef-
+6	108	523	bSpNLNhd_R-2.7.2 | run | cp | BA | biom9.imbi
+6	464	523	8 0:32:57 getPoints11.R / getPoints11.Rout
+6	108	539	NPS5QHkK_R-2.7.2 | run | cp | MO | biom9.imbi 10
+6	492	539	3:50:42 box2.R / box2.Rout
+6	108	572	jo@biom9:~$ sfCluster --universe --mem=1G
+6	108	588	Assumed memuse: 1024M (use '--mem' to change).
+6	108	621	Node | Max-Load | CPUs | RAM
+6	506	621	| Free-Load | Free-RAM | FREE-TOTAL
+6	108	638	-------------------------------+----------+------+--------+-----------+----------+------------
+6	108	654	biom8.imbi.uni-freiburg.de | 8 | 8 |
+6	464	654	15.9G | 0 | 9.3G | 0
+6	108	671	biom9.imbi.uni-freiburg.de | 8 | 8 |
+6	464	671	15.9G | 0 | 12.6G | 0
+6	108	687	biom10.imbi.uni-freiburg.de | 8 | 8 |
+6	464	687	15.9G | 0 | 14.0G | 0
+6	108	703	biom12.imbi.uni-freiburg.de | 2 | 4 |
+6	471	703	7.9G | 0 | 5.8G | 0
+6	108	720	knecht5.fdm.uni-freiburg.de | 8 | 8 |
+6	464	720	15.7G | 1 | 1.2G | 1
+6	108	736	knecht4.fdm.uni-freiburg.de | 8 | 8 |
+6	464	736	15.7G | 1 | 4.3G | 1
+6	108	753	knecht3.fdm.uni-freiburg.de | 5 | 8 |
+6	464	753	15.7G | 3 | 11.1G | 3
+6	108	769	biom6.imbi.uni-freiburg.de | no-sched | 4 |
+6	471	769	7.9G | - | - | -
+6	108	786	biom7.imbi.uni-freiburg.de | 2 | 4 |
+6	471	786	7.9G | 1 | 2.1G | 1
+6	108	818	Potential usable CPUs: 6

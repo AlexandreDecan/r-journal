@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#000000"/>
+	<fontspec id="7" size="8" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">195</text>
+<text top="98" left="149" width="430" height="30" font="2"><b>Estimability Tools for Package</b></text>
+<text top="137" left="149" width="162" height="30" font="2"><b>Developers</b></text>
+<text top="173" left="149" width="117" height="15" font="0">by Russell V. Lenth</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="210" width="534" height="13" font="4">When a linear model is rank-deficient, then predictions based on that model become</text>
+<text top="231" left="148" width="596" height="13" font="4">questionable because not all predictions are uniquely estimable. However, some of them are, and the</text>
+<text top="247" left="149" width="74" height="13" font="3"><b>estimability</b></text>
+<text top="247" left="226" width="518" height="13" font="4">package provides tools that package developers can use to tell which is which. With the</text>
+<text top="264" left="149" width="210" height="13" font="4">use of these tools, a model object’s</text>
+<text top="260" left="363" width="381" height="18" font="4">predict method could return estimable predictions as-is while</text>
+<text top="280" left="149" width="595" height="13" font="4">flagging non-estimable ones in some way, so that the user can know which predictions to believe. The</text>
+<text top="297" left="149" width="74" height="13" font="3"><b>estimability</b></text>
+<text top="297" left="226" width="410" height="13" font="4">package also provides, as a demonstration, an estimability-enhanced</text>
+<text top="293" left="640" width="105" height="18" font="4">epredict method</text>
+<text top="313" left="149" width="100" height="13" font="4">to use in place of</text>
+<text top="310" left="252" width="295" height="18" font="4">predict for models fitted using the <b>stats </b>package.</text>
+<text top="358" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="396" left="149" width="552" height="13" font="4">Consider a linear regression or mixed model having fixed component of the matrix form <b>X</b><i>β</i></text>
+<text top="399" left="694" width="7" height="10" font="6"><i>β</i></text>
+<text top="400" left="694" width="7" height="10" font="6"><i>β</i></text>
+<text top="396" left="702" width="43" height="13" font="4">. If <b>X </b>is</text>
+<text top="413" left="149" width="395" height="13" font="4">not of full column rank, then there is not a unique estimate <b>b </b>of <i>β</i></text>
+<text top="416" left="537" width="7" height="10" font="6"><i>β</i></text>
+<text top="416" left="537" width="7" height="10" font="6"><i>β</i></text>
+<text top="413" left="545" width="171" height="13" font="4">. However, consider using <i>λ</i></text>
+<text top="416" left="707" width="8" height="10" font="6"><i>λ</i></text>
+<text top="416" left="708" width="8" height="10" font="6"><i>λ</i></text>
+<text top="409" left="716" width="3" height="10" font="7">0</text>
+<text top="413" left="720" width="8" height="13" font="3"><b>b</b></text>
+<text top="413" left="732" width="12" height="13" font="4">to</text>
+<text top="429" left="149" width="253" height="13" font="4">estimate the value of some linear function <i>λ</i></text>
+<text top="432" left="394" width="8" height="10" font="6"><i>λ</i></text>
+<text top="432" left="394" width="8" height="10" font="6"><i>λ</i></text>
+<text top="426" left="403" width="3" height="10" font="7">0</text>
+<text top="432" left="406" width="7" height="10" font="6"><i>β</i></text>
+<text top="432" left="407" width="7" height="10" font="6"><i>β</i></text>
+<text top="432" left="407" width="7" height="10" font="6"><i>β</i></text>
+<text top="429" left="418" width="11" height="12" font="0">=</text>
+<text top="427" left="433" width="10" height="17" font="4">∑</text>
+<text top="435" left="444" width="3" height="10" font="7">j</text>
+<text top="432" left="451" width="8" height="10" font="6"><i>λ</i></text>
+<text top="434" left="459" width="3" height="10" font="7">j</text>
+<text top="432" left="464" width="7" height="10" font="6"><i>β</i></text>
+<text top="434" left="472" width="3" height="10" font="7">j</text>
+<text top="429" left="476" width="63" height="13" font="4">. (We use <b>x</b></text>
+<text top="426" left="539" width="3" height="10" font="7">0</text>
+<text top="429" left="546" width="199" height="13" font="4">to denote the transpose of a vector</text>
+<text top="446" left="149" width="7" height="13" font="3"><b>x</b></text>
+<text top="446" left="156" width="77" height="13" font="4">.) For some <i>λ</i></text>
+<text top="448" left="225" width="8" height="10" font="6"><i>λ</i></text>
+<text top="449" left="225" width="8" height="10" font="6"><i>λ</i></text>
+<text top="446" left="233" width="511" height="13" font="4">s, the prediction depends on the solution <b>b</b>; but for others—the estimable ones—it does</text>
+<text top="462" left="149" width="23" height="13" font="4">not.</text>
+<text top="504" left="149" width="101" height="15" font="8"><b>An illustration</b></text>
+<text top="536" left="148" width="559" height="13" font="4">An example will help illustrate the issues. In the following commands, we create four predictors</text>
+<text top="532" left="710" width="34" height="18" font="4">x1–x4</text>
+<text top="552" left="149" width="140" height="13" font="4">and a response variable</text>
+<text top="549" left="292" width="10" height="18" font="4">y:</text>
+<text top="575" left="149" width="96" height="18" font="4">&gt; x1 &lt;- -4 : 4</text>
+<text top="592" left="149" width="268" height="18" font="4">&gt; x2 &lt;- c(-2, 1, -1, 2, 0, 2, -1, 1,-2)</text>
+<text top="608" left="149" width="158" height="18" font="4">&gt; x3 &lt;- 3 * x1 - 2 * x2</text>
+<text top="624" left="149" width="130" height="18" font="4">&gt; x4 &lt;- x2 - x1 + 4</text>
+<text top="641" left="149" width="487" height="18" font="4">&gt; y &lt;- 1 + x1 + x2 + x3 + x4 + c(-.5, .5, .5, -.5, 0, .5, -.5, -.5, .5)</text>
+<text top="671" left="149" width="46" height="13" font="4">Clearly,</text>
+<text top="667" left="200" width="544" height="18" font="4">x3 and x4 depend linearly on x1 and x2 and the intercept. Let us fit two versions of the</text>
+<text top="687" left="149" width="595" height="13" font="4">same model to these data, entering the predictors in different orders, and compare the regression</text>
+<text top="704" left="149" width="70" height="13" font="4">coefficients:</text>
+<text top="726" left="149" width="261" height="18" font="4">&gt; mod1234 &lt;- lm(y ~ x1 + x2 + x3 + x4)</text>
+<text top="743" left="149" width="261" height="18" font="4">&gt; mod4321 &lt;- lm(y ~ x4 + x3 + x2 + x1)</text>
+<text top="759" left="149" width="508" height="18" font="4">&gt; zapsmall(rbind(b1234 = coef(mod1234), b4321 = coef(mod4321)[c(1, 5:2)]))</text>
+<text top="788" left="190" width="158" height="18" font="4">(Intercept) x1 x2 x3 x4</text>
+<text top="805" left="149" width="34" height="18" font="4">b1234</text>
+<text top="805" left="259" width="89" height="18" font="4">5 3 0 NA NA</text>
+<text top="821" left="149" width="34" height="18" font="4">b4321</text>
+<text top="821" left="245" width="103" height="18" font="4">-19 NA NA 3 6</text>
+<text top="854" left="149" width="319" height="13" font="4">Note that in each model, two regression coefficients are</text>
+<text top="850" left="471" width="273" height="18" font="4">NA. This indicates that the associated predictors</text>
+<text top="870" left="148" width="356" height="13" font="4">were excluded due to their linear dependence on the others.</text>
+<text top="891" left="171" width="573" height="13" font="4">The problem that concerns us is making predictions on new values of the predictors. Here are</text>
+<text top="907" left="149" width="212" height="13" font="4">some predictor combinations to try:</text>
+<text top="930" left="149" width="165" height="18" font="4">&gt; testset &lt;- data.frame(</text>
+<text top="947" left="149" width="7" height="18" font="4">+</text>
+<text top="947" left="259" width="206" height="18" font="4">x1 = c(3, 6, 6, 0, 0, 1),</text>
+<text top="963" left="149" width="7" height="18" font="4">+</text>
+<text top="963" left="259" width="206" height="18" font="4">x2 = c(1, 2, 2, 0, 0, 2),</text>
+<text top="980" left="149" width="7" height="18" font="4">+</text>
+<text top="980" left="259" width="206" height="18" font="4">x3 = c(7, 14, 14, 0, 0, 3),</text>
+<text top="996" left="149" width="7" height="18" font="4">+</text>
+<text top="996" left="259" width="206" height="18" font="4">x4 = c(2, 4, 0, 4, 0, 4))</text>
+<text top="1026" left="148" width="345" height="13" font="4">And here is what happens when we make the predictions:</text>
+<text top="1049" left="149" width="110" height="18" font="4">&gt; cbind(testset,</text>
+<text top="1065" left="149" width="7" height="18" font="4">+</text>
+<text top="1065" left="190" width="322" height="18" font="4">pred1234 = predict(mod1234, newdata = testset),</text>
+<text top="1082" left="149" width="7" height="18" font="4">+</text>
+<text top="1082" left="190" width="446" height="18" font="4">pred4321 = suppressWarnings(predict(mod4321, newdata = testset)))</text>
+<text top="1111" left="163" width="199" height="18" font="4">x1 x2 x3 x4 pred1234 pred4321</text>
+<text top="1127" left="149" width="89" height="18" font="4">1 3 1 7 2</text>
+<text top="1127" left="286" width="14" height="18" font="4">14</text>
+<text top="1127" left="348" width="14" height="18" font="4">14</text>
+<text top="1144" left="149" width="89" height="18" font="4">2 6 2 14 4</text>
+<text top="1144" left="286" width="14" height="18" font="4">23</text>
+<text top="1144" left="348" width="14" height="18" font="4">47</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="10" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">196</text>
+<text top="100" left="149" width="89" height="18" font="4">3 6 2 14 0</text>
+<text top="100" left="286" width="14" height="18" font="4">23</text>
+<text top="100" left="348" width="14" height="18" font="4">23</text>
+<text top="116" left="149" width="89" height="18" font="4">4 0 0 0 4</text>
+<text top="116" left="293" width="7" height="18" font="4">5</text>
+<text top="116" left="355" width="7" height="18" font="4">5</text>
+<text top="133" left="149" width="89" height="18" font="4">5 0 0 0 0</text>
+<text top="133" left="293" width="7" height="18" font="4">5</text>
+<text top="133" left="341" width="21" height="18" font="4">-19</text>
+<text top="149" left="149" width="89" height="18" font="4">6 1 2 3 4</text>
+<text top="149" left="293" width="7" height="18" font="4">8</text>
+<text top="149" left="348" width="14" height="18" font="4">14</text>
+<text top="178" left="149" width="110" height="18" font="4">Warning message:</text>
+<text top="195" left="149" width="268" height="18" font="4">In predict.lm(mod1234, new = testset) :</text>
+<text top="211" left="163" width="370" height="18" font="4">prediction from a rank-deficient fit may be misleading</text>
+<text top="243" left="149" width="595" height="13" font="4">Note that the two models produce identical predictions in some cases (rows 1, 3, and 4), and different</text>
+<text top="260" left="149" width="595" height="13" font="4">ones in the others. There is also a warning message (we suppressed this the second time) telling us</text>
+<text top="276" left="149" width="137" height="13" font="4">that this could happen.</text>
+<text top="297" left="171" width="573" height="13" font="4">It happens that cases 1, 3, and 4 are estimable, and the others are not. It would be helpful to know</text>
+<text top="314" left="148" width="351" height="13" font="4">which predictions to trust, rather than a vague warning. The</text>
+<text top="310" left="502" width="121" height="18" font="4">epredict function in</text>
+<text top="314" left="627" width="74" height="13" font="9"><a href="http://CRAN.R-project.org/package=estimability"><b>estimability</b></a></text>
+<text top="314" left="704" width="4" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="314" left="708" width="34" height="13" font="10"><a href="2015-1-lenth.html#5">Lenth</a></text>
+<text top="314" left="742" width="3" height="13" font="4"><a href="2015-1-lenth.html#5">,</a></text>
+<text top="330" left="149" width="27" height="13" font="10"><a href="2015-1-lenth.html#5">2015</a></text>
+<text top="330" left="176" width="116" height="13" font="4"><a href="2015-1-lenth.html#5">) </a>accomplishes this:</text>
+<text top="353" left="149" width="171" height="18" font="4">&gt; require(&#34;estimability&#34;)</text>
+<text top="370" left="149" width="391" height="18" font="4">&gt; rbind(epred1234 = epredict(mod1234, newdata = testset),</text>
+<text top="386" left="149" width="7" height="18" font="4">+</text>
+<text top="386" left="204" width="336" height="18" font="4">epred4321 = epredict(mod4321, newdata = testset))</text>
+<text top="415" left="224" width="103" height="18" font="4">1 2 3 4 5 6</text>
+<text top="431" left="149" width="178" height="18" font="4">epred1234 14 NA 23 5 NA NA</text>
+<text top="448" left="149" width="178" height="18" font="4">epred4321 14 NA 23 5 NA NA</text>
+<text top="480" left="148" width="302" height="13" font="4">The results for non-estimable cases are indicated by</text>
+<text top="477" left="454" width="290" height="18" font="4">NAs. Note that in both models, the same new-data</text>
+<text top="497" left="149" width="595" height="13" font="4">cases are identified as estimable, and they are the ones that yield the same predictions. Note also that</text>
+<text top="513" left="149" width="595" height="13" font="4">estimability was determined separately from each model. We do not need to compare two different</text>
+<text top="530" left="149" width="173" height="13" font="4">fits to determine estimability.</text>
+<text top="574" left="149" width="432" height="17" font="5"><b>Adding estimability checking to a modeling package</b></text>
+<text top="613" left="149" width="346" height="13" font="4">It is a simple matter to add estimability checking to the</text>
+<text top="610" left="500" width="244" height="18" font="4">predict method(s) in a new or existing</text>
+<text top="630" left="148" width="52" height="13" font="4">package.</text>
+<text top="656" left="169" width="336" height="13" font="4">1. The package should import the <b>estimability </b>package.</text>
+<text top="678" left="169" width="40" height="13" font="4">2. Use</text>
+<text top="674" left="212" width="534" height="18" font="4">estimability::nonest.basis to obtain the basis for non-estimable functions of the regres-</text>
+<text top="694" left="186" width="316" height="13" font="4">sion coefficients, preferably in the model-fitting code.</text>
+<text top="716" left="169" width="52" height="13" font="4">3. In the</text>
+<text top="713" left="224" width="520" height="18" font="4">predict method, call estimability::is.estble on the model matrix for new data. (It is</text>
+<text top="733" left="186" width="419" height="13" font="4">not necessary to check estimability of predictions on the original data.)</text>
+<text top="759" left="148" width="362" height="13" font="4">This is implemented in code in a manner something like this:</text>
+<text top="782" left="149" width="185" height="18" font="4">fitmodel &lt;- function(...) {</text>
+<text top="798" left="176" width="21" height="18" font="4">...</text>
+<text top="815" left="204" width="103" height="18" font="4">code to create:</text>
+<text top="831" left="231" width="254" height="18" font="4">'X' (the fixed-effects model matrix),</text>
+<text top="848" left="231" width="165" height="18" font="4">'QR' (QR decomp of 'X'),</text>
+<text top="864" left="231" width="233" height="18" font="4">'object' (the fitted model object)</text>
+<text top="880" left="176" width="21" height="18" font="4">...</text>
+<text top="897" left="176" width="322" height="18" font="4">object$nonest &lt;- estimability::nonest.basis(QR)</text>
+<text top="913" left="176" width="41" height="18" font="4">object</text>
+<text top="930" left="149" width="7" height="18" font="4">}</text>
+<text top="963" left="149" width="432" height="18" font="4">predict.mymodel &lt;- function(object, newdata, tol = 1e-8, ...) {</text>
+<text top="979" left="176" width="21" height="18" font="4">...</text>
+<text top="996" left="176" width="158" height="18" font="4">if(!missing(newdata)) {</text>
+<text top="1012" left="204" width="21" height="18" font="4">...</text>
+<text top="1028" left="231" width="103" height="18" font="4">code to create:</text>
+<text top="1045" left="259" width="268" height="18" font="4">'newX' (the model matrix for 'newdata')</text>
+<text top="1061" left="204" width="21" height="18" font="4">...</text>
+<text top="1078" left="204" width="405" height="18" font="4">estble &lt;- estimability::is.estble(newX, object$nonest, tol)</text>
+<text top="1111" left="204" width="21" height="18" font="4">...</text>
+<text top="1127" left="231" width="261" height="18" font="4">code to flag non-estimable predictions</text>
+<text top="1144" left="204" width="21" height="18" font="4">...</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">197</text>
+<text top="100" left="176" width="7" height="18" font="4">}</text>
+<text top="116" left="176" width="21" height="18" font="4">...</text>
+<text top="133" left="149" width="7" height="18" font="4">}</text>
+<text top="161" left="148" width="23" height="13" font="4">The</text>
+<text top="158" left="174" width="570" height="18" font="4">nonest.basis function returns a matrix whose columns span the null space of the model matrix</text>
+<text top="178" left="149" width="9" height="13" font="3"><b>X</b></text>
+<text top="178" left="158" width="501" height="13" font="4">. If, for some reason, the QR decomposition is not used in model fitting, there is also a</text>
+<text top="174" left="662" width="82" height="18" font="4">nonest.basis</text>
+<text top="194" left="149" width="595" height="13" font="4">method that can be called with <b>X </b>itself. But if the QR decomposition of <b>X </b>is available, it is most efficient</text>
+<text top="211" left="149" width="50" height="13" font="4">to use it.</text>
+<text top="232" left="171" width="23" height="13" font="4">The</text>
+<text top="228" left="197" width="547" height="18" font="4">is.estble function tests each row of its first argument for estimability against the null basis</text>
+<text top="248" left="148" width="596" height="13" font="4">provided in its second argument, and returns a logical vector. A third argument may be added to</text>
+<text top="264" left="149" width="596" height="13" font="4">adjust the tolerance used in this test. It is important to remember that all columns of the model matrix</text>
+<text top="281" left="149" width="415" height="13" font="4">be included. In particular, do not exclude the columns corresponding to</text>
+<text top="277" left="567" width="178" height="18" font="4">NAs in the coefficient estimates,</text>
+<text top="297" left="149" width="422" height="13" font="4">as they are needed for the estimability testing. Typically, the results of</text>
+<text top="294" left="574" width="170" height="18" font="4">is.estble would be used to</text>
+<text top="314" left="149" width="345" height="13" font="4">skip any non-estimable predictions and replace them with</text>
+<text top="310" left="497" width="17" height="18" font="4">NA.</text>
+<text top="335" left="171" width="270" height="13" font="4">If there is not a rank deficiency in the model,</text>
+<text top="331" left="445" width="301" height="18" font="4">nonest.basis returns estimability::all.estble,</text>
+<text top="351" left="148" width="222" height="13" font="4">which is a trivial null basis (still of ‘</text>
+<text top="348" left="370" width="374" height="18" font="4">matrix’ class) with which is.estble will return all TRUE. The</text>
+<text top="364" left="149" width="598" height="18" font="4">nonest.basis function, when called with a ‘qr’ object, can immediately detect if there is no rank defi-</text>
+<text top="384" left="149" width="127" height="13" font="4">ciency and will return</text>
+<text top="381" left="279" width="467" height="18" font="4">all.estble. If your model-fitting algorithm does not use the QR decomposition,</text>
+<text top="400" left="149" width="595" height="13" font="4">it may be worth including additional code to check for non-singular models, in which case it sets</text>
+<text top="417" left="149" width="95" height="13" font="4">the null basis to</text>
+<text top="413" left="247" width="497" height="18" font="4">estimability::all.estble, rather than have nonest.basis perform the additional</text>
+<text top="433" left="149" width="181" height="13" font="4">computation to figure this out.</text>
+<text top="454" left="171" width="573" height="13" font="4">The sample code above is typical for the S3 object model. If S4 objects are being used, you may</text>
+<text top="471" left="148" width="225" height="13" font="4">want to instead include a slot of class ‘</text>
+<text top="467" left="373" width="371" height="18" font="4">matrix’ for nonest; or incorporate nonest as part of some other</text>
+<text top="487" left="149" width="25" height="13" font="4">slot.</text>
+<text top="508" left="171" width="431" height="13" font="4">To illustrate briefly, consider the previous example. The null basis for</text>
+<text top="505" left="607" width="137" height="18" font="4">mod1234 is obtained as</text>
+<text top="524" left="149" width="47" height="13" font="4">follows:</text>
+<text top="546" left="149" width="233" height="18" font="4">&gt; (nb &lt;- nonest.basis(mod1234$qr))</text>
+<text top="574" left="231" width="27" height="18" font="4">[,1]</text>
+<text top="574" left="307" width="27" height="18" font="4">[,2]</text>
+<text top="590" left="149" width="185" height="18" font="4">[1,] 0.29555933 -0.9176629</text>
+<text top="607" left="149" width="185" height="18" font="4">[2,] 0.76845426 0.2294157</text>
+<text top="623" left="149" width="185" height="18" font="4">[3,] -0.48767290 -0.2294157</text>
+<text top="640" left="149" width="185" height="18" font="4">[4,] -0.28078136 0.0000000</text>
+<text top="656" left="149" width="185" height="18" font="4">[5,] -0.07388983 0.2294157</text>
+<text top="687" left="149" width="263" height="13" font="4">and we can test estimability for the data in</text>
+<text top="684" left="416" width="329" height="18" font="4">testset by converting it to a matrix and appending a</text>
+<text top="703" left="149" width="147" height="13" font="4">column for the intercept:</text>
+<text top="725" left="149" width="261" height="18" font="4">&gt; newX &lt;- cbind(1, as.matrix(testset))</text>
+<text top="742" left="149" width="144" height="18" font="4">&gt; is.estble(newX, nb)</text>
+<text top="769" left="149" width="268" height="18" font="4">[1] TRUE FALSE TRUE TRUE FALSE FALSE</text>
+<text top="817" left="149" width="183" height="17" font="5"><b>Theory of estimability</b></text>
+<text top="856" left="148" width="596" height="13" font="4">The theory of estimability in linear models is well established, and can be found in almost any text on</text>
+<text top="872" left="149" width="208" height="13" font="4">linear models, such as classics like</text>
+<text top="872" left="360" width="37" height="13" font="10"><a href="2015-1-lenth.html#5">Searle</a></text>
+<text top="872" left="400" width="5" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="872" left="405" width="27" height="13" font="10"><a href="2015-1-lenth.html#5">1997</a></text>
+<text top="872" left="432" width="31" height="13" font="4"><a href="2015-1-lenth.html#5">) </a>and</text>
+<text top="872" left="467" width="85" height="13" font="10"><a href="2015-1-lenth.html#5">Seber and Lee</a></text>
+<text top="872" left="555" width="5" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="872" left="560" width="27" height="13" font="10"><a href="2015-1-lenth.html#5">2003</a></text>
+<text top="872" left="587" width="157" height="13" font="4"><a href="2015-1-lenth.html#5">). </a>In this discussion, I will</text>
+<text top="888" left="149" width="372" height="13" font="4">make specific references to portions of a more recent reference,</text>
+<text top="888" left="524" width="57" height="13" font="10"><a href="2015-1-lenth.html#5">Monahan</a></text>
+<text top="888" left="584" width="4" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="888" left="589" width="27" height="13" font="10"><a href="2015-1-lenth.html#5">2008</a></text>
+<text top="888" left="615" width="8" height="13" font="4"><a href="2015-1-lenth.html#5">).</a></text>
+<text top="909" left="171" width="575" height="13" font="4">Before delving in, though, it is worth noting (based on what is said in some contributed packages’</text>
+<text top="926" left="149" width="598" height="13" font="4">documentation and code) that there seems to be some confusion in the R community between non-</text>
+<text top="942" left="149" width="209" height="13" font="4">estimability of a linear function <i>λ</i></text>
+<text top="945" left="350" width="8" height="10" font="6"><i>λ</i></text>
+<text top="945" left="350" width="8" height="10" font="6"><i>λ</i></text>
+<text top="939" left="359" width="3" height="10" font="7">0</text>
+<text top="945" left="362" width="7" height="10" font="6"><i>β</i></text>
+<text top="945" left="363" width="7" height="10" font="6"><i>β</i></text>
+<text top="945" left="363" width="7" height="10" font="6"><i>β</i></text>
+<text top="942" left="375" width="200" height="13" font="4">and the placement of nonzero <i>λ</i></text>
+<text top="947" left="576" width="3" height="10" font="7">j</text>
+<text top="942" left="585" width="159" height="13" font="4">coefficients relative to the</text>
+<text top="959" left="148" width="70" height="13" font="4">positions of</text>
+<text top="955" left="221" width="525" height="18" font="4">NA values in the estimate <b>b</b>. It is not possible to assess estimability with this information.</text>
+<text top="975" left="149" width="232" height="13" font="4">Note, for instance, in the example in the</text>
+<text top="975" left="384" width="73" height="13" font="10"><a href="2015-1-lenth.html#1">Introduction</a></text>
+<text top="975" left="458" width="286" height="13" font="4"><a href="2015-1-lenth.html#1">, </a>we obtained two different <b>b</b>s. Between them we</text>
+<text top="992" left="149" width="65" height="13" font="4">can find an</text>
+<text top="988" left="218" width="526" height="18" font="4">NA in the estimates for every predictor except the intercept. In fact, while NA usually refers</text>
+<text top="1008" left="149" width="288" height="13" font="4">to unknown values, that is not the case here. An</text>
+<text top="1005" left="441" width="303" height="18" font="4">NA regression coefficient signals a coefficient that is</text>
+<text top="1024" left="149" width="595" height="13" font="4">constrained to zero in order to obtain an estimate. And there is nothing wrong with multiplying some</text>
+<text top="1041" left="149" width="47" height="13" font="4">of the <i>λ</i></text>
+<text top="1046" left="196" width="3" height="10" font="7">j</text>
+<text top="1041" left="203" width="210" height="13" font="4">by zero. To assess estimability of <i>λ</i></text>
+<text top="1044" left="406" width="8" height="10" font="6"><i>λ</i></text>
+<text top="1044" left="406" width="8" height="10" font="6"><i>λ</i></text>
+<text top="1037" left="415" width="3" height="10" font="7">0</text>
+<text top="1044" left="418" width="7" height="10" font="6"><i>β</i></text>
+<text top="1044" left="419" width="7" height="10" font="6"><i>β</i></text>
+<text top="1044" left="419" width="7" height="10" font="6"><i>β</i></text>
+<text top="1041" left="427" width="245" height="13" font="4">, we must look at all of the elements of <i>λ</i></text>
+<text top="1044" left="664" width="8" height="10" font="6"><i>λ</i></text>
+<text top="1044" left="664" width="8" height="10" font="6"><i>λ</i></text>
+<text top="1041" left="672" width="72" height="13" font="4">, even those</text>
+<text top="1057" left="149" width="102" height="13" font="4">corresponding to</text>
+<text top="1054" left="254" width="119" height="18" font="4">NAs in the estimates.</text>
+<text top="1099" left="149" width="104" height="15" font="8"><b>General results</b></text>
+<text top="1130" left="148" width="596" height="13" font="4">When <b>X </b>is not full-rank, the solution <b>b </b>to the normal equations is not unique. However, the predicted</text>
+<text top="1147" left="148" width="388" height="13" font="4">values, <b>Xb</b>, are uniquely estimable; that is, for any two solutions <b>b</b></text>
+<text top="1152" left="537" width="5" height="10" font="7">1</text>
+<text top="1147" left="546" width="34" height="13" font="4">and <b>b</b></text>
+<text top="1152" left="581" width="5" height="10" font="7">2</text>
+<text top="1147" left="587" width="24" height="13" font="4">, <b>Xb</b></text>
+<text top="1152" left="611" width="5" height="10" font="7">1</text>
+<text top="1147" left="621" width="11" height="12" font="0">=</text>
+<text top="1147" left="636" width="18" height="13" font="3"><b>Xb</b></text>
+<text top="1152" left="654" width="5" height="10" font="7">2</text>
+<text top="1147" left="660" width="85" height="13" font="4">. Note that the</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">198</text>
+<text top="103" left="149" width="127" height="14" font="4">ith element of <b>Xb </b>is <b>x</b></text>
+<text top="100" left="277" width="3" height="10" font="7">0</text>
+<text top="110" left="277" width="3" height="10" font="7">i</text>
+<text top="103" left="281" width="8" height="13" font="3"><b>b</b></text>
+<text top="103" left="292" width="48" height="13" font="4">where <b>x</b></text>
+<text top="100" left="340" width="3" height="10" font="7">0</text>
+<text top="110" left="340" width="3" height="10" font="7">i</text>
+<text top="103" left="348" width="158" height="13" font="4">is the ith row of <b>X</b>. Thus, <b>x</b></text>
+<text top="100" left="506" width="3" height="10" font="7">0</text>
+<text top="110" left="506" width="3" height="10" font="7">i</text>
+<text top="106" left="510" width="7" height="10" font="6"><i>β</i></text>
+<text top="106" left="510" width="7" height="10" font="6"><i>β</i></text>
+<text top="106" left="511" width="7" height="10" font="6"><i>β</i></text>
+<text top="103" left="522" width="223" height="13" font="4">is estimable for each i, and so are any</text>
+<text top="120" left="149" width="237" height="13" font="4">linear combinations of these. Indeed, <i>λ</i></text>
+<text top="122" left="378" width="8" height="10" font="6"><i>λ</i></text>
+<text top="123" left="378" width="8" height="10" font="6"><i>λ</i></text>
+<text top="116" left="387" width="3" height="10" font="7">0</text>
+<text top="123" left="391" width="7" height="10" font="6"><i>β</i></text>
+<text top="122" left="391" width="7" height="10" font="6"><i>β</i></text>
+<text top="123" left="391" width="7" height="10" font="6"><i>β</i></text>
+<text top="120" left="402" width="165" height="13" font="4">is estimable if and only if <i>λ</i></text>
+<text top="122" left="560" width="8" height="10" font="6"><i>λ</i></text>
+<text top="123" left="560" width="8" height="10" font="6"><i>λ</i></text>
+<text top="116" left="568" width="3" height="10" font="7">0</text>
+<text top="120" left="576" width="169" height="13" font="4">is in the row space of <b>X</b>—or</text>
+<text top="136" left="149" width="87" height="13" font="4">equivalently, <i>λ</i></text>
+<text top="139" left="228" width="8" height="10" font="6"><i>λ</i></text>
+<text top="139" left="228" width="8" height="10" font="6"><i>λ</i></text>
+<text top="136" left="240" width="159" height="13" font="4">is in the column space of <b>X</b></text>
+<text top="133" left="400" width="3" height="10" font="7">0</text>
+<text top="136" left="407" width="4" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="136" left="411" width="57" height="13" font="10"><a href="2015-1-lenth.html#5">Monahan</a></text>
+<text top="136" left="468" width="3" height="13" font="4"><a href="2015-1-lenth.html#5">,</a></text>
+<text top="136" left="475" width="27" height="13" font="10"><a href="2015-1-lenth.html#5">2008</a></text>
+<text top="136" left="502" width="72" height="13" font="4"><a href="2015-1-lenth.html#5">, </a>Result 3.1).</text>
+<text top="157" left="171" width="349" height="13" font="4">From the above result, we can establish estimability of <i>λ</i></text>
+<text top="160" left="512" width="8" height="10" font="6"><i>λ</i></text>
+<text top="160" left="513" width="8" height="10" font="6"><i>λ</i></text>
+<text top="153" left="521" width="3" height="10" font="7">0</text>
+<text top="160" left="525" width="7" height="10" font="6"><i>β</i></text>
+<text top="160" left="525" width="7" height="10" font="6"><i>β</i></text>
+<text top="160" left="525" width="7" height="10" font="6"><i>β</i></text>
+<text top="157" left="537" width="152" height="13" font="4">either by showing that <i>λ</i></text>
+<text top="160" left="681" width="8" height="10" font="6"><i>λ</i></text>
+<text top="160" left="682" width="8" height="10" font="6"><i>λ</i></text>
+<text top="157" left="694" width="50" height="13" font="4">is in the</text>
+<text top="173" left="149" width="106" height="13" font="4">column space of <b>X</b></text>
+<text top="170" left="255" width="3" height="10" font="7">0</text>
+<text top="173" left="259" width="338" height="13" font="4">, or by showing that it is orthogonal to the null space of <b>X </b><a href="2015-1-lenth.html#5">(</a></text>
+<text top="173" left="598" width="56" height="13" font="10"><a href="2015-1-lenth.html#5">Monahan</a></text>
+<text top="173" left="653" width="3" height="13" font="4"><a href="2015-1-lenth.html#5">,</a></text>
+<text top="173" left="660" width="26" height="13" font="10"><a href="2015-1-lenth.html#5">2008</a></text>
+<text top="173" left="686" width="58" height="13" font="4"><a href="2015-1-lenth.html#5">, </a>Methods</text>
+<text top="190" left="149" width="507" height="13" font="4">3.2 and 3.3, respectively). One way to implement the second idea is to note that if</text>
+<text top="190" left="660" width="5" height="12" font="0">(</text>
+<text top="190" left="666" width="9" height="13" font="3"><b>X</b></text>
+<text top="186" left="675" width="3" height="10" font="7">0</text>
+<text top="190" left="679" width="9" height="13" font="3"><b>X</b></text>
+<text top="190" left="689" width="5" height="12" font="0">)</text>
+<text top="186" left="694" width="8" height="10" font="7">−</text>
+<text top="190" left="708" width="37" height="13" font="4">is any</text>
+<text top="206" left="149" width="142" height="13" font="4">generalized inverse of <b>X</b></text>
+<text top="203" left="292" width="3" height="10" font="7">0</text>
+<text top="206" left="296" width="9" height="13" font="3"><b>X</b></text>
+<text top="206" left="305" width="45" height="13" font="4">, then <b>P</b></text>
+<text top="206" left="353" width="20" height="12" font="0">= (</text>
+<text top="206" left="374" width="9" height="13" font="3"><b>X</b></text>
+<text top="203" left="383" width="3" height="10" font="7">0</text>
+<text top="206" left="387" width="9" height="13" font="3"><b>X</b></text>
+<text top="206" left="397" width="11" height="12" font="0">)(</text>
+<text top="206" left="408" width="9" height="13" font="3"><b>X</b></text>
+<text top="203" left="418" width="3" height="10" font="7">0</text>
+<text top="206" left="422" width="9" height="13" font="3"><b>X</b></text>
+<text top="206" left="431" width="5" height="12" font="0">)</text>
+<text top="203" left="437" width="8" height="10" font="7">−</text>
+<text top="206" left="449" width="245" height="13" font="4">is a projection onto the column space of <b>X</b></text>
+<text top="203" left="695" width="3" height="10" font="7">0</text>
+<text top="206" left="699" width="45" height="13" font="4">, and so</text>
+<text top="223" left="149" width="5" height="13" font="3"><b>I</b></text>
+<text top="222" left="157" width="11" height="13" font="0">−</text>
+<text top="223" left="171" width="8" height="13" font="3"><b>P</b></text>
+<text top="223" left="183" width="333" height="13" font="4">is a projection onto the null space of <b>X</b>. The columns of <b>I</b></text>
+<text top="222" left="519" width="11" height="13" font="0">−</text>
+<text top="223" left="533" width="8" height="13" font="3"><b>P</b></text>
+<text top="223" left="545" width="199" height="13" font="4">thus comprise a basis for this null</text>
+<text top="239" left="149" width="216" height="13" font="4">space. Accordingly, estimability of <i>λ</i></text>
+<text top="242" left="357" width="8" height="10" font="6"><i>λ</i></text>
+<text top="242" left="357" width="8" height="10" font="6"><i>λ</i></text>
+<text top="236" left="365" width="3" height="10" font="7">0</text>
+<text top="242" left="369" width="7" height="10" font="6"><i>β</i></text>
+<text top="242" left="369" width="7" height="10" font="6"><i>β</i></text>
+<text top="242" left="370" width="7" height="10" font="6"><i>β</i></text>
+<text top="239" left="381" width="221" height="13" font="4">can be determined by showing that <i>λ</i></text>
+<text top="242" left="594" width="8" height="10" font="6"><i>λ</i></text>
+<text top="242" left="594" width="8" height="10" font="6"><i>λ</i></text>
+<text top="236" left="602" width="3" height="10" font="7">0</text>
+<text top="239" left="606" width="5" height="12" font="0">(</text>
+<text top="239" left="612" width="5" height="13" font="3"><b>I</b></text>
+<text top="238" left="620" width="11" height="13" font="0">−</text>
+<text top="239" left="634" width="8" height="13" font="3"><b>P</b></text>
+<text top="239" left="643" width="20" height="12" font="0">) =</text>
+<text top="239" left="667" width="7" height="13" font="3"><b>0</b></text>
+<text top="236" left="674" width="3" height="10" font="7">0</text>
+<text top="239" left="678" width="3" height="13" font="4">.</text>
+<text top="260" left="171" width="62" height="13" font="4">SAS uses <b>I</b></text>
+<text top="259" left="236" width="11" height="13" font="0">−</text>
+<text top="260" left="250" width="8" height="13" font="3"><b>P</b></text>
+<text top="260" left="258" width="486" height="13" font="4">, as described above, to test estimability. Of course, in computation we need to set a</text>
+<text top="276" left="149" width="308" height="13" font="4">tolerance for being close enough to <b>0</b>. SAS deems <i>λ</i></text>
+<text top="279" left="449" width="8" height="10" font="6"><i>λ</i></text>
+<text top="280" left="449" width="8" height="10" font="6"><i>λ</i></text>
+<text top="273" left="458" width="3" height="10" font="7">0</text>
+<text top="280" left="461" width="7" height="10" font="6"><i>β</i></text>
+<text top="279" left="462" width="7" height="10" font="6"><i>β</i></text>
+<text top="280" left="462" width="7" height="10" font="6"><i>β</i></text>
+<text top="276" left="473" width="109" height="13" font="4">non-estimable if <i>λ</i></text>
+<text top="279" left="574" width="8" height="10" font="6"><i>λ</i></text>
+<text top="280" left="574" width="8" height="10" font="6"><i>λ</i></text>
+<text top="276" left="586" width="11" height="13" font="0">6=</text>
+<text top="277" left="602" width="7" height="13" font="3"><b>0</b></text>
+<text top="276" left="612" width="52" height="13" font="4">and max</text>
+<text top="276" left="666" width="4" height="13" font="0">|</text>
+<text top="280" left="670" width="8" height="10" font="6"><i>λ</i></text>
+<text top="279" left="670" width="8" height="10" font="6"><i>λ</i></text>
+<text top="280" left="670" width="8" height="10" font="6"><i>λ</i></text>
+<text top="273" left="679" width="3" height="10" font="7">0</text>
+<text top="276" left="683" width="5" height="12" font="0">(</text>
+<text top="277" left="689" width="5" height="13" font="3"><b>I</b></text>
+<text top="276" left="697" width="11" height="13" font="0">−</text>
+<text top="277" left="711" width="8" height="13" font="3"><b>P</b></text>
+<text top="276" left="719" width="25" height="12" font="0">)| &gt;</text>
+<text top="296" left="149" width="9" height="10" font="6"><i>ψ</i></text>
+<text top="292" left="161" width="4" height="13" font="0">·</text>
+<text top="293" left="167" width="26" height="13" font="4">max</text>
+<text top="292" left="195" width="4" height="13" font="0">|</text>
+<text top="296" left="199" width="8" height="10" font="6"><i>λ</i></text>
+<text top="296" left="199" width="8" height="10" font="6"><i>λ</i></text>
+<text top="296" left="199" width="8" height="10" font="6"><i>λ</i></text>
+<text top="292" left="208" width="4" height="13" font="0">|</text>
+<text top="293" left="212" width="322" height="13" font="4">, where <i>ψ </i>is a tolerance factor with a default value of 10</text>
+<text top="289" left="534" width="14" height="11" font="7">−4</text>
+<text top="293" left="549" width="94" height="13" font="4">. For details, see</text>
+<text top="293" left="646" width="101" height="13" font="10"><a href="2015-1-lenth.html#5">SAS Institute Inc.</a></text>
+<text top="309" left="148" width="4" height="13" font="4"><a href="2015-1-lenth.html#5">(</a></text>
+<text top="309" left="153" width="26" height="13" font="10"><a href="2015-1-lenth.html#5">2013</a></text>
+<text top="309" left="179" width="346" height="13" font="4"><a href="2015-1-lenth.html#5">), </a>the chapter on “Shared Concepts,” documentation for the</text>
+<text top="306" left="528" width="216" height="18" font="4">ESTIMATE statement and its SINGULAR</text>
+<text top="326" left="149" width="42" height="13" font="4">option.</text>
+<text top="368" left="149" width="204" height="15" font="8"><b>Methods used by estimability</b></text>
+<text top="400" left="149" width="595" height="13" font="4">In the <b>estimability </b>package, we obtain the null basis in a different way than shown above, in part</text>
+<text top="416" left="149" width="428" height="13" font="4">because the QR decomposition of <b>X </b>is already (usually) available in an ‘</text>
+<text top="413" left="577" width="167" height="18" font="4">lm’ object. Suppose that <b>X </b>is</text>
+<text top="432" left="149" width="7" height="13" font="4">n</text>
+<text top="432" left="159" width="11" height="13" font="0">×</text>
+<text top="432" left="174" width="132" height="14" font="4">p, then we can write <b>X</b></text>
+<text top="432" left="310" width="11" height="12" font="0">=</text>
+<text top="433" left="325" width="21" height="13" font="3"><b>QR</b></text>
+<text top="433" left="346" width="74" height="13" font="4">, where <b>Q </b>(n</text>
+<text top="432" left="423" width="11" height="13" font="0">×</text>
+<text top="432" left="438" width="225" height="14" font="4">p) has orthonormal columns, and <b>R </b>(p</text>
+<text top="432" left="666" width="11" height="13" font="0">×</text>
+<text top="432" left="681" width="64" height="14" font="4">p) is upper</text>
+<text top="449" left="149" width="347" height="13" font="4">triangular with nonzero diagonal elements. If <b>X </b>is of rank r</text>
+<text top="449" left="500" width="11" height="12" font="0">&lt;</text>
+<text top="449" left="516" width="228" height="14" font="4">p, then columns are pivoted so that the</text>
+<text top="465" left="149" width="595" height="13" font="4">linearly dependent ones come last, and we only need r columns of <b>Q </b>and the top r rows of <b>R</b>, along</text>
+<text top="484" left="148" width="447" height="13" font="4">with the pivoting information. Call these pivoted, down-sized matrices e</text>
+<text top="484" left="585" width="11" height="13" font="3"><b>Q</b></text>
+<text top="484" left="600" width="36" height="13" font="4">and e</text>
+<text top="484" left="627" width="10" height="13" font="3"><b>R</b></text>
+<text top="484" left="641" width="103" height="13" font="4">respectively; and</text>
+<text top="502" left="149" width="27" height="13" font="4">let e</text>
+<text top="502" left="167" width="9" height="13" font="3"><b>X</b></text>
+<text top="502" left="180" width="38" height="13" font="4">(still n</text>
+<text top="501" left="221" width="11" height="13" font="0">×</text>
+<text top="502" left="235" width="509" height="14" font="4">p) denote <b>X </b>with its columns permuted according to the pivoting. We now have that</text>
+<text top="526" left="150" width="7" height="6" font="4">e</text>
+<text top="520" left="149" width="9" height="13" font="3"><b>X</b></text>
+<text top="520" left="162" width="11" height="12" font="0">=</text>
+<text top="526" left="179" width="7" height="6" font="4">e</text>
+<text top="520" left="177" width="20" height="13" font="3"><b>Q </b>e</text>
+<text top="520" left="189" width="10" height="13" font="3"><b>R</b></text>
+<text top="520" left="198" width="41" height="13" font="4">, and e</text>
+<text top="520" left="231" width="10" height="13" font="3"><b>R</b></text>
+<text top="520" left="244" width="487" height="13" font="4">comprises the first r rows of an upper triangular matrix. Observe that each row of e</text>
+<text top="520" left="722" width="9" height="13" font="3"><b>X</b></text>
+<text top="520" left="735" width="9" height="13" font="4">is</text>
+<text top="538" left="149" width="246" height="13" font="4">thus a linear combination of the rows of e</text>
+<text top="538" left="386" width="10" height="13" font="3"><b>R</b></text>
+<text top="538" left="396" width="164" height="13" font="4">—that is, the row space of e</text>
+<text top="538" left="552" width="9" height="13" font="3"><b>X</b></text>
+<text top="538" left="564" width="180" height="13" font="4">is the same as the row space of</text>
+<text top="560" left="150" width="7" height="6" font="4">e</text>
+<text top="554" left="149" width="10" height="13" font="3"><b>R</b></text>
+<text top="554" left="159" width="183" height="13" font="4">. So the much smaller matrix e</text>
+<text top="554" left="333" width="10" height="13" font="3"><b>R</b></text>
+<text top="554" left="346" width="349" height="13" font="4">has everything we need to know to determine estimability.</text>
+<text top="575" left="171" width="60" height="13" font="4">Now, let d</text>
+<text top="575" left="236" width="11" height="12" font="0">=</text>
+<text top="575" left="251" width="7" height="13" font="4">p</text>
+<text top="574" left="261" width="11" height="13" font="0">−</text>
+<text top="575" left="275" width="234" height="14" font="4">r denote the rank deficiency, and define</text>
+<text top="613" left="375" width="8" height="13" font="3"><b>S</b></text>
+<text top="613" left="387" width="11" height="12" font="0">=</text>
+<text top="603" left="402" width="7" height="6" font="4"></text>
+<text top="619" left="418" width="7" height="6" font="4">e</text>
+<text top="613" left="417" width="10" height="13" font="3"><b>R</b></text>
+<text top="610" left="427" width="3" height="10" font="7">0</text>
+<text top="619" left="427" width="18" height="10" font="7">p×r</text>
+<text top="605" left="470" width="7" height="13" font="3"><b>0</b></text>
+<text top="610" left="477" width="18" height="10" font="7">r×d</text>
+<text top="621" left="470" width="5" height="13" font="3"><b>I</b></text>
+<text top="626" left="476" width="19" height="10" font="7">d×d</text>
+<text top="603" left="511" width="7" height="6" font="4"></text>
+<text top="650" left="148" width="520" height="13" font="4">Then <b>S </b>is an upper triangular matrix with nonzero diagonal—hence it is of full rank p</text>
+<text top="650" left="673" width="11" height="12" font="0">=</text>
+<text top="650" left="688" width="5" height="13" font="4">r</text>
+<text top="650" left="696" width="11" height="12" font="0">+</text>
+<text top="650" left="710" width="34" height="14" font="4">d. Let</text>
+<text top="667" left="149" width="8" height="13" font="3"><b>S</b></text>
+<text top="666" left="162" width="11" height="12" font="0">=</text>
+<text top="667" left="177" width="20" height="13" font="3"><b>TU</b></text>
+<text top="667" left="200" width="544" height="13" font="4">be the QR decomposition of <b>S</b>. We then have that <b>T </b>has orthonormal columns, and in fact</text>
+<text top="683" left="149" width="595" height="13" font="4">it is a Gram-Schmidt orthonormalization of <b>S</b>. Accordingly, the first r columns of <b>T </b>comprise an</text>
+<text top="699" left="149" width="232" height="13" font="4">orthonormalization of the columns of e</text>
+<text top="700" left="372" width="10" height="13" font="3"><b>R</b></text>
+<text top="696" left="382" width="3" height="10" font="7">0</text>
+<text top="699" left="386" width="294" height="13" font="4">, and thus they form a basis for the row space of e</text>
+<text top="700" left="671" width="10" height="13" font="3"><b>R</b></text>
+<text top="699" left="684" width="60" height="13" font="4">and hence</text>
+<text top="718" left="149" width="23" height="13" font="4">of e</text>
+<text top="718" left="164" width="9" height="13" font="3"><b>X</b></text>
+<text top="718" left="173" width="62" height="13" font="4">. Letting e</text>
+<text top="718" left="226" width="11" height="13" font="3"><b>N</b></text>
+<text top="718" left="241" width="272" height="13" font="4">denote the last d columns of <b>T</b>, we have that e</text>
+<text top="718" left="503" width="11" height="13" font="3"><b>N</b></text>
+<text top="718" left="518" width="226" height="13" font="4">has orthonormal columns, all of which</text>
+<text top="736" left="149" width="436" height="13" font="4">are orthogonal to the first r columns of <b>T </b>and hence to the row space of e</text>
+<text top="736" left="576" width="10" height="13" font="3"><b>R</b></text>
+<text top="736" left="590" width="35" height="13" font="4">and e</text>
+<text top="736" left="616" width="9" height="13" font="3"><b>X</b></text>
+<text top="736" left="625" width="104" height="13" font="4">. It follows that e</text>
+<text top="736" left="720" width="11" height="13" font="3"><b>N</b></text>
+<text top="736" left="734" width="10" height="13" font="4">is</text>
+<text top="754" left="149" width="257" height="13" font="4">an orthonormal basis for the null space of e</text>
+<text top="754" left="398" width="9" height="13" font="3"><b>X</b></text>
+<text top="754" left="407" width="187" height="13" font="4">. After permuting the rows of e</text>
+<text top="754" left="585" width="11" height="13" font="3"><b>N</b></text>
+<text top="754" left="600" width="144" height="13" font="4">according to the original</text>
+<text top="770" left="148" width="491" height="13" font="4">pivoting in the QR decomposition of <b>X</b>, we obtain a basis <b>N </b>for the null space of <b>X</b>.</text>
+<text top="791" left="171" width="146" height="13" font="4">To test estimability of <i>λ</i></text>
+<text top="794" left="310" width="8" height="10" font="6"><i>λ</i></text>
+<text top="794" left="310" width="8" height="10" font="6"><i>λ</i></text>
+<text top="788" left="319" width="3" height="10" font="7">0</text>
+<text top="794" left="322" width="7" height="10" font="6"><i>β</i></text>
+<text top="794" left="323" width="7" height="10" font="6"><i>β</i></text>
+<text top="794" left="323" width="7" height="10" font="6"><i>β</i></text>
+<text top="791" left="330" width="102" height="13" font="4">, first compute <b>z</b></text>
+<text top="788" left="433" width="3" height="10" font="7">0</text>
+<text top="791" left="444" width="11" height="12" font="0">=</text>
+<text top="794" left="461" width="8" height="10" font="6"><i>λ</i></text>
+<text top="794" left="461" width="8" height="10" font="6"><i>λ</i></text>
+<text top="794" left="461" width="8" height="10" font="6"><i>λ</i></text>
+<text top="788" left="470" width="3" height="10" font="7">0</text>
+<text top="791" left="474" width="11" height="13" font="3"><b>N</b></text>
+<text top="791" left="485" width="232" height="13" font="4">, which is a d-vector. Theoretically, <i>λ</i></text>
+<text top="794" left="709" width="8" height="10" font="6"><i>λ</i></text>
+<text top="794" left="709" width="8" height="10" font="6"><i>λ</i></text>
+<text top="788" left="718" width="3" height="10" font="7">0</text>
+<text top="794" left="721" width="7" height="10" font="6"><i>β</i></text>
+<text top="794" left="722" width="7" height="10" font="6"><i>β</i></text>
+<text top="794" left="722" width="7" height="10" font="6"><i>β</i></text>
+<text top="791" left="734" width="10" height="13" font="4">is</text>
+<text top="808" left="149" width="151" height="13" font="4">estimable if and only if <b>z</b></text>
+<text top="804" left="300" width="3" height="10" font="7">0</text>
+<text top="808" left="305" width="7" height="13" font="3"><b>z</b></text>
+<text top="807" left="316" width="11" height="12" font="0">=</text>
+<text top="808" left="332" width="7" height="13" font="3"><b>0</b></text>
+<text top="808" left="339" width="405" height="13" font="4">; but for computational purposes, we need to set a tolerance for its</text>
+<text top="824" left="149" width="573" height="13" font="4">being suitably small. Again, we opt to deviate from SAS’s approach, which is based on max</text>
+<text top="823" left="725" width="4" height="13" font="0">|</text>
+<text top="824" left="729" width="6" height="13" font="4">z</text>
+<text top="829" left="735" width="3" height="10" font="7">i</text>
+<text top="823" left="739" width="4" height="13" font="0">|</text>
+<text top="824" left="743" width="3" height="13" font="4">.</text>
+<text top="840" left="149" width="115" height="13" font="4">Instead, we deem <i>λ</i></text>
+<text top="843" left="256" width="8" height="10" font="6"><i>λ</i></text>
+<text top="844" left="256" width="8" height="10" font="6"><i>λ</i></text>
+<text top="837" left="265" width="3" height="10" font="7">0</text>
+<text top="844" left="268" width="7" height="10" font="6"><i>β</i></text>
+<text top="843" left="269" width="7" height="10" font="6"><i>β</i></text>
+<text top="844" left="269" width="7" height="10" font="6"><i>β</i></text>
+<text top="840" left="280" width="131" height="13" font="4">non-estimable when <i>λ</i></text>
+<text top="843" left="403" width="8" height="10" font="6"><i>λ</i></text>
+<text top="844" left="404" width="8" height="10" font="6"><i>λ</i></text>
+<text top="840" left="416" width="11" height="13" font="0">6=</text>
+<text top="841" left="431" width="7" height="13" font="3"><b>0</b></text>
+<text top="840" left="441" width="33" height="13" font="4">and <b>z</b></text>
+<text top="837" left="475" width="3" height="10" font="7">0</text>
+<text top="841" left="479" width="7" height="13" font="3"><b>z</b></text>
+<text top="840" left="489" width="11" height="13" font="0">≥</text>
+<text top="844" left="504" width="7" height="10" font="6"><i>τ</i></text>
+<text top="840" left="515" width="4" height="13" font="0">·</text>
+<text top="844" left="521" width="8" height="10" font="6"><i>λ</i></text>
+<text top="843" left="521" width="8" height="10" font="6"><i>λ</i></text>
+<text top="844" left="521" width="8" height="10" font="6"><i>λ</i></text>
+<text top="837" left="530" width="3" height="10" font="7">0</text>
+<text top="844" left="533" width="8" height="10" font="6"><i>λ</i></text>
+<text top="843" left="534" width="8" height="10" font="6"><i>λ</i></text>
+<text top="844" left="534" width="8" height="10" font="6"><i>λ</i></text>
+<text top="840" left="542" width="202" height="13" font="4">, where <i>τ </i>is a tolerance value. Our</text>
+<text top="857" left="149" width="101" height="13" font="4">default value is <i>τ</i></text>
+<text top="857" left="255" width="20" height="12" font="0">= (</text>
+<text top="857" left="275" width="13" height="13" font="4">10</text>
+<text top="853" left="289" width="14" height="11" font="7">−4</text>
+<text top="857" left="303" width="5" height="12" font="0">)</text>
+<text top="854" left="309" width="5" height="10" font="7">2</text>
+<text top="857" left="319" width="11" height="12" font="0">=</text>
+<text top="857" left="334" width="13" height="13" font="4">10</text>
+<text top="853" left="347" width="14" height="11" font="7">−8</text>
+<text top="857" left="362" width="382" height="13" font="4">. The rationale for this criterion is that it is rotation-invariant: We</text>
+<text top="873" left="149" width="97" height="13" font="4">could replace <b>N</b></text>
+<text top="872" left="250" width="14" height="13" font="0">←</text>
+<text top="873" left="269" width="22" height="13" font="3"><b>VN</b></text>
+<text top="873" left="295" width="103" height="13" font="4">where <b>V </b>is any p</text>
+<text top="872" left="401" width="11" height="13" font="0">×</text>
+<text top="873" left="416" width="162" height="14" font="4">p orthogonal matrix, and <b>z</b></text>
+<text top="870" left="578" width="3" height="10" font="7">0</text>
+<text top="873" left="582" width="7" height="13" font="3"><b>z</b></text>
+<text top="873" left="593" width="151" height="13" font="4">will be unchanged. Such</text>
+<text top="890" left="149" width="595" height="13" font="4">rotation invariance seems a desirable property because the assessment of estimability does not depend</text>
+<text top="906" left="149" width="163" height="13" font="4">on which null basis is used.</text>
+<text top="951" left="149" width="149" height="17" font="5"><b>Bells and whistles</b></text>
+<text top="990" left="148" width="160" height="13" font="4">The <b>estimability </b>package’s</text>
+<text top="986" left="312" width="435" height="18" font="4">epredict function serves as a demonstration of adding estimability check-</text>
+<text top="1006" left="149" width="59" height="13" font="4">ing to the</text>
+<text top="1003" left="211" width="533" height="18" font="4">predict methods in the <b>stats </b>package. It works for lm, aov, glm, and mlm objects. It also</text>
+<text top="1023" left="148" width="213" height="13" font="4">provides additional options for the</text>
+<text top="1019" left="366" width="379" height="18" font="4">type argument of predict. When newdata is provided, type =</text>
+<text top="1036" left="149" width="595" height="18" font="4">&#34;estimability&#34; returns a logical vector showing which rows of newdata are estimable; and type =</text>
+<text top="1052" left="149" width="282" height="18" font="4">&#34;matrix&#34; returns the model matrix for newdata.</text>
+<text top="1076" left="171" width="207" height="13" font="4">An accompanying enhancement is</text>
+<text top="1073" left="382" width="362" height="18" font="4">eupdate, which runs update on a model object and also adds</text>
+<text top="1093" left="149" width="7" height="13" font="4">a</text>
+<text top="1090" left="159" width="585" height="18" font="4">nonest member. Subsequent epredict calls on this object will use that as the null basis instead of</text>
+<text top="1109" left="149" width="223" height="13" font="4">having to reconstruct it. For example,</text>
+<text top="1133" left="149" width="274" height="18" font="4">&gt; mod123 &lt;- eupdate(mod1234, . ~ . - x4)</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">199</text>
+<text top="100" left="149" width="103" height="18" font="4">&gt; mod123$nonest</text>
+<text top="130" left="224" width="27" height="18" font="4">[,1]</text>
+<text top="146" left="149" width="103" height="18" font="4">[1,] 0.0000000</text>
+<text top="162" left="149" width="103" height="18" font="4">[2,] -0.8017837</text>
+<text top="179" left="149" width="103" height="18" font="4">[3,] 0.5345225</text>
+<text top="195" left="149" width="103" height="18" font="4">[4,] 0.2672612</text>
+<text top="229" left="149" width="233" height="13" font="4">Now let’s find out which predictions in</text>
+<text top="225" left="386" width="230" height="18" font="4">testset are estimable with this model:</text>
+<text top="252" left="149" width="412" height="18" font="4">&gt; epredict(mod123, newdata = testset, type = &#34;estimability&#34;)</text>
+<text top="282" left="176" width="7" height="18" font="4">1</text>
+<text top="282" left="217" width="7" height="18" font="4">2</text>
+<text top="282" left="259" width="7" height="18" font="4">3</text>
+<text top="282" left="300" width="7" height="18" font="4">4</text>
+<text top="282" left="341" width="7" height="18" font="4">5</text>
+<text top="282" left="382" width="7" height="18" font="4">6</text>
+<text top="298" left="156" width="233" height="18" font="4">TRUE TRUE TRUE TRUE TRUE FALSE</text>
+<text top="332" left="148" width="365" height="13" font="4">Thus, more of these test cases are estimable when we drop x</text>
+<text top="337" left="514" width="5" height="10" font="7">4</text>
+<text top="332" left="523" width="168" height="13" font="4">from the model. Looking at</text>
+<text top="328" left="694" width="51" height="18" font="4">testset,</text>
+<text top="348" left="149" width="595" height="13" font="4">this makes sense because two of the previously non-estimable rows differ from estimable ones only in</text>
+<text top="365" left="149" width="95" height="13" font="4">their values of x</text>
+<text top="369" left="244" width="5" height="10" font="7">4</text>
+<text top="365" left="250" width="3" height="13" font="4">.</text>
+<text top="409" left="149" width="94" height="17" font="5"><b>Conclusion</b></text>
+<text top="448" left="149" width="595" height="13" font="4">In rank-deficient linear models used for predictions on new predictor sets, it is important for users</text>
+<text top="465" left="149" width="595" height="13" font="4">to know which predictions are to be trusted, and which of them would change if the same model</text>
+<text top="481" left="149" width="595" height="13" font="4">had been specified in a different way. The <b>estimability </b>package provides an easy way to add this</text>
+<text top="498" left="149" width="322" height="13" font="4">capability to new and existing model-fitting packages.</text>
+<text top="542" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="581" left="149" width="414" height="13" font="4">R. V. Lenth. estimability: Estimability Tools for Linear Models, 2015. URL</text>
+<text top="578" left="566" width="179" height="18" font="10"><a href="http://CRAN.R-project.org/package=estimability">http://CRAN.R-project.org/</a></text>
+<text top="594" left="164" width="137" height="18" font="10"><a href="http://CRAN.R-project.org/package=estimability">package=estimability</a></text>
+<text top="598" left="301" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=estimability">. </a>R package version 1.1. <a href="2015-1-lenth.html#2">[p</a></text>
+<text top="598" left="459" width="20" height="13" font="10"><a href="2015-1-lenth.html#2">196</a></text>
+<text top="598" left="479" width="4" height="13" font="4"><a href="2015-1-lenth.html#2">]</a></text>
+<text top="626" left="149" width="439" height="13" font="4">J. F. Monahan. A Primer on Linear Models. Chapman &amp; Hall/CRC, 2008. <a href="2015-1-lenth.html#3">[p</a></text>
+<text top="626" left="588" width="20" height="13" font="10"><a href="2015-1-lenth.html#3">197</a></text>
+<text top="626" left="608" width="3" height="13" font="4"><a href="2015-1-lenth.html#3">,</a></text>
+<text top="626" left="615" width="20" height="13" font="10"><a href="2015-1-lenth.html#4">198</a></text>
+<text top="626" left="635" width="4" height="13" font="4"><a href="2015-1-lenth.html#4">]</a></text>
+<text top="654" left="149" width="560" height="13" font="4">SAS Institute Inc. SAS/STAT Software, Version 13.2. SAS Institute Inc., Cary, NC, 2013. URL</text>
+<text top="651" left="713" width="34" height="18" font="10"><a href="http://www.sas.com/">http:</a></text>
+<text top="667" left="163" width="96" height="18" font="10"><a href="http://www.sas.com/">//www.sas.com/</a></text>
+<text top="671" left="259" width="21" height="13" font="4"><a href="http://www.sas.com/">. </a><a href="2015-1-lenth.html#4">[p</a></text>
+<text top="671" left="280" width="20" height="13" font="10"><a href="2015-1-lenth.html#4">198</a></text>
+<text top="671" left="300" width="4" height="13" font="4"><a href="2015-1-lenth.html#4">]</a></text>
+<text top="699" left="149" width="416" height="13" font="4">S. R. Searle. Linear Models. Wiley Classics. Wiley-Interscience, 1997. <a href="2015-1-lenth.html#3">[p</a></text>
+<text top="699" left="565" width="20" height="13" font="10"><a href="2015-1-lenth.html#3">197</a></text>
+<text top="699" left="585" width="4" height="13" font="4"><a href="2015-1-lenth.html#3">]</a></text>
+<text top="728" left="149" width="598" height="13" font="4">G. A. F. Seber and A. J. Lee. Linear Regression Analysis. John Wiley &amp; Sons, Inc., second edition, 2003.</text>
+<text top="744" left="164" width="13" height="13" font="4"><a href="2015-1-lenth.html#3">[p</a></text>
+<text top="744" left="176" width="20" height="13" font="10"><a href="2015-1-lenth.html#3">197</a></text>
+<text top="744" left="196" width="4" height="13" font="4"><a href="2015-1-lenth.html#3">]</a></text>
+<text top="790" left="148" width="89" height="13" font="4">Russell V. Lenth</text>
+<text top="807" left="148" width="125" height="13" font="4">The University of Iowa</text>
+<text top="823" left="148" width="100" height="13" font="4">241 Schaeffer Hall</text>
+<text top="840" left="149" width="111" height="13" font="4">Iowa City, IA 52242</text>
+<text top="856" left="148" width="28" height="13" font="4">USA</text>
+<text top="869" left="149" width="158" height="18" font="10"><a href="mailto:russell-lenth@uiowa.edu">russell-lenth@uiowa.edu</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

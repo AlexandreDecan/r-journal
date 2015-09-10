@@ -1,0 +1,83 @@
+page	left	top	code
+3	149	722	# Install and load accelerometry package
+3	149	738	install.packages("accelerometry")
+3	149	754	library("accelerometry")
+3	149	787	# Load four-column matrix with counts and steps over 7 days
+3	149	804	data(tridata)
+3	149	837	# Generate basic PA variables using default settings
+3	149	853	dailyPA1 <- accel.process.tri(counts.tri = tridata[, 1:3], steps = tridata[, 4])
+3	149	886	# Request full set of PA variables, and use triaxial vector magnitude for non-wear
+3	149	902	# detection rather than vertical axis, with 90-minute rather than 60-minute window
+3	149	919	dailyPA2 <- accel.process.tri(counts.tri = tridata[, 1:3], steps = tridata[, 4],
+3	355	935	brevity = 3, nonwear.axis = "mag", nonwear.window = 90)
+3	149	968	# Check variable names for dailyPA1 and dailyPA2
+3	149	985	colnames(dailyPA1)
+3	149	1001	colnames(dailyPA2)
+3	149	1034	# Print contents of dailyPA1 and first 15 variables in dailyPA2
+3	149	1050	dailyPA1
+3	149	1067	dailyPA2[, 1:15]
+3	149	1100	# Calculate average for cpm_vert from dailyPA1 and dailyPA2
+3	149	1116	mean(dailyPA1[, "cpm_vert"])
+3	149	1133	mean(dailyPA2[, "cpm_vert"])
+4	149	644	demo("acceljournal").
+5	149	576	type = "source" to install from source files rather than binaries.
+5	149	604	# Install accelerometry package (if not already installed)
+5	149	621	install.packages("accelerometry")
+5	149	654	# Install nhanesaccel on Windows running most recent version of R
+5	149	670	install.packages("nhanesaccel", repos = "http://R-Forge.R-project.org")
+5	149	703	# Install nhanesaccel on Mac or Linux or on Windows running earlier version of R
+5	149	719	install.packages("nhanesaccel", repos = "http://R-Forge.R-project.org",
+5	265	736	type = "source")
+5	149	810	# Load nhanesaccel package
+5	149	826	library("nhanesaccel")
+5	149	859	# Process NHANES 2003-2006 data using default settings
+5	149	876	nhanes1 <- nhanes.accel.process()
+5	149	908	# Examine summary data for first 5 participants
+5	149	925	nhanes1[1:5, ]
+5	149	1003	= TRUE to the nhanes.accel.process function call. Unless otherwise specified via the directory input,
+6	149	179	# Process NHANES 2003-2006 data, requiring at least one valid weekday and weekend day
+6	149	195	nhanes2 <- nhanes.accel.process(valid.week.days = 1, valid.weekend.days = 1,
+6	368	212	weekday.weekend = TRUE)
+6	149	245	# Get dimension and variable names for nhanes2
+6	149	261	dim(nhanes2)
+6	149	278	names(nhanes2)
+6	148	357	valid_weekend_days), and whether the participant has valid data for statistical analysis (include).
+6	149	523	# Load demographics data and merge with nhanes2
+6	149	539	data(dem)
+6	149	556	nhanes2 <- merge(x = nhanes2, y = dem)
+6	149	588	# Calculate percent difference between weekday and weekend CPM for each participant
+6	149	605	nhanes2$cpm_diff <- (nhanes2$wk_cpm - nhanes2$we_cpm) /
+6	286	621	((nhanes2$wk_cpm + nhanes2$we_cpm) / 2) * 100
+6	149	768	# Create survey object called hanes
+6	149	784	hanes <- svydesign(id = ~ sdmvpsu, strata = ~ sdmvstra, weight = ~ wtmec4yr_adj,
+6	279	801	data = nhanes2, nest = TRUE)
+6	149	893	# Calculate mean (SE) and 95% CI's for cpm_diff for ages 6 to 18 years
+6	149	910	mean.diff <- svyby(~ cpm_diff, by = ~ ridageyr, design = subset(hanes, ridageyr <= 18),
+6	279	926	FUN = svymean, na.rm = TRUE)
+6	149	943	ci <- confint(mean.diff)
+6	149	975	# Plot means and CI's for cpm_diff by age
+6	149	992	plot(x = 6:18, y = mean.diff[, 2], main = "CPM on Weekdays vs. Weekends",
+6	183	1008	ylim = c(-30, 30), pch = 19, ylab = "Perc. diff. (mean +/- 95% CI)",
+6	183	1025	xlab = "Age (years)", cex = 0.8, cex.axis = 0.85, cex.main = 1.5,
+6	183	1041	cex.lab = 1.1, xaxt = "n")
+6	149	1058	axis(side = 1, at = 6:18, cex.axis = 0.85)
+6	149	1074	segments(x0 = 6:18, y0 = ci[, 1], x1 = 6:18, y1 = ci[, 2], lwd = 1.3)
+6	149	1091	abline(h = 0, lty = 2)
+7	149	719	# Process NHANES 2003-2006 data with four non-default inputs
+7	149	735	nhanes3 <- nhanes.accel.process(brevity = 3, valid.days = 4, nonwear.window = 90,
+7	368	752	weekday.weekend = TRUE)
+7	149	844	# Specify count cut-points for moderate and vigorous intensity in youth
+7	149	861	youthmod <- c(1400, 1515, 1638, 1770, 1910, 2059, 2220, 2393, 2580, 2781, 3000, 3239)
+7	149	877	youthvig <- c(3758, 3947, 4147, 4360, 4588, 4832, 5094, 5375, 5679, 6007, 6363, 6751)
+7	149	910	# Process NHANES 2003-2006 data using NCI's methods
+7	149	927	nci1 <- nhanes.accel.process(waves = 3, brevity = 2, valid.days = 4,
+7	348	943	youth.mod.cuts = youthmod, youth.vig.cuts = youthvig,
+7	348	959	cpm.nci = TRUE, days.distinct = TRUE, nonwear.tol = 2,
+7	348	976	nonwear.tol.upper = 100, nonwear.nci = TRUE,
+7	348	992	weartime.maximum = 1440, active.bout.tol = 2,
+7	348	1009	active.bout.nci = TRUE, artifact.thresh = 32767,
+7	348	1025	artifact.action = 3)
+7	149	1058	# Repeat, but use nci.methods input for convenience
+7	149	1075	nci2 <- nhanes.accel.process(waves = 3, brevity = 2, nci.methods = TRUE)
+7	149	1107	# Verify that nci1 and nci2 are equivalent
+7	149	1124	all(nci1 == nci2, na.rm = TRUE)

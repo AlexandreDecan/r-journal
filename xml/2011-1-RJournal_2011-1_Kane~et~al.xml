@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+<text top="67" left="82" width="15" height="15" font="0">64</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="718" height="36" font="2"><b>Analyzing an Electronic Limit Order Book</b></text>
+<text top="173" left="82" width="297" height="15" font="0">by David Kane, Andrew Liu, and Khanh Nguyen</text>
+<text top="209" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="209" left="165" width="250" height="15" font="0">The <b>orderbook </b>package provides fa-</text>
+<text top="226" left="96" width="319" height="15" font="0">cilities for exploring and visualizing the data</text>
+<text top="244" left="96" width="319" height="15" font="0">associated with an order book: the electronic</text>
+<text top="262" left="96" width="319" height="15" font="0">collection of the outstanding limit orders for a</text>
+<text top="280" left="96" width="319" height="15" font="0">financial instrument. This article provides an</text>
+<text top="298" left="96" width="319" height="15" font="0">overview of the <b>orderbook </b>package and exam-</text>
+<text top="316" left="96" width="93" height="15" font="0">ples of its use.</text>
+<text top="370" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="411" left="82" width="25" height="15" font="0">The</text>
+<text top="411" left="115" width="71" height="15" font="5"><a href="http://cran.r-project.org/package=orderbook"><b>orderbook</b></a></text>
+<text top="411" left="194" width="235" height="15" font="0">package provides facilities for ex-</text>
+<text top="429" left="82" width="346" height="15" font="0">ploring and visualizing the data associated with an</text>
+<text top="447" left="82" width="346" height="15" font="0">order book: the electronic collection of the outstand-</text>
+<text top="465" left="82" width="346" height="15" font="0">ing limit orders for a financial instrument, e.g. a</text>
+<text top="483" left="82" width="346" height="15" font="0">stock. A limit order is an order to buy or sell a given</text>
+<text top="501" left="82" width="346" height="15" font="0">quantity of stock at a specified limit price or better.</text>
+<text top="519" left="82" width="346" height="15" font="0">The size is the number of shares to be bought or sold.</text>
+<text top="537" left="82" width="346" height="15" font="0">An order remains in the order book until fully exe-</text>
+<text top="555" left="82" width="346" height="15" font="0">cuted, i.e. until its size is zero as a result of trades.</text>
+<text top="572" left="82" width="346" height="15" font="0">Partial executions occur as a result of trades for less</text>
+<text top="590" left="82" width="209" height="15" font="0">than the entire size of the order.</text>
+<text top="610" left="105" width="324" height="15" font="0">Consider a simple order book containing five</text>
+<text top="628" left="82" width="346" height="15" font="0">limit orders: sell 150 shares of IBM at $11.11, sell</text>
+<text top="646" left="82" width="346" height="15" font="0">150 shares of IBM at $11.08, buy 100 shares of IBM</text>
+<text top="663" left="82" width="346" height="15" font="0">at $11.05, buy 200 shares of IBM at $11.05, and buy</text>
+<text top="681" left="82" width="181" height="15" font="0">200 shares of IBM at $11.01.</text>
+<text top="722" left="212" width="38" height="12" font="0">Price</text>
+<text top="722" left="326" width="61" height="12" font="0">Ask Size</text>
+<text top="758" left="212" width="46" height="12" font="0">$11.11</text>
+<text top="758" left="326" width="23" height="12" font="0">150</text>
+<text top="776" left="212" width="46" height="12" font="0">$11.08</text>
+<text top="776" left="326" width="23" height="12" font="0">100</text>
+<text top="794" left="121" width="23" height="12" font="0">300</text>
+<text top="794" left="212" width="46" height="12" font="0">$11.05</text>
+<text top="812" left="121" width="23" height="12" font="0">200</text>
+<text top="812" left="212" width="46" height="12" font="0">$11.01</text>
+<text top="848" left="82" width="61" height="12" font="0">Bid Size</text>
+<text top="848" left="212" width="38" height="12" font="0">Price</text>
+<text top="885" left="82" width="346" height="15" font="0">Orders on the bid (ask ) side represent orders to buy</text>
+<text top="903" left="82" width="346" height="15" font="0">(sell). The price levels are $11.11, $11.08, $11.05, and</text>
+<text top="921" left="82" width="346" height="15" font="0">$11.01. The best bid at $11.05 (highest bid price) and</text>
+<text top="939" left="82" width="346" height="15" font="0">the best ask at $11.08 (lowest ask price) make up the</text>
+<text top="957" left="82" width="346" height="15" font="0">inside market . The spread ($0.03) is the difference</text>
+<text top="974" left="82" width="346" height="15" font="0">between the best bid and best ask. The midpoint</text>
+<text top="992" left="82" width="339" height="15" font="0">($11.065) is the average of the best bid and best ask.</text>
+<text top="1012" left="105" width="324" height="15" font="0">There are four types of messages that traders</text>
+<text top="1030" left="82" width="346" height="15" font="0">can submit to an order book: add , cancel , can-</text>
+<text top="1048" left="82" width="346" height="15" font="0">cel/replace, and market order. A trader can add a</text>
+<text top="1065" left="82" width="346" height="15" font="0">limit order in to the order book. She can also can-</text>
+<text top="1083" left="82" width="346" height="15" font="0">cel an order and remove it from the order book. If</text>
+<text top="1101" left="82" width="346" height="15" font="0">a trader wants to reduce the size of her order, she</text>
+<text top="1119" left="82" width="346" height="15" font="0">can issue a cancel/replace, which cancels the order,</text>
+<text top="1137" left="82" width="346" height="15" font="0">then immediately replaces it with another order at</text>
+<text top="1155" left="82" width="346" height="15" font="0">the same price, but with a lower size. Every limit</text>
+<text top="1173" left="82" width="346" height="15" font="0">order is assigned a unique ID so that cancel and</text>
+<text top="173" left="459" width="346" height="15" font="0">cancel/replace orders can identify the correspond-</text>
+<text top="191" left="459" width="346" height="15" font="0">ing limit order. A market order is an order to im-</text>
+<text top="209" left="459" width="346" height="15" font="0">mediately buy or sell a quantity of stock at the best</text>
+<text top="227" left="459" width="346" height="15" font="0">available prices. A trade occurs when a market or-</text>
+<text top="245" left="459" width="346" height="15" font="0">der “hits” a limit order on the other side of the inside</text>
+<text top="262" left="459" width="51" height="15" font="0">market.</text>
+<text top="281" left="481" width="324" height="15" font="0">All orders have timestamps indicating the time at</text>
+<text top="299" left="459" width="346" height="15" font="0">which they were accepted into the order book. The</text>
+<text top="317" left="459" width="346" height="15" font="0">timestamp determines the time priority of an order.</text>
+<text top="335" left="459" width="346" height="15" font="0">Earlier orders are executed before later orders. For</text>
+<text top="352" left="459" width="346" height="15" font="0">example, suppose that the order to buy 100 shares</text>
+<text top="370" left="459" width="346" height="15" font="0">at $11.05 was submitted before the order to buy 200</text>
+<text top="388" left="459" width="346" height="15" font="0">shares at $11.05. Now suppose a market order sell-</text>
+<text top="406" left="459" width="346" height="15" font="0">ing 200 shares is submitted to the order book. The</text>
+<text top="424" left="459" width="346" height="15" font="0">limit order for 100 shares will be executed because it</text>
+<text top="442" left="459" width="346" height="15" font="0">is at the front of the queue at the best bid. Then, 100</text>
+<text top="460" left="459" width="346" height="15" font="0">shares of the order with 200 total shares will be exe-</text>
+<text top="478" left="459" width="346" height="15" font="0">cuted, since it was second in the queue. 100 shares</text>
+<text top="496" left="459" width="346" height="15" font="0">of the 200 share order remain in the order book at</text>
+<text top="514" left="459" width="45" height="15" font="0">$11.05.</text>
+<text top="532" left="481" width="324" height="15" font="0">A market order for more shares than the size at</text>
+<text top="550" left="459" width="346" height="15" font="0">the inside market will execute at worse price levels</text>
+<text top="568" left="459" width="346" height="15" font="0">until it is complete. For example, if a market order to</text>
+<text top="586" left="459" width="346" height="15" font="0">buy 200 shares is submitted to the order book, the or-</text>
+<text top="604" left="459" width="346" height="15" font="0">der at $11.08 will be fully executed. Since there are no</text>
+<text top="622" left="459" width="346" height="15" font="0">more shares available at that price level, 100 shares at</text>
+<text top="640" left="459" width="346" height="15" font="0">the $11.11 price level will be transacted to complete</text>
+<text top="658" left="459" width="346" height="15" font="0">the market order. An order to sell 50 shares at $11.11</text>
+<text top="676" left="459" width="346" height="15" font="0">will remain in the order book. Executing these two</text>
+<text top="694" left="459" width="346" height="15" font="0">market orders (a sell of 200 shares and a buy of 200</text>
+<text top="711" left="459" width="346" height="15" font="0">shares) on our hypothetical order book results in a</text>
+<text top="729" left="459" width="190" height="15" font="0">new state for the order book.</text>
+<text top="765" left="588" width="38" height="12" font="0">Price</text>
+<text top="765" left="703" width="61" height="12" font="0">Ask Size</text>
+<text top="801" left="588" width="46" height="12" font="0">$11.11</text>
+<text top="801" left="703" width="15" height="12" font="0">50</text>
+<text top="819" left="497" width="23" height="12" font="0">100</text>
+<text top="819" left="588" width="46" height="12" font="0">$11.05</text>
+<text top="837" left="497" width="23" height="12" font="0">200</text>
+<text top="837" left="588" width="46" height="12" font="0">$11.01</text>
+<text top="873" left="459" width="61" height="12" font="0">Bid Size</text>
+<text top="873" left="588" width="38" height="12" font="0">Price</text>
+<text top="906" left="481" width="324" height="15" font="0">Note that cancel/replace orders can lower the</text>
+<text top="924" left="459" width="346" height="15" font="0">size of an order, but not increase it. Cancel/replace</text>
+<text top="942" left="459" width="346" height="15" font="0">orders maintain the time priority of the original or-</text>
+<text top="960" left="459" width="346" height="15" font="0">der, so if size increases were allowed, traders with</text>
+<text top="977" left="459" width="346" height="15" font="0">orders at the highest time priority for a price level</text>
+<text top="995" left="459" width="346" height="15" font="0">could perpetually increase the size of their order, pre-</text>
+<text top="1013" left="459" width="346" height="15" font="0">venting others from being able to transact stock us-</text>
+<text top="1031" left="459" width="247" height="15" font="0">ing limit orders at that price level. See</text>
+<text top="1031" left="709" width="54" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Johnson</a></text>
+<text top="1031" left="765" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="1031" left="770" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2010</a></text>
+<text top="1031" left="800" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">)</a></text>
+<text top="1049" left="459" width="229" height="15" font="0">for more details on the order book.</text>
+<text top="1098" left="459" width="85" height="21" font="4"><b>Example</b></text>
+<text top="1137" left="459" width="346" height="15" font="0">NVIDIA is a graphics processing unit and chipset de-</text>
+<text top="1155" left="459" width="346" height="15" font="0">veloper with ticker symbol NVDA. Consider the or-</text>
+<text top="1173" left="459" width="346" height="15" font="0">der book for NVDA at a leading electronic exchange</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="9" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="3" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">65</text>
+<text top="125" left="82" width="346" height="15" font="0">on June 8, 2010. We create the orderbook object by</text>
+<text top="143" left="82" width="253" height="15" font="0">specifying the location of our data file.</text>
+<text top="174" left="82" width="137" height="10" font="7">&gt; library(orderbook)</text>
+<text top="190" left="82" width="247" height="10" font="7">&gt; filename &lt;- system.file(&#34;extdata&#34;,</text>
+<text top="207" left="82" width="7" height="10" font="7">+</text>
+<text top="207" left="261" width="89" height="10" font="7">&#34;sample.txt&#34;,</text>
+<text top="223" left="82" width="7" height="10" font="7">+</text>
+<text top="223" left="261" width="151" height="10" font="7">package = &#34;orderbook&#34;)</text>
+<text top="240" left="82" width="233" height="10" font="7">&gt; ob &lt;- orderbook(file = filename)</text>
+<text top="256" left="82" width="206" height="10" font="7">&gt; ob &lt;- read.orders(ob, 10000)</text>
+<text top="285" left="82" width="27" height="10" font="7">&gt; ob</text>
+<text top="314" left="82" width="261" height="10" font="7">An object of class orderbook (default)</text>
+<text top="330" left="82" width="178" height="10" font="7">--------------------------</text>
+<text top="346" left="82" width="158" height="10" font="7">Current orderbook time:</text>
+<text top="346" left="268" width="55" height="10" font="7">09:35:02</text>
+<text top="363" left="82" width="96" height="10" font="7">Message Index:</text>
+<text top="363" left="268" width="41" height="10" font="7">10,000</text>
+<text top="379" left="82" width="75" height="10" font="7">Bid Orders:</text>
+<text top="379" left="268" width="21" height="10" font="7">631</text>
+<text top="396" left="82" width="75" height="10" font="7">Ask Orders:</text>
+<text top="396" left="268" width="34" height="10" font="7">1,856</text>
+<text top="412" left="82" width="89" height="10" font="7">Total Orders:</text>
+<text top="412" left="268" width="34" height="10" font="7">2,487</text>
+<text top="440" left="105" width="324" height="15" font="0">We read in the first 10,000 messages then show the</text>
+<text top="458" left="82" width="346" height="15" font="0">object. The current time is 9:35:02 AM. This is the</text>
+<text top="476" left="82" width="346" height="15" font="0">time of the last message read. The message index in-</text>
+<text top="494" left="82" width="346" height="15" font="0">dicates which row in the data file the object has read</text>
+<text top="512" left="82" width="346" height="15" font="0">through. The display also shows that there are 631</text>
+<text top="530" left="82" width="346" height="15" font="0">bids and 1,856 asks outstanding, for a total of 2,487</text>
+<text top="548" left="82" width="346" height="15" font="0">orders. This indicates that many earlier orders have</text>
+<text top="566" left="82" width="310" height="15" font="0">been removed through either cancels or trades.</text>
+<text top="597" left="82" width="89" height="10" font="7">&gt; summary(ob)</text>
+<text top="625" left="82" width="165" height="10" font="7">Current time is 09:35:02</text>
+<text top="658" left="82" width="117" height="10" font="7">Ask price levels:</text>
+<text top="658" left="220" width="21" height="10" font="7">540</text>
+<text top="675" left="82" width="117" height="10" font="7">Bid price levels:</text>
+<text top="675" left="220" width="21" height="10" font="7">179</text>
+<text top="691" left="82" width="158" height="10" font="7">Total price levels: 719</text>
+<text top="707" left="82" width="199" height="10" font="7">-----------------------------</text>
+<text top="724" left="82" width="75" height="10" font="7">Ask orders:</text>
+<text top="724" left="220" width="34" height="10" font="7">1,856</text>
+<text top="740" left="82" width="75" height="10" font="7">Bid orders:</text>
+<text top="740" left="220" width="21" height="10" font="7">631</text>
+<text top="757" left="82" width="89" height="10" font="7">Total orders:</text>
+<text top="757" left="220" width="34" height="10" font="7">2,487</text>
+<text top="773" left="82" width="199" height="10" font="7">-----------------------------</text>
+<text top="790" left="82" width="48" height="10" font="7">Spread:</text>
+<text top="790" left="220" width="27" height="10" font="7">0.02</text>
+<text top="823" left="82" width="69" height="10" font="7">Mid point:</text>
+<text top="823" left="220" width="34" height="10" font="7">11.37</text>
+<text top="839" left="82" width="199" height="10" font="7">-----------------------------</text>
+<text top="855" left="82" width="89" height="10" font="7">Inside market</text>
+<text top="888" left="82" width="62" height="10" font="7">Best Bid:</text>
+<text top="888" left="220" width="34" height="10" font="7">11.36</text>
+<text top="905" left="82" width="34" height="10" font="7">Size:</text>
+<text top="905" left="220" width="34" height="10" font="7">2,700</text>
+<text top="938" left="82" width="62" height="10" font="7">Best Ask:</text>
+<text top="938" left="220" width="34" height="10" font="7">11.38</text>
+<text top="954" left="82" width="34" height="10" font="7">Size:</text>
+<text top="954" left="220" width="21" height="10" font="7">400</text>
+<text top="982" left="105" width="324" height="15" font="0">Using summary the total order information from</text>
+<text top="1001" left="82" width="30" height="12" font="0">show</text>
+<text top="1000" left="117" width="312" height="15" font="0">is repeated. Additionally, we see that there are</text>
+<text top="1018" left="82" width="346" height="15" font="0">540 ask and 179 bid price levels, for a total of 719.</text>
+<text top="1036" left="82" width="346" height="15" font="0">This indicates that many orders have been submitted</text>
+<text top="1054" left="82" width="346" height="15" font="0">at the same price level. The spread is $0.02, and the</text>
+<text top="1072" left="82" width="346" height="15" font="0">midpoint is $11.37. The inside market is composed</text>
+<text top="1090" left="82" width="346" height="15" font="0">of 2,700 shares offered at the best bid of $11.36 and</text>
+<text top="1108" left="82" width="281" height="15" font="0">400 shares offered at the best ask of $11.38.</text>
+<text top="127" left="459" width="89" height="10" font="7">&gt; display(ob)</text>
+<text top="159" left="459" width="165" height="10" font="7">Current time is 09:35:02</text>
+<text top="192" left="575" width="34" height="10" font="7">Price</text>
+<text top="192" left="678" width="55" height="10" font="7">Ask Size</text>
+<text top="208" left="459" width="309" height="10" font="7">---------------------------------------------</text>
+<text top="224" left="575" width="34" height="10" font="7">11.42</text>
+<text top="224" left="678" width="21" height="10" font="7">900</text>
+<text top="241" left="575" width="34" height="10" font="7">11.41</text>
+<text top="241" left="678" width="34" height="10" font="7">1,400</text>
+<text top="257" left="575" width="34" height="10" font="7">11.40</text>
+<text top="257" left="678" width="34" height="10" font="7">1,205</text>
+<text top="274" left="575" width="34" height="10" font="7">11.39</text>
+<text top="274" left="678" width="34" height="10" font="7">1,600</text>
+<text top="290" left="575" width="34" height="10" font="7">11.38</text>
+<text top="290" left="678" width="21" height="10" font="7">400</text>
+<text top="307" left="459" width="309" height="10" font="7">---------------------------------------------</text>
+<text top="323" left="473" width="34" height="10" font="7">2,700</text>
+<text top="323" left="575" width="34" height="10" font="7">11.36</text>
+<text top="340" left="473" width="34" height="10" font="7">1,100</text>
+<text top="340" left="575" width="34" height="10" font="7">11.35</text>
+<text top="356" left="473" width="34" height="10" font="7">1,100</text>
+<text top="356" left="575" width="34" height="10" font="7">11.34</text>
+<text top="372" left="473" width="34" height="10" font="7">1,600</text>
+<text top="372" left="575" width="34" height="10" font="7">11.33</text>
+<text top="389" left="486" width="21" height="10" font="7">700</text>
+<text top="389" left="575" width="34" height="10" font="7">11.32</text>
+<text top="405" left="459" width="309" height="10" font="7">---------------------------------------------</text>
+<text top="422" left="459" width="55" height="10" font="7">Bid Size</text>
+<text top="422" left="582" width="34" height="10" font="7">Price</text>
+<text top="454" left="481" width="53" height="12" font="0">display</text>
+<text top="452" left="539" width="267" height="15" font="0">shows the inside market, along with the</text>
+<text top="470" left="459" width="346" height="15" font="0">four next best bid and ask price levels and the size at</text>
+<text top="488" left="459" width="106" height="15" font="0">each price level.</text>
+<text top="516" left="459" width="69" height="10" font="7">&gt; plot(ob)</text>
+<text top="547" left="572" width="119" height="10" font="8"><b>Order Book − 09:35:02</b></text>
+<text top="868" left="609" width="58" height="9" font="9">Size (Shares)</text>
+<text top="707" left="475" width="0" height="9" font="10">Pr</text>
+<text top="697" left="475" width="0" height="9" font="10">ice</text>
+<text top="816" left="485" width="20" height="7" font="11">10.20</text>
+<text top="796" left="485" width="20" height="7" font="11">10.40</text>
+<text top="776" left="485" width="20" height="7" font="11">10.60</text>
+<text top="757" left="485" width="20" height="7" font="11">10.80</text>
+<text top="737" left="485" width="20" height="7" font="11">11.00</text>
+<text top="717" left="485" width="20" height="7" font="11">11.20</text>
+<text top="701" left="485" width="20" height="7" font="11">11.36</text>
+<text top="850" left="604" width="16" height="7" font="12">10000</text>
+<text top="850" left="583" width="16" height="7" font="12">20000</text>
+<text top="850" left="562" width="16" height="7" font="12">30000</text>
+<text top="850" left="542" width="16" height="7" font="12">40000</text>
+<text top="850" left="521" width="16" height="7" font="12">50000</text>
+<text top="850" left="500" width="16" height="7" font="12">60000</text>
+<text top="811" left="635" width="4" height="5" font="13">●</text>
+<text top="808" left="636" width="4" height="5" font="13">●</text>
+<text top="806" left="635" width="4" height="5" font="13">●</text>
+<text top="805" left="635" width="4" height="5" font="13">●</text>
+<text top="800" left="635" width="4" height="5" font="13">●</text>
+<text top="798" left="633" width="6" height="5" font="13">●●</text>
+<text top="796" left="635" width="4" height="5" font="13">●</text>
+<text top="794" left="634" width="6" height="5" font="13">●●</text>
+<text top="791" left="631" width="8" height="5" font="13">●●</text>
+<text top="789" left="636" width="4" height="5" font="13">●</text>
+<text top="788" left="630" width="8" height="5" font="13">●●</text>
+<text top="787" left="569" width="4" height="5" font="13">●</text>
+<text top="786" left="636" width="4" height="5" font="13">●</text>
+<text top="785" left="634" width="4" height="5" font="13">●</text>
+<text top="784" left="634" width="4" height="5" font="13">●</text>
+<text top="783" left="635" width="4" height="5" font="13">●</text>
+<text top="782" left="635" width="4" height="5" font="13">●</text>
+<text top="781" left="635" width="4" height="5" font="13">●</text>
+<text top="780" left="633" width="4" height="5" font="13">●</text>
+<text top="779" left="631" width="4" height="5" font="13">●</text>
+<text top="777" left="630" width="4" height="5" font="13">●</text>
+<text top="774" left="635" width="4" height="5" font="13">●</text>
+<text top="773" left="636" width="4" height="5" font="13">●</text>
+<text top="772" left="633" width="4" height="5" font="13">●</text>
+<text top="771" left="632" width="6" height="5" font="13">●●</text>
+<text top="769" left="635" width="4" height="5" font="13">●</text>
+<text top="767" left="633" width="4" height="5" font="13">●</text>
+<text top="762" left="631" width="9" height="5" font="13">●●</text>
+<text top="760" left="631" width="4" height="5" font="13">●</text>
+<text top="759" left="623" width="4" height="5" font="13">●</text>
+<text top="758" left="635" width="4" height="5" font="13">●</text>
+<text top="757" left="619" width="4" height="5" font="13">●</text>
+<text top="756" left="634" width="4" height="5" font="13">●</text>
+<text top="754" left="633" width="6" height="5" font="13">●●</text>
+<text top="750" left="635" width="4" height="5" font="13">●</text>
+<text top="749" left="633" width="4" height="5" font="13">●</text>
+<text top="748" left="626" width="7" height="5" font="13">●●</text>
+<text top="745" left="636" width="4" height="5" font="13">●</text>
+<text top="743" left="636" width="4" height="5" font="13">●</text>
+<text top="742" left="636" width="4" height="5" font="13">●</text>
+<text top="741" left="633" width="4" height="5" font="13">●</text>
+<text top="737" left="585" width="4" height="5" font="13">●</text>
+<text top="736" left="532" width="4" height="5" font="13">●</text>
+<text top="735" left="630" width="10" height="5" font="13">● ●</text>
+<text top="732" left="631" width="8" height="5" font="13">●●</text>
+<text top="730" left="634" width="4" height="5" font="13">●</text>
+<text top="729" left="631" width="4" height="5" font="13">●</text>
+<text top="728" left="631" width="4" height="5" font="13">●</text>
+<text top="727" left="631" width="4" height="5" font="13">●</text>
+<text top="726" left="626" width="14" height="5" font="13">●● ●</text>
+<text top="723" left="635" width="4" height="5" font="13">●</text>
+<text top="722" left="629" width="10" height="5" font="13">● ●</text>
+<text top="720" left="618" width="4" height="5" font="13">●</text>
+<text top="718" left="632" width="8" height="5" font="13">●●</text>
+<text top="716" left="589" width="4" height="5" font="13">●</text>
+<text top="715" left="630" width="8" height="5" font="13">●●</text>
+<text top="713" left="593" width="4" height="5" font="13">●</text>
+<text top="712" left="625" width="13" height="5" font="13">●● ●</text>
+<text top="709" left="605" width="4" height="5" font="13">●</text>
+<text top="708" left="634" width="4" height="5" font="13">●</text>
+<text top="707" left="633" width="4" height="5" font="13">●</text>
+<text top="706" left="634" width="4" height="5" font="13">●</text>
+<text top="705" left="633" width="4" height="5" font="13">●</text>
+<text top="704" left="634" width="4" height="5" font="13">●</text>
+<text top="703" left="634" width="4" height="5" font="13">●</text>
+<text top="702" left="630" width="4" height="5" font="13">●</text>
+<text top="567" left="568" width="16" height="9" font="9">BID</text>
+<text top="838" left="637" width="3" height="7" font="12">0</text>
+<text top="850" left="645" width="119" height="7" font="12">10000 20000 30000 40000 50000 60000</text>
+<text top="699" left="771" width="20" height="7" font="11">11.38</text>
+<text top="678" left="771" width="20" height="7" font="11">11.60</text>
+<text top="658" left="771" width="20" height="7" font="11">11.80</text>
+<text top="638" left="771" width="20" height="7" font="11">12.00</text>
+<text top="619" left="771" width="20" height="7" font="11">12.20</text>
+<text top="599" left="771" width="20" height="7" font="11">12.40</text>
+<text top="579" left="771" width="20" height="7" font="11">12.60</text>
+<text top="700" left="637" width="7" height="5" font="13">●●</text>
+<text top="698" left="638" width="4" height="5" font="13">●</text>
+<text top="697" left="639" width="4" height="5" font="13">●</text>
+<text top="696" left="638" width="12" height="5" font="13">● ●</text>
+<text top="694" left="637" width="11" height="5" font="13">● ●</text>
+<text top="692" left="639" width="4" height="5" font="13">●</text>
+<text top="691" left="638" width="4" height="5" font="13">●</text>
+<text top="690" left="636" width="12" height="5" font="13">● ●</text>
+<text top="688" left="638" width="4" height="5" font="13">●</text>
+<text top="687" left="636" width="16" height="5" font="13">● ● ●</text>
+<text top="684" left="636" width="4" height="5" font="13">●</text>
+<text top="683" left="659" width="4" height="5" font="13">●</text>
+<text top="682" left="636" width="4" height="5" font="13">●</text>
+<text top="681" left="649" width="4" height="5" font="13">●</text>
+<text top="679" left="648" width="4" height="5" font="13">●</text>
+<text top="678" left="640" width="7" height="5" font="13">●●</text>
+<text top="675" left="636" width="4" height="5" font="13">●</text>
+<text top="674" left="650" width="4" height="5" font="13">●</text>
+<text top="673" left="638" width="4" height="5" font="13">●</text>
+<text top="671" left="655" width="4" height="5" font="13">●</text>
+<text top="670" left="638" width="4" height="5" font="13">●</text>
+<text top="668" left="638" width="4" height="5" font="13">●</text>
+<text top="664" left="637" width="4" height="5" font="13">●</text>
+<text top="663" left="636" width="4" height="5" font="13">●</text>
+<text top="662" left="636" width="4" height="5" font="13">●</text>
+<text top="660" left="636" width="4" height="5" font="13">●</text>
+<text top="659" left="657" width="4" height="5" font="13">●</text>
+<text top="658" left="637" width="4" height="5" font="13">●</text>
+<text top="653" left="650" width="4" height="5" font="13">●</text>
+<text top="651" left="668" width="4" height="5" font="13">●</text>
+<text top="650" left="644" width="4" height="5" font="13">●</text>
+<text top="648" left="636" width="4" height="5" font="13">●</text>
+<text top="644" left="640" width="4" height="5" font="13">●</text>
+<text top="643" left="638" width="9" height="5" font="13">● ●</text>
+<text top="639" left="643" width="4" height="5" font="13">●</text>
+<text top="637" left="640" width="4" height="5" font="13">●</text>
+<text top="636" left="639" width="4" height="5" font="13">●</text>
+<text top="634" left="640" width="4" height="5" font="13">●</text>
+<text top="631" left="638" width="4" height="5" font="13">●</text>
+<text top="630" left="648" width="4" height="5" font="13">●</text>
+<text top="629" left="637" width="4" height="5" font="13">●</text>
+<text top="625" left="640" width="4" height="5" font="13">●</text>
+<text top="624" left="636" width="4" height="5" font="13">●</text>
+<text top="621" left="680" width="4" height="5" font="13">●</text>
+<text top="614" left="645" width="4" height="5" font="13">●</text>
+<text top="609" left="638" width="4" height="5" font="13">●</text>
+<text top="607" left="637" width="4" height="5" font="13">●</text>
+<text top="606" left="636" width="4" height="5" font="13">●</text>
+<text top="604" left="637" width="4" height="5" font="13">●</text>
+<text top="602" left="636" width="4" height="5" font="13">●</text>
+<text top="601" left="636" width="4" height="5" font="13">●</text>
+<text top="600" left="685" width="4" height="5" font="13">●</text>
+<text top="599" left="637" width="4" height="5" font="13">●</text>
+<text top="597" left="682" width="4" height="5" font="13">●</text>
+<text top="591" left="638" width="4" height="5" font="13">●</text>
+<text top="590" left="638" width="4" height="5" font="13">●</text>
+<text top="589" left="652" width="4" height="5" font="13">●</text>
+<text top="567" left="690" width="19" height="9" font="9">ASK</text>
+<text top="910" left="481" width="30" height="12" font="0">plot</text>
+<text top="908" left="520" width="286" height="15" font="0">is a graphical representation of display.</text>
+<text top="926" left="459" width="346" height="15" font="0">Price levels are on the y-axis, and size is on the x-axis.</text>
+<text top="944" left="459" width="346" height="15" font="0">The maximum and minimum price levels displayed</text>
+<text top="962" left="459" width="346" height="15" font="0">by default are 10% above and below the midpoint.</text>
+<text top="980" left="459" width="346" height="15" font="0">Note the large number of shares at $11.01. It is help-</text>
+<text top="998" left="459" width="346" height="15" font="0">ful to know the number of orders which make up the</text>
+<text top="1016" left="459" width="346" height="15" font="0">large size at that price level. Using the &#34;[&#34; method</text>
+<text top="1034" left="459" width="346" height="15" font="0">we can view the order information at particular price</text>
+<text top="1052" left="459" width="42" height="15" font="0">levels.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="7" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">66</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="89" height="10" font="7">&gt; ob[&#34;11.01&#34;]</text>
+<text top="165" left="96" width="34" height="10" font="7">price</text>
+<text top="165" left="144" width="62" height="10" font="7">size type</text>
+<text top="165" left="240" width="27" height="10" font="7">time</text>
+<text top="165" left="309" width="14" height="10" font="7">id</text>
+<text top="181" left="82" width="48" height="10" font="7">1 11.01</text>
+<text top="181" left="151" width="21" height="10" font="7">109</text>
+<text top="181" left="185" width="137" height="10" font="7">BID 34220988 4403084</text>
+<text top="198" left="82" width="89" height="10" font="7">2 11.01 50000</text>
+<text top="198" left="185" width="137" height="10" font="7">BID 34220988 4403085</text>
+<text top="214" left="82" width="48" height="10" font="7">3 11.01</text>
+<text top="214" left="151" width="21" height="10" font="7">100</text>
+<text top="214" left="185" width="137" height="10" font="7">BID 34220988 4403086</text>
+<text top="253" left="105" width="324" height="15" font="0">There is an order for 50,000 shares at the $11.01</text>
+<text top="271" left="82" width="346" height="15" font="0">price level that accounts for almost all of the size. We</text>
+<text top="288" left="82" width="346" height="15" font="0">can view a plot of the number of orders rather than</text>
+<text top="306" left="82" width="346" height="15" font="0">the number of shares at each price level by specifying</text>
+<text top="326" left="82" width="76" height="12" font="0">type = ’o’</text>
+<text top="324" left="164" width="265" height="15" font="0">when using plot. In the previous plot</text>
+<text top="342" left="82" width="346" height="15" font="0">the maximum and minimum price levels were 10%</text>
+<text top="360" left="82" width="346" height="15" font="0">off from the midpoint, but for this plot we specify a</text>
+<text top="378" left="82" width="126" height="15" font="0">range of only 3.3%.</text>
+<text top="398" left="105" width="324" height="15" font="0">Note the large number of orders at $11.00. The</text>
+<text top="417" left="82" width="23" height="12" font="0">&#34;[&#34;</text>
+<text top="416" left="108" width="321" height="15" font="0">method returns a data.frame, so we can use nrow</text>
+<text top="434" left="82" width="266" height="15" font="0">to return the number of orders at $11.00.</text>
+<text top="476" left="82" width="130" height="10" font="7">&gt; nrow(ob[&#34;11.00&#34;])</text>
+<text top="513" left="82" width="41" height="10" font="7">[1] 56</text>
+<text top="552" left="105" width="324" height="15" font="0">There are 56 orders at that price level, which con-</text>
+<text top="570" left="82" width="195" height="15" font="0">firms what we see in the plot.</text>
+<text top="599" left="82" width="263" height="10" font="7">&gt; plot(ob, bounds = 0.033, type = 'o')</text>
+<text top="631" left="196" width="119" height="10" font="8"><b>Order Book − 09:35:02</b></text>
+<text top="951" left="223" width="77" height="9" font="9">Number of Orders</text>
+<text top="797" left="99" width="0" height="9" font="10">Pr</text>
+<text top="788" left="99" width="0" height="9" font="10">ice</text>
+<text top="907" left="108" width="20" height="7" font="11">11.00</text>
+<text top="876" left="108" width="20" height="7" font="11">11.10</text>
+<text top="844" left="108" width="20" height="7" font="11">11.20</text>
+<text top="812" left="108" width="20" height="7" font="11">11.30</text>
+<text top="793" left="108" width="20" height="7" font="11">11.36</text>
+<text top="936" left="236" width="9" height="7" font="11">10</text>
+<text top="936" left="216" width="9" height="7" font="11">20</text>
+<text top="936" left="195" width="9" height="7" font="11">30</text>
+<text top="936" left="174" width="9" height="7" font="11">40</text>
+<text top="936" left="154" width="9" height="7" font="11">50</text>
+<text top="936" left="133" width="9" height="7" font="11">60</text>
+<text top="908" left="144" width="4" height="5" font="13">●</text>
+<text top="905" left="253" width="4" height="5" font="13">●</text>
+<text top="901" left="253" width="4" height="5" font="13">●</text>
+<text top="895" left="257" width="4" height="5" font="13">●</text>
+<text top="892" left="239" width="4" height="5" font="13">●</text>
+<text top="889" left="255" width="4" height="5" font="13">●</text>
+<text top="886" left="255" width="4" height="5" font="13">●</text>
+<text top="882" left="249" width="4" height="5" font="13">●</text>
+<text top="879" left="251" width="4" height="5" font="13">●</text>
+<text top="876" left="247" width="4" height="5" font="13">●</text>
+<text top="873" left="247" width="4" height="5" font="13">●</text>
+<text top="870" left="253" width="4" height="5" font="13">●</text>
+<text top="867" left="257" width="4" height="5" font="13">●</text>
+<text top="863" left="257" width="4" height="5" font="13">●</text>
+<text top="860" left="251" width="4" height="5" font="13">●</text>
+<text top="857" left="253" width="4" height="5" font="13">●</text>
+<text top="854" left="255" width="4" height="5" font="13">●</text>
+<text top="844" left="249" width="4" height="5" font="13">●</text>
+<text top="841" left="255" width="4" height="5" font="13">●</text>
+<text top="838" left="253" width="4" height="5" font="13">●</text>
+<text top="835" left="253" width="4" height="5" font="13">●</text>
+<text top="832" left="253" width="4" height="5" font="13">●</text>
+<text top="829" left="214" width="4" height="5" font="13">●</text>
+<text top="825" left="253" width="4" height="5" font="13">●</text>
+<text top="822" left="251" width="4" height="5" font="13">●</text>
+<text top="819" left="253" width="4" height="5" font="13">●</text>
+<text top="816" left="249" width="4" height="5" font="13">●</text>
+<text top="813" left="247" width="4" height="5" font="13">●</text>
+<text top="810" left="251" width="4" height="5" font="13">●</text>
+<text top="806" left="251" width="4" height="5" font="13">●</text>
+<text top="803" left="241" width="4" height="5" font="13">●</text>
+<text top="800" left="239" width="4" height="5" font="13">●</text>
+<text top="797" left="243" width="4" height="5" font="13">●</text>
+<text top="794" left="239" width="4" height="5" font="13">●</text>
+<text top="651" left="192" width="16" height="9" font="9">BID</text>
+<text top="936" left="259" width="4" height="7" font="11">0</text>
+<text top="936" left="278" width="9" height="7" font="11">10</text>
+<text top="936" left="298" width="9" height="7" font="11">20</text>
+<text top="936" left="319" width="9" height="7" font="11">30</text>
+<text top="936" left="340" width="9" height="7" font="11">40</text>
+<text top="936" left="361" width="9" height="7" font="11">50</text>
+<text top="936" left="381" width="9" height="7" font="11">60</text>
+<text top="787" left="395" width="20" height="7" font="11">11.38</text>
+<text top="749" left="395" width="20" height="7" font="11">11.50</text>
+<text top="718" left="395" width="20" height="7" font="11">11.60</text>
+<text top="686" left="395" width="20" height="7" font="11">11.70</text>
+<text top="788" left="266" width="4" height="5" font="13">●</text>
+<text top="784" left="270" width="4" height="5" font="13">●</text>
+<text top="781" left="268" width="4" height="5" font="13">●</text>
+<text top="778" left="270" width="4" height="5" font="13">●</text>
+<text top="775" left="266" width="4" height="5" font="13">●</text>
+<text top="772" left="268" width="4" height="5" font="13">●</text>
+<text top="769" left="266" width="4" height="5" font="13">●</text>
+<text top="765" left="268" width="4" height="5" font="13">●</text>
+<text top="762" left="264" width="4" height="5" font="13">●</text>
+<text top="759" left="264" width="4" height="5" font="13">●</text>
+<text top="756" left="262" width="4" height="5" font="13">●</text>
+<text top="753" left="266" width="4" height="5" font="13">●</text>
+<text top="750" left="268" width="4" height="5" font="13">●</text>
+<text top="746" left="264" width="4" height="5" font="13">●</text>
+<text top="743" left="270" width="4" height="5" font="13">●</text>
+<text top="740" left="262" width="4" height="5" font="13">●</text>
+<text top="737" left="262" width="4" height="5" font="13">●</text>
+<text top="734" left="268" width="4" height="5" font="13">●</text>
+<text top="731" left="262" width="4" height="5" font="13">●</text>
+<text top="727" left="264" width="4" height="5" font="13">●</text>
+<text top="721" left="262" width="4" height="5" font="13">●</text>
+<text top="718" left="266" width="4" height="5" font="13">●</text>
+<text top="712" left="262" width="4" height="5" font="13">●</text>
+<text top="708" left="262" width="4" height="5" font="13">●</text>
+<text top="705" left="262" width="4" height="5" font="13">●</text>
+<text top="702" left="262" width="4" height="5" font="13">●</text>
+<text top="696" left="264" width="4" height="5" font="13">●</text>
+<text top="693" left="264" width="4" height="5" font="13">●</text>
+<text top="686" left="262" width="4" height="5" font="13">●</text>
+<text top="674" left="262" width="4" height="5" font="13">●</text>
+<text top="651" left="314" width="19" height="9" font="9">ASK</text>
+<text top="994" left="105" width="324" height="15" font="0">The type argument on plot allows for an “sd”</text>
+<text top="1012" left="82" width="346" height="15" font="0">option which shows supply and demand curves</text>
+<text top="1030" left="82" width="346" height="15" font="0">for the order book. The demand (supply) curve is</text>
+<text top="1048" left="82" width="346" height="15" font="0">downsloping (upsloping). This is because more peo-</text>
+<text top="1065" left="82" width="346" height="15" font="0">ple want to buy (sell) a stock when the price de-</text>
+<text top="1083" left="82" width="346" height="15" font="0">creases (increases). The ask (bid) prices are normal-</text>
+<text top="1101" left="82" width="346" height="15" font="0">ized by the absolute value of the difference between</text>
+<text top="1119" left="82" width="346" height="15" font="0">the highest (lowest) plotted ask (bid) price level and</text>
+<text top="1137" left="82" width="198" height="15" font="0">the the midpoint. Following</text>
+<text top="1137" left="286" width="66" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Cao et al.</a></text>
+<text top="1137" left="358" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="1137" left="363" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2009</a></text>
+<text top="1137" left="393" width="36" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">), </a>the</text>
+<text top="1155" left="82" width="346" height="15" font="0">sizes are normalized by the sum of the sizes across</text>
+<text top="1173" left="82" width="237" height="15" font="0">all plotted price levels for each side.</text>
+<text top="132" left="459" width="261" height="10" font="7">&gt; plot(ob, bounds = 0.01, type = &#34;sd&#34;)</text>
+<text top="163" left="578" width="108" height="10" font="8"><b>Supply and Demand</b></text>
+<text top="493" left="613" width="39" height="9" font="14"><b>09:35:02</b></text>
+<text top="477" left="631" width="36" height="9" font="9">Size (%)</text>
+<text top="334" left="475" width="0" height="9" font="10">Pr</text>
+<text top="325" left="475" width="0" height="9" font="10">ice (%)</text>
+<text top="450" left="485" width="18" height="7" font="11">−150</text>
+<text top="406" left="485" width="18" height="7" font="11">−100</text>
+<text top="362" left="489" width="14" height="7" font="11">−50</text>
+<text top="319" left="498" width="4" height="7" font="11">0</text>
+<text top="275" left="494" width="9" height="7" font="11">50</text>
+<text top="231" left="489" width="13" height="7" font="11">100</text>
+<text top="187" left="489" width="13" height="7" font="11">150</text>
+<text top="462" left="510" width="4" height="7" font="11">0</text>
+<text top="462" left="553" width="9" height="7" font="11">20</text>
+<text top="462" left="599" width="9" height="7" font="11">40</text>
+<text top="462" left="645" width="9" height="7" font="11">60</text>
+<text top="462" left="691" width="9" height="7" font="11">80</text>
+<text top="462" left="734" width="13" height="7" font="11">100</text>
+<text top="462" left="780" width="13" height="7" font="11">120</text>
+<text top="525" left="481" width="71" height="15" font="3"><b>orderbook</b></text>
+<text top="525" left="567" width="238" height="15" font="0">has methods for creating new</text>
+<text top="544" left="459" width="69" height="12" font="0">orderbook</text>
+<text top="543" left="531" width="274" height="15" font="0">objects at specified clock times of interest.</text>
+<text top="562" left="459" width="69" height="12" font="0">read.time</text>
+<text top="560" left="532" width="274" height="15" font="0">returns an orderbook object that has read</text>
+<text top="578" left="459" width="346" height="15" font="0">all messages before the specified time. For example,</text>
+<text top="596" left="459" width="283" height="15" font="0">this returns the orderbook object at 9:30:00.</text>
+<text top="623" left="459" width="219" height="10" font="7">&gt; ob &lt;- read.time(ob, &#34;9:30:00&#34;)</text>
+<text top="649" left="481" width="84" height="12" font="0">read.orders</text>
+<text top="647" left="571" width="235" height="15" font="0">is used to move forwards or back-</text>
+<text top="665" left="459" width="346" height="15" font="0">wards in the order book by a specified number of</text>
+<text top="683" left="459" width="346" height="15" font="0">messages. In this case, an orderbook object at 50 mes-</text>
+<text top="701" left="459" width="296" height="15" font="0">sages before the current message is returned.</text>
+<text top="728" left="459" width="219" height="10" font="7">&gt; ob &lt;- read.orders(ob, n = -50)</text>
+<text top="744" left="459" width="27" height="10" font="7">&gt; ob</text>
+<text top="769" left="459" width="261" height="10" font="7">An object of class orderbook (default)</text>
+<text top="786" left="459" width="178" height="10" font="7">--------------------------</text>
+<text top="802" left="459" width="158" height="10" font="7">Current orderbook time:</text>
+<text top="802" left="644" width="55" height="10" font="7">09:28:41</text>
+<text top="818" left="459" width="96" height="10" font="7">Message Index:</text>
+<text top="818" left="644" width="21" height="10" font="7">292</text>
+<text top="835" left="459" width="75" height="10" font="7">Bid Orders:</text>
+<text top="835" left="644" width="14" height="10" font="7">72</text>
+<text top="851" left="459" width="75" height="10" font="7">Ask Orders:</text>
+<text top="851" left="644" width="14" height="10" font="7">81</text>
+<text top="868" left="459" width="89" height="10" font="7">Total Orders:</text>
+<text top="868" left="644" width="21" height="10" font="7">153</text>
+<text top="911" left="459" width="47" height="21" font="4"><b>Data</b></text>
+<text top="950" left="459" width="346" height="15" font="0">Data files should contain all messages for one stock</text>
+<text top="968" left="459" width="346" height="15" font="0">on a single trading day. Most brokers and exchanges</text>
+<text top="986" left="459" width="346" height="15" font="0">have their own format for transmitting raw message</text>
+<text top="1003" left="459" width="346" height="15" font="0">data to customers, so it would be unfeasible for us</text>
+<text top="1021" left="459" width="346" height="15" font="0">to write scripts to automatically process all data for-</text>
+<text top="1039" left="459" width="346" height="15" font="0">mats. Consequently, raw data for an orderbook ob-</text>
+<text top="1057" left="459" width="227" height="15" font="0">ject must be in the following form:</text>
+<text top="1085" left="459" width="267" height="12" font="0">type,time,id,price,size,type,status</text>
+<text top="1103" left="459" width="282" height="12" font="0">A,34226539,5920814,25.95,100,ASK,TRUE</text>
+<text top="1121" left="459" width="290" height="12" font="0">A,34226788,5933949,25.91,100,BID,FALSE</text>
+<text top="1139" left="459" width="160" height="12" font="0">R,34226900,5933949,50</text>
+<text top="1156" left="459" width="137" height="12" font="0">C,34226904,5920814</text>
+<text top="1174" left="459" width="244" height="12" font="0">T,34226904,755377,25.95,100,TRUE</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">67</text>
+<text top="125" left="82" width="346" height="15" font="0">where A, R, T, and C mean Add, Replace, Trade,</text>
+<text top="143" left="82" width="346" height="15" font="0">and Cancel, respectively. The second column is the</text>
+<text top="161" left="82" width="346" height="15" font="0">timestamp of the message in milliseconds after mid-</text>
+<text top="179" left="82" width="346" height="15" font="0">night, and the third column is the order ID. For a Re-</text>
+<text top="197" left="82" width="346" height="15" font="0">place the next column is the new size, while for Add</text>
+<text top="215" left="82" width="346" height="15" font="0">and Trade a column for price comes before the size</text>
+<text top="233" left="82" width="346" height="15" font="0">column. Add messages also have the type of order</text>
+<text top="251" left="82" width="346" height="15" font="0">(BID/ASK) in the sixth column. The optional sev-</text>
+<text top="268" left="82" width="346" height="15" font="0">enth (sixth) column is TRUE if the order (trade) be-</text>
+<text top="286" left="82" width="346" height="15" font="0">longs to the user, and FALSE otherwise. This allows</text>
+<text top="304" left="82" width="346" height="15" font="0">the user to create plots that show the time priority of</text>
+<text top="322" left="82" width="346" height="15" font="0">his own orders. If the column is omitted, the first line</text>
+<text top="340" left="82" width="346" height="15" font="0">of the data file should be type, time, id, price,</text>
+<text top="360" left="82" width="76" height="12" font="0">size, type</text>
+<text top="358" left="162" width="157" height="15" font="0">and not include status.</text>
+<text top="376" left="105" width="324" height="15" font="0">In this example a user order to sell 100 shares at</text>
+<text top="394" left="82" width="346" height="15" font="0">$25.95 is added to the order book, followed by an or-</text>
+<text top="412" left="82" width="346" height="15" font="0">der to buy 100 shares at $25.91. The size of the order</text>
+<text top="430" left="82" width="346" height="15" font="0">at $25.91 is then replaced to 50 shares. Finally, the or-</text>
+<text top="448" left="82" width="346" height="15" font="0">der at $25.95 is cancelled, and a trade for 100 shares</text>
+<text top="466" left="82" width="107" height="15" font="0">at $25.95 occurs.</text>
+<text top="512" left="82" width="168" height="21" font="4"><b>Analyzing trades</b></text>
+<text top="551" left="82" width="346" height="15" font="0">A user can create plots that show the time priority of</text>
+<text top="569" left="82" width="346" height="15" font="0">his own orders if a status column is present in the</text>
+<text top="587" left="82" width="57" height="15" font="0">data file.</text>
+<text top="618" left="82" width="247" height="10" font="7">&gt; filename &lt;- system.file(&#34;extdata&#34;,</text>
+<text top="634" left="82" width="7" height="10" font="7">+</text>
+<text top="634" left="261" width="130" height="10" font="7">&#34;tradersample.txt&#34;,</text>
+<text top="650" left="82" width="7" height="10" font="7">+</text>
+<text top="650" left="261" width="151" height="10" font="7">package = &#34;orderbook&#34;)</text>
+<text top="667" left="82" width="233" height="10" font="7">&gt; ob &lt;- orderbook(file = filename)</text>
+<text top="683" left="82" width="219" height="10" font="7">&gt; ob &lt;- read.time(ob, &#34;9:30:05&#34;)</text>
+<text top="700" left="82" width="151" height="10" font="7">&gt; ob &lt;- next.trade(ob)</text>
+<text top="716" left="82" width="27" height="10" font="7">&gt; ob</text>
+<text top="745" left="82" width="254" height="10" font="7">An object of class orderbook (trader)</text>
+<text top="761" left="82" width="178" height="10" font="7">--------------------------</text>
+<text top="778" left="82" width="158" height="10" font="7">Current orderbook time:</text>
+<text top="778" left="268" width="55" height="10" font="7">09:30:05</text>
+<text top="794" left="82" width="96" height="10" font="7">Message Index:</text>
+<text top="794" left="268" width="34" height="10" font="7">6,062</text>
+<text top="811" left="82" width="75" height="10" font="7">Bid Orders:</text>
+<text top="811" left="268" width="21" height="10" font="7">164</text>
+<text top="827" left="82" width="75" height="10" font="7">Ask Orders:</text>
+<text top="827" left="268" width="21" height="10" font="7">252</text>
+<text top="844" left="82" width="89" height="10" font="7">Total Orders:</text>
+<text top="844" left="268" width="21" height="10" font="7">416</text>
+<text top="871" left="105" width="324" height="15" font="0">Note that this orderbook object is of type trader.</text>
+<text top="889" left="82" width="346" height="15" font="0">The next.trade function sets the state of the order</text>
+<text top="907" left="82" width="346" height="15" font="0">book to when the trade after the current time oc-</text>
+<text top="925" left="82" width="346" height="15" font="0">curs. There is also a previous.trade function with</text>
+<text top="943" left="82" width="277" height="15" font="0">the same functionality moving backwards</text>
+<text top="974" left="82" width="219" height="10" font="7">&gt; view.trade(ob, tradenum = 584)</text>
+<text top="1003" left="131" width="62" height="10" font="7">trade 584</text>
+<text top="1019" left="82" width="21" height="10" font="7">row</text>
+<text top="1019" left="165" width="27" height="10" font="7">6063</text>
+<text top="1036" left="82" width="27" height="10" font="7">time</text>
+<text top="1036" left="137" width="55" height="10" font="7">09:30:05</text>
+<text top="1052" left="82" width="14" height="10" font="7">id</text>
+<text top="1052" left="151" width="41" height="10" font="7">636783</text>
+<text top="1069" left="82" width="34" height="10" font="7">price</text>
+<text top="1069" left="158" width="34" height="10" font="7">25.94</text>
+<text top="1085" left="82" width="27" height="10" font="7">size</text>
+<text top="1085" left="165" width="27" height="10" font="7">1000</text>
+<text top="1102" left="82" width="41" height="10" font="7">status</text>
+<text top="1102" left="158" width="34" height="10" font="7">FALSE</text>
+<text top="1130" left="82" width="103" height="10" font="7">&gt; mid.point(ob)</text>
+<text top="1159" left="89" width="34" height="10" font="7">price</text>
+<text top="1175" left="82" width="41" height="10" font="7">25.935</text>
+<text top="125" left="481" width="324" height="15" font="0">Since the trade price is higher than the midpoint</text>
+<text top="143" left="459" width="346" height="15" font="0">price, we know that the trade occurred as a result of</text>
+<text top="161" left="459" width="346" height="15" font="0">an ask order getting hit. Note that trade data is stored</text>
+<text top="179" left="459" width="346" height="15" font="0">into the order book only after it has read through the</text>
+<text top="197" left="459" width="198" height="15" font="0">corresponding trade message.</text>
+<text top="231" left="459" width="329" height="10" font="7">&gt; midpoint.return(ob, tradenum = 584, time = 10)</text>
+<text top="262" left="527" width="103" height="10" font="7">midpoint.return</text>
+<text top="279" left="459" width="62" height="10" font="7">10 second</text>
+<text top="279" left="596" width="34" height="10" font="7">0.065</text>
+<text top="310" left="481" width="324" height="15" font="0">The midpoint return is the difference in cents be-</text>
+<text top="328" left="459" width="346" height="15" font="0">tween the execution price and the midpoint price af-</text>
+<text top="345" left="459" width="346" height="15" font="0">ter a specified period of time. For example, the above</text>
+<text top="363" left="459" width="346" height="15" font="0">calculates the ten second midpoint return for the first</text>
+<text top="381" left="459" width="346" height="15" font="0">trade. Since it was a sell order, the midpoint return</text>
+<text top="399" left="459" width="346" height="15" font="0">will be positive if the stock price decreases, and neg-</text>
+<text top="417" left="459" width="212" height="15" font="0">ative if the stock price increases.</text>
+<text top="445" left="459" width="219" height="10" font="7">&gt; ob &lt;- read.time(ob, &#34;9:30:15&#34;)</text>
+<text top="461" left="459" width="254" height="10" font="7">&gt; plot(ob, type = &#34;t&#34;, bounds = 0.02)</text>
+<text top="493" left="569" width="126" height="10" font="8"><b>Order Book −− 08:30:15</b></text>
+<text top="813" left="609" width="58" height="9" font="9">Size (Shares)</text>
+<text top="654" left="475" width="0" height="9" font="10">Pr</text>
+<text top="644" left="475" width="0" height="9" font="10">ice</text>
+<text top="738" left="485" width="20" height="7" font="11">25.86</text>
+<text top="677" left="485" width="20" height="7" font="11">25.87</text>
+<text top="786" left="637" width="3" height="7" font="12">0</text>
+<text top="796" left="595" width="13" height="7" font="12">2000</text>
+<text top="796" left="563" width="13" height="7" font="12">4000</text>
+<text top="796" left="531" width="13" height="7" font="12">6000</text>
+<text top="796" left="499" width="13" height="7" font="12">8000</text>
+<text top="513" left="566" width="16" height="9" font="9">BID</text>
+<text top="786" left="637" width="3" height="7" font="12">0</text>
+<text top="796" left="660" width="13" height="7" font="12">2000</text>
+<text top="796" left="692" width="13" height="7" font="12">4000</text>
+<text top="796" left="724" width="13" height="7" font="12">6000</text>
+<text top="796" left="756" width="13" height="7" font="12">8000</text>
+<text top="617" left="771" width="20" height="7" font="11">25.88</text>
+<text top="556" left="771" width="20" height="7" font="11">25.89</text>
+<text top="513" left="693" width="19" height="9" font="9">ASK</text>
+<text top="854" left="481" width="324" height="15" font="0">This plot shows two pennies above and below the</text>
+<text top="872" left="459" width="346" height="15" font="0">best bid and best ask. We see that the midpoint has</text>
+<text top="890" left="459" width="346" height="15" font="0">dropped to 25.875, confirming the midpoint return</text>
+<text top="908" left="459" width="346" height="15" font="0">above. This graph shows two pennies above and be-</text>
+<text top="926" left="459" width="346" height="15" font="0">low the best bid and ask. Orders at these price levels</text>
+<text top="944" left="459" width="346" height="15" font="0">are shown in time priority, with the earliest submit-</text>
+<text top="962" left="459" width="346" height="15" font="0">ted order being closest to the middle y-axis. Note the</text>
+<text top="979" left="459" width="346" height="15" font="0">red order–this is an order marked TRUE by the user,</text>
+<text top="997" left="459" width="225" height="15" font="0">indicating that it belonged to him.</text>
+<text top="1045" left="459" width="110" height="21" font="4"><b>Simulation</b></text>
+<text top="1083" left="459" width="346" height="15" font="0">Simulating and modelling the intraday decisions of</text>
+<text top="1101" left="459" width="346" height="15" font="0">traders is a topic of active research in behavioral fi-</text>
+<text top="1119" left="459" width="346" height="15" font="0">nance and economics. <b>orderbook </b>supports adding,</text>
+<text top="1137" left="459" width="346" height="15" font="0">replacing, and cancelling orders. Add orders require</text>
+<text top="1155" left="459" width="346" height="15" font="0">the price, size, and type (ASK/BID) of the limit or-</text>
+<text top="1173" left="459" width="346" height="15" font="0">der. Time and ID are optional, and will default to the</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">68</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">maximum time + 1 and the maximum ID + 1. Re-</text>
+<text top="143" left="82" width="346" height="15" font="0">place messages require the new size and ID. Cancel</text>
+<text top="161" left="82" width="346" height="15" font="0">orders only require ID. In addition, market orders</text>
+<text top="179" left="82" width="346" height="15" font="0">can be issued to the order book. Market orders re-</text>
+<text top="197" left="82" width="216" height="15" font="0">quire size and side (BUY/SELL).</text>
+<text top="225" left="82" width="274" height="10" font="7">&gt; ob &lt;- add.order(ob, 11.20, 300, &#34;ASK&#34;)</text>
+<text top="242" left="82" width="226" height="10" font="7">&gt; ob &lt;- remove.order(ob, 1231883)</text>
+<text top="258" left="82" width="268" height="10" font="7">&gt; ob &lt;- replace.order(ob, 1231883, 150)</text>
+<text top="275" left="82" width="247" height="10" font="7">&gt; ob &lt;- market.order(ob, 200, &#34;BUY&#34;)</text>
+<text top="300" left="105" width="324" height="15" font="0">Using these tools, the user can write functions to</text>
+<text top="318" left="82" width="346" height="15" font="0">simulate the an order book. In the following exam-</text>
+<text top="336" left="82" width="120" height="15" font="0">ple, we consulted</text>
+<text top="336" left="208" width="38" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Gilles</a></text>
+<text top="336" left="252" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="336" left="257" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2006</a></text>
+<text top="336" left="287" width="142" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">). </a>We simulate 1,000</text>
+<text top="354" left="82" width="346" height="15" font="0">messages. The messages are chosen based on the fol-</text>
+<text top="372" left="82" width="346" height="15" font="0">lowing probabilities: 50% for a cancel message, 20%</text>
+<text top="390" left="82" width="346" height="15" font="0">for a market order, and 30% for a limit order. In the</text>
+<text top="408" left="82" width="346" height="15" font="0">event of a cancel message the order cancelled is ran-</text>
+<text top="426" left="82" width="346" height="15" font="0">domly chosen. Market order have a 50-50 chance for</text>
+<text top="444" left="82" width="346" height="15" font="0">a buy or sell order. The size of the market order al-</text>
+<text top="462" left="82" width="346" height="15" font="0">ways corresponds to the size of the individual order</text>
+<text top="480" left="82" width="346" height="15" font="0">at the best ask or bid with the highest time priority.</text>
+<text top="498" left="82" width="346" height="15" font="0">Limit orders have a 50-50 chance to be an ask or bid.</text>
+<text top="516" left="82" width="346" height="15" font="0">There is a 35% chance for the price of a limit order</text>
+<text top="534" left="82" width="346" height="15" font="0">to be within the spread. If the price is outside of the</text>
+<text top="552" left="82" width="346" height="15" font="0">spread, a price is chosen using a power law distri-</text>
+<text top="569" left="82" width="346" height="15" font="0">bution. Finally, the size follows a log-normal distri-</text>
+<text top="587" left="82" width="346" height="15" font="0">bution. A plot of this example simulation is shown</text>
+<text top="605" left="82" width="43" height="15" font="0">below.</text>
+<text top="634" left="82" width="137" height="10" font="7">&gt; ob &lt;- simulate(ob)</text>
+<text top="667" left="82" width="69" height="10" font="7">&gt; plot(ob)</text>
+<text top="698" left="196" width="119" height="10" font="8"><b>Order Book − 09:35:09</b></text>
+<text top="1018" left="233" width="58" height="9" font="9">Size (Shares)</text>
+<text top="858" left="99" width="0" height="9" font="10">Pr</text>
+<text top="848" left="99" width="0" height="9" font="10">ice</text>
+<text top="969" left="108" width="20" height="7" font="11">23.00</text>
+<text top="946" left="108" width="20" height="7" font="11">23.50</text>
+<text top="923" left="108" width="20" height="7" font="11">24.00</text>
+<text top="900" left="108" width="20" height="7" font="11">24.50</text>
+<text top="877" left="108" width="20" height="7" font="11">25.00</text>
+<text top="845" left="108" width="20" height="7" font="11">25.70</text>
+<text top="998" left="230" width="13" height="7" font="12">2000</text>
+<text top="998" left="210" width="13" height="7" font="12">4000</text>
+<text top="998" left="189" width="13" height="7" font="12">6000</text>
+<text top="998" left="168" width="13" height="7" font="12">8000</text>
+<text top="1001" left="144" width="16" height="7" font="12">10000</text>
+<text top="1001" left="124" width="16" height="7" font="12">12000</text>
+<text top="962" left="239" width="4" height="5" font="13">●</text>
+<text top="962" left="239" width="4" height="5" font="13">●</text>
+<text top="960" left="239" width="4" height="5" font="13">●</text>
+<text top="949" left="258" width="4" height="5" font="13">●</text>
+<text top="947" left="240" width="4" height="5" font="13">●</text>
+<text top="936" left="259" width="4" height="5" font="13">●</text>
+<text top="929" left="258" width="4" height="5" font="13">●</text>
+<text top="927" left="259" width="4" height="5" font="13">●</text>
+<text top="926" left="255" width="8" height="5" font="13">●●</text>
+<text top="925" left="258" width="4" height="5" font="13">●</text>
+<text top="924" left="259" width="4" height="5" font="13">●</text>
+<text top="922" left="259" width="4" height="5" font="13">●</text>
+<text top="921" left="258" width="4" height="5" font="13">●</text>
+<text top="917" left="258" width="4" height="5" font="13">●</text>
+<text top="915" left="257" width="6" height="5" font="13">●●</text>
+<text top="914" left="259" width="4" height="5" font="13">●</text>
+<text top="914" left="259" width="4" height="5" font="13">●</text>
+<text top="912" left="247" width="4" height="5" font="13">●</text>
+<text top="910" left="257" width="4" height="5" font="13">●</text>
+<text top="909" left="257" width="6" height="5" font="13">●●</text>
+<text top="908" left="259" width="4" height="5" font="13">●</text>
+<text top="907" left="258" width="4" height="5" font="13">●</text>
+<text top="905" left="258" width="4" height="5" font="13">●</text>
+<text top="904" left="257" width="4" height="5" font="13">●</text>
+<text top="902" left="258" width="4" height="5" font="13">●</text>
+<text top="901" left="258" width="4" height="5" font="13">●</text>
+<text top="900" left="257" width="4" height="5" font="13">●</text>
+<text top="898" left="258" width="4" height="5" font="13">●</text>
+<text top="898" left="259" width="4" height="5" font="13">●</text>
+<text top="896" left="258" width="4" height="5" font="13">●</text>
+<text top="896" left="258" width="4" height="5" font="13">●</text>
+<text top="895" left="259" width="4" height="5" font="13">●</text>
+<text top="895" left="258" width="4" height="5" font="13">●</text>
+<text top="893" left="258" width="4" height="5" font="13">●</text>
+<text top="891" left="251" width="4" height="5" font="13">●</text>
+<text top="888" left="257" width="4" height="5" font="13">●</text>
+<text top="887" left="257" width="4" height="5" font="13">●</text>
+<text top="885" left="258" width="4" height="5" font="13">●</text>
+<text top="884" left="256" width="6" height="5" font="13">●●</text>
+<text top="878" left="257" width="6" height="5" font="13">●●</text>
+<text top="876" left="258" width="4" height="5" font="13">●</text>
+<text top="876" left="256" width="4" height="5" font="13">●</text>
+<text top="872" left="259" width="4" height="5" font="13">●</text>
+<text top="871" left="257" width="4" height="5" font="13">●</text>
+<text top="868" left="258" width="4" height="5" font="13">●</text>
+<text top="867" left="259" width="4" height="5" font="13">●</text>
+<text top="866" left="257" width="4" height="5" font="13">●</text>
+<text top="865" left="259" width="4" height="5" font="13">●</text>
+<text top="865" left="259" width="4" height="5" font="13">●</text>
+<text top="862" left="259" width="4" height="5" font="13">●</text>
+<text top="862" left="259" width="4" height="5" font="13">●</text>
+<text top="861" left="259" width="4" height="5" font="13">●</text>
+<text top="860" left="258" width="4" height="5" font="13">●</text>
+<text top="859" left="259" width="4" height="5" font="13">●</text>
+<text top="859" left="259" width="4" height="5" font="13">●</text>
+<text top="858" left="259" width="4" height="5" font="13">●</text>
+<text top="855" left="258" width="4" height="5" font="13">●</text>
+<text top="853" left="259" width="4" height="5" font="13">●</text>
+<text top="852" left="257" width="4" height="5" font="13">●</text>
+<text top="851" left="256" width="4" height="5" font="13">●</text>
+<text top="850" left="254" width="8" height="5" font="13">●●</text>
+<text top="848" left="258" width="4" height="5" font="13">●</text>
+<text top="848" left="254" width="4" height="5" font="13">●</text>
+<text top="847" left="156" width="4" height="5" font="13">●</text>
+<text top="846" left="249" width="4" height="5" font="13">●</text>
+<text top="718" left="192" width="16" height="9" font="9">BID</text>
+<text top="989" left="260" width="3" height="7" font="12">0</text>
+<text top="998" left="272" width="13" height="7" font="12">2000</text>
+<text top="998" left="292" width="13" height="7" font="12">4000</text>
+<text top="998" left="313" width="13" height="7" font="12">6000</text>
+<text top="998" left="334" width="54" height="11" font="12">8000 10000 12000</text>
+<text top="844" left="395" width="20" height="7" font="11">25.74</text>
+<text top="832" left="395" width="20" height="7" font="11">26.00</text>
+<text top="809" left="395" width="20" height="7" font="11">26.50</text>
+<text top="786" left="395" width="20" height="7" font="11">27.00</text>
+<text top="763" left="395" width="20" height="7" font="11">27.50</text>
+<text top="740" left="395" width="20" height="7" font="11">28.00</text>
+<text top="844" left="260" width="4" height="5" font="13">●</text>
+<text top="842" left="262" width="4" height="5" font="13">●</text>
+<text top="833" left="263" width="4" height="5" font="13">●</text>
+<text top="832" left="309" width="4" height="5" font="13">●</text>
+<text top="832" left="268" width="4" height="5" font="13">●</text>
+<text top="831" left="326" width="4" height="5" font="13">●</text>
+<text top="831" left="270" width="4" height="5" font="13">●</text>
+<text top="830" left="262" width="4" height="5" font="13">●</text>
+<text top="830" left="277" width="4" height="5" font="13">●</text>
+<text top="829" left="261" width="8" height="5" font="13">●●</text>
+<text top="827" left="291" width="4" height="5" font="13">●</text>
+<text top="827" left="274" width="4" height="5" font="13">●</text>
+<text top="826" left="261" width="4" height="5" font="13">●</text>
+<text top="821" left="262" width="4" height="5" font="13">●</text>
+<text top="820" left="261" width="4" height="5" font="13">●</text>
+<text top="820" left="260" width="4" height="5" font="13">●</text>
+<text top="819" left="260" width="10" height="5" font="13">● ●</text>
+<text top="817" left="262" width="4" height="5" font="13">●</text>
+<text top="816" left="260" width="4" height="5" font="13">●</text>
+<text top="816" left="260" width="4" height="5" font="13">●</text>
+<text top="816" left="272" width="4" height="5" font="13">●</text>
+<text top="812" left="270" width="4" height="5" font="13">●</text>
+<text top="810" left="260" width="4" height="5" font="13">●</text>
+<text top="808" left="260" width="4" height="5" font="13">●</text>
+<text top="806" left="260" width="4" height="5" font="13">●</text>
+<text top="804" left="277" width="4" height="5" font="13">●</text>
+<text top="802" left="260" width="4" height="5" font="13">●</text>
+<text top="797" left="260" width="4" height="5" font="13">●</text>
+<text top="796" left="260" width="4" height="5" font="13">●</text>
+<text top="793" left="285" width="4" height="5" font="13">●</text>
+<text top="791" left="261" width="7" height="5" font="13">●●</text>
+<text top="789" left="260" width="4" height="5" font="13">●</text>
+<text top="788" left="260" width="4" height="5" font="13">●</text>
+<text top="787" left="260" width="4" height="5" font="13">●</text>
+<text top="787" left="262" width="4" height="5" font="13">●</text>
+<text top="783" left="261" width="7" height="5" font="13">●●</text>
+<text top="777" left="262" width="4" height="5" font="13">●</text>
+<text top="774" left="260" width="4" height="5" font="13">●</text>
+<text top="772" left="260" width="4" height="5" font="13">●</text>
+<text top="771" left="261" width="4" height="5" font="13">●</text>
+<text top="770" left="278" width="4" height="5" font="13">●</text>
+<text top="770" left="262" width="4" height="5" font="13">●</text>
+<text top="769" left="260" width="4" height="5" font="13">●</text>
+<text top="767" left="261" width="4" height="5" font="13">●</text>
+<text top="766" left="261" width="4" height="5" font="13">●</text>
+<text top="765" left="261" width="4" height="5" font="13">●</text>
+<text top="761" left="261" width="4" height="5" font="13">●</text>
+<text top="760" left="261" width="4" height="5" font="13">●</text>
+<text top="758" left="262" width="4" height="5" font="13">●</text>
+<text top="757" left="260" width="4" height="5" font="13">●</text>
+<text top="757" left="260" width="4" height="5" font="13">●</text>
+<text top="756" left="261" width="4" height="5" font="13">●</text>
+<text top="755" left="261" width="4" height="5" font="13">●</text>
+<text top="753" left="260" width="4" height="5" font="13">●</text>
+<text top="749" left="260" width="8" height="5" font="13">●●</text>
+<text top="747" left="260" width="4" height="5" font="13">●</text>
+<text top="747" left="260" width="4" height="5" font="13">●</text>
+<text top="746" left="260" width="4" height="5" font="13">●</text>
+<text top="742" left="269" width="4" height="5" font="13">●</text>
+<text top="740" left="261" width="4" height="5" font="13">●</text>
+<text top="718" left="314" width="19" height="9" font="9">ASK</text>
+<text top="125" left="481" width="38" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Gilles</a></text>
+<text top="125" left="524" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="125" left="529" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2006</a></text>
+<text top="125" left="559" width="246" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">) </a>used simulations to test the impact</text>
+<text top="143" left="459" width="346" height="15" font="0">of liquidity on price level stabilization. He concluded</text>
+<text top="161" left="459" width="346" height="15" font="0">that most price changes are the result of uninformed</text>
+<text top="179" left="459" width="346" height="15" font="0">traders (who supply liquidity), rather than informed</text>
+<text top="197" left="459" width="213" height="15" font="0">traders (who demand liquidity).</text>
+<text top="246" left="459" width="112" height="21" font="4"><b>Conclusion</b></text>
+<text top="286" left="459" width="346" height="15" font="0">The <b>orderbook </b>package is part of a collection of</text>
+<text top="303" left="459" width="92" height="15" font="0">packages (see</text>
+<text top="303" left="556" width="103" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Campbell et al.</a></text>
+<text top="303" left="664" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="303" left="669" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2007</a></text>
+<text top="303" left="699" width="36" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">) </a>and</text>
+<text top="303" left="740" width="65" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Kane and</a></text>
+<text top="321" left="459" width="32" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">Enos</a></text>
+<text top="321" left="495" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">(</a></text>
+<text top="321" left="500" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">2006</a></text>
+<text top="321" left="530" width="275" height="15" font="0"><a href="2011-1-RJournal_2011-1_Kane~et~al.html#5">)) </a>for working with financial market data.</text>
+<text top="339" left="459" width="346" height="15" font="0">R provides all the necessary tools for managing insti-</text>
+<text top="357" left="459" width="162" height="15" font="0">tutional sized portfolios.</text>
+<text top="393" left="459" width="72" height="15" font="0">David Kane</text>
+<text top="411" left="459" width="162" height="15" font="0">Kane Capital Management</text>
+<text top="429" left="459" width="98" height="15" font="0">Cambridge, MA</text>
+<text top="447" left="459" width="31" height="15" font="0">USA</text>
+<text top="467" left="459" width="122" height="12" font="6"><a href="mailto:dave@kanecap.com">dave@kanecap.com</a></text>
+<text top="501" left="459" width="73" height="15" font="0">Andrew Liu</text>
+<text top="519" left="459" width="102" height="15" font="0">Williams College</text>
+<text top="537" left="459" width="118" height="15" font="0">Williamstown, MA</text>
+<text top="555" left="459" width="31" height="15" font="0">USA</text>
+<text top="575" left="459" width="191" height="12" font="6"><a href="mailto:Andrew.T.Liu@williams.edu">Andrew.T.Liu@williams.edu</a></text>
+<text top="610" left="459" width="93" height="15" font="0">Khanh Nguyen</text>
+<text top="627" left="459" width="238" height="15" font="0">University Of Massachusetts at Boston</text>
+<text top="645" left="459" width="74" height="15" font="0">Boston, MA</text>
+<text top="663" left="459" width="31" height="15" font="0">USA</text>
+<text top="683" left="459" width="137" height="12" font="6"><a href="mailto:knguyen@cs.umb.edu">knguyen@cs.umb.edu</a></text>
+<text top="731" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="770" left="459" width="346" height="15" font="0">K. Campbell, J. Enos, D. Gerlanc, and D. Kane. Back-</text>
+<text top="788" left="474" width="240" height="15" font="0">tests. R News, 7(1):36–41, April 2007.</text>
+<text top="819" left="459" width="346" height="15" font="0">C. Cao, O. Hansch, and X. Wang. The information</text>
+<text top="837" left="474" width="332" height="15" font="0">content of an open limit-order book. The Journal of</text>
+<text top="855" left="474" width="223" height="15" font="0">Futures Markets, 29(1):16–41, 2009.</text>
+<text top="887" left="459" width="346" height="15" font="0">D. Gilles. Asynchronous Simulations of a Limit Order</text>
+<text top="905" left="474" width="324" height="15" font="0">Book. PhD thesis, University of Manchester, 2006.</text>
+<text top="936" left="459" width="346" height="15" font="0">B. Johnson. Algorithmic Trading &amp; DMA: An intro-</text>
+<text top="954" left="474" width="332" height="15" font="0">duction to direct access trading strategies. 4Myeloma</text>
+<text top="972" left="474" width="135" height="15" font="0">Press, London, 2010.</text>
+<text top="1004" left="459" width="346" height="15" font="0">D. Kane and J. Enos. Analysing equity portfolios in</text>
+<text top="1022" left="474" width="215" height="15" font="0">R. R News, 6(2):13–19, May 2006.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

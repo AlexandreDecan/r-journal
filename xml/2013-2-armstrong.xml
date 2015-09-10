@@ -1,0 +1,1832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="8" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+	<fontspec id="11" size="9" family="Times" color="#7282aa"/>
+	<fontspec id="12" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">4</text>
+<text top="98" left="149" width="529" height="30" font="2"><b>factorplot: Improving Presentation of</b></text>
+<text top="137" left="149" width="561" height="30" font="2"><b>Simple Contrasts in Generalized Linear</b></text>
+<text top="177" left="149" width="107" height="30" font="2"><b>Models</b></text>
+<text top="213" left="149" width="158" height="15" font="0">by David A. Armstrong II</text>
+<text top="254" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="254" left="203" width="541" height="13" font="4">Recent statistical literature has paid attention to the presentation of pairwise comparisons</text>
+<text top="270" left="149" width="597" height="13" font="4">either from the point of view of the reference category problem in generalized linear models (GLMs)</text>
+<text top="286" left="149" width="595" height="13" font="4">or in terms of multiple comparisons. Both schools of thought are interested in the parsimonious</text>
+<text top="303" left="148" width="596" height="13" font="4">presentation of sufficient information to enable readers to evaluate the significance of contrasts</text>
+<text top="319" left="149" width="595" height="13" font="4">resulting from the inclusion of qualitative variables in GLMs. These comparisons also arise when</text>
+<text top="336" left="149" width="595" height="13" font="4">trying to interpret multinomial models where one category of the dependent variable is omitted as</text>
+<text top="352" left="149" width="595" height="13" font="4">a reference. While considerable advances have been made, opportunities remain to improve the</text>
+<text top="369" left="148" width="596" height="13" font="4">presentation of this information, especially in graphical form. The <b>factorplot </b>package provides new</text>
+<text top="385" left="149" width="595" height="13" font="4">functions for graphically and numerically presenting results of hypothesis tests related to pairwise</text>
+<text top="402" left="149" width="595" height="13" font="4">comparisons resulting from qualitative covariates in GLMs or coefficients in multinomial logistic</text>
+<text top="418" left="149" width="111" height="13" font="4">regression models.</text>
+<text top="463" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="502" left="148" width="596" height="13" font="4">The problem of presenting information about categorical covariates in generalized linear models is</text>
+<text top="518" left="149" width="595" height="13" font="4">a relatively simple one. Nevertheless, it has received some attention in the recent literature. To be</text>
+<text top="534" left="149" width="595" height="13" font="4">clear about the problem, consider the following linear model where y is the dependent variable and</text>
+<text top="551" left="149" width="10" height="13" font="4">G</text>
+<text top="551" left="163" width="22" height="12" font="0">= {</text>
+<text top="551" left="185" width="58" height="13" font="4">1, 2, . . . , m</text>
+<text top="550" left="244" width="7" height="13" font="0">}</text>
+<text top="551" left="254" width="490" height="13" font="4">is a categorical independent variable that can be represented in the regression model</text>
+<text top="567" left="149" width="29" height="13" font="4">by m</text>
+<text top="566" left="181" width="11" height="13" font="0">−</text>
+<text top="567" left="194" width="551" height="13" font="4">1 dummy regressors, each one representing a different category of G. The reference category,</text>
+<text top="584" left="149" width="326" height="13" font="4">of course, is omitted. Thus, the model looks as follows:</text>
+<text top="634" left="207" width="8" height="13" font="4">E</text>
+<text top="634" left="216" width="5" height="12" font="0">(</text>
+<text top="634" left="221" width="7" height="13" font="4">y</text>
+<text top="639" left="228" width="3" height="10" font="6">i</text>
+<text top="634" left="232" width="20" height="12" font="0">) =</text>
+<text top="637" left="257" width="8" height="10" font="7"><i>µ</i></text>
+<text top="639" left="265" width="3" height="10" font="6">i</text>
+<text top="634" left="728" width="16" height="13" font="4">(1)</text>
+<text top="655" left="207" width="7" height="13" font="4">g</text>
+<text top="655" left="215" width="5" height="12" font="0">(</text>
+<text top="658" left="220" width="8" height="10" font="7"><i>µ</i></text>
+<text top="660" left="228" width="3" height="10" font="6">i</text>
+<text top="655" left="232" width="20" height="12" font="0">) =</text>
+<text top="658" left="257" width="7" height="10" font="7"><i>β</i></text>
+<text top="659" left="265" width="5" height="10" font="6">0</text>
+<text top="655" left="274" width="11" height="12" font="0">+</text>
+<text top="658" left="288" width="7" height="10" font="7"><i>β</i></text>
+<text top="660" left="296" width="5" height="10" font="6">1</text>
+<text top="655" left="302" width="10" height="13" font="4">D</text>
+<text top="660" left="312" width="8" height="11" font="6">i1</text>
+<text top="655" left="324" width="11" height="12" font="0">+</text>
+<text top="658" left="339" width="7" height="10" font="7"><i>β</i></text>
+<text top="659" left="346" width="5" height="10" font="6">2</text>
+<text top="655" left="353" width="10" height="13" font="4">D</text>
+<text top="660" left="363" width="8" height="11" font="6">i2</text>
+<text top="655" left="375" width="45" height="12" font="0">+ · · · +</text>
+<text top="658" left="423" width="7" height="10" font="7"><i>β</i></text>
+<text top="660" left="431" width="22" height="11" font="6">m−1</text>
+<text top="655" left="454" width="10" height="13" font="4">D</text>
+<text top="660" left="465" width="25" height="11" font="6">im−1</text>
+<text top="655" left="494" width="11" height="12" font="0">+</text>
+<text top="658" left="508" width="7" height="10" font="7"><i>β</i></text>
+<text top="659" left="516" width="8" height="10" font="6">m</text>
+<text top="655" left="525" width="10" height="13" font="4">X</text>
+<text top="660" left="535" width="8" height="11" font="6">i1</text>
+<text top="655" left="547" width="11" height="12" font="0">+</text>
+<text top="655" left="561" width="15" height="13" font="4">. . .</text>
+<text top="655" left="579" width="11" height="12" font="0">+</text>
+<text top="658" left="593" width="7" height="10" font="7"><i>β</i></text>
+<text top="660" left="601" width="36" height="11" font="6">m+k−1</text>
+<text top="655" left="638" width="10" height="13" font="4">X</text>
+<text top="660" left="648" width="8" height="10" font="6">ik</text>
+<text top="655" left="659" width="11" height="12" font="0">+</text>
+<text top="658" left="673" width="5" height="10" font="7"><i>ε</i></text>
+<text top="660" left="679" width="3" height="10" font="6">i</text>
+<text top="655" left="683" width="3" height="13" font="4">,</text>
+<text top="655" left="728" width="16" height="13" font="4">(2)</text>
+<text top="688" left="148" width="54" height="13" font="4">where D</text>
+<text top="693" left="202" width="8" height="11" font="6">i1</text>
+<text top="688" left="219" width="11" height="12" font="0">=</text>
+<text top="688" left="237" width="36" height="13" font="4">1 if G</text>
+<text top="693" left="273" width="3" height="10" font="6">i</text>
+<text top="688" left="284" width="11" height="12" font="0">=</text>
+<text top="688" left="303" width="27" height="13" font="4">1, D</text>
+<text top="693" left="330" width="8" height="11" font="6">i2</text>
+<text top="688" left="346" width="11" height="12" font="0">=</text>
+<text top="688" left="365" width="36" height="13" font="4">1 if G</text>
+<text top="693" left="401" width="3" height="10" font="6">i</text>
+<text top="688" left="412" width="11" height="12" font="0">=</text>
+<text top="688" left="430" width="57" height="13" font="4">2, etc. X</text>
+<text top="693" left="487" width="8" height="10" font="6">ik</text>
+<text top="688" left="501" width="243" height="13" font="4">represent an arbitrary set of additional</text>
+<text top="705" left="148" width="526" height="13" font="4">variables of any type. Here, each of the coefficients on the dummy regressors for G (<i>β</i></text>
+<text top="710" left="674" width="5" height="10" font="6">1</text>
+<text top="705" left="680" width="37" height="13" font="4">, . . . , <i>β</i></text>
+<text top="710" left="718" width="22" height="11" font="6">m−1</text>
+<text top="705" left="741" width="5" height="13" font="4">)</text>
+<text top="721" left="149" width="596" height="13" font="4">gives the difference in the conditional transformed mean of y between the category represented by</text>
+<text top="738" left="149" width="496" height="13" font="4">the dummy regressor and the reference category, controlling for all of the other X</text>
+<text top="743" left="644" width="8" height="10" font="6">ik</text>
+<text top="738" left="653" width="91" height="13" font="4">. However, the</text>
+<text top="758" left="149" width="10" height="13" font="4">m</text>
+<text top="757" left="162" width="11" height="13" font="0">−</text>
+<text top="758" left="176" width="251" height="13" font="4">1 coefficients for the categories of G imply</text>
+<text top="753" left="432" width="39" height="11" font="6">m(m−1)</text>
+<text top="765" left="449" width="5" height="10" font="6">2</text>
+<text top="758" left="477" width="267" height="13" font="4">simple contrasts representing every pairwise</text>
+<text top="775" left="149" width="596" height="13" font="4">comparison between categories of G. Any single pairwise comparison of non-reference category</text>
+<text top="791" left="149" width="595" height="13" font="4">coefficients can be conducted in a straightforward fashion. If the goal is to discern whether the</text>
+<text top="807" left="149" width="177" height="13" font="4">conditional mean of y given G</text>
+<text top="807" left="330" width="11" height="12" font="0">=</text>
+<text top="807" left="345" width="307" height="13" font="4">1 is different from the conditional mean of y given G</text>
+<text top="807" left="656" width="11" height="12" font="0">=</text>
+<text top="807" left="671" width="73" height="13" font="4">2 holding all</text>
+<text top="824" left="149" width="317" height="13" font="4">of the X variables constant, the quantity of interest is:</text>
+<text top="861" left="393" width="4" height="13" font="4">t</text>
+<text top="861" left="401" width="11" height="12" font="0">=</text>
+<text top="852" left="436" width="6" height="13" font="4">b</text>
+<text top="856" left="442" width="5" height="10" font="6">1</text>
+<text top="851" left="451" width="11" height="13" font="0">−</text>
+<text top="852" left="465" width="6" height="13" font="4">b</text>
+<text top="856" left="471" width="5" height="10" font="6">2</text>
+<text top="869" left="418" width="23" height="16" font="4">pV</text>
+<text top="872" left="442" width="5" height="12" font="0">(</text>
+<text top="872" left="448" width="6" height="13" font="4">b</text>
+<text top="877" left="454" width="5" height="10" font="6">1</text>
+<text top="871" left="463" width="11" height="13" font="0">−</text>
+<text top="872" left="477" width="6" height="13" font="4">b</text>
+<text top="877" left="483" width="5" height="10" font="6">2</text>
+<text top="872" left="489" width="5" height="12" font="0">)</text>
+<text top="861" left="497" width="3" height="13" font="4">,</text>
+<text top="861" left="728" width="16" height="13" font="4">(3)</text>
+<text top="900" left="148" width="37" height="13" font="4">where</text>
+<text top="916" left="324" width="10" height="13" font="4">V</text>
+<text top="916" left="334" width="5" height="12" font="0">(</text>
+<text top="916" left="340" width="6" height="13" font="4">b</text>
+<text top="921" left="346" width="5" height="10" font="6">1</text>
+<text top="915" left="355" width="11" height="13" font="0">−</text>
+<text top="916" left="369" width="6" height="13" font="4">b</text>
+<text top="921" left="375" width="5" height="10" font="6">2</text>
+<text top="916" left="381" width="20" height="12" font="0">) =</text>
+<text top="916" left="405" width="10" height="13" font="4">V</text>
+<text top="916" left="416" width="5" height="12" font="0">(</text>
+<text top="916" left="422" width="6" height="13" font="4">b</text>
+<text top="921" left="428" width="5" height="10" font="6">1</text>
+<text top="916" left="434" width="19" height="12" font="0">) +</text>
+<text top="916" left="456" width="10" height="13" font="4">V</text>
+<text top="916" left="467" width="5" height="12" font="0">(</text>
+<text top="916" left="473" width="6" height="13" font="4">b</text>
+<text top="921" left="479" width="5" height="10" font="6">2</text>
+<text top="916" left="485" width="19" height="12" font="0">) −</text>
+<text top="916" left="507" width="16" height="13" font="4">2V</text>
+<text top="916" left="524" width="5" height="12" font="0">(</text>
+<text top="916" left="530" width="6" height="13" font="4">b</text>
+<text top="921" left="536" width="5" height="10" font="6">1</text>
+<text top="916" left="542" width="12" height="13" font="4">, b</text>
+<text top="921" left="554" width="5" height="10" font="6">2</text>
+<text top="916" left="560" width="5" height="12" font="0">)</text>
+<text top="916" left="566" width="3" height="13" font="4">.</text>
+<text top="916" left="728" width="16" height="13" font="4">(4)</text>
+<text top="943" left="148" width="596" height="13" font="4">Thus, the calculation is not difficult, but calculating and presenting all of these differences can become</text>
+<text top="960" left="149" width="232" height="13" font="4">cumbersome, especially as m gets lar<a href="2013-2-armstrong.html#0">ge.</a></text>
+<text top="957" left="381" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">1</a></text>
+<text top="960" left="391" width="355" height="13" font="4">The problem comes not in the calculation of these quantities,</text>
+<text top="976" left="149" width="595" height="13" font="4">but in the parsimonious presentation of this information that will allow users to evaluate any desired</text>
+<text top="992" left="148" width="598" height="13" font="4">(simple) contrasts easily. Below, I discuss two extant methods used to present such information.</text>
+<text top="1009" left="149" width="315" height="13" font="4">Floating absolute risk (FAR) was first suggested by</text>
+<text top="1009" left="469" width="75" height="13" font="9"><a href="2013-2-armstrong.html#11">Easton et al.</a></text>
+<text top="1009" left="549" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1009" left="553" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1991</a></text>
+<text top="1009" left="581" width="164" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and was more rigorously</text>
+<text top="1025" left="149" width="338" height="13" font="4">justified, though with different estimation strategies, by</text>
+<text top="1025" left="491" width="134" height="13" font="9"><a href="2013-2-armstrong.html#11">Firth and De Menezes</a></text>
+<text top="1025" left="629" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1025" left="633" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2004</a></text>
+<text top="1025" left="661" width="8" height="13" font="4"><a href="2013-2-armstrong.html#11">);</a></text>
+<text top="1025" left="672" width="72" height="13" font="9"><a href="2013-2-armstrong.html#11">de Menezes</a></text>
+<text top="1042" left="148" width="4" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1042" left="153" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1999</a></text>
+<text top="1042" left="180" width="8" height="13" font="4"><a href="2013-2-armstrong.html#11">);</a></text>
+<text top="1042" left="191" width="55" height="13" font="9"><a href="2013-2-armstrong.html#12">Plummer</a></text>
+<text top="1042" left="249" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="1042" left="254" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="1042" left="280" width="464" height="13" font="4"><a href="2013-2-armstrong.html#12">). </a>FAR is a means of overcoming the reference category problem by calculating</text>
+<text top="1058" left="149" width="595" height="13" font="4">floating variances for all levels of a factor (including the reference category). These floating variances</text>
+<text top="1075" left="149" width="595" height="13" font="4">can be used to perform hypothesis tests or construct floating confidence intervals that facilitate the</text>
+<text top="1091" left="149" width="595" height="13" font="4">graphical comparison of different categories (i.e., [log-]relative risks). The multiple comparisons</text>
+<text top="1108" left="149" width="595" height="13" font="4">literature has traditionally been focused on finding the appropriate p-values to control either the</text>
+<text top="1134" left="165" width="4" height="9" font="10">1</text>
+<text top="1136" left="170" width="301" height="12" font="1">Tools to carry out these computations already exist in the</text>
+<text top="1137" left="474" width="56" height="12" font="11"><a href="http://CRAN.R-project.org/package=multcomp"><b>multcomp</b></a></text>
+<text top="1136" left="533" width="75" height="12" font="1">package in R <a href="2013-2-armstrong.html#12">(</a></text>
+<text top="1136" left="608" width="74" height="12" font="12"><a href="2013-2-armstrong.html#12">Hothorn et al.</a></text>
+<text top="1136" left="682" width="3" height="12" font="1"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="1136" left="688" width="24" height="12" font="12"><a href="2013-2-armstrong.html#12">2008</a></text>
+<text top="1136" left="712" width="7" height="12" font="1"><a href="2013-2-armstrong.html#12">).</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">5</text>
+<text top="103" left="149" width="165" height="13" font="4">family-wise error rate (e.g.,</text>
+<text top="103" left="318" width="35" height="13" font="9"><a href="2013-2-armstrong.html#12">Holm</a></text>
+<text top="103" left="353" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="103" left="360" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1979</a></text>
+<text top="103" left="388" width="199" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>or the false discovery rate (e.g.,</text>
+<text top="103" left="590" width="152" height="13" font="9"><a href="2013-2-armstrong.html#11">Benjamini and Hochberg</a></text>
+<text top="103" left="742" width="3" height="13" font="4"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="120" left="148" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1995</a></text>
+<text top="120" left="175" width="569" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>in a set of simultaneous hypothesis tests. Presentation of this information has either been in the</text>
+<text top="136" left="149" width="154" height="13" font="4">form of line displays (e.g.,</text>
+<text top="136" left="307" width="93" height="13" font="9"><a href="2013-2-armstrong.html#12">Steel and Torrie</a></text>
+<text top="136" left="400" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="136" left="406" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1980</a></text>
+<text top="136" left="433" width="193" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>or compact letter displays (e.g.,</text>
+<text top="136" left="630" width="78" height="13" font="9"><a href="2013-2-armstrong.html#12">Gramm et al.</a></text>
+<text top="136" left="707" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="136" left="714" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2006</a></text>
+<text top="136" left="741" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">)</a></text>
+<text top="152" left="148" width="216" height="13" font="4">with more recent innovation here by</text>
+<text top="152" left="368" width="74" height="13" font="9"><a href="2013-2-armstrong.html#12">Graves et al.</a></text>
+<text top="152" left="445" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="152" left="449" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2012</a></text>
+<text top="152" left="476" width="8" height="13" font="4"><a href="2013-2-armstrong.html#12">).</a></text>
+<text top="173" left="171" width="575" height="13" font="4">However, when simple contrasts are the only quantities of interest, neither method above is perfect.</text>
+<text top="190" left="148" width="596" height="13" font="4">When floating/quasi-variances are presented, the user still has to evaluate a potentially large number</text>
+<text top="206" left="149" width="595" height="13" font="4">of hypothesis tests by either relying on the overlap in the floating confidence intervals or by calculating</text>
+<text top="223" left="149" width="595" height="13" font="4">the floating t-statistic. Either solution requires a good deal of cognitive energy on the part of the</text>
+<text top="239" left="149" width="595" height="13" font="4">analyst or reader. Compact letter displays do well at identifying patterns of statistical significance, but</text>
+<text top="256" left="149" width="595" height="13" font="4">are perhaps cumbersome to investigate when patterns of (in)significance are complicated and, though</text>
+<text top="272" left="149" width="551" height="13" font="4">mitigated to some degree, the problem still exists for the more recent multcompTs suggested by</text>
+<text top="272" left="703" width="41" height="13" font="9"><a href="2013-2-armstrong.html#12">Graves</a></text>
+<text top="288" left="149" width="28" height="13" font="9"><a href="2013-2-armstrong.html#12">et al.</a></text>
+<text top="288" left="180" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="288" left="185" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2012</a></text>
+<text top="288" left="211" width="533" height="13" font="4"><a href="2013-2-armstrong.html#12">). </a>Below, I discuss a means for presenting this information in a manner that will permit the</text>
+<text top="305" left="149" width="203" height="13" font="4">immediate evaluation of all the m</text>
+<text top="305" left="353" width="5" height="12" font="0">(</text>
+<text top="305" left="358" width="10" height="13" font="4">m</text>
+<text top="304" left="372" width="11" height="13" font="0">−</text>
+<text top="305" left="386" width="7" height="13" font="4">1</text>
+<text top="305" left="393" width="5" height="12" font="0">)</text>
+<text top="305" left="398" width="346" height="13" font="4">/2 hypothesis tests associated with simple contrasts. The</text>
+<text top="321" left="149" width="595" height="13" font="4">method I propose can also calculate analytical standard errors that are not prone to the same potential</text>
+<text top="338" left="149" width="595" height="13" font="4">inferential errors produced by floating variances. I provide methods to summarize, print and plot the</text>
+<text top="354" left="149" width="522" height="13" font="4">information in a way that is both visually appealing and straightforward to understand.</text>
+<text top="399" left="149" width="357" height="17" font="5"><b>Solutions to the reference category problem</b></text>
+<text top="441" left="148" width="457" height="13" font="4">There are a number of reasonable solutions to the reference category pr<a href="2013-2-armstrong.html#0">oblem.</a></text>
+<text top="439" left="606" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">2</a></text>
+<text top="441" left="616" width="128" height="13" font="4">The first solution is to</text>
+<text top="458" left="148" width="597" height="13" font="4">present all of the covariance information required to calculate t-statistics for contrasts of interest (i.e.,</text>
+<text top="474" left="149" width="596" height="13" font="4">the variance-covariance matrix of the estimators). This solution provides the reader with all necessary</text>
+<text top="491" left="149" width="595" height="13" font="4">information to make inferences. However, it does not provide an easy way for all of these inferences to</text>
+<text top="507" left="149" width="589" height="13" font="4">be presented. Another solution is to re-estimate the model with different reference categories in <a href="2013-2-armstrong.html#0">turn.</a></text>
+<text top="504" left="738" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">3</a></text>
+<text top="523" left="148" width="596" height="13" font="4">This method produces the correct inferential information, but it is inelegant. The modal response to</text>
+<text top="540" left="149" width="597" height="13" font="4">the reference category problem is a failure to do anything to discover (or allow readers to investigate)</text>
+<text top="556" left="149" width="445" height="13" font="4">the implied pairwise differences not captured by the estimated coefficients.</text>
+<text top="577" left="171" width="72" height="13" font="9"><a href="2013-2-armstrong.html#11">Easton et al.</a></text>
+<text top="577" left="246" width="4" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="577" left="251" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1991</a></text>
+<text top="577" left="278" width="467" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>proposed the idea of floating absolute risk as a means for evaluating multiple</text>
+<text top="594" left="149" width="595" height="13" font="4">comparisons in matched case-control studies. The idea was to provide sufficient information such that</text>
+<text top="610" left="149" width="595" height="13" font="4">readers could perform multiple comparisons with estimates of floating absolute risk at the expense of</text>
+<text top="627" left="148" width="596" height="13" font="4">presenting a single extra number for each binary variable representing a level of a categorical covariate</text>
+<text top="643" left="148" width="164" height="13" font="4">(i.e., risk factor). Although</text>
+<text top="643" left="317" width="98" height="13" font="9"><a href="2013-2-armstrong.html#12">Greenland et al.</a></text>
+<text top="643" left="418" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="643" left="423" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1999</a></text>
+<text top="643" left="451" width="294" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>disagreed on terminology and on the utility of</text>
+<text top="659" left="149" width="595" height="13" font="4">Easton’s idea of a floating scale, they agreed on the utility presenting information that would permit</text>
+<text top="676" left="149" width="596" height="13" font="4">users to easily make the right inferences about relative risks among any levels of a categorical risk</text>
+<text top="692" left="149" width="70" height="13" font="4">factor. Both</text>
+<text top="692" left="223" width="134" height="13" font="9"><a href="2013-2-armstrong.html#11">Firth and De Menezes</a></text>
+<text top="692" left="360" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="692" left="365" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2004</a></text>
+<text top="692" left="392" width="31" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and</text>
+<text top="692" left="427" width="57" height="13" font="9"><a href="2013-2-armstrong.html#12">Plummer</a></text>
+<text top="692" left="487" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="692" left="492" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="692" left="519" width="225" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>provided a more rigorous statistical</text>
+<text top="709" left="149" width="597" height="13" font="4">foundation on which to build estimates of floating absolute risk (or as Firth and De Menezes call them,</text>
+<text top="725" left="148" width="502" height="13" font="4">quasi-variances). Firth and De Menezes’ method has been operationalized in R in the</text>
+<text top="725" left="653" width="39" height="13" font="13"><a href="http://CRAN.R-project.org/package=qvcalc"><b>qvcalc</b></a></text>
+<text top="725" left="696" width="49" height="13" font="4">package</text>
+<text top="742" left="148" width="4" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="742" left="153" width="29" height="13" font="9"><a href="2013-2-armstrong.html#11">Firth</a></text>
+<text top="742" left="182" width="3" height="13" font="4"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="742" left="188" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2010</a></text>
+<text top="742" left="215" width="529" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and both the methods of Plummer as well as Greenland et al. have been operationalized</text>
+<text top="758" left="149" width="351" height="13" font="4">in the float() and ftrend() functions, respectively, in the</text>
+<text top="758" left="503" width="21" height="13" font="13"><a href="http://CRAN.R-project.org/package=Epi"><b>Epi</b></a></text>
+<text top="758" left="527" width="58" height="13" font="4">package <a href="2013-2-armstrong.html#11">(</a></text>
+<text top="758" left="585" width="99" height="13" font="9"><a href="2013-2-armstrong.html#11">Carstensen et al.</a></text>
+<text top="758" left="685" width="3" height="13" font="4"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="758" left="692" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2013</a></text>
+<text top="758" left="719" width="25" height="13" font="4"><a href="2013-2-armstrong.html#11">). </a>In</text>
+<text top="775" left="149" width="595" height="13" font="4">general, these solutions allow sufficient (or nearly sufficient) information to be presented in a single</text>
+<text top="791" left="149" width="511" height="13" font="4">column of a statistical table that makes valid, arbitrary multiple comparisons possible.</text>
+<text top="812" left="171" width="573" height="13" font="4">The measures of floating absolute risk are often used to create floating (or quasi-) confidence</text>
+<text top="828" left="149" width="54" height="13" font="4"><a href="2013-2-armstrong.html#0">intervals.</a></text>
+<text top="826" left="203" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">4</a></text>
+<text top="828" left="213" width="531" height="13" font="4">Presenting these intervals allows the user to approximately evaluate hypothesis tests about</text>
+<text top="845" left="149" width="595" height="13" font="4">any simple contrast. While the exact nature of these confidence intervals is somewhat controversial</text>
+<text top="861" left="148" width="124" height="13" font="4">(for a discussion, see</text>
+<text top="861" left="276" width="97" height="13" font="9"><a href="2013-2-armstrong.html#11">Easton and Peto</a></text>
+<text top="861" left="376" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="861" left="380" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2000</a></text>
+<text top="861" left="407" width="8" height="13" font="4"><a href="2013-2-armstrong.html#11">);</a></text>
+<text top="861" left="419" width="95" height="13" font="9"><a href="2013-2-armstrong.html#12">Greenland et al.</a></text>
+<text top="861" left="517" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="861" left="522" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1999</a></text>
+<text top="861" left="549" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="861" left="556" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2000</a></text>
+<text top="861" left="583" width="161" height="13" font="4"><a href="2013-2-armstrong.html#12">)), </a>all agree that confidence</text>
+<text top="878" left="149" width="595" height="13" font="4">intervals can be profitably put around some quantity (either the log-relative risks versus the reference</text>
+<text top="894" left="149" width="595" height="13" font="4">category or the floating trend) to display the uncertainty around these quantities and permit visual</text>
+<text top="911" left="149" width="98" height="13" font="4">hypothesis tests.</text>
+<text top="931" left="171" width="573" height="13" font="4">The methods discussed above still require the analyst or reader to either evaluate the pairwise</text>
+<text top="948" left="149" width="595" height="13" font="4">hypothesis tests based on the extent to which confidence intervals overlap or calculate the floating</text>
+<text top="964" left="149" width="595" height="13" font="4">t-statistic for each desired contrast. If the former, readers must still engage in a cognitive task of</text>
+<text top="981" left="148" width="112" height="13" font="4">position detection <a href="2013-2-armstrong.html#11">(</a></text>
+<text top="981" left="261" width="59" height="13" font="9"><a href="2013-2-armstrong.html#11">Cleveland</a></text>
+<text top="981" left="320" width="3" height="13" font="4"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="981" left="326" width="26" height="13" font="9"><a href="2013-2-armstrong.html#11">1985</a></text>
+<text top="981" left="353" width="391" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and then make an inference based on the extent to which intervals</text>
+<text top="997" left="149" width="597" height="13" font="4">overlap. As the horizontal distance between vertically-oriented floating confidence intervals grows,</text>
+<text top="1014" left="149" width="268" height="13" font="4">this task becomes more difficult. Finally, as</text>
+<text top="1014" left="421" width="75" height="13" font="9"><a href="2013-2-armstrong.html#11">Easton et al.</a></text>
+<text top="1014" left="500" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1014" left="505" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1991</a></text>
+<text top="1014" left="532" width="212" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>suggests, floating variances are a</text>
+<text top="1040" left="165" width="4" height="9" font="10">2</text>
+<text top="1043" left="170" width="574" height="12" font="1">The problem here applies particularly to polytomous, unordered risk factors or covariates. The case of ordinal</text>
+<text top="1057" left="149" width="595" height="12" font="1">risk factors, where only the difference in adjacent categories is of interest, is a bit less troublesome and will not be</text>
+<text top="1071" left="149" width="140" height="12" font="1">dealt with separately here.</text>
+<text top="1084" left="165" width="4" height="9" font="10">3</text>
+<text top="1086" left="170" width="574" height="12" font="1">In fact, this re-parameterization method could be used to deal with more complicated contrasts, too. For</text>
+<text top="1100" left="149" width="342" height="12" font="1">example, it could be used to deal with the problem proposed by</text>
+<text top="1100" left="493" width="85" height="12" font="12"><a href="2013-2-armstrong.html#12">Greenland et al.</a></text>
+<text top="1100" left="581" width="4" height="12" font="1"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="1100" left="585" width="24" height="12" font="12"><a href="2013-2-armstrong.html#12">1999</a></text>
+<text top="1100" left="610" width="134" height="12" font="1"><a href="2013-2-armstrong.html#12">) </a>wherein they wanted to</text>
+<text top="1114" left="149" width="407" height="12" font="1">estimate the relative risk of being above a particular category on birthweight.</text>
+<text top="1127" left="165" width="4" height="9" font="10">4</text>
+<text top="1129" left="170" width="574" height="12" font="1">Occasionally, quasi-variance estimates are negative, which provide the right inferences, but do not permit</text>
+<text top="1143" left="148" width="200" height="12" font="1">plotting of quasi-confidence intervals.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="11" family="Times" color="#000000"/>
+	<fontspec id="15" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">6</text>
+<text top="103" left="147" width="597" height="13" font="4">“virtually sufficient” summary of the uncertainty relating to relative risks; however, they can produce</text>
+<text top="120" left="149" width="385" height="13" font="4">erroneous inferences if the error rate is sufficiently high. Both</text>
+<text top="120" left="538" width="137" height="13" font="9"><a href="2013-2-armstrong.html#11">Firth and De Menezes</a></text>
+<text top="120" left="680" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="120" left="684" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2004</a></text>
+<text top="120" left="712" width="32" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and</text>
+<text top="136" left="149" width="56" height="13" font="9"><a href="2013-2-armstrong.html#12">Plummer</a></text>
+<text top="136" left="208" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="136" left="212" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="136" left="239" width="505" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>provide methods for calculating this error rate, which is often small relative to other</text>
+<text top="152" left="149" width="174" height="13" font="4">sources of error in the model.</text>
+<text top="173" left="171" width="480" height="13" font="4">To put a finer point on the problem, consider the example below using data from</text>
+<text top="173" left="654" width="52" height="13" font="9"><a href="2013-2-armstrong.html#12">Ornstein</a></text>
+<text top="173" left="710" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="173" left="714" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1976</a></text>
+<text top="173" left="741" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">)</a></text>
+<text top="190" left="149" width="51" height="13" font="4">from the</text>
+<text top="190" left="203" width="18" height="13" font="13"><a href="http://CRAN.R-project.org/package=car"><b>car</b></a></text>
+<text top="190" left="224" width="57" height="13" font="4">package <a href="2013-2-armstrong.html#11">(</a></text>
+<text top="190" left="281" width="106" height="13" font="9"><a href="2013-2-armstrong.html#11">Fox and Weisberg</a></text>
+<text top="190" left="387" width="3" height="13" font="4"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="190" left="394" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2011</a></text>
+<text top="190" left="421" width="155" height="13" font="4"><a href="2013-2-armstrong.html#11">). </a>The model of interest is:</text>
+<text top="240" left="268" width="59" height="13" font="4">Interlocks</text>
+<text top="245" left="327" width="3" height="10" font="6">i</text>
+<text top="239" left="335" width="11" height="13" font="0">∼</text>
+<text top="240" left="350" width="46" height="13" font="4">Poisson</text>
+<text top="240" left="396" width="5" height="12" font="0">(</text>
+<text top="243" left="402" width="8" height="10" font="7"><i>µ</i></text>
+<text top="245" left="410" width="3" height="10" font="6">i</text>
+<text top="240" left="414" width="5" height="12" font="0">)</text>
+<text top="240" left="728" width="16" height="13" font="4">(5)</text>
+<text top="261" left="287" width="19" height="13" font="4">log</text>
+<text top="261" left="308" width="5" height="12" font="0">(</text>
+<text top="264" left="314" width="8" height="10" font="7"><i>µ</i></text>
+<text top="266" left="322" width="3" height="10" font="6">i</text>
+<text top="261" left="326" width="20" height="12" font="0">) =</text>
+<text top="264" left="350" width="7" height="10" font="7"><i>β</i></text>
+<text top="265" left="358" width="5" height="10" font="6">0</text>
+<text top="261" left="367" width="11" height="12" font="0">+</text>
+<text top="264" left="381" width="7" height="10" font="7"><i>β</i></text>
+<text top="266" left="389" width="5" height="10" font="6">1</text>
+<text top="261" left="397" width="19" height="13" font="4">log</text>
+<text top="267" left="416" width="5" height="10" font="6">2</text>
+<text top="261" left="424" width="5" height="12" font="0">(</text>
+<text top="261" left="430" width="38" height="13" font="4">Assets</text>
+<text top="266" left="468" width="3" height="10" font="6">i</text>
+<text top="261" left="472" width="19" height="12" font="0">) +</text>
+<text top="264" left="495" width="8" height="10" font="14"><i><b>γ</b></i></text>
+<text top="261" left="503" width="37" height="13" font="4">Sector</text>
+<text top="266" left="540" width="7" height="10" font="6">ij</text>
+<text top="261" left="550" width="11" height="12" font="0">+</text>
+<text top="264" left="564" width="7" height="10" font="14"><i><b>θ</b></i></text>
+<text top="261" left="571" width="41" height="13" font="4">Nation</text>
+<text top="266" left="612" width="11" height="10" font="6">im</text>
+<text top="294" left="148" width="278" height="13" font="4">where <i><b>γ </b></i>represents a set of coefficients on the j</text>
+<text top="294" left="431" width="11" height="12" font="0">=</text>
+<text top="294" left="445" width="299" height="13" font="4">9 non-reference category dummy variables for the</text>
+<text top="311" left="148" width="452" height="13" font="4">10 sectors represented in the data and <i><b>θ </b></i>is the set of coefficients for the m</text>
+<text top="311" left="606" width="11" height="12" font="0">=</text>
+<text top="311" left="622" width="122" height="13" font="4">3 coefficients on the</text>
+<text top="327" left="149" width="595" height="13" font="4">non-reference category dummy variables representing the four nations in the dataset. The goal is to</text>
+<text top="344" left="149" width="595" height="13" font="4">determine which sectors (and/or nations) have significantly different transformed conditional means</text>
+<text top="360" left="149" width="595" height="13" font="4">of Interlocks. The quasi-variances can be presented along with the coefficients permitting hypothesis</text>
+<text top="377" left="149" width="596" height="13" font="4">testing at the reader’s discretion. This approach is economical, but still requires the interested reader</text>
+<text top="393" left="149" width="595" height="13" font="4">to make 27 pairwise hypothesis tests for sector and three pairwise hypothesis tests for nation, beyond</text>
+<text top="409" left="149" width="230" height="13" font="4">those presented in the coefficient table.</text>
+<text top="430" left="171" width="573" height="13" font="4">The plot of the floating confidence intervals provides similar information, but readers are still</text>
+<text top="447" left="149" width="595" height="13" font="4">required to make judgements about statistical significance with a visual method prone to occasional</text>
+<text top="463" left="149" width="209" height="13" font="4">inferential errors. Consider Figure</text>
+<text top="463" left="362" width="7" height="13" font="9"><a href="2013-2-armstrong.html#5">1</a></text>
+<text top="463" left="368" width="376" height="13" font="4"><a href="2013-2-armstrong.html#5">, </a>which presents confidence intervals using the three different</text>
+<text top="480" left="149" width="483" height="13" font="4">functions that produce floating variances R — qvcalc(), float() and ftrend()<a href="2013-2-armstrong.html#0">.</a></text>
+<text top="477" left="632" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">5</a></text>
+<text top="480" left="643" width="101" height="13" font="4">In the figure, the</text>
+<text top="496" left="149" width="595" height="13" font="4">floating confidence interval for the mining sector overlaps four other floating confidence intervals and</text>
+<text top="513" left="149" width="263" height="13" font="4">does not overlap the remaining five <a href="2013-2-armstrong.html#0">intervals.</a></text>
+<text top="510" left="412" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">6</a></text>
+<text top="513" left="422" width="73" height="13" font="4">Advice from</text>
+<text top="513" left="498" width="34" height="13" font="9"><a href="2013-2-armstrong.html#12">Smith</a></text>
+<text top="513" left="535" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="513" left="539" width="26" height="13" font="9"><a href="2013-2-armstrong.html#12">1997</a></text>
+<text top="513" left="566" width="178" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>suggests that only confidence</text>
+<text top="529" left="149" width="597" height="13" font="4">intervals not containing the point estimate against which the test is being done are significant. Here,</text>
+<text top="545" left="149" width="595" height="13" font="4">all of the pairwise differences with the mining coefficient are significant because none of the point</text>
+<text top="562" left="149" width="595" height="13" font="4">estimates are within the 95% confidence interval for mining. A more conservative strategy is to fail to</text>
+<text top="578" left="149" width="597" height="13" font="4">reject null hypotheses where confidence intervals overlap and to reject otherwise. Using this criterion,</text>
+<text top="595" left="149" width="597" height="13" font="4">the mining sector is different from five other coefficients — Agriculture, Banking, Construction,</text>
+<text top="611" left="149" width="115" height="13" font="4">Finance and Wood.</text>
+<text top="611" left="268" width="47" height="13" font="9"><a href="2013-2-armstrong.html#11">Browne</a></text>
+<text top="611" left="318" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="611" left="323" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1979</a></text>
+<text top="611" left="350" width="394" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>shows that making inferences from confidence intervals requires</text>
+<text top="628" left="149" width="595" height="13" font="4">a knowledge of the different sampling variances of the underlying random variables for which the</text>
+<text top="644" left="149" width="595" height="13" font="4">confidence intervals have been constructed (i.e., the widths of the intervals matter); the decision does</text>
+<text top="661" left="149" width="595" height="13" font="4">not rest solely on the extent to which the intervals overlap. While Browne’s method may produce</text>
+<text top="677" left="149" width="595" height="13" font="4">more appropriate inferences, it is hardly less work than producing the hypothesis tests directly. When</text>
+<text top="693" left="149" width="595" height="13" font="4">the appropriate pairwise hypothesis tests are performed, without adjusting the p-values for multiple</text>
+<text top="710" left="149" width="595" height="13" font="4">testing, it is clear that the mining coefficient is different from seven coefficients when using a two-sided</text>
+<text top="726" left="149" width="75" height="13" font="4">test, as Table</text>
+<text top="726" left="227" width="7" height="13" font="9"><a href="2013-2-armstrong.html#4">1</a></text>
+<text top="726" left="237" width="41" height="13" font="4">shows.</text>
+<text top="747" left="171" width="573" height="13" font="4">Even if the evidence regarding the outcome of a hypothesis test from two confidence intervals</text>
+<text top="764" left="149" width="305" height="13" font="4">is clear, there are other potential sources of error.</text>
+<text top="764" left="462" width="62" height="13" font="9"><a href="2013-2-armstrong.html#11">Cleveland</a></text>
+<text top="764" left="529" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="764" left="533" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1985</a></text>
+<text top="764" left="561" width="184" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>finds that detecting position</text>
+<text top="780" left="149" width="595" height="13" font="4">along a common scale is one of the easiest tasks of graphical perception, but that discerning length</text>
+<text top="797" left="149" width="595" height="13" font="4">is considerably more difficult. His experiments show that readers are prone to errors in even the</text>
+<text top="813" left="149" width="595" height="13" font="4">easiest graphical perception tasks and the error rate is nearly twice as high when readers are asked to</text>
+<text top="829" left="149" width="595" height="13" font="4">adjudicate the relative lengths of lines. Conducting hypothesis tests using confidence intervals is an</text>
+<text top="846" left="149" width="321" height="13" font="4">endeavor rife with opportunities for inferential errors.</text>
+<text top="867" left="171" width="573" height="13" font="4">Means for calculating and presenting models with multiple simple contrasts have developed in</text>
+<text top="883" left="149" width="595" height="13" font="4">the multiple testing literature as well. While the thrust of the literature mentioned above was dealing</text>
+<text top="900" left="148" width="596" height="13" font="4">with the reference category problem directly, the multiple comparisons literature has placed greater</text>
+<text top="916" left="149" width="595" height="13" font="4">focus on finding the appropriate p-values for a set of hypothesis tests rather than a single test. This</text>
+<text top="933" left="149" width="595" height="13" font="4">can be accomplished through controlling the family-wise error rate (the probability of committing a</text>
+<text top="949" left="148" width="596" height="13" font="4">Type I error on any of the tests in the set) or the false discovery rate (the proportion of falsely rejected</text>
+<text top="965" left="149" width="288" height="13" font="4">hypotheses among those rejected). Chapter 2 of</text>
+<text top="965" left="440" width="64" height="13" font="9"><a href="2013-2-armstrong.html#11">Bretz et al.</a></text>
+<text top="965" left="507" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="965" left="512" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2011</a></text>
+<text top="965" left="539" width="205" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>provides a brief, but informative</text>
+<text top="982" left="149" width="596" height="13" font="4">discussion of these general concepts. While these are useful concepts, and the package discussed below</text>
+<text top="998" left="148" width="596" height="13" font="4">permits users to adjust p-values in a number of ways to address these issues, I am more interested</text>
+<text top="1015" left="149" width="595" height="13" font="4">in how the multiple testing literature has developed around the presentation of multiple pairwise</text>
+<text top="1031" left="149" width="79" height="13" font="4">comparisons.</text>
+<text top="1058" left="165" width="4" height="9" font="10">5</text>
+<text top="1060" left="170" width="358" height="12" font="1">The figure below subtracts the arbitrary constant from the results of</text>
+<text top="1061" left="531" width="49" height="10" font="15">ftrend()</text>
+<text top="1060" left="583" width="161" height="12" font="1">to put all of these estimates on</text>
+<text top="1074" left="149" width="595" height="12" font="1">the same scale. I recognize that this is not what the authors had intended, but this should not lead to erroneous</text>
+<text top="1088" left="149" width="128" height="12" font="1">inferences in any event <a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1088" left="277" width="85" height="12" font="12"><a href="2013-2-armstrong.html#11">Easton and Peto</a></text>
+<text top="1088" left="363" width="3" height="12" font="1"><a href="2013-2-armstrong.html#11">,</a></text>
+<text top="1088" left="369" width="24" height="12" font="12"><a href="2013-2-armstrong.html#11">2000</a></text>
+<text top="1088" left="392" width="7" height="12" font="1"><a href="2013-2-armstrong.html#11">).</a></text>
+<text top="1101" left="165" width="4" height="9" font="10">6</text>
+<text top="1103" left="170" width="574" height="12" font="1">Horizontal gray lines have been drawn at the smallest lower- and largest upper-bounds of the mining sector</text>
+<text top="1117" left="149" width="596" height="12" font="1">floating confidence intervals to facilitate comparison. Note that differences across the three methods in the upper</text>
+<text top="1132" left="149" width="309" height="12" font="1">bounds and lower bounds were in the third decimal place.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="13" family="Times" color="#000000"/>
+	<fontspec id="17" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">7</text>
+<text top="100" left="208" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="100" left="260" width="425" height="13" font="4">Analytical Test of Differences between Mining (MIN) and Other Sectors</text>
+<text top="146" left="350" width="57" height="15" font="0">Contrast</text>
+<text top="146" left="450" width="93" height="15" font="0">Estimate/(SE)</text>
+<text top="171" left="350" width="77" height="15" font="0">MIN - AGR</text>
+<text top="171" left="477" width="39" height="15" font="0">0.250*</text>
+<text top="189" left="475" width="44" height="15" font="0">(0.069)</text>
+<text top="207" left="350" width="76" height="15" font="0">MIN - BNK</text>
+<text top="207" left="477" width="39" height="15" font="0">0.416*</text>
+<text top="225" left="475" width="44" height="15" font="0">(0.084)</text>
+<text top="243" left="350" width="79" height="15" font="0">MIN - CON</text>
+<text top="243" left="477" width="39" height="15" font="0">0.739*</text>
+<text top="261" left="475" width="44" height="15" font="0">(0.210)</text>
+<text top="279" left="350" width="70" height="15" font="0">MIN - FIN</text>
+<text top="279" left="477" width="39" height="15" font="0">0.361*</text>
+<text top="297" left="475" width="44" height="15" font="0">(0.067)</text>
+<text top="315" left="350" width="77" height="15" font="0">MIN - HLD</text>
+<text top="315" left="477" width="39" height="15" font="0">0.265*</text>
+<text top="333" left="475" width="44" height="15" font="0">(0.118)</text>
+<text top="351" left="350" width="82" height="15" font="0">MIN - MAN</text>
+<text top="351" left="480" width="34" height="15" font="0">0.128</text>
+<text top="369" left="475" width="44" height="15" font="0">(0.071)</text>
+<text top="387" left="350" width="77" height="15" font="0">MIN - MER</text>
+<text top="387" left="477" width="39" height="15" font="0">0.188*</text>
+<text top="405" left="475" width="44" height="15" font="0">(0.085)</text>
+<text top="423" left="350" width="76" height="15" font="0">MIN - TRN</text>
+<text top="423" left="480" width="34" height="15" font="0">0.098</text>
+<text top="440" left="475" width="44" height="15" font="0">(0.071)</text>
+<text top="458" left="350" width="82" height="15" font="0">MIN - WOD</text>
+<text top="458" left="474" width="44" height="15" font="0">-0.248*</text>
+<text top="476" left="475" width="44" height="15" font="0">(0.072)</text>
+<text top="509" left="149" width="6" height="11" font="1">∗</text>
+<text top="513" left="160" width="129" height="15" font="0">p &lt; 0.05, two-sided.</text>
+<text top="531" left="149" width="286" height="15" font="0">Estimates and standard errors produced by</text>
+<text top="531" left="439" width="46" height="13" font="16">glht()</text>
+<text top="531" left="488" width="192" height="15" font="0">from the <b>multcomp </b>package.</text>
+<text top="581" left="171" width="80" height="13" font="9"><a href="2013-2-armstrong.html#12">Gramm et al.</a></text>
+<text top="581" left="256" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="581" left="260" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2006</a></text>
+<text top="581" left="288" width="459" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>discuss the two generally accepted methods for presenting multiple com-</text>
+<text top="597" left="148" width="496" height="13" font="4">parisons — the line display and the letter display. A line display (see for example,</text>
+<text top="597" left="647" width="95" height="13" font="9"><a href="2013-2-armstrong.html#12">Steel and Torrie</a></text>
+<text top="597" left="742" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="614" left="148" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">1980</a></text>
+<text top="614" left="176" width="569" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>prints a column where each row represents a single element in the multiple comparisons. In</text>
+<text top="630" left="149" width="597" height="13" font="4">the example above, using the Ornstein data, these would be the names of the various sectors. Then,</text>
+<text top="647" left="148" width="596" height="13" font="4">vertical lines are drawn connecting all values that are not significantly different from each other. This</text>
+<text top="663" left="149" width="336" height="13" font="4">is a relatively simple display, but as shown generally by</text>
+<text top="663" left="488" width="42" height="13" font="9"><a href="2013-2-armstrong.html#12">Piepho</a></text>
+<text top="663" left="534" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="663" left="538" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="663" left="566" width="178" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>and in this particular case, it</text>
+<text top="679" left="149" width="595" height="13" font="4">is not always possible to faithfully represent all of the pairwise comparisons with connecting line</text>
+<text top="696" left="149" width="595" height="13" font="4">segments. Note that in the third line, a discontinuity is required to properly depict all of the pairwise</text>
+<text top="712" left="149" width="595" height="13" font="4">relationships. Further, this method requires that the levels of factors (at least potentially) be reordered</text>
+<text top="729" left="149" width="595" height="13" font="4">to identify insignificant differences. This reordering, while reasonable for unordered factors, is not at</text>
+<text top="745" left="149" width="332" height="13" font="4">all reasonable if the factor is inherently ordered. Figure</text>
+<text top="745" left="484" width="7" height="13" font="9"><a href="2013-2-armstrong.html#5">2</a></text>
+<text top="745" left="491" width="253" height="13" font="4"><a href="2013-2-armstrong.html#5">(a) </a>shows the line display for the Ornstein</text>
+<text top="762" left="149" width="245" height="13" font="4">model above. A compact letter display <a href="2013-2-armstrong.html#12">(</a></text>
+<text top="762" left="394" width="43" height="13" font="9"><a href="2013-2-armstrong.html#12">Piepho</a></text>
+<text top="762" left="437" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="762" left="444" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="762" left="471" width="273" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>places a series of letters by each level of the</text>
+<text top="778" left="149" width="595" height="13" font="4">categorical variable such that any two levels with the same letter are not significantly different from</text>
+<text top="795" left="149" width="65" height="13" font="4">each other<a href="2013-2-armstrong.html#0">.</a></text>
+<text top="792" left="214" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">7</a></text>
+<text top="795" left="224" width="520" height="13" font="4">Each letter essentially defines a set of factor levels that have insignificant differences in</text>
+<text top="811" left="149" width="597" height="13" font="4">coefficients among them. For example, Banking, Construction and Finance all share the letter “a”,</text>
+<text top="827" left="148" width="596" height="13" font="4">which means their coefficients are statistically indistinguishable from each other. Note that Wood</text>
+<text top="844" left="149" width="595" height="13" font="4">is the sole factor level with “f”, meaning that it has a statistically different coefficient than all of the</text>
+<text top="860" left="149" width="598" height="13" font="4">other factor levels. These are more flexible than line displays, though they can still be improved upon.</text>
+<text top="877" left="149" width="596" height="13" font="4">Even though these displays do identify all pairwise significant relationships, they do not immediately</text>
+<text top="893" left="149" width="595" height="13" font="4">identify the sign and size of the differences and what appear to be complicated patterns of significance</text>
+<text top="910" left="149" width="345" height="13" font="4">may appear more simple with a different mode of display.</text>
+<text top="931" left="171" width="71" height="13" font="9"><a href="2013-2-armstrong.html#12">Graves et al.</a></text>
+<text top="931" left="246" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="931" left="250" width="26" height="13" font="9"><a href="2013-2-armstrong.html#12">2012</a></text>
+<text top="931" left="276" width="468" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>discuss enhancements to the letter display that make it somewhat more visually</text>
+<text top="947" left="149" width="595" height="13" font="4">appealing and make the cognitive tasks involved less cumbersome. This method is operationalized</text>
+<text top="963" left="149" width="206" height="13" font="4">by the multcompTs function in the</text>
+<text top="964" left="359" width="95" height="13" font="13"><a href="http://CRAN.R-project.org/package=multcompView"><b>multcompView</b></a></text>
+<text top="963" left="458" width="286" height="13" font="4">package. While these functions are potentially</text>
+<text top="980" left="149" width="595" height="13" font="4">useful, they are A) still improved upon by the method discussed below and B) not intended for use</text>
+<text top="996" left="149" width="597" height="13" font="4">directly with “glm” class objects or “glht” class objects. Despite the improvements over letter displays,</text>
+<text top="1013" left="149" width="424" height="13" font="4">complicated patterns of (in)significance still result in cluttered displays.</text>
+<text top="1039" left="165" width="4" height="9" font="10">7</text>
+<text top="1042" left="170" width="574" height="12" font="1">The boxplot on the graph is a boxplot of the linear predictor from the statistical model. If there were no other</text>
+<text top="1056" left="149" width="595" height="12" font="1">covariates in the model, this would just be a boxplot of the response variable by the different factor levels. While</text>
+<text top="1070" left="149" width="595" height="12" font="1">this does provide some information, it does not indicate how the predicted response changes as a function of the</text>
+<text top="1084" left="149" width="395" height="12" font="1">factor holding other things constant, which would perhaps be more useful.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="18" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="19" size="2" family="Times" color="#000000"/>
+	<fontspec id="20" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="21" size="9" family="Times" color="#000000"/>
+	<fontspec id="22" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="23" size="3" family="Times" color="#000000"/>
+	<fontspec id="24" size="6" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">8</text>
+<text top="173" left="268" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="173" left="325" width="299" height="13" font="4">Quasi-confidence Intervals for the Ornstein Model</text>
+<text top="392" left="279" width="0" height="9" font="18">Coefficient</text>
+<text top="351" left="325" width="4" height="5" font="19">●</text>
+<text top="377" left="354" width="4" height="5" font="19">●</text>
+<text top="426" left="384" width="4" height="5" font="19">●</text>
+<text top="368" left="413" width="4" height="5" font="19">●</text>
+<text top="354" left="442" width="4" height="5" font="19">●</text>
+<text top="333" left="471" width="4" height="5" font="19">●</text>
+<text top="342" left="500" width="4" height="5" font="19">●</text>
+<text top="313" left="529" width="4" height="5" font="19">●</text>
+<text top="328" left="558" width="4" height="5" font="19">●</text>
+<text top="276" left="588" width="4" height="5" font="19">●</text>
+<text top="351" left="319" width="4" height="5" font="19">●</text>
+<text top="377" left="349" width="4" height="5" font="19">●</text>
+<text top="426" left="378" width="4" height="5" font="19">●</text>
+<text top="368" left="407" width="4" height="5" font="19">●</text>
+<text top="354" left="436" width="4" height="5" font="19">●</text>
+<text top="333" left="465" width="4" height="5" font="19">●</text>
+<text top="342" left="494" width="4" height="5" font="19">●</text>
+<text top="313" left="523" width="4" height="5" font="19">●</text>
+<text top="328" left="553" width="4" height="5" font="19">●</text>
+<text top="276" left="582" width="4" height="5" font="19">●</text>
+<text top="351" left="331" width="4" height="5" font="19">●</text>
+<text top="377" left="360" width="4" height="5" font="19">●</text>
+<text top="426" left="389" width="4" height="5" font="19">●</text>
+<text top="368" left="419" width="4" height="5" font="19">●</text>
+<text top="354" left="448" width="4" height="5" font="19">●</text>
+<text top="333" left="477" width="4" height="5" font="19">●</text>
+<text top="342" left="506" width="4" height="5" font="19">●</text>
+<text top="313" left="535" width="4" height="5" font="19">●</text>
+<text top="328" left="564" width="4" height="5" font="19">●</text>
+<text top="276" left="593" width="4" height="5" font="19">●</text>
+<text top="432" left="302" width="0" height="9" font="18">−0.5</text>
+<text top="353" left="302" width="0" height="9" font="18">0.0</text>
+<text top="278" left="302" width="0" height="9" font="18">0.5</text>
+<text top="525" left="331" width="0" height="9" font="18">A</text>
+<text top="519" left="331" width="0" height="9" font="18">GR</text>
+<text top="524" left="360" width="0" height="9" font="18">BNK</text>
+<text top="526" left="389" width="0" height="9" font="18">CON</text>
+<text top="520" left="418" width="0" height="9" font="18">FIN</text>
+<text top="524" left="447" width="0" height="9" font="18">HLD</text>
+<text top="526" left="477" width="0" height="9" font="18">MAN</text>
+<text top="526" left="506" width="0" height="9" font="18">MER</text>
+<text top="522" left="535" width="0" height="9" font="18">MIN</text>
+<text top="524" left="564" width="0" height="9" font="18">TRN</text>
+<text top="528" left="593" width="0" height="9" font="18">W</text>
+<text top="519" left="593" width="0" height="9" font="18">OD</text>
+<text top="261" left="348" width="154" height="8" font="20">Quasi−variances (Firth and Menzes 2004)</text>
+<text top="270" left="348" width="128" height="8" font="20">Floated Variances (Plummer 2003)</text>
+<text top="280" left="348" width="137" height="8" font="20">Floating Trend (Greenland et al 1999)</text>
+<text top="721" left="286" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="721" left="343" width="264" height="13" font="4">Line and Letter Displays for Ornstein Model</text>
+<text top="752" left="257" width="14" height="12" font="21"><b>(a)</b></text>
+<text top="752" left="274" width="68" height="12" font="1">Line Display</text>
+<text top="777" left="263" width="17" height="7" font="22">CON</text>
+<text top="804" left="263" width="12" height="7" font="22">FIN</text>
+<text top="832" left="263" width="15" height="7" font="22">BNK</text>
+<text top="859" left="263" width="15" height="7" font="22">HLD</text>
+<text top="887" left="263" width="16" height="7" font="22">AGR</text>
+<text top="915" left="263" width="17" height="7" font="22">MER</text>
+<text top="942" left="263" width="17" height="7" font="22">MAN</text>
+<text top="970" left="263" width="15" height="7" font="22">TRN</text>
+<text top="997" left="263" width="14" height="7" font="22">MIN</text>
+<text top="1025" left="263" width="18" height="7" font="22">WOD</text>
+<text top="752" left="550" width="15" height="12" font="21"><b>(b)</b></text>
+<text top="752" left="568" width="75" height="12" font="1">Letter Display</text>
+<text top="948" left="506" width="4" height="5" font="23">●</text>
+<text top="967" left="506" width="4" height="5" font="23">●</text>
+<text top="972" left="506" width="4" height="5" font="23">●</text>
+<text top="993" left="550" width="4" height="5" font="23">●</text>
+<text top="949" left="594" width="4" height="5" font="23">●</text>
+<text top="948" left="616" width="4" height="5" font="23">●</text>
+<text top="937" left="660" width="4" height="5" font="23">●</text>
+<text top="940" left="660" width="4" height="5" font="23">●</text>
+<text top="891" left="682" width="4" height="5" font="23">●</text>
+<text top="916" left="682" width="4" height="5" font="23">●</text>
+<text top="925" left="704" width="4" height="5" font="23">●</text>
+<text top="1040" left="511" width="0" height="8" font="24">A</text>
+<text top="1035" left="511" width="0" height="8" font="24">GR</text>
+<text top="1039" left="533" width="0" height="8" font="24">BNK</text>
+<text top="1041" left="555" width="0" height="8" font="24">CON</text>
+<text top="1036" left="577" width="0" height="8" font="24">FIN</text>
+<text top="1039" left="599" width="0" height="8" font="24">HLD</text>
+<text top="1041" left="621" width="0" height="8" font="24">MAN</text>
+<text top="1041" left="643" width="0" height="8" font="24">MER</text>
+<text top="1038" left="665" width="0" height="8" font="24">MIN</text>
+<text top="1039" left="687" width="0" height="8" font="24">TRN</text>
+<text top="1042" left="709" width="0" height="8" font="24">W</text>
+<text top="1035" left="709" width="0" height="8" font="24">OD</text>
+<text top="1013" left="473" width="5" height="8" font="20">0</text>
+<text top="972" left="469" width="9" height="8" font="20">20</text>
+<text top="932" left="469" width="9" height="8" font="20">40</text>
+<text top="891" left="469" width="9" height="8" font="20">60</text>
+<text top="851" left="469" width="9" height="8" font="20">80</text>
+<text top="1050" left="596" width="23" height="8" font="20">sector</text>
+<text top="956" left="456" width="0" height="8" font="24">linear predictor</text>
+<text top="772" left="506" width="5" height="8" font="20">  </text>
+<text top="782" left="506" width="5" height="8" font="20">  </text>
+<text top="792" left="505" width="6" height="8" font="20">c </text>
+<text top="802" left="504" width="7" height="8" font="20">d </text>
+<text top="812" left="504" width="7" height="8" font="20">e </text>
+<text top="822" left="506" width="5" height="8" font="20">  </text>
+<text top="772" left="526" width="7" height="8" font="20">a </text>
+<text top="782" left="528" width="5" height="8" font="20">  </text>
+<text top="792" left="528" width="5" height="8" font="20">  </text>
+<text top="802" left="526" width="7" height="8" font="20">d </text>
+<text top="812" left="528" width="5" height="8" font="20">  </text>
+<text top="822" left="528" width="5" height="8" font="20">  </text>
+<text top="772" left="549" width="7" height="8" font="20">a </text>
+<text top="782" left="550" width="5" height="8" font="20">  </text>
+<text top="792" left="550" width="5" height="8" font="20">  </text>
+<text top="802" left="550" width="5" height="8" font="20">  </text>
+<text top="812" left="550" width="5" height="8" font="20">  </text>
+<text top="822" left="550" width="5" height="8" font="20">  </text>
+<text top="772" left="571" width="7" height="8" font="20">a </text>
+<text top="782" left="572" width="5" height="8" font="20">  </text>
+<text top="792" left="572" width="5" height="8" font="20">  </text>
+<text top="802" left="572" width="5" height="8" font="20">  </text>
+<text top="812" left="571" width="7" height="8" font="20">e </text>
+<text top="822" left="572" width="5" height="8" font="20">  </text>
+<text top="772" left="594" width="5" height="8" font="20">  </text>
+<text top="782" left="594" width="5" height="8" font="20">  </text>
+<text top="792" left="593" width="6" height="8" font="20">c </text>
+<text top="802" left="593" width="7" height="8" font="20">d </text>
+<text top="812" left="593" width="7" height="8" font="20">e </text>
+<text top="822" left="594" width="5" height="8" font="20">  </text>
+<text top="772" left="616" width="5" height="8" font="20">  </text>
+<text top="782" left="615" width="7" height="8" font="20">b </text>
+<text top="792" left="615" width="6" height="8" font="20">c </text>
+<text top="802" left="616" width="5" height="8" font="20">  </text>
+<text top="812" left="616" width="5" height="8" font="20">  </text>
+<text top="822" left="616" width="5" height="8" font="20">  </text>
+<text top="772" left="638" width="5" height="8" font="20">  </text>
+<text top="782" left="638" width="5" height="8" font="20">  </text>
+<text top="792" left="637" width="6" height="8" font="20">c </text>
+<text top="802" left="638" width="5" height="8" font="20">  </text>
+<text top="812" left="637" width="7" height="8" font="20">e </text>
+<text top="822" left="638" width="5" height="8" font="20">  </text>
+<text top="772" left="660" width="5" height="8" font="20">  </text>
+<text top="782" left="659" width="7" height="8" font="20">b </text>
+<text top="792" left="660" width="5" height="8" font="20">  </text>
+<text top="802" left="660" width="5" height="8" font="20">  </text>
+<text top="812" left="660" width="5" height="8" font="20">  </text>
+<text top="822" left="660" width="5" height="8" font="20">  </text>
+<text top="772" left="682" width="5" height="8" font="20">  </text>
+<text top="782" left="681" width="7" height="8" font="20">b </text>
+<text top="792" left="681" width="6" height="8" font="20">c </text>
+<text top="802" left="682" width="5" height="8" font="20">  </text>
+<text top="812" left="682" width="5" height="8" font="20">  </text>
+<text top="822" left="682" width="5" height="8" font="20">  </text>
+<text top="772" left="704" width="5" height="8" font="20">  </text>
+<text top="782" left="704" width="5" height="8" font="20">  </text>
+<text top="792" left="704" width="5" height="8" font="20">  </text>
+<text top="802" left="704" width="5" height="8" font="20">  </text>
+<text top="812" left="704" width="5" height="8" font="20">  </text>
+<text top="822" left="704" width="5" height="8" font="20">f </text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">9</text>
+<text top="100" left="149" width="313" height="17" font="5"><b>An alternative method of presentation</b></text>
+<text top="139" left="149" width="595" height="13" font="4">I argue that a good solution to the reference category problem is one that permits the most efficient</text>
+<text top="155" left="148" width="598" height="13" font="4">presentation and evaluation of a series of hypothesis tests relating to various (simple) factor contrasts.</text>
+<text top="172" left="148" width="596" height="13" font="4">As discussed above, both the numerical presentation of floating variances and the visual presentation</text>
+<text top="188" left="149" width="598" height="13" font="4">of floating confidence intervals are not maximally efficient on either dimension (presentation or evalu-</text>
+<text top="205" left="149" width="595" height="13" font="4">ation) when the analyst desires information about the simple pairwise difference between coefficients</text>
+<text top="221" left="149" width="595" height="13" font="4">related to the levels of a factor (i.e., simple contrasts). Similarly, I suggested that compact letter displays</text>
+<text top="237" left="148" width="596" height="13" font="4">(and to a lesser extent multcompTs), though they present all of the appropriate information, are not</text>
+<text top="254" left="149" width="434" height="13" font="4">maximally efficient at presenting the desired information graphically. As</text>
+<text top="254" left="586" width="93" height="13" font="9"><a href="2013-2-armstrong.html#11">Chambers et al.</a></text>
+<text top="254" left="682" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="254" left="686" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1983</a></text>
+<text top="254" left="713" width="31" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and</text>
+<text top="270" left="149" width="62" height="13" font="9"><a href="2013-2-armstrong.html#11">Cleveland</a></text>
+<text top="270" left="215" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="270" left="219" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1985</a></text>
+<text top="270" left="247" width="497" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>suggest, one efficient way of presenting many pairwise relationships is through</text>
+<text top="287" left="149" width="595" height="13" font="4">a scatterplot matrix or a generalized draftsman’s display (a lower- or upper-triangular scatterplot</text>
+<text top="303" left="149" width="48" height="13" font="4"><a href="2013-2-armstrong.html#0">matrix).</a></text>
+<text top="300" left="197" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">8</a></text>
+<text top="303" left="207" width="537" height="13" font="4">The important feature of a scatterplot matrix is the organization of pairwise displays in a</text>
+<text top="320" left="149" width="595" height="13" font="4">common scale. Thus, a display that directly indicates the difference for the simple contrasts of interest</text>
+<text top="336" left="148" width="330" height="13" font="4">would be superior to one that requires the user to make</text>
+<text top="336" left="481" width="5" height="12" font="0">(</text>
+<text top="336" left="487" width="10" height="13" font="4">m</text>
+<text top="336" left="498" width="5" height="12" font="0">(</text>
+<text top="336" left="504" width="10" height="13" font="4">m</text>
+<text top="335" left="517" width="11" height="13" font="0">−</text>
+<text top="336" left="531" width="7" height="13" font="4">1</text>
+<text top="336" left="538" width="11" height="12" font="0">))</text>
+<text top="336" left="549" width="195" height="13" font="4">/2 pairwise comparisons from m</text>
+<text top="353" left="149" width="248" height="13" font="4">floating variances or confidence intervals.</text>
+<text top="373" left="171" width="22" height="13" font="4">The</text>
+<text top="374" left="197" width="60" height="13" font="13"><a href="http://CRAN.R-project.org/package=factorplot"><b>factorplot</b></a></text>
+<text top="373" left="260" width="484" height="13" font="4">function in the package of the same name (version 1.1) for R computes all pairwise</text>
+<text top="390" left="149" width="595" height="13" font="4">comparisons of coefficients relating to a factor; its print, summary and plot methods provide the</text>
+<text top="406" left="149" width="551" height="13" font="4">user with a wealth of information regarding the nature of the differences in these coeffi<a href="2013-2-armstrong.html#0">cients.</a></text>
+<text top="404" left="699" width="5" height="10" font="8"><a href="2013-2-armstrong.html#0">9</a></text>
+<text top="406" left="710" width="34" height="13" font="4">These</text>
+<text top="423" left="149" width="595" height="13" font="4">functions overcome the problems suffered by previous methods as they present the results of pairwise</text>
+<text top="439" left="149" width="334" height="13" font="4">hypothesis tests directly in a visually appealing manner.</text>
+<text top="460" left="171" width="201" height="13" font="4">The function calculates equation <a href="2013-2-armstrong.html#1">(</a></text>
+<text top="460" left="372" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">3</a></text>
+<text top="460" left="379" width="366" height="13" font="4"><a href="2013-2-armstrong.html#1">) </a>for each simple contrast directly through a set of elementary</text>
+<text top="481" left="149" width="179" height="13" font="4">matrix operations. First, <b>d</b>, a m</text>
+<text top="480" left="331" width="11" height="13" font="0">×</text>
+<text top="476" left="347" width="39" height="11" font="6">m(m−1)</text>
+<text top="487" left="364" width="5" height="10" font="6">2</text>
+<text top="481" left="391" width="353" height="13" font="4">matrix in which each column has one entry equal to positive</text>
+<text top="497" left="149" width="595" height="13" font="4">one, one entry equal to negative one and all the remaining entries equal to zero is created. The</text>
+<text top="513" left="148" width="596" height="13" font="4">positive and negative ones indicate the comparison being calculated. Using the coefficients for the</text>
+<text top="530" left="149" width="445" height="13" font="4">desired factor covariate (call them <b>g</b>, a row-vector of length m), I calculate</text>
+<text top="527" left="598" width="9" height="17" font="4">∆</text>
+<text top="530" left="611" width="11" height="12" font="0">=</text>
+<text top="530" left="626" width="118" height="14" font="3"><b>gd</b>. Standard errors</text>
+<text top="546" left="149" width="595" height="13" font="4">for contrasts are calculated using the m rows and columns of the variance-covariance matrix of the</text>
+<text top="563" left="149" width="225" height="13" font="4">estimators from the model (call this V</text>
+<text top="563" left="374" width="5" height="12" font="0">(</text>
+<text top="563" left="380" width="7" height="13" font="4">g</text>
+<text top="563" left="387" width="5" height="12" font="0">)</text>
+<text top="563" left="393" width="22" height="13" font="4">): V</text>
+<text top="563" left="416" width="5" height="12" font="0">(</text>
+<text top="560" left="422" width="9" height="17" font="4">∆</text>
+<text top="563" left="431" width="20" height="12" font="0">) =</text>
+<text top="563" left="455" width="7" height="13" font="3"><b>d</b></text>
+<text top="559" left="463" width="3" height="10" font="6">0</text>
+<text top="563" left="467" width="9" height="13" font="3"><b>V</b></text>
+<text top="563" left="478" width="5" height="12" font="0">(</text>
+<text top="563" left="484" width="7" height="13" font="4">g</text>
+<text top="563" left="491" width="5" height="12" font="0">)</text>
+<text top="563" left="497" width="38" height="14" font="3"><b>d</b>. The</text>
+<text top="560" left="538" width="206" height="17" font="4">∆ vector and the square root of the</text>
+<text top="583" left="149" width="80" height="13" font="4">diagonal of V</text>
+<text top="583" left="229" width="5" height="12" font="0">(</text>
+<text top="580" left="235" width="9" height="17" font="4">∆</text>
+<text top="583" left="245" width="5" height="12" font="0">)</text>
+<text top="583" left="254" width="87" height="13" font="4">(both of length</text>
+<text top="578" left="346" width="39" height="11" font="6">m(m−1)</text>
+<text top="590" left="363" width="5" height="10" font="6">2</text>
+<text top="583" left="387" width="144" height="13" font="4">) are then organized into</text>
+<text top="583" left="535" width="5" height="12" font="0">(</text>
+<text top="583" left="541" width="10" height="13" font="4">m</text>
+<text top="582" left="554" width="11" height="13" font="0">−</text>
+<text top="583" left="568" width="7" height="13" font="4">1</text>
+<text top="583" left="575" width="28" height="12" font="0">) × (</text>
+<text top="583" left="603" width="10" height="13" font="4">m</text>
+<text top="582" left="616" width="11" height="13" font="0">−</text>
+<text top="583" left="630" width="7" height="13" font="4">1</text>
+<text top="583" left="637" width="5" height="12" font="0">)</text>
+<text top="583" left="646" width="99" height="13" font="4">upper-triangular</text>
+<text top="600" left="149" width="256" height="13" font="4">matrices where the rows refer to the first m</text>
+<text top="599" left="408" width="11" height="13" font="0">−</text>
+<text top="600" left="422" width="300" height="13" font="4">1 elements of <b>g </b>and the columns refer to the last m</text>
+<text top="599" left="724" width="11" height="13" font="0">−</text>
+<text top="600" left="738" width="7" height="13" font="4">1</text>
+<text top="616" left="149" width="595" height="13" font="4">elements of <b>g</b>. The entries indicate the difference between the coefficient represented by the row and</text>
+<text top="632" left="149" width="380" height="13" font="4">the coefficient represented by the column and its standard error.</text>
+<text top="653" left="171" width="573" height="13" font="4">The function has methods for objects of class “lm”, “glm”, “glht” and “multinom” which do</text>
+<text top="670" left="149" width="595" height="13" font="4">slightly different things depending on the input. The default method will accept a vector of estimates</text>
+<text top="686" left="149" width="595" height="13" font="4">and either A) a full variance-covariance matrix or B) a vector of quasi or floated variances that will</text>
+<text top="703" left="149" width="595" height="13" font="4">be turned into a diagonal variance-covariance matrix. The methods for “lm”, “glm”, “glht” and</text>
+<text top="719" left="147" width="597" height="13" font="4">“summary.glht” objects calculate the pairwise differences in the linear predictor for the values of the</text>
+<text top="736" left="149" width="595" height="13" font="4">specified factor variable. The method for “multinom” class objects calculates the pairwise differences</text>
+<text top="752" left="149" width="595" height="13" font="4">in coefficients across the categories of the dependent variable for a single variable (i.e., column of the</text>
+<text top="768" left="149" width="88" height="13" font="4">model matrix).</text>
+<text top="811" left="149" width="172" height="15" font="17"><b>Example 1: Ornstein data</b></text>
+<text top="842" left="148" width="596" height="13" font="4">The factorplot method for “lm” class objects has six arguments. The first two arguments, obj</text>
+<text top="859" left="149" width="596" height="13" font="4">and adjust.method, indicate the object and the method by which p-values are to be adjusted for</text>
+<text top="875" left="149" width="595" height="13" font="4">multiple comparisons (possibilities include all of those to p.adjust from the <b>stats </b>package). The</text>
+<text top="892" left="149" width="103" height="11" font="4">factor.variable</text>
+<text top="892" left="255" width="489" height="13" font="4">argument indicates the factor for which comparisons are desired. pval allows the</text>
+<text top="908" left="149" width="595" height="13" font="4">user to set the desired Type I error rate and two.sided allows the user to specify whether the null</text>
+<text top="924" left="149" width="596" height="13" font="4">hypothesis is tested against a one- or two-sided alternative with the latter as the default. The order</text>
+<text top="941" left="149" width="595" height="13" font="4">argument sets the ordering of the coefficients, with three possibilities — ‘natural’, ‘alph’ and ‘size’. The</text>
+<text top="957" left="147" width="598" height="13" font="4">‘natural’ option maintains the original ordering of the factor, the ‘alph’ option sorts them alphabetically</text>
+<text top="974" left="149" width="595" height="13" font="4">and the ‘size’ option sorts in ascending order of the magnitude of the coefficient. The choices made</text>
+<text top="990" left="149" width="371" height="13" font="4">here propagate through the plot, print and summary methods.</text>
+<text top="1011" left="171" width="573" height="13" font="4">The plot method for “factorplot” class objects produces something akin to an upper-triangular</text>
+<text top="1028" left="149" width="595" height="13" font="4">scatterplot. The analogy is not perfect, but the idea is similar; each entry of the rows-by-columns</text>
+<text top="1044" left="149" width="595" height="13" font="4">display indicates the pairwise difference between coefficients. The statistical significance of these</text>
+<text top="1071" left="165" width="4" height="9" font="10"><a href="2013-2-armstrong.html#11">8</a></text>
+<text top="1073" left="170" width="55" height="12" font="12"><a href="2013-2-armstrong.html#11">Cleveland</a></text>
+<text top="1073" left="229" width="4" height="12" font="1"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="1073" left="233" width="24" height="12" font="12"><a href="2013-2-armstrong.html#11">1985</a></text>
+<text top="1073" left="257" width="487" height="12" font="1"><a href="2013-2-armstrong.html#11">) </a>makes the argument in favor of a full scatterplot matrix, but in this case, the information</text>
+<text top="1087" left="148" width="596" height="12" font="1">presented in the upper-triangle is sufficient as nothing new could be learned by examining the full square matrix.</text>
+<text top="1100" left="165" width="4" height="9" font="10">9</text>
+<text top="1102" left="170" width="574" height="12" font="1">The methods for “lm”, “glm”, “multinom” and the default method use the calculations mentioned below. The</text>
+<text top="1116" left="149" width="595" height="12" font="1">method for “glht” and “summary.glht” objects uses the built-in functionality from the <b>multcomp </b>package to do</text>
+<text top="1130" left="149" width="595" height="12" font="1">these calculations. The benefit here is that if a small subset of comparisons is desired, this subset can be identified</text>
+<text top="1144" left="149" width="65" height="12" font="1">in the call to</text>
+<text top="1145" left="216" width="37" height="10" font="15">glht()</text>
+<text top="1144" left="256" width="385" height="12" font="1">and only those comparisons will be computed, thus increasing efficiency.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="25" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="26" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="27" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="28" size="6" family="Helvetica" color="#ffffff"/>
+	<fontspec id="29" size="6" family="Helvetica" color="#ffffff"/>
+	<fontspec id="30" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="31" size="7" family="Symbol" color="#000000"/>
+	<fontspec id="32" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="33" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="34" size="10" family="Symbol" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">10</text>
+<text top="103" left="149" width="595" height="13" font="4">differences is indicated by three colors (one for significant-positive, one for significant-negative and</text>
+<text top="120" left="149" width="595" height="13" font="4">one for insignificant differences). The three colors can be controlled with the polycol argument and the</text>
+<text top="136" left="149" width="453" height="13" font="4">text color within the polygons can be controlled with the textcol ar<a href="2013-2-armstrong.html#0">gument.</a></text>
+<text top="133" left="602" width="10" height="10" font="8"><a href="2013-2-armstrong.html#0">10</a></text>
+<text top="136" left="618" width="127" height="13" font="4">The plot method also</text>
+<text top="152" left="149" width="595" height="13" font="4">allows the user to specify the number of characters with which to abbreviate the factor levels through</text>
+<text top="169" left="149" width="598" height="13" font="4">the abbrev.char argument. Setting this to an arbitrarily high value will result in no abbreviation.</text>
+<text top="185" left="149" width="595" height="13" font="4">Finally, the trans argument allows the user to impose a post-hypothesis-test transformation to the</text>
+<text top="202" left="149" width="595" height="13" font="4">coefficient estimates. For example, if the underlying model is a logistic regression, tests will be done</text>
+<text top="218" left="149" width="493" height="13" font="4">on the log-relative risks, but the relative risks could be plotted with trans = &#34;exp&#34;<a href="2013-2-armstrong.html#0">.</a></text>
+<text top="215" left="642" width="10" height="10" font="8"><a href="2013-2-armstrong.html#0">11</a></text>
+<text top="218" left="658" width="86" height="13" font="4">By default, the</text>
+<text top="235" left="149" width="595" height="13" font="4">function prints legends identifying the colors and numbers; these can be turned on or off with the</text>
+<text top="251" left="149" width="457" height="13" font="4">logical arguments print.sig.leg and print.square.leg, respectively. Figure</text>
+<text top="251" left="609" width="7" height="13" font="9"><a href="2013-2-armstrong.html#7">3</a></text>
+<text top="251" left="619" width="126" height="13" font="4">shows the display for</text>
+<text top="268" left="149" width="434" height="13" font="4">the Ornstein model. The following code produces the result in the figure.</text>
+<text top="295" left="149" width="130" height="11" font="4">library(factorplot)</text>
+<text top="311" left="149" width="82" height="11" font="4">library(car)</text>
+<text top="327" left="149" width="494" height="11" font="4">mod &lt;- glm(interlocks ~ log2(assets) + nation + sector, data = Ornstein,</text>
+<text top="344" left="176" width="117" height="11" font="4">family = poisson)</text>
+<text top="360" left="149" width="576" height="11" font="4">fp &lt;- factorplot(mod, adjust.method=&#34;none&#34;, factor.variable = &#34;sector&#34;, pval = 0.05,</text>
+<text top="377" left="211" width="247" height="11" font="4">two.sided = TRUE, order = &#34;natural&#34;)</text>
+<text top="393" left="149" width="185" height="11" font="4">plot(fp, abbrev.char = 100)</text>
+<text top="419" left="171" width="573" height="13" font="4">The print method for a “factorplot” object prints all of the pairwise differences, their accompanying</text>
+<text top="436" left="149" width="596" height="13" font="4">analytical standard errors and (optionally adjusted) p-values. The user can specify the desired number</text>
+<text top="452" left="149" width="595" height="13" font="4">of decimal places for rounding, with the digits argument. The sig argument is logical allowing the</text>
+<text top="468" left="149" width="595" height="13" font="4">user to print all pairwise differences if FALSE and only significant differences when TRUE. The print</text>
+<text top="485" left="149" width="595" height="13" font="4">method also permits the same trans argument as the plot method for objects of class “factorplot”. An</text>
+<text top="501" left="149" width="595" height="13" font="4">example of the output from the print method is below. Here, twenty-five of the forty-five pairwise</text>
+<text top="518" left="149" width="312" height="13" font="4">differences are statistically different from zero when.</text>
+<text top="549" left="288" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="549" left="345" width="259" height="13" font="4">Plotted factorplot object for Ornstein model</text>
+<text top="622" left="299" width="0" height="9" font="18">BNK</text>
+<text top="622" left="339" width="0" height="9" font="18">CON</text>
+<text top="622" left="380" width="0" height="9" font="18">FIN</text>
+<text top="622" left="420" width="0" height="9" font="18">HLD</text>
+<text top="622" left="461" width="0" height="9" font="18">MAN</text>
+<text top="622" left="502" width="0" height="9" font="18">MER</text>
+<text top="622" left="542" width="0" height="9" font="18">MIN</text>
+<text top="622" left="583" width="0" height="9" font="18">TRN</text>
+<text top="622" left="623" width="0" height="9" font="18">W</text>
+<text top="613" left="623" width="0" height="9" font="18">OD</text>
+<text top="973" left="240" width="20" height="9" font="25">TRN</text>
+<text top="933" left="242" width="18" height="9" font="25">MIN</text>
+<text top="894" left="238" width="22" height="9" font="25">MER</text>
+<text top="855" left="238" width="22" height="9" font="25">MAN</text>
+<text top="816" left="240" width="20" height="9" font="25">HLD</text>
+<text top="777" left="244" width="16" height="9" font="25">FIN</text>
+<text top="738" left="238" width="22" height="9" font="25">CON</text>
+<text top="698" left="240" width="20" height="9" font="25">BNK</text>
+<text top="659" left="239" width="21" height="9" font="25">AGR</text>
+<text top="655" left="285" width="21" height="8" font="26"><b>−0.17</b></text>
+<text top="664" left="287" width="16" height="8" font="27"><i>0.10</i></text>
+<text top="655" left="325" width="21" height="8" font="26"><b>−0.49</b></text>
+<text top="664" left="328" width="16" height="8" font="27"><i>0.21</i></text>
+<text top="655" left="366" width="21" height="8" font="26"><b>−0.11</b></text>
+<text top="664" left="368" width="16" height="8" font="27"><i>0.08</i></text>
+<text top="655" left="406" width="21" height="8" font="26"><b>−0.01</b></text>
+<text top="664" left="409" width="16" height="8" font="27"><i>0.12</i></text>
+<text top="655" left="449" width="16" height="8" font="26"><b>0.12</b></text>
+<text top="664" left="449" width="16" height="8" font="27"><i>0.08</i></text>
+<text top="655" left="490" width="16" height="8" font="26"><b>0.06</b></text>
+<text top="664" left="490" width="16" height="8" font="27"><i>0.09</i></text>
+<text top="655" left="531" width="16" height="8" font="28"><b>0.25</b></text>
+<text top="664" left="531" width="16" height="8" font="29"><i>0.07</i></text>
+<text top="655" left="571" width="16" height="8" font="26"><b>0.15</b></text>
+<text top="664" left="571" width="16" height="8" font="27"><i>0.08</i></text>
+<text top="655" left="612" width="16" height="8" font="28"><b>0.50</b></text>
+<text top="664" left="612" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="695" left="325" width="21" height="8" font="26"><b>−0.32</b></text>
+<text top="703" left="328" width="16" height="8" font="27"><i>0.22</i></text>
+<text top="695" left="368" width="16" height="8" font="26"><b>0.05</b></text>
+<text top="703" left="368" width="16" height="8" font="27"><i>0.07</i></text>
+<text top="695" left="409" width="16" height="8" font="26"><b>0.15</b></text>
+<text top="703" left="409" width="16" height="8" font="27"><i>0.13</i></text>
+<text top="695" left="449" width="16" height="8" font="28"><b>0.29</b></text>
+<text top="703" left="449" width="16" height="8" font="29"><i>0.10</i></text>
+<text top="695" left="490" width="16" height="8" font="28"><b>0.23</b></text>
+<text top="703" left="490" width="16" height="8" font="29"><i>0.11</i></text>
+<text top="695" left="531" width="16" height="8" font="28"><b>0.42</b></text>
+<text top="703" left="531" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="695" left="571" width="16" height="8" font="28"><b>0.32</b></text>
+<text top="703" left="571" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="695" left="612" width="16" height="8" font="28"><b>0.66</b></text>
+<text top="703" left="612" width="16" height="8" font="29"><i>0.09</i></text>
+<text top="734" left="368" width="16" height="8" font="26"><b>0.38</b></text>
+<text top="742" left="368" width="16" height="8" font="27"><i>0.22</i></text>
+<text top="734" left="409" width="16" height="8" font="28"><b>0.47</b></text>
+<text top="742" left="409" width="16" height="8" font="29"><i>0.23</i></text>
+<text top="734" left="449" width="16" height="8" font="28"><b>0.61</b></text>
+<text top="742" left="449" width="16" height="8" font="29"><i>0.21</i></text>
+<text top="734" left="490" width="16" height="8" font="28"><b>0.55</b></text>
+<text top="742" left="490" width="16" height="8" font="29"><i>0.22</i></text>
+<text top="734" left="531" width="16" height="8" font="28"><b>0.74</b></text>
+<text top="742" left="531" width="16" height="8" font="29"><i>0.21</i></text>
+<text top="734" left="571" width="16" height="8" font="28"><b>0.64</b></text>
+<text top="742" left="571" width="16" height="8" font="29"><i>0.22</i></text>
+<text top="734" left="612" width="16" height="8" font="28"><b>0.99</b></text>
+<text top="742" left="612" width="16" height="8" font="29"><i>0.22</i></text>
+<text top="773" left="409" width="16" height="8" font="26"><b>0.10</b></text>
+<text top="781" left="409" width="16" height="8" font="27"><i>0.12</i></text>
+<text top="773" left="449" width="16" height="8" font="28"><b>0.23</b></text>
+<text top="781" left="449" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="773" left="490" width="16" height="8" font="26"><b>0.17</b></text>
+<text top="781" left="490" width="16" height="8" font="27"><i>0.09</i></text>
+<text top="773" left="531" width="16" height="8" font="28"><b>0.36</b></text>
+<text top="781" left="531" width="16" height="8" font="29"><i>0.07</i></text>
+<text top="773" left="571" width="16" height="8" font="28"><b>0.26</b></text>
+<text top="781" left="571" width="16" height="8" font="29"><i>0.07</i></text>
+<text top="773" left="612" width="16" height="8" font="28"><b>0.61</b></text>
+<text top="781" left="612" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="812" left="449" width="16" height="8" font="26"><b>0.14</b></text>
+<text top="821" left="449" width="16" height="8" font="27"><i>0.12</i></text>
+<text top="812" left="490" width="16" height="8" font="26"><b>0.08</b></text>
+<text top="821" left="490" width="16" height="8" font="27"><i>0.13</i></text>
+<text top="812" left="531" width="16" height="8" font="28"><b>0.26</b></text>
+<text top="821" left="531" width="16" height="8" font="29"><i>0.12</i></text>
+<text top="812" left="571" width="16" height="8" font="26"><b>0.17</b></text>
+<text top="821" left="571" width="16" height="8" font="27"><i>0.12</i></text>
+<text top="812" left="612" width="16" height="8" font="28"><b>0.51</b></text>
+<text top="821" left="612" width="16" height="8" font="29"><i>0.12</i></text>
+<text top="851" left="488" width="21" height="8" font="26"><b>−0.06</b></text>
+<text top="860" left="490" width="16" height="8" font="27"><i>0.09</i></text>
+<text top="851" left="531" width="16" height="8" font="26"><b>0.13</b></text>
+<text top="860" left="531" width="16" height="8" font="27"><i>0.07</i></text>
+<text top="851" left="571" width="16" height="8" font="26"><b>0.03</b></text>
+<text top="860" left="571" width="16" height="8" font="27"><i>0.08</i></text>
+<text top="851" left="612" width="16" height="8" font="28"><b>0.38</b></text>
+<text top="860" left="612" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="890" left="531" width="16" height="8" font="28"><b>0.19</b></text>
+<text top="899" left="531" width="16" height="8" font="29"><i>0.09</i></text>
+<text top="890" left="571" width="16" height="8" font="26"><b>0.09</b></text>
+<text top="899" left="571" width="16" height="8" font="27"><i>0.09</i></text>
+<text top="890" left="612" width="16" height="8" font="28"><b>0.44</b></text>
+<text top="899" left="612" width="16" height="8" font="29"><i>0.09</i></text>
+<text top="930" left="569" width="21" height="8" font="26"><b>−0.10</b></text>
+<text top="938" left="571" width="16" height="8" font="27"><i>0.07</i></text>
+<text top="930" left="612" width="16" height="8" font="28"><b>0.25</b></text>
+<text top="938" left="612" width="16" height="8" font="29"><i>0.07</i></text>
+<text top="969" left="612" width="16" height="8" font="28"><b>0.35</b></text>
+<text top="977" left="612" width="16" height="8" font="29"><i>0.08</i></text>
+<text top="956" left="300" width="70" height="9" font="25">Significantly &lt; 0</text>
+<text top="968" left="300" width="64" height="9" font="25">Not Significant</text>
+<text top="980" left="300" width="70" height="9" font="25">Significantly &gt; 0</text>
+<text top="967" left="392" width="32" height="9" font="30"><b>bold = </b></text>
+<text top="965" left="424" width="2" height="13" font="31"> </text>
+<text top="967" left="427" width="6" height="9" font="25">b</text>
+<text top="972" left="432" width="8" height="6" font="32">col</text>
+<text top="965" left="442" width="5" height="13" font="31">−</text>
+<text top="967" left="450" width="6" height="9" font="25">b</text>
+<text top="972" left="455" width="11" height="6" font="32">row</text>
+<text top="980" left="392" width="24" height="9" font="33"><i>ital = </i></text>
+<text top="977" left="416" width="2" height="13" font="31"> </text>
+<text top="980" left="418" width="13" height="9" font="25">SE</text>
+<text top="974" left="432" width="4" height="16" font="34">(</text>
+<text top="980" left="436" width="6" height="9" font="25">b</text>
+<text top="984" left="441" width="8" height="6" font="32">col</text>
+<text top="977" left="452" width="5" height="13" font="31">−</text>
+<text top="980" left="459" width="6" height="9" font="25">b</text>
+<text top="984" left="464" width="11" height="6" font="32">row</text>
+<text top="974" left="475" width="4" height="16" font="34">)</text>
+<text top="1050" left="149" width="123" height="11" font="4">print(fp, sig = T)</text>
+<text top="1066" left="217" width="69" height="11" font="4">Difference</text>
+<text top="1066" left="313" width="55" height="11" font="4">SE p.val</text>
+<text top="1088" left="161" width="9" height="9" font="10">10</text>
+<text top="1091" left="170" width="394" height="12" font="1">The printing of the estimates and standard errors can both be turned off with</text>
+<text top="1091" left="567" width="104" height="10" font="15">print.est = FALSE</text>
+<text top="1091" left="673" width="20" height="12" font="1">and</text>
+<text top="1091" left="695" width="49" height="10" font="15">print.se</text>
+<text top="1105" left="149" width="43" height="10" font="15">= FALSE</text>
+<text top="1105" left="191" width="71" height="12" font="1">, respectively.</text>
+<text top="1117" left="161" width="9" height="9" font="10">11</text>
+<text top="1120" left="170" width="270" height="12" font="1">After the hypothesis tests are done, a matrix named</text>
+<text top="1120" left="444" width="43" height="10" font="15">r.bdiff</text>
+<text top="1120" left="489" width="257" height="12" font="1">holds the coefficient differences. The transforma-</text>
+<text top="1134" left="149" width="119" height="12" font="1">tion is done as follows:</text>
+<text top="1134" left="271" width="177" height="10" font="15">do.call(trans, list(r.bdiff))</text>
+<text top="1134" left="448" width="296" height="12" font="1">, so only transformations amenable to this procedure will</text>
+<text top="1148" left="148" width="31" height="12" font="1">work.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">11</text>
+<text top="104" left="149" width="62" height="11" font="4">AGR - CON</text>
+<text top="104" left="252" width="117" height="11" font="4">0.489 0.213 0.023</text>
+<text top="120" left="149" width="62" height="11" font="4">CON - HLD</text>
+<text top="120" left="245" width="123" height="11" font="4">-0.474 0.235 0.045</text>
+<text top="137" left="149" width="62" height="11" font="4">BNK - MAN</text>
+<text top="137" left="245" width="123" height="11" font="4">-0.288 0.102 0.005</text>
+<text top="153" left="149" width="62" height="11" font="4">CON - MAN</text>
+<text top="153" left="245" width="123" height="11" font="4">-0.611 0.215 0.005</text>
+<text top="169" left="149" width="62" height="11" font="4">FIN - MAN</text>
+<text top="169" left="245" width="123" height="11" font="4">-0.233 0.082 0.005</text>
+<text top="186" left="149" width="62" height="11" font="4">BNK - MER</text>
+<text top="186" left="245" width="123" height="11" font="4">-0.228 0.106 0.032</text>
+<text top="202" left="149" width="62" height="11" font="4">CON - MER</text>
+<text top="202" left="245" width="123" height="11" font="4">-0.551 0.220 0.013</text>
+<text top="219" left="149" width="62" height="11" font="4">AGR - MIN</text>
+<text top="219" left="245" width="123" height="11" font="4">-0.250 0.069 0.000</text>
+<text top="235" left="149" width="62" height="11" font="4">BNK - MIN</text>
+<text top="235" left="245" width="123" height="11" font="4">-0.416 0.084 0.000</text>
+<text top="252" left="149" width="62" height="11" font="4">CON - MIN</text>
+<text top="252" left="245" width="123" height="11" font="4">-0.739 0.210 0.001</text>
+<text top="268" left="149" width="62" height="11" font="4">FIN - MIN</text>
+<text top="268" left="245" width="123" height="11" font="4">-0.361 0.067 0.000</text>
+<text top="285" left="149" width="62" height="11" font="4">HLD - MIN</text>
+<text top="285" left="245" width="123" height="11" font="4">-0.265 0.118 0.026</text>
+<text top="301" left="149" width="62" height="11" font="4">MER - MIN</text>
+<text top="301" left="245" width="123" height="11" font="4">-0.188 0.085 0.029</text>
+<text top="317" left="149" width="62" height="11" font="4">BNK - TRN</text>
+<text top="317" left="245" width="123" height="11" font="4">-0.318 0.082 0.000</text>
+<text top="334" left="149" width="62" height="11" font="4">CON - TRN</text>
+<text top="334" left="245" width="123" height="11" font="4">-0.641 0.217 0.004</text>
+<text top="350" left="149" width="62" height="11" font="4">FIN - TRN</text>
+<text top="350" left="245" width="123" height="11" font="4">-0.263 0.070 0.000</text>
+<text top="367" left="149" width="62" height="11" font="4">AGR - WOD</text>
+<text top="367" left="245" width="123" height="11" font="4">-0.498 0.076 0.000</text>
+<text top="383" left="149" width="62" height="11" font="4">BNK - WOD</text>
+<text top="383" left="245" width="123" height="11" font="4">-0.665 0.095 0.000</text>
+<text top="400" left="149" width="62" height="11" font="4">CON - WOD</text>
+<text top="400" left="245" width="123" height="11" font="4">-0.988 0.215 0.000</text>
+<text top="416" left="149" width="62" height="11" font="4">FIN - WOD</text>
+<text top="416" left="245" width="123" height="11" font="4">-0.610 0.077 0.000</text>
+<text top="432" left="149" width="62" height="11" font="4">HLD - WOD</text>
+<text top="432" left="245" width="123" height="11" font="4">-0.513 0.121 0.000</text>
+<text top="449" left="149" width="62" height="11" font="4">MAN - WOD</text>
+<text top="449" left="245" width="123" height="11" font="4">-0.376 0.080 0.000</text>
+<text top="465" left="149" width="62" height="11" font="4">MER - WOD</text>
+<text top="465" left="245" width="123" height="11" font="4">-0.437 0.090 0.000</text>
+<text top="482" left="149" width="62" height="11" font="4">MIN - WOD</text>
+<text top="482" left="245" width="123" height="11" font="4">-0.248 0.072 0.001</text>
+<text top="498" left="149" width="62" height="11" font="4">TRN - WOD</text>
+<text top="498" left="245" width="123" height="11" font="4">-0.346 0.081 0.000</text>
+<text top="528" left="171" width="573" height="13" font="4">The summary method for “factorplot” objects prints the number of coefficients that are significantly</text>
+<text top="544" left="149" width="595" height="13" font="4">smaller than the one of interest and the number of coefficients larger than the one of interest for each</text>
+<text top="560" left="149" width="596" height="13" font="4">level of the factor. While this is not a common means of presenting the results, this does nicely</text>
+<text top="577" left="149" width="595" height="13" font="4">summarize the extent of significant differences among the coefficients. Below is an example of printout</text>
+<text top="593" left="149" width="595" height="13" font="4">from the summary method. It is easy to see that the wood industry (WOD) has the highest conditional</text>
+<text top="610" left="149" width="595" height="13" font="4">means as it is significantly bigger than all of other categories. It is also easy to see that the construction</text>
+<text top="626" left="149" width="595" height="13" font="4">industry (CON) has one of the smallest conditional means as it is significantly smaller than seven of</text>
+<text top="643" left="149" width="341" height="13" font="4">the other categories and not significantly bigger than any.</text>
+<text top="673" left="149" width="75" height="11" font="4">summary(fp)</text>
+<text top="690" left="176" width="103" height="11" font="4">sig+ sig- insig</text>
+<text top="706" left="149" width="21" height="11" font="4">AGR</text>
+<text top="706" left="197" width="7" height="11" font="4">1</text>
+<text top="706" left="231" width="7" height="11" font="4">2</text>
+<text top="706" left="272" width="7" height="11" font="4">6</text>
+<text top="722" left="149" width="21" height="11" font="4">BNK</text>
+<text top="722" left="197" width="7" height="11" font="4">0</text>
+<text top="722" left="231" width="7" height="11" font="4">5</text>
+<text top="722" left="272" width="7" height="11" font="4">4</text>
+<text top="739" left="149" width="21" height="11" font="4">CON</text>
+<text top="739" left="197" width="7" height="11" font="4">0</text>
+<text top="739" left="231" width="7" height="11" font="4">7</text>
+<text top="739" left="272" width="7" height="11" font="4">2</text>
+<text top="755" left="149" width="21" height="11" font="4">FIN</text>
+<text top="755" left="197" width="7" height="11" font="4">0</text>
+<text top="755" left="231" width="7" height="11" font="4">4</text>
+<text top="755" left="272" width="7" height="11" font="4">5</text>
+<text top="772" left="149" width="21" height="11" font="4">HLD</text>
+<text top="772" left="197" width="7" height="11" font="4">1</text>
+<text top="772" left="231" width="7" height="11" font="4">2</text>
+<text top="772" left="272" width="7" height="11" font="4">6</text>
+<text top="788" left="149" width="21" height="11" font="4">MAN</text>
+<text top="788" left="197" width="7" height="11" font="4">3</text>
+<text top="788" left="231" width="7" height="11" font="4">1</text>
+<text top="788" left="272" width="7" height="11" font="4">5</text>
+<text top="805" left="149" width="21" height="11" font="4">MER</text>
+<text top="805" left="197" width="7" height="11" font="4">2</text>
+<text top="805" left="231" width="7" height="11" font="4">2</text>
+<text top="805" left="272" width="7" height="11" font="4">5</text>
+<text top="821" left="149" width="21" height="11" font="4">MIN</text>
+<text top="821" left="197" width="7" height="11" font="4">6</text>
+<text top="821" left="231" width="7" height="11" font="4">1</text>
+<text top="821" left="272" width="7" height="11" font="4">2</text>
+<text top="837" left="149" width="21" height="11" font="4">TRN</text>
+<text top="837" left="197" width="7" height="11" font="4">3</text>
+<text top="837" left="231" width="7" height="11" font="4">1</text>
+<text top="837" left="272" width="7" height="11" font="4">5</text>
+<text top="854" left="149" width="21" height="11" font="4">WOD</text>
+<text top="854" left="197" width="7" height="11" font="4">9</text>
+<text top="854" left="231" width="7" height="11" font="4">0</text>
+<text top="854" left="272" width="7" height="11" font="4">0</text>
+<text top="883" left="171" width="573" height="13" font="4">Together, the factorplot function and its associated print, plot and summary methods provide a</text>
+<text top="900" left="148" width="596" height="13" font="4">wealth of information including direct hypothesis tests using analytical standard errors for the simple</text>
+<text top="916" left="149" width="268" height="13" font="4">contrasts most commonly desired in (G)LMs.</text>
+<text top="958" left="149" width="357" height="15" font="17"><b>Example 2: </b>H. pylori <b>and gastric precancerous lesions</b></text>
+<text top="990" left="149" width="92" height="13" font="9"><a href="2013-2-armstrong.html#12">Plummer et al.</a></text>
+<text top="990" left="246" width="5" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="990" left="251" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2007</a></text>
+<text top="990" left="278" width="466" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>were interested in discerning the extent to which infection with H. pylori</text>
+<text top="1006" left="149" width="598" height="13" font="4">containing the cytotoxin-associated (cagA) gene increased the severity of gastric precancerous lesions.</text>
+<text top="1023" left="148" width="596" height="13" font="4">They found that cagA+ patients had increased risks of more severe lesions while cagA- patients</text>
+<text top="1039" left="148" width="586" height="13" font="4">were only at significantly higher risk (than their uninfected counterparts) of chronic gastritis. Table</text>
+<text top="1039" left="737" width="7" height="13" font="9"><a href="2013-2-armstrong.html#9">2</a></text>
+<text top="1056" left="149" width="595" height="13" font="4">summarizes the results of the relative risk of the various types of gastric lesions versus the baseline of</text>
+<text top="1072" left="149" width="179" height="13" font="4">normal or superficial gastritis.</text>
+<text top="1093" left="171" width="575" height="13" font="4">The default method for the factorplot function allows the user to supply a vector of point esti-</text>
+<text top="1110" left="149" width="596" height="13" font="4">mates and (floating) variances rather than an estimated model object. This function will be particularly</text>
+<text top="1126" left="149" width="598" height="13" font="4">useful for those scholars in epidemiology, where floating standard errors are more routinely presented.</text>
+<text top="1142" left="148" width="199" height="13" font="4">With 7 levels of the factor in Table</text>
+<text top="1142" left="351" width="7" height="13" font="9"><a href="2013-2-armstrong.html#9">2</a></text>
+<text top="1142" left="357" width="387" height="13" font="4"><a href="2013-2-armstrong.html#9">, </a>there are 21 pairwise comparisons implied, which would require</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="35" size="12" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">12</text>
+<text top="100" left="318" width="47" height="13" font="3"><b>Table 2:</b></text>
+<text top="100" left="369" width="206" height="13" font="4">Results from Plummer et al. (2007)</text>
+<text top="146" left="493" width="39" height="15" font="0">cagA-</text>
+<text top="146" left="587" width="43" height="15" font="0">cagA+</text>
+<text top="169" left="476" width="22" height="15" font="0">OR</text>
+<text top="169" left="522" width="25" height="15" font="0">FSE</text>
+<text top="169" left="572" width="22" height="15" font="0">OR</text>
+<text top="169" left="618" width="25" height="15" font="0">FSE</text>
+<text top="195" left="245" width="210" height="15" font="0">Normal and superficial gastritis</text>
+<text top="195" left="473" width="26" height="15" font="0">1.00</text>
+<text top="195" left="518" width="34" height="15" font="0">0.242</text>
+<text top="195" left="570" width="26" height="15" font="0">1.00</text>
+<text top="195" left="614" width="34" height="15" font="0">0.320</text>
+<text top="213" left="245" width="109" height="15" font="0">Chronic gastritis</text>
+<text top="213" left="473" width="26" height="15" font="0">2.12</text>
+<text top="213" left="518" width="34" height="15" font="0">0.096</text>
+<text top="213" left="570" width="26" height="15" font="0">4.33</text>
+<text top="213" left="614" width="34" height="15" font="0">0.101</text>
+<text top="231" left="245" width="168" height="15" font="0">Chronic atrophic gastritis</text>
+<text top="231" left="473" width="26" height="15" font="0">1.44</text>
+<text top="231" left="518" width="34" height="15" font="0">0.156</text>
+<text top="231" left="570" width="26" height="15" font="0">3.89</text>
+<text top="231" left="614" width="34" height="15" font="0">0.160</text>
+<text top="249" left="245" width="146" height="15" font="0">Intestinal metaplasia I</text>
+<text top="249" left="473" width="26" height="15" font="0">1.31</text>
+<text top="249" left="518" width="34" height="15" font="0">0.140</text>
+<text top="249" left="570" width="26" height="15" font="0">4.14</text>
+<text top="249" left="614" width="34" height="15" font="0">0.141</text>
+<text top="267" left="245" width="151" height="15" font="0">Intestinal metaplasia II</text>
+<text top="267" left="473" width="26" height="15" font="0">1.44</text>
+<text top="267" left="518" width="34" height="15" font="0">0.380</text>
+<text top="267" left="570" width="26" height="15" font="0">10.8</text>
+<text top="267" left="614" width="34" height="15" font="0">0.349</text>
+<text top="284" left="245" width="156" height="15" font="0">Intestinal metaplasia III</text>
+<text top="284" left="473" width="26" height="15" font="0">1.46</text>
+<text top="284" left="518" width="34" height="15" font="0">0.484</text>
+<text top="284" left="570" width="26" height="15" font="0">21.9</text>
+<text top="284" left="614" width="34" height="15" font="0">0.431</text>
+<text top="302" left="245" width="65" height="15" font="0">Dysplasia</text>
+<text top="302" left="473" width="26" height="15" font="0">0.90</text>
+<text top="302" left="518" width="34" height="15" font="0">0.375</text>
+<text top="302" left="570" width="26" height="15" font="0">15.5</text>
+<text top="302" left="614" width="34" height="15" font="0">0.311</text>
+<text top="343" left="149" width="106" height="15" font="0">OR = odds ratio</text>
+<text top="360" left="149" width="192" height="15" font="0">FSE = floating standard error</text>
+<text top="378" left="148" width="169" height="15" font="0">Adapted from Figure 1 in</text>
+<text top="378" left="321" width="97" height="15" font="35"><a href="2013-2-armstrong.html#12">Plummer et al.</a></text>
+<text top="378" left="421" width="5" height="15" font="0"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="378" left="426" width="30" height="15" font="35"><a href="2013-2-armstrong.html#12">2007</a></text>
+<text top="378" left="456" width="55" height="15" font="0"><a href="2013-2-armstrong.html#12">, </a>p1331).</text>
+<text top="428" left="149" width="595" height="13" font="4">users to do a lot of calculations. However, inputting the estimates and floated variances into R and</text>
+<text top="445" left="149" width="595" height="13" font="4">subjecting them to the factorplot function can do all of the calculations automatically. Below is an</text>
+<text top="461" left="149" width="559" height="13" font="4">example of how the results could be used in conjunction with the <b>factorplot </b>suite of functions.</text>
+<text top="492" left="149" width="343" height="11" font="4">est1 &lt;- log(c(1.00,2.12,1.44,1.31,1.44,1.46,0.90))</text>
+<text top="508" left="149" width="370" height="11" font="4">var1 &lt;- c(0.242,0.096,0.156,0.140,0.380,0.484,0.375)^2</text>
+<text top="525" left="149" width="343" height="11" font="4">est2 &lt;- log(c(1.00,4.33,3.89,4.14,10.8,21.9,15.5))</text>
+<text top="541" left="149" width="370" height="11" font="4">var2 &lt;- c(0.320,0.101,0.160,0.141,0.349,0.431,0.311)^2</text>
+<text top="558" left="149" width="377" height="11" font="4">resdf &lt;- 48+16+27+532+346+144+144+124+58+166+162+75+24+</text>
+<text top="574" left="204" width="171" height="11" font="4">53+10+15+61+6+18+90+12-18</text>
+<text top="590" left="149" width="219" height="11" font="4">names(est1) &lt;- names(est2) &lt;- c(</text>
+<text top="607" left="183" width="309" height="11" font="4">&#34;Normal Gas&#34;,&#34;Chronic Gas&#34;, &#34;Chronic A. Gas&#34;,</text>
+<text top="623" left="183" width="268" height="11" font="4">&#34;IM I&#34;, &#34;IM II&#34;, &#34;IM III&#34;, &#34;Dysplasia&#34;)</text>
+<text top="656" left="149" width="562" height="11" font="4">plummer_fp1 &lt;- factorplot(est1, var = var1, resdf = resdf, adjust.method = &#34;none&#34;)</text>
+<text top="673" left="149" width="562" height="11" font="4">plummer_fp2 &lt;- factorplot(est2, var = var2, resdf = resdf, adjust.method = &#34;none&#34;)</text>
+<text top="689" left="149" width="473" height="11" font="4">plot(plummer_fp1, trans = &#34;exp&#34;, abbrev.char = 100, scale.text = 1.5,</text>
+<text top="706" left="176" width="123" height="11" font="4">scale.space = 1.5)</text>
+<text top="722" left="149" width="473" height="11" font="4">plot(plummer_fp2, trans = &#34;exp&#34;, abbrev.char = 100, scale.text = 1.5,</text>
+<text top="738" left="176" width="123" height="11" font="4">scale.space = 1.5)</text>
+<text top="768" left="171" width="194" height="13" font="4">The plots are displayed in Figure</text>
+<text top="768" left="368" width="7" height="13" font="9"><a href="2013-2-armstrong.html#10">4</a></text>
+<text top="768" left="375" width="369" height="13" font="4"><a href="2013-2-armstrong.html#10">. </a>The left-hand plot suggests that H. pylori cagA- seems to raise</text>
+<text top="784" left="149" width="595" height="13" font="4">the risk of chronic gastritis relative to Intestinal metaplasia I and the reference group of normal and</text>
+<text top="801" left="149" width="596" height="13" font="4">superficial gastritis. The differences in the risk of chronic gastritis and chronic atrophic gastritis or</text>
+<text top="817" left="149" width="595" height="13" font="4">dysplasia are also significant. The right-hand plot indicates that there are no significant differences</text>
+<text top="833" left="149" width="595" height="13" font="4">among the second through fourth diagnoses and the fifth through seventh diagnoses. The difference</text>
+<text top="850" left="149" width="466" height="13" font="4">between the risk of intestinal metaplasia I and II (for cagA+) is also significant.</text>
+<text top="892" left="149" width="221" height="15" font="17"><b>Example 3: vote choice in France</b></text>
+<text top="924" left="148" width="596" height="13" font="4">When factorplot() encounters an object of class multinom, it will make comparisons within the same</text>
+<text top="940" left="148" width="596" height="13" font="4">variable across all levels of the dependent variable. The coefficient table presents a specific set of</text>
+<text top="957" left="148" width="596" height="13" font="4">pairwise comparisons — namely those indicating the relationship of each variable to the binary choice</text>
+<text top="973" left="149" width="596" height="13" font="4">of each non-reference category versus the reference category. However, other comparisons implied by</text>
+<text top="990" left="149" width="457" height="13" font="4">that coefficient table may be interesting or useful and should be investigated.</text>
+<text top="1010" left="171" width="573" height="13" font="4">In the example below, I estimate a multinomial logistic regression model of vote choice (vote) on a</text>
+<text top="1027" left="149" width="595" height="13" font="4">number of standard controls: retrospective national economic evaluations (retnat), self-placement on</text>
+<text top="1043" left="149" width="440" height="13" font="4">the left-right ideological continuum (lrself), gender (male) and age (age<a href="2013-2-armstrong.html#0">).</a></text>
+<text top="1041" left="589" width="10" height="10" font="8"><a href="2013-2-armstrong.html#0">12</a></text>
+<text top="1074" left="149" width="89" height="11" font="4">library(nnet)</text>
+<text top="1090" left="149" width="82" height="11" font="4">data(france)</text>
+<text top="1107" left="149" width="508" height="11" font="4">france.mod &lt;- multinom(vote ~ retnat + lrself + male + age, data = france)</text>
+<text top="1131" left="161" width="9" height="9" font="10">12</text>
+<text top="1134" left="170" width="62" height="12" font="1">See help for</text>
+<text top="1134" left="236" width="37" height="10" font="15">france</text>
+<text top="1134" left="275" width="431" height="12" font="1">in the package <b>factorplot </b>for more details about the origin and coding of the data.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="36" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="37" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="38" size="4" family="Symbol" color="#000000"/>
+	<fontspec id="39" size="2" family="Helvetica" color="#000000"/>
+	<fontspec id="40" size="4" family="Helvetica" color="#000000"/>
+	<fontspec id="41" size="5" family="Symbol" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">13</text>
+<text top="100" left="242" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="100" left="300" width="351" height="13" font="4">Results from Plummer et al. (2007) Presented as factorplots</text>
+<text top="131" left="275" width="14" height="12" font="21"><b>(a)</b></text>
+<text top="131" left="292" width="31" height="12" font="1">cagA-</text>
+<text top="198" left="227" width="0" height="6" font="36">Chronic Gas</text>
+<text top="198" left="266" width="0" height="6" font="36">Chronic A. Gas</text>
+<text top="198" left="305" width="0" height="6" font="36">IM I</text>
+<text top="198" left="344" width="0" height="6" font="36">IM II</text>
+<text top="198" left="383" width="0" height="6" font="36">IM III</text>
+<text top="198" left="422" width="0" height="6" font="36">Dysplasia</text>
+<text top="417" left="182" width="14" height="6" font="32">IM III</text>
+<text top="379" left="184" width="12" height="6" font="32">IM II</text>
+<text top="341" left="186" width="10" height="6" font="32">IM I</text>
+<text top="304" left="154" width="42" height="6" font="32">Chronic A. Gas</text>
+<text top="266" left="162" width="34" height="6" font="32">Chronic Gas</text>
+<text top="228" left="163" width="33" height="6" font="32">Normal Gas</text>
+<text top="224" left="217" width="16" height="8" font="28"><b>2.12</b></text>
+<text top="231" left="217" width="16" height="8" font="29"><i>0.26</i></text>
+<text top="224" left="256" width="16" height="8" font="26"><b>1.44</b></text>
+<text top="231" left="256" width="16" height="8" font="27"><i>0.29</i></text>
+<text top="224" left="295" width="16" height="8" font="26"><b>1.31</b></text>
+<text top="231" left="295" width="16" height="8" font="27"><i>0.28</i></text>
+<text top="224" left="334" width="16" height="8" font="26"><b>1.44</b></text>
+<text top="231" left="334" width="16" height="8" font="27"><i>0.45</i></text>
+<text top="224" left="373" width="16" height="8" font="26"><b>1.46</b></text>
+<text top="231" left="373" width="16" height="8" font="27"><i>0.54</i></text>
+<text top="224" left="411" width="16" height="8" font="26"><b>0.90</b></text>
+<text top="231" left="411" width="16" height="8" font="27"><i>0.45</i></text>
+<text top="262" left="256" width="16" height="8" font="26"><b>0.68</b></text>
+<text top="268" left="256" width="16" height="8" font="27"><i>0.18</i></text>
+<text top="262" left="295" width="16" height="8" font="26"><b>0.62</b></text>
+<text top="268" left="295" width="16" height="8" font="27"><i>0.17</i></text>
+<text top="262" left="334" width="16" height="8" font="26"><b>0.68</b></text>
+<text top="268" left="334" width="16" height="8" font="27"><i>0.39</i></text>
+<text top="262" left="373" width="16" height="8" font="26"><b>0.69</b></text>
+<text top="268" left="373" width="16" height="8" font="27"><i>0.49</i></text>
+<text top="262" left="411" width="16" height="8" font="26"><b>0.42</b></text>
+<text top="268" left="411" width="16" height="8" font="27"><i>0.39</i></text>
+<text top="299" left="295" width="16" height="8" font="26"><b>0.91</b></text>
+<text top="306" left="295" width="16" height="8" font="27"><i>0.21</i></text>
+<text top="299" left="334" width="16" height="8" font="26"><b>1.00</b></text>
+<text top="306" left="334" width="16" height="8" font="27"><i>0.41</i></text>
+<text top="299" left="373" width="16" height="8" font="26"><b>1.01</b></text>
+<text top="306" left="373" width="16" height="8" font="27"><i>0.51</i></text>
+<text top="299" left="411" width="16" height="8" font="26"><b>0.62</b></text>
+<text top="306" left="411" width="16" height="8" font="27"><i>0.41</i></text>
+<text top="337" left="334" width="16" height="8" font="26"><b>1.10</b></text>
+<text top="344" left="334" width="16" height="8" font="27"><i>0.40</i></text>
+<text top="337" left="373" width="16" height="8" font="26"><b>1.11</b></text>
+<text top="344" left="373" width="16" height="8" font="27"><i>0.50</i></text>
+<text top="337" left="411" width="16" height="8" font="26"><b>0.69</b></text>
+<text top="344" left="411" width="16" height="8" font="27"><i>0.40</i></text>
+<text top="375" left="373" width="16" height="8" font="26"><b>1.01</b></text>
+<text top="382" left="373" width="16" height="8" font="27"><i>0.62</i></text>
+<text top="375" left="411" width="16" height="8" font="26"><b>0.62</b></text>
+<text top="382" left="411" width="16" height="8" font="27"><i>0.53</i></text>
+<text top="413" left="411" width="16" height="8" font="26"><b>0.62</b></text>
+<text top="419" left="411" width="16" height="8" font="27"><i>0.61</i></text>
+<text top="413" left="221" width="44" height="6" font="32">Significantly &lt; 0</text>
+<text top="421" left="221" width="40" height="6" font="32">Not Significant</text>
+<text top="428" left="221" width="44" height="6" font="32">Significantly &gt; 0</text>
+<text top="420" left="279" width="20" height="6" font="37"><b>bold = </b></text>
+<text top="418" left="299" width="2" height="8" font="38"> </text>
+<text top="420" left="300" width="3" height="6" font="32">b</text>
+<text top="423" left="304" width="5" height="4" font="39">col</text>
+<text top="418" left="310" width="3" height="8" font="38">−</text>
+<text top="420" left="315" width="3" height="6" font="32">b</text>
+<text top="423" left="318" width="7" height="4" font="39">row</text>
+<text top="428" left="279" width="15" height="6" font="40"><i>ital = </i></text>
+<text top="426" left="294" width="2" height="8" font="38"> </text>
+<text top="428" left="295" width="8" height="6" font="32">SE</text>
+<text top="425" left="304" width="3" height="10" font="41">(</text>
+<text top="428" left="306" width="3" height="6" font="32">b</text>
+<text top="431" left="310" width="5" height="4" font="39">col</text>
+<text top="426" left="316" width="3" height="8" font="38">−</text>
+<text top="428" left="321" width="3" height="6" font="32">b</text>
+<text top="431" left="324" width="7" height="4" font="39">row</text>
+<text top="425" left="331" width="3" height="10" font="41">)</text>
+<text top="131" left="571" width="15" height="12" font="21"><b>(b)</b></text>
+<text top="131" left="589" width="34" height="12" font="1">cagA+</text>
+<text top="198" left="525" width="0" height="6" font="36">Chronic Gas</text>
+<text top="198" left="564" width="0" height="6" font="36">Chronic A. Gas</text>
+<text top="198" left="603" width="0" height="6" font="36">IM I</text>
+<text top="198" left="642" width="0" height="6" font="36">IM II</text>
+<text top="198" left="680" width="0" height="6" font="36">IM III</text>
+<text top="198" left="719" width="0" height="6" font="36">Dysplasia</text>
+<text top="417" left="480" width="14" height="6" font="32">IM III</text>
+<text top="379" left="482" width="12" height="6" font="32">IM II</text>
+<text top="341" left="483" width="10" height="6" font="32">IM I</text>
+<text top="304" left="452" width="42" height="6" font="32">Chronic A. Gas</text>
+<text top="266" left="459" width="34" height="6" font="32">Chronic Gas</text>
+<text top="228" left="461" width="33" height="6" font="32">Normal Gas</text>
+<text top="224" left="515" width="16" height="8" font="28"><b>4.33</b></text>
+<text top="231" left="515" width="16" height="8" font="29"><i>0.34</i></text>
+<text top="224" left="553" width="16" height="8" font="28"><b>3.89</b></text>
+<text top="231" left="553" width="16" height="8" font="29"><i>0.36</i></text>
+<text top="224" left="592" width="16" height="8" font="28"><b>4.14</b></text>
+<text top="231" left="592" width="16" height="8" font="29"><i>0.35</i></text>
+<text top="224" left="629" width="21" height="8" font="28"><b>10.80</b></text>
+<text top="231" left="631" width="16" height="8" font="29"><i>0.47</i></text>
+<text top="224" left="668" width="21" height="8" font="28"><b>21.90</b></text>
+<text top="231" left="670" width="16" height="8" font="29"><i>0.54</i></text>
+<text top="224" left="707" width="21" height="8" font="28"><b>15.50</b></text>
+<text top="231" left="709" width="16" height="8" font="29"><i>0.45</i></text>
+<text top="262" left="553" width="16" height="8" font="26"><b>0.90</b></text>
+<text top="268" left="553" width="16" height="8" font="27"><i>0.19</i></text>
+<text top="262" left="592" width="16" height="8" font="26"><b>0.96</b></text>
+<text top="268" left="592" width="16" height="8" font="27"><i>0.17</i></text>
+<text top="262" left="631" width="16" height="8" font="28"><b>2.49</b></text>
+<text top="268" left="631" width="16" height="8" font="29"><i>0.36</i></text>
+<text top="262" left="670" width="16" height="8" font="28"><b>5.06</b></text>
+<text top="268" left="670" width="16" height="8" font="29"><i>0.44</i></text>
+<text top="262" left="709" width="16" height="8" font="28"><b>3.58</b></text>
+<text top="268" left="709" width="16" height="8" font="29"><i>0.33</i></text>
+<text top="299" left="592" width="16" height="8" font="26"><b>1.06</b></text>
+<text top="306" left="592" width="16" height="8" font="27"><i>0.21</i></text>
+<text top="299" left="631" width="16" height="8" font="28"><b>2.78</b></text>
+<text top="306" left="631" width="16" height="8" font="29"><i>0.38</i></text>
+<text top="299" left="670" width="16" height="8" font="28"><b>5.63</b></text>
+<text top="306" left="670" width="16" height="8" font="29"><i>0.46</i></text>
+<text top="299" left="709" width="16" height="8" font="28"><b>3.98</b></text>
+<text top="306" left="709" width="16" height="8" font="29"><i>0.35</i></text>
+<text top="337" left="631" width="16" height="8" font="28"><b>2.61</b></text>
+<text top="344" left="631" width="16" height="8" font="29"><i>0.38</i></text>
+<text top="337" left="670" width="16" height="8" font="28"><b>5.29</b></text>
+<text top="344" left="670" width="16" height="8" font="29"><i>0.45</i></text>
+<text top="337" left="709" width="16" height="8" font="28"><b>3.74</b></text>
+<text top="344" left="709" width="16" height="8" font="29"><i>0.34</i></text>
+<text top="375" left="670" width="16" height="8" font="26"><b>2.03</b></text>
+<text top="382" left="670" width="16" height="8" font="27"><i>0.55</i></text>
+<text top="375" left="709" width="16" height="8" font="26"><b>1.44</b></text>
+<text top="382" left="709" width="16" height="8" font="27"><i>0.47</i></text>
+<text top="413" left="709" width="16" height="8" font="26"><b>0.71</b></text>
+<text top="419" left="709" width="16" height="8" font="27"><i>0.53</i></text>
+<text top="413" left="519" width="44" height="6" font="32">Significantly &lt; 0</text>
+<text top="421" left="519" width="40" height="6" font="32">Not Significant</text>
+<text top="428" left="519" width="44" height="6" font="32">Significantly &gt; 0</text>
+<text top="420" left="576" width="20" height="6" font="37"><b>bold = </b></text>
+<text top="418" left="596" width="2" height="8" font="38"> </text>
+<text top="420" left="598" width="3" height="6" font="32">b</text>
+<text top="423" left="601" width="5" height="4" font="39">col</text>
+<text top="418" left="608" width="3" height="8" font="38">−</text>
+<text top="420" left="612" width="3" height="6" font="32">b</text>
+<text top="423" left="616" width="7" height="4" font="39">row</text>
+<text top="428" left="576" width="15" height="6" font="40"><i>ital = </i></text>
+<text top="426" left="591" width="2" height="8" font="38"> </text>
+<text top="428" left="593" width="8" height="6" font="32">SE</text>
+<text top="425" left="601" width="3" height="10" font="41">(</text>
+<text top="428" left="604" width="3" height="6" font="32">b</text>
+<text top="431" left="607" width="5" height="4" font="39">col</text>
+<text top="426" left="614" width="3" height="8" font="38">−</text>
+<text top="428" left="618" width="3" height="6" font="32">b</text>
+<text top="431" left="622" width="7" height="4" font="39">row</text>
+<text top="425" left="628" width="3" height="10" font="41">)</text>
+<text top="498" left="149" width="322" height="11" font="4">fp3 &lt;- factorplot(france.mod, variable = &#34;age&#34;)</text>
+<text top="514" left="149" width="62" height="11" font="4">plot(fp3)</text>
+<text top="543" left="171" width="39" height="13" font="4">Figure</text>
+<text top="543" left="215" width="7" height="13" font="9"><a href="2013-2-armstrong.html#11">5</a></text>
+<text top="543" left="225" width="519" height="13" font="4">shows that as people get older, they are more likely to vote for RPR or UDF than the</text>
+<text top="560" left="149" width="595" height="13" font="4">Greens or Communists (PCF) and more likely to vote for the Socialists (PS) than the Greens. If one is</text>
+<text top="576" left="149" width="595" height="13" font="4">interested in whether variables have significant effects on vote choice, all pairwise comparisons should</text>
+<text top="593" left="149" width="595" height="13" font="4">be considered. factorplot makes it easy for users to appropriately evaluate all relevant pairwise</text>
+<text top="609" left="149" width="79" height="13" font="4">comparisons.</text>
+<text top="654" left="149" width="94" height="17" font="5"><b>Conclusion</b></text>
+<text top="693" left="149" width="596" height="13" font="4">Easton’s (1991) contribution of floating absolute risk has been influential, especially in epidemiology</text>
+<text top="709" left="149" width="595" height="13" font="4">and medicine, allowing researchers to present easily information that permits the reader to make</text>
+<text top="726" left="149" width="412" height="13" font="4">any pairwise comparison among the different levels of a risk factor.</text>
+<text top="726" left="567" width="135" height="13" font="9"><a href="2013-2-armstrong.html#11">Firth and De Menezes</a></text>
+<text top="726" left="706" width="5" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="726" left="710" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">2004</a></text>
+<text top="726" left="738" width="8" height="13" font="4"><a href="2013-2-armstrong.html#11">);</a></text>
+<text top="742" left="149" width="71" height="13" font="9"><a href="2013-2-armstrong.html#11">de Menezes</a></text>
+<text top="742" left="223" width="4" height="13" font="4"><a href="2013-2-armstrong.html#11">(</a></text>
+<text top="742" left="227" width="27" height="13" font="9"><a href="2013-2-armstrong.html#11">1999</a></text>
+<text top="742" left="254" width="31" height="13" font="4"><a href="2013-2-armstrong.html#11">) </a>and</text>
+<text top="742" left="288" width="56" height="13" font="9"><a href="2013-2-armstrong.html#12">Plummer</a></text>
+<text top="742" left="347" width="4" height="13" font="4"><a href="2013-2-armstrong.html#12">(</a></text>
+<text top="742" left="352" width="27" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="742" left="379" width="365" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>have provided not only a rigorous, model-based foundation</text>
+<text top="759" left="149" width="595" height="13" font="4">for this idea, but have also provided software that easily produces these quantities for a wide array of</text>
+<text top="775" left="149" width="595" height="13" font="4">statistical models. I argue that while these quantities are interesting and useful, floating confidence</text>
+<text top="792" left="149" width="595" height="13" font="4">intervals, which are often provided ostensibly to permit hypothesis testing can be imprecise and</text>
+<text top="808" left="148" width="460" height="13" font="4">potentially misleading, as regards hypothesis testing. Compact letter displays <a href="2013-2-armstrong.html#12">(</a></text>
+<text top="808" left="608" width="41" height="13" font="9"><a href="2013-2-armstrong.html#12">Piepho</a></text>
+<text top="808" left="649" width="3" height="13" font="4"><a href="2013-2-armstrong.html#12">,</a></text>
+<text top="808" left="655" width="26" height="13" font="9"><a href="2013-2-armstrong.html#12">2004</a></text>
+<text top="808" left="682" width="63" height="13" font="4"><a href="2013-2-armstrong.html#12">) </a>are a step</text>
+<text top="824" left="149" width="595" height="13" font="4">in the right direction, but I argue that they can still be improved upon in terms of graphically presenting</text>
+<text top="841" left="149" width="595" height="13" font="4">information of interest to many researchers. In the common situation wherein one is interested in</text>
+<text top="857" left="149" width="595" height="13" font="4">simple contrasts, the factorplot() functions and their associated print, plot and summary methods</text>
+<text top="874" left="149" width="595" height="13" font="4">discussed above provide much greater transparency with respect to the presentation and evaluation</text>
+<text top="890" left="149" width="595" height="13" font="4">of hypothesis tests than floating absolute risk or quasi-variance estimates. The visual presentation</text>
+<text top="907" left="149" width="595" height="13" font="4">of direct hypothesis tests requires much less effort to adjudicate significance and uncover patterns</text>
+<text top="923" left="149" width="595" height="13" font="4">in the results than other methods, including compact letter displays. While the calculation of these</text>
+<text top="939" left="149" width="595" height="13" font="4">hypothesis tests is not novel, the methods of presenting and summarizing the information represent a</text>
+<text top="956" left="149" width="483" height="13" font="4">significant advance over the previously available general solutions available in R.</text>
+<text top="1001" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="1040" left="149" width="595" height="13" font="4">I would like to thank Bob Andersen, Ryan Bakker, John Fox, Bill Jacoby, Martyn Plummer and an</text>
+<text top="1056" left="149" width="595" height="13" font="4">anonymous reviewer as well as participants in the Regression III course at the ICPSR Summer Program</text>
+<text top="1072" left="149" width="231" height="13" font="4">for helpful comments and suggestions.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="42" size="7" family="Helvetica" color="#ffffff"/>
+	<fontspec id="43" size="7" family="Helvetica" color="#ffffff"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">14</text>
+<text top="100" left="230" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="100" left="287" width="376" height="13" font="4">Plotted factorplot object for Age from Multinomial Logit model</text>
+<text top="176" left="329" width="0" height="9" font="18">PS</text>
+<text top="176" left="419" width="0" height="9" font="18">Green</text>
+<text top="176" left="509" width="0" height="9" font="18">RPR</text>
+<text top="176" left="599" width="0" height="9" font="18">UDF</text>
+<text top="500" left="245" width="21" height="9" font="25">RPR</text>
+<text top="412" left="238" width="28" height="9" font="25">Green</text>
+<text top="325" left="252" width="13" height="9" font="25">PS</text>
+<text top="238" left="246" width="20" height="9" font="25">PCF</text>
+<text top="232" left="316" width="18" height="8" font="42"><b>0.02</b></text>
+<text top="244" left="316" width="18" height="8" font="43"><i>0.01</i></text>
+<text top="232" left="404" width="23" height="8" font="30"><b>−0.01</b></text>
+<text top="244" left="406" width="18" height="8" font="33"><i>0.01</i></text>
+<text top="232" left="496" width="18" height="8" font="42"><b>0.04</b></text>
+<text top="244" left="496" width="18" height="8" font="43"><i>0.01</i></text>
+<text top="232" left="587" width="18" height="8" font="42"><b>0.04</b></text>
+<text top="244" left="587" width="18" height="8" font="43"><i>0.01</i></text>
+<text top="319" left="404" width="23" height="8" font="30"><b>−0.03</b></text>
+<text top="331" left="406" width="18" height="8" font="33"><i>0.01</i></text>
+<text top="319" left="496" width="18" height="8" font="30"><b>0.02</b></text>
+<text top="331" left="496" width="18" height="8" font="33"><i>0.01</i></text>
+<text top="319" left="587" width="18" height="8" font="30"><b>0.02</b></text>
+<text top="331" left="587" width="18" height="8" font="33"><i>0.01</i></text>
+<text top="406" left="496" width="18" height="8" font="42"><b>0.05</b></text>
+<text top="419" left="496" width="18" height="8" font="43"><i>0.01</i></text>
+<text top="406" left="587" width="18" height="8" font="42"><b>0.05</b></text>
+<text top="419" left="587" width="18" height="8" font="43"><i>0.01</i></text>
+<text top="494" left="587" width="18" height="8" font="30"><b>0.00</b></text>
+<text top="506" left="587" width="18" height="8" font="33"><i>0.01</i></text>
+<text top="508" left="305" width="70" height="9" font="25">Significantly &lt; 0</text>
+<text top="519" left="305" width="64" height="9" font="25">Not Significant</text>
+<text top="531" left="305" width="70" height="9" font="25">Significantly &gt; 0</text>
+<text top="519" left="397" width="32" height="9" font="30"><b>bold = </b></text>
+<text top="516" left="429" width="2" height="13" font="31"> </text>
+<text top="519" left="432" width="6" height="9" font="25">b</text>
+<text top="523" left="437" width="8" height="6" font="32">col</text>
+<text top="516" left="448" width="5" height="13" font="31">−</text>
+<text top="519" left="455" width="6" height="9" font="25">b</text>
+<text top="523" left="461" width="11" height="6" font="32">row</text>
+<text top="531" left="397" width="24" height="9" font="33"><i>ital = </i></text>
+<text top="528" left="421" width="2" height="13" font="31"> </text>
+<text top="531" left="424" width="13" height="9" font="25">SE</text>
+<text top="525" left="437" width="4" height="16" font="34">(</text>
+<text top="531" left="441" width="6" height="9" font="25">b</text>
+<text top="535" left="447" width="8" height="6" font="32">col</text>
+<text top="528" left="457" width="5" height="13" font="31">−</text>
+<text top="531" left="464" width="6" height="9" font="25">b</text>
+<text top="535" left="470" width="11" height="6" font="32">row</text>
+<text top="525" left="480" width="4" height="16" font="34">)</text>
+<text top="608" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="647" left="149" width="595" height="13" font="4">Y. Benjamini and Y. Hochberg. Controlling the false discovery rate: A practical and powerful approach</text>
+<text top="663" left="164" width="514" height="13" font="4">to multiple testing. Journal of the Royal Statistical Society Series B, 57(1):289–300, 1995. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="663" left="678" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="663" left="684" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="692" left="149" width="597" height="13" font="4">F. Bretz, T. Hothorn, and P. Westfall. Multiple Comparisons Using R. Taylor and Francis Group, LLC,</text>
+<text top="708" left="164" width="144" height="13" font="4">Boca Raton, FL, 2011. <a href="2013-2-armstrong.html#3">[p</a></text>
+<text top="708" left="307" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="708" left="314" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="736" left="149" width="597" height="13" font="4">R. H. Browne. Visual assessment of the significance of a mean difference. Biometrics, 35(3):657–665,</text>
+<text top="753" left="163" width="48" height="13" font="4">1979. <a href="2013-2-armstrong.html#3">[p</a></text>
+<text top="753" left="211" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="753" left="217" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="781" left="149" width="597" height="13" font="4">B. Carstensen, M. Plummer, E. Laara, and M. Hills. Epi: A Package for Statistical Analysis in Epidemiology,</text>
+<text top="798" left="164" width="63" height="13" font="4">2013. URL</text>
+<text top="798" left="230" width="255" height="11" font="9"><a href="http://CRAN.R-project.org/package=Epi">http://CRAN.R-project.org/package=Epi</a></text>
+<text top="798" left="484" width="175" height="13" font="4"><a href="http://CRAN.R-project.org/package=Epi">. </a>R package version 1.1.44. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="798" left="659" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="798" left="666" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="826" left="149" width="598" height="13" font="4">J. M. Chambers, W. S. Cleveland, B. Kleiner, and P. A. Tukey. Graphical Methods for Data Analysis.</text>
+<text top="842" left="163" width="458" height="13" font="4">Wadsworth &amp; Brooks/Cole Publishing Company, Pacific Grove, CA, 1983. <a href="2013-2-armstrong.html#6">[p</a></text>
+<text top="842" left="621" width="7" height="13" font="9"><a href="2013-2-armstrong.html#6">9</a></text>
+<text top="842" left="628" width="4" height="13" font="4"><a href="2013-2-armstrong.html#6">]</a></text>
+<text top="871" left="149" width="486" height="13" font="4">W. Cleveland. Elements of Graphing Data. Wadsworth, Inc., Monterey, CA, 1985. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="871" left="635" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="871" left="642" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="871" left="649" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="871" left="655" width="3" height="13" font="4"><a href="2013-2-armstrong.html#3">,</a></text>
+<text top="871" left="662" width="7" height="13" font="9"><a href="2013-2-armstrong.html#6">9</a></text>
+<text top="871" left="669" width="4" height="13" font="4"><a href="2013-2-armstrong.html#6">]</a></text>
+<text top="899" left="149" width="598" height="13" font="4">R. X. de Menezes. More Useful Standard Errors for Group and Factor Effects in Generalized Linear Models.</text>
+<text top="916" left="164" width="398" height="13" font="4">PhD thesis, Department of Statistics, University of Oxford, 1999. <a href="2013-2-armstrong.html#1">[p</a></text>
+<text top="916" left="562" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">4</a></text>
+<text top="916" left="569" width="3" height="13" font="4"><a href="2013-2-armstrong.html#1">,</a></text>
+<text top="916" left="576" width="13" height="13" font="9"><a href="2013-2-armstrong.html#10">13</a></text>
+<text top="916" left="589" width="4" height="13" font="4"><a href="2013-2-armstrong.html#10">]</a></text>
+<text top="944" left="149" width="595" height="13" font="4">D. F. Easton and J. Peto. Presenting statistical uncertainty in trends and dose-response relationships</text>
+<text top="961" left="163" width="346" height="13" font="4">(letter). American Journal of Epidemiology, 152(393), 2000. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="961" left="509" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="961" left="516" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="961" left="523" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="961" left="529" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="989" left="149" width="595" height="13" font="4">D. F. Easton, J. Peto, and A. Babiker. Floating absolute risk: An alternative to relative risk in survival</text>
+<text top="1005" left="164" width="582" height="13" font="4">and case-control analysis avoiding an arbitrary reference group. Statistics in Medicine, 10:1025–1035,</text>
+<text top="1022" left="163" width="48" height="13" font="4">1991. <a href="2013-2-armstrong.html#1">[p</a></text>
+<text top="1022" left="211" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">4</a></text>
+<text top="1022" left="217" width="3" height="13" font="4"><a href="2013-2-armstrong.html#1">,</a></text>
+<text top="1022" left="224" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="1022" left="231" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="1050" left="149" width="445" height="13" font="4">D. Firth. qvcalc: Quasi variances for factor effects in statistical models, 2010. URL</text>
+<text top="1051" left="597" width="152" height="11" font="9"><a href="http://CRAN.R-project.org/package=qvcalc">http://CRAN.R-project.</a></text>
+<text top="1067" left="164" width="123" height="11" font="9"><a href="http://CRAN.R-project.org/package=qvcalc">org/package=qvcalc</a></text>
+<text top="1067" left="287" width="21" height="13" font="4"><a href="http://CRAN.R-project.org/package=qvcalc">. </a><a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="1067" left="308" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="1067" left="315" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="1095" left="149" width="478" height="13" font="4">D. Firth and R. X. De Menezes. Quasi-variances. Biometrika, 91(1):65–80, 2004. <a href="2013-2-armstrong.html#1">[p</a></text>
+<text top="1095" left="627" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">4</a></text>
+<text top="1095" left="633" width="3" height="13" font="4"><a href="2013-2-armstrong.html#1">,</a></text>
+<text top="1095" left="640" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="1095" left="647" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="1095" left="654" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="1095" left="660" width="3" height="13" font="4"><a href="2013-2-armstrong.html#3">,</a></text>
+<text top="1095" left="667" width="13" height="13" font="9"><a href="2013-2-armstrong.html#10">13</a></text>
+<text top="1095" left="680" width="4" height="13" font="4"><a href="2013-2-armstrong.html#10">]</a></text>
+<text top="1123" left="149" width="597" height="13" font="4">J. Fox and S. Weisberg. An R Companion to Applied Regression. Sage, Thousand Oaks CA, second edition,</text>
+<text top="1140" left="164" width="48" height="13" font="4">2011. <a href="2013-2-armstrong.html#3">[p</a></text>
+<text top="1140" left="211" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="1140" left="218" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">15</text>
+<text top="103" left="149" width="596" height="13" font="4">J. Gramm, J. Guo, F. Hüffner, R. N. B, H. peter Piepho, and R. Schmid. Algorithms for compact letter</text>
+<text top="120" left="164" width="583" height="13" font="4">displays: Comparison and evaluation. Computational Statistics &amp; Data Analysis, 52(12):725–736, 2006.</text>
+<text top="136" left="164" width="13" height="13" font="4"><a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="136" left="176" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="136" left="183" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="136" left="190" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="136" left="196" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="164" left="149" width="597" height="13" font="4">S. Graves, H.-P. Piepho, L. Selzer, and S. Dorai-Raj. multcompView: Visualizations of Paired Comparisons,</text>
+<text top="181" left="164" width="63" height="13" font="4">2012. URL</text>
+<text top="181" left="230" width="316" height="11" font="9"><a href="http://CRAN.R-project.org/package=multcompView">http://CRAN.R-project.org/package=multcompView</a></text>
+<text top="181" left="546" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=multcompView">. </a>R package version 0.1-5. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="181" left="715" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="181" left="722" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="181" left="729" width="7" height="13" font="9"><a href="2013-2-armstrong.html#4">7</a></text>
+<text top="181" left="735" width="4" height="13" font="4"><a href="2013-2-armstrong.html#4">]</a></text>
+<text top="209" left="149" width="598" height="13" font="4">S. Greenland, K. B. Michels, and J. M. Robins. Presenting statistical uncertainty in trends and dose-</text>
+<text top="226" left="164" width="412" height="13" font="4">response relations. American journal of . . . , 149(12):1077–1086, 1999. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="226" left="576" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="226" left="582" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="254" left="149" width="595" height="13" font="4">S. Greenland, K. Michels, C. Poole, and W. Willett. Four of the authors reply [re: “presenting statistical</text>
+<text top="271" left="164" width="582" height="13" font="4">uncertainty in trends and dose-response relationships”] (letter). American Journal of Epidemiology,</text>
+<text top="287" left="163" width="98" height="13" font="4">152:394, 2000. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="287" left="261" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="287" left="268" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="315" left="149" width="597" height="13" font="4">S. Holm. A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6:</text>
+<text top="332" left="164" width="88" height="13" font="4">65–70, 1979. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="332" left="252" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="332" left="258" width="4" height="13" font="4"><a href="2013-2-armstrong.html#2">]</a></text>
+<text top="360" left="149" width="595" height="13" font="4">T. Hothorn, F. Bretz, and P. Westfall. Simultaneous inference in general parametric models. Biometrical</text>
+<text top="377" left="164" width="165" height="14" font="4">Journal, 50:346–363, 2008. <a href="2013-2-armstrong.html#1">[p</a></text>
+<text top="377" left="329" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">4</a></text>
+<text top="377" left="336" width="4" height="13" font="4"><a href="2013-2-armstrong.html#1">]</a></text>
+<text top="405" left="149" width="595" height="13" font="4">M. Ornstein. The boards and executives of the largest canadian corporations. Canadian Journal of</text>
+<text top="421" left="163" width="170" height="14" font="4">Sociology, 1:411–437, 1976. <a href="2013-2-armstrong.html#3">[p</a></text>
+<text top="421" left="333" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="421" left="340" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="450" left="149" width="595" height="13" font="4">H. Piepho. An algorithm for a letter-based representation of all pairwise comparisons. Journal of</text>
+<text top="466" left="163" width="340" height="14" font="4">Computational and Graphical Statistics, 13:456–466, 2004. <a href="2013-2-armstrong.html#4">[p</a></text>
+<text top="466" left="504" width="7" height="13" font="9"><a href="2013-2-armstrong.html#4">7</a></text>
+<text top="466" left="510" width="3" height="13" font="4"><a href="2013-2-armstrong.html#4">,</a></text>
+<text top="466" left="517" width="13" height="13" font="9"><a href="2013-2-armstrong.html#10">13</a></text>
+<text top="466" left="530" width="4" height="13" font="4"><a href="2013-2-armstrong.html#10">]</a></text>
+<text top="495" left="149" width="587" height="13" font="4">M. Plummer. Improved estimates of floating absolute risk. Statistics in Medicine, 23:93–104, 2004. <a href="2013-2-armstrong.html#1">[p</a></text>
+<text top="495" left="736" width="7" height="13" font="9"><a href="2013-2-armstrong.html#1">4</a></text>
+<text top="495" left="742" width="3" height="13" font="4"><a href="2013-2-armstrong.html#1">,</a></text>
+<text top="511" left="164" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="511" left="170" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="511" left="177" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="511" left="184" width="3" height="13" font="4"><a href="2013-2-armstrong.html#3">,</a></text>
+<text top="511" left="191" width="13" height="13" font="9"><a href="2013-2-armstrong.html#10">13</a></text>
+<text top="511" left="204" width="4" height="13" font="4"><a href="2013-2-armstrong.html#10">]</a></text>
+<text top="540" left="149" width="597" height="13" font="4">M. Plummer, L. van Doorn, S. Franceschi, B. Kleter, F. Canzian, J. Vivas, G. Lopez, D. Colin, N. Mu ˜noz,</text>
+<text top="556" left="164" width="583" height="13" font="4">and I. Kato. Helicobacter pylori cytotoxin-associated genotype and gastric precancerous lesions.</text>
+<text top="572" left="164" width="355" height="14" font="4">Journal of the National Cancer Institute, 99:1328–1334, 2007. <a href="2013-2-armstrong.html#8">[p</a></text>
+<text top="572" left="519" width="13" height="13" font="9"><a href="2013-2-armstrong.html#8">11</a></text>
+<text top="572" left="532" width="3" height="13" font="4"><a href="2013-2-armstrong.html#8">,</a></text>
+<text top="572" left="539" width="13" height="13" font="9"><a href="2013-2-armstrong.html#9">12</a></text>
+<text top="572" left="552" width="4" height="13" font="4"><a href="2013-2-armstrong.html#9">]</a></text>
+<text top="601" left="149" width="514" height="13" font="4">R. W. Smith. Visual hypothesis testing with confidence intervals. Proceedings of the 22</text>
+<text top="598" left="663" width="6" height="10" font="6">n</text>
+<text top="601" left="670" width="75" height="13" font="4">d SAS User’s</text>
+<text top="617" left="163" width="194" height="14" font="4">Group, pages 1252–1257, 1997. <a href="2013-2-armstrong.html#3">[p</a></text>
+<text top="617" left="358" width="7" height="13" font="9"><a href="2013-2-armstrong.html#3">6</a></text>
+<text top="617" left="364" width="4" height="13" font="4"><a href="2013-2-armstrong.html#3">]</a></text>
+<text top="646" left="149" width="545" height="13" font="4">R. Steel and J. Torrie. Principles and Procedures of Statistics. McGraw-Hill, New York, 1980. <a href="2013-2-armstrong.html#2">[p</a></text>
+<text top="646" left="694" width="7" height="13" font="9"><a href="2013-2-armstrong.html#2">5</a></text>
+<text top="646" left="701" width="3" height="13" font="4"><a href="2013-2-armstrong.html#2">,</a></text>
+<text top="646" left="707" width="7" height="13" font="9"><a href="2013-2-armstrong.html#4">7</a></text>
+<text top="646" left="714" width="4" height="13" font="4"><a href="2013-2-armstrong.html#4">]</a></text>
+<text top="692" left="148" width="126" height="13" font="4">David A. Armstrong II</text>
+<text top="708" left="148" width="203" height="13" font="4">University of Wisconsin - Milwaukee</text>
+<text top="725" left="148" width="171" height="13" font="4">Department of Political Science</text>
+<text top="741" left="148" width="71" height="13" font="4">P.O. Box 413</text>
+<text top="758" left="149" width="121" height="13" font="4">Milwaukee, WI 53201</text>
+<text top="774" left="148" width="137" height="13" font="4">United States of America</text>
+<text top="791" left="149" width="110" height="11" font="9"><a href="mailto:armstrod@uwm.edu">armstrod@uwm.edu</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

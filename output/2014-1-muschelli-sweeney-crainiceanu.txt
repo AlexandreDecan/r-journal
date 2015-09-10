@@ -1,0 +1,46 @@
+page	left	top	code
+3	149	942	require(brainR)
+3	149	975	# Template from MNI152 from McGill
+3	149	991	template <- readNIfTI(system.file("MNI152_T1_2mm_brain.nii.gz", package = "brainR"),
+3	300	1007	reorient = FALSE)
+3	149	1040	### 4500 - value that empirically value that presented a brain with gyri
+3	149	1057	### lower values result in a smoother surface
+3	149	1073	dtemp <- dim(template)
+3	149	1090	contour3d(template, level = 4500, alpha = 0.1, draw = TRUE)
+4	149	756	### this would be the `activation' or surface you want to render
+4	149	772	### - hyper-intense white matter
+4	149	789	contour3d(template, level = c(8200, 8250), alpha = c(0.5, 0.8),
+4	217	805	add = TRUE, color = c("yellow", "red"))
+4	149	821	# create text for orientation of right/left
+4	149	838	text3d(x = dtemp[1]/2, y = dtemp[2]/2, z = dtemp[3] * 0.98, text = "Top")
+4	149	854	text3d(x = dtemp[1] * 0.98, y = dtemp[2]/2, z = dtemp[3]/2, text = "Right")
+4	149	887	### render this on a webpage and view it!
+4	149	904	browseURL(paste("file://",
+4	217	920	writeWebGL_split(dir = file.path(tempdir(), "webGL"),
+4	217	936	template = system.file("my_template.html", package = "brainR"),
+4	217	953	width = 500), sep = ""))
+5	149	550	### Example data courtesy of Daniel Reich
+5	149	566	### Each visit is a binary mask of lesions in the brain
+5	149	583	template <- readNIfTI(system.file("MNI152_T1_1mm_brain.nii.gz",
+5	300	599	package = "brainR"), reorient = FALSE)
+5	149	615	brain <- contour3d(template, level = 4500, alpha = 0.8, draw = FALSE)
+5	149	632	imgs <- paste("Visit_", 1:5, ".nii.gz", sep = "")
+5	149	648	files <- sapply(imgs, system.file, package = "brainR")
+5	149	665	scene <- list(brain)
+5	149	681	## loop through images and threshold masks
+5	149	698	nimgs <- length(imgs) # get number of images
+5	149	714	cols <- rainbow(nimgs) # set colors
+5	149	731	for (iimg in 1:nimgs) {
+5	163	747	mask <- readNIfTI(files[iimg], reorient = FALSE)[,,,1] # read image mask
+5	163	763	## use 0.99 for level of mask - binary
+5	163	780	activation <- contour3d(mask, level = 0.99, alpha = 1, add = TRUE,
+5	327	796	color = cols[iimg], draw = FALSE)
+5	163	813	## add these triangles to the list
+5	163	829	scene <- c(scene, list(activation))
+5	149	846	}
+5	149	862	## make output image names from image names
+5	149	878	fnames <- c("brain.stl", gsub(".nii.gz", ".stl", imgs, fixed = TRUE))
+5	149	895	outfile <- "index_4D_stl.html"
+5	149	928	## write the html file out with JavaScript checkboxes
+5	149	944	write4D(scene = scene, fnames = fnames, outfile = outfile, standalone = TRUE)
+5	149	961	browseURL(outfile)

@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">144</text>
+<text top="98" left="149" width="468" height="30" font="2"><b>MRCV: A Package for Analyzing</b></text>
+<text top="137" left="149" width="507" height="30" font="2"><b>Categorical Variables with Multiple</b></text>
+<text top="177" left="149" width="259" height="30" font="2"><b>Response Options</b></text>
+<text top="213" left="149" width="281" height="15" font="0">by Natalie A. Koziol and Christopher R. Bilder</text>
+<text top="254" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="254" left="208" width="536" height="13" font="4">Multiple response categorical variables (MRCVs), also known as “pick any” or “choose</text>
+<text top="270" left="149" width="595" height="13" font="4">all that apply” variables, summarize survey questions for which respondents are allowed to select</text>
+<text top="286" left="149" width="595" height="13" font="4">more than one category response option. Traditional methods for analyzing the association between</text>
+<text top="303" left="149" width="595" height="13" font="4">categorical variables are not appropriate with MRCVs due to the within-subject dependence among</text>
+<text top="319" left="149" width="595" height="13" font="4">responses. We have developed the <b>MRCV </b>package as the first R package available to correctly analyze</text>
+<text top="336" left="149" width="595" height="13" font="4">MRCV data. Statistical methods offered by our package include counterparts to traditional Pearson</text>
+<text top="352" left="149" width="595" height="13" font="4">chi-square tests for independence and loglinear models, where bootstrap methods and Rao-Scott</text>
+<text top="369" left="149" width="595" height="13" font="4">adjustments are relied on to obtain valid inferences. We demonstrate the primary functions within the</text>
+<text top="385" left="148" width="596" height="13" font="4">package by analyzing data from a survey assessing the swine waste management practices of Kansas</text>
+<text top="402" left="149" width="49" height="13" font="4">farmers.</text>
+<text top="446" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="485" left="149" width="598" height="13" font="4">Survey questions often instruct respondents to “choose all that apply” from a list of response cate-</text>
+<text top="502" left="149" width="595" height="13" font="4">gories. For example, surveys instituted by U.S. government agencies are mandated to ask race and</text>
+<text top="518" left="149" width="212" height="13" font="4">ethnicity questions in this format <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="518" left="360" width="212" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Office of Management and Budget</a></text>
+<text top="518" left="572" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="518" left="580" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">1997</a></text>
+<text top="518" left="607" width="137" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">, </a>p. 58781). In medical</text>
+<text top="534" left="149" width="595" height="13" font="4">applications, “choose all that apply” questions have been used for a variety of purposes, including</text>
+<text top="551" left="149" width="392" height="13" font="4">gathering information about treatment and monitoring strategies <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="551" left="541" width="93" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Kantarjian et al.</a></text>
+<text top="551" left="634" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="551" left="641" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2007</a></text>
+<text top="551" left="667" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">;</a></text>
+<text top="551" left="674" width="68" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Riegel et al.</a></text>
+<text top="551" left="742" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="567" left="149" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2006</a></text>
+<text top="567" left="176" width="568" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">). </a>Outside of surveys, this format can appear in unexpected applications. For example, wildlife</text>
+<text top="584" left="149" width="595" height="13" font="4">management researchers are often interested in the food habits of animal species. Traces of prey in</text>
+<text top="600" left="149" width="596" height="13" font="4">scats provide these researchers with a “choose all that apply” type of response because multiple prey</text>
+<text top="617" left="149" width="134" height="13" font="4">types may be present <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="617" left="283" width="79" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Lemons et al.</a></text>
+<text top="617" left="362" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="617" left="368" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2010</a></text>
+<text top="617" left="395" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">;</a></text>
+<text top="617" left="402" width="75" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Riemer et al.</a></text>
+<text top="617" left="477" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="617" left="483" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2011</a></text>
+<text top="617" left="510" width="8" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">).</a></text>
+<text top="638" left="171" width="573" height="13" font="4">Variables that summarize data arising from a “choose all that apply” format are referred to as</text>
+<text top="654" left="149" width="596" height="13" font="4">multiple response categorical variables (MRCVs), and the response categories within each MRCV</text>
+<text top="670" left="149" width="155" height="13" font="4">are referred to as items <a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="670" left="304" width="122" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Bilder and Loughin</a></text>
+<text top="670" left="426" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">,</a></text>
+<text top="670" left="434" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2004</a></text>
+<text top="670" left="462" width="282" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">). </a>Because individual subjects are allowed to</text>
+<text top="687" left="149" width="596" height="13" font="4">choose multiple items, the responses are likely dependent, and therefore traditional methods for</text>
+<text top="703" left="149" width="595" height="13" font="4">analyzing categorical variables (e.g., Pearson chi-square tests for independence, loglinear models) are</text>
+<text top="720" left="149" width="595" height="13" font="4">not appropriate. Unfortunately, numerous examples exist where these traditional methods are still</text>
+<text top="736" left="149" width="54" height="13" font="4">used (see</text>
+<text top="736" left="207" width="41" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Wright</a></text>
+<text top="736" left="248" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="736" left="254" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2010</a></text>
+<text top="736" left="284" width="298" height="13" font="4">for a review), which can lead to erroneous results <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="736" left="582" width="123" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Loughin and Scherer</a></text>
+<text top="736" left="705" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="736" left="712" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">1998</a></text>
+<text top="736" left="739" width="8" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">).</a></text>
+<text top="757" left="171" width="286" height="13" font="4">While MRCVs have been identified since at least</text>
+<text top="757" left="461" width="49" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Coombs</a></text>
+<text top="757" left="513" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="757" left="518" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">1964</a></text>
+<text top="757" left="545" width="200" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">), </a>methods for correctly analyzing</text>
+<text top="774" left="149" width="595" height="13" font="4">MRCVs in the context of common categorical data analysis interests, such as examining associations</text>
+<text top="790" left="149" width="493" height="13" font="4">between variables, have only been available for approximately 15 years (e.g., see</text>
+<text top="790" left="646" width="96" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Agresti and Liu</a></text>
+<text top="790" left="742" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">,</a></text>
+<text top="806" left="148" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">1999</a></text>
+<text top="806" left="176" width="38" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">). </a>Our</text>
+<text top="807" left="217" width="43" height="13" font="7"><a href="http://CRAN.R-project.org/package=MRCV"><b>MRCV</b></a></text>
+<text top="806" left="264" width="58" height="13" font="4">package <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="806" left="323" width="107" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Koziol and Bilder</a></text>
+<text top="806" left="430" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="806" left="437" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2014</a></text>
+<text top="806" left="465" width="279" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>is the first R package available to implement</text>
+<text top="823" left="148" width="596" height="13" font="4">valid inference procedures for this type of data. The functions within the package can be used by</text>
+<text top="839" left="149" width="529" height="13" font="4">researchers who want to examine the relationship among items from up to three MRCVs.</text>
+<text top="860" left="171" width="573" height="13" font="4">We begin this paper by first illustrating functions within the package for summarizing MRCV data</text>
+<text top="877" left="149" width="595" height="13" font="4">and testing for independence. Then, we illustrate functions for fitting a generalized loglinear model to</text>
+<text top="893" left="149" width="595" height="13" font="4">MRCV data and for performing follow-up analyses using method functions. Our examples focus on</text>
+<text top="910" left="149" width="485" height="13" font="4">only two MRCVs for brevity reasons, but we discuss extensions in the conclusion.</text>
+<text top="954" left="149" width="181" height="17" font="5"><b>Test for independence</b></text>
+<text top="993" left="148" width="197" height="13" font="4">We begin with an example from</text>
+<text top="993" left="349" width="120" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Bilder and Loughin</a></text>
+<text top="993" left="473" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="993" left="478" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2007</a></text>
+<text top="993" left="505" width="239" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>involving a simple random sample of</text>
+<text top="1010" left="149" width="595" height="13" font="4">Kansas swine farmers. There are two MRCVs to be examined here, and we denote them generically as</text>
+<text top="1026" left="149" width="595" height="14" font="4">W and Y. The first MRCV (W) corresponds to a survey question that asked farmers to state which</text>
+<text top="1043" left="149" width="535" height="13" font="4">contaminants they tested for from the items “nitrogen”, “phosphorous”, and “salt” (W</text>
+<text top="1047" left="684" width="5" height="10" font="8">1</text>
+<text top="1043" left="690" width="21" height="13" font="4">, W</text>
+<text top="1047" left="710" width="5" height="10" font="8">2</text>
+<text top="1043" left="716" width="21" height="13" font="4">, W</text>
+<text top="1047" left="736" width="5" height="10" font="8">3</text>
+<text top="1043" left="742" width="3" height="13" font="4">,</text>
+<text top="1059" left="149" width="596" height="13" font="4">respectively). The second MRCV (Y) corresponds to a survey question that asked farmers to identify</text>
+<text top="1075" left="149" width="595" height="13" font="4">their swine waste storage methods from the items “lagoon”, “pit”, “natural drainage”, and “holding</text>
+<text top="1092" left="149" width="51" height="13" font="4">tank” (Y</text>
+<text top="1097" left="198" width="5" height="10" font="8">1</text>
+<text top="1092" left="204" width="16" height="13" font="4">, Y</text>
+<text top="1097" left="219" width="5" height="10" font="8">2</text>
+<text top="1092" left="225" width="16" height="13" font="4">, Y</text>
+<text top="1097" left="240" width="5" height="10" font="8">3</text>
+<text top="1092" left="246" width="16" height="13" font="4">, Y</text>
+<text top="1097" left="261" width="5" height="10" font="8">4</text>
+<text top="1092" left="267" width="477" height="13" font="4">, respectively). Farmers were instructed to “choose all that apply” from each of</text>
+<text top="1108" left="149" width="595" height="13" font="4">these predefined lists. By using a 0 to denote an item not chosen (negative response) and a 1 to denote</text>
+<text top="1125" left="149" width="595" height="13" font="4">an item chosen (positive response), each observation consists of a set of correlated binary responses, as</text>
+<text top="1141" left="149" width="83" height="13" font="4">shown below:</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">145</text>
+<text top="100" left="163" width="151" height="18" font="4">&gt; head(farmer2, n = 3)</text>
+<text top="116" left="176" width="137" height="18" font="4">w1 w2 w3 y1 y2 y3 y4</text>
+<text top="133" left="163" width="151" height="18" font="4">1 0 0 0 0 0 0 0</text>
+<text top="149" left="163" width="151" height="18" font="4">2 0 0 0 0 0 0 1</text>
+<text top="165" left="163" width="151" height="18" font="4">3 0 0 0 0 0 0 1</text>
+<text top="198" left="163" width="151" height="18" font="4">&gt; tail(farmer2, n = 3)</text>
+<text top="215" left="190" width="137" height="18" font="4">w1 w2 w3 y1 y2 y3 y4</text>
+<text top="231" left="163" width="165" height="18" font="4">277 1 1 1 1 1 0 0</text>
+<text top="248" left="163" width="165" height="18" font="4">278 1 1 1 1 1 0 0</text>
+<text top="264" left="163" width="165" height="18" font="4">279 1 1 1 1 1 1 0</text>
+<text top="296" left="148" width="596" height="13" font="4">We see, for example, that the third farmer does not test for any contaminants and uses only a holding</text>
+<text top="312" left="149" width="135" height="13" font="4">tank for waste storage.</text>
+<text top="333" left="171" width="573" height="13" font="4">Contingency table-like summaries of MRCV data are often given in papers. In particular, marginal</text>
+<text top="349" left="149" width="507" height="13" font="4">counts for all pairwise positive responses between items in W and Y are shown in Table</text>
+<text top="349" left="659" width="7" height="13" font="6"><a href="2014-1-koziol-bilder.html#2">1</a></text>
+<text top="349" left="666" width="79" height="13" font="4"><a href="2014-1-koziol-bilder.html#2">. </a>This display</text>
+<text top="366" left="149" width="595" height="13" font="4">format can lead researchers to want to apply Pearson chi-square tests (or other simple categorical</text>
+<text top="382" left="149" width="597" height="13" font="4">measures) to the table of counts in order to understand associations between the MRCVs. However,</text>
+<text top="399" left="149" width="595" height="13" font="4">this approach is not correct because it does not take into account the fact that an individual subject</text>
+<text top="415" left="149" width="595" height="13" font="4">can contribute to multiple counts in the table, which violates any type of multinomial distribution</text>
+<text top="431" left="149" width="595" height="13" font="4">underlying assumption for these specific counts. Furthermore, three other tables summarizing the</text>
+<text top="448" left="148" width="596" height="13" font="4">pairwise positive/negative responses (e.g., summarizing responses for items “not” chosen) of this type</text>
+<text top="464" left="149" width="158" height="13" font="4">could also be constructed.</text>
+<text top="464" left="311" width="95" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Agresti and Liu</a></text>
+<text top="464" left="410" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="464" left="415" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">1999</a></text>
+<text top="464" left="442" width="31" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>and</text>
+<text top="464" left="477" width="119" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Bilder and Loughin</a></text>
+<text top="464" left="599" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="464" left="604" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2001</a></text>
+<text top="464" left="631" width="113" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>show that testing</text>
+<text top="481" left="148" width="596" height="13" font="4">procedures are not invariant to whether positive or negative responses are summarized and that</text>
+<text top="497" left="149" width="598" height="13" font="4">different conclusions about the data can be reached depending on the types of responses summarized.</text>
+<text top="518" left="171" width="573" height="13" font="4">Examining all possible combinations of the positive/negative item responses between MRCVs</text>
+<text top="535" left="149" width="449" height="13" font="4">is the preferred way to display and subsequently analyze MRCV data. The</text>
+<text top="531" left="601" width="144" height="18" font="4">item.response.table()</text>
+<text top="551" left="149" width="262" height="13" font="4">function provides this summary for each (W</text>
+<text top="556" left="411" width="3" height="10" font="8">i</text>
+<text top="551" left="415" width="16" height="13" font="4">, Y</text>
+<text top="556" left="430" width="3" height="10" font="8">j</text>
+<text top="551" left="434" width="35" height="13" font="4">) pair:</text>
+<text top="576" left="163" width="350" height="18" font="4">&gt; item.response.table(data = farmer2, I = 3, J = 4)</text>
+<text top="608" left="211" width="14" height="18" font="4">y1</text>
+<text top="608" left="279" width="14" height="18" font="4">y2</text>
+<text top="608" left="341" width="14" height="18" font="4">y3</text>
+<text top="608" left="403" width="14" height="18" font="4">y4</text>
+<text top="625" left="211" width="7" height="18" font="4">0</text>
+<text top="625" left="238" width="7" height="18" font="4">1</text>
+<text top="625" left="279" width="7" height="18" font="4">0</text>
+<text top="625" left="307" width="7" height="18" font="4">1</text>
+<text top="625" left="341" width="7" height="18" font="4">0</text>
+<text top="625" left="368" width="7" height="18" font="4">1</text>
+<text top="625" left="403" width="7" height="18" font="4">0</text>
+<text top="625" left="430" width="7" height="18" font="4">1</text>
+<text top="641" left="169" width="144" height="18" font="4">w1 0 123 116 175 64</text>
+<text top="641" left="334" width="41" height="18" font="4">156 83</text>
+<text top="641" left="396" width="41" height="18" font="4">228 11</text>
+<text top="658" left="190" width="7" height="18" font="4">1</text>
+<text top="658" left="217" width="41" height="18" font="4">13 27</text>
+<text top="658" left="279" width="34" height="18" font="4">24 16</text>
+<text top="658" left="341" width="34" height="18" font="4">38 2</text>
+<text top="658" left="403" width="34" height="18" font="4">38 2</text>
+<text top="674" left="169" width="144" height="18" font="4">w2 0 128 121 181 68</text>
+<text top="674" left="334" width="41" height="18" font="4">165 84</text>
+<text top="674" left="396" width="41" height="18" font="4">237 12</text>
+<text top="691" left="190" width="7" height="18" font="4">1</text>
+<text top="691" left="224" width="34" height="18" font="4">8 22</text>
+<text top="691" left="279" width="34" height="18" font="4">18 12</text>
+<text top="691" left="341" width="34" height="18" font="4">29 1</text>
+<text top="691" left="403" width="34" height="18" font="4">29 1</text>
+<text top="707" left="169" width="144" height="18" font="4">w3 0 134 124 184 74</text>
+<text top="707" left="334" width="41" height="18" font="4">174 84</text>
+<text top="707" left="396" width="41" height="18" font="4">245 13</text>
+<text top="724" left="190" width="7" height="18" font="4">1</text>
+<text top="724" left="224" width="34" height="18" font="4">2 19</text>
+<text top="724" left="279" width="34" height="18" font="4">15 6</text>
+<text top="724" left="341" width="34" height="18" font="4">20 1</text>
+<text top="724" left="403" width="34" height="18" font="4">21 0</text>
+<text top="755" left="148" width="37" height="13" font="4">where</text>
+<text top="752" left="188" width="556" height="18" font="4">I is the number of items for W and J is the number of items for Y. The pairwise item-response</text>
+<text top="771" left="149" width="595" height="13" font="4">table indicates, for example, that 27 farmers tested for nitrogen and used lagoon as a waste storage</text>
+<text top="788" left="149" width="92" height="13" font="4">method (i.e., W</text>
+<text top="793" left="240" width="5" height="10" font="8">1</text>
+<text top="787" left="251" width="11" height="14" font="0">=</text>
+<text top="788" left="266" width="23" height="13" font="4">1, Y</text>
+<text top="793" left="287" width="5" height="10" font="8">1</text>
+<text top="787" left="297" width="11" height="14" font="0">=</text>
+<text top="788" left="312" width="432" height="13" font="4">1). Furthermore, 123 farmers did not test for nitrogen and did not use a</text>
+<text top="804" left="149" width="595" height="13" font="4">lagoon, 13 farmers tested for nitrogen without using a lagoon, and 116 farmers did not test for nitrogen</text>
+<text top="821" left="148" width="192" height="13" font="4">while using a lagoon. In total, 27</text>
+<text top="820" left="343" width="11" height="14" font="0">+</text>
+<text top="821" left="357" width="20" height="13" font="4">123</text>
+<text top="820" left="379" width="11" height="14" font="0">+</text>
+<text top="821" left="393" width="13" height="13" font="4">13</text>
+<text top="820" left="409" width="11" height="14" font="0">+</text>
+<text top="821" left="423" width="20" height="13" font="4">116</text>
+<text top="820" left="447" width="11" height="14" font="0">=</text>
+<text top="821" left="462" width="283" height="13" font="4">279 farmers participated in the survey (there are</text>
+<text top="837" left="149" width="205" height="13" font="4">no missing responses to any item).</text>
+<text top="858" left="171" width="93" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Agresti and Liu</a></text>
+<text top="858" left="267" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="858" left="272" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">1999</a></text>
+<text top="858" left="299" width="446" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>provided the MRCV extension to testing for independence between single</text>
+<text top="875" left="149" width="595" height="13" font="4">response categorical variables (SRCVs). This test, known as a test for simultaneous pairwise marginal</text>
+<text top="891" left="149" width="355" height="13" font="4">independence (SPMI), involves determining whether each W</text>
+<text top="896" left="503" width="5" height="10" font="8">1</text>
+<text top="891" left="509" width="42" height="13" font="4">, . . . , W</text>
+<text top="896" left="551" width="3" height="10" font="8">I</text>
+<text top="891" left="559" width="185" height="13" font="4">is pairwise independent of each</text>
+<text top="910" left="149" width="9" height="13" font="4">Y</text>
+<text top="915" left="157" width="5" height="10" font="8">1</text>
+<text top="910" left="163" width="38" height="13" font="4">, . . . , Y</text>
+<text top="915" left="200" width="3" height="10" font="8">J</text>
+<text top="910" left="205" width="31" height="13" font="4">. Our</text>
+<text top="907" left="240" width="388" height="18" font="4">MI.test() function calculates their modified Pearson statistic as X</text>
+<text top="908" left="628" width="5" height="10" font="8">2</text>
+<text top="917" left="628" width="6" height="10" font="8">S</text>
+<text top="909" left="639" width="11" height="14" font="0">=</text>
+<text top="908" left="653" width="10" height="17" font="4">∑</text>
+<text top="907" left="665" width="3" height="10" font="8">I</text>
+<text top="917" left="664" width="17" height="11" font="8">i=1</text>
+<text top="908" left="684" width="10" height="17" font="4">∑</text>
+<text top="906" left="695" width="3" height="10" font="8">J</text>
+<text top="917" left="695" width="17" height="11" font="8">j=1</text>
+<text top="910" left="716" width="10" height="13" font="4">X</text>
+<text top="908" left="726" width="5" height="10" font="8">2</text>
+<text top="917" left="725" width="18" height="11" font="8">S,i,j</text>
+<text top="932" left="148" width="51" height="13" font="4">where X</text>
+<text top="929" left="199" width="5" height="10" font="8">2</text>
+<text top="938" left="199" width="18" height="11" font="8">S,i,j</text>
+<text top="932" left="221" width="523" height="13" font="4">is the usual Pearson chi-square statistic used in this situation to test for independence in</text>
+<text top="953" left="149" width="30" height="13" font="4">the 2</text>
+<text top="952" left="179" width="11" height="13" font="0">×</text>
+<text top="953" left="190" width="165" height="13" font="4">2 tables formed by each (W</text>
+<text top="958" left="354" width="3" height="10" font="8">i</text>
+<text top="953" left="358" width="16" height="13" font="4">, Y</text>
+<text top="958" left="374" width="3" height="10" font="8">j</text>
+<text top="953" left="378" width="260" height="13" font="4">) response combination. In our example, X</text>
+<text top="950" left="638" width="5" height="10" font="8">2</text>
+<text top="960" left="638" width="6" height="10" font="8">S</text>
+<text top="953" left="648" width="96" height="13" font="4">is the sum of 12</text>
+<text top="1003" left="478" width="146" height="15" font="0">Waste storage method</text>
+<text top="1028" left="388" width="50" height="15" font="0">Lagoon</text>
+<text top="1028" left="456" width="18" height="15" font="0">Pit</text>
+<text top="1028" left="492" width="116" height="15" font="0">Natural Drainage</text>
+<text top="1028" left="626" width="89" height="15" font="0">Holding tank</text>
+<text top="1071" left="178" width="87" height="15" font="0">Contaminant</text>
+<text top="1053" left="297" width="60" height="15" font="0">Nitrogen</text>
+<text top="1053" left="406" width="15" height="15" font="0">27</text>
+<text top="1053" left="458" width="15" height="15" font="0">16</text>
+<text top="1053" left="547" width="7" height="15" font="0">2</text>
+<text top="1053" left="667" width="7" height="15" font="0">2</text>
+<text top="1071" left="283" width="87" height="15" font="0">Phosphorous</text>
+<text top="1071" left="406" width="15" height="15" font="0">22</text>
+<text top="1071" left="458" width="15" height="15" font="0">12</text>
+<text top="1071" left="547" width="7" height="15" font="0">1</text>
+<text top="1071" left="667" width="7" height="15" font="0">1</text>
+<text top="1089" left="314" width="25" height="15" font="0">Salt</text>
+<text top="1089" left="406" width="15" height="15" font="0">19</text>
+<text top="1089" left="461" width="7" height="15" font="0">6</text>
+<text top="1089" left="547" width="7" height="15" font="0">1</text>
+<text top="1089" left="667" width="7" height="15" font="0">0</text>
+<text top="1126" left="148" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="1126" left="200" width="250" height="13" font="4">Pairwise positive responses for the data in</text>
+<text top="1122" left="453" width="291" height="18" font="4">farmer2. While not recommended, this summary</text>
+<text top="1142" left="149" width="183" height="13" font="4">format is available through the</text>
+<text top="1139" left="335" width="228" height="18" font="4">marginal.table() function of <b>MRCV</b>.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">146</text>
+<text top="103" left="148" width="324" height="13" font="4">pairwise marginal tests for independence. In general, X</text>
+<text top="100" left="473" width="5" height="10" font="8">2</text>
+<text top="110" left="473" width="6" height="10" font="8">S</text>
+<text top="103" left="483" width="178" height="13" font="4">does not have an asymptotic <i>χ</i></text>
+<text top="100" left="661" width="5" height="10" font="8">2</text>
+<text top="110" left="662" width="8" height="10" font="8">I J</text>
+<text top="103" left="675" width="69" height="13" font="4">distribution</text>
+<text top="123" left="149" width="199" height="13" font="4">due to dependency among the X</text>
+<text top="121" left="348" width="5" height="10" font="8">2</text>
+<text top="130" left="348" width="18" height="11" font="8">S,i,j</text>
+<text top="123" left="366" width="378" height="13" font="4">. Rather, the asymptotic distribution is a linear combination of</text>
+<text top="145" left="149" width="87" height="13" font="4">independent <i>χ</i></text>
+<text top="142" left="236" width="5" height="10" font="8">2</text>
+<text top="151" left="236" width="5" height="10" font="8">1</text>
+<text top="145" left="246" width="112" height="13" font="4">random variables <a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="145" left="358" width="116" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Bilder and Loughin</a></text>
+<text top="145" left="474" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">,</a></text>
+<text top="145" left="481" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2004</a></text>
+<text top="145" left="508" width="8" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">).</a></text>
+<text top="165" left="171" width="23" height="13" font="4">The</text>
+<text top="162" left="198" width="546" height="18" font="4">MI.test() function offers three methods, available through its type argument, that can be</text>
+<text top="182" left="149" width="75" height="13" font="4">used with X</text>
+<text top="179" left="224" width="5" height="10" font="8">2</text>
+<text top="189" left="224" width="6" height="10" font="8">S</text>
+<text top="182" left="234" width="50" height="13" font="4">or the X</text>
+<text top="179" left="284" width="5" height="10" font="8">2</text>
+<text top="189" left="284" width="18" height="11" font="8">S,i,j</text>
+<text top="182" left="306" width="343" height="13" font="4">individual statistics to perform valid tests for SPMI. The</text>
+<text top="179" left="653" width="91" height="18" font="4">type = &#34;boot&#34;</text>
+<text top="201" left="149" width="595" height="13" font="4">argument value specifies the use of the nonparametric bootstrap to estimate the sampling distribution</text>
+<text top="217" left="149" width="25" height="13" font="4">of X</text>
+<text top="215" left="174" width="5" height="10" font="8">2</text>
+<text top="224" left="174" width="6" height="10" font="8">S</text>
+<text top="217" left="184" width="338" height="13" font="4">under SPMI and to calculate an appropriate p-value using</text>
+<text top="214" left="526" width="218" height="18" font="4">B resamples. In addition, two p-value</text>
+<text top="234" left="149" width="595" height="13" font="4">combination methods—the product and minimum of p-values—are implemented to combine the</text>
+<text top="250" left="148" width="149" height="13" font="4">p-values obtained from X</text>
+<text top="247" left="298" width="5" height="10" font="8">2</text>
+<text top="257" left="298" width="18" height="11" font="8">S,i,j</text>
+<text top="250" left="320" width="44" height="13" font="4">and a <i>χ</i></text>
+<text top="247" left="363" width="5" height="10" font="8">2</text>
+<text top="257" left="363" width="5" height="10" font="8">1</text>
+<text top="250" left="373" width="372" height="13" font="4">approximation. Details on these bootstrap approaches are given</text>
+<text top="269" left="149" width="12" height="13" font="4">in</text>
+<text top="269" left="164" width="119" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Bilder and Loughin</a></text>
+<text top="269" left="287" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="269" left="292" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2004</a></text>
+<text top="269" left="319" width="36" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">). </a>The</text>
+<text top="266" left="358" width="386" height="18" font="4">type = &#34;rs2&#34; argument value applies a Rao-Scott second-order</text>
+<text top="285" left="149" width="99" height="13" font="4">adjustment to X</text>
+<text top="283" left="248" width="5" height="10" font="8">2</text>
+<text top="292" left="248" width="6" height="10" font="8">S</text>
+<text top="285" left="258" width="342" height="13" font="4">and its sampling distribution. This procedure adjusts X</text>
+<text top="283" left="601" width="5" height="10" font="8">2</text>
+<text top="292" left="601" width="6" height="10" font="8">S</text>
+<text top="285" left="612" width="133" height="13" font="4">to match the first two</text>
+<text top="302" left="149" width="595" height="13" font="4">moments of a chi-square random variable, asymptotically. Details on this approach are provided in</text>
+<text top="318" left="149" width="115" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Bilder and Loughin</a></text>
+<text top="318" left="267" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="318" left="271" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2004</a></text>
+<text top="318" left="298" width="30" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>and</text>
+<text top="318" left="331" width="121" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Thomas and Decady</a></text>
+<text top="318" left="455" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="318" left="460" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2004</a></text>
+<text top="318" left="486" width="76" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">). </a>Finally, the</text>
+<text top="315" left="566" width="178" height="18" font="4">type = &#34;bon&#34; argument value</text>
+<text top="335" left="149" width="316" height="13" font="4">simply applies a Bonferroni adjustment with each X</text>
+<text top="332" left="466" width="5" height="10" font="8">2</text>
+<text top="342" left="465" width="18" height="11" font="8">S,i,j</text>
+<text top="335" left="488" width="46" height="13" font="4">and a <i>χ</i></text>
+<text top="332" left="533" width="5" height="10" font="8">2</text>
+<text top="342" left="533" width="5" height="10" font="8">1</text>
+<text top="335" left="543" width="201" height="13" font="4">approximation. To implement all</text>
+<text top="354" left="149" width="179" height="13" font="4">three methods, we can use the</text>
+<text top="350" left="331" width="183" height="18" font="4">type = &#34;all&#34; argument value:</text>
+<text top="380" left="163" width="412" height="18" font="4">&gt; set.seed(102211) # Set seed to replicate bootstrap results</text>
+<text top="397" left="163" width="556" height="18" font="4">&gt; MI.test(data = farmer2, I = 3, J = 4, type = &#34;all&#34;, B = 1999, plot.hist = TRUE)</text>
+<text top="429" left="163" width="405" height="18" font="4">Test for Simultaneous Pairwise Marginal Independence (SPMI)</text>
+<text top="462" left="163" width="364" height="18" font="4">Unadjusted Pearson Chi-Square Tests for Independence:</text>
+<text top="479" left="163" width="89" height="18" font="4">X^2_S = 64.03</text>
+<text top="495" left="163" width="69" height="18" font="4">X^2_S.ij =</text>
+<text top="512" left="204" width="14" height="18" font="4">y1</text>
+<text top="512" left="238" width="14" height="18" font="4">y2</text>
+<text top="512" left="279" width="14" height="18" font="4">y3</text>
+<text top="512" left="313" width="14" height="18" font="4">y4</text>
+<text top="528" left="163" width="165" height="18" font="4">w1 4.93 2.93 14.29 0.01</text>
+<text top="545" left="163" width="165" height="18" font="4">w2 6.56 2.11 11.68 0.13</text>
+<text top="561" left="163" width="165" height="18" font="4">w3 13.98 0.00 7.08 0.32</text>
+<text top="594" left="163" width="123" height="18" font="4">Bootstrap Results:</text>
+<text top="610" left="163" width="254" height="18" font="4">Final results based on 1999 resamples</text>
+<text top="627" left="163" width="103" height="18" font="4">p.boot = 0.0005</text>
+<text top="643" left="163" width="144" height="18" font="4">p.combo.prod = 0.0005</text>
+<text top="660" left="163" width="130" height="18" font="4">p.combo.min = 0.001</text>
+<text top="692" left="163" width="274" height="18" font="4">Second-Order Rao-Scott Adjusted Results:</text>
+<text top="709" left="163" width="117" height="18" font="4">X^2_S.adj = 36.17</text>
+<text top="725" left="163" width="89" height="18" font="4">df.adj = 6.78</text>
+<text top="742" left="163" width="96" height="18" font="4">p.adj &lt; 0.0001</text>
+<text top="775" left="163" width="192" height="18" font="4">Bonferroni Adjusted Results:</text>
+<text top="791" left="163" width="96" height="18" font="4">p.adj = 0.0019</text>
+<text top="808" left="163" width="69" height="18" font="4">p.ij.adj =</text>
+<text top="824" left="183" width="14" height="18" font="4">y1</text>
+<text top="824" left="231" width="14" height="18" font="4">y2</text>
+<text top="824" left="279" width="14" height="18" font="4">y3</text>
+<text top="824" left="327" width="14" height="18" font="4">y4</text>
+<text top="840" left="163" width="206" height="18" font="4">w1 0.3163 1.0000 0.0019 1.0000</text>
+<text top="857" left="163" width="206" height="18" font="4">w2 0.1253 1.0000 0.0076 1.0000</text>
+<text top="873" left="163" width="206" height="18" font="4">w3 0.0022 1.0000 0.0934 1.0000</text>
+<text top="907" left="149" width="39" height="13" font="4">Figure</text>
+<text top="907" left="191" width="7" height="13" font="6"><a href="2014-1-koziol-bilder.html#4">1</a></text>
+<text top="907" left="201" width="543" height="13" font="4">shows histograms from the bootstrap implementations. All of the methods provide strong</text>
+<text top="923" left="149" width="213" height="13" font="4">evidence for rejecting SPMI. The X</text>
+<text top="920" left="362" width="5" height="10" font="8">2</text>
+<text top="930" left="362" width="18" height="11" font="8">S,i,j</text>
+<text top="923" left="384" width="360" height="13" font="4">and corresponding Bonferroni adjusted p-values indicate a</text>
+<text top="942" left="149" width="194" height="13" font="4">significant association for the (W</text>
+<text top="947" left="342" width="5" height="10" font="8">1</text>
+<text top="942" left="348" width="16" height="13" font="4">, Y</text>
+<text top="947" left="363" width="5" height="10" font="8">3</text>
+<text top="942" left="369" width="28" height="13" font="4">), (W</text>
+<text top="947" left="396" width="5" height="10" font="8">2</text>
+<text top="942" left="402" width="16" height="13" font="4">, Y</text>
+<text top="947" left="417" width="5" height="10" font="8">3</text>
+<text top="942" left="423" width="54" height="13" font="4">), and (W</text>
+<text top="947" left="477" width="5" height="10" font="8">3</text>
+<text top="942" left="483" width="16" height="13" font="4">, Y</text>
+<text top="947" left="497" width="5" height="10" font="8">1</text>
+<text top="942" left="503" width="91" height="13" font="4">) combinations.</text>
+<text top="987" left="149" width="162" height="17" font="5"><b>Loglinear modeling</b></text>
+<text top="1026" left="149" width="373" height="13" font="4">SPMI is only one possible association structure between MRCVs.</text>
+<text top="1026" left="526" width="113" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Bilder and Loughin</a></text>
+<text top="1026" left="642" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="1026" left="646" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2007</a></text>
+<text top="1026" left="673" width="71" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>introduced</text>
+<text top="1042" left="149" width="595" height="13" font="4">a flexible loglinear modeling approach that allows researchers to consider alternative association</text>
+<text top="1058" left="149" width="595" height="13" font="4">structures somewhere between SPMI and complete dependence. Within this framework, a model</text>
+<text top="1075" left="149" width="137" height="13" font="4">under SPMI is given as</text>
+<text top="1112" left="348" width="19" height="13" font="4">log</text>
+<text top="1106" left="369" width="8" height="6" font="4"></text>
+<text top="1115" left="377" width="8" height="10" font="9"><i>µ</i></text>
+<text top="1118" left="386" width="25" height="10" font="8">ab(ij)</text>
+<text top="1106" left="412" width="8" height="6" font="4"></text>
+<text top="1111" left="424" width="11" height="14" font="0">=</text>
+<text top="1115" left="439" width="8" height="10" font="9"><i>γ</i></text>
+<text top="1117" left="447" width="7" height="10" font="8">ij</text>
+<text top="1111" left="458" width="11" height="14" font="0">+</text>
+<text top="1115" left="471" width="7" height="10" font="9"><i>η</i></text>
+<text top="1109" left="479" width="10" height="10" font="8">W</text>
+<text top="1119" left="479" width="20" height="10" font="8">a(ij)</text>
+<text top="1111" left="503" width="11" height="14" font="0">+</text>
+<text top="1115" left="517" width="7" height="10" font="9"><i>η</i></text>
+<text top="1109" left="524" width="7" height="10" font="8">Y</text>
+<text top="1119" left="524" width="21" height="10" font="8">b(ij)</text>
+<text top="1112" left="728" width="16" height="13" font="4">(1)</text>
+<text top="1143" left="148" width="50" height="13" font="4">where <i>µ</i></text>
+<text top="1149" left="199" width="25" height="10" font="8">ab(ij)</text>
+<text top="1143" left="229" width="332" height="13" font="4">is the expected number of subjects who responded (W</text>
+<text top="1148" left="560" width="3" height="10" font="8">i</text>
+<text top="1143" left="569" width="11" height="14" font="0">=</text>
+<text top="1143" left="586" width="23" height="14" font="4">a, Y</text>
+<text top="1148" left="608" width="3" height="10" font="8">j</text>
+<text top="1143" left="617" width="11" height="14" font="0">=</text>
+<text top="1143" left="633" width="57" height="14" font="4">b) for a, b</text>
+<text top="1143" left="694" width="22" height="13" font="0">∈ {</text>
+<text top="1143" left="716" width="19" height="13" font="4">0, 1</text>
+<text top="1143" left="736" width="7" height="13" font="0">}</text>
+<text top="1143" left="743" width="3" height="13" font="4">.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">147</text>
+<text top="105" left="248" width="134" height="11" font="10"><b>Test using sum statistic</b></text>
+<text top="296" left="309" width="6" height="9" font="11">X</text>
+<text top="301" left="315" width="5" height="7" font="12">S</text>
+<text top="293" left="315" width="7" height="7" font="12">2*</text>
+<text top="208" left="160" width="0" height="9" font="13">Frequency</text>
+<text top="277" left="198" width="5" height="9" font="11">0</text>
+<text top="277" left="228" width="11" height="9" font="11">10</text>
+<text top="277" left="261" width="11" height="9" font="11">20</text>
+<text top="277" left="293" width="11" height="9" font="11">30</text>
+<text top="277" left="326" width="11" height="9" font="11">40</text>
+<text top="277" left="358" width="11" height="9" font="11">50</text>
+<text top="277" left="391" width="11" height="9" font="11">60</text>
+<text top="277" left="424" width="11" height="9" font="11">70</text>
+<text top="254" left="182" width="0" height="9" font="13">0</text>
+<text top="224" left="182" width="0" height="9" font="13">200</text>
+<text top="188" left="182" width="0" height="9" font="13">400</text>
+<text top="153" left="182" width="0" height="9" font="13">600</text>
+<text top="105" left="526" width="174" height="11" font="10"><b>Test using product of p−values</b></text>
+<text top="295" left="603" width="5" height="9" font="11">p</text>
+<text top="291" left="603" width="6" height="9" font="11">~</text>
+<text top="300" left="608" width="14" height="7" font="12">prod</text>
+<text top="292" left="608" width="3" height="7" font="12">*</text>
+<text top="208" left="457" width="0" height="9" font="13">Frequency</text>
+<text top="277" left="493" width="18" height="9" font="11">0.00</text>
+<text top="277" left="525" width="18" height="9" font="11">0.01</text>
+<text top="277" left="556" width="18" height="9" font="11">0.02</text>
+<text top="277" left="588" width="18" height="9" font="11">0.03</text>
+<text top="277" left="620" width="18" height="9" font="11">0.04</text>
+<text top="277" left="652" width="18" height="9" font="11">0.05</text>
+<text top="277" left="683" width="18" height="9" font="11">0.06</text>
+<text top="277" left="715" width="18" height="9" font="11">0.07</text>
+<text top="254" left="480" width="0" height="9" font="13">0</text>
+<text top="224" left="480" width="0" height="9" font="13">500</text>
+<text top="191" left="480" width="0" height="9" font="13">1000</text>
+<text top="156" left="480" width="0" height="9" font="13">1500</text>
+<text top="317" left="373" width="183" height="11" font="10"><b>Test using minimum of p−values</b></text>
+<text top="509" left="456" width="5" height="9" font="11">p</text>
+<text top="505" left="455" width="6" height="9" font="11">~</text>
+<text top="514" left="461" width="11" height="7" font="12">min</text>
+<text top="506" left="461" width="3" height="7" font="12">*</text>
+<text top="420" left="308" width="0" height="9" font="13">Frequency</text>
+<text top="489" left="347" width="13" height="9" font="11">0.0</text>
+<text top="489" left="384" width="13" height="9" font="11">0.1</text>
+<text top="489" left="421" width="13" height="9" font="11">0.2</text>
+<text top="489" left="458" width="13" height="9" font="11">0.3</text>
+<text top="489" left="495" width="13" height="9" font="11">0.4</text>
+<text top="489" left="532" width="13" height="9" font="11">0.5</text>
+<text top="489" left="569" width="13" height="9" font="11">0.6</text>
+<text top="467" left="331" width="0" height="9" font="13">0</text>
+<text top="452" left="331" width="0" height="9" font="13">100</text>
+<text top="413" left="331" width="0" height="9" font="13">300</text>
+<text top="373" left="331" width="0" height="9" font="13">500</text>
+<text top="540" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="540" left="206" width="432" height="13" font="4">Histograms of the bootstrap estimated sampling distributions, where X</text>
+<text top="538" left="639" width="5" height="10" font="8">2</text>
+<text top="535" left="644" width="4" height="7" font="14">∗</text>
+<text top="547" left="639" width="6" height="10" font="8">S</text>
+<text top="540" left="653" width="91" height="13" font="4">is the modified</text>
+<text top="557" left="149" width="287" height="13" font="4">Pearson statistic calculated for a resample, and ˜p</text>
+<text top="553" left="436" width="5" height="10" font="8">∗</text>
+<text top="564" left="437" width="20" height="10" font="8">prod</text>
+<text top="557" left="461" width="34" height="13" font="4">and ˜p</text>
+<text top="553" left="495" width="5" height="10" font="8">∗</text>
+<text top="564" left="495" width="17" height="10" font="8">min</text>
+<text top="557" left="517" width="227" height="13" font="4">are the product and minimum p-value</text>
+<text top="576" left="149" width="595" height="13" font="4">combination statistics, respectively, calculated for a resample. The vertical lines correspond to the</text>
+<text top="592" left="149" width="184" height="13" font="4">statistics for the observed data.</text>
+<text top="641" left="148" width="596" height="13" font="4">The terms on the right side of the model are the same as for a loglinear model under independence</text>
+<text top="657" left="149" width="499" height="13" font="4">between two SRCVs, where we have added a subscript (ij) to indicate a particular 2</text>
+<text top="656" left="648" width="11" height="13" font="0">×</text>
+<text top="657" left="659" width="80" height="13" font="4">2 table for (W</text>
+<text top="662" left="739" width="3" height="10" font="8">i</text>
+<text top="657" left="742" width="3" height="13" font="4">,</text>
+<text top="673" left="149" width="9" height="13" font="4">Y</text>
+<text top="678" left="157" width="3" height="10" font="8">j</text>
+<text top="674" left="161" width="583" height="13" font="4">) within the pairwise item-response table. The usual constraints are placed on the model parameters</text>
+<text top="690" left="149" width="154" height="13" font="4">to maintain identifiability.</text>
+<text top="711" left="171" width="226" height="13" font="4">Adding additional terms to Equation <a href="2014-1-koziol-bilder.html#3">(</a></text>
+<text top="711" left="397" width="7" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">1</a></text>
+<text top="711" left="404" width="340" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">) </a>leads to different types of association structures between</text>
+<text top="727" left="149" width="207" height="13" font="4">the MRCVs. For example, adding <i>λ</i></text>
+<text top="732" left="357" width="10" height="10" font="8">ab</text>
+<text top="727" left="371" width="76" height="13" font="4">to Equation <a href="2014-1-koziol-bilder.html#3">(</a></text>
+<text top="727" left="446" width="7" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">1</a></text>
+<text top="727" left="453" width="293" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">) </a>produces a homogeneous association model (i.e.,</text>
+<text top="744" left="149" width="442" height="13" font="4">a model that implies equal odds ratios, not necessarily equal to 1, for each 2</text>
+<text top="743" left="591" width="11" height="13" font="0">×</text>
+<text top="744" left="602" width="103" height="13" font="4">2 table), adding <i>λ</i></text>
+<text top="741" left="705" width="10" height="10" font="8">W</text>
+<text top="751" left="706" width="22" height="10" font="8">ab(i)</text>
+<text top="744" left="732" width="12" height="13" font="4">or</text>
+<text top="769" left="149" width="8" height="10" font="9"><i>λ</i></text>
+<text top="763" left="157" width="7" height="10" font="8">Y</text>
+<text top="773" left="158" width="22" height="10" font="8">ab(j)</text>
+<text top="766" left="184" width="560" height="13" font="4">to the homogeneous association model produces a W- or Y-main effects model, respectively, and</text>
+<text top="785" left="149" width="595" height="13" font="4">adding both of these terms to the homogeneous association model produces a W- and Y-main effects</text>
+<text top="802" left="149" width="287" height="13" font="4">model. The addition of a WY interaction term, <i>λ</i></text>
+<text top="799" left="436" width="17" height="10" font="8">WY</text>
+<text top="809" left="436" width="25" height="10" font="8">ab(ij)</text>
+<text top="802" left="462" width="188" height="13" font="4">, produces the saturated model.</text>
+<text top="826" left="171" width="23" height="13" font="4">The</text>
+<text top="823" left="197" width="549" height="18" font="4">genloglin() function estimates the above models through a marginal estimation approach.</text>
+<text top="842" left="148" width="41" height="13" font="4">Within</text>
+<text top="839" left="193" width="554" height="18" font="4">genloglin(), a new data frame is created by converting the raw data into the pairwise item-</text>
+<text top="859" left="149" width="99" height="13" font="4">response counts:</text>
+<text top="884" left="163" width="521" height="18" font="4">&gt; item.response.table(data = farmer2, I = 3, J = 4, create.dataframe = TRUE)</text>
+<text top="901" left="190" width="110" height="18" font="4">W Y wi yj count</text>
+<text top="917" left="163" width="96" height="18" font="4">1 w1 y1 0 0</text>
+<text top="917" left="279" width="21" height="18" font="4">123</text>
+<text top="934" left="163" width="96" height="18" font="4">2 w1 y1 0 1</text>
+<text top="934" left="279" width="21" height="18" font="4">116</text>
+<text top="950" left="163" width="96" height="18" font="4">3 w1 y1 1 0</text>
+<text top="950" left="286" width="14" height="18" font="4">13</text>
+<text top="967" left="163" width="96" height="18" font="4">4 w1 y1 1 1</text>
+<text top="967" left="286" width="14" height="18" font="4">27</text>
+<text top="983" left="163" width="96" height="18" font="4">5 w1 y2 0 0</text>
+<text top="983" left="279" width="21" height="18" font="4">175</text>
+<text top="1016" left="163" width="123" height="18" font="4">&lt; output omitted &gt;</text>
+<text top="1049" left="163" width="96" height="18" font="4">48 w3 y4 1 1</text>
+<text top="1049" left="293" width="7" height="18" font="4">0</text>
+<text top="1081" left="148" width="23" height="13" font="4">The</text>
+<text top="1078" left="174" width="570" height="18" font="4">glm() function is subsequently called from within genloglin() to estimate a loglinear model to</text>
+<text top="1098" left="149" width="598" height="13" font="4">these counts. Rao-Scott adjustments are then applied to obtain valid large-sample standard error esti-</text>
+<text top="1114" left="149" width="66" height="13" font="4">mates. The</text>
+<text top="1111" left="218" width="528" height="18" font="4">model argument of genloglin() can take the names of &#34;spmi&#34;, &#34;homogeneous&#34;, &#34;w.main&#34;,</text>
+<text top="1127" left="149" width="595" height="18" font="4">&#34;y.main&#34;, &#34;wy.main&#34;, and &#34;saturated&#34; to specify a particular model. Alternatively, a user-supplied</text>
+<text top="1147" left="149" width="436" height="13" font="4">formula allows for more flexibility by specifying the model in terms of</text>
+<text top="1144" left="589" width="156" height="18" font="4">W, Y, wi, yj, count, W1, . . . ,</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">148</text>
+<text top="100" left="148" width="597" height="18" font="4">WI, and Y1, . . . , YJ, which we illustrate shortly. The boot = TRUE (the default) value for genloglin()</text>
+<text top="120" left="149" width="515" height="13" font="4">specifies that resamples should be taken under the fitted model. We use the method of</text>
+<text top="120" left="667" width="39" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Gange</a></text>
+<text top="120" left="709" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="120" left="714" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">1995</a></text>
+<text top="120" left="741" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">)</a></text>
+<text top="136" left="149" width="598" height="13" font="4">for generating correlated binary data to perform semi-parametric bootstrap resampling in this case.</text>
+<text top="152" left="148" width="596" height="13" font="4">These resamples are subsequently used for hypothesis tests, confidence intervals, and/or standardized</text>
+<text top="169" left="149" width="399" height="13" font="4">residuals with our related method functions for objects returned by</text>
+<text top="165" left="551" width="79" height="18" font="4">genloglin().</text>
+<text top="190" left="171" width="118" height="13" font="4">We demonstrate the</text>
+<text top="186" left="293" width="451" height="18" font="4">genloglin() function by estimating the Y-main effects model to the farmer2</text>
+<text top="206" left="149" width="281" height="13" font="4">data, and then summarize the results using our</text>
+<text top="203" left="433" width="168" height="18" font="4">summary() method function:</text>
+<text top="233" left="163" width="412" height="18" font="4">&gt; set.seed(499077) # Set seed to replicate bootstrap results</text>
+<text top="249" left="163" width="549" height="18" font="4">&gt; mod.fit &lt;- genloglin(data = farmer2, I = 3, J = 4, model = &#34;y.main&#34;, B = 1999,</text>
+<text top="266" left="163" width="7" height="18" font="4">+</text>
+<text top="266" left="320" width="144" height="18" font="4">print.status = FALSE)</text>
+<text top="282" left="163" width="123" height="18" font="4">&gt; summary(mod.fit)</text>
+<text top="315" left="163" width="34" height="18" font="4">Call:</text>
+<text top="331" left="163" width="562" height="18" font="4">glm(formula = count ~ -1 + W:Y + wi %in% W:Y + yj %in% W:Y + wi:yj + wi:yj %in% Y,</text>
+<text top="348" left="176" width="329" height="18" font="4">family = poisson(link = log), data = model.data)</text>
+<text top="381" left="163" width="130" height="18" font="4">Deviance Residuals:</text>
+<text top="397" left="197" width="21" height="18" font="4">Min</text>
+<text top="397" left="272" width="14" height="18" font="4">1Q</text>
+<text top="397" left="313" width="41" height="18" font="4">Median</text>
+<text top="397" left="409" width="14" height="18" font="4">3Q</text>
+<text top="397" left="471" width="21" height="18" font="4">Max</text>
+<text top="414" left="163" width="123" height="18" font="4">-1.58007 -0.13272</text>
+<text top="414" left="307" width="48" height="18" font="4">0.00043</text>
+<text top="414" left="375" width="48" height="18" font="4">0.10282</text>
+<text top="414" left="444" width="48" height="18" font="4">0.79587</text>
+<text top="446" left="163" width="89" height="18" font="4">Coefficients:</text>
+<text top="463" left="238" width="55" height="18" font="4">Estimate</text>
+<text top="463" left="320" width="151" height="18" font="4">RS SE z value Pr(&gt;|z|)</text>
+<text top="479" left="163" width="48" height="18" font="4">Ww1:Yy1</text>
+<text top="479" left="245" width="254" height="18" font="4">4.83360 0.06535 73.969 &lt; 2e-16 ***</text>
+<text top="496" left="163" width="48" height="18" font="4">Ww2:Yy1</text>
+<text top="496" left="245" width="254" height="18" font="4">4.85571 0.06387 76.023 &lt; 2e-16 ***</text>
+<text top="512" left="163" width="48" height="18" font="4">Ww3:Yy1</text>
+<text top="512" left="245" width="254" height="18" font="4">4.87418 0.06314 77.199 &lt; 2e-16 ***</text>
+<text top="545" left="163" width="123" height="18" font="4">&lt; output omitted &gt;</text>
+<text top="578" left="217" width="171" height="18" font="4">Null deviance: 25401.0663</text>
+<text top="578" left="416" width="123" height="18" font="4">Residual deviance:</text>
+<text top="578" left="574" width="41" height="18" font="4">5.8825</text>
+<text top="594" left="217" width="261" height="18" font="4">Number of Fisher Scoring iterations: 4</text>
+<text top="628" left="148" width="23" height="13" font="4">The</text>
+<text top="624" left="175" width="571" height="18" font="4">print.status argument can be changed to TRUE (default) in order to print model fitting infor-</text>
+<text top="644" left="149" width="461" height="13" font="4">mation while the function is running. Information typically provided by the</text>
+<text top="641" left="613" width="131" height="18" font="4">glm() function can be</text>
+<text top="661" left="149" width="87" height="13" font="4">extracted from</text>
+<text top="657" left="239" width="51" height="18" font="4">mod.fit.</text>
+<text top="681" left="171" width="23" height="13" font="4">The</text>
+<text top="678" left="198" width="546" height="18" font="4">formula argument within the Call: portion of the output displays an alternative way that</text>
+<text top="698" left="149" width="595" height="13" font="4">the Y-main effects model could have been specified using variable names. For a model under SPMI</text>
+<text top="714" left="148" width="68" height="13" font="4">(Equation <a href="2014-1-koziol-bilder.html#3">(</a></text>
+<text top="714" left="216" width="7" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">1</a></text>
+<text top="714" left="223" width="79" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">)</a>), the syntax</text>
+<text top="711" left="305" width="439" height="18" font="4">-1 + W:Y + wi %in% W:Y + yj %in% W:Y specifies an ordinary loglinear</text>
+<text top="731" left="149" width="241" height="13" font="4">model under independence within each 2</text>
+<text top="730" left="390" width="11" height="13" font="0">×</text>
+<text top="731" left="401" width="145" height="13" font="4">2 table formed by the (W</text>
+<text top="736" left="546" width="3" height="10" font="8">i</text>
+<text top="731" left="550" width="16" height="13" font="4">, Y</text>
+<text top="736" left="565" width="3" height="10" font="8">j</text>
+<text top="731" left="569" width="149" height="13" font="4">) pairs; i.e., the intercept (</text>
+<text top="727" left="717" width="28" height="18" font="4">W:Y),</text>
+<text top="747" left="147" width="79" height="13" font="4">“row effect” (</text>
+<text top="744" left="226" width="518" height="18" font="4">wi %in% W:Y), and “column effect” (yj %in% W:Y) terms. Note that the addition of wi:yj</text>
+<text top="760" left="148" width="410" height="18" font="4">%in% W:Y would then lead to a saturated loglinear model within the 2</text>
+<text top="763" left="559" width="11" height="13" font="0">×</text>
+<text top="764" left="570" width="174" height="13" font="4">2 tables. Instead, the addition</text>
+<text top="780" left="149" width="12" height="13" font="4">of</text>
+<text top="777" left="164" width="580" height="18" font="4">wi:yj + wi:yj %in% Y allows for the associations to vary across the items in Y (waste storage) but</text>
+<text top="797" left="149" width="283" height="13" font="4">to be the same across items in W (contaminant).</text>
+<text top="817" left="171" width="575" height="13" font="4">The deviance values in the output should not be used with chi-square distributional approxima-</text>
+<text top="834" left="149" width="401" height="13" font="4">tions to construct traditional model comparison tests. Instead, our</text>
+<text top="830" left="553" width="191" height="18" font="4">anova() method function offers</text>
+<text top="850" left="149" width="314" height="13" font="4">bootstrap and Rao-Scott second-order adjustments (</text>
+<text top="847" left="463" width="283" height="18" font="4">type = &#34;boot&#34; and type = &#34;rs2&#34;, respectively,</text>
+<text top="867" left="149" width="13" height="13" font="4">or</text>
+<text top="863" left="165" width="579" height="18" font="4">type = &#34;all&#34; for both methods) to obtain appropriate tests for comparing the model specified in</text>
+<text top="880" left="149" width="595" height="18" font="4">genloglin() to an alternative model given by its model.HA argument. Comparing the Y-main effects</text>
+<text top="900" left="149" width="412" height="13" font="4">model to the saturated model shows moderate evidence of lack-of-fit:</text>
+<text top="926" left="163" width="432" height="18" font="4">&gt; anova(object = mod.fit, model.HA = &#34;saturated&#34;, type = &#34;all&#34;)</text>
+<text top="959" left="163" width="213" height="18" font="4">Model comparison statistics for</text>
+<text top="975" left="163" width="75" height="18" font="4">H0 = y.main</text>
+<text top="992" left="163" width="96" height="18" font="4">HA = saturated</text>
+<text top="1025" left="163" width="240" height="18" font="4">Pearson chi-square statistic = 5.34</text>
+<text top="1041" left="163" width="137" height="18" font="4">LRT statistic = 5.88</text>
+<text top="1074" left="163" width="274" height="18" font="4">Second-Order Rao-Scott Adjusted Results:</text>
+<text top="1091" left="163" width="473" height="18" font="4">Rao-Scott Pearson chi-square statistic = 10.85, df = 5.23, p = 0.0624</text>
+<text top="1107" left="163" width="370" height="18" font="4">Rao-Scott LRT statistic = 11.96, df = 5.23, p = 0.0409</text>
+<text top="1140" left="163" width="123" height="18" font="4">Bootstrap Results:</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">149</text>
+<text top="100" left="163" width="254" height="18" font="4">Final results based on 1999 resamples</text>
+<text top="116" left="163" width="240" height="18" font="4">Pearson chi-square p-value = 0.0385</text>
+<text top="133" left="163" width="137" height="18" font="4">LRT p-value = 0.0255</text>
+<text top="166" left="171" width="24" height="13" font="4">Our</text>
+<text top="162" left="199" width="546" height="18" font="4">residuals() method function provides Pearson standardized residuals, where bootstrap or</text>
+<text top="182" left="149" width="595" height="13" font="4">asymptotic standard errors can be used in their formation. For the Y-main effects model, we find that</text>
+<text top="198" left="149" width="166" height="13" font="4">lack-of-fit occurs for the (W</text>
+<text top="203" left="315" width="5" height="10" font="8">3</text>
+<text top="198" left="321" width="16" height="13" font="4">, Y</text>
+<text top="203" left="336" width="5" height="10" font="8">1</text>
+<text top="198" left="342" width="402" height="13" font="4">) association. This suggests the need to estimate a new model that</text>
+<text top="215" left="149" width="241" height="13" font="4">explicitly accounts for the heterogeneity:</text>
+<text top="241" left="149" width="562" height="18" font="4">mod.fit.w3y1 &lt;- genloglin(data = farmer2, I = 3, J = 4, model = count ~ -1 + W:Y +</text>
+<text top="257" left="327" width="343" height="18" font="4">wi %in% W:Y + yj %in% W:Y + wi:yj + wi:yj %in% Y +</text>
+<text top="274" left="327" width="185" height="18" font="4">wi:yj %in% W3:Y1, B = 1999)</text>
+<text top="307" left="148" width="58" height="13" font="4">where the</text>
+<text top="303" left="209" width="303" height="18" font="4">wi:yj %in% W3:Y1 term forces a perfect fit to the (W</text>
+<text top="311" left="511" width="5" height="10" font="8">3</text>
+<text top="307" left="517" width="15" height="13" font="4">, Y</text>
+<text top="312" left="532" width="5" height="10" font="8">1</text>
+<text top="307" left="538" width="206" height="13" font="4">) association while still maintaining</text>
+<text top="323" left="149" width="201" height="13" font="4">a Y-main effects model elsewhere.</text>
+<text top="344" left="171" width="313" height="13" font="4">Once an appropriate model has been identified, our</text>
+<text top="341" left="488" width="256" height="18" font="4">predict() method function can be used to</text>
+<text top="360" left="149" width="589" height="13" font="4">obtain observed and model-estimated odds ratios with corresponding asymptotic and bootstrap BC</text>
+<text top="365" left="738" width="5" height="10" font="8">a</text>
+<text top="377" left="148" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="377" left="153" width="33" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Efron</a></text>
+<text top="377" left="185" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="377" left="192" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">1987</a></text>
+<text top="377" left="219" width="525" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>confidence intervals. These odds ratios help to facilitate interpretation of the association</text>
+<text top="393" left="149" width="232" height="13" font="4">among items between the two MRCVs.</text>
+<text top="438" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="477" left="148" width="596" height="13" font="4">The equivalents of many traditional categorical data analysis methods are implemented within our</text>
+<text top="493" left="148" width="596" height="13" font="4">package in the context of MRCVs. We demonstrated a few of the package’s primary functions for</text>
+<text top="510" left="149" width="595" height="13" font="4">analyzing the association between two MRCVs. While not shown here, these functions can be used to</text>
+<text top="526" left="149" width="548" height="13" font="4">analyze MRCVs in other settings. For instance, tests for multiple marginal independence (MMI;</text>
+<text top="526" left="701" width="44" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Agresti</a></text>
+<text top="543" left="149" width="45" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">and Liu</a></text>
+<text top="543" left="194" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">,</a></text>
+<text top="543" left="200" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">1999</a></text>
+<text top="543" left="227" width="319" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>between an MRCV and an SRCV can be performed by</text>
+<text top="539" left="549" width="195" height="18" font="4">MI.test(), where the I argument</text>
+<text top="559" left="149" width="595" height="13" font="4">is set to a value of 1. An example is given within the help file for this function. Additionally, the</text>
+<text top="576" left="149" width="531" height="13" font="4">MRCV package can be used to analyze the association between three MRCVs. For example,</text>
+<text top="576" left="683" width="61" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Bilder and</a></text>
+<text top="592" left="149" width="50" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Loughin</a></text>
+<text top="592" left="202" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="592" left="206" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2007</a></text>
+<text top="592" left="233" width="511" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>discuss a third “choose all that apply” question asked of the swine farmers that relates</text>
+<text top="608" left="149" width="470" height="13" font="4">to the farmers’ sources of veterinary information. We show in the help file for</text>
+<text top="605" left="623" width="121" height="18" font="4">genloglin() how to</text>
+<text top="625" left="149" width="323" height="13" font="4">estimate a generalized loglinear model for this setting.</text>
+<text top="646" left="171" width="96" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">Agresti and Liu</a></text>
+<text top="646" left="272" width="5" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">(</a></text>
+<text top="646" left="276" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">1999</a></text>
+<text top="646" left="304" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">,</a></text>
+<text top="646" left="311" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">2001</a></text>
+<text top="646" left="339" width="405" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">) </a>show how to take advantage of many commonly used modeling</text>
+<text top="662" left="149" width="595" height="13" font="4">methods (e.g., generalized linear mixed models) for MRCV data. Most of these methods have</text>
+<text top="679" left="149" width="595" height="13" font="4">disadvantages to their use—for example, standard generalized linear mixed models induce a positive</text>
+<text top="695" left="149" width="596" height="13" font="4">correlation between binary responses within subjects, but a negative correlation can occur with MRCV</text>
+<text top="712" left="149" width="595" height="13" font="4">data. Their recommended modeling method, a generalized loglinear model fit through generalized</text>
+<text top="728" left="149" width="560" height="13" font="4">estimating equation (GEE) methodology, can work reasonably well in very large sample sizes <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="728" left="708" width="36" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Bilder</a></text>
+<text top="744" left="149" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">et al.</a></text>
+<text top="744" left="176" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="744" left="183" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2000</a></text>
+<text top="744" left="209" width="104" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">). </a>The help file for</text>
+<text top="741" left="316" width="262" height="18" font="4">MI.test() shows how to use functions in the</text>
+<text top="744" left="581" width="50" height="13" font="7"><a href="http://CRAN.R-project.org/package=geepack"><b>geepack</b></a></text>
+<text top="744" left="635" width="55" height="13" font="4">package <a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="744" left="690" width="52" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Yan et al.</a></text>
+<text top="744" left="742" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">,</a></text>
+<text top="761" left="149" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2012</a></text>
+<text top="761" left="176" width="449" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>to estimate this model and then subsequently test for MMI via a Wald test.</text>
+<text top="782" left="171" width="575" height="13" font="4">We envision future additions to the package that will allow for extensions to other situations.</text>
+<text top="798" left="149" width="598" height="13" font="4">For example, “choose all that apply” questions are often asked in complex survey sampling settings.</text>
+<text top="815" left="149" width="115" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Bilder and Loughin</a></text>
+<text top="815" left="267" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="815" left="271" width="27" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2009</a></text>
+<text top="815" left="298" width="446" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>propose using the same generalized loglinear models, where now different</text>
+<text top="831" left="149" width="595" height="13" font="4">Rao-Scott adjustments are needed to take into account the sampling design. Also, MRCV data can</text>
+<text top="847" left="149" width="214" height="13" font="4">arise over a longitudinal setting, and</text>
+<text top="847" left="366" width="88" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Suesse and Liu</a></text>
+<text top="847" left="457" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="847" left="462" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2013</a></text>
+<text top="847" left="488" width="256" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>propose the use of GEE methodology to fit</text>
+<text top="864" left="149" width="191" height="13" font="4">models for this situation. Finally,</text>
+<text top="864" left="343" width="87" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">Nandram et al.</a></text>
+<text top="864" left="433" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">(</a></text>
+<text top="864" left="437" width="26" height="13" font="6"><a href="2014-1-koziol-bilder.html#7">2009</a></text>
+<text top="864" left="464" width="280" height="13" font="4"><a href="2014-1-koziol-bilder.html#7">) </a>offer a Bayesian perspective to the MMI testing</text>
+<text top="880" left="148" width="596" height="13" font="4">problem. Due to the ubiquitous nature of “choose all that apply” type data formats, we expect there to</text>
+<text top="897" left="149" width="595" height="13" font="4">be many other unique settings where new statistical methods need to be developed. We encourage</text>
+<text top="913" left="149" width="477" height="13" font="4">readers to contact us about their novel methods and/or interest in collaboration.</text>
+<text top="958" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="997" left="149" width="598" height="13" font="4">A. Agresti and I. Liu. Modeling a categorical variable allowing arbitrarily many category choices.</text>
+<text top="1013" left="163" width="198" height="14" font="4">Biometrics, 55(3):936–943, 1999. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="1013" left="362" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="1013" left="382" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">,</a></text>
+<text top="1013" left="389" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#2">145</a></text>
+<text top="1013" left="409" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#2">,</a></text>
+<text top="1013" left="416" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="1013" left="436" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="1041" left="149" width="598" height="13" font="4">A. Agresti and I. Liu. Strategies for modeling a categorical variable allowing multiple category choices.</text>
+<text top="1058" left="163" width="320" height="14" font="4">Sociological Methods &amp; Research, 29(4):403–434, 2001. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="1058" left="483" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="1058" left="504" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="1086" left="149" width="596" height="13" font="4">C. Bilder and T. Loughin. On the first-order Rao-Scott correction of the Umesh-Loughin-Scherer</text>
+<text top="1102" left="164" width="265" height="13" font="4">statistic. Biometrics, 57(4):1253–1255, 2001. <a href="2014-1-koziol-bilder.html#2">[p</a></text>
+<text top="1102" left="429" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#2">145</a></text>
+<text top="1102" left="449" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#2">]</a></text>
+<text top="1130" left="149" width="595" height="13" font="4">C. Bilder and T. Loughin. Testing for marginal independence between two categorical variables with</text>
+<text top="1147" left="164" width="319" height="13" font="4">multiple responses. Biometrics, 60(1):241–248, 2004. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="1147" left="483" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="1147" left="503" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">,</a></text>
+<text top="1147" left="510" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">146</a></text>
+<text top="1147" left="530" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">150</text>
+<text top="103" left="149" width="596" height="13" font="4">C. Bilder and T. Loughin. Modeling association between two or more categorical variables that allow</text>
+<text top="120" left="164" width="583" height="13" font="4">for multiple category choices. Communications in Statistics–Theory and Methods, 36(2):433–451, 2007.</text>
+<text top="136" left="164" width="13" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="136" left="176" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="136" left="196" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">,</a></text>
+<text top="136" left="203" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">146</a></text>
+<text top="136" left="223" width="3" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">,</a></text>
+<text top="136" left="230" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="136" left="250" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="164" left="149" width="595" height="13" font="4">C. Bilder and T. Loughin. Modeling multiple-response categorical data from complex surveys. The</text>
+<text top="181" left="163" width="303" height="14" font="4">Canadian Journal of Statistics, 37(4):553–570, 2009. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="181" left="467" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="181" left="487" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="209" left="149" width="595" height="13" font="4">C. Bilder, T. Loughin, and D. Nettleton. Multiple marginal independence testing for pick any/c</text>
+<text top="226" left="163" width="543" height="13" font="4">variables. Communications in Statistics–Simulation and Computation, 29(4):1285–1316, 2000. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="226" left="707" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="226" left="727" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="254" left="149" width="408" height="13" font="4">C. Coombs. A Theory of Data. John Wiley &amp; Sons, New York, 1964. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="254" left="557" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="254" left="577" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="282" left="149" width="597" height="13" font="4">B. Efron. Better bootstrap confidence intervals. Journal of the American Statistical Association, 82(397):</text>
+<text top="299" left="163" width="101" height="13" font="4">171–185, 1987. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="299" left="265" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="299" left="285" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="327" left="149" width="598" height="13" font="4">S. Gange. Generating multivariate categorical variates using the iterative proportional fitting algorithm.</text>
+<text top="344" left="163" width="283" height="14" font="4">The American Statistician, 49(2):134–138, 1995. <a href="2014-1-koziol-bilder.html#5">[p</a></text>
+<text top="344" left="446" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#5">148</a></text>
+<text top="344" left="466" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#5">]</a></text>
+<text top="372" left="149" width="598" height="13" font="4">H. Kantarjian, J. Cortes, F. Guilhot, A. Hochhaus, M. Baccarani, and L. Lokey. Diagnosis and manage-</text>
+<text top="389" left="164" width="582" height="13" font="4">ment of chronic myeloid leukemia: A survey of American and European practice patterns. Cancer,</text>
+<text top="405" left="163" width="154" height="13" font="4">109(7):1365–1375, 2007. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="405" left="317" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="405" left="337" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="433" left="149" width="598" height="13" font="4">N. Koziol and C. Bilder. MRCV: Methods for Analyzing Multiple Response Categorical Variables, 2014.</text>
+<text top="450" left="164" width="28" height="13" font="4">URL</text>
+<text top="446" left="195" width="261" height="18" font="6"><a href="http://CRAN.R-project.org/package=MRCV">http://CRAN.R-project.org/package=MRCV</a></text>
+<text top="450" left="456" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=MRCV">. </a>R package version 0.3-1. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="450" left="625" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="450" left="645" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="478" left="149" width="595" height="13" font="4">P. Lemons, J. Sedinger, M. Herzog, P. Gipson, and R. Gilliland. Landscape effects on diets of two canids</text>
+<text top="495" left="164" width="583" height="13" font="4">in northwestern Texas: A multinomial modeling approach. Journal of Mammalogy, 91(1):66–78, 2010.</text>
+<text top="511" left="164" width="13" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="511" left="176" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="511" left="196" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="540" left="149" width="598" height="13" font="4">T. Loughin and P. Scherer. Testing for association in contingency tables with multiple column responses.</text>
+<text top="556" left="163" width="198" height="14" font="4">Biometrics, 54(2):630–637, 1998. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="556" left="362" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="556" left="382" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="584" left="149" width="595" height="13" font="4">B. Nandram, M. Toto, and M. Katzoff. Bayesian inference for a stratified categorical variable allowing</text>
+<text top="601" left="164" width="583" height="13" font="4">all possible category choices. Journal of Statistical Computation and Simulation, 79(2):161–179, 2009.</text>
+<text top="617" left="164" width="13" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="617" left="176" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="617" left="196" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="646" left="149" width="595" height="13" font="4">Office of Management and Budget. Revisions to the standards for the classification of federal data on</text>
+<text top="662" left="164" width="353" height="13" font="4">race and ethnicity. Federal Register, 62:58781–58790, 1997. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="662" left="516" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="662" left="536" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="690" left="149" width="595" height="13" font="4">B. Riegel, D. Moser, M. Powell, T. Rector, and E. Havranek. Nonpharmacologic care by heart failure</text>
+<text top="707" left="164" width="333" height="13" font="4">experts. Journal of Cardiac Failure, 12(2):149–153, 2006. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="707" left="497" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="707" left="517" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="735" left="149" width="595" height="13" font="4">S. Riemer, B. Wright, and R. Brown. Food habits of Steller sea lions (Eumetopias jubatus) off Oregon and</text>
+<text top="752" left="164" width="426" height="13" font="4">northern California, 1986–2007. Fishery Bulletin, 109(4):369–381, 2011. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="752" left="590" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="752" left="610" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="780" left="149" width="595" height="13" font="4">T. Suesse and I. Liu. Modelling strategies for repeated multiple response data. International Statistical</text>
+<text top="796" left="163" width="180" height="14" font="4">Review, 81(2):230–248, 2013. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="797" left="344" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="797" left="364" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="825" left="149" width="595" height="13" font="4">D. Thomas and Y. Decady. Testing for association using multiple response survey data: Approximate</text>
+<text top="841" left="163" width="556" height="13" font="4">procedures based on the Rao-Scott approach. International Journal of Testing, 4(1):43–59, 2004. <a href="2014-1-koziol-bilder.html#3">[p</a></text>
+<text top="841" left="720" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#3">146</a></text>
+<text top="841" left="740" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#3">]</a></text>
+<text top="870" left="149" width="595" height="13" font="4">B. Wright. Use of chi-square tests to analyze scat-derived diet composition data. Marine Mammal</text>
+<text top="886" left="163" width="181" height="14" font="4">Science, 26(2):395–401, 2010. <a href="2014-1-koziol-bilder.html#1">[p</a></text>
+<text top="886" left="344" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#1">144</a></text>
+<text top="886" left="364" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#1">]</a></text>
+<text top="915" left="149" width="596" height="13" font="4">J. Yan, S. Hojsgaard, and U. Halekoh. geepack: Generalized Estimating Equation Package, 2012. URL</text>
+<text top="928" left="164" width="282" height="18" font="6"><a href="http://CRAN.R-project.org/package=geepack">http://CRAN.R-project.org/package=geepack</a></text>
+<text top="931" left="446" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=geepack">. </a>R package version 1.1-6. <a href="2014-1-koziol-bilder.html#6">[p</a></text>
+<text top="931" left="615" width="20" height="13" font="6"><a href="2014-1-koziol-bilder.html#6">149</a></text>
+<text top="931" left="635" width="4" height="13" font="4"><a href="2014-1-koziol-bilder.html#6">]</a></text>
+<text top="977" left="149" width="94" height="13" font="4">Natalie A. Koziol</text>
+<text top="994" left="148" width="352" height="13" font="4">Department of Statistics; Department of Educational Psychology</text>
+<text top="1010" left="148" width="172" height="13" font="4">University of Nebraska-Lincoln</text>
+<text top="1027" left="148" width="148" height="13" font="4">Lincoln, NE, United States</text>
+<text top="1040" left="149" width="110" height="18" font="6"><a href="mailto:nak371@gmail.com">nak371@gmail.com</a></text>
+<text top="1080" left="148" width="116" height="13" font="4">Christopher R. Bilder</text>
+<text top="1097" left="148" width="132" height="13" font="4">Department of Statistics</text>
+<text top="1113" left="148" width="172" height="13" font="4">University of Nebraska-Lincoln</text>
+<text top="1130" left="148" width="148" height="13" font="4">Lincoln, NE, United States</text>
+<text top="1143" left="149" width="144" height="18" font="6"><a href="mailto:chris@chrisbilder.com">chris@chrisbilder.com</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

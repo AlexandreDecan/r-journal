@@ -1,0 +1,378 @@
+page	left	top	code
+4	149	782	# Load the required packages for the data import and analysis.
+4	149	798	# Load the chipPCR package for the pre-processing and curve data quality
+4	149	815	# analysis and load the qpcR package as data resource.
+4	149	831	require(chipPCR)
+4	149	848	require(qpcR)
+4	149	880	# Collect information about the R session used for the analysis of the
+4	149	897	# experiment.
+4	149	913	current.session <- sessionInfo()
+4	149	946	# Next, we load the 'guescini1' dataset from the qpcR package to the
+4	149	963	# workspace and assign it to the object 'gue'.
+4	149	979	gue <- guescini1
+4	149	1012	# Define the dilution of the sample DNA quantity for the calibration curve
+4	149	1028	# and assign it to the object 'dil'.
+4	149	1045	dil <- 10^(2: -4)
+5	149	146	# Pre-process the amplification curve data with the CPP function from the
+5	149	162	# chipPCR package. The trans parameter was set TRUE to perform a baselining and
+5	149	179	# the method.norm parameter was set to minm for a min-maximum normalization. All
+5	149	195	# amplification curves were smoothed by Savitzky-Golay smoothing.
+5	149	228	res.CPP <- cbind(gue[, 1], apply(gue[, -1], 2, function(x) {
+5	163	245	CPP(gue[, 1], x, trans = TRUE, method.norm = "minm", method.reg = "least",
+5	190	261	bg.range = c(1,7))[["y.norm"]]
+5	149	278	}))
+5	149	310	# Use the th.cyc function from the chipPCR package to calculate the Cq values
+5	149	327	# by the cycle threshold method at a threshold signal level "r" of 0.05.
+5	149	343	Cq.Ct <- apply(gue[, -1], 2, function(x)
+5	163	360	th.cyc(res.CPP[, 1], x, r = 0.05)[1])
+5	149	393	# Use the inder function from the chipPCR package to calculate the Cq values
+5	149	409	# by the SDM method. This will give a lot of output in the console.
+5	149	426	Cq.SDM <- apply(gue[, -1], 2, function(x)
+5	163	442	summary(inder(res.CPP[, 1], x))[2])
+5	149	475	# Fit a linear model to carry out a regression analysis.
+5	149	491	res.Cq <- lm(Cq.Ct ~ Cq.SDM)
+5	149	584	summary(res.Cq)
+5	149	617	Call:
+5	149	633	lm(formula = Cq.Ct ~ Cq.SDM)
+5	149	666	Residuals:
+5	176	683	Min 1Q Median 3Q Max
+5	149	699	-1.4904 -0.2730 0.0601 0.3540 1.1871
+5	149	732	Coefficients:
+5	238	748	Estimate Std. Error t value Pr(>|t|)
+5	149	765	(Intercept) -8.125534 0.207419 -39.17 <2e-16 ***
+5	149	781	Cq.SDM 0.988504 0.008097 122.08 <2e-16 ***
+5	149	798	---
+5	149	814	Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+5	149	847	Residual standard error: 0.5281 on 82 degrees of freedom
+5	149	863	Multiple R-squared: 0.9945, Adjusted R-squared: 0.9945
+5	149	880	F-statistic: 1.49e+04 on 1 and 82 DF, p-value: < 2.2e-16
+5	149	959	= 12,ncol = 7)). For visualization of the confidence intervals of the regression analysis we set the
+5	149	1005	# Arrange and plot the results in a convenient way.
+5	149	1022	layout(matrix(c(1, 2, 3, 3, 4, 5), 3, 2, byrow = TRUE))
+5	149	1055	# Store used margin parameters
+5	149	1071	def.mar <- par("mar")
+5	149	1088	layout(matrix(c(1, 2, 3, 3, 4, 5), 3, 2, byrow = TRUE))
+5	149	1104	# Set bigger top margin.
+5	149	1120	par(mar = c(5.1, 4.1, 6.1, 2.1))
+7	149	100	# Plot the raw amplification curve data.
+7	149	116	matplot(gue[, -1], type = "l", lty = 1, col = 1, xlab = "Cycle",
+7	204	133	ylab = "RFU", main = "Raw data")
+7	149	149	mtext("A", side = 3, adj = 0, cex = 2)
+7	149	182	# Plot the pre-processed amplification curve data.
+7	149	198	matplot(res.CPP[, -1], type = "l", lty = 1, col = 1, xlab = "Cycle",
+7	204	215	ylab = "RFU (normalized)", main = "Pre-processed data")
+7	149	231	mtext("B", side = 3, adj = 0, cex = 2)
+7	149	248	abline(h = 0.05, col = "red", lwd = 2)
+7	149	281	# Plot Cq.SDM against Cq.Ct and add the trendline from the linear regression
+7	149	297	# analysis.
+7	149	330	plot(Cq.SDM, Cq.Ct, xlab = "Cq Ct method", ylab = "Cq SDM method",
+7	183	346	main = "Comparison of Cq methods")
+7	149	363	abline(res.Cq)
+7	149	379	mtext("C", side = 3, adj = 0, cex = 2)
+7	149	412	# Use the effcalc function from the chipPCR package to calculate the
+7	149	428	# amplification efficiency.
+7	149	445	plot(effcalc(dil, t(matrix(Cq.Ct, nrow = 12, ncol = 7))), ylab = "Cq Ct method",
+7	183	461	CI = TRUE)
+7	149	478	mtext("D", side = 3, adj = 0, cex = 2)
+7	149	511	plot(effcalc(dil, t(matrix(Cq.SDM, nrow = 12, ncol = 7))), ylab = "Cq SDM method",
+7	183	527	CI = TRUE)
+7	149	544	mtext("E", side = 3, adj = 0, cex = 2)
+7	149	576	# Resore margin default values.
+7	149	593	par(mar = c(5.1, 4.1, 4.1, 2.1))
+8	149	179	# Import the qPCR and melting curve data via the RDML package.
+8	149	195	# Load the chipPCR package for the pre-processing and curve data quality
+8	149	212	# analysis and the MBmca package for the melting curve analysis.
+8	149	228	require(RDML)
+8	149	245	require(chipPCR)
+8	149	261	require(MBmca)
+8	149	278	require(dplyr)
+8	149	310	# Collect information about the R session used for the analysis of the qPCR
+8	149	327	# experiment.
+8	149	343	current.session <- sessionInfo()
+8	149	376	# Load the BioRad_qPCR_melt.rdml file from the RDML package and assign the data
+8	149	393	# to the object 'BioRad'.
+8	149	409	filename <- file.path(path.package("RDML"), "extdata", "BioRad_qPCR_melt.rdml")
+8	149	426	BioRad <- RDML$new(filename)
+8	149	458	# The structure of the file can be overviewed by the AsDendrogram() function.
+8	149	475	# We can see that our experiment contains two detection channels (Figure 4).
+8	149	491	# ('EvaGreen' and 'Cy5' at 'Run ID'). 'EvaGreen' channel has one
+8	149	508	# probe (target) - 'EvaGreen'. 'Cy5' has: 'Cy5', 'Cy5-2' and 'Cy5-2_rr'.
+8	149	524	# each target has three sample types (positive, unknown, negative).
+8	149	541	# And each sample type has qPCR ('adp') and melting ('mdp') data.
+8	149	557	# The last column shows the number of samples in an experiment.
+8	149	590	BioRad$AsDendrogram()
+8	149	623	# Fetch cycle dependent fluorescence for the EvaGreen channel and row 'D'
+8	149	639	# (contains the target 'Cy5-2' in the channel 'Cy5') of the
+8	149	656	# katG gene and aggregate the data in the object 'qPCR'.
+8	149	689	qPCR <- BioRad$AsTable() %>%
+8	163	705	filter(target == "EvaGreen",
+8	211	721	grepl("^D", position)) %>% BioRad$GetFData(.)
+8	149	880	# Use plotCurves function to get an overview of the amplification curve samples
+8	149	896	# (Figure 5).
+8	149	929	plotCurves(qPCR[, 1], qPCR[, -1], type = "l")
+8	149	946	mtext("Cycles", SOUTH <- 1, line = 3)
+8	149	962	mtext("Fluorescence", side = 2, line = 2)
+8	149	1038	# To detect positive samples we calculated the Cq values by the cycle threshold
+8	149	1055	# method. This method is implemented in the th.cyc function. The threshold signal
+8	149	1071	# level r was set to 10.
+8	149	1088	Cq.Positive <- t(apply(qPCR[, -1], 2, function(x)
+8	149	1104	{
+8	163	1120	res <- CPP(qPCR[, 1], x, trans = TRUE, bg.range = c(2, 8),
+8	238	1137	method.reg = "least")[["y.norm"]]
+9	149	524	ntc (non-template control). In the deeper branches are the data types adp (amplification data point)
+9	163	1023	# The th.cyc fails when the threshold exceeds a maximum observed fluorescence
+9	163	1040	# value. Therefore, we used try() to allow an error-recovery.
+9	163	1073	th.cycle <- try(th.cyc(qPCR[, 1], res, r = 10, linear = FALSE)[1], silent = TRUE)
+9	163	1106	# In addition we used logical statements, which define if a
+9	163	1122	cq <- ifelse(is(th.cycle, "try-error"), as.numeric(th.cycle), NA)
+9	163	1139	if(th.cycle > 35) cq <- NA
+10	163	499	pos <- !is.na(cq)
+10	163	515	c(Cq = cq, M.Tub_positive = pos)
+10	149	532	}
+10	149	548	))
+10	149	657	# Fetch temperature dependent fluorescence for the Cy5 channel of the
+10	149	673	# probe 'Cy5-2' that can hybridize with Mycobacterium tuberculosis
+10	149	690	# katG gene (codon 315) and aggregate the data in the object 'melt'.
+10	149	706	melt <- BioRad$AsTable() %>%
+10	163	723	filter(target == "Cy5-2") %>% BioRad$GetFData(., data.type = "mdp")
+10	149	755	# Calculate the melting temperature with the diffQ function from the MBmca
+10	149	772	# package. Use simple logical conditions to find out if a positive sample with
+10	149	788	# the expected Tm of circa 54.5 degree Celsius is found. The result of the test
+10	149	805	# is assigned to the object 'Tm.Positive'.
+10	149	838	Tm.Positive <- matrix(nrow = ncol(melt) - 1,
+10	300	854	byrow = TRUE,
+10	300	871	dimnames = list(colnames(melt)[-1]),
+10	300	887	unlist(apply(melt[, -1], 2, function(x) {
+10	313	903	res.Tm <- diffQ(cbind(melt[, 1], x),
+10	423	920	fct = max, inder = TRUE)
+10	313	936	positive <- ifelse(res.Tm[1] > 54 &
+10	444	953	res.Tm[1] < 55 &
+10	444	969	res.Tm[2] > 80, 1, 0)
+10	313	986	c(res.Tm[1], res.Tm[2], positive)
+10	300	1002	})))
+10	149	1078	# Present the results in a tabular output as data.frame 'results.tab'.
+10	149	1094	# Result of analysis logic is:
+10	149	1111	# Cq.Positive && Tm.Positive = Wild-type
+10	149	1127	# Cq.Positive && !Tm.Positive = Mutant
+10	149	1144	# !Cq.Positive && !Tm.Positive = NTC
+11	149	100	# !Cq.Positive && Tm.Positive = Error
+11	149	133	results <- sapply(1:length(Cq.Positive[,1]), function(i) {
+11	163	149	if(Cq.Positive[i, 2] == 1 && Tm.Positive[i, 3] == 1)
+11	176	165	return("Wild-type")
+11	163	182	if(Cq.Positive[i, 2] == 1 && Tm.Positive[i, 3] == 0)
+11	176	198	return("Mutant")
+11	163	215	if(Cq.Positive[i, 2] == 0 && Tm.Positive[i, 3] == 0)
+11	176	231	return("NTC")
+11	163	248	if(Cq.Positive[i, 2] == 0 && Tm.Positive[i, 3] == 1)
+11	176	264	return("Error")
+11	149	281	})
+11	149	369	results.tab <- data.frame(cbind(Cq.Positive, Tm.Positive, results))
+11	149	386	names(results.tab) <- c("Cq", "M.Tub DNA", "Tm", "Height",
+11	313	402	"Tm positive", "Result")
+11	149	435	results.tab[["M.Tub DNA"]] <- factor(results.tab[["M.Tub DNA"]],
+11	403	451	labels = c("Not Detected", "Detected"))
+11	149	484	results.tab[["Tm positive"]] <- factor(results.tab[["Tm positive"]],
+11	416	501	labels = c(TRUE, FALSE))
+11	149	517	results.tab
+11	149	590	# Convert the decision from the 'results' object in a colour code:
+11	149	606	# Negative, black; Positive, red.
+11	149	639	color <- c(Tm.Positive[, 3] + 1)
+11	149	672	# Arrange the results of the calculations in a plot.
+11	149	688	layout(matrix(c(1, 2, 1, 3), 2, 2, byrow = TRUE))
+11	149	721	# Use the CPP function to preporcess the amplification curve data.
+11	149	737	plot(NA, NA, xlim = c(1, 41), ylim = c(0,200), xlab = "Cycle", ylab = "RFU")
+11	149	754	mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+11	149	770	lapply(2L:ncol(qPCR), function(i)
+11	163	787	lines(qPCR[, 1],
+11	204	803	CPP(qPCR[, 1], qPCR[, i], trans = TRUE,
+11	231	820	bg.range = c(1,9))[["y.norm"]],
+11	204	836	col = color[i - 1]))
+11	149	869	matplot(melt[, 1], melt[, -1], type = "l", col = color,
+11	204	885	lty = 1, xlab = "Temperature [degree Celsius]", ylab = "RFU")
+11	149	902	mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+11	149	935	plot(NA, NA, xlim = c(35, 95), ylim = c(-15, 120),
+11	183	951	xlab = "Temperature [degree Celsius]",
+11	183	968	ylab = "-d(RFU)/dT")
+11	149	984	mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+11	149	1017	invisible(
+11	163	1033	lapply(2L:ncol(melt), function(i)
+11	176	1050	lines(diffQ(cbind(melt[, 1], melt[, i]), verbose = TRUE,
+11	259	1066	fct = max, inder = TRUE)[["xy"]], col = color[i - 1]))
+11	149	1083	)
+12	149	493	# This case study uses the qIA raw data (C81 dataset) from the chipPCR
+12	149	509	# package. Therefore, first we load the chipPCR package.
+12	149	526	require(chipPCR)
+12	149	559	# To see the structure of the C81 dataset we used the str function.
+12	149	575	str(C81)
+12	149	592	'data.frame': 351 obs. of 5 variables:
+12	156	608	$ Cycle : int 0 1 2 3 4 5 6 7 8 9 ...
+12	156	624	$ t.D1 : int 0 51 73 90 107 124 140 157 174 190 ...
+12	156	641	$ MFI.D1: num 0.549 0.535 0.532 0.53 0.525 ...
+12	156	657	$ t.D2 : int 0 19 53 72 91 110 128 147 166 185 ...
+12	156	674	$ MFI.D2: num 0.77 0.523 0.514 0.51 0.508 ...
+12	171	703	C81 is a data frame. The first column contains the measuring points (Cycle) and the consecutive
+12	149	880	# Drawn in an 2-by-1 array on the device by two columns and one row.
+12	149	897	par(mfrow = c(1, 2))
+12	149	930	# Plot the raw data from the C81 dataset to the first array and add
+12	149	946	# a legend. Note: The abcsissa values (time in seconds) were divided
+12	149	963	# by 60 (C81[, i] / 60) to convert to minutes.
+12	149	979	plot(NA, NA, xlim = c(0, 120), ylim = c(0, 1.2), xlab = "Time (min)", ylab = "MFI")
+12	149	996	mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+12	149	1012	lapply(c(2, 4), function(i) {
+12	163	1028	lines(C81[, i] / 60, C81[, i + 1], type = "b", pch = 20, col = i - 1)
+12	149	1045	})
+12	149	1061	legend("topleft", c("D1: 1x", "D2: 1:10 diluted sample"), pch = 19, col = c(1, 3),
+12	197	1078	bty = "n")
+12	149	1111	# Prepare a plot on the second array for the pre-processed data.
+12	149	1127	plot(NA, NA, xlim = c(0, 120), ylim = c(0, 1.2), xlab = "Time (min)", ylab = "MFI")
+12	149	1144	mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+13	149	393	CPP function to smooth the data with a spline function. Baselining was done with a linear regression
+13	149	638	# Apply the CPP functions to pro-process the raw data.1) Baseline data to zero,
+13	149	654	# 2) Smooth data with a spline, 3) Remove outliers in background range between
+13	149	670	# entry 1 and 190. Assign the results of the analysis to the object 'res'.
+13	149	687	res <- lapply(c(2, 4), function(i) {
+13	163	703	y.s <- CPP(C81[, i] / 60, C81[, i + 1],
+13	238	720	trans = TRUE,
+13	238	736	method = "spline",
+13	238	753	bg.outliers = TRUE,
+13	238	769	bg.range = c(1, 190))
+13	163	785	lines(C81[, i] / 60, y.s[["y.norm"]], type = "b", pch = 20, col = i - 1)
+13	163	802	# Use the th.cyc function to calculate the cycle threshold time (Cq.t).
+13	163	818	# The threshold signal level r was set to 0.05. NOTE: The function th.cyc
+13	163	835	# will give a warning in case data are not equidistant. This is intentional
+13	163	851	# to make the user aware of potential artificats due to pre-processing.
+13	163	868	paste(round(th.cyc(C81[, i] / 60, y.s[["y.norm"]], r = 0.05)[1], 2), "min")
+13	149	884	})
+13	149	917	# Add the cycle threshold time from the object 'res' to the plot.
+13	149	950	abline(h = 0.05, lty = 2)
+13	149	966	legend("topleft", paste(c("D1 Cq.t: ", "D2 Cq.t: "), res), pch = 19,
+13	197	983	col = c(1, 3), bty = "n")
+14	149	465	# Load the dpcR package for the analysis of the digital PCR experiment.
+14	149	481	require(dpcR)
+14	149	514	# Analysis of a digital PCR experiment. The density estimation.
+14	149	531	# In our in-silico experiment we counted in total 16800 partitions (n).
+14	149	547	# Thereof, 4601 were positive (k).
+14	149	564	k <- 4601
+14	149	580	n <- 16800
+14	149	596	(dens <- dpcr_density(k = k, n = n, average = TRUE, methods = "wilson",
+14	300	613	conf.level = 0.95))
+14	149	629	legend("topleft", paste("k:", k,"\nn:", n))
+14	149	646	#dev.off()
+14	149	662	# Let us assume, that every partition has roughly a volume of 5 nL.
+14	149	679	# The total concentration (and its confidence interval) in molecules/ml is
+14	149	695	# (the factor 1e-6 is used for the conversion from nL to mL):
+14	149	712	dens[4:6] / 5 * 1e-6
+15	149	741	# Load the dpcR package and use the pds_raw dataset for the analysis of the
+15	149	758	# digital PCR experiment.
+15	149	774	# To get an overview of the data set we used the head and summary R functions
+15	149	790	# in a chain. The output shows that the dataset contains lists of different
+15	149	807	# samples (A01 ...)
+15	149	840	require(dpcR)
+15	149	873	head(summary(pds_raw))
+15	176	906	Length Class Mode
+15	149	922	A01 "3" "data.frame" "list"
+15	149	938	A02 "3" "data.frame" "list"
+15	149	955	A03 "3" "data.frame" "list"
+15	149	971	A04 "3" "data.frame" "list"
+15	149	988	B01 "3" "data.frame" "list"
+15	149	1004	B02 "3" "data.frame" "list"
+15	149	1037	# Next, we used str for the element A01. The element of the list contains a data frame
+15	149	1053	# with three columns. Two contain amplitude values (fluorescence intensity) and one
+15	149	1070	# contains cluster results (integer values of 1 - 4).
+15	149	1103	str(pds_raw[["A01"]])
+15	149	1119	'data.frame': 11964 obs. of 3 variables:
+15	156	1136	$ Assay1.Amplitude: num 397 399 402 416 417 ...
+16	156	100	$ Assay2.Amplitude: num 3732 3808 4007 3778 3685 ...
+16	156	116	$ Cluster : int 4 4 4 4 4 4 4 4 4 4 ...
+16	149	209	# Select the wells for the analysis. A02 to D02 are four replicate dPCR reactions
+16	149	225	# and G04 is the no template control (NTC) (see dpcR manual for details).
+16	149	242	wells <- c("A02", "B02", "C02", "D02", "G04")
+16	149	275	# Set the arrangement for the plots. The first column contains the amplitude
+16	149	291	# plots, column two the density functions and column three the concentration
+16	149	307	# calculated according to the droplet volume as defined in the QX100 system,
+16	149	324	# or the method proposed by Corbisier et al. (2015).
+16	149	340	par(mfrow = c(5, 3))
+16	149	373	# The function bioamp was used in a loop to extract the number of positive and
+16	149	390	# negative partitions from the sample files. The results were assigned to the
+16	149	406	# object 'res' and plotted.
+16	149	439	for (i in 1L:length(wells)) {
+16	163	455	cluster.info <- unique(pds_raw[wells[i]][[1]]["Cluster"])
+16	163	472	res <- bioamp(data = pds_raw[wells[i]][[1]], amp_x = 2, amp_y = 1,
+16	259	488	main = paste("Well", wells[i]), xlab = "Amplitude of ileS (FAM)",
+16	259	505	ylab = "Amplitude of styA (HEX)", xlim = c(500,4700),
+16	259	521	ylim = c(0,3300), pch = 19)
+16	163	554	legend("topright", as.character(cluster.info[, 1]), col = cluster.info[, 1],
+16	211	570	pch = 19)
+16	149	647	# Counts for the positive clusters 2 and 3 were assigned to new objects
+16	149	663	# and further used by the function dpcr_density to calculate the number
+16	149	680	# of molecules per partition and the confidence intervals. The results
+16	149	696	# were plotted as density plot.
+16	149	729	k.tmp <- sum(res[1, "Cluster.2"], res[1, "Cluster.3"])
+16	149	745	# Counts for all clusters
+16	149	778	n.tmp <- sum(res[1, ])
+16	149	811	# Our next line is used to limit the x-axis of the plot to a meaningful range.
+16	149	827	if(i < 5) x.lim <- c(0.065, 0.115) else x.lim <- c(0, 0.115)
+16	149	860	# The next step is the calculation of the dPCR statistics.
+16	149	877	dens <- dpcr_density(k = k.tmp, n = n.tmp, average = TRUE, methods = "wilson",
+16	293	893	conf.level = 0.95, xlim = x.lim, bars = FALSE)
+16	149	910	legend("topright", paste("k:", k.tmp,"\nn:", n.tmp), bty = "n")
+16	149	943	# Finally, the concentration of the molecules was calculated with the volume
+16	149	959	# used in the QX100 system and as proposed by Corbisier et al. (2015). The
+16	149	975	# results were added as barplot with the confidence intervals.
+16	149	1008	res.conc <- rbind(original = dens[4:6] / 0.90072,
+16	272	1025	corrected = dens[4:6] / 0.834)
+16	149	1041	barplot(res.conc[, 1], col = c("white","grey"),
+16	204	1058	names = c("Bio-Rad", "Corbisier"),
+16	204	1074	main = "Influence of\nDroplet size", ylab = "molecules/nL",
+16	204	1091	ylim = c(0, 1.5 * 10E-2))
+16	149	1107	arrows(c(0.7, 1.9), res.conc[, 2], c(0.7, 1.9), res.conc[, 3], angle = 90,
+16	197	1123	code = 3, lwd = 2)
+18	149	149	test_counts around several methods of comparing results of several reactions. In the following, we
+18	149	195	# The first step is as usual extracting data and shaping it into an object of
+18	149	212	# appropriate class, in this case 'ddpcr' (droplet digital PCR)
+18	149	245	cluster_data <- do.call(bind_dpcr, lapply(1L:length(wells), function(i) {
+18	163	261	cluster.info <- unique(pds_raw[wells[i]][[1]]["Cluster"])
+18	163	278	res <- bioamp(data = pds_raw[wells[i]][[1]], amp_x = 2, amp_y = 1, plot = FALSE)
+18	163	294	# create ddpcr object for each experiment
+18	163	310	create_dpcr(data = c(rep(1, res[1, "Cluster.2"]), rep(1, res[1, "Cluster.3"])),
+18	259	327	n = as.integer(sum(res[1, ])), threshold = 1,
+18	245	343	type = "np", adpcr = FALSE)
+18	149	360	}))
+18	149	393	# Message: 'Different number of partitions.' is expected while joining objects
+18	149	409	# with uneven length as droplet-based experiments. The message is specifically
+18	149	426	# verbose to also deliver that the bind_dpcr function does not
+18	149	442	# recycle shorter vectors to prevent the addition of non-existent data points.
+18	149	475	# Give experiments proper names.
+18	149	491	colnames(cluster_data) <- wells
+18	149	524	# We choose the ratio model, which uses multiple ratio tests from the 'rateratio.test'
+18	149	541	# package.
+18	149	573	comp <- test_counts(cluster_data, model = "ratio")
+18	149	633	> comp
+18	149	666	Groups:
+18	176	683	group lambda lambda.low lambda.up
+18	149	699	A02 b 0.077011051 0.0704320674 0.084179123
+18	149	715	B02 c 0.096061636 0.0888030003 0.103883369
+18	149	732	C02 c 0.099979708 0.0918318731 0.108811947
+18	149	748	D02 c 0.092649940 0.0856180946 0.100230919
+18	149	765	G04 a 0.001218274 0.0006348818 0.002337119
+18	149	798	Results of multiple comparison:
+18	238	814	X_squared p_value signif
+18	149	830	B02 - A02 22.7202237 3.123089e-06 ***
+18	149	847	C02 - A02 29.5319827 1.100031e-07 ***
+18	149	863	D02 - A02 15.7795663 1.016671e-04 ***
+18	149	880	G04 - A02 897.9635582 6.799223e-197 ***
+18	149	896	C02 - B02 0.7480551 4.164049e-01
+18	149	913	D02 - B02 0.6604392 4.164049e-01
+18	149	929	G04 - B02 1132.7471108 1.260524e-247 ***
+18	149	946	D02 - C02 2.7724424 1.198747e-01
+18	149	962	G04 - C02 1171.4948655 9.557011e-256 ***
+18	149	978	G04 - D02 1092.0273410 5.950879e-239 ***
+18	149	995	---
+18	149	1011	Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+18	149	1044	Model used:
+18	149	1061	[1] "ratio"
+18	149	1093	> summary(comp)
+18	163	1126	group lambda lambda.low lambda.up
+18	149	1143	1 a 0.001218274 0.0006348818 0.002337119
+19	149	589	2 b 0.077011051 0.0704320674 0.084179123
+19	149	606	3 c 0.096230428 0.0887509893 0.104308745

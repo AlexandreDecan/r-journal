@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="9" family="Times" color="#00004c"/>
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">5</text>
+<text top="121" left="82" width="561" height="36" font="2"><b>testthat: Get Started with Testing</b></text>
+<text top="173" left="82" width="121" height="15" font="0">by Hadley Wickham</text>
+<text top="208" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="208" left="172" width="244" height="15" font="0">Software testing is important, but</text>
+<text top="226" left="96" width="319" height="15" font="0">many of us don’t do it because it is frustrating</text>
+<text top="244" left="96" width="319" height="15" font="0">and boring. <b>testthat </b>is a new testing framework</text>
+<text top="261" left="96" width="319" height="15" font="0">for R that is easy learn and use, and integrates</text>
+<text top="279" left="96" width="319" height="15" font="0">with your existing workflow. This paper shows</text>
+<text top="297" left="96" width="308" height="15" font="0">how, with illustrations from existing packages.</text>
+<text top="344" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="384" left="82" width="346" height="15" font="0">Testing should be something that you do all the time,</text>
+<text top="402" left="82" width="243" height="15" font="0">but it’s normally painful and boring.</text>
+<text top="402" left="331" width="51" height="15" font="5"><a href="http://cran.r-project.org/package=testthat"><b>testthat</b></a></text>
+<text top="402" left="386" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="402" left="391" width="38" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Wick-</a></text>
+<text top="420" left="82" width="29" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">ham</a></text>
+<text top="420" left="112" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="420" left="120" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2011</a></text>
+<text top="420" left="149" width="280" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">) </a>tries to make testing as painless as possi-</text>
+<text top="438" left="82" width="346" height="15" font="0">ble, so you do it as often as possible. To make that</text>
+<text top="456" left="82" width="112" height="15" font="0">happen, <b>testthat</b>:</text>
+<text top="491" left="103" width="326" height="15" font="0">• Provides functions that make it easy to describe</text>
+<text top="509" left="120" width="309" height="15" font="0">what you expect a function to do, including</text>
+<text top="526" left="120" width="267" height="15" font="0">catching errors, warnings and messages.</text>
+<text top="558" left="103" width="326" height="15" font="0">• Easily integrates in your existing workflow,</text>
+<text top="576" left="120" width="309" height="15" font="0">whether it’s informal testing on the com-</text>
+<text top="594" left="120" width="309" height="15" font="0">mand line, building test suites, or using ‘R CMD</text>
+<text top="613" left="120" width="38" height="12" font="0">check</text>
+<text top="612" left="158" width="8" height="15" font="0">’.</text>
+<text top="644" left="103" width="326" height="15" font="0">• Can re-run tests automatically as you change</text>
+<text top="662" left="120" width="121" height="15" font="0">your code or tests.</text>
+<text top="694" left="103" width="326" height="15" font="0">• Displays test progress visually, showing a pass,</text>
+<text top="712" left="120" width="309" height="15" font="0">fail or error for every expectation. If you’re us-</text>
+<text top="730" left="120" width="293" height="15" font="0">ing the terminal, it’ll even colour the output.</text>
+<text top="764" left="105" width="51" height="15" font="3"><b>testthat</b></text>
+<text top="764" left="160" width="269" height="15" font="0">draws inspiration from the xUnit family</text>
+<text top="782" left="82" width="346" height="15" font="0">of testing packages, as well from many of the innova-</text>
+<text top="800" left="82" width="201" height="15" font="0">tive Ruby testing libraries like</text>
+<text top="800" left="287" width="35" height="15" font="6"><a href="http://rspec.info/">rspec</a></text>
+<text top="797" left="322" width="6" height="11" font="7"><a href="http://rspec.info/">1</a></text>
+<text top="800" left="329" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#1">,</a></text>
+<text top="800" left="337" width="32" height="15" font="6"><a href="http://github.com/ahoward/testy">testy</a></text>
+<text top="797" left="369" width="6" height="11" font="7"><a href="http://github.com/ahoward/testy">2</a></text>
+<text top="800" left="375" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#1">,</a></text>
+<text top="800" left="383" width="39" height="15" font="6"><a href="http://github.com/chneukirchen/bacon">bacon</a></text>
+<text top="797" left="423" width="6" height="11" font="7"><a href="http://github.com/chneukirchen/bacon">3</a></text>
+<text top="818" left="82" width="25" height="15" font="0">and</text>
+<text top="818" left="112" width="66" height="15" font="6"><a href="http://wiki.github.com/aslakhellesoy/cucumber/">cucumber</a></text>
+<text top="815" left="178" width="6" height="11" font="7"><a href="http://wiki.github.com/aslakhellesoy/cucumber/">4</a></text>
+<text top="818" left="185" width="244" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#1">. </a>I have used what I think works for</text>
+<text top="836" left="82" width="346" height="15" font="0">R, and abandoned what doesn’t, creating a testing</text>
+<text top="854" left="82" width="322" height="15" font="0">environment that is philosophically centred in R.</text>
+<text top="904" left="82" width="96" height="21" font="4"><b>Why test?</b></text>
+<text top="943" left="82" width="346" height="15" font="0">I wrote <b>testthat </b>because I discovered I was spending</text>
+<text top="961" left="82" width="346" height="15" font="0">too much time recreating bugs that I had previously</text>
+<text top="979" left="82" width="346" height="15" font="0">fixed. While I was writing the original code or fixing</text>
+<text top="997" left="82" width="346" height="15" font="0">the bug, I’d perform many interactive tests to make</text>
+<text top="1015" left="82" width="346" height="15" font="0">sure the code worked, but I never had a system for</text>
+<text top="1033" left="82" width="346" height="15" font="0">retaining these tests and running them, again and</text>
+<text top="1051" left="82" width="346" height="15" font="0">again. I think this is a common development prac-</text>
+<text top="1069" left="82" width="346" height="15" font="0">tice of R programmers: it’s not that we don’t test our</text>
+<text top="1087" left="82" width="346" height="15" font="0">code, it’s that we don’t store our tests so they can be</text>
+<text top="1105" left="82" width="138" height="15" font="0">re-run automatically.</text>
+<text top="173" left="481" width="324" height="15" font="0">In part, this is because existing R testing pack-</text>
+<text top="191" left="459" width="87" height="15" font="0">ages, such as</text>
+<text top="191" left="550" width="41" height="15" font="5"><a href="http://cran.r-project.org/package=RUnit"><b>RUnit</b></a></text>
+<text top="191" left="596" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="191" left="601" width="82" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Burger et al.</a></text>
+<text top="191" left="682" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="191" left="691" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2009</a></text>
+<text top="191" left="720" width="35" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">) </a>and</text>
+<text top="191" left="760" width="46" height="15" font="5"><a href="http://cran.r-project.org/package=svUnit"><b>svUnit</b></a></text>
+<text top="209" left="459" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="209" left="464" width="58" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Grosjean</a></text>
+<text top="209" left="522" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="209" left="529" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2009</a></text>
+<text top="209" left="559" width="246" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">), </a>require a lot of up-front work to get</text>
+<text top="227" left="459" width="346" height="15" font="0">started. One of the motivations of <b>testthat </b>is to make</text>
+<text top="245" left="459" width="346" height="15" font="0">the initial effort as small as possible, so you can start</text>
+<text top="262" left="459" width="346" height="15" font="0">off slowly and gradually ramp up the formality and</text>
+<text top="280" left="459" width="131" height="15" font="0">rigour of your tests.</text>
+<text top="299" left="481" width="324" height="15" font="0">It will always require a little more work to</text>
+<text top="317" left="459" width="346" height="15" font="0">turn your casual interactive tests into reproducible</text>
+<text top="335" left="459" width="346" height="15" font="0">scripts: you can no longer visually inspect the out-</text>
+<text top="353" left="459" width="346" height="15" font="0">put, so instead you have to write code that does the</text>
+<text top="371" left="459" width="346" height="15" font="0">inspection for you. However, this is an investment in</text>
+<text top="389" left="459" width="281" height="15" font="0">the future of your code that will pay off in:</text>
+<text top="426" left="480" width="326" height="15" font="0">• Decreased frustration. Whenever I’m working</text>
+<text top="444" left="496" width="309" height="15" font="0">to a strict deadline I always seem to discover a</text>
+<text top="462" left="496" width="309" height="15" font="0">bug in old code. Having to stop what I’m do-</text>
+<text top="480" left="496" width="309" height="15" font="0">ing to fix the bug is a real pain. This happens</text>
+<text top="498" left="496" width="309" height="15" font="0">less when I do more testing, and I can easily see</text>
+<text top="516" left="496" width="309" height="15" font="0">which parts of my code I can be confident in by</text>
+<text top="533" left="496" width="235" height="15" font="0">looking at how well they are tested.</text>
+<text top="567" left="480" width="326" height="15" font="0">• Better code structure. Code that’s easy to test</text>
+<text top="585" left="496" width="309" height="15" font="0">is usually better designed. I have found writ-</text>
+<text top="603" left="496" width="309" height="15" font="0">ing tests makes me extract out the complicated</text>
+<text top="621" left="496" width="309" height="15" font="0">parts of my code into separate functions that</text>
+<text top="639" left="496" width="309" height="15" font="0">work in isolation. These functions are easier</text>
+<text top="657" left="496" width="309" height="15" font="0">to test, have less duplication, are easier to un-</text>
+<text top="675" left="496" width="309" height="15" font="0">derstand and are easier to re-combine in new</text>
+<text top="693" left="496" width="38" height="15" font="0">ways.</text>
+<text top="727" left="480" width="326" height="15" font="0">• Less struggle to pick up development after a</text>
+<text top="745" left="496" width="309" height="15" font="0">break. If you always finish a session of cod-</text>
+<text top="763" left="496" width="309" height="15" font="0">ing by creating a failing test (e.g. for the feature</text>
+<text top="780" left="496" width="309" height="15" font="0">you want to implement next) it’s easy to pick</text>
+<text top="798" left="496" width="309" height="15" font="0">up where you left off: your tests let you know</text>
+<text top="816" left="496" width="107" height="15" font="0">what to do next.</text>
+<text top="850" left="480" width="326" height="15" font="0">• Increased confidence when making changes. If</text>
+<text top="868" left="496" width="309" height="15" font="0">you know that all major functionality has a test</text>
+<text top="886" left="496" width="309" height="15" font="0">associated with it, you can confidently make</text>
+<text top="904" left="496" width="309" height="15" font="0">big changes without worrying about acciden-</text>
+<text top="922" left="496" width="309" height="15" font="0">tally breaking something. For me, this is par-</text>
+<text top="940" left="496" width="309" height="15" font="0">ticularly useful when I think of a simpler way</text>
+<text top="958" left="496" width="309" height="15" font="0">to accomplish a task - often my simpler solu-</text>
+<text top="976" left="496" width="309" height="15" font="0">tion is only simpler because I’ve forgotten an</text>
+<text top="994" left="496" width="128" height="15" font="0">important use case!</text>
+<text top="1046" left="459" width="132" height="21" font="4"><b>Test structure</b></text>
+<text top="1087" left="459" width="51" height="15" font="3"><b>testthat</b></text>
+<text top="1087" left="515" width="291" height="15" font="0">has a hierarchical structure made up of ex-</text>
+<text top="1105" left="459" width="196" height="15" font="0">pectations, tests and contexts.</text>
+<text top="1129" left="99" width="4" height="9" font="8"><a href="http://rspec.info/">1</a></text>
+<text top="1132" left="104" width="110" height="9" font="7"><a href="http://rspec.info/">http://rspec.info/</a></text>
+<text top="1143" left="99" width="4" height="9" font="8"><a href="http://github.com/ahoward/testy">2</a></text>
+<text top="1147" left="104" width="189" height="9" font="7"><a href="http://github.com/ahoward/testy">http://github.com/ahoward/testy</a></text>
+<text top="1158" left="99" width="4" height="9" font="8"><a href="http://github.com/chneukirchen/bacon">3</a></text>
+<text top="1161" left="104" width="219" height="9" font="7"><a href="http://github.com/chneukirchen/bacon">http://github.com/chneukirchen/bacon</a></text>
+<text top="1173" left="99" width="4" height="9" font="8"><a href="http://wiki.github.com/aslakhellesoy/cucumber/">4</a></text>
+<text top="1176" left="104" width="280" height="9" font="7"><a href="http://wiki.github.com/aslakhellesoy/cucumber/">http://wiki.github.com/aslakhellesoy/cucumber/</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="15" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+<text top="67" left="82" width="7" height="15" font="0">6</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="103" width="326" height="15" font="0">• An expectation describes what the result of a</text>
+<text top="143" left="120" width="309" height="15" font="0">computation should be. Does it have the right</text>
+<text top="161" left="120" width="309" height="15" font="0">value and right class? Does it produce error</text>
+<text top="179" left="120" width="309" height="15" font="0">messages when you expect it to? There are 11</text>
+<text top="197" left="120" width="195" height="15" font="0">types of built-in expectations.</text>
+<text top="228" left="103" width="326" height="15" font="0">• A test groups together multiple expectations to</text>
+<text top="246" left="120" width="309" height="15" font="0">test one function, or tightly related functional-</text>
+<text top="264" left="120" width="309" height="15" font="0">ity across multiple functions. A test is created</text>
+<text top="282" left="120" width="190" height="15" font="0">with the test_that function.</text>
+<text top="313" left="103" width="326" height="15" font="0">• A context groups together multiple tests that</text>
+<text top="331" left="120" width="163" height="15" font="0">test related functionality.</text>
+<text top="365" left="105" width="324" height="15" font="0">These are described in detail below. Expectations</text>
+<text top="383" left="82" width="346" height="15" font="0">give you the tools to convert your visual, interactive</text>
+<text top="401" left="82" width="346" height="15" font="0">experiments into reproducible scripts; tests and con-</text>
+<text top="419" left="82" width="346" height="15" font="0">texts are just ways of organising your expectations</text>
+<text top="437" left="82" width="346" height="15" font="0">so that when something goes wrong you can easily</text>
+<text top="455" left="82" width="251" height="15" font="0">track down the source of the problem.</text>
+<text top="499" left="82" width="104" height="17" font="9"><b>Expectations</b></text>
+<text top="530" left="82" width="346" height="15" font="0">An expectation is the finest level of testing; it makes</text>
+<text top="548" left="82" width="346" height="15" font="0">a binary assertion about whether or not a value</text>
+<text top="566" left="82" width="346" height="15" font="0">is as you expect. An expectation is easy to read,</text>
+<text top="584" left="82" width="346" height="15" font="0">since it is nearly a sentence already: expect_that(a,</text>
+<text top="603" left="82" width="76" height="12" font="0">equals(b))</text>
+<text top="602" left="163" width="266" height="15" font="0">reads as “I expect that a will equal b”. If</text>
+<text top="620" left="82" width="345" height="15" font="0">the expectation isn’t true, <b>testthat </b>will raise an error.</text>
+<text top="638" left="105" width="223" height="15" font="0">There are 11 built-in expectations:</text>
+<text top="672" left="103" width="326" height="15" font="0">• equals() uses all.equal() to check for equal-</text>
+<text top="690" left="120" width="190" height="15" font="0">ity with numerical tolerance:</text>
+<text top="731" left="120" width="55" height="10" font="10"># Passes</text>
+<text top="748" left="120" width="185" height="10" font="10">expect_that(10, equals(10))</text>
+<text top="764" left="120" width="89" height="10" font="10"># Also passes</text>
+<text top="781" left="120" width="233" height="10" font="10">expect_that(10, equals(10 + 1e-7))</text>
+<text top="797" left="120" width="48" height="10" font="10"># Fails</text>
+<text top="814" left="120" width="233" height="10" font="10">expect_that(10, equals(10 + 1e-6))</text>
+<text top="830" left="120" width="130" height="10" font="10"># Definitely fails!</text>
+<text top="847" left="120" width="185" height="10" font="10">expect_that(10, equals(11))</text>
+<text top="885" left="103" width="326" height="15" font="0">• is_identical_to() uses identical() to check</text>
+<text top="903" left="120" width="118" height="15" font="0">for exact equality:</text>
+<text top="944" left="120" width="55" height="10" font="10"># Passes</text>
+<text top="961" left="120" width="247" height="10" font="10">expect_that(10, is_identical_to(10))</text>
+<text top="977" left="120" width="48" height="10" font="10"># Fails</text>
+<text top="994" left="120" width="302" height="10" font="10">expect_that(10, is_identical_to(10 + 1e-10))</text>
+<text top="1032" left="103" width="326" height="15" font="0">• is_equivalent_to() is a more relaxed version</text>
+<text top="1050" left="120" width="230" height="15" font="0">of equals() that ignores attributes:</text>
+<text top="1091" left="120" width="48" height="10" font="10"># Fails</text>
+<text top="1108" left="120" width="247" height="10" font="10">expect_that(c(&#34;one&#34; = 1, &#34;two&#34; = 2),</text>
+<text top="1124" left="134" width="82" height="10" font="10">equals(1:2))</text>
+<text top="1141" left="120" width="55" height="10" font="10"># Passes</text>
+<text top="1157" left="120" width="247" height="10" font="10">expect_that(c(&#34;one&#34; = 1, &#34;two&#34; = 2),</text>
+<text top="1173" left="134" width="151" height="10" font="10">is_equivalent_to(1:2))</text>
+<text top="125" left="480" width="326" height="15" font="0">• is_a() checks that an object inherit()s from a</text>
+<text top="143" left="496" width="97" height="15" font="0">specified class:</text>
+<text top="177" left="496" width="247" height="10" font="10">model &lt;- lm(mpg ~ wt, data = mtcars)</text>
+<text top="193" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="210" left="496" width="206" height="10" font="10">expect_that(model, is_a(&#34;lm&#34;))</text>
+<text top="226" left="496" width="48" height="10" font="10"># Fails</text>
+<text top="243" left="496" width="213" height="10" font="10">expect_that(model, is_a(&#34;glm&#34;))</text>
+<text top="273" left="480" width="326" height="15" font="0">• matches() matches a character vector against</text>
+<text top="291" left="496" width="309" height="15" font="0">a regular expression. The optional all argu-</text>
+<text top="309" left="496" width="309" height="15" font="0">ment controls where all elements or just one</text>
+<text top="327" left="496" width="309" height="15" font="0">element need to match. This code is powered</text>
+<text top="345" left="496" width="179" height="15" font="0">by str_detect() from the</text>
+<text top="345" left="682" width="46" height="15" font="5"><a href="http://cran.r-project.org/package=stringr"><b>stringr</b></a></text>
+<text top="345" left="734" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="345" left="739" width="63" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Wickham</a></text>
+<text top="345" left="802" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="363" left="496" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2010</a></text>
+<text top="363" left="526" width="67" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">) </a>package:</text>
+<text top="397" left="496" width="185" height="10" font="10">string &lt;- &#34;Testing is fun!&#34;</text>
+<text top="413" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="430" left="496" width="268" height="10" font="10">expect_that(string, matches(&#34;Testing&#34;))</text>
+<text top="446" left="496" width="219" height="10" font="10"># Fails, match is case-sensitive</text>
+<text top="463" left="496" width="268" height="10" font="10">expect_that(string, matches(&#34;testing&#34;))</text>
+<text top="479" left="496" width="295" height="10" font="10"># Passes, match can be a regular expression</text>
+<text top="495" left="496" width="268" height="10" font="10">expect_that(string, matches(&#34;t.+ting&#34;))</text>
+<text top="526" left="480" width="326" height="15" font="0">• prints_text() matches the printed output</text>
+<text top="544" left="496" width="309" height="15" font="0">from an expression against a regular expres-</text>
+<text top="562" left="496" width="31" height="15" font="0">sion:</text>
+<text top="596" left="496" width="165" height="10" font="10">a &lt;- list(1:10, letters)</text>
+<text top="612" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="629" left="496" width="309" height="10" font="10">expect_that(str(a), prints_text(&#34;List of 2&#34;))</text>
+<text top="645" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="662" left="496" width="130" height="10" font="10">expect_that(str(a),</text>
+<text top="678" left="510" width="219" height="10" font="10">prints_text(fixed(&#34;int [1:10]&#34;))</text>
+<text top="709" left="480" width="326" height="15" font="0">• shows_message() checks that an expression</text>
+<text top="727" left="496" width="117" height="15" font="0">shows a message:</text>
+<text top="761" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="777" left="496" width="178" height="10" font="10">expect_that(library(mgcv),</text>
+<text top="794" left="510" width="206" height="10" font="10">shows_message(&#34;This is mgcv&#34;))</text>
+<text top="824" left="480" width="326" height="15" font="0">• gives_warning() expects that you get a warn-</text>
+<text top="842" left="496" width="25" height="15" font="0">ing:</text>
+<text top="876" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="893" left="496" width="254" height="10" font="10">expect_that(log(-1), gives_warning())</text>
+<text top="909" left="496" width="137" height="10" font="10">expect_that(log(-1),</text>
+<text top="925" left="510" width="213" height="10" font="10">gives_warning(&#34;NaNs produced&#34;))</text>
+<text top="942" left="496" width="48" height="10" font="10"># Fails</text>
+<text top="958" left="496" width="247" height="10" font="10">expect_that(log(0), gives_warning())</text>
+<text top="989" left="480" width="326" height="15" font="0">• throws_error() verifies that the expression</text>
+<text top="1007" left="496" width="309" height="15" font="0">throws an error. You can also supply a regular</text>
+<text top="1025" left="496" width="309" height="15" font="0">expression which is applied to the text of the</text>
+<text top="1043" left="496" width="36" height="15" font="0">error:</text>
+<text top="1077" left="496" width="48" height="10" font="10"># Fails</text>
+<text top="1093" left="496" width="233" height="10" font="10">expect_that(1 / 2, throws_error())</text>
+<text top="1110" left="496" width="55" height="10" font="10"># Passes</text>
+<text top="1126" left="496" width="247" height="10" font="10">expect_that(1 / &#34;a&#34;, throws_error())</text>
+<text top="1142" left="496" width="185" height="10" font="10"># But better to be explicit</text>
+<text top="1159" left="496" width="137" height="10" font="10">expect_that(1 / &#34;a&#34;,</text>
+<text top="1175" left="510" width="254" height="10" font="10">throws_error(&#34;non-numeric argument&#34;))</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">7</text>
+<text top="128" left="214" width="26" height="15" font="0">Full</text>
+<text top="128" left="499" width="60" height="15" font="0">Short cut</text>
+<text top="155" left="214" width="191" height="12" font="0">expect_that(x, is_true())</text>
+<text top="155" left="499" width="107" height="12" font="0">expect_true(x)</text>
+<text top="173" left="214" width="198" height="12" font="0">expect_that(x, is_false())</text>
+<text top="173" left="499" width="114" height="12" font="0">expect_false(x)</text>
+<text top="191" left="214" width="175" height="12" font="0">expect_that(x, is_a(y))</text>
+<text top="191" left="499" width="114" height="12" font="0">expect_is(x, y)</text>
+<text top="209" left="214" width="191" height="12" font="0">expect_that(x, equals(y))</text>
+<text top="209" left="499" width="137" height="12" font="0">expect_equal(x, y)</text>
+<text top="227" left="214" width="267" height="12" font="0">expect_that(x, is_equivalent_to(y))</text>
+<text top="227" left="499" width="175" height="12" font="0">expect_equivalent(x, y)</text>
+<text top="245" left="214" width="259" height="12" font="0">expect_that(x, is_identical_to(y))</text>
+<text top="245" left="499" width="168" height="12" font="0">expect_identical(x, y)</text>
+<text top="263" left="214" width="198" height="12" font="0">expect_that(x, matches(y))</text>
+<text top="263" left="499" width="152" height="12" font="0">expect_matches(x, y)</text>
+<text top="281" left="214" width="229" height="12" font="0">expect_that(x, prints_text(y))</text>
+<text top="281" left="499" width="145" height="12" font="0">expect_output(x, y)</text>
+<text top="299" left="214" width="244" height="12" font="0">expect_that(x, shows_message(y))</text>
+<text top="299" left="499" width="152" height="12" font="0">expect_message(x, y)</text>
+<text top="317" left="214" width="244" height="12" font="0">expect_that(x, gives_warning(y))</text>
+<text top="317" left="499" width="152" height="12" font="0">expect_warning(x, y)</text>
+<text top="335" left="214" width="236" height="12" font="0">expect_that(x, throws_error(y))</text>
+<text top="335" left="499" width="137" height="12" font="0">expect_error(x, y)</text>
+<text top="370" left="345" width="197" height="15" font="0">Table 1: Expectation shortcuts</text>
+<text top="419" left="103" width="326" height="15" font="0">• is_true() is a useful catchall if none of the</text>
+<text top="437" left="120" width="309" height="15" font="0">other expectations do what you want - it checks</text>
+<text top="455" left="120" width="309" height="15" font="0">that an expression is true. is_false() is the</text>
+<text top="473" left="120" width="175" height="15" font="0">complement of is_true().</text>
+<text top="522" left="105" width="324" height="15" font="0">If you don’t like the readable, but verbose,</text>
+<text top="541" left="82" width="84" height="12" font="0">expect_that</text>
+<text top="540" left="172" width="257" height="15" font="0">style, you can use one of the shortcut</text>
+<text top="558" left="82" width="185" height="15" font="0">functions described in Table</text>
+<text top="558" left="271" width="7" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#3">1</a></text>
+<text top="558" left="279" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#3">.</a></text>
+<text top="580" left="105" width="324" height="15" font="0">You can also write your own expectations. An</text>
+<text top="598" left="82" width="346" height="15" font="0">expectation should return a function that compares</text>
+<text top="616" left="82" width="346" height="15" font="0">its input to the expected value and reports the result</text>
+<text top="634" left="82" width="346" height="15" font="0">using expectation(). expectation() has two argu-</text>
+<text top="652" left="82" width="346" height="15" font="0">ments: a boolean indicating the result of the test, and</text>
+<text top="670" left="82" width="346" height="15" font="0">the message to display if the expectation fails. Your</text>
+<text top="688" left="82" width="346" height="15" font="0">expectation function will be called by expect_that</text>
+<text top="706" left="82" width="346" height="15" font="0">with a single argument: the actual value. The fol-</text>
+<text top="723" left="82" width="346" height="15" font="0">lowing code shows the simple is_true expectation.</text>
+<text top="741" left="82" width="346" height="15" font="0">Most of the other expectations are equally simple,</text>
+<text top="759" left="82" width="346" height="15" font="0">and if you want to write your own, I’d recommend</text>
+<text top="777" left="82" width="346" height="15" font="0">reading the source code of <b>testthat </b>to see other exam-</text>
+<text top="795" left="82" width="31" height="15" font="0">ples.</text>
+<text top="849" left="82" width="158" height="10" font="10">is_true &lt;- function() {</text>
+<text top="866" left="96" width="89" height="10" font="10">function(x) {</text>
+<text top="882" left="110" width="82" height="10" font="10">expectation(</text>
+<text top="899" left="124" width="130" height="10" font="10">identical(x, TRUE),</text>
+<text top="915" left="124" width="84" height="10" font="10">&#34;isn't true&#34;</text>
+<text top="932" left="110" width="7" height="10" font="10">)</text>
+<text top="948" left="96" width="7" height="10" font="10">}</text>
+<text top="965" left="82" width="7" height="10" font="10">}</text>
+<text top="1012" left="105" width="324" height="15" font="0">Running a sequence of expectations is useful be-</text>
+<text top="1030" left="82" width="346" height="15" font="0">cause it ensures that your code behaves as expected.</text>
+<text top="1048" left="82" width="346" height="15" font="0">You could even use an expectation within a func-</text>
+<text top="1065" left="82" width="346" height="15" font="0">tion to check that the inputs are what you expect.</text>
+<text top="1083" left="82" width="346" height="15" font="0">However, they’re not so useful when something goes</text>
+<text top="1101" left="82" width="346" height="15" font="0">wrong: all you know is that something is not as ex-</text>
+<text top="1119" left="82" width="346" height="15" font="0">pected, you know nothing about where the problem</text>
+<text top="1137" left="82" width="346" height="15" font="0">is. Tests, described next, organise expectations into</text>
+<text top="1155" left="82" width="346" height="15" font="0">coherent blocks that describe the overall goal of that</text>
+<text top="1173" left="82" width="125" height="15" font="0">set of expectations.</text>
+<text top="417" left="459" width="41" height="17" font="9"><b>Tests</b></text>
+<text top="448" left="459" width="346" height="15" font="0">Each test should test a single item of functionality</text>
+<text top="466" left="459" width="346" height="15" font="0">and have an informative name. The idea is that when</text>
+<text top="484" left="459" width="346" height="15" font="0">a test fails, you should know exactly where to look</text>
+<text top="502" left="459" width="346" height="15" font="0">for the problem in your code. You create a new</text>
+<text top="520" left="459" width="346" height="15" font="0">test with test_that, with parameters name and code</text>
+<text top="538" left="459" width="346" height="15" font="0">block. The test name should complete the sentence</text>
+<text top="556" left="459" width="346" height="15" font="0">“Test that . . . ” and the code block should be a collec-</text>
+<text top="574" left="459" width="346" height="15" font="0">tion of expectations. When there’s a failure, it’s the</text>
+<text top="592" left="459" width="346" height="15" font="0">test name that will help you figure out what’s gone</text>
+<text top="609" left="459" width="47" height="15" font="0">wrong.</text>
+<text top="628" left="481" width="43" height="15" font="0">Figure</text>
+<text top="628" left="529" width="7" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#4">1</a></text>
+<text top="628" left="542" width="264" height="15" font="0">shows one test of the floor_date func-</text>
+<text top="646" left="459" width="68" height="15" font="0">tion from</text>
+<text top="646" left="538" width="63" height="15" font="5"><a href="http://cran.r-project.org/package=lubridate"><b>lubridate</b></a></text>
+<text top="646" left="611" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="646" left="616" width="186" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Wickham and Grolemund</a></text>
+<text top="646" left="802" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="664" left="459" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2010</a></text>
+<text top="664" left="489" width="317" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">). </a>There are 7 expectations that check the re-</text>
+<text top="682" left="459" width="346" height="15" font="0">sults of rounding a date down to the nearest second,</text>
+<text top="700" left="459" width="346" height="15" font="0">minute, hour, etc. Note how we’ve defined a couple</text>
+<text top="717" left="459" width="346" height="15" font="0">of helper functions to make the test more concise so</text>
+<text top="735" left="459" width="346" height="15" font="0">you can easily see what changes in each expectation.</text>
+<text top="754" left="481" width="324" height="15" font="0">Each test is run in its own environment so it</text>
+<text top="772" left="459" width="346" height="15" font="0">is self-contained. The exceptions are actions which</text>
+<text top="790" left="459" width="346" height="15" font="0">have effects outside the local environment. These in-</text>
+<text top="808" left="459" width="154" height="15" font="0">clude things that affect:</text>
+<text top="842" left="480" width="121" height="15" font="0">• The filesystem:</text>
+<text top="842" left="616" width="190" height="15" font="0">creating and deleting files,</text>
+<text top="860" left="496" width="238" height="15" font="0">changing the working directory, etc.</text>
+<text top="891" left="480" width="326" height="15" font="0">• The search path: package loading &amp; detaching,</text>
+<text top="911" left="496" width="46" height="12" font="0">attach</text>
+<text top="909" left="542" width="4" height="15" font="0">.</text>
+<text top="941" left="480" width="292" height="15" font="0">• Global options, like options() and par().</text>
+<text top="975" left="459" width="346" height="15" font="0">When you use these actions in tests, you’ll need to</text>
+<text top="993" left="459" width="346" height="15" font="0">clean up after yourself. Many other testing packages</text>
+<text top="1011" left="459" width="346" height="15" font="0">have set-up and teardown methods that are run au-</text>
+<text top="1029" left="459" width="346" height="15" font="0">tomatically before and after each test. These are not</text>
+<text top="1047" left="459" width="346" height="15" font="0">so important with <b>testthat </b>because you can create</text>
+<text top="1065" left="459" width="346" height="15" font="0">objects outside of the tests and rely on R’s copy-on-</text>
+<text top="1083" left="459" width="346" height="15" font="0">modify semantics to keep them unchanged between</text>
+<text top="1101" left="459" width="346" height="15" font="0">test runs. To clean up other actions you can use reg-</text>
+<text top="1119" left="459" width="110" height="15" font="0">ular R functions.</text>
+<text top="1137" left="481" width="324" height="15" font="0">You can run a set of tests just by source()ing a</text>
+<text top="1155" left="459" width="346" height="15" font="0">file, but as you write more and more tests, you’ll</text>
+<text top="1173" left="459" width="346" height="15" font="0">probably want a little more infrastructure. The first</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="12" family="Times" color="#00ff00"/>
+<text top="67" left="82" width="7" height="15" font="0">8</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="350" height="10" font="10">test_that(&#34;floor_date works for different units&#34;, {</text>
+<text top="137" left="96" width="384" height="10" font="10">base &lt;- as.POSIXct(&#34;2009-08-03 12:01:59.23&#34;, tz = &#34;UTC&#34;)</text>
+<text top="170" left="96" width="384" height="10" font="10">is_time &lt;- function(x) equals(as.POSIXct(x, tz = &#34;UTC&#34;))</text>
+<text top="187" left="96" width="350" height="10" font="10">floor_base &lt;- function(unit) floor_date(base, unit)</text>
+<text top="220" left="96" width="446" height="10" font="10">expect_that(floor_base(&#34;second&#34;), is_time(&#34;2009-08-03 12:01:59&#34;))</text>
+<text top="236" left="96" width="446" height="10" font="10">expect_that(floor_base(&#34;minute&#34;), is_time(&#34;2009-08-03 12:01:00&#34;))</text>
+<text top="252" left="96" width="213" height="10" font="10">expect_that(floor_base(&#34;hour&#34;),</text>
+<text top="252" left="329" width="213" height="10" font="10">is_time(&#34;2009-08-03 12:00:00&#34;))</text>
+<text top="269" left="96" width="206" height="10" font="10">expect_that(floor_base(&#34;day&#34;),</text>
+<text top="269" left="329" width="213" height="10" font="10">is_time(&#34;2009-08-03 00:00:00&#34;))</text>
+<text top="285" left="96" width="213" height="10" font="10">expect_that(floor_base(&#34;week&#34;),</text>
+<text top="285" left="329" width="213" height="10" font="10">is_time(&#34;2009-08-02 00:00:00&#34;))</text>
+<text top="302" left="96" width="219" height="10" font="10">expect_that(floor_base(&#34;month&#34;),</text>
+<text top="302" left="329" width="213" height="10" font="10">is_time(&#34;2009-08-01 00:00:00&#34;))</text>
+<text top="318" left="96" width="213" height="10" font="10">expect_that(floor_base(&#34;year&#34;),</text>
+<text top="318" left="329" width="213" height="10" font="10">is_time(&#34;2009-01-01 00:00:00&#34;))</text>
+<text top="335" left="82" width="14" height="10" font="10">})</text>
+<text top="380" left="283" width="321" height="15" font="0">Figure 1: A test case from the <b>lubridate </b>package.</text>
+<text top="429" left="82" width="346" height="15" font="0">part of that infrastructure is contexts, described be-</text>
+<text top="447" left="82" width="346" height="15" font="0">low, which give a convenient way to label each file,</text>
+<text top="465" left="82" width="346" height="15" font="0">helping to locate failures when you have many tests.</text>
+<text top="508" left="82" width="72" height="17" font="9"><b>Contexts</b></text>
+<text top="539" left="82" width="346" height="15" font="0">Contexts group tests together into blocks that test re-</text>
+<text top="557" left="82" width="346" height="15" font="0">lated functionality and are established with the code:</text>
+<text top="576" left="82" width="160" height="12" font="0">context(&#34;My context&#34;)</text>
+<text top="575" left="243" width="186" height="15" font="0">. Normally there is one con-</text>
+<text top="593" left="82" width="346" height="15" font="0">text per file, but you can have more if you want, or</text>
+<text top="611" left="82" width="304" height="15" font="0">you can use the same context in multiple files.</text>
+<text top="629" left="105" width="43" height="15" font="0">Figure</text>
+<text top="629" left="151" width="7" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#5">2</a></text>
+<text top="629" left="161" width="268" height="15" font="0">shows the context that tests the operation</text>
+<text top="647" left="82" width="346" height="15" font="0">of the str_length function in <b>stringr</b>. The tests are</text>
+<text top="665" left="82" width="346" height="15" font="0">very simple, but cover two situations where nchar()</text>
+<text top="683" left="82" width="221" height="15" font="0">in base R gives surprising results.</text>
+<text top="731" left="82" width="96" height="21" font="4"><b>Workflow</b></text>
+<text top="770" left="82" width="346" height="15" font="0">So far we’ve talked about running tests by</text>
+<text top="790" left="82" width="61" height="12" font="0">source()</text>
+<text top="788" left="143" width="286" height="15" font="0">ing in R files. This is useful to double-check</text>
+<text top="806" left="82" width="346" height="15" font="0">that everything works, but it gives you little infor-</text>
+<text top="824" left="82" width="346" height="15" font="0">mation about what went wrong. This section shows</text>
+<text top="842" left="82" width="346" height="15" font="0">how to take your testing to the next level by setting</text>
+<text top="860" left="82" width="346" height="15" font="0">up a more formal workflow. There are three basic</text>
+<text top="878" left="82" width="118" height="15" font="0">techniques to use:</text>
+<text top="912" left="103" width="326" height="15" font="0">• Run all tests in a file or directory test_file()</text>
+<text top="930" left="120" width="98" height="15" font="0">or test_dir().</text>
+<text top="961" left="103" width="326" height="15" font="0">• Automatically run tests whenever something</text>
+<text top="978" left="120" width="156" height="15" font="0">changes with autotest.</text>
+<text top="1009" left="103" width="239" height="15" font="0">• Have R CMD check run your tests.</text>
+<text top="1052" left="82" width="225" height="17" font="9"><b>Testing files and directories</b></text>
+<text top="1083" left="82" width="346" height="15" font="0">You can run all tests in a file with test_file(path).</text>
+<text top="1101" left="82" width="43" height="15" font="0">Figure</text>
+<text top="1101" left="133" width="7" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#5">3</a></text>
+<text top="1101" left="147" width="282" height="15" font="0">shows the difference between test_file</text>
+<text top="1119" left="82" width="222" height="15" font="0">and source for the tests in Figure</text>
+<text top="1119" left="309" width="7" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#5">2</a></text>
+<text top="1119" left="317" width="112" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#5">, </a>as well as those</text>
+<text top="1137" left="82" width="346" height="15" font="0">same tests for nchar. You can see the advantage of</text>
+<text top="1156" left="82" width="69" height="12" font="0">test_file</text>
+<text top="1155" left="158" width="271" height="15" font="0">over source: instead of seeing the first</text>
+<text top="1173" left="82" width="287" height="15" font="0">failure, you see the performance of all tests.</text>
+<text top="429" left="481" width="324" height="15" font="0">Each expectation is displayed as either a green</text>
+<text top="447" left="459" width="346" height="15" font="0">dot (indicating success) or a red number (indicating</text>
+<text top="465" left="459" width="346" height="15" font="0">failure). That number indexes into a list of further</text>
+<text top="483" left="459" width="346" height="15" font="0">details, printed after all tests have been run. What</text>
+<text top="501" left="459" width="346" height="15" font="0">you can’t see is that this display is dynamic: a new</text>
+<text top="519" left="459" width="346" height="15" font="0">dot gets printed each time a test passes and it’s rather</text>
+<text top="537" left="459" width="128" height="15" font="0">satisfying to watch.</text>
+<text top="556" left="481" width="61" height="12" font="0">test_dir</text>
+<text top="555" left="545" width="260" height="15" font="0">will run all of the test files in a directory,</text>
+<text top="573" left="459" width="346" height="15" font="0">assuming that test files start with test (so it’s possi-</text>
+<text top="591" left="459" width="346" height="15" font="0">ble to intermix regular code and tests in the same di-</text>
+<text top="609" left="459" width="346" height="15" font="0">rectory). This is handy if you’re developing a small</text>
+<text top="627" left="459" width="346" height="15" font="0">set of scripts rather than a complete package. The fol-</text>
+<text top="644" left="459" width="346" height="15" font="0">lowing shows the output from the <b>stringr </b>tests. You</text>
+<text top="662" left="459" width="346" height="15" font="0">can see there are 12 contexts with between 2 and 25</text>
+<text top="680" left="459" width="346" height="15" font="0">expectations each. As you’d hope in a released pack-</text>
+<text top="698" left="459" width="141" height="15" font="0">age, all the tests pass.</text>
+<text top="726" left="459" width="191" height="12" font="0">&gt; test_dir(&#34;inst/tests/&#34;)</text>
+<text top="744" left="459" width="206" height="12" font="0">String and pattern checks :</text>
+<text top="744" left="672" width="46" height="12" font="11">......</text>
+<text top="762" left="459" width="152" height="12" font="0">Detecting patterns :</text>
+<text top="762" left="619" width="69" height="12" font="11">.........</text>
+<text top="780" left="459" width="160" height="12" font="0">Duplicating strings :</text>
+<text top="780" left="627" width="46" height="12" font="11">......</text>
+<text top="798" left="459" width="137" height="12" font="0">Extract patterns :</text>
+<text top="798" left="604" width="15" height="12" font="11">..</text>
+<text top="816" left="459" width="130" height="12" font="0">Joining strings :</text>
+<text top="816" left="596" width="46" height="12" font="11">......</text>
+<text top="834" left="459" width="114" height="12" font="0">String length :</text>
+<text top="834" left="581" width="69" height="12" font="11">.........</text>
+<text top="852" left="459" width="84" height="12" font="0">Locations :</text>
+<text top="852" left="550" width="91" height="12" font="11">............</text>
+<text top="870" left="459" width="130" height="12" font="0">Matching groups :</text>
+<text top="870" left="596" width="107" height="12" font="11">..............</text>
+<text top="888" left="459" width="107" height="12" font="0">Test padding :</text>
+<text top="888" left="573" width="30" height="12" font="11">....</text>
+<text top="906" left="459" width="145" height="12" font="0">Splitting strings :</text>
+<text top="906" left="611" width="191" height="12" font="11">.........................</text>
+<text top="924" left="459" width="175" height="12" font="0">Extracting substrings :</text>
+<text top="924" left="642" width="145" height="12" font="11">...................</text>
+<text top="941" left="459" width="137" height="12" font="0">Trimming strings :</text>
+<text top="941" left="604" width="61" height="12" font="11">........</text>
+<text top="967" left="481" width="324" height="15" font="0">If you want a more minimal report, suitable for</text>
+<text top="985" left="459" width="346" height="15" font="0">display on a dashboard, you can use a different re-</text>
+<text top="1003" left="459" width="346" height="15" font="0">porter. <b>testthat </b>comes with three reporters: stop,</text>
+<text top="1021" left="459" width="346" height="15" font="0">minimal and summary. The stop reporter is the de-</text>
+<text top="1039" left="459" width="346" height="15" font="0">fault and stop()s whenever a failure is encountered;</text>
+<text top="1056" left="459" width="346" height="15" font="0">the summary report is the default for test_file and</text>
+<text top="1076" left="459" width="61" height="12" font="0">test_dir</text>
+<text top="1074" left="520" width="286" height="15" font="0">. The minimal reporter prints ‘.’ for suc-</text>
+<text top="1092" left="459" width="346" height="15" font="0">cess, ‘E’ for an error and ‘F’ for a failure. The follow-</text>
+<text top="1110" left="459" width="346" height="15" font="0">ing output shows (some of) the output from running</text>
+<text top="1128" left="459" width="311" height="15" font="0">the <b>stringr </b>test suite with the minimal reporter.</text>
+<text top="1156" left="459" width="274" height="12" font="0">&gt; test_dir(&#34;inst/tests/&#34;, &#34;minimal&#34;)</text>
+<text top="1174" left="459" width="358" height="12" font="11">...............................................</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="12" family="Times" color="#ff0000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">9</text>
+<text top="145" left="82" width="165" height="10" font="10">context(&#34;String length&#34;)</text>
+<text top="178" left="82" width="336" height="10" font="10">test_that(&#34;str_length is number of characters&#34;, {</text>
+<text top="195" left="96" width="268" height="10" font="10">expect_that(str_length(&#34;a&#34;), equals(1))</text>
+<text top="211" left="96" width="274" height="10" font="10">expect_that(str_length(&#34;ab&#34;), equals(2))</text>
+<text top="227" left="96" width="281" height="10" font="10">expect_that(str_length(&#34;abc&#34;), equals(3))</text>
+<text top="244" left="82" width="14" height="10" font="10">})</text>
+<text top="277" left="82" width="322" height="10" font="10">test_that(&#34;str_length of missing is missing&#34;, {</text>
+<text top="293" left="96" width="329" height="10" font="10">expect_that(str_length(NA), equals(NA_integer_))</text>
+<text top="310" left="96" width="350" height="10" font="10">expect_that(str_length(c(NA, 1)), equals(c(NA, 1)))</text>
+<text top="326" left="96" width="274" height="10" font="10">expect_that(str_length(&#34;NA&#34;), equals(2))</text>
+<text top="342" left="82" width="14" height="10" font="10">})</text>
+<text top="375" left="82" width="370" height="10" font="10">test_that(&#34;str_length of factor is length of level&#34;, {</text>
+<text top="392" left="96" width="322" height="10" font="10">expect_that(str_length(factor(&#34;a&#34;)), equals(1))</text>
+<text top="408" left="96" width="329" height="10" font="10">expect_that(str_length(factor(&#34;ab&#34;)), equals(2))</text>
+<text top="425" left="96" width="336" height="10" font="10">expect_that(str_length(factor(&#34;abc&#34;)), equals(3))</text>
+<text top="441" left="82" width="14" height="10" font="10">})</text>
+<text top="487" left="82" width="723" height="15" font="0">Figure 2: A complete context from the <b>stringr </b>package that tests the str_length function for computing string</text>
+<text top="505" left="82" width="46" height="15" font="0">length.</text>
+<text top="580" left="82" width="221" height="12" font="0">&gt; source(&#34;test-str_length.r&#34;)</text>
+<text top="598" left="82" width="244" height="12" font="0">&gt; test_file(&#34;test-str_length.r&#34;)</text>
+<text top="616" left="82" width="69" height="12" font="11">.........</text>
+<text top="652" left="82" width="183" height="12" font="0">&gt; source(&#34;test-nchar.r&#34;)</text>
+<text top="670" left="82" width="399" height="12" font="0">Error: Test failure in 'nchar of missing is missing'</text>
+<text top="688" left="82" width="274" height="12" font="0">* nchar(NA) not equal to NA_integer_</text>
+<text top="706" left="82" width="369" height="12" font="0">'is.NA' value mismatch: 0 in current 1 in target</text>
+<text top="724" left="82" width="297" height="12" font="0">* nchar(c(NA, 1)) not equal to c(NA, 1)</text>
+<text top="742" left="82" width="369" height="12" font="0">'is.NA' value mismatch: 0 in current 1 in target</text>
+<text top="759" left="82" width="206" height="12" font="0">&gt; test_file(&#34;test-nchar.r&#34;)</text>
+<text top="777" left="82" width="23" height="12" font="11">...</text>
+<text top="777" left="105" width="15" height="12" font="12">12</text>
+<text top="777" left="121" width="15" height="12" font="11">..</text>
+<text top="777" left="136" width="15" height="12" font="12">34</text>
+<text top="813" left="82" width="297" height="12" font="12">1. Failure: nchar of missing is missing</text>
+<text top="813" left="387" width="252" height="12" font="0">---------------------------------</text>
+<text top="831" left="82" width="259" height="12" font="0">nchar(NA) not equal to NA_integer_</text>
+<text top="849" left="82" width="369" height="12" font="0">'is.NA' value mismatch: 0 in current 1 in target</text>
+<text top="885" left="82" width="297" height="12" font="12">2. Failure: nchar of missing is missing</text>
+<text top="885" left="387" width="252" height="12" font="0">---------------------------------</text>
+<text top="903" left="82" width="282" height="12" font="0">nchar(c(NA, 1)) not equal to c(NA, 1)</text>
+<text top="921" left="82" width="369" height="12" font="0">'is.NA' value mismatch: 0 in current 1 in target</text>
+<text top="957" left="82" width="351" height="12" font="12">3. Failure: nchar of factor is length of level</text>
+<text top="957" left="441" width="252" height="12" font="0">---------------------------------</text>
+<text top="975" left="82" width="259" height="12" font="0">nchar(factor(&#34;ab&#34;)) not equal to 2</text>
+<text top="993" left="82" width="221" height="12" font="0">Mean relative difference: 0.5</text>
+<text top="1028" left="82" width="351" height="12" font="12">4. Failure: nchar of factor is length of level</text>
+<text top="1028" left="441" width="252" height="12" font="0">---------------------------------</text>
+<text top="1046" left="82" width="267" height="12" font="0">nchar(factor(&#34;abc&#34;)) not equal to 3</text>
+<text top="1064" left="82" width="267" height="12" font="0">Mean relative difference: 0.6666667</text>
+<text top="1111" left="82" width="723" height="15" font="0">Figure 3: Results from running the str_length context, as well as results from running a modified version that</text>
+<text top="1129" left="82" width="723" height="15" font="0">uses nchar. nchar gives the length of NA as 2, and converts factors to integers before calculating length. These</text>
+<text top="1147" left="82" width="413" height="15" font="0">tests ensures that str_length doesn’t make the same mistakes.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">10</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="123" left="82" width="70" height="17" font="9"><b>Autotest</b></text>
+<text top="153" left="82" width="346" height="15" font="0">Tests are most useful when run frequently, and</text>
+<text top="173" left="82" width="61" height="12" font="0">autotest</text>
+<text top="171" left="149" width="280" height="15" font="0">takes that idea to the limit by re-running</text>
+<text top="189" left="82" width="346" height="15" font="0">your tests whenever your code or tests change.</text>
+<text top="209" left="82" width="76" height="12" font="0">autotest()</text>
+<text top="207" left="169" width="260" height="15" font="0">has two arguments, code_path and</text>
+<text top="227" left="82" width="69" height="12" font="0">test_path</text>
+<text top="225" left="151" width="278" height="15" font="0">, which point to a directory of source code</text>
+<text top="243" left="82" width="144" height="15" font="0">and tests respectively.</text>
+<text top="261" left="105" width="324" height="15" font="0">Once run, autotest() will continuously scan</text>
+<text top="279" left="82" width="346" height="15" font="0">both directories for changes. If a test file is modi-</text>
+<text top="297" left="82" width="346" height="15" font="0">fied, it will test that file; if a code file is modified, it</text>
+<text top="315" left="82" width="346" height="15" font="0">will reload that file and rerun all tests. To quit, you’ll</text>
+<text top="333" left="82" width="346" height="15" font="0">need to press Ctrl + Break on windows, Escape in</text>
+<text top="351" left="82" width="346" height="15" font="0">the Mac GUI, or Ctrl + C if running from the com-</text>
+<text top="369" left="82" width="71" height="15" font="0">mand line.</text>
+<text top="387" left="105" width="324" height="15" font="0">This promotes a workflow where the only way</text>
+<text top="405" left="82" width="258" height="15" font="0">you test your code is through tests.</text>
+<text top="405" left="359" width="70" height="15" font="0">Instead of</text>
+<text top="422" left="82" width="346" height="15" font="0">modify-save-source-check you just modify and save,</text>
+<text top="440" left="82" width="341" height="15" font="0">then watch the automated test output for problems.</text>
+<text top="482" left="82" width="115" height="17" font="9"><b>R CMD check</b></text>
+<text top="512" left="82" width="346" height="15" font="0">If you are developing a package, you can have your</text>
+<text top="530" left="82" width="346" height="15" font="0">tests automatically run by ‘R CMD check’. I recom-</text>
+<text top="548" left="82" width="346" height="15" font="0">mend storing your tests in inst/tests/ (so users</text>
+<text top="566" left="82" width="346" height="15" font="0">also have access to them), then including one file</text>
+<text top="584" left="82" width="346" height="15" font="0">in tests/ that runs all of the package tests. The</text>
+<text top="603" left="82" width="198" height="12" font="0">test_package(package_name)</text>
+<text top="602" left="289" width="140" height="15" font="0">function makes this</text>
+<text top="620" left="82" width="50" height="15" font="0">easy. It:</text>
+<text top="650" left="103" width="326" height="15" font="0">• Expects your tests to be in the inst/tests/ di-</text>
+<text top="668" left="120" width="49" height="15" font="0">rectory.</text>
+<text top="697" left="103" width="326" height="15" font="0">• Evaluates your tests in the package namespace</text>
+<text top="715" left="120" width="268" height="15" font="0">(so you can test non exported functions).</text>
+<text top="744" left="103" width="326" height="15" font="0">• Throws an error at the end if there are any test</text>
+<text top="762" left="120" width="309" height="15" font="0">failures. This means you’ll see the full report of</text>
+<text top="780" left="120" width="309" height="15" font="0">test failures and ‘R CMD check’ won’t pass un-</text>
+<text top="798" left="120" width="114" height="15" font="0">less all tests pass.</text>
+<text top="829" left="105" width="324" height="15" font="0">This setup has the additional advantage that</text>
+<text top="847" left="82" width="346" height="15" font="0">users can make sure your package works correctly</text>
+<text top="865" left="82" width="202" height="15" font="0">in their run-time environment.</text>
+<text top="911" left="82" width="121" height="21" font="4"><b>Future work</b></text>
+<text top="950" left="82" width="346" height="15" font="0">There are two additional features I’d like to incorpo-</text>
+<text top="968" left="82" width="149" height="15" font="0">rate in future versions:</text>
+<text top="125" left="480" width="326" height="15" font="0">• Code coverage. It’s very useful to be able to</text>
+<text top="143" left="496" width="309" height="15" font="0">tell exactly what parts of your code have been</text>
+<text top="161" left="496" width="309" height="15" font="0">tested. I’m not yet sure how to achieve this in</text>
+<text top="179" left="496" width="309" height="15" font="0">R, but it might be possible with a combination</text>
+<text top="197" left="496" width="161" height="15" font="0">of RProf and <b>codetools </b><a href="2011-1-RJournal_2011-1_Wickham.html#6">(</a></text>
+<text top="197" left="657" width="50" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">Tierney</a></text>
+<text top="197" left="707" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">,</a></text>
+<text top="197" left="715" width="30" height="15" font="6"><a href="2011-1-RJournal_2011-1_Wickham.html#6">2009</a></text>
+<text top="197" left="745" width="9" height="15" font="0"><a href="2011-1-RJournal_2011-1_Wickham.html#6">).</a></text>
+<text top="230" left="480" width="326" height="15" font="0">• Graphical display for auto_test. I find that</text>
+<text top="247" left="496" width="309" height="15" font="0">the more visually appealing I make testing, the</text>
+<text top="265" left="496" width="309" height="15" font="0">more fun it becomes. Coloured dots are pretty</text>
+<text top="283" left="496" width="309" height="15" font="0">primitive, so I’d also like to provide a GUI wid-</text>
+<text top="301" left="496" width="188" height="15" font="0">get that displays test output.</text>
+<text top="352" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="392" left="459" width="346" height="15" font="0">M. Burger, K. Juenemann, and T. Koenig. RUnit:</text>
+<text top="409" left="474" width="234" height="15" font="0">R Unit test framework, 2009. URL</text>
+<text top="411" left="714" width="91" height="12" font="6"><a href="http://CRAN.R-project.org/package=RUnit">http://CRAN.</a></text>
+<text top="429" left="474" width="207" height="12" font="6"><a href="http://CRAN.R-project.org/package=RUnit">R-project.org/package=RUnit</a></text>
+<text top="427" left="680" width="4" height="15" font="0"><a href="http://CRAN.R-project.org/package=RUnit">.</a></text>
+<text top="427" left="700" width="105" height="15" font="0">R package ver-</text>
+<text top="445" left="474" width="72" height="15" font="0">sion 0.4.22.</text>
+<text top="478" left="459" width="305" height="15" font="0">P. Grosjean. SciViews-R: A GUI API for R. URL</text>
+<text top="479" left="767" width="38" height="12" font="6"><a href="http://www.sciviews.org/SciViews-R">http:</a></text>
+<text top="497" left="474" width="222" height="12" font="6"><a href="http://www.sciviews.org/SciViews-R">//www.sciviews.org/SciViews-R</a></text>
+<text top="496" left="696" width="4" height="15" font="0"><a href="http://www.sciviews.org/SciViews-R">.</a></text>
+<text top="496" left="715" width="90" height="15" font="0">UMH, Mons,</text>
+<text top="514" left="474" width="97" height="15" font="0">Belgium, 2009.</text>
+<text top="547" left="459" width="74" height="15" font="0">L. Tierney.</text>
+<text top="547" left="554" width="252" height="15" font="0">codetools: Code Analysis Tools for R,</text>
+<text top="565" left="474" width="69" height="15" font="0">2009. URL</text>
+<text top="566" left="545" width="260" height="12" font="6"><a href="http://CRAN.R-project.org/package=codetools">http://CRAN.R-project.org/package=</a></text>
+<text top="584" left="474" width="69" height="12" font="6"><a href="http://CRAN.R-project.org/package=codetools">codetools</a></text>
+<text top="583" left="542" width="169" height="15" font="0"><a href="http://CRAN.R-project.org/package=codetools">. </a>R package version 0.2-2.</text>
+<text top="615" left="459" width="90" height="15" font="0">H. Wickham.</text>
+<text top="615" left="566" width="240" height="15" font="0">stringr: Make it easier to work with</text>
+<text top="633" left="474" width="128" height="15" font="0">strings., 2010. URL</text>
+<text top="635" left="606" width="199" height="12" font="6"><a href="http://CRAN.R-project.org/package=stringr">http://CRAN.R-project.org/</a></text>
+<text top="653" left="474" width="114" height="12" font="6"><a href="http://CRAN.R-project.org/package=stringr">package=stringr</a></text>
+<text top="651" left="588" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=stringr">. </a>R package version 0.4.</text>
+<text top="684" left="459" width="346" height="15" font="0">H. Wickham. testthat: Testthat code. Tools to make test-</text>
+<text top="702" left="474" width="130" height="15" font="0">ing fun :), 2011. URL</text>
+<text top="703" left="606" width="199" height="12" font="6"><a href="http://CRAN.R-project.org/package=testthat">http://CRAN.R-project.org/</a></text>
+<text top="721" left="474" width="122" height="12" font="6"><a href="http://CRAN.R-project.org/package=testthat">package=testthat</a></text>
+<text top="720" left="596" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=testthat">. </a>R package version 0.5.</text>
+<text top="753" left="459" width="228" height="15" font="0">H. Wickham and G. Grolemund.</text>
+<text top="753" left="703" width="102" height="15" font="0">lubridate: Make</text>
+<text top="771" left="474" width="288" height="15" font="0">dealing with dates a little easier, 2010. URL</text>
+<text top="772" left="767" width="38" height="12" font="6"><a href="http://www.jstatsoft.org/v40/i03/">http:</a></text>
+<text top="790" left="474" width="213" height="12" font="6"><a href="http://www.jstatsoft.org/v40/i03/">//www.jstatsoft.org/v40/i03/</a></text>
+<text top="789" left="687" width="118" height="15" font="0"><a href="http://www.jstatsoft.org/v40/i03/">. </a>R package ver-</text>
+<text top="807" left="474" width="54" height="15" font="0">sion 0.1.</text>
+<text top="860" left="459" width="103" height="15" font="0">Hadley Wickham</text>
+<text top="878" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="896" left="459" width="95" height="15" font="0">Rice University</text>
+<text top="914" left="459" width="140" height="15" font="0">6100 Main St MS#138</text>
+<text top="932" left="459" width="152" height="15" font="0">Houston TX 77005-1827</text>
+<text top="950" left="459" width="31" height="15" font="0">USA</text>
+<text top="969" left="459" width="114" height="12" font="6"><a href="mailto:hadley@rice.edu">hadley@rice.edu</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,1309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#000000"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="15" family="Times" color="#000000"/>
+	<fontspec id="8" size="13" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">34</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="693" height="36" font="2"><b>Nonparametric Goodness-of-Fit Tests for</b></text>
+<text top="166" left="82" width="467" height="36" font="2"><b>Discrete Null Distributions</b></text>
+<text top="218" left="82" width="255" height="15" font="0">by Taylor B. Arnold and John W. Emerson</text>
+<text top="259" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="259" left="164" width="253" height="15" font="0">Methodology extending nonparamet-</text>
+<text top="277" left="96" width="321" height="15" font="0">ric goodness-of-fit tests to discrete null distribu-</text>
+<text top="295" left="96" width="321" height="15" font="0">tions has existed for several decades. However,</text>
+<text top="313" left="96" width="319" height="15" font="0">modern statistical software has generally failed</text>
+<text top="331" left="96" width="319" height="15" font="0">to provide this methodology to users. We offer</text>
+<text top="349" left="96" width="319" height="15" font="0">a revision of R’s ks.test() function and a new</text>
+<text top="368" left="96" width="76" height="12" font="0">cvm.test()</text>
+<text top="367" left="177" width="238" height="15" font="0">function that fill this need in the R</text>
+<text top="385" left="96" width="321" height="15" font="0">language for two of the most popular nonpara-</text>
+<text top="403" left="96" width="319" height="15" font="0">metric goodness-of-fit tests. This paper describes</text>
+<text top="421" left="96" width="319" height="15" font="0">these contributions and provides examples of</text>
+<text top="438" left="96" width="321" height="15" font="0">their usage. Particular attention is given to vari-</text>
+<text top="456" left="96" width="321" height="15" font="0">ous numerical issues that arise in their implemen-</text>
+<text top="474" left="96" width="42" height="15" font="0">tation.</text>
+<text top="568" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="621" left="82" width="346" height="15" font="0">Goodness-of-fit tests are used to assess whether data</text>
+<text top="639" left="82" width="349" height="15" font="0">are consistent with a hypothesized null distribution.</text>
+<text top="657" left="82" width="39" height="15" font="0">The <i>χ</i></text>
+<text top="654" left="121" width="6" height="11" font="1">2</text>
+<text top="657" left="132" width="299" height="15" font="0">test is the best-known parametric goodness-</text>
+<text top="675" left="82" width="346" height="15" font="0">of-fit test, while the most popular nonparametric</text>
+<text top="693" left="82" width="347" height="15" font="0">tests are the classic test proposed by Kolmogorov</text>
+<text top="710" left="82" width="346" height="15" font="0">and Smirnov followed closely by several variants on</text>
+<text top="728" left="82" width="159" height="15" font="0">Cramér-von Mises tests.</text>
+<text top="753" left="105" width="324" height="15" font="0">In their most basic forms, these nonparametric</text>
+<text top="771" left="82" width="349" height="15" font="0">goodness-of-fit tests are intended for continuous hy-</text>
+<text top="789" left="82" width="347" height="15" font="0">pothesized distributions, but they have also been</text>
+<text top="807" left="82" width="348" height="15" font="0">adapted for discrete distributions. Unfortunately,</text>
+<text top="825" left="82" width="349" height="15" font="0">most modern statistical software packages and pro-</text>
+<text top="843" left="82" width="346" height="15" font="0">gramming environments have failed to incorporate</text>
+<text top="861" left="82" width="346" height="15" font="0">these discrete versions. As a result, researchers would</text>
+<text top="879" left="82" width="173" height="15" font="0">typically rely upon the <i>χ</i></text>
+<text top="876" left="255" width="6" height="11" font="1">2</text>
+<text top="879" left="267" width="162" height="15" font="0">test or a nonparametric</text>
+<text top="897" left="82" width="347" height="15" font="0">test designed for a continuous null distribution. For</text>
+<text top="915" left="82" width="346" height="15" font="0">smaller sample sizes, in particular, both of these</text>
+<text top="933" left="82" width="284" height="15" font="0">choices can produce misleading inferences.</text>
+<text top="958" left="105" width="326" height="15" font="0">This paper presents a revision of R’s ks.test()</text>
+<text top="976" left="82" width="346" height="15" font="0">function and a new cvm.test() function to fill this</text>
+<text top="994" left="82" width="349" height="15" font="0">void for researchers and practitioners in the R environ-</text>
+<text top="1012" left="82" width="346" height="15" font="0">ment. This work was motivated by the need for such</text>
+<text top="1030" left="82" width="346" height="15" font="0">goodness-of-fit testing in a study of Olympic figure</text>
+<text top="1048" left="82" width="108" height="15" font="0">skating scoring <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="1048" left="191" width="138" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Emerson and Arnold</a></text>
+<text top="1048" left="329" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="1048" left="336" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2011</a></text>
+<text top="1048" left="366" width="63" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>We first</text>
+<text top="1065" left="82" width="349" height="15" font="0">present overviews of the theory and general imple-</text>
+<text top="1083" left="82" width="346" height="15" font="0">mentation of the discrete Kolmogorov-Smirnov and</text>
+<text top="1101" left="82" width="349" height="15" font="0">Cramér-von Mises tests. We discuss the particular im-</text>
+<text top="1119" left="82" width="350" height="15" font="0">plementation of the tests in R and provide examples.</text>
+<text top="1137" left="82" width="347" height="15" font="0">We conclude with a short discussion, including the</text>
+<text top="1155" left="82" width="349" height="15" font="0">state of existing continuous and two-sample Cramér-</text>
+<text top="1173" left="82" width="150" height="15" font="0">von Mises testing in R.</text>
+<text top="214" left="459" width="255" height="21" font="4"><b>Kolmogorov-Smirnov test</b></text>
+<text top="253" left="459" width="81" height="17" font="7"><b>Overview</b></text>
+<text top="284" left="458" width="347" height="15" font="0">The most popular nonparametric goodness-of-fit test</text>
+<text top="302" left="459" width="349" height="15" font="0">is the Kolmogorov-Smirnov test. Given the cumula-</text>
+<text top="320" left="459" width="183" height="15" font="0">tive distribution function F</text>
+<text top="325" left="640" width="6" height="11" font="1">0</text>
+<text top="319" left="647" width="6" height="16" font="8">(</text>
+<text top="320" left="653" width="7" height="15" font="0">x</text>
+<text top="319" left="661" width="6" height="16" font="8">)</text>
+<text top="320" left="672" width="134" height="15" font="0">of the hypothesized</text>
+<text top="338" left="459" width="346" height="15" font="0">distribution and the empirical distribution function</text>
+<text top="355" left="459" width="8" height="15" font="0">F</text>
+<text top="361" left="467" width="21" height="11" font="1">data</text>
+<text top="354" left="488" width="6" height="16" font="8">(</text>
+<text top="355" left="495" width="7" height="15" font="0">x</text>
+<text top="354" left="503" width="6" height="16" font="8">)</text>
+<text top="355" left="513" width="292" height="15" font="0">of the observed data, the test statistic is given</text>
+<text top="373" left="459" width="17" height="15" font="0">by</text>
+<text top="401" left="547" width="12" height="15" font="0">D</text>
+<text top="400" left="563" width="12" height="16" font="8">=</text>
+<text top="401" left="578" width="24" height="15" font="0">sup</text>
+<text top="417" left="588" width="6" height="11" font="1">x</text>
+<text top="400" left="604" width="4" height="18" font="8">|</text>
+<text top="401" left="610" width="8" height="15" font="0">F</text>
+<text top="406" left="617" width="6" height="11" font="1">0</text>
+<text top="400" left="623" width="6" height="16" font="8">(</text>
+<text top="401" left="630" width="7" height="15" font="0">x</text>
+<text top="400" left="638" width="6" height="16" font="8">)</text>
+<text top="400" left="647" width="12" height="18" font="8">−</text>
+<text top="401" left="663" width="8" height="15" font="0">F</text>
+<text top="407" left="670" width="21" height="11" font="1">data</text>
+<text top="400" left="692" width="6" height="16" font="8">(</text>
+<text top="401" left="699" width="7" height="15" font="0">x</text>
+<text top="400" left="707" width="6" height="16" font="8">)</text>
+<text top="400" left="713" width="4" height="18" font="8">|</text>
+<text top="401" left="788" width="17" height="15" font="0">(1)</text>
+<text top="438" left="458" width="51" height="15" font="0">When F</text>
+<text top="444" left="508" width="6" height="11" font="1">0</text>
+<text top="438" left="518" width="287" height="15" font="0">is continuous, the distribution of D does not</text>
+<text top="456" left="459" width="346" height="15" font="0">depend on the hypothesized distribution, making this</text>
+<text top="474" left="459" width="250" height="15" font="0">a computationally attractive method.</text>
+<text top="474" left="715" width="47" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Slakter</a></text>
+<text top="474" left="766" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="474" left="771" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1965</a></text>
+<text top="474" left="802" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">)</a></text>
+<text top="492" left="459" width="349" height="15" font="0">offers a standard presentation of the test and its perfor-</text>
+<text top="510" left="459" width="346" height="15" font="0">mance relative to other algorithms. The test statistic is</text>
+<text top="528" left="459" width="349" height="15" font="0">easily adapted for one-sided tests. For these, the abso-</text>
+<text top="546" left="459" width="87" height="15" font="0">lute value in <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#1">(</a></text>
+<text top="546" left="546" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#1">1</a></text>
+<text top="546" left="554" width="252" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#1">) </a>is discarded and the tests are based on</text>
+<text top="564" left="459" width="346" height="15" font="0">either the supremum of the remaining difference (the</text>
+<text top="582" left="457" width="351" height="15" font="0">‘greater’ testing alternative) or by replacing the supre-</text>
+<text top="600" left="459" width="346" height="15" font="0">mum with a negative infimum (the ‘lesser’ hypothesis</text>
+<text top="618" left="459" width="346" height="15" font="0">alternative). Tabulated p-values have been available</text>
+<text top="636" left="459" width="170" height="15" font="0">for these tests since 1933 <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="636" left="628" width="83" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Kolmogorov</a></text>
+<text top="636" left="712" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="636" left="719" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1933</a></text>
+<text top="636" left="749" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">).</a></text>
+<text top="654" left="481" width="324" height="15" font="0">The extension of the Kolmogorov-Smirnov test</text>
+<text top="671" left="459" width="349" height="15" font="0">to non-continuous null distributions is not straight-</text>
+<text top="689" left="459" width="346" height="15" font="0">forward. The formula of the test statistic D remains</text>
+<text top="707" left="459" width="349" height="15" font="0">unchanged, but its distribution is much more diffi-</text>
+<text top="725" left="459" width="346" height="15" font="0">cult to obtain; unlike the continuous case, it depends</text>
+<text top="743" left="459" width="346" height="15" font="0">on the null model. Use of the tables associated with</text>
+<text top="761" left="459" width="349" height="15" font="0">continuous hypothesized distributions results in con-</text>
+<text top="779" left="459" width="349" height="15" font="0">servative p-values when the null distribution is dis-</text>
+<text top="797" left="459" width="103" height="15" font="0">continuous (see</text>
+<text top="797" left="566" width="46" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Slakter</a></text>
+<text top="797" left="615" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="797" left="620" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1965</a></text>
+<text top="797" left="650" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">),</a></text>
+<text top="797" left="663" width="66" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Goodman</a></text>
+<text top="797" left="733" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="797" left="738" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1954</a></text>
+<text top="797" left="768" width="38" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">), </a>and</text>
+<text top="815" left="459" width="51" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Massey</a></text>
+<text top="815" left="514" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="815" left="519" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1951</a></text>
+<text top="815" left="550" width="149" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">)). </a>In the early 1970’s,</text>
+<text top="815" left="703" width="58" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Conover</a></text>
+<text top="815" left="766" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="815" left="771" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1972</a></text>
+<text top="815" left="802" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">)</a></text>
+<text top="833" left="459" width="349" height="15" font="0">developed the method implemented here for comput-</text>
+<text top="851" left="459" width="346" height="15" font="0">ing exact one-sided p-values in the case of discrete</text>
+<text top="869" left="459" width="300" height="15" font="0">null distributions. The method developed in</text>
+<text top="869" left="762" width="43" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Gleser</a></text>
+<text top="887" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="887" left="463" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1985</a></text>
+<text top="887" left="493" width="313" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>is used to provide exact p-values for two-sided</text>
+<text top="905" left="459" width="33" height="15" font="0">tests.</text>
+<text top="945" left="459" width="132" height="17" font="7"><b>Implementation</b></text>
+<text top="976" left="458" width="349" height="15" font="0">The implementation of the discrete Kolmogorov-</text>
+<text top="994" left="459" width="347" height="15" font="0">Smirnov test involves two steps. First, the particular</text>
+<text top="1012" left="459" width="349" height="15" font="0">test statistic is calculated (corresponding to the de-</text>
+<text top="1030" left="459" width="346" height="15" font="0">sired one-sided or two-sided test). Then, the p-value</text>
+<text top="1048" left="459" width="325" height="15" font="0">for that particular test statistic may be computed.</text>
+<text top="1065" left="481" width="324" height="15" font="0">The form of the test statistic is the same as in the</text>
+<text top="1083" left="459" width="346" height="15" font="0">continuous case; it would seem that no additional</text>
+<text top="1101" left="458" width="347" height="15" font="0">work would be required for the implementation, but</text>
+<text top="1119" left="459" width="349" height="15" font="0">this is not the case. Consider two non-decreasing func-</text>
+<text top="1137" left="459" width="346" height="15" font="0">tions f and g, where the function f is a step function</text>
+<text top="1155" left="458" width="150" height="15" font="0">with jumps on the set</text>
+<text top="1154" left="614" width="8" height="18" font="8">{</text>
+<text top="1155" left="622" width="7" height="15" font="0">x</text>
+<text top="1160" left="630" width="6" height="11" font="1">1</text>
+<text top="1155" left="636" width="31" height="15" font="0">, . . . x</text>
+<text top="1160" left="668" width="9" height="11" font="1">N</text>
+<text top="1154" left="678" width="8" height="18" font="8">}</text>
+<text top="1155" left="691" width="117" height="15" font="0">and g is continu-</text>
+<text top="1173" left="459" width="346" height="15" font="0">ous (the classical Kolmogorov-Smirnov situation). In</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">35</text>
+<text top="125" left="82" width="346" height="15" font="0">order to determine the supremum of the difference</text>
+<text top="143" left="82" width="265" height="15" font="0">between these two functions, notice that</text>
+<text top="194" left="120" width="24" height="15" font="0">sup</text>
+<text top="210" left="130" width="6" height="11" font="1">x</text>
+<text top="193" left="147" width="4" height="18" font="8">|</text>
+<text top="194" left="153" width="4" height="15" font="0">f</text>
+<text top="193" left="160" width="6" height="16" font="8">(</text>
+<text top="194" left="166" width="7" height="15" font="0">x</text>
+<text top="193" left="174" width="6" height="16" font="8">)</text>
+<text top="193" left="184" width="12" height="18" font="8">−</text>
+<text top="194" left="199" width="7" height="15" font="0">g</text>
+<text top="193" left="207" width="6" height="16" font="8">(</text>
+<text top="194" left="214" width="7" height="15" font="0">x</text>
+<text top="193" left="222" width="6" height="16" font="8">)</text>
+<text top="193" left="228" width="4" height="18" font="8">|</text>
+<text top="237" left="136" width="12" height="16" font="8">=</text>
+<text top="238" left="151" width="28" height="15" font="0">max</text>
+<text top="251" left="164" width="3" height="11" font="1">i</text>
+<text top="227" left="182" width="8" height="7" font="0"></text>
+<text top="238" left="191" width="28" height="15" font="0">max</text>
+<text top="227" left="222" width="11" height="7" font="0"></text>
+<text top="236" left="235" width="4" height="18" font="8">|</text>
+<text top="237" left="240" width="7" height="15" font="0">g</text>
+<text top="237" left="248" width="6" height="16" font="8">(</text>
+<text top="237" left="254" width="7" height="15" font="0">x</text>
+<text top="243" left="262" width="3" height="11" font="1">i</text>
+<text top="237" left="266" width="6" height="16" font="8">)</text>
+<text top="236" left="276" width="12" height="18" font="8">−</text>
+<text top="237" left="293" width="4" height="15" font="0">f</text>
+<text top="237" left="299" width="6" height="16" font="8">(</text>
+<text top="237" left="306" width="7" height="15" font="0">x</text>
+<text top="243" left="314" width="3" height="11" font="1">i</text>
+<text top="237" left="318" width="6" height="16" font="8">)</text>
+<text top="236" left="325" width="4" height="18" font="8">|</text>
+<text top="238" left="331" width="4" height="15" font="0">,</text>
+<text top="281" left="238" width="22" height="15" font="0">lim</text>
+<text top="293" left="235" width="6" height="11" font="1">x</text>
+<text top="292" left="241" width="18" height="14" font="1">→x</text>
+<text top="297" left="259" width="2" height="9" font="9">i</text>
+<text top="280" left="264" width="4" height="18" font="8">|</text>
+<text top="281" left="269" width="7" height="15" font="0">g</text>
+<text top="280" left="277" width="6" height="16" font="8">(</text>
+<text top="281" left="284" width="7" height="15" font="0">x</text>
+<text top="280" left="292" width="6" height="16" font="8">)</text>
+<text top="280" left="301" width="12" height="18" font="8">−</text>
+<text top="281" left="318" width="4" height="15" font="0">f</text>
+<text top="280" left="325" width="6" height="16" font="8">(</text>
+<text top="281" left="332" width="7" height="15" font="0">x</text>
+<text top="286" left="339" width="3" height="11" font="1">i</text>
+<text top="285" left="343" width="15" height="14" font="1">−1</text>
+<text top="280" left="359" width="6" height="16" font="8">)</text>
+<text top="280" left="365" width="4" height="18" font="8">|</text>
+<text top="270" left="372" width="19" height="7" font="0"></text>
+<text top="281" left="412" width="17" height="15" font="0">(2)</text>
+<text top="323" left="136" width="12" height="16" font="8">=</text>
+<text top="324" left="151" width="28" height="15" font="0">max</text>
+<text top="338" left="164" width="3" height="11" font="1">i</text>
+<text top="313" left="182" width="8" height="7" font="0"></text>
+<text top="324" left="191" width="28" height="15" font="0">max</text>
+<text top="313" left="222" width="11" height="7" font="0"></text>
+<text top="323" left="235" width="4" height="18" font="8">|</text>
+<text top="324" left="240" width="7" height="15" font="0">g</text>
+<text top="323" left="248" width="6" height="16" font="8">(</text>
+<text top="324" left="254" width="7" height="15" font="0">x</text>
+<text top="330" left="262" width="3" height="11" font="1">i</text>
+<text top="323" left="266" width="6" height="16" font="8">)</text>
+<text top="323" left="276" width="12" height="18" font="8">−</text>
+<text top="324" left="293" width="4" height="15" font="0">f</text>
+<text top="323" left="299" width="6" height="16" font="8">(</text>
+<text top="324" left="306" width="7" height="15" font="0">x</text>
+<text top="330" left="314" width="3" height="11" font="1">i</text>
+<text top="323" left="318" width="6" height="16" font="8">)</text>
+<text top="323" left="325" width="4" height="18" font="8">|</text>
+<text top="324" left="331" width="4" height="15" font="0">,</text>
+<text top="367" left="235" width="4" height="18" font="8">|</text>
+<text top="368" left="240" width="7" height="15" font="0">g</text>
+<text top="367" left="248" width="6" height="16" font="8">(</text>
+<text top="368" left="254" width="7" height="15" font="0">x</text>
+<text top="373" left="262" width="3" height="11" font="1">i</text>
+<text top="367" left="266" width="6" height="16" font="8">)</text>
+<text top="366" left="276" width="12" height="18" font="8">−</text>
+<text top="368" left="293" width="4" height="15" font="0">f</text>
+<text top="367" left="299" width="6" height="16" font="8">(</text>
+<text top="368" left="306" width="7" height="15" font="0">x</text>
+<text top="373" left="314" width="3" height="11" font="1">i</text>
+<text top="372" left="317" width="15" height="14" font="1">−1</text>
+<text top="367" left="333" width="6" height="16" font="8">)</text>
+<text top="367" left="340" width="4" height="18" font="8">|</text>
+<text top="357" left="346" width="19" height="7" font="0"></text>
+<text top="368" left="412" width="17" height="15" font="0">(3)</text>
+<text top="428" left="82" width="346" height="15" font="0">Computing the maximum over these 2N values (with</text>
+<text top="446" left="85" width="81" height="15" font="0">f equal to F</text>
+<text top="452" left="165" width="21" height="11" font="1">data</text>
+<text top="445" left="187" width="6" height="16" font="8">(</text>
+<text top="446" left="193" width="7" height="15" font="0">x</text>
+<text top="445" left="201" width="6" height="16" font="8">)</text>
+<text top="446" left="213" width="114" height="15" font="0">and g equal to F</text>
+<text top="452" left="326" width="6" height="11" font="1">0</text>
+<text top="445" left="332" width="6" height="16" font="8">(</text>
+<text top="446" left="339" width="7" height="15" font="0">x</text>
+<text top="445" left="347" width="6" height="16" font="8">)</text>
+<text top="446" left="358" width="71" height="15" font="0">as defined</text>
+<text top="464" left="82" width="346" height="15" font="0">above) is clearly the most efficient way to compute</text>
+<text top="482" left="82" width="349" height="15" font="0">the Kolmogorov-Smirnov test statistic for a contin-</text>
+<text top="500" left="82" width="346" height="15" font="0">uous null distribution. When the function g is not</text>
+<text top="518" left="82" width="216" height="15" font="0">continuous, however, equality <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#2">(</a></text>
+<text top="518" left="299" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#2">3</a></text>
+<text top="518" left="306" width="122" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#2">) </a>does not hold in</text>
+<text top="536" left="82" width="253" height="15" font="0">general because we cannot replace lim</text>
+<text top="541" left="336" width="6" height="11" font="1">x</text>
+<text top="540" left="342" width="18" height="14" font="1">→x</text>
+<text top="545" left="360" width="2" height="9" font="9">i</text>
+<text top="536" left="366" width="7" height="15" font="0">g</text>
+<text top="535" left="374" width="6" height="16" font="8">(</text>
+<text top="536" left="381" width="7" height="15" font="0">x</text>
+<text top="535" left="389" width="6" height="16" font="8">)</text>
+<text top="536" left="399" width="30" height="15" font="0">with</text>
+<text top="554" left="82" width="73" height="15" font="0">the value g</text>
+<text top="553" left="155" width="6" height="16" font="8">(</text>
+<text top="554" left="162" width="7" height="15" font="0">x</text>
+<text top="559" left="170" width="3" height="11" font="1">i</text>
+<text top="553" left="174" width="6" height="16" font="8">)</text>
+<text top="554" left="180" width="4" height="15" font="0">.</text>
+<text top="581" left="105" width="324" height="15" font="0">If it is known that g is a step function, it follows</text>
+<text top="599" left="82" width="142" height="15" font="0">that for some small <i>e</i>,</text>
+<text top="651" left="94" width="24" height="15" font="0">sup</text>
+<text top="666" left="103" width="6" height="11" font="1">x</text>
+<text top="649" left="120" width="4" height="18" font="8">|</text>
+<text top="650" left="127" width="4" height="15" font="0">f</text>
+<text top="650" left="133" width="6" height="16" font="8">(</text>
+<text top="650" left="140" width="7" height="15" font="0">x</text>
+<text top="650" left="148" width="6" height="16" font="8">)</text>
+<text top="649" left="157" width="12" height="18" font="8">−</text>
+<text top="650" left="173" width="7" height="15" font="0">g</text>
+<text top="650" left="181" width="6" height="16" font="8">(</text>
+<text top="650" left="188" width="7" height="15" font="0">x</text>
+<text top="650" left="196" width="6" height="16" font="8">)</text>
+<text top="649" left="202" width="20" height="18" font="8">| =</text>
+<text top="684" left="120" width="28" height="15" font="0">max</text>
+<text top="697" left="133" width="3" height="11" font="1">i</text>
+<text top="683" left="150" width="6" height="16" font="8">(</text>
+<text top="683" left="157" width="4" height="18" font="8">|</text>
+<text top="684" left="162" width="7" height="15" font="0">g</text>
+<text top="683" left="170" width="6" height="16" font="8">(</text>
+<text top="684" left="176" width="7" height="15" font="0">x</text>
+<text top="689" left="184" width="3" height="11" font="1">i</text>
+<text top="683" left="188" width="6" height="16" font="8">)</text>
+<text top="682" left="198" width="12" height="18" font="8">−</text>
+<text top="684" left="215" width="4" height="15" font="0">f</text>
+<text top="683" left="221" width="6" height="16" font="8">(</text>
+<text top="684" left="228" width="7" height="15" font="0">x</text>
+<text top="689" left="236" width="3" height="11" font="1">i</text>
+<text top="683" left="240" width="6" height="16" font="8">)</text>
+<text top="683" left="247" width="4" height="18" font="8">|</text>
+<text top="684" left="253" width="4" height="15" font="0">,</text>
+<text top="683" left="258" width="4" height="18" font="8">|</text>
+<text top="684" left="263" width="7" height="15" font="0">g</text>
+<text top="683" left="271" width="6" height="16" font="8">(</text>
+<text top="684" left="278" width="7" height="15" font="0">x</text>
+<text top="689" left="286" width="3" height="11" font="1">i</text>
+<text top="682" left="293" width="12" height="18" font="8">−</text>
+<text top="687" left="308" width="7" height="11" font="5"><i>e</i></text>
+<text top="683" left="316" width="6" height="16" font="8">)</text>
+<text top="682" left="325" width="12" height="18" font="8">−</text>
+<text top="684" left="342" width="4" height="15" font="0">f</text>
+<text top="683" left="349" width="6" height="16" font="8">(</text>
+<text top="684" left="355" width="7" height="15" font="0">x</text>
+<text top="689" left="363" width="3" height="11" font="1">i</text>
+<text top="688" left="367" width="15" height="14" font="1">−1</text>
+<text top="683" left="383" width="6" height="16" font="8">)</text>
+<text top="683" left="389" width="11" height="18" font="8">|)</text>
+<text top="684" left="412" width="17" height="15" font="0">(4)</text>
+<text top="742" left="82" width="350" height="15" font="0">where the discontinuities in g are more than some dis-</text>
+<text top="760" left="82" width="346" height="15" font="0">tance <i>e </i>apart. This, however, requires knowledge that</text>
+<text top="778" left="83" width="348" height="15" font="0">g is a step function as well as of the nature of its sup-</text>
+<text top="796" left="82" width="347" height="15" font="0">port (specifically, the break-points). As a result, we</text>
+<text top="814" left="82" width="347" height="15" font="0">implement the Kolmogorov-Smirnov test statistic for</text>
+<text top="832" left="82" width="346" height="15" font="0">discrete null distributions by requiring the complete</text>
+<text top="850" left="82" width="240" height="15" font="0">specification of the null distribution.</text>
+<text top="877" left="105" width="324" height="15" font="0">Having obtained the test statistic, the p-value must</text>
+<text top="895" left="82" width="346" height="15" font="0">then be calculated. When an exact p-value is required</text>
+<text top="913" left="82" width="287" height="15" font="0">for smaller sample sizes, the methodology in</text>
+<text top="913" left="373" width="56" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Conover</a></text>
+<text top="931" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="931" left="87" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1972</a></text>
+<text top="931" left="118" width="311" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>is used in for one-sided tests. For two-sided</text>
+<text top="949" left="82" width="207" height="15" font="0">tests, the methods presented in</text>
+<text top="949" left="293" width="43" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Gleser</a></text>
+<text top="949" left="340" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="949" left="345" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1985</a></text>
+<text top="949" left="375" width="54" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>lead to</text>
+<text top="967" left="82" width="349" height="15" font="0">exact two-sided p-values. This requires the calcula-</text>
+<text top="984" left="82" width="347" height="15" font="0">tion of rectangular probabilities for uniform order</text>
+<text top="1002" left="82" width="167" height="15" font="0">statistics as discussed by</text>
+<text top="1002" left="253" width="95" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Niederhausen</a></text>
+<text top="1002" left="352" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="1002" left="357" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1981</a></text>
+<text top="1002" left="388" width="41" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>Full</text>
+<text top="1020" left="82" width="346" height="15" font="0">details of the calculations are contained in source code</text>
+<text top="1038" left="82" width="346" height="15" font="0">of our revised function ks.test() and in the papers</text>
+<text top="1056" left="82" width="152" height="15" font="0">of Conover and Gleser.</text>
+<text top="1083" left="105" width="324" height="15" font="0">For larger sample sizes (or when requested for</text>
+<text top="1101" left="82" width="349" height="15" font="0">smaller sample sizes), the classical Kolmogorov-</text>
+<text top="1119" left="82" width="349" height="15" font="0">Smirnov test is used and is known to produce conser-</text>
+<text top="1137" left="82" width="347" height="15" font="0">vative p-values for discrete distributions; the revised</text>
+<text top="1156" left="82" width="69" height="12" font="0">ks.test()</text>
+<text top="1155" left="155" width="277" height="15" font="0">supports estimation of p-values via simu-</text>
+<text top="1173" left="82" width="107" height="15" font="0">lation if desired.</text>
+<text top="121" left="459" width="230" height="21" font="4"><b>Cramér-von Mises tests</b></text>
+<text top="160" left="459" width="81" height="17" font="7"><b>Overview</b></text>
+<text top="191" left="458" width="347" height="15" font="0">While the Kolmogorov-Smirnov test may be the most</text>
+<text top="209" left="458" width="349" height="15" font="0">popular of the nonparametric goodness-of-fit tests,</text>
+<text top="227" left="459" width="346" height="15" font="0">Cramér-von Mises tests have been shown to be more</text>
+<text top="244" left="458" width="349" height="15" font="0">powerful against a large class of alternatives hypothe-</text>
+<text top="262" left="459" width="24" height="15" font="0">ses.</text>
+<text top="262" left="498" width="307" height="15" font="0">The original test was developed by Harald</text>
+<text top="280" left="459" width="222" height="15" font="0">Cramér and Richard von Mises <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="280" left="681" width="51" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Cramér</a></text>
+<text top="280" left="732" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="280" left="741" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1928</a></text>
+<text top="280" left="771" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">;</a></text>
+<text top="280" left="780" width="26" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">von</a></text>
+<text top="298" left="459" width="39" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Mises</a></text>
+<text top="298" left="498" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="298" left="506" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1928</a></text>
+<text top="298" left="536" width="168" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>and further adapted by</text>
+<text top="298" left="708" width="97" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#5">Anderson and</a></text>
+<text top="316" left="459" width="52" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#5">Darling</a></text>
+<text top="316" left="514" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#5">(</a></text>
+<text top="316" left="519" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#5">1952</a></text>
+<text top="316" left="550" width="39" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#5">), </a>and</text>
+<text top="316" left="592" width="50" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Watson</a></text>
+<text top="316" left="646" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="316" left="651" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1961</a></text>
+<text top="316" left="682" width="123" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>The original test</text>
+<text top="334" left="459" width="72" height="15" font="0">statistic, W</text>
+<text top="331" left="531" width="6" height="11" font="1">2</text>
+<text top="334" left="538" width="99" height="15" font="0">, Anderson’s A</text>
+<text top="331" left="637" width="6" height="11" font="1">2</text>
+<text top="334" left="643" width="111" height="15" font="0">, and Watson’s U</text>
+<text top="331" left="755" width="6" height="11" font="1">2</text>
+<text top="334" left="766" width="24" height="15" font="0">are:</text>
+<text top="370" left="474" width="14" height="15" font="0">W</text>
+<text top="366" left="489" width="6" height="11" font="1">2</text>
+<text top="369" left="499" width="12" height="16" font="8">=</text>
+<text top="370" left="515" width="8" height="15" font="0">n</text>
+<text top="368" left="526" width="4" height="18" font="8">·</text>
+<text top="361" left="534" width="7" height="6" font="10">Z</text>
+<text top="355" left="548" width="10" height="15" font="1">∞</text>
+<text top="383" left="542" width="19" height="14" font="1">−∞</text>
+<text top="369" left="564" width="4" height="16" font="8">[</text>
+<text top="370" left="569" width="8" height="15" font="0">F</text>
+<text top="375" left="576" width="21" height="11" font="1">data</text>
+<text top="369" left="598" width="6" height="16" font="8">(</text>
+<text top="370" left="604" width="7" height="15" font="0">x</text>
+<text top="369" left="612" width="6" height="16" font="8">)</text>
+<text top="368" left="622" width="12" height="18" font="8">−</text>
+<text top="370" left="637" width="8" height="15" font="0">F</text>
+<text top="375" left="644" width="6" height="11" font="1">0</text>
+<text top="369" left="651" width="6" height="16" font="8">(</text>
+<text top="370" left="658" width="7" height="15" font="0">x</text>
+<text top="369" left="666" width="11" height="16" font="8">)]</text>
+<text top="365" left="677" width="6" height="11" font="1">2</text>
+<text top="370" left="685" width="17" height="15" font="0">dF</text>
+<text top="375" left="700" width="6" height="11" font="1">0</text>
+<text top="369" left="707" width="6" height="16" font="8">(</text>
+<text top="370" left="713" width="7" height="15" font="0">x</text>
+<text top="369" left="721" width="6" height="16" font="8">)</text>
+<text top="370" left="788" width="17" height="15" font="0">(5)</text>
+<text top="414" left="478" width="11" height="15" font="0">A</text>
+<text top="410" left="489" width="6" height="11" font="1">2</text>
+<text top="413" left="499" width="12" height="16" font="8">=</text>
+<text top="414" left="515" width="8" height="15" font="0">n</text>
+<text top="412" left="526" width="4" height="18" font="8">·</text>
+<text top="405" left="534" width="7" height="6" font="10">Z</text>
+<text top="399" left="548" width="10" height="15" font="1">∞</text>
+<text top="427" left="542" width="19" height="14" font="1">−∞</text>
+<text top="403" left="565" width="4" height="16" font="8">[</text>
+<text top="404" left="570" width="8" height="15" font="0">F</text>
+<text top="409" left="578" width="21" height="11" font="1">data</text>
+<text top="403" left="599" width="6" height="16" font="8">(</text>
+<text top="404" left="606" width="7" height="15" font="0">x</text>
+<text top="403" left="614" width="6" height="16" font="8">)</text>
+<text top="402" left="623" width="12" height="18" font="8">−</text>
+<text top="404" left="639" width="8" height="15" font="0">F</text>
+<text top="409" left="646" width="6" height="11" font="1">0</text>
+<text top="403" left="653" width="6" height="16" font="8">(</text>
+<text top="404" left="659" width="7" height="15" font="0">x</text>
+<text top="403" left="667" width="11" height="16" font="8">)]</text>
+<text top="399" left="678" width="6" height="11" font="1">2</text>
+<text top="424" left="578" width="8" height="15" font="0">F</text>
+<text top="429" left="585" width="6" height="11" font="1">0</text>
+<text top="423" left="592" width="6" height="16" font="8">(</text>
+<text top="424" left="598" width="7" height="15" font="0">x</text>
+<text top="423" left="606" width="6" height="16" font="8">)</text>
+<text top="423" left="616" width="12" height="18" font="8">−</text>
+<text top="424" left="632" width="8" height="15" font="0">F</text>
+<text top="429" left="639" width="6" height="11" font="1">0</text>
+<text top="423" left="645" width="6" height="16" font="8">(</text>
+<text top="424" left="652" width="7" height="15" font="0">x</text>
+<text top="423" left="660" width="6" height="16" font="8">)</text>
+<text top="422" left="666" width="6" height="11" font="1">2</text>
+<text top="414" left="687" width="17" height="15" font="0">dF</text>
+<text top="419" left="702" width="6" height="11" font="1">0</text>
+<text top="413" left="709" width="6" height="16" font="8">(</text>
+<text top="414" left="715" width="7" height="15" font="0">x</text>
+<text top="413" left="723" width="6" height="16" font="8">)</text>
+<text top="414" left="788" width="17" height="15" font="0">(6)</text>
+<text top="454" left="477" width="12" height="15" font="0">U</text>
+<text top="451" left="489" width="6" height="11" font="1">2</text>
+<text top="454" left="499" width="12" height="16" font="8">=</text>
+<text top="454" left="515" width="8" height="15" font="0">n</text>
+<text top="453" left="526" width="4" height="18" font="8">·</text>
+<text top="446" left="534" width="7" height="6" font="10">Z</text>
+<text top="440" left="548" width="10" height="15" font="1">∞</text>
+<text top="468" left="542" width="19" height="14" font="1">−∞</text>
+<text top="448" left="564" width="7" height="7" font="0">h</text>
+<text top="454" left="571" width="8" height="15" font="0">F</text>
+<text top="460" left="579" width="21" height="11" font="1">data</text>
+<text top="454" left="600" width="6" height="16" font="8">(</text>
+<text top="454" left="607" width="7" height="15" font="0">x</text>
+<text top="454" left="615" width="6" height="16" font="8">)</text>
+<text top="453" left="624" width="12" height="18" font="8">−</text>
+<text top="454" left="640" width="8" height="15" font="0">F</text>
+<text top="460" left="647" width="6" height="11" font="1">0</text>
+<text top="454" left="654" width="6" height="16" font="8">(</text>
+<text top="454" left="660" width="7" height="15" font="0">x</text>
+<text top="454" left="668" width="6" height="16" font="8">)</text>
+<text top="453" left="678" width="12" height="18" font="8">−</text>
+<text top="454" left="693" width="14" height="15" font="0">W</text>
+<text top="451" left="708" width="6" height="11" font="1">2</text>
+<text top="448" left="714" width="7" height="7" font="0">i</text>
+<text top="444" left="722" width="6" height="11" font="1">2</text>
+<text top="454" left="730" width="17" height="15" font="0">dF</text>
+<text top="460" left="745" width="6" height="11" font="1">0</text>
+<text top="454" left="752" width="6" height="16" font="8">(</text>
+<text top="454" left="758" width="7" height="15" font="0">x</text>
+<text top="454" left="766" width="6" height="16" font="8">)</text>
+<text top="455" left="788" width="17" height="15" font="0">(7)</text>
+<text top="492" left="458" width="350" height="15" font="0">As with the original Kolmogorov-Smirnov test statis-</text>
+<text top="510" left="459" width="346" height="15" font="0">tic, these all have test statistic null distributions which</text>
+<text top="528" left="459" width="349" height="15" font="0">are independent of the hypothesized continuous mod-</text>
+<text top="546" left="459" width="68" height="15" font="0">els. The W</text>
+<text top="543" left="527" width="6" height="11" font="1">2</text>
+<text top="546" left="537" width="268" height="15" font="0">statistic was the original test statistic. The</text>
+<text top="563" left="460" width="11" height="15" font="0">A</text>
+<text top="561" left="471" width="6" height="11" font="1">2</text>
+<text top="563" left="482" width="326" height="15" font="0">statistic was developed by Anderson in the pro-</text>
+<text top="581" left="459" width="349" height="15" font="0">cess of generalizing the test for the two-sample case.</text>
+<text top="599" left="458" width="74" height="15" font="0">Watson’s U</text>
+<text top="596" left="533" width="6" height="11" font="1">2</text>
+<text top="599" left="543" width="262" height="15" font="0">statistic was developed for distributions</text>
+<text top="617" left="458" width="347" height="15" font="0">which are cyclic (with an ordering to the support but</text>
+<text top="635" left="459" width="349" height="15" font="0">no natural starting point); it is invariant to cyclic re-</text>
+<text top="653" left="459" width="346" height="15" font="0">ordering of the support. For example, a distribution</text>
+<text top="671" left="459" width="349" height="15" font="0">on the months of the year could be considered cyclic.</text>
+<text top="689" left="481" width="324" height="15" font="0">It has been shown that these tests can be more</text>
+<text top="707" left="458" width="347" height="15" font="0">powerful than Kolmogorov-Smirnov tests to certain</text>
+<text top="725" left="459" width="347" height="15" font="0">deviations from the hypothesized distribution. They</text>
+<text top="743" left="459" width="348" height="15" font="0">all involve integration over the whole range of data,</text>
+<text top="761" left="459" width="346" height="15" font="0">rather than use of a supremum, so they are best-suited</text>
+<text top="779" left="459" width="346" height="15" font="0">for situations where the true alternative distribution</text>
+<text top="797" left="459" width="346" height="15" font="0">deviates a little over the whole support rather than</text>
+<text top="815" left="459" width="346" height="15" font="0">having large deviations over a small section of the</text>
+<text top="832" left="459" width="55" height="15" font="0">support.</text>
+<text top="832" left="518" width="59" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Stephens</a></text>
+<text top="832" left="580" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="832" left="585" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1974</a></text>
+<text top="832" left="614" width="193" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>offers a comprehensive anal-</text>
+<text top="850" left="458" width="264" height="15" font="0">ysis of the relative powers of these tests.</text>
+<text top="868" left="481" width="324" height="15" font="0">Generalizations of the Cramér-von Mises tests to</text>
+<text top="886" left="459" width="266" height="15" font="0">discrete distributions were developed in</text>
+<text top="886" left="728" width="77" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Choulakian</a></text>
+<text top="904" left="459" width="32" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">et al.</a></text>
+<text top="904" left="495" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="904" left="500" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1994</a></text>
+<text top="904" left="531" width="277" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>As with the Kolmogorov-Smirnov test,</text>
+<text top="922" left="459" width="346" height="15" font="0">the forms of the test statistics are unchanged, and</text>
+<text top="940" left="459" width="346" height="15" font="0">the null distributions of the test statistics are again</text>
+<text top="958" left="459" width="152" height="15" font="0">hypothesis-dependent.</text>
+<text top="958" left="615" width="112" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Choulakian et al.</a></text>
+<text top="958" left="731" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="958" left="736" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1994</a></text>
+<text top="958" left="766" width="39" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>does</text>
+<text top="976" left="459" width="346" height="15" font="0">not offer finite-sample results, but rather shows that</text>
+<text top="994" left="459" width="349" height="15" font="0">the asymptotic distributions of the test statistics un-</text>
+<text top="1012" left="459" width="346" height="15" font="0">der the null hypothesis each involve consideration of</text>
+<text top="1030" left="459" width="346" height="15" font="0">a weighted sum of independent chi-squared variables</text>
+<text top="1048" left="458" width="347" height="15" font="0">(with the weights depending on the particular null</text>
+<text top="1066" left="459" width="87" height="15" font="0">distribution).</text>
+<text top="1107" left="459" width="132" height="17" font="7"><b>Implementation</b></text>
+<text top="1137" left="459" width="346" height="15" font="0">Calculation of the three test statistics is done using</text>
+<text top="1155" left="459" width="184" height="15" font="0">the matrix algebra given by</text>
+<text top="1155" left="646" width="114" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Choulakian et al.</a></text>
+<text top="1155" left="764" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="1155" left="769" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1994</a></text>
+<text top="1155" left="799" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">).</a></text>
+<text top="1173" left="458" width="347" height="15" font="0">The only notable difficulty in the implementation of</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="18" family="Times" color="#000000"/>
+	<fontspec id="12" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="12" family="Times" color="#00004c"/>
+<text top="67" left="82" width="15" height="15" font="0">36</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">the discrete form of the tests involves calculating the</text>
+<text top="143" left="82" width="310" height="15" font="0">percentiles of the weighted sum of chi-squares,</text>
+<text top="193" left="206" width="12" height="15" font="0">Q</text>
+<text top="192" left="222" width="12" height="16" font="8">=</text>
+<text top="178" left="244" width="6" height="11" font="1">p</text>
+<text top="187" left="238" width="16" height="27" font="11">∑</text>
+<text top="212" left="237" width="19" height="11" font="1">i=1</text>
+<text top="197" left="258" width="9" height="11" font="5"><i>λ</i></text>
+<text top="199" left="267" width="3" height="11" font="1">i</text>
+<text top="197" left="271" width="9" height="11" font="5"><i>χ</i></text>
+<text top="190" left="280" width="6" height="11" font="1">2</text>
+<text top="200" left="280" width="23" height="11" font="1">i,1d f</text>
+<text top="193" left="412" width="17" height="15" font="0">(8)</text>
+<text top="243" left="82" width="347" height="15" font="0">where p is the number of elements in the support of</text>
+<text top="261" left="82" width="198" height="15" font="0">the hypothesized distribution.</text>
+<text top="261" left="285" width="40" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Imhof</a></text>
+<text top="261" left="328" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="261" left="333" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1961</a></text>
+<text top="261" left="363" width="66" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>provides</text>
+<text top="279" left="82" width="347" height="15" font="0">a method for obtaining the distribution of Q, easily</text>
+<text top="297" left="82" width="349" height="15" font="0">adapted for our case because the chi-squared vari-</text>
+<text top="315" left="82" width="346" height="15" font="0">ables have only one degree of freedom. The exact</text>
+<text top="333" left="82" width="346" height="15" font="0">formula given for the distribution function of Q is</text>
+<text top="351" left="82" width="57" height="15" font="0">given by</text>
+<text top="394" left="130" width="11" height="19" font="3"><b>P</b></text>
+<text top="396" left="142" width="8" height="18" font="8">{</text>
+<text top="398" left="150" width="12" height="15" font="0">Q</text>
+<text top="396" left="165" width="12" height="18" font="8">≥</text>
+<text top="398" left="181" width="7" height="15" font="0">x</text>
+<text top="396" left="189" width="24" height="18" font="8">} =</text>
+<text top="388" left="218" width="7" height="15" font="0">1</text>
+<text top="408" left="218" width="7" height="15" font="0">2</text>
+<text top="397" left="231" width="12" height="16" font="8">+</text>
+<text top="388" left="249" width="7" height="15" font="0">1</text>
+<text top="411" left="248" width="10" height="11" font="5"><i>π</i></text>
+<text top="389" left="262" width="7" height="6" font="10">Z</text>
+<text top="383" left="276" width="10" height="15" font="1">∞</text>
+<text top="412" left="270" width="6" height="11" font="1">0</text>
+<text top="388" left="290" width="19" height="15" font="0">sin</text>
+<text top="387" left="311" width="4" height="16" font="8">[</text>
+<text top="391" left="316" width="7" height="11" font="5"><i>θ</i></text>
+<text top="387" left="323" width="6" height="16" font="8">(</text>
+<text top="387" left="330" width="22" height="15" font="0">u, x</text>
+<text top="387" left="352" width="11" height="16" font="8">)]</text>
+<text top="408" left="308" width="16" height="15" font="0">u<i>ρ</i></text>
+<text top="407" left="324" width="6" height="16" font="8">(</text>
+<text top="408" left="330" width="8" height="15" font="0">u</text>
+<text top="407" left="339" width="6" height="16" font="8">)</text>
+<text top="398" left="365" width="16" height="15" font="0">du</text>
+<text top="398" left="412" width="17" height="15" font="0">(9)</text>
+<text top="445" left="82" width="178" height="15" font="0">for continuous functions <i>θ</i></text>
+<text top="444" left="261" width="6" height="16" font="8">(</text>
+<text top="443" left="267" width="4" height="18" font="8">·</text>
+<text top="445" left="272" width="13" height="15" font="0">, x</text>
+<text top="444" left="286" width="6" height="16" font="8">)</text>
+<text top="445" left="296" width="38" height="15" font="0">and <i>ρ</i></text>
+<text top="444" left="334" width="6" height="16" font="8">(</text>
+<text top="443" left="341" width="11" height="18" font="8">·)</text>
+<text top="445" left="356" width="73" height="15" font="0">depending</text>
+<text top="463" left="82" width="110" height="15" font="0">on the weights <i>λ</i></text>
+<text top="468" left="193" width="3" height="11" font="1">i</text>
+<text top="463" left="197" width="4" height="15" font="0">.</text>
+<text top="483" left="105" width="310" height="15" font="0">There is no analytic solution to the integral in <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="483" left="415" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">9</a></text>
+<text top="483" left="422" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">),</a></text>
+<text top="501" left="82" width="346" height="15" font="0">so the integration is accomplished numerically. This</text>
+<text top="519" left="82" width="349" height="15" font="0">seems fine in most situations we considered, but nu-</text>
+<text top="537" left="82" width="349" height="15" font="0">merical issues appear in the regime of large test statis-</text>
+<text top="555" left="82" width="346" height="15" font="0">tics x (or, equivalently, small p-values). The function</text>
+<text top="576" left="83" width="7" height="11" font="5"><i>θ</i></text>
+<text top="572" left="90" width="6" height="16" font="8">(</text>
+<text top="571" left="97" width="4" height="18" font="8">·</text>
+<text top="573" left="101" width="13" height="15" font="0">, x</text>
+<text top="572" left="115" width="6" height="16" font="8">)</text>
+<text top="573" left="125" width="307" height="15" font="0">is linear in x; as the test statistic grows the cor-</text>
+<text top="591" left="82" width="346" height="15" font="0">responding periodicity of the integrand decreases and</text>
+<text top="609" left="82" width="346" height="15" font="0">the approximation becomes unstable. As an example</text>
+<text top="626" left="82" width="346" height="15" font="0">of this numerical instability, the red plotted in Figure</text>
+<text top="644" left="82" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">1</a></text>
+<text top="644" left="93" width="338" height="15" font="0">shows the non-monotonicity of the numerical eval-</text>
+<text top="662" left="82" width="135" height="15" font="0">uation of equation <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="662" left="217" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">9</a></text>
+<text top="662" left="225" width="204" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">) </a>for a null distribution that is</text>
+<text top="680" left="82" width="121" height="15" font="0">uniform on the set</text>
+<text top="679" left="208" width="8" height="18" font="8">{</text>
+<text top="680" left="216" width="33" height="15" font="0">1, 2, 3</text>
+<text top="679" left="249" width="8" height="18" font="8">}</text>
+<text top="680" left="257" width="4" height="15" font="0">.</text>
+<text top="926" left="169" width="10" height="7" font="12">1.5</text>
+<text top="926" left="244" width="10" height="7" font="12">2.0</text>
+<text top="926" left="320" width="10" height="7" font="12">2.5</text>
+<text top="926" left="395" width="10" height="7" font="12">3.0</text>
+<text top="880" left="108" width="0" height="7" font="13">0e+00</text>
+<text top="828" left="108" width="0" height="7" font="13">5e−04</text>
+<text top="775" left="108" width="0" height="7" font="13">1e−03</text>
+<text top="943" left="246" width="38" height="7" font="12">test statistic</text>
+<text top="833" left="90" width="0" height="7" font="13">p−v</text>
+<text top="821" left="90" width="0" height="7" font="13">alue</text>
+<text top="745" left="286" width="119" height="7" font="12">Unstable asymptotic p−value from (9)</text>
+<text top="754" left="286" width="64" height="7" font="12">Bound given by (11)</text>
+<text top="762" left="286" width="64" height="7" font="12">Bound given by (13)</text>
+<text top="992" left="82" width="346" height="15" font="0">Figure 1: Plot of calculated p-values for given test</text>
+<text top="1010" left="82" width="346" height="15" font="0">statistics using numerical integration (red) compared</text>
+<text top="1028" left="82" width="348" height="15" font="0">to the conservative chi-squared bound (dashed blue)</text>
+<text top="1045" left="82" width="349" height="15" font="0">and the Markov inequality bound (dashed green).</text>
+<text top="1063" left="82" width="277" height="15" font="0">The null distribution is uniform on the set</text>
+<text top="1062" left="363" width="8" height="18" font="8">{</text>
+<text top="1063" left="371" width="33" height="15" font="0">1, 2, 3</text>
+<text top="1062" left="404" width="8" height="18" font="8">}</text>
+<text top="1063" left="416" width="13" height="15" font="0">in</text>
+<text top="1081" left="82" width="346" height="15" font="0">this example. The sharp variations in the calculated</text>
+<text top="1099" left="83" width="345" height="15" font="0">p-values are a result of numerical instabilities, and</text>
+<text top="1117" left="82" width="346" height="15" font="0">the true p-values are bounded by the dashed curves.</text>
+<text top="1155" left="105" width="324" height="15" font="0">We resolve this problem by using a combination of</text>
+<text top="1173" left="82" width="349" height="15" font="0">two conservative approximations to avoid the numeri-</text>
+<text top="125" left="459" width="348" height="15" font="0">cal instability. First, consider the following inequality:</text>
+<text top="167" left="486" width="11" height="19" font="3"><b>P</b></text>
+<text top="155" left="499" width="12" height="7" font="0"> </text>
+<text top="155" left="518" width="6" height="11" font="1">p</text>
+<text top="165" left="513" width="16" height="27" font="11">∑</text>
+<text top="190" left="511" width="19" height="11" font="1">i=1</text>
+<text top="174" left="532" width="9" height="11" font="5"><i>λ</i></text>
+<text top="176" left="541" width="3" height="11" font="1">i</text>
+<text top="174" left="545" width="9" height="11" font="5"><i>χ</i></text>
+<text top="167" left="555" width="6" height="11" font="1">2</text>
+<text top="178" left="555" width="6" height="11" font="1">1</text>
+<text top="170" left="564" width="12" height="18" font="8">≥</text>
+<text top="171" left="581" width="7" height="15" font="0">x</text>
+<text top="155" left="589" width="12" height="7" font="0">!</text>
+<text top="170" left="604" width="12" height="18" font="8">≤</text>
+<text top="167" left="620" width="11" height="19" font="3"><b>P</b></text>
+<text top="155" left="633" width="12" height="7" font="0"> </text>
+<text top="174" left="645" width="9" height="11" font="5"><i>λ</i></text>
+<text top="176" left="654" width="20" height="11" font="1">max</text>
+<text top="155" left="684" width="6" height="11" font="1">p</text>
+<text top="165" left="679" width="16" height="27" font="11">∑</text>
+<text top="190" left="677" width="19" height="11" font="1">i=1</text>
+<text top="174" left="698" width="9" height="11" font="5"><i>χ</i></text>
+<text top="167" left="707" width="6" height="11" font="1">2</text>
+<text top="178" left="707" width="6" height="11" font="1">1</text>
+<text top="170" left="717" width="12" height="18" font="8">≥</text>
+<text top="171" left="733" width="7" height="15" font="0">x</text>
+<text top="155" left="741" width="12" height="7" font="0">!</text>
+<text top="171" left="780" width="25" height="15" font="0">(10)</text>
+<text top="216" left="604" width="12" height="16" font="8">=</text>
+<text top="214" left="620" width="11" height="19" font="3"><b>P</b></text>
+<text top="206" left="633" width="11" height="7" font="0"></text>
+<text top="221" left="644" width="9" height="11" font="5"><i>χ</i></text>
+<text top="214" left="653" width="6" height="11" font="1">2</text>
+<text top="223" left="654" width="6" height="11" font="1">p</text>
+<text top="216" left="664" width="12" height="18" font="8">≥</text>
+<text top="207" left="698" width="7" height="15" font="0">x</text>
+<text top="227" left="682" width="19" height="15" font="0">p <i>λ</i></text>
+<text top="232" left="701" width="20" height="11" font="1">max</text>
+<text top="206" left="725" width="11" height="7" font="0"></text>
+<text top="217" left="780" width="25" height="15" font="0">(11)</text>
+<text top="258" left="458" width="347" height="15" font="0">The values for the weighted sum can be bounded</text>
+<text top="276" left="459" width="349" height="15" font="0">using a simple transformation and a chi-squared dis-</text>
+<text top="294" left="459" width="349" height="15" font="0">tribution of a higher degree of freedom. Second, con-</text>
+<text top="312" left="459" width="188" height="15" font="0">sider the Markov inequality:</text>
+<text top="354" left="492" width="11" height="19" font="3"><b>P</b></text>
+<text top="342" left="504" width="12" height="7" font="0"> </text>
+<text top="342" left="523" width="6" height="11" font="1">p</text>
+<text top="352" left="518" width="16" height="27" font="11">∑</text>
+<text top="376" left="517" width="19" height="11" font="1">i=1</text>
+<text top="361" left="537" width="9" height="11" font="5"><i>λ</i></text>
+<text top="363" left="546" width="3" height="11" font="1">i</text>
+<text top="361" left="551" width="9" height="11" font="5"><i>χ</i></text>
+<text top="354" left="560" width="6" height="11" font="1">2</text>
+<text top="364" left="560" width="6" height="11" font="1">1</text>
+<text top="356" left="570" width="12" height="18" font="8">≥</text>
+<text top="357" left="586" width="7" height="15" font="0">x</text>
+<text top="342" left="594" width="12" height="7" font="0">!</text>
+<text top="356" left="609" width="12" height="18" font="8">≤</text>
+<text top="404" left="551" width="11" height="19" font="3"><b>E</b></text>
+<text top="396" left="562" width="8" height="7" font="0"></text>
+<text top="407" left="571" width="24" height="15" font="0">exp</text>
+<text top="396" left="595" width="11" height="7" font="0"></text>
+<text top="407" left="606" width="5" height="15" font="0">t</text>
+<text top="392" left="620" width="6" height="11" font="1">p</text>
+<text top="401" left="614" width="16" height="27" font="11">∑</text>
+<text top="426" left="613" width="19" height="11" font="1">i=1</text>
+<text top="411" left="633" width="9" height="11" font="5"><i>λ</i></text>
+<text top="413" left="642" width="3" height="11" font="1">i</text>
+<text top="407" left="647" width="10" height="15" font="0">Z</text>
+<text top="404" left="657" width="6" height="11" font="1">2</text>
+<text top="414" left="657" width="3" height="11" font="1">i</text>
+<text top="396" left="664" width="19" height="7" font="0"></text>
+<text top="407" left="685" width="24" height="15" font="0">exp</text>
+<text top="406" left="709" width="6" height="16" font="8">(</text>
+<text top="406" left="715" width="12" height="18" font="8">−</text>
+<text top="407" left="728" width="13" height="15" font="0">tx</text>
+<text top="406" left="742" width="6" height="16" font="8">)</text>
+<text top="407" left="780" width="25" height="15" font="0">(12)</text>
+<text top="452" left="609" width="12" height="16" font="8">=</text>
+<text top="443" left="652" width="24" height="15" font="0">exp</text>
+<text top="442" left="676" width="6" height="16" font="8">(</text>
+<text top="441" left="682" width="12" height="18" font="8">−</text>
+<text top="443" left="695" width="13" height="15" font="0">tx</text>
+<text top="442" left="708" width="6" height="16" font="8">)</text>
+<text top="462" left="627" width="15" height="7" font="0">q</text>
+<text top="468" left="642" width="13" height="19" font="0">∏</text>
+<text top="464" left="656" width="6" height="11" font="1">p</text>
+<text top="478" left="656" width="19" height="11" font="1">i=1</text>
+<text top="469" left="675" width="6" height="16" font="8">(</text>
+<text top="470" left="681" width="7" height="15" font="0">1</text>
+<text top="469" left="692" width="12" height="18" font="8">−</text>
+<text top="470" left="707" width="22" height="15" font="0">2t<i>λ</i></text>
+<text top="475" left="729" width="3" height="11" font="1">i</text>
+<text top="469" left="734" width="6" height="16" font="8">)</text>
+<text top="453" left="780" width="25" height="15" font="0">(13)</text>
+<text top="505" left="458" width="329" height="15" font="0">where the bound can be minimized over t</text>
+<text top="504" left="795" width="10" height="18" font="8">∈</text>
+<text top="522" left="458" width="6" height="16" font="8">(</text>
+<text top="523" left="465" width="46" height="15" font="0">0, 1/2<i>λ</i></text>
+<text top="528" left="511" width="20" height="11" font="1">max</text>
+<text top="522" left="533" width="6" height="16" font="8">)</text>
+<text top="523" left="539" width="267" height="15" font="0">. The upper bounds for the p-value given</text>
+<text top="541" left="459" width="26" height="15" font="0">by <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="541" left="485" width="15" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">11</a></text>
+<text top="541" left="500" width="44" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">) </a>and <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="541" left="544" width="15" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">13</a></text>
+<text top="541" left="560" width="246" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">) </a>are both calculated and the smaller</text>
+<text top="559" left="459" width="336" height="15" font="0">is used in cases where the numerical instability of <a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="559" left="794" width="7" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">9</a></text>
+<text top="559" left="802" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">)</a></text>
+<text top="577" left="459" width="119" height="15" font="0">may be a concern.</text>
+<text top="595" left="481" width="324" height="15" font="0">The original formulation, numerical integration of</text>
+<text top="613" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">(</a></text>
+<text top="613" left="463" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">9</a></text>
+<text top="613" left="471" width="335" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">), </a>is preferable for most p-values, while the upper</text>
+<text top="630" left="459" width="346" height="15" font="0">bound described above is used for smaller p-values</text>
+<text top="648" left="458" width="347" height="15" font="0">(smaller than 0.001, based on our observations of the</text>
+<text top="666" left="459" width="349" height="15" font="0">numerical instability of the original formulation). Fig-</text>
+<text top="684" left="459" width="22" height="15" font="0">ure</text>
+<text top="684" left="487" width="8" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#3">1</a></text>
+<text top="684" left="501" width="304" height="15" font="0">shows the bounds with the blue and green</text>
+<text top="702" left="459" width="346" height="15" font="0">dashed lines; values in red exceeding the bounds</text>
+<text top="720" left="459" width="346" height="15" font="0">are a result of the numerical instability. Although</text>
+<text top="738" left="459" width="346" height="15" font="0">it would be preferable to determine the use of the</text>
+<text top="756" left="459" width="346" height="15" font="0">bound based on values of the test statistic rather than</text>
+<text top="774" left="459" width="346" height="15" font="0">the p-value, the range of “extreme” values of the test</text>
+<text top="792" left="459" width="331" height="15" font="0">statistic varies with the hypothesized distribution.</text>
+<text top="839" left="459" width="350" height="21" font="4"><b>Kolmogorov-Smirnov and Cramér-</b></text>
+<text top="865" left="458" width="197" height="21" font="4"><b>von Mises tests in R</b></text>
+<text top="904" left="459" width="346" height="15" font="0">Functions ks.test() and cvm.test() are provided</text>
+<text top="922" left="459" width="202" height="15" font="0">for convenience in package</text>
+<text top="922" left="671" width="32" height="15" font="14"><a href="http://cran.r-project.org/package=dgof"><b>dgof</b></a></text>
+<text top="922" left="702" width="103" height="15" font="0"><a href="http://cran.r-project.org/package=dgof">, </a>available on</text>
+<text top="940" left="459" width="346" height="15" font="0">CRAN. Function ks.test() offers a revision of R’s</text>
+<text top="958" left="459" width="349" height="15" font="0">Kolmogorov-Smirnov function ks.test() from rec-</text>
+<text top="976" left="459" width="349" height="15" font="0">ommended package <b>stats</b>; cvm.test() is a new func-</text>
+<text top="994" left="459" width="212" height="15" font="0">tion for Cramér-von Mises tests.</text>
+<text top="1012" left="481" width="327" height="15" font="0">The revised ks.test() function supports one-</text>
+<text top="1030" left="459" width="346" height="15" font="0">sample tests for discrete null distributions by allowing</text>
+<text top="1048" left="459" width="349" height="15" font="0">the second argument, y, to be an empirical cumula-</text>
+<text top="1065" left="459" width="346" height="15" font="0">tive distribution function (an R function with class</text>
+<text top="1085" left="459" width="46" height="12" font="0">&#34;ecdf&#34;</text>
+<text top="1083" left="505" width="301" height="15" font="0">) or an object of class &#34;stepfun&#34; specifying a</text>
+<text top="1101" left="459" width="346" height="15" font="0">discrete distribution. As in the original version of</text>
+<text top="1121" left="459" width="69" height="12" font="0">ks.test()</text>
+<text top="1119" left="527" width="278" height="15" font="0">, the presence of ties in the data (the first</text>
+<text top="1137" left="459" width="346" height="15" font="0">argument, x) generates a warning unless y describes a</text>
+<text top="1155" left="459" width="347" height="15" font="0">discrete distribution. If the sample size is less than or</text>
+<text top="1173" left="459" width="346" height="15" font="0">equal to 30, or when exact=TRUE, exact p-values are</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">37</text>
+<text top="125" left="82" width="347" height="15" font="0">provided (a warning is issued when the sample size</text>
+<text top="143" left="82" width="349" height="15" font="0">is greater than 30 due to possible numerical instabili-</text>
+<text top="161" left="82" width="349" height="15" font="0">ties). When exact = FALSE (or when exact is unspec-</text>
+<text top="179" left="82" width="349" height="15" font="0">ified and the sample size is greater than 30) the classi-</text>
+<text top="197" left="82" width="346" height="15" font="0">cal Kolmogorov-Smirnov null distribution of the test</text>
+<text top="215" left="82" width="346" height="15" font="0">statistic is used and resulting p-values are known to</text>
+<text top="233" left="82" width="246" height="15" font="0">be conservative though imprecise (see</text>
+<text top="233" left="332" width="56" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Conover</a></text>
+<text top="233" left="391" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="233" left="396" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1972</a></text>
+<text top="233" left="426" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">)</a></text>
+<text top="251" left="82" width="347" height="15" font="0">for details). In such cases, simulated p-values may</text>
+<text top="268" left="82" width="346" height="15" font="0">be desired, produced by the simulate.p.value=TRUE</text>
+<text top="286" left="82" width="47" height="15" font="0">option.</text>
+<text top="305" left="105" width="324" height="15" font="0">The function cvm.test() is similar in design to</text>
+<text top="324" left="82" width="69" height="12" font="0">ks.test()</text>
+<text top="322" left="151" width="278" height="15" font="0">. Its first two arguments specify the data</text>
+<text top="340" left="82" width="348" height="15" font="0">and null distribution; the only extra option, type,</text>
+<text top="358" left="82" width="329" height="15" font="0">specifies the variant of the Cramér-von Mises test:</text>
+<text top="389" left="82" width="7" height="15" font="3"><b>x</b></text>
+<text top="389" left="97" width="223" height="15" font="0">a numerical vector of data values.</text>
+<text top="419" left="82" width="8" height="15" font="3"><b>y</b></text>
+<text top="419" left="98" width="331" height="15" font="0">an ecdf or step-function (stepfun) for specifying</text>
+<text top="437" left="120" width="97" height="15" font="0">the null model</text>
+<text top="468" left="82" width="30" height="15" font="3"><b>type</b></text>
+<text top="468" left="120" width="309" height="15" font="0">the variant of the Cramér-von Mises test; W2 is</text>
+<text top="486" left="120" width="309" height="15" font="0">the default and most common method, U2 is for</text>
+<text top="504" left="120" width="309" height="15" font="0">cyclical data, and A2 is the Anderson-Darling</text>
+<text top="522" left="120" width="74" height="15" font="0">alternative.</text>
+<text top="552" left="82" width="347" height="15" font="0">As with ks.test(), cvm.test() returns an object of</text>
+<text top="570" left="82" width="92" height="15" font="0">class &#34;htest&#34;.</text>
+<text top="618" left="82" width="94" height="21" font="4"><b>Examples</b></text>
+<text top="657" left="82" width="346" height="15" font="0">Consider a toy example with observed data of length</text>
+<text top="675" left="82" width="346" height="15" font="0">2 (specifically, the values 0 and 1) and a hypothesized</text>
+<text top="693" left="82" width="346" height="15" font="0">null distribution that places equal probability on the</text>
+<text top="711" left="82" width="347" height="15" font="0">values 0 and 1. With the current ks.test() function in</text>
+<text top="728" left="82" width="346" height="15" font="0">R (which, admittedly, doesn’t claim to handle discrete</text>
+<text top="746" left="82" width="349" height="15" font="0">distributions), the reported p-value, 0.5, is clearly in-</text>
+<text top="764" left="82" width="49" height="15" font="0">correct:</text>
+<text top="796" left="82" width="274" height="10" font="10">&gt; stats::ks.test(c(0, 1), ecdf(c(0, 1)))</text>
+<text top="828" left="137" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="860" left="82" width="34" height="10" font="10">data:</text>
+<text top="860" left="131" width="48" height="10" font="10">c(0, 1)</text>
+<text top="877" left="82" width="151" height="10" font="10">D = 0.5, p-value = 0.5</text>
+<text top="893" left="82" width="226" height="10" font="10">alternative hypothesis: two-sided</text>
+<text top="925" left="82" width="346" height="15" font="0">Instead, the value of D given in equation (1) should</text>
+<text top="943" left="82" width="349" height="15" font="0">be 0 and the associated p-value should be 1. Our re-</text>
+<text top="960" left="82" width="347" height="15" font="0">vision of ks.test() fixes this problem when the user</text>
+<text top="978" left="82" width="210" height="15" font="0">provides a discrete distribution:</text>
+<text top="1010" left="82" width="103" height="10" font="10">&gt; library(dgof)</text>
+<text top="1026" left="82" width="268" height="10" font="10">&gt; dgof::ks.test(c(0, 1), ecdf(c(0, 1)))</text>
+<text top="1058" left="137" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="1091" left="82" width="34" height="10" font="10">data:</text>
+<text top="1091" left="131" width="48" height="10" font="10">c(0, 1)</text>
+<text top="1107" left="82" width="123" height="10" font="10">D = 0, p-value = 1</text>
+<text top="1124" left="82" width="226" height="10" font="10">alternative hypothesis: two-sided</text>
+<text top="1155" left="105" width="327" height="15" font="0">Next, we simulate a sample of size 25 from the dis-</text>
+<text top="1173" left="82" width="265" height="15" font="0">crete uniform distribution on the integers</text>
+<text top="1172" left="350" width="8" height="18" font="8">{</text>
+<text top="1173" left="358" width="63" height="15" font="0">1, 2, . . . , 10</text>
+<text top="1172" left="421" width="8" height="18" font="8">}</text>
+<text top="125" left="459" width="349" height="15" font="0">and show usage of the new ks.test() implementa-</text>
+<text top="143" left="459" width="346" height="15" font="0">tion. The first is the default two-sided test, where the</text>
+<text top="161" left="459" width="302" height="15" font="0">exact p-value is obtained using the methods of</text>
+<text top="161" left="764" width="41" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Gleser</a></text>
+<text top="179" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="179" left="463" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1985</a></text>
+<text top="179" left="493" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">).</a></text>
+<text top="208" left="459" width="89" height="10" font="10">&gt; set.seed(1)</text>
+<text top="225" left="459" width="268" height="10" font="10">&gt; x &lt;- sample(1:10, 25, replace = TRUE)</text>
+<text top="241" left="459" width="21" height="10" font="10">&gt; x</text>
+<text top="271" left="466" width="21" height="10" font="10">[1]</text>
+<text top="271" left="500" width="7" height="10" font="10">3</text>
+<text top="271" left="521" width="7" height="10" font="10">4</text>
+<text top="271" left="541" width="27" height="10" font="10">6 10</text>
+<text top="271" left="582" width="7" height="10" font="10">3</text>
+<text top="271" left="603" width="27" height="10" font="10">9 10</text>
+<text top="271" left="644" width="7" height="10" font="10">7</text>
+<text top="271" left="665" width="7" height="10" font="10">7</text>
+<text top="271" left="685" width="7" height="10" font="10">1</text>
+<text top="271" left="706" width="7" height="10" font="10">3</text>
+<text top="271" left="726" width="7" height="10" font="10">2</text>
+<text top="271" left="747" width="7" height="10" font="10">7</text>
+<text top="287" left="459" width="27" height="10" font="10">[14]</text>
+<text top="287" left="500" width="7" height="10" font="10">4</text>
+<text top="287" left="521" width="7" height="10" font="10">8</text>
+<text top="287" left="541" width="7" height="10" font="10">5</text>
+<text top="287" left="562" width="27" height="10" font="10">8 10</text>
+<text top="287" left="603" width="7" height="10" font="10">4</text>
+<text top="287" left="623" width="27" height="10" font="10">8 10</text>
+<text top="287" left="665" width="7" height="10" font="10">3</text>
+<text top="287" left="685" width="7" height="10" font="10">7</text>
+<text top="287" left="706" width="7" height="10" font="10">2</text>
+<text top="287" left="726" width="7" height="10" font="10">3</text>
+<text top="317" left="459" width="206" height="10" font="10">&gt; dgof::ks.test(x, ecdf(1:10))</text>
+<text top="347" left="514" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="380" left="459" width="34" height="10" font="10">data:</text>
+<text top="380" left="507" width="7" height="10" font="10">x</text>
+<text top="396" left="459" width="178" height="10" font="10">D = 0.08, p-value = 0.9354</text>
+<text top="413" left="459" width="226" height="10" font="10">alternative hypothesis: two-sided</text>
+<text top="442" left="459" width="346" height="15" font="0">Next, we conduct the default one-sided test, where</text>
+<text top="460" left="459" width="346" height="15" font="0">Conover’s method provides the exact p-value (up to</text>
+<text top="478" left="459" width="315" height="15" font="0">the numerical precision of the implementation):</text>
+<text top="507" left="459" width="206" height="10" font="10">&gt; dgof::ks.test(x, ecdf(1:10),</text>
+<text top="523" left="459" width="7" height="10" font="10">+</text>
+<text top="523" left="486" width="123" height="10" font="10">alternative = &#34;g&#34;)</text>
+<text top="553" left="514" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="586" left="459" width="34" height="10" font="10">data:</text>
+<text top="586" left="507" width="7" height="10" font="10">x</text>
+<text top="602" left="459" width="192" height="10" font="10">D^+ = 0.04, p-value = 0.7731</text>
+<text top="619" left="459" width="158" height="10" font="10">alternative hypothesis:</text>
+<text top="635" left="459" width="295" height="10" font="10">the CDF of x lies above the null hypothesis</text>
+<text top="664" left="459" width="349" height="15" font="0">In contrast, the option exact=FALSE results in the p-</text>
+<text top="682" left="458" width="349" height="15" font="0">value obtained by applying the classical Kolmogorov-</text>
+<text top="700" left="459" width="323" height="15" font="0">Smirnov test, resulting in a conservative p-value:</text>
+<text top="730" left="459" width="206" height="10" font="10">&gt; dgof::ks.test(x, ecdf(1:10),</text>
+<text top="746" left="459" width="7" height="10" font="10">+</text>
+<text top="746" left="486" width="226" height="10" font="10">alternative = &#34;g&#34;, exact = FALSE)</text>
+<text top="776" left="514" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="809" left="459" width="34" height="10" font="10">data:</text>
+<text top="809" left="507" width="7" height="10" font="10">x</text>
+<text top="825" left="459" width="192" height="10" font="10">D^+ = 0.04, p-value = 0.9231</text>
+<text top="842" left="459" width="158" height="10" font="10">alternative hypothesis:</text>
+<text top="858" left="459" width="295" height="10" font="10">the CDF of x lies above the null hypothesis</text>
+<text top="887" left="458" width="347" height="15" font="0">The p-value may also be estimated via a Monte Carlo</text>
+<text top="905" left="459" width="75" height="15" font="0">simulation:</text>
+<text top="934" left="459" width="206" height="10" font="10">&gt; dgof::ks.test(x, ecdf(1:10),</text>
+<text top="951" left="459" width="7" height="10" font="10">+</text>
+<text top="951" left="486" width="123" height="10" font="10">alternative = &#34;g&#34;,</text>
+<text top="967" left="459" width="7" height="10" font="10">+</text>
+<text top="967" left="486" width="240" height="10" font="10">simulate.p.value = TRUE, B = 10000)</text>
+<text top="997" left="514" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="1030" left="459" width="34" height="10" font="10">data:</text>
+<text top="1030" left="507" width="7" height="10" font="10">x</text>
+<text top="1046" left="459" width="192" height="10" font="10">D^+ = 0.04, p-value = 0.7717</text>
+<text top="1063" left="459" width="158" height="10" font="10">alternative hypothesis:</text>
+<text top="1079" left="459" width="295" height="10" font="10">the CDF of x lies above the null hypothesis</text>
+<text top="1108" left="481" width="324" height="15" font="0">A different toy example shows the dangers of</text>
+<text top="1126" left="459" width="346" height="15" font="0">using R’s existing ks.test() function with discrete</text>
+<text top="1144" left="459" width="33" height="15" font="0">data:</text>
+<text top="1173" left="459" width="254" height="10" font="10">&gt; dgof::ks.test(rep(1, 3), ecdf(1:3))</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">38</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="137" width="233" height="10" font="10">One-sample Kolmogorov-Smirnov test</text>
+<text top="160" left="82" width="34" height="10" font="10">data:</text>
+<text top="160" left="131" width="62" height="10" font="10">rep(1, 3)</text>
+<text top="177" left="82" width="199" height="10" font="10">D = 0.6667, p-value = 0.07407</text>
+<text top="193" left="82" width="226" height="10" font="10">alternative hypothesis: two-sided</text>
+<text top="223" left="82" width="14" height="15" font="0">If,</text>
+<text top="223" left="112" width="53" height="15" font="0">instead,</text>
+<text top="223" left="180" width="249" height="15" font="0">either exact=FALSE is used with</text>
+<text top="241" left="82" width="346" height="15" font="0">the new ks.test() function, or if the original</text>
+<text top="260" left="82" width="122" height="12" font="0">stats::ks.test()</text>
+<text top="259" left="210" width="219" height="15" font="0">is used, the reported p-value is</text>
+<text top="277" left="82" width="314" height="15" font="0">0.1389 even though the test statistic is the same.</text>
+<text top="294" left="105" width="324" height="15" font="0">We demonstrate the Cramér-von Mises tests with</text>
+<text top="312" left="82" width="165" height="15" font="0">the same simulated data.</text>
+<text top="342" left="82" width="171" height="10" font="10">&gt; cvm.test(x, ecdf(1:10))</text>
+<text top="373" left="137" width="144" height="10" font="10">Cramer-von Mises - W2</text>
+<text top="406" left="82" width="34" height="10" font="10">data:</text>
+<text top="406" left="131" width="7" height="10" font="10">x</text>
+<text top="422" left="82" width="192" height="10" font="10">W2 = 0.057, p-value = 0.8114</text>
+<text top="438" left="82" width="226" height="10" font="10">alternative hypothesis: Two.sided</text>
+<text top="469" left="82" width="261" height="10" font="10">&gt; cvm.test(x, ecdf(1:10), type = &#34;A2&#34;)</text>
+<text top="499" left="137" width="144" height="10" font="10">Cramer-von Mises - A2</text>
+<text top="532" left="82" width="34" height="10" font="10">data:</text>
+<text top="532" left="131" width="7" height="10" font="10">x</text>
+<text top="549" left="82" width="185" height="10" font="10">A2 = 0.3969, p-value = 0.75</text>
+<text top="565" left="82" width="226" height="10" font="10">alternative hypothesis: Two.sided</text>
+<text top="595" left="105" width="324" height="15" font="0">We conclude with a toy cyclical example showing</text>
+<text top="613" left="82" width="346" height="15" font="0">that the test is invariant to cyclic reordering of the</text>
+<text top="631" left="82" width="56" height="15" font="0">support.</text>
+<text top="660" left="82" width="89" height="10" font="10">&gt; set.seed(1)</text>
+<text top="677" left="82" width="261" height="10" font="10">&gt; y &lt;- sample(1:4, 20, replace = TRUE)</text>
+<text top="693" left="82" width="256" height="10" font="10">&gt; cvm.test(y, ecdf(1:4), type = 'U2')</text>
+<text top="724" left="137" width="144" height="10" font="10">Cramer-von Mises - U2</text>
+<text top="757" left="82" width="34" height="10" font="10">data:</text>
+<text top="757" left="131" width="7" height="10" font="10">y</text>
+<text top="773" left="82" width="192" height="10" font="10">U2 = 0.0094, p-value = 0.945</text>
+<text top="790" left="82" width="226" height="10" font="10">alternative hypothesis: Two.sided</text>
+<text top="820" left="82" width="103" height="10" font="10">&gt; z &lt;- y%%4 + 1</text>
+<text top="836" left="82" width="256" height="10" font="10">&gt; cvm.test(z, ecdf(1:4), type = 'U2')</text>
+<text top="867" left="137" width="144" height="10" font="10">Cramer-von Mises - U2</text>
+<text top="900" left="82" width="34" height="10" font="10">data:</text>
+<text top="900" left="131" width="7" height="10" font="10">z</text>
+<text top="916" left="82" width="192" height="10" font="10">U2 = 0.0094, p-value = 0.945</text>
+<text top="933" left="82" width="226" height="10" font="10">alternative hypothesis: Two.sided</text>
+<text top="962" left="82" width="346" height="15" font="0">In contrast, the Kolmogorov-Smirnov or the standard</text>
+<text top="980" left="82" width="347" height="15" font="0">Cramér-von Mises tests produce different results after</text>
+<text top="998" left="82" width="349" height="15" font="0">such a reordering. For example, the default Cramér-</text>
+<text top="1016" left="82" width="347" height="15" font="0">von Mises test yields p-values of 0.8237 and 0.9577</text>
+<text top="1034" left="82" width="350" height="15" font="0">with the original and transformed data y and z, re-</text>
+<text top="1052" left="82" width="69" height="15" font="0">spectively.</text>
+<text top="1099" left="82" width="109" height="21" font="4"><b>Discussion</b></text>
+<text top="1137" left="82" width="347" height="15" font="0">This paper presents the implementation of several</text>
+<text top="1155" left="82" width="346" height="15" font="0">nonparametric goodness-of-fit tests for discrete null</text>
+<text top="1173" left="82" width="346" height="15" font="0">distributions. In some cases the p-values are known to</text>
+<text top="125" left="459" width="346" height="15" font="0">be exact. In others, conservativeness in special cases</text>
+<text top="143" left="458" width="347" height="15" font="0">with small p-values has been established. Although</text>
+<text top="161" left="458" width="347" height="15" font="0">we provide for Monte Carlo simulated p-values with</text>
+<text top="179" left="459" width="349" height="15" font="0">the new ks.test(), no simulations may be neces-</text>
+<text top="197" left="459" width="349" height="15" font="0">sary necessary for these methods; they were gener-</text>
+<text top="215" left="459" width="349" height="15" font="0">ally developed during an era when extensive simula-</text>
+<text top="233" left="459" width="349" height="15" font="0">tions may have been prohibitively expensive or time-</text>
+<text top="251" left="459" width="347" height="15" font="0">consuming. However, this does raise the possibility</text>
+<text top="268" left="459" width="349" height="15" font="0">that alternative tests relying upon modern computa-</text>
+<text top="286" left="459" width="346" height="15" font="0">tional abilities could provide even greater power in</text>
+<text top="304" left="459" width="347" height="15" font="0">certain situations, a possible avenue for future work.</text>
+<text top="322" left="481" width="327" height="15" font="0">In the continuous setting, both of the Kolmogorov-</text>
+<text top="340" left="459" width="349" height="15" font="0">Smirnov and the Cramér-von Mises tests have two-</text>
+<text top="358" left="459" width="346" height="15" font="0">sample analogues. When data are observed from two</text>
+<text top="376" left="458" width="349" height="15" font="0">processes or sampled from two populations, the hy-</text>
+<text top="394" left="458" width="347" height="15" font="0">pothesis tested is whether they came from the same</text>
+<text top="412" left="458" width="349" height="15" font="0">(unspecified) distribution. With the discrete case,</text>
+<text top="430" left="459" width="349" height="15" font="0">however, the null distribution of the test statistic de-</text>
+<text top="448" left="458" width="349" height="15" font="0">pends on the underlying probability model, as dis-</text>
+<text top="466" left="459" width="68" height="15" font="0">cussed by</text>
+<text top="466" left="532" width="41" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Walsh</a></text>
+<text top="466" left="578" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="466" left="583" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1963</a></text>
+<text top="466" left="614" width="191" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>Such an extension would</text>
+<text top="484" left="459" width="346" height="15" font="0">require the specification of a null distribution, which</text>
+<text top="502" left="459" width="349" height="15" font="0">generally goes unstated in two-sample goodness-of-</text>
+<text top="520" left="459" width="146" height="15" font="0">fit tests. We note that</text>
+<text top="520" left="610" width="128" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Dufour and Farhat</a></text>
+<text top="520" left="742" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="520" left="747" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2001</a></text>
+<text top="520" left="778" width="30" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>ex-</text>
+<text top="537" left="458" width="347" height="15" font="0">plored two-sample goodness-of-fit tests for discrete</text>
+<text top="555" left="459" width="319" height="15" font="0">distributions using a permutation test approach.</text>
+<text top="573" left="481" width="324" height="15" font="0">Further generalizations of goodness-of-fit tests for</text>
+<text top="591" left="459" width="346" height="15" font="0">discrete distributions are described in the extended</text>
+<text top="609" left="459" width="56" height="15" font="0">study of</text>
+<text top="609" left="520" width="126" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">de Wet and Venter</a></text>
+<text top="609" left="651" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="609" left="656" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1994</a></text>
+<text top="609" left="687" width="121" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">). </a>There are exist-</text>
+<text top="627" left="459" width="346" height="15" font="0">ing R packages for certain type of Cramér-von Mises</text>
+<text top="645" left="459" width="349" height="15" font="0">goodness-of-fit tests for continuous distributions.</text>
+<text top="663" left="459" width="242" height="15" font="0">Functions implemented in package</text>
+<text top="663" left="707" width="47" height="15" font="14"><a href="http://cran.r-project.org/package=nortest"><b>nortest</b></a></text>
+<text top="663" left="760" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="663" left="765" width="39" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Gross</a></text>
+<text top="663" left="803" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="681" left="459" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2006</a></text>
+<text top="681" left="488" width="319" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>focus on the composite hypothesis of normality,</text>
+<text top="699" left="458" width="97" height="15" font="0">while package</text>
+<text top="699" left="559" width="78" height="15" font="14"><a href="http://cran.r-project.org/package=ADGofTest"><b>ADGofTest</b></a></text>
+<text top="699" left="641" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="699" left="646" width="53" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Bellosta</a></text>
+<text top="699" left="699" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="699" left="707" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2009</a></text>
+<text top="699" left="737" width="68" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>provides</text>
+<text top="717" left="459" width="346" height="15" font="0">the Anderson-Darling variant of the test for general</text>
+<text top="735" left="459" width="246" height="15" font="0">continuous distributions. Packages</text>
+<text top="735" left="711" width="95" height="15" font="14"><a href="http://cran.r-project.org/package=CvM2SL1Test"><b>CvM2SL1Test</b></a></text>
+<text top="753" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="753" left="463" width="90" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Xiao and Cui</a></text>
+<text top="753" left="553" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="753" left="562" width="38" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2009a</a></text>
+<text top="753" left="600" width="35" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>and</text>
+<text top="753" left="640" width="95" height="15" font="14"><a href="http://cran.r-project.org/package=CvM2SL2Test"><b>CvM2SL2Test</b></a></text>
+<text top="753" left="739" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="753" left="744" width="61" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Xiao and</a></text>
+<text top="771" left="459" width="24" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Cui</a></text>
+<text top="771" left="483" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="771" left="491" width="39" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2009b</a></text>
+<text top="771" left="530" width="275" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>provide two-sample Cramér-von Mises</text>
+<text top="789" left="459" width="297" height="15" font="0">tests with continuous distributions. Package</text>
+<text top="789" left="759" width="46" height="15" font="14"><a href="http://cran.r-project.org/package=cramer"><b>cramer</b></a></text>
+<text top="806" left="458" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="806" left="463" width="37" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Franz</a></text>
+<text top="806" left="501" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">,</a></text>
+<text top="806" left="508" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2006</a></text>
+<text top="806" left="538" width="268" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>offers a multivariate Cramér test for the</text>
+<text top="824" left="459" width="349" height="15" font="0">two-sample problem. Finally, we note that the dis-</text>
+<text top="842" left="459" width="346" height="15" font="0">crete goodness-of-fit tests discussed in this paper do</text>
+<text top="860" left="459" width="349" height="15" font="0">not allow the estimation of parameters of the hypoth-</text>
+<text top="878" left="459" width="186" height="15" font="0">esized null distributions (see</text>
+<text top="878" left="648" width="92" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Lockhart et al.</a></text>
+<text top="878" left="744" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="878" left="749" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2007</a></text>
+<text top="878" left="778" width="27" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>for</text>
+<text top="896" left="459" width="65" height="15" font="0">example).</text>
+<text top="942" left="459" width="186" height="21" font="4"><b>Acknowledgement</b></text>
+<text top="981" left="458" width="347" height="15" font="0">We are grateful to Le-Minh Ho for his implementation</text>
+<text top="999" left="459" width="187" height="15" font="0">of the algorithm described in</text>
+<text top="999" left="649" width="91" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Niederhausen</a></text>
+<text top="999" left="744" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="999" left="749" width="29" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">1981</a></text>
+<text top="999" left="779" width="27" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">) </a>for</text>
+<text top="1017" left="459" width="347" height="15" font="0">calculating rectangular probabilities of uniform order</text>
+<text top="1035" left="459" width="346" height="15" font="0">statistics. We also appreciate the feedback from two</text>
+<text top="1053" left="459" width="346" height="15" font="0">reviewers of this paper as well as from a reviewer of</text>
+<text top="1070" left="459" width="139" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">Emerson and Arnold</a></text>
+<text top="1070" left="602" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">(</a></text>
+<text top="1070" left="607" width="30" height="15" font="6"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">2011</a></text>
+<text top="1070" left="637" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Arnold+Emerson.html#6">).</a></text>
+<text top="1117" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="1155" left="459" width="349" height="15" font="0">T. W. Anderson and D. A. Darling. Asymptotic the-</text>
+<text top="1173" left="474" width="332" height="15" font="0">ory of certain “goodness of fit” criteria based on</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">39</text>
+<text top="125" left="97" width="334" height="15" font="0">stochastic processes. Annals of Mathematical Statis-</text>
+<text top="143" left="97" width="141" height="15" font="0">tics, 23:193–212, 1952.</text>
+<text top="172" left="82" width="348" height="15" font="0">C. J. G. Bellosta. ADGofTest: Anderson-Darling GoF test,</text>
+<text top="190" left="97" width="68" height="15" font="0">2009. URL</text>
+<text top="191" left="169" width="260" height="12" font="6"><a href="http://CRAN.R-project.org/package=ADGofTest">http://CRAN.R-project.org/package=</a></text>
+<text top="209" left="97" width="69" height="12" font="6"><a href="http://CRAN.R-project.org/package=ADGofTest">ADGofTest</a></text>
+<text top="208" left="166" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=ADGofTest">. </a>R package version 0.1.</text>
+<text top="237" left="82" width="349" height="15" font="0">V. Choulakian, R. A. Lockhart, and M. A. Stephens.</text>
+<text top="255" left="97" width="334" height="15" font="0">Cramér-von Mises statistics for discrete distribu-</text>
+<text top="273" left="97" width="334" height="15" font="0">tions. The Canadian Journal of Statistics, 22(1):125–</text>
+<text top="291" left="97" width="64" height="15" font="0">137, 1994.</text>
+<text top="320" left="82" width="347" height="15" font="0">W. J. Conover. A Kolmogorov goodness-of-fit test for</text>
+<text top="337" left="97" width="332" height="15" font="0">discontinuous distributions. Journal of the American</text>
+<text top="355" left="97" width="287" height="15" font="0">Statistical Association, 67(339):591–596, 1972.</text>
+<text top="384" left="82" width="349" height="15" font="0">H. Cramér. On the composition of elementary errors.</text>
+<text top="402" left="97" width="191" height="15" font="0">Skand. Akt., 11:141–180, 1928.</text>
+<text top="431" left="82" width="346" height="15" font="0">T. de Wet and J. Venter. Asymptotic distributions</text>
+<text top="449" left="97" width="334" height="15" font="0">for quadratic forms with applications to tests of fit.</text>
+<text top="467" left="97" width="230" height="15" font="0">Annals of Statistics, 2:380–387, 1994.</text>
+<text top="496" left="82" width="346" height="15" font="0">J.-M. Dufour and A. Farhat. Exact nonparametric</text>
+<text top="514" left="97" width="332" height="15" font="0">two-sample homogeneity tests for possibly discrete</text>
+<text top="532" left="97" width="332" height="15" font="0">distributions. Unpublished manuscript, October</text>
+<text top="550" left="97" width="70" height="15" font="0">2001. URL</text>
+<text top="551" left="171" width="229" height="12" font="6"><a href="http://hdl.handle.net/1866/362">http://hdl.handle.net/1866/362</a></text>
+<text top="550" left="400" width="4" height="15" font="0"><a href="http://hdl.handle.net/1866/362">.</a></text>
+<text top="579" left="82" width="346" height="15" font="0">J. W. Emerson and T. B. Arnold. Statistical sleuthing</text>
+<text top="597" left="97" width="332" height="15" font="0">by leveraging human nature: A study of olympic</text>
+<text top="615" left="97" width="332" height="15" font="0">figure skating. The American Statistician, 2011. To</text>
+<text top="633" left="97" width="49" height="15" font="0">appear.</text>
+<text top="662" left="82" width="349" height="15" font="0">C. Franz. cramer: Multivariate nonparametric Cramer-</text>
+<text top="679" left="97" width="335" height="15" font="0">Test for the two-sample-problem, 2006. R package ver-</text>
+<text top="698" left="97" width="66" height="15" font="0">sion 0.8-1.</text>
+<text top="726" left="82" width="346" height="15" font="0">L. J. Gleser. Exact power of goodness-of-fit tests of</text>
+<text top="744" left="97" width="334" height="15" font="0">kolmogorov type for discontinuous distributions.</text>
+<text top="762" left="97" width="333" height="15" font="0">Journal of American Statistical Association, 80(392):</text>
+<text top="780" left="97" width="93" height="15" font="0">954–958, 1985.</text>
+<text top="809" left="82" width="349" height="15" font="0">L. A. Goodman. Kolmogorov-Smirnov tests for psy-</text>
+<text top="827" left="97" width="334" height="15" font="0">chological research. Psychological Bulletin, 51:160–</text>
+<text top="845" left="97" width="64" height="15" font="0">168, 1954.</text>
+<text top="874" left="82" width="346" height="15" font="0">J. Gross. nortest: Tests for Normality, 2006. R package</text>
+<text top="892" left="97" width="75" height="15" font="0">version 1.0.</text>
+<text top="921" left="82" width="346" height="15" font="0">J. P. Imhof. Computing the distribution of quadratic</text>
+<text top="939" left="97" width="333" height="15" font="0">forms in normal variables. Biometrika, 48:419–426,</text>
+<text top="957" left="97" width="34" height="15" font="0">1961.</text>
+<text top="986" left="82" width="346" height="15" font="0">A. Kolmogorov. Sulla determinazione empirica di una</text>
+<text top="1004" left="97" width="332" height="15" font="0">legge di distribuzione. Giornale dell’ Instuto Italiano</text>
+<text top="1022" left="97" width="176" height="15" font="0">degli Attuari, 4:83–91, 1933.</text>
+<text top="125" left="459" width="346" height="15" font="0">R. Lockhart, J. Spinelli, and M. Stephens. Cramér-von</text>
+<text top="143" left="474" width="334" height="15" font="0">mises statistics for discrete distributions with un-</text>
+<text top="161" left="474" width="332" height="15" font="0">known parameters. Canadian Journal of Statistics, 35</text>
+<text top="179" left="473" width="115" height="15" font="0">(1):125–133, 2007.</text>
+<text top="211" left="459" width="349" height="15" font="0">F. Massey. The Kolmogorov-Smirnov test for good-</text>
+<text top="229" left="474" width="334" height="15" font="0">ness of fit. Journal of the American Statistical Associa-</text>
+<text top="247" left="474" width="129" height="15" font="0">tion, 46:68–78, 1951.</text>
+<text top="279" left="459" width="346" height="15" font="0">H. Niederhausen. Sheffer polynomials for computing</text>
+<text top="296" left="474" width="334" height="15" font="0">exact Kolmogorov-Smirnov and Rényi type distri-</text>
+<text top="314" left="474" width="334" height="15" font="0">butions. The Annals of Statistics, 9(5):923–944, 1981.</text>
+<text top="332" left="474" width="105" height="15" font="0">ISSN 0090-5364.</text>
+<text top="364" left="459" width="346" height="15" font="0">M. J. Slakter. A comparison of the Pearson chi-square</text>
+<text top="382" left="474" width="332" height="15" font="0">and Kolmogorov goodness-of-fit tests with respect</text>
+<text top="400" left="474" width="334" height="15" font="0">to validity. Journal of the American Statistical Associa-</text>
+<text top="418" left="474" width="176" height="15" font="0">tion, 60(311):854–858, 1965.</text>
+<text top="450" left="459" width="346" height="15" font="0">M. A. Stephens. Edf statistics for goodness of fit and</text>
+<text top="468" left="474" width="332" height="15" font="0">some comparisons. Journal of the American Statistical</text>
+<text top="486" left="473" width="222" height="15" font="0">Association, 69(347):730–737, 1974.</text>
+<text top="518" left="459" width="117" height="15" font="0">R. E. von Mises.</text>
+<text top="518" left="593" width="212" height="15" font="0">Wahrscheinlichkeit, Statistik und</text>
+<text top="536" left="473" width="315" height="15" font="0">Wahrheit. Julius Springer, Vienna, Austria, 1928.</text>
+<text top="568" left="459" width="82" height="15" font="0">J. E. Walsh.</text>
+<text top="568" left="559" width="247" height="15" font="0">Bounded probability properties for</text>
+<text top="586" left="474" width="334" height="15" font="0">Kolmogorov-Smirnov and similar statistics for dis-</text>
+<text top="604" left="474" width="334" height="15" font="0">crete data. Annals of the Institute of Statistical Mathe-</text>
+<text top="621" left="474" width="159" height="15" font="0">matics, 15:153–158, 1963.</text>
+<text top="653" left="459" width="349" height="15" font="0">G. S. Watson. Goodness of fit tests on the circle.</text>
+<text top="671" left="473" width="185" height="15" font="0">Biometrika, 48:109–114, 1961.</text>
+<text top="703" left="459" width="349" height="15" font="0">Y. Xiao and Y. Cui. CvM2SL1Test: L1-version of Cramer-</text>
+<text top="721" left="474" width="334" height="15" font="0">von Mises Two Sample Tests, 2009a. R package ver-</text>
+<text top="739" left="474" width="66" height="15" font="0">sion 0.0-2.</text>
+<text top="771" left="459" width="346" height="15" font="0">Y. Xiao and Y. Cui. CvM2SL2Test: Cramer-von Mises</text>
+<text top="789" left="473" width="321" height="15" font="0">Two Sample Tests, 2009b. R package version 0.0-2.</text>
+<text top="842" left="458" width="102" height="15" font="0">Taylor B. Arnold</text>
+<text top="860" left="458" width="95" height="15" font="0">Yale University</text>
+<text top="878" left="458" width="108" height="15" font="0">24 Hillhouse Ave.</text>
+<text top="896" left="459" width="174" height="15" font="0">New Haven, CT 06511 USA</text>
+<text top="915" left="459" width="168" height="12" font="6"><a href="mailto:taylor.arnold@yale.edu">taylor.arnold@yale.edu</a></text>
+<text top="950" left="459" width="105" height="15" font="0">John W. Emerson</text>
+<text top="968" left="458" width="95" height="15" font="0">Yale University</text>
+<text top="986" left="458" width="108" height="15" font="0">24 Hillhouse Ave.</text>
+<text top="1004" left="459" width="174" height="15" font="0">New Haven, CT 06511 USA</text>
+<text top="1023" left="459" width="160" height="12" font="6"><a href="mailto:john.emerson@yale.edu">john.emerson@yale.edu</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">88</text>
+<text top="98" left="149" width="558" height="30" font="2"><b>Dynamic Parallelization of R Functions</b></text>
+<text top="134" left="149" width="121" height="15" font="0">by Stefan Böhringer</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="207" width="537" height="13" font="4">R offers several extension packages that allow it to perform parallel computations. These</text>
+<text top="192" left="149" width="595" height="13" font="4">operate on fixed points in the program flow and make it difficult to deal with nested parallelism and</text>
+<text top="208" left="149" width="595" height="13" font="4">to organize parallelism in complex computations in general. In this article we discuss, first, of how to</text>
+<text top="224" left="149" width="595" height="13" font="4">detect parallelism in functions, and second, how to minimize user intervention in that process. We</text>
+<text top="241" left="148" width="596" height="13" font="4">present a solution that requires minimal code changes and enables to flexibly and dynamically choose</text>
+<text top="257" left="149" width="595" height="13" font="4">the degree of parallelization in the resulting computation. An implementation is provided by the R</text>
+<text top="274" left="148" width="536" height="13" font="4">package <b>parallelize.dynamic </b>and practical issues are discussed with the help of examples.</text>
+<text top="318" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="357" left="148" width="105" height="13" font="4">The R language <a href="2013-2-boehringer.html#9">(</a></text>
+<text top="357" left="253" width="132" height="13" font="6"><a href="2013-2-boehringer.html#9">Ihaka and Gentleman</a></text>
+<text top="357" left="385" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="357" left="393" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">1996</a></text>
+<text top="357" left="420" width="326" height="13" font="4"><a href="2013-2-boehringer.html#9">) </a>can be used to program in the functional paradigm,</text>
+<text top="373" left="149" width="595" height="14" font="4">i.e. return values of functions only depend on their arguments and values of variables bound at the</text>
+<text top="390" left="149" width="595" height="13" font="4">moment of function definition. Assuming a functional R program, it follows that calls to a given set</text>
+<text top="406" left="149" width="598" height="13" font="4">of functions are independent as long as their arguments do not involve return values of each other.</text>
+<text top="423" left="148" width="596" height="13" font="4">This property of function calls can be exploited and several R packages allow to compute function</text>
+<text top="439" left="149" width="227" height="13" font="4">calls in parallel, e.g. packages <b>parallel</b>,</text>
+<text top="439" left="379" width="30" height="13" font="7"><a href="http://CRAN.R-project.org/package=Rsge"><b>Rsge</b></a></text>
+<text top="439" left="413" width="4" height="13" font="4"><a href="2013-2-boehringer.html#9">(</a></text>
+<text top="439" left="417" width="30" height="13" font="6"><a href="2013-2-boehringer.html#9">Bode</a></text>
+<text top="439" left="447" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="439" left="454" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2012</a></text>
+<text top="439" left="481" width="21" height="13" font="4"><a href="2013-2-boehringer.html#9">) </a>or</text>
+<text top="439" left="505" width="46" height="13" font="7"><a href="http://CRAN.R-project.org/package=foreach"><b>foreach</b></a></text>
+<text top="439" left="554" width="4" height="13" font="4"><a href="2013-2-boehringer.html#9">(</a></text>
+<text top="439" left="558" width="79" height="13" font="6"><a href="2013-2-boehringer.html#9">Michael et al.</a></text>
+<text top="439" left="638" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="439" left="644" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2013</a></text>
+<text top="439" left="671" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">;</a></text>
+<text top="439" left="678" width="66" height="13" font="6"><a href="2013-2-boehringer.html#9">Revolution</a></text>
+<text top="455" left="148" width="130" height="13" font="6"><a href="2013-2-boehringer.html#9">Analytics and Weston</a></text>
+<text top="455" left="278" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="455" left="285" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2013</a></text>
+<text top="455" left="312" width="432" height="13" font="4"><a href="2013-2-boehringer.html#9">). </a>A natural point in the program flow where to employ parallelization is</text>
+<text top="472" left="148" width="596" height="13" font="4">where use of the apply-family of functions is made. These functions take a single function (here called</text>
+<text top="488" left="149" width="595" height="13" font="4">the compute-function) as their first argument together with a set of values as their second argument</text>
+<text top="505" left="148" width="596" height="13" font="4">(here called the compute-arguments) each member of which is passed to the compute-function. The</text>
+<text top="521" left="149" width="596" height="13" font="4">calling mechanism guarantees that function calls cannot see each others return values and are thereby</text>
+<text top="538" left="149" width="596" height="13" font="4">independent. This family includes the apply, sapply, lapply, and tapply functions called generically</text>
+<text top="555" left="148" width="34" height="11" font="4">Apply</text>
+<text top="554" left="186" width="558" height="13" font="4">in the following. Examples of packages helping to parallelize Apply functions include <b>parallel</b></text>
+<text top="571" left="149" width="489" height="13" font="4">and <b>Rsge </b>among others and we will focus on these functions in this article as well.</text>
+<text top="591" left="171" width="573" height="13" font="4">In these packages, a given Apply function is replaced by a similar function from the package that</text>
+<text top="608" left="148" width="596" height="13" font="4">performs the same computation in a parallel way. Fixing a point of parallelism introduces some</text>
+<text top="624" left="148" width="345" height="13" font="4">potential problems. For example, the bootstrap package</text>
+<text top="624" left="497" width="28" height="13" font="7"><a href="http://CRAN.R-project.org/package=boot"><b>boot</b></a></text>
+<text top="624" left="529" width="5" height="13" font="4"><a href="2013-2-boehringer.html#9">(</a></text>
+<text top="624" left="534" width="131" height="13" font="6"><a href="2013-2-boehringer.html#9">Davison and Hinkley</a></text>
+<text top="624" left="665" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="624" left="673" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">1997</a></text>
+<text top="624" left="700" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">;</a></text>
+<text top="624" left="708" width="37" height="13" font="6"><a href="2013-2-boehringer.html#9">Canty</a></text>
+<text top="641" left="149" width="67" height="13" font="6"><a href="2013-2-boehringer.html#9">and Ripley</a></text>
+<text top="641" left="216" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="641" left="224" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2013</a></text>
+<text top="641" left="252" width="493" height="13" font="4"><a href="2013-2-boehringer.html#9">) </a>allows implicit use of the <b>parallel </b>package. If bootstrap computations become</text>
+<text top="657" left="149" width="595" height="13" font="4">nested within larger computations the parallelization option of the boot function potentially has to be</text>
+<text top="674" left="149" width="597" height="13" font="4">changed to allow parallelization at a higher level once the computation scenario changes. In principle,</text>
+<text top="690" left="149" width="596" height="13" font="4">the degree of parallelism could depend on parameter values changing between computations thereby</text>
+<text top="707" left="149" width="595" height="13" font="4">making it difficult to choose an optimal code point at which to parallelize. Another shortcoming of</text>
+<text top="723" left="149" width="595" height="13" font="4">existing solutions is that only a single Apply function gets parallelized thereby ignoring parallelism</text>
+<text top="739" left="149" width="595" height="13" font="4">that spans different Apply calls in nested computations. The aim of this paper is to outline solutions</text>
+<text top="756" left="149" width="595" height="13" font="4">that overcome these limitations. This implies that the parallelization process should be as transparent</text>
+<text top="772" left="149" width="595" height="13" font="4">as possible, i.e. requiring as little user intervention as necessary. An ideal solution would therefore</text>
+<text top="789" left="149" width="595" height="13" font="4">allow the user to ask for parallelization of a certain piece of code and we will try to approximate</text>
+<text top="805" left="149" width="595" height="13" font="4">this situation. Potential benefits for the user are that less technical knowledge is required to make</text>
+<text top="822" left="149" width="595" height="13" font="4">use of parallelization, computations can become more efficient by better control over the scaling of</text>
+<text top="838" left="148" width="596" height="13" font="4">parallelization, and finally programs can better scale to different resources, say the local machine</text>
+<text top="854" left="149" width="191" height="13" font="4">compared to a computer cluster.</text>
+<text top="875" left="171" width="573" height="13" font="4">This article is organized as follows. We first give further motivation by an example that highlights</text>
+<text top="892" left="149" width="595" height="13" font="4">the problems this approach seeks to address. We then outline the technical strategy needed to</text>
+<text top="908" left="149" width="596" height="13" font="4">determine the parallelism in a given function call. After that, trade-offs introduced by such a strategy</text>
+<text top="925" left="149" width="595" height="13" font="4">are discussed. We conclude by benchmarking two examples and discussing important practical issues</text>
+<text top="941" left="149" width="436" height="13" font="4">such as deviations of R programs from the functional programming style.</text>
+<text top="985" left="149" width="293" height="17" font="5"><b>Dynamic parallelism in R functions</b></text>
+<text top="1024" left="149" width="595" height="13" font="4">Let us start by looking at an example that tries to condense real-world problems in short, self-contained</text>
+<text top="1041" left="149" width="595" height="13" font="4">code which illustrates issues to be solved. Regression analyses are performed on the iris data set as</text>
+<text top="1057" left="149" width="47" height="13" font="4">follows.</text>
+<text top="1099" left="149" width="70" height="15" font="8"><b>Example 1</b></text>
+<text top="1131" left="149" width="110" height="11" font="4">Lapply &lt;- lapply</text>
+<text top="1147" left="149" width="110" height="11" font="4">Sapply &lt;- sapply</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">89</text>
+<text top="120" left="149" width="89" height="11" font="4">library(sets)</text>
+<text top="137" left="149" width="69" height="11" font="4">data(iris)</text>
+<text top="153" left="149" width="439" height="11" font="4">d &lt;- iris; response &lt;- ’Species’; R &lt;- .01; Nl &lt;- 1e1; Nu &lt;- 1e5</text>
+<text top="186" left="149" width="240" height="11" font="4">vars &lt;- setdiff(names(d), response)</text>
+<text top="202" left="149" width="268" height="11" font="4">responseLevels &lt;- levels(d[[response]])</text>
+<text top="235" left="149" width="309" height="11" font="4">minimax &lt;- function(v, min = -Inf, max = Inf)</text>
+<text top="252" left="163" width="309" height="11" font="4">ifelse(v &lt; min, min, ifelse(v &gt; max, max, v))</text>
+<text top="268" left="149" width="158" height="11" font="4">N &lt;- function(p, r = R)</text>
+<text top="285" left="163" width="343" height="11" font="4">(2 * qnorm(p, lower.tail = FALSE)/r)^2 * (1 - p)/p</text>
+<text top="301" left="149" width="233" height="11" font="4">analysis &lt;- function(data, vars) {</text>
+<text top="317" left="163" width="535" height="11" font="4">f1 &lt;- as.formula(sprintf(’%s ~ %s’, response, paste(vars, collapse = ’ + ’)));</text>
+<text top="334" left="163" width="316" height="11" font="4">f0 &lt;- as.formula(sprintf(’%s ~ 1’, response));</text>
+<text top="350" left="163" width="480" height="11" font="4">a &lt;- anova(glm(f0, data = data), glm(f1, data = data), test = ’Chisq’)</text>
+<text top="367" left="163" width="213" height="11" font="4">p.value &lt;- a[[’Pr(&gt;Chi)’]][[2]]</text>
+<text top="383" left="149" width="7" height="11" font="4">}</text>
+<text top="400" left="149" width="302" height="11" font="4">permute &lt;- function(data, vars, f, ..., M) {</text>
+<text top="416" left="163" width="350" height="11" font="4">ps &lt;- Sapply(0:M, function(i, data, vars, f, ...) {</text>
+<text top="432" left="176" width="398" height="11" font="4">if (i &gt; 0) data[, vars] &lt;- data[sample(nrow(data)), vars];</text>
+<text top="449" left="176" width="123" height="11" font="4">f(data, vars, ...)</text>
+<text top="465" left="163" width="151" height="11" font="4">}, data, vars, f, ...)</text>
+<text top="482" left="163" width="103" height="11" font="4">p.data &lt;- ps[1]</text>
+<text top="498" left="163" width="82" height="11" font="4">ps &lt;- ps[-1]</text>
+<text top="515" left="163" width="398" height="11" font="4">list(p.raw = p.data, p.emp = mean(ps[order(ps)] &lt; p.data))</text>
+<text top="531" left="149" width="7" height="11" font="4">}</text>
+<text top="548" left="149" width="219" height="11" font="4">subsetRegression &lt;- function() {</text>
+<text top="564" left="163" width="281" height="11" font="4">r &lt;- Lapply(responseLevels, function(l) {</text>
+<text top="580" left="176" width="384" height="11" font="4">subsets &lt;- as.list(set_symdiff(2^as.set(vars), 2^set()))</text>
+<text top="597" left="176" width="274" height="11" font="4">r1 &lt;- Sapply(subsets, function(subset) {</text>
+<text top="613" left="190" width="233" height="11" font="4">d[[response]] = d[[response]] == l</text>
+<text top="630" left="190" width="261" height="11" font="4">p.value &lt;- analysis(d, unlist(subset))</text>
+<text top="646" left="190" width="295" height="11" font="4">unlist(permute(d, unlist(subset), analysis,</text>
+<text top="663" left="204" width="309" height="11" font="4">M = as.integer(minimax(N(p.value), Nl, Nu))))</text>
+<text top="679" left="176" width="14" height="11" font="4">})</text>
+<text top="695" left="176" width="391" height="11" font="4">output &lt;- data.frame(subset = sapply(subsets, function(s)</text>
+<text top="712" left="190" width="226" height="11" font="4">paste(s, collapse = ’+’)), t(r1))</text>
+<text top="728" left="163" width="14" height="11" font="4">})</text>
+<text top="745" left="163" width="178" height="11" font="4">names(r) &lt;- responseLevels</text>
+<text top="761" left="163" width="7" height="11" font="4">r</text>
+<text top="778" left="149" width="7" height="11" font="4">}</text>
+<text top="794" left="149" width="171" height="11" font="4">print(subsetRegression())</text>
+<text top="823" left="171" width="575" height="13" font="4">Variable Species is dichotomized for all of its levels and a subset analysis is performed by re-</text>
+<text top="840" left="149" width="595" height="13" font="4">gressing these outcomes on all possible subsets of the other variables (function analysis). Also a</text>
+<text top="856" left="148" width="596" height="13" font="4">permutation based P-value is computed (function permute) and the number of iterations depends</text>
+<text top="873" left="149" width="135" height="13" font="4">on the raw P-value (p</text>
+<text top="877" left="284" width="18" height="10" font="9">raw</text>
+<text top="873" left="303" width="442" height="13" font="4">) from the original logistic regression. Here, the number of iterations is</text>
+<text top="889" left="149" width="500" height="13" font="4">chosen to control the length of the confidence interval for the permutation P-value</text>
+<text top="889" left="652" width="5" height="12" font="0">(</text>
+<text top="889" left="658" width="9" height="13" font="4">ci</text>
+<text top="894" left="668" width="3" height="10" font="9">l</text>
+<text top="889" left="672" width="15" height="13" font="4">, ci</text>
+<text top="893" left="687" width="6" height="10" font="9">u</text>
+<text top="889" left="694" width="5" height="12" font="0">)</text>
+<text top="889" left="703" width="41" height="13" font="4">so that</text>
+<text top="906" left="148" width="5" height="12" font="0">(</text>
+<text top="906" left="154" width="9" height="13" font="4">ci</text>
+<text top="910" left="164" width="6" height="10" font="9">u</text>
+<text top="905" left="173" width="11" height="13" font="0">−</text>
+<text top="906" left="187" width="9" height="13" font="4">ci</text>
+<text top="911" left="197" width="3" height="10" font="9">l</text>
+<text top="906" left="201" width="5" height="12" font="0">)</text>
+<text top="906" left="207" width="16" height="13" font="4">/p</text>
+<text top="910" left="223" width="18" height="10" font="9">raw</text>
+<text top="906" left="246" width="11" height="12" font="0">&lt;</text>
+<text top="906" left="261" width="485" height="14" font="4">r (in probability), where r is a chosen constant (function N). To ensure robustness,</text>
+<text top="922" left="149" width="483" height="13" font="4">the resulting number is constrained within an integer interval (function minimax).</text>
+<text top="943" left="171" width="573" height="13" font="4">Analyzing computational aspects of this code, we first note that our most global models are</text>
+<text top="959" left="149" width="597" height="13" font="4">represented by response levels, in this case three, constituting a low level of parallelization. Second,</text>
+<text top="976" left="149" width="595" height="13" font="4">the subset models vary in size, in this case by a factor of four. Third, the parallelism of permutation</text>
+<text top="992" left="149" width="595" height="13" font="4">computations is data dependent and cannot be determined beforehand. It is thus not straightforward</text>
+<text top="1009" left="149" width="595" height="13" font="4">to choose a good point at which to parallelize. Finally, observe that we have copied the symbols</text>
+<text top="1026" left="149" width="41" height="11" font="4">sapply</text>
+<text top="1025" left="193" width="553" height="13" font="4">and lapply to upper-cased symbols and used them in places where parallelization is desirable.</text>
+<text top="1042" left="148" width="596" height="13" font="4">The sapply used for computing the variable output has not been marked in this way as it constitutes a</text>
+<text top="1058" left="149" width="595" height="13" font="4">trivial computation. The remainder of the article is concerned with achieving the goals stated above</text>
+<text top="1074" left="149" width="521" height="13" font="4">for a program for which desirable parallelization has been marked as in the code above.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="182" family="Times" color="#0099ff"/>
+	<fontspec id="11" size="5" family="Times" color="#171514"/>
+	<fontspec id="12" size="83" family="Times" color="#171514"/>
+	<fontspec id="13" size="13" family="Times" color="#171514"/>
+	<fontspec id="14" size="13" family="Times" color="#0099ff"/>
+	<fontspec id="15" size="83" family="Times" color="#171514"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">90</text>
+<text top="1" left="336" width="-25" height="206" font="10">{</text>
+<text top="261" left="343" width="7" height="9" font="11">...</text>
+<text top="303" left="478" width="7" height="9" font="11">...</text>
+<text top="202" left="611" width="7" height="9" font="11">...</text>
+<text top="106" left="287" width="-16" height="96" font="12">{</text>
+<text top="166" left="287" width="75" height="18" font="13">Ramp up 1</text>
+<text top="176" left="399" width="84" height="18" font="14">Ramp up 1*</text>
+<text top="179" left="587" width="-20" height="96" font="15">{</text>
+<text top="281" left="574" width="96" height="18" font="13">Ramp down 1</text>
+<text top="464" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="464" left="210" width="534" height="13" font="4">Abstraction of program flow with the following symbol semantics. Circles: entry points</text>
+<text top="481" left="149" width="597" height="13" font="4">into or return points from functions; downward arrows: function calls; tables: Apply function calls;</text>
+<text top="497" left="149" width="595" height="13" font="4">upward arrows: return path from functions; square: end of computation. Further explanation in text.</text>
+<text top="546" left="149" width="122" height="15" font="8"><b>Dynamic analysis</b></text>
+<text top="578" left="149" width="464" height="13" font="4">Parallelism in programs can be detected by static analysis of source code (e.g.</text>
+<text top="578" left="620" width="123" height="13" font="6"><a href="2013-2-boehringer.html#9">Cooper and Torczon</a></text>
+<text top="578" left="742" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="594" left="149" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2011</a></text>
+<text top="594" left="176" width="171" height="13" font="4"><a href="2013-2-boehringer.html#9">) </a>or by dynamic analysis (e.g.</text>
+<text top="594" left="353" width="31" height="13" font="6"><a href="2013-2-boehringer.html#9">Ernst</a></text>
+<text top="594" left="384" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="594" left="391" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2003</a></text>
+<text top="594" left="418" width="327" height="13" font="4"><a href="2013-2-boehringer.html#9">) </a>the latter relying on execution of the code at hand and</text>
+<text top="610" left="149" width="595" height="13" font="4">the analysis of data gleaned from such executions. Example 1 motivates the use of dynamic analysis</text>
+<text top="627" left="149" width="595" height="13" font="4">and we discuss static analysis later. In cases where parallelism is data dependent, dynamic analysis is</text>
+<text top="643" left="149" width="595" height="13" font="4">the only means to precisely determine the level of parallelism. On the other hand also in cases where</text>
+<text top="660" left="148" width="596" height="13" font="4">parallelism is known or can be determined by inexpensive computations, dynamic analysis has the</text>
+<text top="676" left="149" width="567" height="13" font="4">advantage of convenience as the user is not responsible for making decisions on parallelization.</text>
+<text top="697" left="171" width="573" height="13" font="4">In the following, dynamic analysis is performed on Apply functions marked as in Example 1. The</text>
+<text top="714" left="149" width="595" height="13" font="4">overarching idea is to run the program but stop it in time to determine the degree of parallelism while</text>
+<text top="730" left="149" width="595" height="13" font="4">still having spent only little computation time. Like in existing packages the assumption is made that</text>
+<text top="746" left="149" width="595" height="13" font="4">the functional style is followed by the called functions, i.e. they do not exert side-effects nor depend on</text>
+<text top="763" left="149" width="31" height="13" font="4">such.</text>
+<text top="805" left="149" width="153" height="15" font="8"><b>Abstract program flow</b></text>
+<text top="837" left="149" width="39" height="13" font="4">Figure</text>
+<text top="837" left="193" width="7" height="13" font="6"><a href="2013-2-boehringer.html#3">1</a></text>
+<text top="837" left="204" width="540" height="13" font="4">depicts the program flow as seen in the parallelization process. Given code becomes a</text>
+<text top="853" left="149" width="596" height="13" font="4">sequence of linear code (circles) leading to an Apply function, the Apply-function (table), and linear</text>
+<text top="870" left="149" width="596" height="13" font="4">code executed thereafter (circles). This pattern repeats whenever Apply functions are nested. For</text>
+<text top="886" left="149" width="595" height="13" font="4">now, we ignore the case where Apply functions are called sequentially as this case is not interesting</text>
+<text top="903" left="149" width="595" height="13" font="4">for understanding the algorithm. We call code leading to a given Apply call the ramp-up and code</text>
+<text top="919" left="149" width="597" height="13" font="4">executed after the Apply the ramp-down such that every program can be seen as an execution ramp-up –</text>
+<text top="936" left="148" width="34" height="11" font="4">Apply</text>
+<text top="935" left="186" width="558" height="13" font="4">– ramp-down. The task of dynamic analysis is to select the ”best” Apply function, then separate</text>
+<text top="952" left="149" width="595" height="13" font="4">execution into ramp-up – Apply – ramp-down, and perform the computation. Then, calls resulting from</text>
+<text top="968" left="149" width="279" height="13" font="4">the selected Apply can be computed in parallel.</text>
+<text top="1011" left="149" width="71" height="15" font="8"><b>Algorithm</b></text>
+<text top="1042" left="148" width="596" height="13" font="4">We now outline an abstract algorithm for implementing this program flow. Specific details about</text>
+<text top="1059" left="149" width="595" height="13" font="4">R-specific behavior are given in the implementation section. The problem is solved by re-executing</text>
+<text top="1075" left="149" width="596" height="13" font="4">the code several times – a choice that is justified below. The re-executions involve custom Apply</text>
+<text top="1091" left="149" width="596" height="13" font="4">functions which replace the original implementations with the ability to return execution to higher</text>
+<text top="1108" left="149" width="598" height="13" font="4">level Apply functions without executing the ramp-down, namely code following the Apply (escaping).</text>
+<text top="1124" left="148" width="232" height="13" font="4">The following re-executions take place:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">91</text>
+<text top="103" left="171" width="367" height="13" font="4">• Probing (ramp-up): determine the level of parallelism, stop</text>
+<text top="126" left="171" width="433" height="13" font="4">• Freezing (ramp-up): save calls from Applys for parallel execution, stop</text>
+<text top="148" left="171" width="576" height="13" font="4">• Recovery (ramp-down): replace calls that were parallelized with stored results, continue execu-</text>
+<text top="164" left="186" width="23" height="13" font="4">tion</text>
+<text top="194" left="171" width="468" height="13" font="4">Between the freezing and recovery steps, parallel computations are performed.</text>
+<text top="237" left="149" width="55" height="15" font="8"><b>Probing</b></text>
+<text top="268" left="149" width="595" height="13" font="4">Probing potentially involves several re-executions as parallelism is determined for increasing nesting</text>
+<text top="285" left="149" width="596" height="13" font="4">levels. For a given nesting level, probing simply stores the number of elements passed to the Apply</text>
+<text top="301" left="149" width="595" height="13" font="4">calls at the specified nesting level and returns to the higher level. The sum of these elements is the</text>
+<text top="318" left="149" width="595" height="13" font="4">level of parallelism achievable at that nesting level. If higher degree of parallelism is desired probing</text>
+<text top="334" left="149" width="216" height="13" font="4">is repeated at a deeper nesting level.</text>
+<text top="376" left="149" width="59" height="15" font="8"><b>Freezing</b></text>
+<text top="408" left="148" width="596" height="13" font="4">After a nesting level is chosen in the probing step, execution is stopped again in Apply calls at that</text>
+<text top="424" left="149" width="595" height="13" font="4">nesting level. The calls that the Apply would generate are stored as unevaluated calls in a so-called</text>
+<text top="441" left="149" width="82" height="13" font="4">freezer object.</text>
+<text top="483" left="149" width="122" height="15" font="8"><b>Parallel execution</b></text>
+<text top="515" left="149" width="595" height="13" font="4">Parallel execution is controlled by a backend object. Similarly to the <b>foreach </b>package, several options</text>
+<text top="531" left="149" width="327" height="13" font="4">are available to perform the actual computations (e.g.</text>
+<text top="531" left="480" width="33" height="13" font="7"><a href="http://CRAN.R-project.org/package=snow"><b>snow</b></a></text>
+<text top="531" left="517" width="80" height="13" font="6"><a href="2013-2-boehringer.html#9">Tierney et al.</a></text>
+<text top="531" left="596" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="531" left="604" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2013</a></text>
+<text top="531" left="632" width="113" height="13" font="4"><a href="2013-2-boehringer.html#9">, </a>or batch queuing</text>
+<text top="547" left="149" width="55" height="13" font="4">systems).</text>
+<text top="590" left="149" width="63" height="15" font="8"><b>Recovery</b></text>
+<text top="621" left="149" width="595" height="13" font="4">During recovery, execution is stopped at the same position as in the freezing step. These time results</text>
+<text top="638" left="149" width="598" height="13" font="4">computed during parallel execution are retrieved and returned instead of evaluating function calls.</text>
+<text top="654" left="149" width="352" height="13" font="4">Finally the whole computation returns with the final result.</text>
+<text top="697" left="149" width="86" height="15" font="8"><b>Corner cases</b></text>
+<text top="728" left="149" width="596" height="13" font="4">If the requested level of parallelism exceeds the available parallelism, the computation will already</text>
+<text top="745" left="149" width="595" height="13" font="4">finish in the probing step. This is because the probing level exceeds the nesting level at some point and</text>
+<text top="761" left="149" width="596" height="13" font="4">execution will not be stopped. In this case the computation is performed linearly (actually sub-linearly</text>
+<text top="777" left="149" width="229" height="13" font="4">because of the repeated re-executions).</text>
+<text top="798" left="171" width="573" height="13" font="4">When all results have been retrieved in the recovery step, the algorithm can switch back to probing</text>
+<text top="815" left="149" width="595" height="13" font="4">and parallelize Apply code sequential to the first hierarchy of Apply calls. If no such Apply calls are</text>
+<text top="831" left="148" width="535" height="13" font="4">present probing will compute the result linearly thus not incurring a performance penalty.</text>
+<text top="876" left="149" width="409" height="17" font="5"><b>Implementation of R package parallelize.dynamic</b></text>
+<text top="915" left="148" width="596" height="13" font="4">The parallelization implementation is split into a so-called front-end part which implements the</text>
+<text top="931" left="149" width="595" height="13" font="4">algorithm described above and a backend part which performs parallel execution. Currently, there are</text>
+<text top="948" left="149" width="595" height="13" font="4">backends for local execution (local backend) which executes linearly, parallel execution on snow clusters</text>
+<text top="964" left="148" width="596" height="13" font="4">(snow backend), and a backend for execution on Sun Grid Engine or Open Grid Scheduler batch queuing</text>
+<text top="981" left="149" width="595" height="13" font="4">systems (OGSremote backend). This is a similar approach to the <b>foreach </b>package and potentially code</text>
+<text top="997" left="149" width="595" height="13" font="4">can be shared between the packages. Back-ends are implemented as S4-classes and we refer to the</text>
+<text top="1014" left="148" width="429" height="13" font="4">package documentation for details on how to implement new backends.</text>
+<text top="1056" left="149" width="27" height="15" font="8"><b>API</b></text>
+<text top="1087" left="149" width="595" height="13" font="4">Dynamic analysis of parallelism is performed by making use of replacements of Apply functions</text>
+<text top="1104" left="149" width="595" height="13" font="4">similar to existing packages. In this implementation, replacement functions have the same name as</text>
+<text top="1120" left="149" width="595" height="13" font="4">replaced functions with an upper case first letter, referred to as Apply functions. The new functions</text>
+<text top="1137" left="149" width="595" height="13" font="4">have exactly the same programming interface and the same semantics (i.e. they compute the same</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="7" family="Times" color="#171514"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">92</text>
+<text top="261" left="343" width="7" height="9" font="11">...</text>
+<text top="303" left="478" width="7" height="9" font="11">...</text>
+<text top="202" left="611" width="7" height="9" font="11">...</text>
+<text top="332" left="577" width="94" height="11" font="16">recover state, depth 1</text>
+<text top="155" left="241" width="62" height="11" font="16">probe, depth 1</text>
+<text top="155" left="336" width="52" height="11" font="16">run, depth 1</text>
+<text top="222" left="364" width="62" height="11" font="16">probe, depth 2</text>
+<text top="222" left="458" width="52" height="11" font="16">run, depth 2</text>
+<text top="464" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="464" left="209" width="535" height="13" font="4">Exceptions used in the process of parallelization. Plus symbols indicate exception handlers</text>
+<text top="481" left="149" width="283" height="13" font="4">and dotted lines indicate exceptions. See Figure</text>
+<text top="481" left="435" width="7" height="13" font="6"><a href="2013-2-boehringer.html#3">1</a></text>
+<text top="481" left="445" width="197" height="13" font="4">for explanation of other symbols.</text>
+<text top="531" left="149" width="595" height="13" font="4">result) as the replaced functions, which is a difference to similar packages. One advantage is that</text>
+<text top="547" left="148" width="596" height="13" font="4">programs can be very quickly adapted for parallel execution and the mechanism can be turned of by</text>
+<text top="563" left="149" width="510" height="13" font="4">re-instating the original function definitions for Apply functions as done in Example 1.</text>
+<text top="606" left="149" width="83" height="15" font="8"><b>Global state</b></text>
+<text top="637" left="149" width="595" height="13" font="4">In order to perform probing, freezing and recovery Apply functions maintain a global state containing</text>
+<text top="654" left="149" width="596" height="13" font="4">the current position in the program flow. This is defined by the nesting level and an index number</text>
+<text top="670" left="149" width="595" height="13" font="4">counting Apply calls seen so far. Probing and freezing maintain additional state, respectively. During</text>
+<text top="687" left="148" width="597" height="13" font="4">probing, the number of elements passed to the Apply call under investigation is stored, during freezing,</text>
+<text top="703" left="149" width="415" height="13" font="4">unevaluated calls resulting from the parallelized Apply call are stored.</text>
+<text top="745" left="149" width="61" height="15" font="8"><b>Escaping</b></text>
+<text top="777" left="149" width="598" height="13" font="4">Probing and freezing need the ability to skip the ramp-down as they did not compute any results yet.</text>
+<text top="793" left="148" width="596" height="13" font="4">This capability is implemented using the R exception handling mechanism defined by the functions</text>
+<text top="810" left="149" width="21" height="11" font="4">try</text>
+<text top="810" left="169" width="575" height="13" font="4">/ stop. Any Apply that needs to escape the ramp-down issues a call to stop that is caught by a try</text>
+<text top="826" left="149" width="596" height="13" font="4">call that was issued in a higher-level Apply. As this disrupts normal program flow, execution can later</text>
+<text top="843" left="149" width="585" height="13" font="4">not be resumed at the point where stop was called, requiring re-execution of the whole code. Figure</text>
+<text top="843" left="737" width="7" height="13" font="6"><a href="2013-2-boehringer.html#5">2</a></text>
+<text top="859" left="149" width="240" height="13" font="4">illustrates the use of exception handling.</text>
+<text top="902" left="149" width="59" height="15" font="8"><b>Freezing</b></text>
+<text top="933" left="148" width="596" height="13" font="4">The freezing mechanism is defined by a reference class (LapplyFreezer) which stores unevaluated</text>
+<text top="949" left="149" width="595" height="13" font="4">calls for parallel execution and results of these calls. The base class simply stores unevaluated calls</text>
+<text top="966" left="149" width="596" height="13" font="4">and results as R objects. Subclasses that store results on disk (LapplyPersistentFreezer) or defer</text>
+<text top="982" left="149" width="595" height="13" font="4">generation of individual calls from Apply calls to the parallel step (LapplyGroupingFreezer) exist and</text>
+<text top="999" left="149" width="246" height="13" font="4">can be paired with appropriate backends.</text>
+<text top="1041" left="149" width="242" height="15" font="8"><b>Lexical scoping and lazy evaluation</b></text>
+<text top="1073" left="149" width="598" height="13" font="4">R allows the use of variables in functions that are not part of the argument list (unbound variables).</text>
+<text top="1089" left="148" width="596" height="13" font="4">Their values are resolved by lexical scoping, i.e. a hierarchy of environments is searched for the first</text>
+<text top="1106" left="149" width="595" height="13" font="4">definition of the variable. This implies that all environments including the global environment would</text>
+<text top="1122" left="148" width="596" height="13" font="4">potentially have to be available when a parallel function call is executed to guarantee resolution</text>
+<text top="1138" left="149" width="595" height="13" font="4">of variable values. As for the snow and OGS backends execution takes place in different processes</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">93</text>
+<text top="103" left="149" width="595" height="13" font="4">transferring these environments often constitutes unacceptable overhead. Therefore, if unbound</text>
+<text top="120" left="148" width="596" height="13" font="4">variables are used with these backends the option copy_environments can be set to TRUE to force</text>
+<text top="136" left="149" width="595" height="13" font="4">copying of environments. This mechanism constructs a new environment that only contains variables</text>
+<text top="152" left="149" width="598" height="13" font="4">unbound in parallel function calls and computes their values using get in the correct environment.</text>
+<text top="169" left="148" width="596" height="13" font="4">This is a recursive process that has to be repeated for functions called by compute-functions and is</text>
+<text top="185" left="148" width="596" height="13" font="4">possibly expensive (compare Example 1). Potentially, these variables could be part of expressions</text>
+<text top="202" left="149" width="595" height="13" font="4">that are evaluated lazily, i.e. values of these expressions should only be computed later when the</text>
+<text top="218" left="149" width="595" height="13" font="4">expression is assigned to a variable. Code relying on the semantics of lazy evaluation could therefore</text>
+<text top="235" left="148" width="100" height="13" font="4">work incorrectly.</text>
+<text top="256" left="171" width="575" height="13" font="4">A way to avoid copying of environments is to not use unbound variables in compute-functions.</text>
+<text top="272" left="149" width="596" height="13" font="4">Functions called from compute-functions are allowed to contain unbound variables as long as they</text>
+<text top="288" left="149" width="595" height="13" font="4">are bound by any calling function. The copy_environments option helps to minimize code changes to</text>
+<text top="305" left="149" width="598" height="13" font="4">achieve parallelization but its use is not recommended in general (see discussion of Example 1 below).</text>
+<text top="347" left="149" width="230" height="15" font="8"><b>Package and source dependencies</b></text>
+<text top="379" left="148" width="596" height="13" font="4">The copy_environments option can be used to ensure that function definitions are available in the</text>
+<text top="395" left="148" width="598" height="13" font="4">parallel jobs. However, this mechanism avoids copying functions defined in packages as pack-</text>
+<text top="412" left="149" width="595" height="13" font="4">ages might contain initialization code containing side-effects upon which these functions could</text>
+<text top="428" left="149" width="595" height="13" font="4">depend. Instead, required packages have to be specified either as an element in the configuration</text>
+<text top="445" left="149" width="598" height="13" font="4">list passed to parallelize_initialize or as the libraries argument of parallelize_initialize.</text>
+<text top="461" left="149" width="595" height="13" font="4">Similarly, the sourceFiles component of the configuration list or the sourceFiles argument of</text>
+<text top="478" left="149" width="151" height="11" font="4">parallelize_initialize</text>
+<text top="477" left="303" width="391" height="13" font="4">specify R scripts to be sourced prior to computing the parallel job.</text>
+<text top="522" left="149" width="79" height="17" font="5"><b>Examples</b></text>
+<text top="564" left="149" width="143" height="15" font="8"><b>Example 1 continued</b></text>
+<text top="595" left="148" width="373" height="13" font="4">We continue Example 1 by extending it for use with package</text>
+<text top="596" left="525" width="121" height="13" font="7"><a href="http://CRAN.R-project.org/package=parallelize.dynamic"><b>parallelize.dynamic</b></a></text>
+<text top="595" left="647" width="97" height="13" font="4"><a href="http://CRAN.R-project.org/package=parallelize.dynamic">. </a>Parallelization</text>
+<text top="612" left="149" width="595" height="13" font="4">is initialized by a call to parallelize_initialize. The following code has to replace the call to</text>
+<text top="629" left="149" width="110" height="11" font="4">subsetRegression</text>
+<text top="628" left="262" width="81" height="13" font="4">in Example 1.</text>
+<text top="659" left="149" width="192" height="11" font="4">library(parallelize.dynamic)</text>
+<text top="675" left="149" width="185" height="11" font="4">Parallelize_config &lt;- list(</text>
+<text top="692" left="163" width="130" height="11" font="4">libraries = ’sets’,</text>
+<text top="708" left="163" width="453" height="11" font="4">backends = list(snow = list(localNodes = 8, stateDir = tempdir()))</text>
+<text top="725" left="149" width="7" height="11" font="4">)</text>
+<text top="741" left="149" width="288" height="11" font="4">parallelize_initialize(Parallelize_config,</text>
+<text top="757" left="163" width="117" height="11" font="4">backend = ’snow’,</text>
+<text top="774" left="163" width="137" height="11" font="4">parallel_count = 32,</text>
+<text top="790" left="163" width="165" height="11" font="4">copy_environments = TRUE</text>
+<text top="807" left="149" width="7" height="11" font="4">)</text>
+<text top="823" left="149" width="295" height="11" font="4">print(parallelize_call(subsetRegression()))</text>
+<text top="853" left="171" width="573" height="13" font="4">It is good practice to put the definition of Parallelize_config into a separate file and describe</text>
+<text top="869" left="149" width="595" height="13" font="4">all resources available to the user there. This file can then be sourced into new scripts and the</text>
+<text top="885" left="149" width="595" height="13" font="4">call to parallelize_initialize can quickly switch between available resources by specifying the</text>
+<text top="902" left="149" width="127" height="13" font="4">appropriate backend.</text>
+<text top="941" left="275" width="59" height="15" font="8"><b>Backend</b></text>
+<text top="941" left="370" width="93" height="15" font="8"><b>#Parallel jobs</b></text>
+<text top="941" left="499" width="35" height="15" font="8"><b>Time</b></text>
+<text top="941" left="552" width="66" height="15" font="8"><b>Speed-up</b></text>
+<text top="966" left="275" width="77" height="15" font="0">OGSremote</text>
+<text top="966" left="455" width="7" height="15" font="0">3</text>
+<text top="966" left="481" width="54" height="15" font="0">9129 sec</text>
+<text top="966" left="592" width="26" height="15" font="0">1.00</text>
+<text top="984" left="275" width="77" height="15" font="0">OGSremote</text>
+<text top="984" left="448" width="15" height="15" font="0">15</text>
+<text top="984" left="481" width="54" height="15" font="0">6073 sec</text>
+<text top="984" left="592" width="26" height="15" font="0">1.50</text>
+<text top="1002" left="275" width="77" height="15" font="0">OGSremote</text>
+<text top="1002" left="448" width="15" height="15" font="0">50</text>
+<text top="1002" left="481" width="54" height="15" font="0">6206 sec</text>
+<text top="1002" left="592" width="26" height="15" font="0">1.47</text>
+<text top="1038" left="148" width="78" height="13" font="3"><b>Table 1: </b>Time</text>
+<text top="1038" left="229" width="515" height="13" font="4">is the absolute waiting time by the user averaged across two runs. Speed-up is relative to</text>
+<text top="1055" left="149" width="74" height="13" font="4">the first line.</text>
+<text top="1090" left="171" width="573" height="13" font="4">The example is benchmarked on a four-core machine (Intel Core i7) running the Open Grid Scheduler</text>
+<text top="1107" left="148" width="36" height="13" font="4">(OGS;</text>
+<text top="1107" left="188" width="246" height="13" font="6"><a href="2013-2-boehringer.html#9">Open Grid Scheduler Development Team</a></text>
+<text top="1107" left="434" width="3" height="13" font="4"><a href="2013-2-boehringer.html#9">,</a></text>
+<text top="1107" left="441" width="27" height="13" font="6"><a href="2013-2-boehringer.html#9">2013</a></text>
+<text top="1107" left="468" width="276" height="13" font="4"><a href="2013-2-boehringer.html#9">). </a>In this example, we investigate the influence</text>
+<text top="1123" left="149" width="455" height="13" font="4">of varying the number of parallel jobs generated. Results are listed in Table</text>
+<text top="1123" left="607" width="7" height="13" font="6"><a href="2013-2-boehringer.html#6">1</a></text>
+<text top="1123" left="617" width="127" height="13" font="4">and times include all</text>
+<text top="1140" left="148" width="596" height="13" font="4">waiting times induced by polling job-statuses and wait times induced by OGS (on average each job</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">94</text>
+<text top="103" left="148" width="598" height="13" font="4">waits 15 seconds before being started). The number of parallel jobs reflects parallelism in the program.</text>
+<text top="120" left="149" width="595" height="13" font="4">For three jobs, each of the response levels is analyzed in parallel. Fifteen is the number of subsets</text>
+<text top="136" left="149" width="598" height="13" font="4">of the covariates so that in this scenario the second level is parallelized (Sapply over the subsets).</text>
+<text top="152" left="149" width="595" height="13" font="4">Fifty exceeds the number of subset-scenarios (45 subsets in total) so that the Sapply within permute is</text>
+<text top="169" left="148" width="596" height="13" font="4">parallelized. Note, that in the last scenario execution is truly dynamic as the number of permutations</text>
+<text top="185" left="149" width="595" height="13" font="4">depends on the generalized linear model (glm) computed on each subset. This implies that this glm</text>
+<text top="202" left="149" width="595" height="13" font="4">is repeatedly computed during the re-executions, creating additional overhead. Choosing 15 jobs</text>
+<text top="218" left="149" width="595" height="13" font="4">instead of three makes better use of the processing power so that speed-up is expected, a job count of</text>
+<text top="235" left="149" width="228" height="13" font="4">50 results in about the same wait time.</text>
+<text top="256" left="171" width="573" height="13" font="4">Increasing job counts beyond the number of parallel resources can increase speed if the parallel</text>
+<text top="272" left="149" width="595" height="13" font="4">jobs differ in size and the overall computation depends on a single, long critical path. This path</text>
+<text top="288" left="149" width="597" height="13" font="4">can potentially be shortened by splitting up the computation into more pieces. In this example,</text>
+<text top="305" left="148" width="596" height="13" font="4">we could not benefit from such an effect. On the other hand, should we run the computation on a</text>
+<text top="321" left="149" width="595" height="13" font="4">computer cluster with hundreds of available cores, we could easily create a similar amount of jobs to</text>
+<text top="338" left="149" width="193" height="13" font="4">accommodate the new situation.</text>
+<text top="359" left="171" width="573" height="13" font="4">For the sake of demonstrating that the package can handle code with almost no modification, we</text>
+<text top="375" left="149" width="595" height="13" font="4">allowed for unbound, global variables (i.e. functions use globally defined variables that are not passed</text>
+<text top="392" left="149" width="595" height="13" font="4">as arguments). This forced us to use the copy_environments = TRUE option that makes the package</text>
+<text top="408" left="149" width="596" height="13" font="4">look for such variables and include their definition into the job that is later executed. It is better</text>
+<text top="424" left="148" width="596" height="13" font="4">practice in terms of using this package but also in terms of producing reproducible code in general to</text>
+<text top="441" left="148" width="596" height="13" font="4">pass data and parameters needed for a computation explicitly as arguments to a function performing a</text>
+<text top="457" left="149" width="598" height="13" font="4">specific analysis (analysis-function). We could also define all needed functions called from the analysis-</text>
+<text top="474" left="149" width="598" height="13" font="4">function in separate files and list these under the sourceFiles key in the Parallelize_config variable.</text>
+<text top="490" left="148" width="596" height="13" font="4">The package can then establish a valid compute environment by sourcing the specified files, loading</text>
+<text top="507" left="149" width="595" height="13" font="4">listed libraries and transferring arguments of the analysis-function in which case we would not</text>
+<text top="523" left="149" width="595" height="13" font="4">have to use the copy_environments = TRUE option. As a convenience measure the definition of the</text>
+<text top="540" left="149" width="332" height="13" font="4">analysis-function itself is always copied by the package.</text>
+<text top="582" left="149" width="70" height="15" font="8"><b>Example 2</b></text>
+<text top="613" left="148" width="297" height="13" font="4">The second example mimics the situation in Figure</text>
+<text top="613" left="448" width="7" height="13" font="6"><a href="2013-2-boehringer.html#3">1</a></text>
+<text top="613" left="455" width="289" height="13" font="4"><a href="2013-2-boehringer.html#3">. </a>It is more or less purely artificial and is meant to</text>
+<text top="630" left="149" width="366" height="13" font="4">illustrate the overhead induced by the parallelization process.</text>
+<text top="660" left="149" width="316" height="11" font="4">parallel8 &lt;- function(e) log(1:e) %*% log(1:e)</text>
+<text top="677" left="149" width="329" height="11" font="4">parallel2 &lt;- function(e) rep(e, e) %*% 1:e * 1:e</text>
+<text top="693" left="149" width="370" height="11" font="4">parallel1 &lt;- function(e) Lapply(rep(e, 15), parallel2)</text>
+<text top="710" left="149" width="171" height="11" font="4">parallel0 &lt;- function() {</text>
+<text top="726" left="163" width="514" height="11" font="4">r &lt;- sapply(Lapply(1:50, parallel1), function(e) sum(as.vector(unlist(e))))</text>
+<text top="742" left="163" width="199" height="11" font="4">r0 &lt;- Lapply(1:49, parallel8)</text>
+<text top="759" left="163" width="7" height="11" font="4">r</text>
+<text top="775" left="149" width="7" height="11" font="4">}</text>
+<text top="808" left="149" width="384" height="11" font="4">parallelize_initialize(Lapply_config, backend = ’local’)</text>
+<text top="825" left="149" width="185" height="11" font="4">r &lt;- parallelize(parallel0)</text>
+<text top="870" left="315" width="59" height="15" font="8"><b>Backend</b></text>
+<text top="870" left="410" width="93" height="15" font="8"><b>#Parallel jobs</b></text>
+<text top="870" left="543" width="35" height="15" font="8"><b>Time</b></text>
+<text top="896" left="315" width="18" height="15" font="0">off</text>
+<text top="896" left="488" width="15" height="15" font="0">24</text>
+<text top="896" left="528" width="50" height="15" font="0">0.01 sec</text>
+<text top="914" left="315" width="31" height="15" font="0">local</text>
+<text top="914" left="488" width="15" height="15" font="0">24</text>
+<text top="914" left="528" width="50" height="15" font="0">0.14 sec</text>
+<text top="932" left="315" width="36" height="15" font="0">snow</text>
+<text top="932" left="488" width="15" height="15" font="0">24</text>
+<text top="932" left="521" width="57" height="15" font="0">19.80 sec</text>
+<text top="949" left="315" width="77" height="15" font="0">OGSremote</text>
+<text top="949" left="488" width="15" height="15" font="0">24</text>
+<text top="949" left="521" width="57" height="15" font="0">29.07 sec</text>
+<text top="986" left="192" width="78" height="13" font="3"><b>Table 2: </b>Time</text>
+<text top="986" left="274" width="427" height="13" font="4">is the absolute waiting time by the user averaged across at least 10 runs.</text>
+<text top="1023" left="171" width="573" height="13" font="4">Again, a call to parallelize_initialize defines parameters of the parallelization and determines</text>
+<text top="1040" left="149" width="595" height="13" font="4">the backend. Function parallelize then executes the parallelization. Arguments to parallelize</text>
+<text top="1056" left="149" width="595" height="13" font="4">are the function to parallelize together with arguments to be passed to that function. Results from</text>
+<text top="1072" left="149" width="218" height="13" font="4">benchmark runs are shown in Table</text>
+<text top="1072" left="370" width="7" height="13" font="6"><a href="2013-2-boehringer.html#7">2</a></text>
+<text top="1072" left="381" width="363" height="13" font="4">and again absolute clock times are listed, i.e. time measured</text>
+<text top="1089" left="149" width="595" height="13" font="4">from starting the computation until the result was printed. snow and OGSremote backends were run</text>
+<text top="1105" left="149" width="595" height="13" font="4">on an eight core machine with Sun Grid Engine 6.2 installed with default settings. parallelize was</text>
+<text top="1122" left="149" width="293" height="13" font="4">configured to produce 24 parallel jobs. off in Table</text>
+<text top="1122" left="445" width="7" height="13" font="6"><a href="2013-2-boehringer.html#7">2</a></text>
+<text top="1122" left="455" width="292" height="13" font="4">denotes time for running without any paralleliza-</text>
+<text top="1138" left="149" width="595" height="13" font="4">tion. This can always be achieved by calling parallelize_setEnable(F) before parallelize which</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">95</text>
+<text top="103" left="149" width="596" height="13" font="4">replaces the Apply functions by their native versions and parallelize by a function that directly</text>
+<text top="120" left="149" width="596" height="13" font="4">calls its argument. The local backend performs parallelization but executes jobs linearly, thereby</text>
+<text top="136" left="149" width="353" height="13" font="4">allowing to measure overhead. In this example overhead is</text>
+<text top="135" left="505" width="11" height="13" font="0">∼</text>
+<text top="136" left="520" width="224" height="13" font="4">0.13 seconds which is large in relative</text>
+<text top="152" left="149" width="595" height="13" font="4">terms but unproblematic if the computation becomes larger. This overhead is roughly linear in the</text>
+<text top="169" left="149" width="595" height="13" font="4">number of jobs generated. Comparing snow and OGSremote backends we can judge the setup time of</text>
+<text top="185" left="149" width="595" height="13" font="4">these backends for their parallel jobs. It took snow a bit below a second and OGSremote a bit above</text>
+<text top="202" left="149" width="596" height="13" font="4">a second to setup and run a job. It should be noted that the batch queuing characteristics are very</text>
+<text top="218" left="149" width="595" height="13" font="4">influential for the OGSremote backend. This instance of the Sun Grid Engine was configured to run</text>
+<text top="235" left="149" width="595" height="13" font="4">jobs immediately upon submission. This example does not transfer big data sets which would add to</text>
+<text top="251" left="149" width="595" height="13" font="4">overhead, however, it seems plausible that an overhead of at most a couple of seconds per job makes</text>
+<text top="268" left="148" width="598" height="13" font="4">parallelization worthwhile even for smaller computations in the range of many minutes to few hours.</text>
+<text top="312" left="149" width="178" height="17" font="5"><b>Discussion &amp; outlook</b></text>
+<text top="354" left="149" width="79" height="15" font="8"><b>Limitations</b></text>
+<text top="386" left="149" width="595" height="13" font="4">Using the <b>parallelize.dynamic </b>package, existing code can be made to run in parallel with minimal</text>
+<text top="402" left="149" width="595" height="13" font="4">effort. Certain workflows do not fit the computational model assumed here. Most notably the</text>
+<text top="418" left="149" width="595" height="13" font="4">cost of the ramp-up determines the overhead generated by this package and might render a given</text>
+<text top="435" left="149" width="595" height="13" font="4">computation unsuitable for this approach. In many cases re-factoring of the code should help to</text>
+<text top="451" left="149" width="595" height="13" font="4">mitigate such overhead, however, this would render the point of convenience moot. It should also be</text>
+<text top="468" left="148" width="596" height="13" font="4">pointed out that for a given computation for which time can be invested into choosing the code point</text>
+<text top="484" left="149" width="595" height="13" font="4">at which to parallelize carefully and subsequently using packages like <b>parallel </b>or <b>foreach </b>should</text>
+<text top="501" left="149" width="199" height="13" font="4">result in a more efficient solution.</text>
+<text top="543" left="149" width="141" height="15" font="8"><b>Technical discussion</b></text>
+<text top="575" left="149" width="595" height="13" font="4">One way to reduce the cost of ramp-ups is to pull out code from nested loops and pre-compute</text>
+<text top="591" left="149" width="595" height="13" font="4">their values, if possible. To help automate such a step, static code analysis can be used to separate</text>
+<text top="607" left="149" width="595" height="13" font="4">computational steps from ramp-ups by analyzing code dependencies. Another option would be to</text>
+<text top="624" left="149" width="595" height="13" font="4">extent the R language with an option to manipulate the “program counter”, which would allow to</text>
+<text top="640" left="149" width="595" height="13" font="4">resume code execution after a parallelization step in a very efficient manner. Such a change seems not</text>
+<text top="657" left="149" width="374" height="13" font="4">straightforward but could also benefit debugging mechanisms.</text>
+<text top="678" left="171" width="575" height="13" font="4">All parallelization packages rely on function calls that are executed in parallel not to have side-</text>
+<text top="694" left="149" width="595" height="13" font="4">effects themselves or to depend on such. It would be impractical to formally enforce this with</text>
+<text top="711" left="149" width="596" height="13" font="4">the language features offered by R. Again, a language extension could enforce functional behavior</text>
+<text top="727" left="149" width="597" height="13" font="4">efficiently, i.e. only the current environment (stack frame) may be manipulated by a function. For now,</text>
+<text top="743" left="149" width="598" height="13" font="4">some care has to be taken by the user, however, this does not seem to be a big problem in practice.</text>
+<text top="760" left="149" width="595" height="13" font="4">For most “statistical” applications such as simulations, bootstrapping, permutations or stochastic</text>
+<text top="776" left="149" width="511" height="13" font="4">integration a reasonable implementation should naturally lead to side-effect free code.</text>
+<text top="797" left="171" width="575" height="13" font="4">Is a fully transparent solution possible? Replacing native apply functions directly with paral-</text>
+<text top="814" left="149" width="595" height="13" font="4">lelization ones would have the benefit of requiring no modifications of the code at all. The current</text>
+<text top="830" left="149" width="595" height="13" font="4">implementation would certainly suffer from too great an overhead, however, it is conceivable that</text>
+<text top="847" left="148" width="596" height="13" font="4">profiling techniques (measuring computing time of individual function calls) could be used to gather</text>
+<text top="863" left="148" width="596" height="13" font="4">prior knowledge on computational behavior of “typical” code allowing to exclude certain apply calls</text>
+<text top="879" left="149" width="595" height="13" font="4">from the parallelization process. This seems a very challenging approach and requires extensive</text>
+<text top="896" left="149" width="86" height="13" font="4">further efforts.</text>
+<text top="938" left="149" width="85" height="15" font="8"><b>Conclusions</b></text>
+<text top="970" left="149" width="598" height="13" font="4">In the author’s experience, most standard statistical workloads can easily be adapted to this paral-</text>
+<text top="986" left="149" width="595" height="13" font="4">lelization approach and subsequently scale from the local machine to mid-size and big clusters without</text>
+<text top="1003" left="149" width="595" height="13" font="4">code modifications. Once standard configurations for the use of a local batch queuing system at a</text>
+<text top="1019" left="149" width="595" height="13" font="4">given site are created, this package can potentially dramatically broaden the audience that can make</text>
+<text top="1036" left="149" width="217" height="13" font="4">use of high performance computing.</text>
+<text top="1056" left="171" width="573" height="13" font="4">As a final note, R is sometimes criticized for being an inefficient programming language which can</text>
+<text top="1073" left="149" width="595" height="13" font="4">be attributed to highly dynamic language features. The current implementation makes liberal use of</text>
+<text top="1089" left="149" width="596" height="13" font="4">many such features most notably introspection features to create unevaluated calls and perform their</text>
+<text top="1106" left="149" width="595" height="13" font="4">remote execution. The roughly 1000 lines of implementation (split roughly evenly between front-end</text>
+<text top="1122" left="149" width="595" height="13" font="4">and backend) demonstrate that these features are powerful and allow to execute a project such as</text>
+<text top="1139" left="149" width="595" height="13" font="4">this with a small code base. Also, the functional programming paradigm implemented in R allows</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">96</text>
+<text top="103" left="149" width="595" height="13" font="4">for a natural attacking point of parallelization. This can be exploited to gain computational speed</text>
+<text top="120" left="149" width="595" height="13" font="4">in a highly automatized way, a mechanism that is hard to imitate in procedural languages which</text>
+<text top="136" left="149" width="342" height="13" font="4">traditionally have stakes in high performance computing.</text>
+<text top="181" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="220" left="149" width="595" height="13" font="4">In many practical situations it is straightforward to parallelize R code. This article presents an</text>
+<text top="236" left="149" width="596" height="13" font="4">implementation that reduces user intervention to a minimum and allows us to parallelize code by</text>
+<text top="253" left="148" width="596" height="13" font="4">passing a given function call to the parallelize_call function. The major disadvantage of this</text>
+<text top="269" left="149" width="595" height="13" font="4">implementation is the induced overhead which can often be reduced to a minimum. Advantages</text>
+<text top="285" left="149" width="595" height="13" font="4">include that potentially little technical knowledge is required, computations can become more efficient</text>
+<text top="302" left="149" width="595" height="13" font="4">by better control over the amount of parallelization, and finally that programs can be easily scaled to</text>
+<text top="318" left="149" width="595" height="13" font="4">available resources. Future work is needed to reduce computational overhead and to complement this</text>
+<text top="335" left="149" width="182" height="13" font="4">dynamic with a static analysis.</text>
+<text top="380" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="418" left="149" width="358" height="13" font="4">D. Bode. Rsge: Interface to the SGE Queuing System, 2012. URL</text>
+<text top="419" left="510" width="234" height="11" font="6"><a href="http://CRAN.R-project.org/package=Rsge">http://CRAN.R-project.org/package=</a></text>
+<text top="435" left="164" width="27" height="11" font="6"><a href="http://CRAN.R-project.org/package=Rsge">Rsge</a></text>
+<text top="435" left="191" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=Rsge">. </a>R package version 0.6.3. <a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="435" left="359" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="435" left="373" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="463" left="149" width="565" height="13" font="4">A. Canty and B. D. Ripley. boot: Bootstrap R (S-Plus) Functions, 2013. R package version 1.3-9. <a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="463" left="714" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="463" left="727" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="492" left="149" width="555" height="13" font="4">K. Cooper and L. Torczon. Engineering a Compiler. Elsevier, Jan. 2011. ISBN 9780080916613. <a href="2013-2-boehringer.html#3">[p</a></text>
+<text top="492" left="704" width="13" height="13" font="6"><a href="2013-2-boehringer.html#3">90</a></text>
+<text top="492" left="718" width="4" height="13" font="4"><a href="2013-2-boehringer.html#3">]</a></text>
+<text top="520" left="149" width="597" height="13" font="4">A. C. Davison and D. V. Hinkley. Bootstrap Methods and Their Applications. Cambridge University Press,</text>
+<text top="536" left="164" width="136" height="13" font="4">Cambridge, 1997. URL</text>
+<text top="537" left="304" width="240" height="11" font="6"><a href="http://statwww.epfl.ch/davison/BMA/">http://statwww.epfl.ch/davison/BMA/</a></text>
+<text top="536" left="544" width="144" height="13" font="4"><a href="http://statwww.epfl.ch/davison/BMA/">. </a>ISBN 0-521-57391-2. <a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="536" left="688" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="536" left="701" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="565" left="149" width="595" height="13" font="4">M. D. Ernst. Static and dynamic analysis: Synergy and duality. In WODA 2003: ICSE Workshop on</text>
+<text top="581" left="163" width="262" height="14" font="4">Dynamic Analysis, pages 24–27, 2003. URL</text>
+<text top="582" left="429" width="316" height="11" font="6"><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.5350&amp;rep=rep1&amp;type=pdf#page=25">http://citeseerx.ist.psu.edu/viewdoc/download?</a></text>
+<text top="598" left="164" width="309" height="11" font="6"><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.5350&amp;rep=rep1&amp;type=pdf#page=25">doi=10.1.1.182.5350&amp;rep=rep1&amp;type=pdf#page=25</a></text>
+<text top="598" left="472" width="21" height="13" font="4"><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.5350&amp;rep=rep1&amp;type=pdf#page=25">. </a><a href="2013-2-boehringer.html#3">[p</a></text>
+<text top="598" left="493" width="13" height="13" font="6"><a href="2013-2-boehringer.html#3">90</a></text>
+<text top="598" left="507" width="4" height="13" font="4"><a href="2013-2-boehringer.html#3">]</a></text>
+<text top="626" left="149" width="595" height="13" font="4">R. Ihaka and R. Gentleman. R: A language for data analysis and graphics. Journal of Computational</text>
+<text top="642" left="164" width="283" height="14" font="4">and Graphical Statistics, 5(3):299–314, 1996. URL</text>
+<text top="643" left="451" width="295" height="11" font="6"><a href="http://www.tandfonline.com/doi/abs/10.1080/10618600.1996.10474713">http://www.tandfonline.com/doi/abs/10.1080/</a></text>
+<text top="660" left="163" width="151" height="11" font="6"><a href="http://www.tandfonline.com/doi/abs/10.1080/10618600.1996.10474713">10618600.1996.10474713</a></text>
+<text top="659" left="314" width="21" height="13" font="4"><a href="http://www.tandfonline.com/doi/abs/10.1080/10618600.1996.10474713">. </a><a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="659" left="335" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="659" left="349" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="687" left="149" width="595" height="13" font="4">K. Michael, J. W. Emerson, and S. Weston. Scalable strategies for computing with massive data. Journal</text>
+<text top="704" left="164" width="261" height="14" font="4">of Statistical Software, 55(14):1–19, 2013. URL</text>
+<text top="704" left="428" width="219" height="11" font="6"><a href="http://www.jstatsoft.org/v55/i14">http://www.jstatsoft.org/v55/i14</a></text>
+<text top="704" left="648" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v55/i14">. </a><a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="704" left="669" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="704" left="682" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="732" left="149" width="597" height="13" font="4">Open Grid Scheduler Development Team. Open Grid Scheduler: The official open source grid engine,</text>
+<text top="749" left="164" width="63" height="13" font="4">2013. URL</text>
+<text top="749" left="230" width="254" height="11" font="6"><a href="http://gridscheduler.sourceforge.net/">http://gridscheduler.sourceforge.net/</a></text>
+<text top="749" left="484" width="21" height="13" font="4"><a href="http://gridscheduler.sourceforge.net/">. </a><a href="2013-2-boehringer.html#6">[p</a></text>
+<text top="749" left="504" width="13" height="13" font="6"><a href="2013-2-boehringer.html#6">93</a></text>
+<text top="749" left="518" width="4" height="13" font="4"><a href="2013-2-boehringer.html#6">]</a></text>
+<text top="777" left="149" width="499" height="13" font="4">Revolution Analytics and S. Weston. foreach: Foreach Looping Construct for R, 2013. URL</text>
+<text top="778" left="651" width="96" height="11" font="6"><a href="http://CRAN.R-project.org/package=foreach">http://CRAN.R-</a></text>
+<text top="794" left="164" width="185" height="11" font="6"><a href="http://CRAN.R-project.org/package=foreach">project.org/package=foreach</a></text>
+<text top="793" left="349" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=foreach">. </a>R package version 1.4.1. <a href="2013-2-boehringer.html#1">[p</a></text>
+<text top="793" left="517" width="13" height="13" font="6"><a href="2013-2-boehringer.html#1">88</a></text>
+<text top="793" left="530" width="4" height="13" font="4"><a href="2013-2-boehringer.html#1">]</a></text>
+<text top="822" left="149" width="596" height="13" font="4">L. Tierney, A. J. Rossini, N. Li, and H. Sevcikova. snow: Simple Network of Workstations, 2013. URL</text>
+<text top="839" left="164" width="261" height="11" font="6"><a href="http://CRAN.R-project.org/package=snow">http://CRAN.R-project.org/package=snow</a></text>
+<text top="838" left="425" width="176" height="13" font="4"><a href="http://CRAN.R-project.org/package=snow">. </a>R package version 0.3-13. <a href="2013-2-boehringer.html#4">[p</a></text>
+<text top="838" left="601" width="13" height="13" font="6"><a href="2013-2-boehringer.html#4">91</a></text>
+<text top="838" left="614" width="4" height="13" font="4"><a href="2013-2-boehringer.html#4">]</a></text>
+<text top="885" left="148" width="92" height="13" font="4">Stefan Böhringer</text>
+<text top="901" left="148" width="185" height="13" font="4">Leiden University Medical Center</text>
+<text top="917" left="148" width="286" height="13" font="4">Department of Medical Statistics and Bioinformatics</text>
+<text top="934" left="148" width="163" height="13" font="4">Postzone S-5-P, P.O.Box 9600</text>
+<text top="950" left="148" width="87" height="13" font="4">2300 RC Leiden</text>
+<text top="967" left="148" width="90" height="13" font="4">The Netherlands</text>
+<text top="984" left="149" width="233" height="11" font="6"><a href="mailto:correspondence at s-boehringer.org">correspondence at s-boehringer.org</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

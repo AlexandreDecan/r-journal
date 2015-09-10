@@ -1,0 +1,60 @@
+page	left	top	code
+2	149	164	> ## Read in data
+2	149	180	> data(Crowther2003)
+2	149	197	> ## Do meta-analysis using function metabin() from R package meta
+2	149	213	> m.crowther <- metabin(event.e, total.e, event.c, total.c,
+2	149	229	+ data=Crowther2003, sm="OR", studlab=study)
+2	149	246	Warning message:
+2	149	262	In metabin(event.e, total.e, event.c, total.c, data = Crowther2003, :
+2	163	279	Increment 0.5 added to each cell in 2x2 tables with zero cell frequencies
+2	149	295	> ## Do test for funnel plot asymmetry (Harbord et al.)
+2	149	312	> ## using function metabias() from R package meta
+2	149	328	> metabias(m.crowther, meth="score")
+2	149	361	Linear regression test of funnel plot asymmetry (efficient score)
+2	149	394	data: m.crowther
+2	149	410	t = -3.4551, df = 7, p-value = 0.01062
+2	149	427	alternative hypothesis: asymmetry in funnel plot
+2	149	443	sample estimates:
+2	190	460	bias se.bias slope
+2	149	476	-2.6149672 0.7568465 0.2927025
+2	149	509	> ## Do Copas analysis
+2	149	525	> cop1 <- copas(m.crowther)
+2	149	542	> ## Plot Copas analysis
+2	149	558	> plot(cop1)
+2	149	575	> ## Redo Copas analysis as P-value of residual selection bias
+2	149	591	> ## is still significant
+2	149	608	> cop2 <- copas(m.crowther,
+2	149	624	+ gamma0.range=c(-0.55, 2),
+2	149	640	+ gamma1.range=cop1$gamma1.range)
+2	149	657	Warning messages:
+2	149	673	1: In sqrt(1 - rho.tilde^2) : NaNs produced
+2	149	690	2: In sqrt((tau^2 + sigma^2) * (1 - rho.tilde^2)) : NaNs produced
+2	149	706	3: In sqrt((1 - rho.tilde^2)) : NaNs produced
+2	149	723	> ## Plot Copas analysis
+2	149	739	> plot(cop2)
+2	149	755	> ## Print summary of Copas analysis
+2	149	772	> summary(cop2)
+2	149	788	Summary of Copas selection model analysis:
+2	238	821	publprob OR 95%-CI pval.treat
+2	554	821	pval.rsb N.unpubl
+2	266	838	1.00 0.4967 [0.3247; 0.7599]
+2	492	838	0.0013 0.006 0
+2	266	854	0.82 0.5483 [0.3494; 0.8605]
+2	492	854	0.009 0.007 1
+2	266	871	0.67 0.6063 [0.3938; 0.9335]
+2	492	871	0.023 0.0115 2
+2	266	887	0.55 0.6702 [0.4601; 0.9761]
+2	492	887	0.037 0.0205 4
+2	266	903	0.45 0.7402 [0.5376; 1.0193]
+2	492	903	0.0653 0.046 6
+2	266	920	0.37 0.8337 [0.6055; 1.1480]
+2	492	920	0.2652 0.2461 9
+2	176	953	Copas model (adj) 0.8337 [0.6055; 1.1480]
+2	492	953	0.2652 0.2461 9
+2	156	969	Random effects model 0.4880 [0.3234; 0.7363]
+2	492	969	0.0006
+2	156	1002	Legend:
+2	156	1018	publprob - Probability of publishing the study with the largest standard error
+2	156	1035	pval.treat - P-value for hypothesis that the treatment effect is equal in both groups
+2	156	1051	pval.rsb - P-value for hypothesis that no further selection remains unexplained
+2	156	1068	N.unpubl - Approximate number of studies the model suggests remain unpublished

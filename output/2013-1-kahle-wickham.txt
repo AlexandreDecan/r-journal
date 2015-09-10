@@ -1,0 +1,279 @@
+page	left	top	code
+1	149	231	social landmarks and geographic context is invaluable. ggmap is a new tool which enables such
+1	148	247	visualization by combining the spatial information of static maps from Google Maps, OpenStreetMap,
+1	149	264	Stamen Maps or CloudMade Maps with the layered grammar of graphics implementation of ggplot2.
+1	149	280	In addition, several new utility functions are introduced which allow the user to access the Google
+1	149	297	Geocoding, Distance Matrix, and Directions APIs. The result is an easy, consistent and modular
+1	149	313	framework for spatial graphics with several convenient tools for spatial data analysis.
+1	148	397	Visualizing spatial data in R can be a challenging task. Fortunately the task is made a good deal easier
+1	149	446	those methods, one can plot the basic geographic information of (for instance) a shape file containing
+1	148	462	polygons for areal data or points for point referenced data. However, compared to specialized
+1	149	479	geographic information systems (GISs) such as ESRI’s ArcGIS, which can plot points, polygons, etc.
+1	149	495	on top of maps and satellite imagery with drag-down menus, these visualizations can be pretty
+1	149	512	disappointing. This article details some new methods for the visualization of spatial data in R using
+1	149	545	information of static maps from Google Maps, OpenStreetMap, Stamen Maps or CloudMade Maps
+1	149	577	and bolts of ggmap, we showcase some of its capabilities in a simple case study concerning violent
+1	149	594	crimes in downtown Houston, Texas and present an overview of a few utility functions.
+1	148	678	Areal data is data which corresponds to geographical extents with polygonal boundaries. A typical
+1	149	694	example is the number of residents per zip code. Considering only the boundaries of the areal units,
+1	149	1038	scatterplot – murders in Houston from January 2010 to August 2010 (right).
+1	148	1073	While these kinds of plots are useful, they are not as informative as we would like in many situations.
+1	149	1090	For instance, when plotting zip codes it is helpful to also see major roads and other landmarks which
+1	149	1106	form the boundaries of areal units.
+1	171	1127	The situation for point referenced spatial data is often much worse. Since we can’t easily contextu-
+1	149	1143	alize a scatterplot of points without any background information at all, it is common to add points as
+2	148	120	(right).
+2	171	141	In most cases the plot is understandable to the researcher who has worked on the problem for
+2	149	157	some time but is of hardly any use to his audience, who must work to associate the data of interest
+2	148	173	with their location. Moreover, it leaves out many practical details—are most of the events to the east
+2	149	190	or west of landmark x? Are they clustered around more well-to-do parts of town, or do they tend
+2	149	206	to occur in disadvantaged areas? Questions like these can’t really be answered using these kinds of
+2	149	223	graphics because we don’t think in terms of small scale areal boundaries (e.g. zip codes or census
+2	149	239	tracts).
+2	171	314	Moreover, there has recently been a deluge of interest in the subject of mapmaking in R—Ian
+2	149	363	information of various kinds of static maps in the ggplot2 plotting framework. The result is an easy,
+2	149	380	consistent way of specifying plots which are readily interpretable by both expert and audience and
+2	149	396	safeguarded from graphical inconsistencies by the layered grammar of graphics framework. The result
+2	149	429	slightly different due to map provider changes over time.
+2	149	887	an experimental amalgamation of the functions presented in this article.
+2	149	984	One advantage of making the plots with ggplot2 is the layered grammar of graphics on which ggplot2
+2	148	1017	plot consist of five components :
+2	171	1043	• a default dataset with aesthetic mappings,
+2	171	1065	• one or more layers, each with a geometric object (“geom”), a statistical transformation (“stat”),
+2	186	1081	and a dataset with aesthetic mappings (possibly defaulted),
+2	171	1103	• a scale for each aesthetic mapping (which can be automatically generated),
+2	171	1125	• a coordinate system, and
+2	171	1147	• a facet specification.
+3	149	103	Since ggplot2 is an implementation of the layered grammar of graphics, every plot made with ggplot2
+3	149	120	has each of the above elements. Consequently, ggmap plots also have these elements, but certain
+3	149	136	elements are fixed to map components : the x aesthetic is fixed to longitude, the y aesthetic is fixed to
+3	171	173	The major theoretical advantage of using the layered grammar in plotting maps is that aesthetic
+3	149	190	scales are kept consistent. In the typical situation where the map covers the extent of the data, in
+3	149	223	axes. The same is true of colors, fills, alpha blendings, and other aesthetics which are built on top of
+3	149	239	the map when other layers are presented—each is allotted one scale which is kept consistent across
+3	149	256	each layer of the plot. This aspect of the grammar is particularly important for faceted plots in order
+3	149	272	to make a proper comparison across several plots. Of course, the scales can still be tricked if the user
+3	149	288	improperly specifies the spatial data, e.g. using more than one projection in the same map, but fixing
+3	149	305	such errors is beyond any framework.
+3	171	326	The practical advantage of using the grammar is even better. Since the graphics are done in ggplot2
+3	149	342	the user can draw from the full range of ggplot2’s capabilities to layer elegant visual content—geoms,
+3	149	359	stats, scales, etc.—using the usual ggplot2 coding conventions. This was already seen briefly in Figure
+3	149	392	shortly.
+3	148	474	The basic idea driving ggmap is to take a downloaded map image, plot it as a context layer using
+3	149	524	for plotting, done with get_map, and (2) making the plot, done with ggmap. qmap marries these two
+3	149	540	functions for quick map plotting (c.f. ggplot2’s ggplot), and qmplot attempts to wrap up the entire
+3	148	556	plotting process into one simple command (c.f. ggplot2’s qplot).
+3	149	629	In ggmap, downloading a map as an image and formatting the image for plotting is done with the
+3	149	679	array of arguments and returns a classed raster object for plotting with ggmap.
+3	171	699	As the most important characteristic of any map is location, the most important argument of
+3	149	732	of the map and accompanied by a zoom argument, an integer from 3 to 20 specifying how large the
+3	149	749	spatial extent should be around the center, with 3 being the continent level and 20 being roughly the
+3	149	765	single building level. location is defaulted to downtown Houston, Texas, and zoom to 10, roughly a
+3	149	782	city-scale.
+3	171	803	While longitude/latitude pairs are ideal for specifying a location, they are somewhat inconvenient
+3	149	819	on a practical level. For this reason, location also accepts a character string. The string, whether
+3	149	835	containing an address, zip code, or proper name, is then passed to the geocode function which then
+3	149	852	determines the appropriate longitude/latitude coordinate for the center. In other words, there is
+3	149	868	no need to know the exact longitude/latitude coordinates of the center of the map—get_map can
+3	149	885	determine them from more colloquial (“lazy”) specifications so that they can be specified very loosely.
+3	149	901	For example, since
+3	148	983	works, "the white house" is a viable location argument. More details on geocode and other utility
+3	149	1000	functions are discussed at the end of this article.
+3	171	1021	In lieu of a center/zoom specification, some users find a bounding box specification more conve-
+3	149	1037	nient. To accommodate this form of specification, location also accepts numeric vectors of length four
+3	149	1053	following the left/bottom/right/top convention. This option is not currently available for Google
+3	149	1070	Maps.
+3	171	1091	While each map source has its own web application programming interface (API), specification
+3	149	1107	of location/zoom in get_map works for each by computing the appropriate parameters (if necessary)
+4	149	103	and passing them to each of the API specific get_* functions. To ensure that the resulting maps are
+4	149	120	the same across the various sources for the same location/zoom specification, get_map first grabs the
+4	149	136	appropriate Google Map, determines its bounding box, and then downloads the other map as needed.
+4	149	152	In the case of Stamen Maps and CloudMade Maps, this involves a stitching process of combining
+4	149	169	several tiles (small map images) and then cropping the result to the appropriate bounding box. The
+4	149	185	result is a single, consistent specification syntax across the four map sources as seen for Google Maps
+4	148	969	(bottom) with a single simple syntax, even though their APIs are quite different.
+4	171	1005	Before moving into the source and maptype arguments, it is important to note that the underlying
+4	148	1021	API specific get_* functions for which get_map is a wrapper provide more extensive mechanisms for
+4	149	1037	downloading from their respective sources. For example, get_googlemap can access almost the full
+4	148	1128	The most attractive aspect of using different map sources (Google Maps, OpenStreetMap, Stamen
+4	149	1144	Maps, and CloudMade Maps) is the different map styles provided by the producer. These are specified
+6	148	103	with the maptype argument of get_map and must agree with the source argument. Some styles
+6	149	120	emphasize large roadways, others bodies of water, and still others political boundaries. Some are
+6	149	136	better for plotting in a black-and-white medium; others are simply nice to look at. This section gives a
+6	149	152	run down of the various map styles available in ggmap.
+6	171	227	Style is where Stamen Maps and CloudMade Maps really shine. Stamen Maps has three available
+6	171	670	Stamen’s terrain tile set is quite similar to Google’s, but obviously the watercolor and toner tile
+6	149	687	sets are substantially different than any of the four Google tile sets. The latter, for example, is ideal for
+6	149	703	black-and-white plotting.
+6	171	724	CloudMade Maps takes the tile styling even further by allowing the user to either (1) select among
+6	149	757	user can specify colors, lines, and so forth for various types of roads, waterways, landmarks, etc.,
+6	149	773	all of which are generated by CloudMade and accessible in ggmap. ggmap, through get_map (or
+6	149	806	boosts their applicability and expands the possibilities with ggmap. The one minor drawback to using
+6	149	823	CloudMade Maps is that the user must register with CloudMade to obtain an API key and then pass
+6	149	839	the API key into get_map with the api_key argument. API keys are free of charge and can be obtained
+6	149	872	styles are only available to the user that owns them.
+6	171	893	Both Stamen Maps and CloudMade Maps are built using OpenStreetMap data. These data are
+6	149	909	contributed by an open community of online users in much the same way Wikipedia is—both are free,
+6	149	926	both are user-contributed, and both are easily edited. Moreover, OpenStreetMap has data not only on
+6	149	942	roadways and bodies of water but also individual buildings, fountains, stop signs and other apparent
+6	149	959	minutiae. The drawback is that (like Google Maps) not all locations are mapped with the same degree
+6	149	1048	Once get_map has grabbed the map of interest, ggmap is ready to plot it. The result of get_map is a
+6	149	1065	specially classed raster object (a matrix of colors as hexadecimal character strings) –
+7	148	702	The purpose of ggmap is to take the map from the raster object to the screen, and it fulfills this purpose
+7	149	718	by creating a ggplot object which, when printed, draws the desired map in the graphics device. This is
+7	171	756	While ggmap requires a ggmap object, it accepts a handful of other arguments as well—extent,
+7	149	788	effectively returns the following ggplot object
+7	148	875	where fourCorners is the data frame resulting from applying expand.grid to the longitude and
+7	149	891	latitude ranges specified in the bb attribute of the ggmap object. Thus, the default base layer of
+7	149	908	the ggplot2 object created by ggmap is ggplot(aes(x = lon,y = lat),data = fourCorners), and the
+7	149	924	default x and y aesthetic scales are calculated based on the longitude and latitude ranges of the map.
+7	171	945	The extent argument dictates how much of the graphics device is covered by the map. It
+7	148	994	padding provided by ggplot2 and, consequently, one can see the panel behind it. "panel" elimi-
+7	149	1011	nates this, setting the limits of the plot panel to be the longitude and latitude extents of the map with
+7	149	1044	axes themselves with the new exported theme_nothing.
+7	149	1081	in the above code the user can change ggplot(aes(x = lon,y = lat),data = fourCorners) to a
+7	149	1098	different call. This is essential for faceting plots since the referent of ggplot2 functions facet_wrap and
+7	149	1130	of the plot, it is possible that when the base layer is changed only part of the map is visible. Setting
+7	149	1147	the maprange argument to TRUE (it defaults to FALSE) ensures that the map determines the x and y axis
+8	149	542	graphics.
+8	149	591	limits (longitude and latitude) via the bb attribute of the ggmap object itself, and not the base_layer
+8	149	608	argument.
+8	171	629	The legend-related arguments of ggmap are legend and padding, and they are only applicable
+8	148	645	when extent = "device". The legend argument determines where a legend should be drawn on the
+8	149	662	map if one should be drawn. Its options are "left", "right" (default), "bottom", "top", "topleft",
+8	149	711	itself similar to ArcGIS; and the last eliminates the legend altogether. padding governs how far from
+8	149	727	the corner the legend should be drawn.
+8	171	748	The darken argument, a suggestion by Jean-Olivier Irisson, tints the map image. The default,
+8	149	781	corresponds to an alpha blending (0 = invisible, 1 = opaque) and the second argument the color of the
+8	149	798	tint. If only a number is supplied to the darken argument ggmap assumes a black tint. The tint itself is
+8	149	830	black tint was added to the map to enhance the visibility of the points.
+8	171	851	Since ggmap returns a ggplot object, the product of ggmap can itself act as a base layer in the ggplot2
+8	149	868	framework. This is an incredibly important realization which allows for the full range of ggplot2
+8	149	884	capabilities. We now illustrate many of the ways in which this can be done effectively through a case
+8	149	901	study of violent crime in downtown Houston, Texas.
+8	149	1052	geocoded using Google Maps (to the center of the block, e.g., 6150 Main St.); the full data set is
+8	149	1068	available in ggmap as the data set crime.
+9	171	363	Since we are only interested in violent crimes which take place downtown, we restrict the data
+9	149	380	set to those qualifiers. To determine a bounding box, we first use gglocator, a ggplot2 analogue
+9	149	396	of base’s locator function exported from ggmap. gglocator works not only for ggmap plots, but
+9	171	768	The analysis performed only concerns data on the violent crimes of aggravated assault, robbery,
+9	149	785	rape and murder. Note that while some effort was made to ensure the quality of the data, the data
+9	148	801	were only leisurely cleaned and the data set may still contain errors.
+9	148	875	The first step we might want to take is to look at where the individual crimes took place. Modulo some
+9	149	891	simple ggplot2 styling changes (primarily in the fonts and key-styles of the legends via ggplot2’s
+9	171	929	One of the problems with the bubble chart is overplotting and point size—we can’t really get a feel
+9	149	945	for what crimes are taking place and where. One way around this is to bin the points and drop the
+9	149	978	happening at the expense of knowing their frequency.
+9	171	999	The binned plot is the first time we really begin to see the power of having the maps in the ggplot2
+9	149	1015	framework. While it is actually not a very good plot, it illustrates the practical advantage of the
+9	149	1048	frame violent_crimes into chunks based on the offense variable, binning the points of each, and
+9	149	1065	aggregating back into one data set to plot is all done entirely behind the scenes by ggplot2.
+9	171	1086	What about violent crimes in general? If we neglect the type of offense, we can get a good idea of
+9	149	1102	the spatial distribution of violent crimes by using a contour plot. Since the map image itself is based
+9	149	1119	on ggplot2’s annotation_raster, which doesn’t have a fill aesthetic, we can access the fill aesthetic to
+12	171	103	These kinds of overlays can be incredibly effective; however, their ability to communicate informa-
+12	149	120	tion can be hindered by the fact that the map overlay can be visually confused with the map itself.
+12	148	136	This is particularly common when using colored maps. To get around this problem the inset function
+12	149	152	can be used to insert map insets containing the overlay on a white background with major and minor
+12	149	169	axes lines for visual guides made possible by the exported function theme_inset; this is seen in Figure
+12	171	206	The image indicates that there are three main hotspots of activity. Each of these three corresponds
+12	149	223	to locations commonly held by Houstonians to be particularly dangerous locations. From east to west,
+12	149	239	the hotspots are caused by (1) a county jail which releases its inmates twice daily, who tend to loiter in
+12	149	256	the area indicated, (2) a commercial bus station in an area of substantial homelessness and destitution,
+12	149	272	and (3) a prostitution hotspot in a very diverse and pedestrian part of town.
+12	171	293	In addition to single plots, the base_layer argument to ggmap or qmap allows for faceted plots (see
+12	149	326	month, season, year, etc.).
+12	171	347	This last plot displays one of the known issues with contour plots in ggplot2—a “clipping” or
+12	147	363	“tearing” of the contours. Aside from that fact (which will likely be fixed in subsequent ggplot2
+12	148	380	versions), we can see that in fact most violent crimes happen on Monday, with a distant second being
+12	149	396	Friday. Friday’s pattern is easily recognizable—a small elevated dot in the downtown bar district and
+12	149	412	an expanded region to the southwest in the district known as midtown, which has an active nightlife.
+12	149	429	Monday’s pattern is not as easily explainable.
+13	148	134	The ability to move from an address to a longitude/latitude coordinate is virtually a must for visu-
+13	149	150	alizing spatial data. Unfortunately however, the process is almost always done outside R by using
+13	149	167	a proper geographic information system (GIS), saving the results, and importing them into R. The
+13	149	220	geographic information. In the default case of output = "simple", only longitudes and latitudes are
+13	149	237	returned. These are actually Mercator projections of the ubiquitous unprojected 1984 world geodetic
+13	149	253	system (WGS84), a spheroidal earth model used by Google Maps. When output is set to "more", a
+13	149	270	larger data frame is returned which provides much more Google Geocoding information on the query:
+13	149	428	In particular, administrative bodies at various levels are reported. Going further, setting output =
+13	171	482	The Geocoding API has a number of request limitations in place to prevent abuse. An unspecified
+13	149	498	short-term rate limit is in place (see mapdist below) as well as a 24-hour limit of 2,500 requests. These
+13	149	515	are monitored to some extent by the hidden global variable .GoogleGeocodeQueryCount and exported
+13	149	531	function geocodeQueryCheck. geocode uses these to monitor its own progress and will either (1) slow
+13	149	548	its rate depending on usage or (2) throw an error if the query limit is exceeded. Note that revgeocode
+13	149	564	shares the same request pool and is monitored by the same variable and function. To learn more about
+13	149	581	the Google Geocoding, Distance Matrix, and Directions API usage regulations, see the websites listed
+13	149	597	in the bibliography.
+13	149	671	In some instances it is useful to convert longitude/latitude coordinates into a physical address. This is
+13	149	687	made possible (to the extent to which it is possible) with the revgeocode function which also relies on
+13	149	704	the Google Geocoding API.
+13	149	823	Like geocode, more output can be provided as well –
+13	148	943	Thus, in addition to the physical where of a reverse geocode (i.e., the address), revgeocode can report
+13	149	959	the what at various levels of granularity. Finally, an output = "all" option is available which returns
+13	149	976	the entire JSON object reported by Google.
+13	148	1050	The ability to compute colloquial distances in a spatial setting is another invaluable commodity which
+13	149	1066	typically sends analysts to a GIS. Using the Google Distance Matrix API, ggmap is able to provide
+13	149	1082	distances for Google-determined routes for driving, bicycling, or walking. In addition to the distances,
+13	149	1099	Google reports estimated travel durations as well. The full output is placed in an easy-to-use data
+13	149	1115	frame. For example,
+14	148	228	The default mode of transportation is driving; however, the other modes are also available. The input
+14	149	244	forms of from and to can be either physical addresses (ideal), lazy ("the white house"), or geographic
+14	149	261	coordinates (which are reverse geocoded). While the output defaults to the data frame format seen
+14	149	277	above, setting output = "all" provides the full JSON object from Google.
+14	171	298	The Distance Matrix API limits users to 100 requests per query, 100 requests per 10 seconds, and
+14	149	315	2500 requests per 24 hours. To the extent to which these can be easily monitored, the exported function
+14	149	347	global variable .GoogleDistQueryCount –
+14	149	482	If the user exceeds the limitations, mapdist either (1) pauses until the short-term request limit has
+14	149	498	lapsed or (2) errors if no queries are remaining. Thus, it is almost identical to the mechanism in
+14	148	515	place for geocoding. If the user believes this to be incorrect, an override is available with the mapdist
+14	149	531	specification override_limit = TRUE.
+14	171	552	The data frame output of mapdist is very convenient for use with ggplot2. An example is provided
+14	148	585	(1) determined using mapdist, (2) binned into categories using cut, and then (3) plotted using a
+14	149	602	combination of qmap, geom_text, and geom_rect with the fill aesthetic set to the category of travel time.
+14	148	618	The full code is in the examples section of the documentation of ggmap.
+14	148	1114	The route function provides the map distances for the sequence of “legs” which constitute a route
+14	149	1130	between two locations. Each leg has a beginning and ending longitude/latitude coordinate along with
+14	149	1147	a distance and duration in the same units as reported by mapdist. The collection of legs in sequence
+15	149	103	constitutes a single route (path) most easily plotted with geom_leg, a new exported ggplot2 geom
+15	149	157	are plotted between the same two locations. These can be obtained using the alternatives = TRUE
+15	149	173	specification in route. alternatives requests more than one route from the origin to the destination;
+15	149	190	the returned value is again a data frame with an additional variable which serves as a route identifier
+15	148	206	(A, B, C, etc.).
+15	171	838	Like map distances, there are restrictions on the limit of routes which can be requested in a given
+15	148	854	period of time as well. The number of queries left is monitored by the .GoogleRouteQueryCount
+15	148	871	variable with the routeQueryCheck function.
+15	148	954	As a final example which is perhaps too common to ignore, plotting shape files with ggmap is a
+15	149	971	breeze and can be done in several ways. The easiest way is to convert the shape file to a data frame
+15	148	987	with fortify (ggplot2) and then add a point/path/polygon layer to the map, depending on what
+15	149	1004	the contents of the shape file are (note that fortify does not yet have methods for all shape files).
+17	149	139	Building on top of ggplot2, ggmap provides several new useful tools for visualizing spatial data.
+17	148	155	Theoretically speaking, the layered grammar of graphics attempts to enforce plotting consistency and
+17	149	172	therefore good plotting practice. Practically speaking, building ggmap on ggplot2 makes the result
+17	149	188	even better as the full range of ggplot2 capabilities can be brought to bear.
+17	149	226	R and the OpenStreetMap data structures with which OpenStreetMap maps, Stamen Maps, and
+17	149	242	CloudMade Maps are rendered, thereby opening a floodgate of possibilities for plotting geographic
+17	148	275	Alternatively, integration with other spatial packages in R could provide several incredibly useful
+17	148	291	practical tools for spatial data analysis. Finally, the Google Elevation API and Places API provide
+17	149	308	additional interesting frontiers which can be incorporated into the ggmap framework just like the
+17	149	324	other Google APIs to give users additional capabilities though freely available geographical data.
+17	148	408	The authors would like to thank Jean-Olivier Irisson for his comments.
+17	149	491	R. A. Becker, A. R. Wilks, R. Brownrigg, and T. P. Minka. maps: Draw Geographical Maps, 2013. URL
+17	149	536	R. Bivand and N. Lewin-Koh. maptools: Tools for Reading and Handling Spatial Objects, 2013. URL
+17	149	581	R. S. Bivand, E. J. Pebesma, and V. G. Rubio. Applied Spatial Data: Analysis with R. Springer, New York,
+17	149	699	I. Fellows, A. Rickett, and N. Fultz. DeducerSpatial: A Deducer Plug-in for Spatial Data Analysis, 2013.
+17	149	744	M. Loecher and Berlin School of Economics and Law. RgoogleMaps: Overlays on Google Map Tiles in R,
+17	149	789	E. J. Pebesma and R. S. Bivand. Classes and methods for spatial data in R. R News, 5(2), 2006. URL
+17	149	834	U.S. Census Bureau, Geography Division, Cartographic Products Management Branch. Census 2000:
+17	149	940	H. Wickham. A layered grammar of graphics. Journal of Computational and Graphical Statistics, 19(1):
+17	149	985	H. Wickham. The split-apply-combine strategy for data analysis. Journal of Statistical Software, 40(1):
+17	148	1076	David Kahle
+17	148	1092	Baylor University
+17	148	1109	Department of Statistical Science
+17	148	1125	One Bear Place #97140
+18	148	103	Waco, TX 77005
+18	148	157	Hadley Wickham
+18	148	173	Rice University
+18	148	190	Department of Statistics, MS 138
+18	149	206	6100 Main St.
+18	148	223	Houston, TX 77005

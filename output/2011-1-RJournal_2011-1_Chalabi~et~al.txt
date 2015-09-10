@@ -1,0 +1,211 @@
+page	left	top	code
+1	459	928	> showClass("timeDate")
+1	459	948	Class "timeDate" [package "timeDate"]
+1	459	980	Slots:
+1	459	1013	Name: Data format FinCenter
+1	459	1030	Class: POSIXct character character
+2	82	441	> Dates <- c("2009-09-28","2010-01-15")
+2	82	457	> Times <- c( "23:12:55", "10:34:02")
+2	82	473	> charvec <- paste(Dates, Times)
+2	82	490	> getRmetricsOption("myFinCenter")
+2	82	509	myFinCenter
+2	124	525	"GMT"
+2	82	545	> timeDate(charvec)
+2	82	564	GMT
+2	82	580	[1] [2009-09-28 23:12:55] [2010-01-15 10:34:02]
+2	82	660	> setRmetricsOptions(myFinCenter = "Zurich")
+2	82	677	> timeDate(charvec)
+2	82	696	Zurich
+2	82	712	[1] [2009-09-28 23:12:55] [2010-01-15 10:34:02]
+2	82	846	> timeDate(charvec, zone = "Tokyo")
+2	82	865	Zurich
+2	82	882	[1] [2009-09-28 16:12:55] [2010-01-15 02:34:02]
+2	82	941	> timeDate(charvec, zone = "Zurich",
+2	82	957	+ FinCenter = "NewYork")
+2	82	977	NewYork
+2	82	993	[1] [2009-09-28 17:12:55] [2010-01-15 04:34:02]
+2	82	1073	> td <- timeDate(charvec, zone = "Zurich",
+2	82	1089	+ FinCenter = "NewYork")
+2	82	1106	> finCenter(td)
+2	82	1125	[1] "NewYork"
+2	459	127	> finCenter(td) <- "Zurich"
+2	459	144	> td
+2	459	163	Zurich
+2	459	180	[1] [2009-09-28 23:12:55] [2010-01-15 10:34:02]
+2	459	303	> whichFormat(charvec)
+2	459	322	[1] "%Y-%m-%d %H:%M:%S"
+2	459	584	> setRmetricsOptions(myFinCenter = "GMT")
+2	459	600	> # 'timeDate' is now in the financial center "GMT"
+2	459	617	> timeDate(charvec)
+2	459	636	GMT
+2	459	653	[1] [2009-09-28 23:12:55] [2010-01-15 10:34:02]
+2	459	732	> # first three days in January 2010,
+2	459	749	> timeSequence(from = "2010-01-01",
+2	459	765	+ to = "2010-01-03", by = "day")
+2	459	785	GMT
+2	459	801	[1] [2010-01-01] [2010-01-02] [2010-01-03]
+2	459	821	> # first 3 months in 2010:
+2	459	837	> timeSequence(from = "2010-01-01",
+2	459	853	+ to = "2010-03-31", by = "month")
+2	459	873	GMT
+2	459	889	[1] [2010-01-01] [2010-02-01] [2010-03-01]
+2	459	1066	> timeCalendar()
+2	459	1086	GMT
+2	466	1102	[1] [2011-01-01] [2011-02-01] [2011-03-01]
+2	466	1118	[4] [2011-04-01] [2011-05-01] [2011-06-01]
+2	466	1135	[7] [2011-07-01] [2011-08-01] [2011-09-01]
+2	459	1151	[10] [2011-10-01] [2011-11-01] [2011-12-01]
+3	82	187	> timeCalendar(2010, m=1, d=1:4, h=16,
+3	82	203	+ zone = "Tokyo", FinCenter = "Zurich")
+3	82	221	Zurich
+3	82	238	[1] [2010-01-01 08:00:00] [2010-01-02 08:00:00]
+3	82	254	[3] [2010-01-03 08:00:00] [2010-01-04 08:00:00]
+3	82	570	> timeDate(ch <- "2010-01-31 24:00:00")
+3	82	589	GMT
+3	82	605	[1] [2010-02-01]
+3	82	874	> getRmetricsOption("myFinCenter")
+3	82	893	myFinCenter
+3	124	909	"GMT"
+3	82	927	> # change to Zurich:
+3	82	944	> setRmetricsOptions(myFinCenter = "Zurich")
+3	459	127	> # first few financial centers:
+3	459	144	> head(listFinCenter())
+3	459	164	[1] "Africa/Abidjan" "Africa/Accra"
+3	459	180	[3] "Africa/Addis_Ababa" "Africa/Algiers"
+3	459	197	[5] "Africa/Asmara" "Africa/Bamako"
+3	459	216	> # European centers starting with A or B:
+3	459	233	> listFinCenter("Europe/[AB].*") # -> nine
+3	459	252	[1] "Europe/Amsterdam" "Europe/Andorra"
+3	459	269	[3] "Europe/Athens" "Europe/Belgrade"
+3	459	285	[5] "Europe/Berlin" "Europe/Bratislava"
+3	459	302	[7] "Europe/Brussels" "Europe/Bucharest"
+3	459	318	[9] "Europe/Budapest"
+3	459	438	> Zurich()[64:67, ]
+3	569	458	Zurich offSet isdst TimeZone
+3	459	474	64 2010-03-28 01:00:00 7200 1 CEST
+3	459	491	65 2010-10-31 01:00:00 3600 0 CET
+3	459	507	66 2011-03-27 01:00:00 7200 1 CEST
+3	459	523	67 2011-10-30 01:00:00 3600 0 CET
+3	500	540	numeric
+3	459	556	64 1269738000
+3	459	573	65 1288486800
+3	459	589	66 1301187600
+3	459	606	67 1319936400
+4	82	334	> thisYear <- getRmetricsOption("currentYear")
+4	82	351	> Easter(thisYear:(thisYear+5))
+4	82	370	Zurich
+4	82	386	[1] [2011-04-24] [2012-04-08] [2013-03-31]
+4	82	403	[4] [2014-04-20] [2015-04-05] [2016-03-27]
+4	82	805	> Easter(2010)
+4	82	824	Zurich
+4	82	840	[1] [2010-04-04]
+4	82	860	> (tS <- timeSequence(Easter(2010, -2),
+4	82	876	+ Easter(2010, +3)))
+4	82	895	Zurich
+4	82	912	[1] [2010-04-02] [2010-04-03] [2010-04-04]
+4	82	928	[4] [2010-04-05] [2010-04-06] [2010-04-07]
+4	82	1008	> (tS1 <- tS[isWeekday(tS)])
+4	82	1028	Zurich
+4	82	1044	[1] [2010-04-02] [2010-04-05] [2010-04-06]
+4	82	1060	[4] [2010-04-07]
+4	82	1080	> (tS2 <- tS[isBizday(tS, holidayZURICH(2010))])
+4	82	1099	Zurich
+4	82	1115	[1] [2010-04-06] [2010-04-07]
+4	82	1135	> dayOfWeek(tS2)
+4	459	127	2010-04-06 2010-04-07
+4	493	144	"Tue" "Wed"
+4	459	586	> charvec <- c("2011-03-01", "2011-04-01")
+4	459	603	> # Last day in quarter
+4	459	619	> timeLastDayInQuarter(charvec)
+4	459	637	Zurich
+4	459	654	[1] [2011-03-31] [2011-06-30]
+4	459	672	> # Second Sunday of each month:
+4	459	689	> timeNthNdayInMonth(charvec, nday = 0, nth = 2)
+4	459	707	Zurich
+4	459	723	[1] [2011-03-13] [2011-04-10]
+4	459	741	> # Closest Friday that occurred before:
+4	459	758	> timeNdayOnOrBefore(charvec, nday = 5)
+4	459	776	Zurich
+4	459	792	[1] [2011-02-25] [2011-04-01]
+5	82	506	> showMethods("coerce", class = "timeDate")
+5	82	526	Function: coerce (package methods)
+5	82	542	from="ANY", to="timeDate"
+5	82	558	from="Date", to="timeDate"
+5	82	575	from="POSIXt", to="timeDate"
+5	82	591	from="timeDate", to="Date"
+5	82	608	from="timeDate", to="POSIXct"
+5	82	624	from="timeDate", to="POSIXlt"
+5	82	641	from="timeDate", to="character"
+5	82	657	from="timeDate", to="data.frame"
+5	82	673	from="timeDate", to="list"
+5	82	690	from="timeDate", to="numeric"
+5	82	1072	> ZH <- timeDate("2010-01-01 16:00", zone = "GMT",
+5	199	1089	FinCenter = "Zurich")
+5	82	1105	> NY <- timeDate("2010-01-01 18:00", zone = "GMT",
+5	82	1122	+ FinCenter = "NewYork")
+5	82	1138	> c(ZH, NY)
+5	82	1157	Zurich
+5	82	1174	[1] [2010-01-01 17:00:00] [2010-01-01 19:00:00]
+5	459	127	> c(NY, ZH)
+5	459	147	NewYork
+5	459	163	[1] [2010-01-01 13:00:00] [2010-01-01 11:00:00]
+6	82	802	> toLatex(sessionInfo())
+6	120	847	x86_64-apple-darwin10.7.0
+6	468	154	Advent1st JPBunkaNoHi
+6	468	170	Advent2nd JPChildrensDay
+6	468	187	Advent3rd JPComingOfAgeDay
+6	468	203	Advent4th JPConstitutionDay
+6	468	219	AllSaints JPEmperorsBirthday
+6	468	236	AllSouls JPGantan
+6	468	252	Annunciation JPGreeneryDay
+6	468	269	Ascension JPHealthandSportsDay
+6	468	285	AshWednesday JPKeirouNOhi
+6	468	302	AssumptionOfMary JPKenkokuKinenNoHi
+6	468	318	BirthOfVirginMary JPKenpouKinenBi
+6	468	335	BoxingDay JPKinrouKanshaNoHi
+6	468	351	CACanadaDay JPKodomoNoHi
+6	468	367	CACivicProvincialHoliday JPKokuminNoKyujitu
+6	468	384	CALabourDay JPMarineDay
+6	468	400	CAThanksgivingDay JPMidoriNoHi
+6	468	417	CAVictoriaDay JPNatFoundationDay
+6	468	433	CHAscension JPNationHoliday
+6	468	450	CHBerchtoldsDay JPNationalCultureDay
+6	468	466	CHConfederationDay JPNewYearsDay
+6	468	482	CHKnabenschiessen JPRespectForTheAgedDay
+6	468	499	CHSechselaeuten JPSeijinNoHi
+6	468	515	CaRemembranceDay JPShuubunNoHi
+6	468	532	CelebrationOfHolyCross JPTaiikuNoHi
+6	468	548	ChristTheKing JPTennouTanjyouBi
+6	468	565	ChristmasDay JPThanksgivingDay
+6	468	581	ChristmasEve JPUmiNoHi
+6	468	598	CorpusChristi LaborDay
+6	468	614	DEAscension MassOfArchangels
+6	468	630	DEChristmasEve NewYearsDay
+6	468	647	DECorpusChristi PalmSunday
+6	468	663	DEGermanUnity Pentecost
+6	468	680	DENewYearsEve PentecostMonday
+6	468	696	Easter PresentationOfLord
+6	468	713	EasterMonday Quinquagesima
+6	468	729	EasterSunday RogationSunday
+6	468	745	Epiphany Septuagesima
+6	468	762	FRAllSaints SolemnityOfMary
+6	468	778	FRArmisticeDay TransfigurationOfLord
+6	468	795	FRAscension TrinitySunday
+6	468	811	FRAssumptionVirginMary USCPulaskisBirthday
+6	468	828	FRBastilleDay USChristmasDay
+6	468	844	FRFetDeLaVictoire1945 USColumbusDay
+6	468	861	GBBankHoliday USDecorationMemorialDay
+6	468	877	GBMayDay USElectionDay
+6	468	893	GBMilleniumDay USGoodFriday
+6	468	910	GBSummerBankHoliday USInaugurationDay
+6	468	926	GoodFriday USIndependenceDay
+6	468	943	ITAllSaints USLaborDay
+6	468	959	ITAssumptionOfVirginMary USLincolnsBirthday
+6	468	976	ITEpiphany USMLKingsBirthday
+6	468	992	ITImmaculateConception USMemorialDay
+6	468	1008	ITLiberationDay USNewYearsDay
+6	468	1025	ITStAmrose USPresidentsDay
+6	468	1041	JPAutumnalEquinox USThanksgivingDay
+6	468	1058	JPBankHolidayDec31 USVeteransDay
+6	468	1074	JPBankHolidayJan2 USWashingtonsBirthday
+6	468	1091	JPBankHolidayJan3

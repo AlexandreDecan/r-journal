@@ -1,0 +1,1466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="12" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="10" size="6" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">5</text>
+<text top="98" left="149" width="576" height="30" font="2"><b>Taming PITCHf/x Data with XML2R and</b></text>
+<text top="137" left="148" width="110" height="30" font="2"><b>pitchRx</b></text>
+<text top="173" left="149" width="107" height="15" font="0">by Carson Sievert</text>
+<text top="214" left="148" width="102" height="13" font="3"><b>Abstract XML2R</b></text>
+<text top="214" left="254" width="491" height="13" font="4">is a framework that reduces the effort required to transform XML content into tables</text>
+<text top="231" left="149" width="596" height="13" font="4">in a way that preserves parent to child relationships. <b>pitchRx </b>applies <b>XML2R</b>’s grammar for XML</text>
+<text top="247" left="149" width="597" height="13" font="4">manipulation to Major League Baseball Advanced Media (MLBAM)’s Gameday data. With <b>pitchRx</b>,</text>
+<text top="264" left="149" width="595" height="13" font="4">one can easily obtain and store Gameday data in a remote database. The Gameday website hosts a</text>
+<text top="280" left="148" width="596" height="13" font="4">wealth of XML data, but perhaps most interesting is PITCHf/x. Among other things, PITCHf/x data</text>
+<text top="297" left="149" width="595" height="13" font="4">can be used to recreate a baseball’s flight path from a pitcher’s hand to home plate. With <b>pitchRx</b>, one</text>
+<text top="313" left="149" width="595" height="13" font="4">can easily create animations and interactive 3D scatterplots of the baseball’s flight path. PITCHf/x data</text>
+<text top="329" left="149" width="595" height="13" font="4">is also commonly used to generate a static plot of baseball locations at the moment they cross home</text>
+<text top="346" left="148" width="596" height="13" font="4">plate. These plots, sometimes called strike-zone plots, can also refer to a plot of event probabilities</text>
+<text top="362" left="149" width="595" height="13" font="4">over the same region. <b>pitchRx </b>provides an easy and robust way to generate strike-zone plots using</text>
+<text top="379" left="149" width="124" height="13" font="4">the <b>ggplot2 </b>package.</text>
+<text top="424" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="465" left="149" width="128" height="15" font="6"><b>What is PITCHf/x?</b></text>
+<text top="497" left="149" width="595" height="13" font="4">PITCHf/x is a general term for a system that generates a series of 3D measurements of a baseball’s</text>
+<text top="513" left="148" width="246" height="13" font="4">path from a pitcher’s hand to home plate <a href="2014-1-sievert.html#14">(</a></text>
+<text top="513" left="395" width="82" height="13" font="7"><a href="2014-1-sievert.html#14">Alt and White</a></text>
+<text top="513" left="477" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="513" left="484" width="26" height="13" font="7"><a href="2014-1-sievert.html#14">2008</a></text>
+<text top="513" left="510" width="8" height="13" font="4"><a href="2014-1-sievert.html#14">).</a></text>
+<text top="511" left="518" width="5" height="10" font="8"><a href="2014-1-sievert.html#0">1</a></text>
+<text top="513" left="528" width="216" height="13" font="4">In an attempt to estimate the location</text>
+<text top="530" left="149" width="595" height="13" font="4">of the ball at any time point, a quadratic regression model with nine parameters (defined by the</text>
+<text top="546" left="149" width="595" height="13" font="4">equations of motion for constant linear acceleration) is fit to each pitch. Studies with access to the</text>
+<text top="563" left="149" width="595" height="13" font="4">actual measurements suggest that this model is quite reasonable – especially for non-knuckleball</text>
+<text top="579" left="148" width="49" height="13" font="4">pitches <a href="2014-1-sievert.html#14">(</a></text>
+<text top="579" left="198" width="44" height="13" font="7"><a href="2014-1-sievert.html#14">Nathan</a></text>
+<text top="579" left="241" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="579" left="248" width="26" height="13" font="7"><a href="2014-1-sievert.html#14">2008</a></text>
+<text top="579" left="274" width="470" height="13" font="4"><a href="2014-1-sievert.html#14">). </a>That is, the fitted path often provides a reasonable estimate (within a couple of</text>
+<text top="595" left="149" width="595" height="13" font="4">inches) of the actual locations. Unfortunately, only the parameter estimates are made available to the</text>
+<text top="612" left="148" width="596" height="13" font="4">public. The website that provides these estimates is maintained by MLBAM and hosts a wealth of</text>
+<text top="628" left="149" width="551" height="13" font="4">other baseball related data used to inform MLB’s Gameday webcast service in near real time.</text>
+<text top="671" left="149" width="196" height="15" font="6"><b>Why is PITCHf/x important?</b></text>
+<text top="702" left="149" width="595" height="13" font="4">On the business side of baseball, using statistical analysis to scout and evaluate players has become</text>
+<text top="719" left="149" width="312" height="13" font="4">mainstream. When PITCHf/x was first introduced, <a href="2014-1-sievert.html#14">(</a></text>
+<text top="719" left="461" width="41" height="13" font="7"><a href="2014-1-sievert.html#14">DiMeo</a></text>
+<text top="719" left="502" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="719" left="509" width="27" height="13" font="7"><a href="2014-1-sievert.html#14">2007</a></text>
+<text top="719" left="535" width="106" height="13" font="4"><a href="2014-1-sievert.html#14">) </a>proclaimed it as,</text>
+<text top="746" left="186" width="467" height="13" font="4">“The new technology that will change statistical analysis [of baseball] forever.”</text>
+<text top="772" left="149" width="595" height="13" font="4">PITCHf/x has yet to fully deliver this claim, partially due to the difficulty in accessing and deriving</text>
+<text top="789" left="149" width="595" height="13" font="4">insight from the large amount of complex information. By providing better tools to collect and</text>
+<text top="805" left="148" width="111" height="13" font="4">visualize this data,</text>
+<text top="805" left="263" width="48" height="13" font="9"><a href="http://CRAN.R-project.org/package=pitchRx"><b>pitchRx</b></a></text>
+<text top="805" left="314" width="379" height="13" font="4">makes PITCHf/x analysis more accessible to the general public.</text>
+<text top="848" left="149" width="153" height="15" font="6"><b>PITCHf/x applications</b></text>
+<text top="879" left="149" width="595" height="13" font="4">PITCHf/x data is and can be used for many different projects. It can also complement other baseball</text>
+<text top="896" left="149" width="595" height="13" font="4">data sources, which poses an interesting database management problem. Statistical analysis of</text>
+<text top="912" left="149" width="595" height="13" font="4">PITCHf/x data and baseball in general has become so popular that it has helped expose statistical</text>
+<text top="929" left="149" width="597" height="13" font="4">ideas and practice to the general public. If you have witnessed television broadcasts of MLB games,</text>
+<text top="945" left="148" width="596" height="13" font="4">you know one obvious application of PITCHf/x is locating pitches in the strike-zone as well as</text>
+<text top="961" left="149" width="595" height="13" font="4">recreating flight trajectories, tracking pitch speed, etc. Some on-going statistical research related to</text>
+<text top="978" left="149" width="595" height="13" font="4">PITCHf/x includes: classifying pitch types, predicting pitch sequences, and clustering pitchers with</text>
+<text top="994" left="149" width="116" height="13" font="4">similar tendencies <a href="2014-1-sievert.html#15">(</a></text>
+<text top="994" left="265" width="61" height="13" font="7"><a href="2014-1-sievert.html#15">Pane et al.</a></text>
+<text top="994" left="325" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="994" left="332" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2013</a></text>
+<text top="994" left="359" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="1037" left="149" width="256" height="15" font="6"><b>Contributions of pitchRx and XML2R</b></text>
+<text top="1068" left="148" width="48" height="13" font="3"><b>pitchRx</b></text>
+<text top="1068" left="200" width="137" height="13" font="4">has two main focuses <a href="2014-1-sievert.html#15">(</a></text>
+<text top="1068" left="337" width="42" height="13" font="7"><a href="2014-1-sievert.html#15">Sievert</a></text>
+<text top="1068" left="378" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="1068" left="385" width="35" height="13" font="7"><a href="2014-1-sievert.html#15">2014b</a></text>
+<text top="1068" left="420" width="325" height="13" font="4"><a href="2014-1-sievert.html#15">). </a>The first focus is to provide easy access to Gameday</text>
+<text top="1085" left="149" width="595" height="13" font="4">data. Not only is <b>pitchRx </b>helpful for collecting this data in bulk, but it has served as a helpful</text>
+<text top="1101" left="149" width="167" height="13" font="4">teaching and research aide <a href="http://baseballwithr.wordpress.com/">(</a></text>
+<text top="1098" left="316" width="240" height="18" font="7"><a href="http://baseballwithr.wordpress.com/">http://baseballwithr.wordpress.com/</a></text>
+<text top="1101" left="559" width="185" height="13" font="4">is one such example). Methods</text>
+<text top="1128" left="165" width="4" height="9" font="10">1</text>
+<text top="1130" left="170" width="574" height="12" font="1">A pitcher throws a ball to the opposing batter, who stands besides home plate and tries to hit the ball into the</text>
+<text top="1144" left="149" width="65" height="12" font="1">field of play.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="9" family="Times" color="#7282aa"/>
+	<fontspec id="12" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">6</text>
+<text top="103" left="149" width="595" height="13" font="4">for collecting Gameday data existed prior to <b>pitchRx</b>; however, these methods are not easily extensible</text>
+<text top="120" left="149" width="431" height="13" font="4">and require juggling technologies that may not be familiar or accessible <a href="2014-1-sievert.html#14">(</a></text>
+<text top="120" left="580" width="24" height="13" font="7"><a href="2014-1-sievert.html#14">Fast</a></text>
+<text top="120" left="604" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="120" left="611" width="27" height="13" font="7"><a href="2014-1-sievert.html#14">2007</a></text>
+<text top="120" left="637" width="107" height="13" font="4"><a href="2014-1-sievert.html#14">). </a>Moreover, these</text>
+<text top="136" left="148" width="596" height="13" font="4">working environments are less desirable than R for data analysis and visualization. Since <b>pitchRx </b>is</text>
+<text top="152" left="149" width="64" height="13" font="4">built upon</text>
+<text top="153" left="216" width="47" height="13" font="9"><a href="http://CRAN.R-project.org/package=XML2R"><b>XML2R</b></a></text>
+<text top="152" left="263" width="392" height="13" font="4"><a href="http://CRAN.R-project.org/package=XML2R">’s </a>united framework, it can be easily modified and/or extended <a href="2014-1-sievert.html#15">(</a></text>
+<text top="152" left="655" width="42" height="13" font="7"><a href="2014-1-sievert.html#15">Sievert</a></text>
+<text top="152" left="697" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="152" left="704" width="34" height="13" font="7"><a href="2014-1-sievert.html#15">2014a</a></text>
+<text top="152" left="738" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="169" left="149" width="595" height="13" font="4">For this same reason, <b>pitchRx </b>serves as a model for building customized XML data collection tools</text>
+<text top="185" left="148" width="81" height="13" font="4">with <b>XML2R</b>.</text>
+<text top="206" left="171" width="575" height="13" font="4">The other main focus of <b>pitchRx </b>is to simplify the process creating popular PITCHf/x graphics.</text>
+<text top="223" left="149" width="431" height="13" font="4">Strike-zone plots and animations made via <b>pitchRx </b>utilize the extensible</text>
+<text top="223" left="583" width="46" height="13" font="9"><a href="http://CRAN.R-project.org/package=ggplot2"><b>ggplot2</b></a></text>
+<text top="223" left="633" width="111" height="13" font="4">framework as well</text>
+<text top="239" left="149" width="192" height="13" font="4">as various customized options <a href="2014-1-sievert.html#15">(</a></text>
+<text top="239" left="340" width="58" height="13" font="7"><a href="2014-1-sievert.html#15">Wickham</a></text>
+<text top="239" left="398" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="239" left="405" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2009</a></text>
+<text top="239" left="432" width="312" height="13" font="4"><a href="2014-1-sievert.html#15">). </a><b>ggplot2 </b>is a convenient framework for generating</text>
+<text top="256" left="149" width="595" height="13" font="4">strike-zone plots primarily because of its facet schema which allows one to make visual comparisons</text>
+<text top="272" left="149" width="524" height="13" font="4">across any combination of discrete variable(s). Interactive 3D scatterplots are based on the</text>
+<text top="272" left="676" width="17" height="13" font="9"><a href="http://CRAN.R-project.org/package=rgl"><b>rgl</b></a></text>
+<text top="272" left="696" width="48" height="13" font="4">package</text>
+<text top="288" left="149" width="373" height="13" font="4">and useful for gaining a new perspective on flight trajectories <a href="2014-1-sievert.html#14">(</a></text>
+<text top="288" left="521" width="66" height="13" font="7"><a href="2014-1-sievert.html#14">Adler et al.</a></text>
+<text top="288" left="587" width="8" height="13" font="4"><a href="2014-1-sievert.html#14">).</a></text>
+<text top="333" left="149" width="258" height="17" font="5"><b>Getting familiar with Gameday</b></text>
+<text top="372" left="149" width="462" height="13" font="4">Gameday data is hosted and made available for free thanks to MLBAM via</text>
+<text top="369" left="615" width="130" height="18" font="7"><a href="http://gd2.mlb.com/components/game/mlb/">http://gd2.mlb.com/</a></text>
+<text top="385" left="149" width="137" height="18" font="7"><a href="http://gd2.mlb.com/components/game/mlb/">components/game/mlb/</a></text>
+<text top="389" left="286" width="3" height="13" font="4"><a href="http://gd2.mlb.com/components/game/mlb/">.</a></text>
+<text top="386" left="289" width="5" height="10" font="8"><a href="2014-1-sievert.html#0">2</a></text>
+<text top="389" left="304" width="441" height="13" font="4">From this website, one can obtain many different types of data besides</text>
+<text top="405" left="149" width="332" height="13" font="4">PITCHf/x. For example, one can obtain everything from</text>
+<text top="405" left="484" width="159" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_16/gid_2013_07_16_aasmlb_nasmlb_1/media/instadium.xml">structured media metadata</a></text>
+<text top="405" left="646" width="12" height="13" font="4">to</text>
+<text top="405" left="661" width="82" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/twitter/anaInsiderTweets.xml">insider tweets</a></text>
+<text top="405" left="743" width="3" height="13" font="4"><a href="http://gd2.mlb.com/components/game/mlb/twitter/anaInsiderTweets.xml">.</a></text>
+<text top="421" left="149" width="328" height="13" font="4">In fact, this website’s purpose is to serve data to various</text>
+<text top="418" left="481" width="96" height="18" font="7"><a href="http://mlb.com">http://mlb.com</a></text>
+<text top="421" left="580" width="166" height="13" font="4">web pages and applications.</text>
+<text top="438" left="148" width="596" height="13" font="4">As a result, some data is redundant and the format may not be optimal for statistical analysis. For</text>
+<text top="454" left="149" width="105" height="13" font="4">these reasons, the</text>
+<text top="451" left="257" width="487" height="18" font="4">scrape function is focused on retrieving data that is useful for PITCHf/x analysis</text>
+<text top="471" left="149" width="339" height="13" font="4">and providing it in a convenient format for data analysis.</text>
+<text top="492" left="171" width="573" height="13" font="4">Navigating through the MLBAM website can be overwhelming, but it helps to recognize that a</text>
+<text top="508" left="149" width="391" height="13" font="4">homepage exists for nearly every day and every game. For example,</text>
+<text top="505" left="543" width="206" height="18" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/">http://gd2.mlb.com/components/</a></text>
+<text top="521" left="149" width="240" height="18" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/">game/mlb/year_2011/month_02/day_26/</a></text>
+<text top="525" left="394" width="350" height="13" font="4">displays numerous hyperlinks to various files specific to</text>
+<text top="541" left="149" width="293" height="13" font="4">February 26th, 2011. On this page is a hyperlink to</text>
+<text top="541" left="445" width="117" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/miniscoreboard.xml">miniscoreboard.xml</a></text>
+<text top="541" left="565" width="179" height="13" font="4">which contains information on</text>
+<text top="557" left="149" width="596" height="13" font="4">every game played on that date. This page also has numerous hyperlinks to game specific pages. For</text>
+<text top="574" left="149" width="54" height="13" font="4">example,</text>
+<text top="574" left="207" width="219" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/gid_2011_02_26_phimlb_nyamlb_1/">gid_2011_02_26_phimlb_nyamlb_1/</a></text>
+<text top="574" left="429" width="315" height="13" font="4">points to the homepage for that day’s game between</text>
+<text top="590" left="149" width="458" height="13" font="4">the NY Yankees and Philadelphia Phillies. On this page is a hyperlink to the</text>
+<text top="590" left="610" width="71" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/gid_2011_02_26_phimlb_nyamlb_1/players.xml">players.xml</a></text>
+<text top="590" left="685" width="60" height="13" font="4">file which</text>
+<text top="607" left="149" width="597" height="13" font="4">contains information about the players, umpires, and coaches (positions, names, batting average, etc.)</text>
+<text top="623" left="149" width="137" height="13" font="4">coming into that game.</text>
+<text top="644" left="171" width="380" height="13" font="4">Starting from a particular game’s homepage and clicking on the</text>
+<text top="644" left="555" width="47" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/gid_2011_02_26_phimlb_nyamlb_1/inning/">inning/</a></text>
+<text top="644" left="605" width="139" height="13" font="4">directory, we should see</text>
+<text top="660" left="149" width="184" height="13" font="4">another page with links to the</text>
+<text top="660" left="337" width="88" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/gid_2011_02_26_phimlb_nyamlb_1/inning/inning_all.xml">inning_all.xml</a></text>
+<text top="660" left="429" width="69" height="13" font="4">file and the</text>
+<text top="660" left="502" width="89" height="13" font="7"><a href="http://gd2.mlb.com/components/game/mlb/year_2011/month_02/day_26/gid_2011_02_26_phimlb_nyamlb_1/inning/inning_hit.xml">inning_hit.xml</a></text>
+<text top="660" left="595" width="149" height="13" font="4">file. If it is available, the</text>
+<text top="674" left="149" width="595" height="18" font="4">inning_all.xml file contains the PITCHf/x data for that game. It’s important to note that this file</text>
+<text top="693" left="148" width="596" height="13" font="4">won’t exist for some games, because some games are played in venues that do not have a working</text>
+<text top="710" left="149" width="595" height="13" font="4">PITCHf/x system in place. This is especially true for preseason games and games played prior to</text>
+<text top="726" left="149" width="405" height="13" font="4">the 2008 season when the PITCHf/x system became widely <a href="2014-1-sievert.html#0">adopted.</a></text>
+<text top="724" left="553" width="5" height="10" font="8"><a href="2014-1-sievert.html#0">3</a></text>
+<text top="726" left="564" width="22" height="13" font="4">The</text>
+<text top="723" left="589" width="155" height="18" font="4">inning_hit.xml files have</text>
+<text top="743" left="149" width="595" height="13" font="4">manually recorded spatial coordinates of where a home run landed or where the baseball made initial</text>
+<text top="759" left="149" width="287" height="13" font="4">contact with a defender after it was hit into play.</text>
+<text top="780" left="171" width="396" height="13" font="4">The relationship between these XML files and the tables returned by</text>
+<text top="777" left="570" width="163" height="18" font="4">scrape is presented in Table</text>
+<text top="780" left="737" width="7" height="13" font="7"><a href="2014-1-sievert.html#3">1</a></text>
+<text top="780" left="743" width="3" height="13" font="4"><a href="2014-1-sievert.html#3">.</a></text>
+<text top="796" left="148" width="23" height="13" font="4">The</text>
+<text top="793" left="175" width="569" height="18" font="4">pitch table is extracted from files whose name ends in inning_all.xml. This is the only table</text>
+<text top="813" left="149" width="70" height="13" font="4">returned by</text>
+<text top="810" left="222" width="522" height="18" font="4">scrape that contains data on the pitch-by-pitch level. The atbat, runner, action and hip</text>
+<text top="829" left="149" width="595" height="13" font="4">tables from this same file are commonly labeled somewhat ambiguously as play-by-play data. The</text>
+<text top="842" left="149" width="595" height="18" font="4">player, coach, and umpire tables are extracted from players.xml and are classified as game-by-game</text>
+<text top="862" left="149" width="328" height="13" font="4">since there is one record per person per game. Figure</text>
+<text top="862" left="480" width="7" height="13" font="7"><a href="2014-1-sievert.html#3">1</a></text>
+<text top="862" left="491" width="253" height="13" font="4">shows how these tables can be connected</text>
+<text top="879" left="149" width="596" height="13" font="4">to one another in a database setting. The direction of the arrows represent a one to possibly many</text>
+<text top="895" left="149" width="595" height="13" font="4">relationship. For example, at least one pitch is thrown for each at bat (that is, each bout between</text>
+<text top="912" left="148" width="410" height="13" font="4">pitcher and batter) and there are numerous at bats within each game.</text>
+<text top="932" left="171" width="305" height="13" font="4">In a rough sense, one can relate tables returned by</text>
+<text top="929" left="480" width="267" height="18" font="4">scrape back to XML nodes in the XML files.</text>
+<text top="949" left="149" width="597" height="13" font="4">For convenience, some information in certain XML nodes are combined into one table. For example,</text>
+<text top="965" left="149" width="473" height="13" font="4">information gleaned from the ‘top’, ‘bottom’, and ‘inning’ XML nodes within</text>
+<text top="962" left="625" width="119" height="18" font="4">inning_all.xml are</text>
+<text top="982" left="149" width="70" height="13" font="4">included as</text>
+<text top="978" left="223" width="521" height="18" font="4">inning and inning_side fields in the pitch, po, atbat, runner, and action tables. This</text>
+<text top="998" left="149" width="595" height="13" font="4">helps reduce the burden of merging many tables together in order to have inning information on the</text>
+<text top="1015" left="148" width="596" height="13" font="4">play-by-play and/or pitch-by-pitch level. Other information is simply ignored simply because it is</text>
+<text top="1031" left="149" width="304" height="13" font="4">redundant. For example, the ‘game’ node within the</text>
+<text top="1028" left="456" width="288" height="18" font="4">players.xml file contains information that can be</text>
+<text top="1048" left="149" width="111" height="13" font="4">recovered from the</text>
+<text top="1044" left="264" width="481" height="18" font="4">game table extracted from the miniscoreboard.xml file. If the reader wants a more</text>
+<text top="1064" left="149" width="263" height="13" font="4">detailed explanation of fields in these tables,</text>
+<text top="1064" left="415" width="110" height="13" font="7"><a href="2014-1-sievert.html#14">Marchi and Albert</a></text>
+<text top="1064" left="529" width="4" height="13" font="4"><a href="2014-1-sievert.html#14">(</a></text>
+<text top="1064" left="533" width="27" height="13" font="7"><a href="2014-1-sievert.html#14">2013</a></text>
+<text top="1064" left="560" width="143" height="13" font="4"><a href="2014-1-sievert.html#14">) </a>provide nice overview.</text>
+<text top="1091" left="165" width="4" height="9" font="10">2</text>
+<text top="1093" left="170" width="574" height="12" font="1">Please be respectful of this service and store any information after you extract it instead of repeatedly querying</text>
+<text top="1107" left="149" width="401" height="12" font="1">the website. Before using any content from this website, please also read the</text>
+<text top="1107" left="553" width="51" height="12" font="11"><a href="http://gdx.mlb.com/components/copyright.txt">copyright</a></text>
+<text top="1107" left="605" width="3" height="12" font="1"><a href="http://gdx.mlb.com/components/copyright.txt">.</a></text>
+<text top="1120" left="165" width="4" height="9" font="10">3</text>
+<text top="1122" left="170" width="62" height="12" font="1">In this case,</text>
+<text top="1119" left="235" width="37" height="16" font="12">scrape</text>
+<text top="1122" left="274" width="470" height="12" font="1">will print “failed to load HTTP resource” in the R console (after the relevant file name) to</text>
+<text top="1136" left="149" width="186" height="12" font="1">indicate that no data was available.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">7</text>
+<text top="105" left="182" width="72" height="15" font="6"><b>Source file</b></text>
+<text top="123" left="199" width="38" height="15" font="6"><b>suffix</b></text>
+<text top="105" left="312" width="83" height="15" font="6"><b>Information</b></text>
+<text top="123" left="337" width="33" height="15" font="6"><b>level</b></text>
+<text top="114" left="481" width="78" height="15" font="6"><b>XML nodes</b></text>
+<text top="105" left="637" width="107" height="15" font="6"><b>Tables returned</b></text>
+<text top="123" left="657" width="17" height="15" font="6"><b>by</b></text>
+<text top="119" left="678" width="46" height="20" font="13">scrape</text>
+<text top="154" left="149" width="137" height="20" font="13">miniscoreboard.xml</text>
+<text top="158" left="304" width="99" height="15" font="0">game-by-game</text>
+<text top="148" left="475" width="90" height="15" font="0">games, game,</text>
+<text top="166" left="453" width="134" height="15" font="0">game_media, media</text>
+<text top="158" left="648" width="85" height="15" font="0">game, media</text>
+<text top="206" left="176" width="84" height="20" font="13">players.xml</text>
+<text top="210" left="304" width="99" height="15" font="0">game-by-game</text>
+<text top="201" left="456" width="129" height="15" font="0">game, team, player,</text>
+<text top="219" left="473" width="93" height="15" font="0">coach, umpire</text>
+<text top="201" left="645" width="90" height="15" font="0">player, coach,</text>
+<text top="219" left="666" width="48" height="15" font="0">umpire</text>
+<text top="259" left="165" width="107" height="20" font="13">inning_all.xml</text>
+<text top="253" left="310" width="87" height="15" font="0">play-by-play,</text>
+<text top="271" left="307" width="94" height="15" font="0">pitch-by-pitch</text>
+<text top="253" left="433" width="175" height="15" font="0">game, inning, bottom, top,</text>
+<text top="271" left="421" width="198" height="15" font="0">atbat, po, pitch, runner, action</text>
+<text top="253" left="639" width="102" height="15" font="0">atbat, po, pitch,</text>
+<text top="271" left="644" width="92" height="15" font="0">runner, action</text>
+<text top="311" left="165" width="107" height="20" font="13">inning_hit.xml</text>
+<text top="315" left="311" width="85" height="15" font="0">play-by-play</text>
+<text top="315" left="480" width="81" height="15" font="0">hitchart, hip</text>
+<text top="315" left="679" width="22" height="15" font="0">hip</text>
+<text top="352" left="188" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="352" left="240" width="420" height="13" font="4">Structure of PITCHf/x and related Gameday data sources accessible to</text>
+<text top="348" left="663" width="41" height="18" font="4">scrape</text>
+<text top="651" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="651" left="207" width="320" height="13" font="4">Table relations between Gameday data accessible via</text>
+<text top="648" left="530" width="214" height="18" font="4">scrape. The direction of the arrows</text>
+<text top="668" left="149" width="266" height="13" font="4">indicate a one to possibly many relationship.</text>
+<text top="713" left="149" width="165" height="17" font="5"><b>Introducing XML2R</b></text>
+<text top="751" left="148" width="47" height="13" font="3"><b>XML2R</b></text>
+<text top="751" left="199" width="68" height="13" font="4">adds to the</text>
+<text top="751" left="271" width="320" height="13" font="7"><a href="http://cran.r-project.org/web/views/WebTechnologies.html">CRAN Task View on Web Technologies and Services</a></text>
+<text top="751" left="594" width="152" height="13" font="4">by focusing on the trans-</text>
+<text top="768" left="149" width="596" height="13" font="4">formation of XML content into a collection of tables. Compared to a lower-level API like the <b>XML</b></text>
+<text top="784" left="148" width="596" height="13" font="4">package, it can significantly reduce the amount of coding and cognitive effort required to perform such</text>
+<text top="801" left="149" width="596" height="13" font="4">a task. In contrast to most higher-level APIs, it does not make assumptions about the XML structure or</text>
+<text top="817" left="149" width="595" height="13" font="4">its source. Although <b>XML2R </b>works on any structure, performance and user experience are enhanced</text>
+<text top="834" left="149" width="595" height="13" font="4">if the content has an inherent relational structure. <b>XML2R</b>’s novel approach to XML data collection</text>
+<text top="850" left="149" width="595" height="13" font="4">breaks down the transformation process into a few simple steps and allows the user to decide how to</text>
+<text top="866" left="149" width="106" height="13" font="4">apply those steps.</text>
+<text top="887" left="171" width="573" height="13" font="4">The next few sections demonstrate how <b>pitchRx </b>leverages <b>XML2R </b>in order to produce a collection</text>
+<text top="904" left="149" width="85" height="13" font="4">of tables from</text>
+<text top="900" left="239" width="505" height="18" font="4">inning_all.xml files. A similar approach is used by pitchRx::scrape to construct</text>
+<text top="920" left="149" width="266" height="13" font="4">tables from the other Gameday files in Table</text>
+<text top="920" left="419" width="7" height="13" font="7"><a href="2014-1-sievert.html#3">1</a></text>
+<text top="920" left="425" width="319" height="13" font="4"><a href="2014-1-sievert.html#3">. </a>In fact, <b>XML2R </b>has also been used in the R package</text>
+<text top="937" left="149" width="62" height="13" font="7"><a href="https://github.com/cpsievert/bbscrapeR">bbscrapeR</a></text>
+<text top="937" left="214" width="145" height="13" font="4">which collects data from</text>
+<text top="937" left="363" width="51" height="13" font="7"><a href="http://nba.com">nba.com</a></text>
+<text top="937" left="417" width="23" height="13" font="4">and</text>
+<text top="937" left="443" width="62" height="13" font="7"><a href="http://wnba.com">wnba.com</a></text>
+<text top="937" left="505" width="3" height="13" font="4"><a href="http://wnba.com">.</a></text>
+<text top="979" left="149" width="162" height="15" font="6"><b>Constructing file names</b></text>
+<text top="1010" left="149" width="596" height="13" font="4">Sometimes the most frustrating part of obtaining data in bulk off of the web is finding the proper</text>
+<text top="1027" left="149" width="595" height="13" font="4">collection of URLs or file names of interest. Since files on the Gameday website are fairly well</text>
+<text top="1043" left="149" width="85" height="13" font="4">organized, the</text>
+<text top="1040" left="237" width="507" height="18" font="4">makeUrls function can be used to construct urls that point to every game’s homepage</text>
+<text top="1059" left="148" width="156" height="13" font="4">within a window of dates.</text>
+<text top="1082" left="149" width="398" height="18" font="4">urls &lt;- makeUrls(start = &#34;2011-06-01&#34;, end = &#34;2011-06-01&#34;)</text>
+<text top="1099" left="149" width="425" height="18" font="4">sub(&#34;http://gd2.mlb.com/components/game/mlb/&#34;, &#34;&#34;, head(urls))</text>
+<text top="1127" left="149" width="446" height="18" font="4">#&gt; [1] &#34;year_2011/month_06/day_01/gid_2011_06_01_anamlb_kcamlb_1&#34;</text>
+<text top="1144" left="149" width="446" height="18" font="4">#&gt; [2] &#34;year_2011/month_06/day_01/gid_2011_06_01_balmlb_seamlb_1&#34;</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">8</text>
+<text top="100" left="149" width="446" height="18" font="4">#&gt; [3] &#34;year_2011/month_06/day_01/gid_2011_06_01_chamlb_bosmlb_1&#34;</text>
+<text top="116" left="149" width="446" height="18" font="4">#&gt; [4] &#34;year_2011/month_06/day_01/gid_2011_06_01_clemlb_tormlb_1&#34;</text>
+<text top="133" left="149" width="446" height="18" font="4">#&gt; [5] &#34;year_2011/month_06/day_01/gid_2011_06_01_colmlb_lanmlb_1&#34;</text>
+<text top="149" left="149" width="446" height="18" font="4">#&gt; [6] &#34;year_2011/month_06/day_01/gid_2011_06_01_flomlb_arimlb_1&#34;</text>
+<text top="195" left="149" width="160" height="15" font="6"><b>Extracting observations</b></text>
+<text top="226" left="149" width="198" height="13" font="4">Once we have a collection of XML</text>
+<text top="223" left="349" width="397" height="18" font="4">files, the next step is to parse the content into a list of observations.</text>
+<text top="243" left="148" width="596" height="13" font="4">An observation is technically defined as a matrix with one row and some number of columns. The</text>
+<text top="259" left="149" width="595" height="13" font="4">columns are defined by XML attributes and the XML value (if any) for a particular XML lineage. The</text>
+<text top="276" left="149" width="595" height="13" font="4">name of each observation tracks the XML hierarchy so observations can be grouped together in a</text>
+<text top="292" left="149" width="188" height="13" font="4">sensible fashion at a later point.</text>
+<text top="316" left="149" width="96" height="18" font="4">library(XML2R)</text>
+<text top="332" left="149" width="322" height="18" font="4">files &lt;- paste0(urls, &#34;/inning/inning_all.xml&#34;)</text>
+<text top="348" left="149" width="350" height="18" font="4">obs &lt;- XML2Obs(files, url.map = TRUE, quiet = TRUE)</text>
+<text top="365" left="149" width="117" height="18" font="4">table(names(obs))</text>
+<text top="395" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="412" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="412" left="382" width="27" height="18" font="4">game</text>
+<text top="412" left="574" width="82" height="18" font="4">game//inning</text>
+<text top="428" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="428" left="403" width="7" height="18" font="4">2</text>
+<text top="428" left="643" width="14" height="18" font="4">18</text>
+<text top="444" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="444" left="217" width="192" height="18" font="4">game//inning//bottom//action</text>
+<text top="444" left="471" width="185" height="18" font="4">game//inning//bottom//atbat</text>
+<text top="461" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="461" left="396" width="14" height="18" font="4">13</text>
+<text top="461" left="643" width="14" height="18" font="4">69</text>
+<text top="477" left="149" width="261" height="18" font="4">#&gt; game//inning//bottom//atbat//pitch</text>
+<text top="477" left="444" width="213" height="18" font="4">game//inning//bottom//atbat//po</text>
+<text top="494" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="494" left="389" width="21" height="18" font="4">247</text>
+<text top="494" left="650" width="7" height="18" font="4">4</text>
+<text top="510" left="149" width="261" height="18" font="4">#&gt; game//inning//bottom//atbat//runner</text>
+<text top="510" left="485" width="171" height="18" font="4">game//inning//top//action</text>
+<text top="527" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="527" left="396" width="14" height="18" font="4">50</text>
+<text top="527" left="643" width="14" height="18" font="4">20</text>
+<text top="543" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="543" left="245" width="165" height="18" font="4">game//inning//top//atbat</text>
+<text top="543" left="444" width="213" height="18" font="4">game//inning//top//atbat//pitch</text>
+<text top="559" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="559" left="396" width="14" height="18" font="4">79</text>
+<text top="559" left="636" width="21" height="18" font="4">278</text>
+<text top="576" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="576" left="217" width="192" height="18" font="4">game//inning//top//atbat//po</text>
+<text top="576" left="437" width="219" height="18" font="4">game//inning//top//atbat//runner</text>
+<text top="592" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="592" left="396" width="14" height="18" font="4">17</text>
+<text top="592" left="643" width="14" height="18" font="4">89</text>
+<text top="609" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="609" left="361" width="48" height="18" font="4">url_map</text>
+<text top="625" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="625" left="403" width="7" height="18" font="4">1</text>
+<text top="659" left="148" width="596" height="13" font="4">This output tells us that 247 pitches were thrown in the bottom inning and 278 were thrown in the top</text>
+<text top="675" left="149" width="595" height="13" font="4">inning on June 1st, 2011. Also, there are 12 different levels of observations. The list element named</text>
+<text top="688" left="149" width="595" height="18" font="4">url_map is not considered an observation and was included since url.map = TRUE. This helps avoid</text>
+<text top="708" left="149" width="184" height="13" font="4">repeating long file names in the</text>
+<text top="704" left="336" width="408" height="18" font="4">url_key column which tracks the mapping between observations and</text>
+<text top="724" left="149" width="64" height="13" font="4">file names.</text>
+<text top="748" left="149" width="41" height="18" font="4">obs[1]</text>
+<text top="778" left="149" width="254" height="18" font="4">#&gt; $`game//inning//top//atbat//pitch`</text>
+<text top="794" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="794" left="204" width="21" height="18" font="4">des</text>
+<text top="794" left="313" width="82" height="18" font="4">id type tfs</text>
+<text top="794" left="437" width="55" height="18" font="4">tfs_zulu</text>
+<text top="794" left="595" width="7" height="18" font="4">x</text>
+<text top="794" left="656" width="7" height="18" font="4">y</text>
+<text top="811" left="149" width="562" height="18" font="4">#&gt; [1,] &#34;Called Strike&#34; &#34;3&#34; &#34;S&#34; &#34;191018&#34; &#34;2011-06-01T23:10:18Z&#34; &#34;109.87&#34; &#34;145.06&#34;</text>
+<text top="827" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="827" left="204" width="34" height="18" font="4">sv_id</text>
+<text top="827" left="313" width="357" height="18" font="4">start_speed end_speed sz_top sz_bot pfx_x pfx_z px</text>
+<text top="843" left="149" width="206" height="18" font="4">#&gt; [1,] &#34;110601_191020&#34; &#34;87.9&#34;</text>
+<text top="843" left="396" width="41" height="18" font="4">&#34;82.1&#34;</text>
+<text top="843" left="464" width="247" height="18" font="4">&#34;3.6&#34; &#34;1.65&#34; &#34;-6.7&#34; &#34;4.36&#34; &#34;-0.213&#34;</text>
+<text top="860" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="860" left="204" width="14" height="18" font="4">pz</text>
+<text top="860" left="259" width="14" height="18" font="4">x0</text>
+<text top="860" left="320" width="14" height="18" font="4">y0</text>
+<text top="860" left="368" width="14" height="18" font="4">z0</text>
+<text top="860" left="423" width="21" height="18" font="4">vx0</text>
+<text top="860" left="478" width="21" height="18" font="4">vy0</text>
+<text top="860" left="554" width="21" height="18" font="4">vz0</text>
+<text top="860" left="615" width="14" height="18" font="4">ax</text>
+<text top="876" left="149" width="528" height="18" font="4">#&gt; [1,] &#34;2.611&#34; &#34;-1.612&#34; &#34;50.0&#34; &#34;5.633&#34; &#34;5.808&#34; &#34;-128.728&#34; &#34;-2.903&#34; &#34;-11.406&#34;</text>
+<text top="893" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="893" left="204" width="14" height="18" font="4">ay</text>
+<text top="893" left="265" width="14" height="18" font="4">az</text>
+<text top="893" left="334" width="295" height="18" font="4">break_y break_angle break_length pitch_type</text>
+<text top="909" left="149" width="281" height="18" font="4">#&gt; [1,] &#34;22.954&#34; &#34;-24.681&#34; &#34;23.9&#34; &#34;22.5&#34;</text>
+<text top="909" left="471" width="34" height="18" font="4">&#34;6.5&#34;</text>
+<text top="909" left="560" width="27" height="18" font="4">&#34;SI&#34;</text>
+<text top="926" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="926" left="204" width="418" height="18" font="4">type_confidence zone nasty spin_dir spin_rate cc mt url_key</text>
+<text top="942" left="149" width="96" height="18" font="4">#&gt; [1,] &#34;.798&#34;</text>
+<text top="942" left="313" width="302" height="18" font="4">&#34;5&#34; &#34;39&#34; &#34;236.697&#34; &#34;1538.041&#34; &#34;&#34; &#34;&#34; &#34;url1&#34;</text>
+<text top="988" left="149" width="161" height="15" font="6"><b>Renaming observations</b></text>
+<text top="1019" left="149" width="544" height="13" font="4">Before grouping observations into a collection tables based on their names, one may want to</text>
+<text top="1016" left="696" width="48" height="18" font="4">re_name</text>
+<text top="1036" left="149" width="228" height="13" font="4">observations. Observations with names</text>
+<text top="1032" left="380" width="405" height="18" font="4">'game//inning//bottom//atbat' and 'game//inning//top//atbat'</text>
+<text top="1052" left="149" width="595" height="13" font="4">should be included in the same table since they share XML attributes (in other words, the observations</text>
+<text top="1069" left="149" width="97" height="13" font="4">share variables).</text>
+<text top="1092" left="149" width="391" height="18" font="4">tmp &lt;- re_name(obs, equiv = c(&#34;game//inning//top//atbat&#34;,</text>
+<text top="1109" left="163" width="398" height="18" font="4">&#34;game//inning//bottom//atbat&#34;), diff.name = &#34;inning_side&#34;)</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="822" width="7" height="15" font="0">9</text>
+<text top="103" left="149" width="186" height="13" font="4">By passing these names to the</text>
+<text top="100" left="339" width="405" height="18" font="4">equiv argument, re_name determines the difference in the naming</text>
+<text top="120" left="149" width="557" height="13" font="4">scheme and suppresses that difference. In other words, observation names that match the</text>
+<text top="116" left="710" width="34" height="18" font="4">equiv</text>
+<text top="136" left="149" width="177" height="13" font="4">argument will be renamed to</text>
+<text top="133" left="329" width="415" height="18" font="4">'game//inning//atbat'. The information removed from the name is</text>
+<text top="152" left="149" width="597" height="13" font="4">not lost; however, as a new column is appended to the end of each relevant observation. For example,</text>
+<text top="169" left="149" width="88" height="13" font="4">notice how the</text>
+<text top="165" left="240" width="406" height="18" font="4">inning_side column contains the part of the name we just removed:</text>
+<text top="192" left="149" width="336" height="18" font="4">tmp[grep(&#34;game//inning//atbat&#34;, names(tmp))][1:2]</text>
+<text top="221" left="149" width="171" height="18" font="4">#&gt; $`game//inning//atbat`</text>
+<text top="238" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="238" left="204" width="34" height="18" font="4">num b</text>
+<text top="238" left="259" width="7" height="18" font="4">s</text>
+<text top="238" left="286" width="7" height="18" font="4">o</text>
+<text top="238" left="313" width="165" height="18" font="4">start_tfs start_tfs_zulu</text>
+<text top="238" left="540" width="41" height="18" font="4">batter</text>
+<text top="238" left="602" width="96" height="18" font="4">stand b_height</text>
+<text top="254" left="149" width="473" height="18" font="4">#&gt; [1,] &#34;1&#34; &#34;0&#34; &#34;1&#34; &#34;0&#34; &#34;190935&#34; &#34;2011-06-01T23:09:35Z&#34; &#34;430001&#34; &#34;R&#34;</text>
+<text top="254" left="643" width="41" height="18" font="4">&#34;5-10&#34;</text>
+<text top="271" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="271" left="204" width="117" height="18" font="4">pitcher p_throws</text>
+<text top="287" left="149" width="137" height="18" font="4">#&gt; [1,] &#34;502190&#34; &#34;R&#34;</text>
+<text top="304" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="304" left="204" width="21" height="18" font="4">des</text>
+<text top="304" left="602" width="34" height="18" font="4">event</text>
+<text top="304" left="677" width="34" height="18" font="4">score</text>
+<text top="320" left="149" width="549" height="18" font="4">#&gt; [1,] &#34;Rickie Weeks homers (10) on a fly ball to left field. &#34; &#34;Home Run&#34; &#34;T&#34;</text>
+<text top="337" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="337" left="204" width="336" height="18" font="4">home_team_runs away_team_runs url_key inning_side</text>
+<text top="353" left="149" width="75" height="18" font="4">#&gt; [1,] &#34;0&#34;</text>
+<text top="353" left="307" width="21" height="18" font="4">&#34;1&#34;</text>
+<text top="353" left="409" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="369" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="386" left="149" width="171" height="18" font="4">#&gt; $`game//inning//atbat`</text>
+<text top="402" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="402" left="204" width="34" height="18" font="4">num b</text>
+<text top="402" left="259" width="7" height="18" font="4">s</text>
+<text top="402" left="286" width="7" height="18" font="4">o</text>
+<text top="402" left="313" width="165" height="18" font="4">start_tfs start_tfs_zulu</text>
+<text top="402" left="540" width="41" height="18" font="4">batter</text>
+<text top="402" left="602" width="96" height="18" font="4">stand b_height</text>
+<text top="419" left="149" width="473" height="18" font="4">#&gt; [1,] &#34;2&#34; &#34;0&#34; &#34;0&#34; &#34;0&#34; &#34;191105&#34; &#34;2011-06-01T23:11:05Z&#34; &#34;460579&#34; &#34;L&#34;</text>
+<text top="419" left="643" width="34" height="18" font="4">&#34;6-0&#34;</text>
+<text top="435" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="435" left="204" width="117" height="18" font="4">pitcher p_throws</text>
+<text top="452" left="149" width="137" height="18" font="4">#&gt; [1,] &#34;502190&#34; &#34;R&#34;</text>
+<text top="468" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="468" left="204" width="21" height="18" font="4">des</text>
+<text top="484" left="149" width="549" height="18" font="4">#&gt; [1,] &#34;Nyjer Morgan triples (3) on a line drive to right fielder Jay Bruce. &#34;</text>
+<text top="501" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="501" left="204" width="34" height="18" font="4">event</text>
+<text top="501" left="265" width="130" height="18" font="4">url_key inning_side</text>
+<text top="517" left="149" width="206" height="18" font="4">#&gt; [1,] &#34;Triple&#34; &#34;url1&#34; &#34;top&#34;</text>
+<text top="550" left="149" width="492" height="13" font="4">For similar reasons, other observation name pairs are renamed in a similar fashion.</text>
+<text top="573" left="149" width="446" height="18" font="4">tmp &lt;- re_name(tmp, equiv = c(&#34;game//inning//top//atbat//runner&#34;,</text>
+<text top="590" left="163" width="453" height="18" font="4">&#34;game//inning//bottom//atbat//runner&#34;), diff.name = &#34;inning_side&#34;)</text>
+<text top="606" left="149" width="398" height="18" font="4">tmp &lt;- re_name(tmp, equiv = c(&#34;game//inning//top//action&#34;,</text>
+<text top="623" left="163" width="405" height="18" font="4">&#34;game//inning//bottom//action&#34;), diff.name = &#34;inning_side&#34;)</text>
+<text top="639" left="149" width="418" height="18" font="4">tmp &lt;- re_name(tmp, equiv = c(&#34;game//inning//top//atbat//po&#34;,</text>
+<text top="656" left="163" width="425" height="18" font="4">&#34;game//inning//bottom//atbat//po&#34;), diff.name = &#34;inning_side&#34;)</text>
+<text top="672" left="149" width="446" height="18" font="4">obs2 &lt;- re_name(tmp, equiv = c(&#34;game//inning//top//atbat//pitch&#34;,</text>
+<text top="688" left="163" width="446" height="18" font="4">&#34;game//inning//bottom//atbat//pitch&#34;), diff.name = &#34;inning_side&#34;)</text>
+<text top="705" left="149" width="123" height="18" font="4">table(names(obs2))</text>
+<text top="734" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="751" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="751" left="327" width="27" height="18" font="4">game</text>
+<text top="751" left="464" width="82" height="18" font="4">game//inning</text>
+<text top="767" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="767" left="348" width="7" height="18" font="4">2</text>
+<text top="767" left="533" width="14" height="18" font="4">18</text>
+<text top="784" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="784" left="217" width="137" height="18" font="4">game//inning//action</text>
+<text top="784" left="416" width="130" height="18" font="4">game//inning//atbat</text>
+<text top="800" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="800" left="341" width="14" height="18" font="4">33</text>
+<text top="800" left="526" width="21" height="18" font="4">148</text>
+<text top="816" left="149" width="206" height="18" font="4">#&gt; game//inning//atbat//pitch</text>
+<text top="816" left="389" width="158" height="18" font="4">game//inning//atbat//po</text>
+<text top="833" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="833" left="334" width="21" height="18" font="4">525</text>
+<text top="833" left="533" width="14" height="18" font="4">21</text>
+<text top="849" left="149" width="206" height="18" font="4">#&gt; game//inning//atbat//runner</text>
+<text top="849" left="499" width="48" height="18" font="4">url_map</text>
+<text top="866" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="866" left="334" width="21" height="18" font="4">139</text>
+<text top="866" left="540" width="7" height="18" font="4">1</text>
+<text top="911" left="149" width="146" height="15" font="6"><b>Linking observations</b></text>
+<text top="943" left="148" width="596" height="13" font="4">After all that renaming, we now have 7 different levels of observations. Let’s examine the first three</text>
+<text top="959" left="149" width="116" height="13" font="4">observations on the</text>
+<text top="956" left="268" width="117" height="18" font="4">game//inning level:</text>
+<text top="983" left="149" width="316" height="18" font="4">obs2[grep(&#34;^game//inning$&#34;, names(obs2))][1:3]</text>
+<text top="1012" left="149" width="123" height="18" font="4">#&gt; $`game//inning`</text>
+<text top="1028" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="1028" left="204" width="247" height="18" font="4">num away_team home_team next url_key</text>
+<text top="1045" left="149" width="117" height="18" font="4">#&gt; [1,] &#34;1&#34; &#34;mil&#34;</text>
+<text top="1045" left="300" width="34" height="18" font="4">&#34;cin&#34;</text>
+<text top="1045" left="368" width="75" height="18" font="4">&#34;Y&#34; &#34;url1&#34;</text>
+<text top="1061" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="1078" left="149" width="123" height="18" font="4">#&gt; $`game//inning`</text>
+<text top="1094" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="1094" left="204" width="247" height="18" font="4">num away_team home_team next url_key</text>
+<text top="1111" left="149" width="117" height="18" font="4">#&gt; [1,] &#34;2&#34; &#34;mil&#34;</text>
+<text top="1111" left="300" width="34" height="18" font="4">&#34;cin&#34;</text>
+<text top="1111" left="368" width="75" height="18" font="4">&#34;Y&#34; &#34;url1&#34;</text>
+<text top="1127" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="1144" left="149" width="123" height="18" font="4">#&gt; $`game//inning`</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">10</text>
+<text top="100" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="100" left="204" width="247" height="18" font="4">num away_team home_team next url_key</text>
+<text top="116" left="149" width="117" height="18" font="4">#&gt; [1,] &#34;3&#34; &#34;mil&#34;</text>
+<text top="116" left="300" width="34" height="18" font="4">&#34;cin&#34;</text>
+<text top="116" left="368" width="75" height="18" font="4">&#34;Y&#34; &#34;url1&#34;</text>
+<text top="145" left="149" width="598" height="13" font="4">Before grouping observations into tables, it is usually important preserve the parent-to-child rela-</text>
+<text top="162" left="149" width="595" height="13" font="4">tionships in the XML lineage. For example, one may want to map a particular pitch back to the</text>
+<text top="178" left="149" width="238" height="13" font="4">inning in which it was thrown. Using the</text>
+<text top="175" left="390" width="354" height="18" font="4">add_key function, the relevant value of num for game//inning</text>
+<text top="195" left="149" width="117" height="13" font="4">observations can be</text>
+<text top="191" left="269" width="202" height="18" font="4">recycled to its XML descendants.</text>
+<text top="216" left="149" width="597" height="18" font="4">obswkey &lt;- add_key(obs2, parent = &#34;game//inning&#34;, recycle = &#34;num&#34;, key.name = &#34;inning&#34;)</text>
+<text top="242" left="149" width="549" height="18" font="4">#&gt; A key for the following children will be generated for the game//inning node:</text>
+<text top="258" left="149" width="199" height="18" font="4">#&gt; game//inning//atbat//pitch</text>
+<text top="274" left="149" width="206" height="18" font="4">#&gt; game//inning//atbat//runner</text>
+<text top="291" left="149" width="151" height="18" font="4">#&gt; game//inning//atbat</text>
+<text top="307" left="149" width="178" height="18" font="4">#&gt; game//inning//atbat//po</text>
+<text top="324" left="149" width="158" height="18" font="4">#&gt; game//inning//action</text>
+<text top="353" left="148" width="109" height="13" font="4">As it turns out, the</text>
+<text top="350" left="261" width="483" height="18" font="4">away_team and home_team columns are redundant as this information is embedded</text>
+<text top="369" left="149" width="34" height="13" font="4">in the</text>
+<text top="366" left="186" width="559" height="18" font="4">url column. Thus, there is only one other informative attribute on this level which is next. By</text>
+<text top="386" left="149" width="447" height="13" font="4">recycling this value among its descendants, we remove any need to retain a</text>
+<text top="383" left="599" width="118" height="18" font="4">game//inning table.</text>
+<text top="407" left="149" width="480" height="18" font="4">obswkey &lt;- add_key(obswkey, parent = &#34;game//inning&#34;, recycle = &#34;next&#34;)</text>
+<text top="433" left="149" width="549" height="18" font="4">#&gt; A key for the following children will be generated for the game//inning node:</text>
+<text top="449" left="149" width="199" height="18" font="4">#&gt; game//inning//atbat//pitch</text>
+<text top="466" left="149" width="206" height="18" font="4">#&gt; game//inning//atbat//runner</text>
+<text top="482" left="149" width="151" height="18" font="4">#&gt; game//inning//atbat</text>
+<text top="498" left="149" width="178" height="18" font="4">#&gt; game//inning//atbat//po</text>
+<text top="515" left="149" width="158" height="18" font="4">#&gt; game//inning//action</text>
+<text top="544" left="149" width="233" height="13" font="4">It is also imperative that we can link a</text>
+<text top="541" left="385" width="359" height="18" font="4">pitch, runner, or po back to a particular atbat. This can be</text>
+<text top="561" left="149" width="96" height="13" font="4">done as follows:</text>
+<text top="581" left="149" width="521" height="18" font="4">obswkey &lt;- add_key(obswkey, parent = &#34;game//inning//atbat&#34;, recycle = &#34;num&#34;)</text>
+<text top="607" left="149" width="597" height="18" font="4">#&gt; A key for the following children will be generated for the game//inning//atbat node:</text>
+<text top="624" left="149" width="199" height="18" font="4">#&gt; game//inning//atbat//pitch</text>
+<text top="640" left="149" width="206" height="18" font="4">#&gt; game//inning//atbat//runner</text>
+<text top="657" left="149" width="178" height="18" font="4">#&gt; game//inning//atbat//po</text>
+<text top="701" left="149" width="166" height="15" font="6"><b>Collapsing observations</b></text>
+<text top="733" left="149" width="510" height="13" font="4">Finally, we are in a position to pool together observations that have a common name. The</text>
+<text top="729" left="662" width="82" height="18" font="4">collapse_obs</text>
+<text top="749" left="149" width="595" height="13" font="4">function achieves this by row binding observations with the same name together and returning a list</text>
+<text top="766" left="149" width="131" height="13" font="4">of matrices. Note that</text>
+<text top="762" left="283" width="461" height="18" font="4">collapse_obs does not require that observations from the same level to have</text>
+<text top="782" left="149" width="595" height="13" font="4">the same set of variables in order to be bound into a common table. In the case where variables are</text>
+<text top="799" left="149" width="50" height="13" font="4">missing,</text>
+<text top="795" left="202" width="176" height="18" font="4">NAs will be inserted as values.</text>
+<text top="819" left="149" width="213" height="18" font="4">tables &lt;- collapse_obs(obswkey)</text>
+<text top="836" left="149" width="377" height="18" font="4">#As mentioned before, we do not need the 'inning' table</text>
+<text top="852" left="149" width="391" height="18" font="4">tables &lt;- tables[!grepl(&#34;^game//inning$&#34;, names(tables))]</text>
+<text top="869" left="149" width="466" height="18" font="4">table.names &lt;- c(&#34;game&#34;, &#34;action&#34;, &#34;atbat&#34;, &#34;pitch&#34;, &#34;po&#34;, &#34;runner&#34;)</text>
+<text top="885" left="149" width="268" height="18" font="4">tables &lt;- setNames(tables, table.names)</text>
+<text top="902" left="149" width="165" height="18" font="4">head(tables[[&#34;runner&#34;]])</text>
+<text top="928" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="928" left="204" width="14" height="18" font="4">id</text>
+<text top="928" left="265" width="110" height="18" font="4">start end event</text>
+<text top="928" left="423" width="247" height="18" font="4">score rbi earned url_key inning_side</text>
+<text top="944" left="149" width="130" height="18" font="4">#&gt; [1,] &#34;430001&#34; &#34;&#34;</text>
+<text top="944" left="307" width="14" height="18" font="4">&#34;&#34;</text>
+<text top="944" left="341" width="103" height="18" font="4">&#34;Home Run&#34; &#34;T&#34;</text>
+<text top="944" left="464" width="48" height="18" font="4">&#34;T&#34; &#34;T&#34;</text>
+<text top="944" left="540" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="960" left="149" width="130" height="18" font="4">#&gt; [2,] &#34;460579&#34; &#34;&#34;</text>
+<text top="960" left="307" width="89" height="18" font="4">&#34;3B&#34; &#34;Triple&#34;</text>
+<text top="960" left="423" width="14" height="18" font="4">NA</text>
+<text top="960" left="464" width="41" height="18" font="4">NA NA</text>
+<text top="960" left="540" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="977" left="149" width="171" height="18" font="4">#&gt; [3,] &#34;460579&#34; &#34;3B&#34; &#34;&#34;</text>
+<text top="977" left="341" width="103" height="18" font="4">&#34;Groundout&#34; &#34;T&#34;</text>
+<text top="977" left="464" width="48" height="18" font="4">&#34;T&#34; &#34;T&#34;</text>
+<text top="977" left="540" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="993" left="149" width="130" height="18" font="4">#&gt; [4,] &#34;425902&#34; &#34;&#34;</text>
+<text top="993" left="307" width="89" height="18" font="4">&#34;1B&#34; &#34;Single&#34;</text>
+<text top="993" left="423" width="14" height="18" font="4">NA</text>
+<text top="993" left="464" width="41" height="18" font="4">NA NA</text>
+<text top="993" left="540" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="1010" left="149" width="171" height="18" font="4">#&gt; [5,] &#34;425902&#34; &#34;1B&#34; &#34;&#34;</text>
+<text top="1010" left="341" width="62" height="18" font="4">&#34;Pop Out&#34;</text>
+<text top="1010" left="423" width="14" height="18" font="4">NA</text>
+<text top="1010" left="464" width="41" height="18" font="4">NA NA</text>
+<text top="1010" left="540" width="89" height="18" font="4">&#34;url1&#34; &#34;top&#34;</text>
+<text top="1026" left="149" width="130" height="18" font="4">#&gt; [6,] &#34;458015&#34; &#34;&#34;</text>
+<text top="1026" left="307" width="89" height="18" font="4">&#34;1B&#34; &#34;Single&#34;</text>
+<text top="1026" left="423" width="14" height="18" font="4">NA</text>
+<text top="1026" left="464" width="41" height="18" font="4">NA NA</text>
+<text top="1026" left="540" width="110" height="18" font="4">&#34;url1&#34; &#34;bottom&#34;</text>
+<text top="1043" left="149" width="14" height="18" font="4">#&gt;</text>
+<text top="1043" left="204" width="103" height="18" font="4">inning next num</text>
+<text top="1059" left="149" width="75" height="18" font="4">#&gt; [1,] &#34;1&#34;</text>
+<text top="1059" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;1&#34;</text>
+<text top="1075" left="149" width="75" height="18" font="4">#&gt; [2,] &#34;1&#34;</text>
+<text top="1075" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;2&#34;</text>
+<text top="1092" left="149" width="75" height="18" font="4">#&gt; [3,] &#34;1&#34;</text>
+<text top="1092" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;3&#34;</text>
+<text top="1108" left="149" width="75" height="18" font="4">#&gt; [4,] &#34;1&#34;</text>
+<text top="1108" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;4&#34;</text>
+<text top="1125" left="149" width="75" height="18" font="4">#&gt; [5,] &#34;1&#34;</text>
+<text top="1125" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;6&#34;</text>
+<text top="1141" left="149" width="75" height="18" font="4">#&gt; [6,] &#34;1&#34;</text>
+<text top="1141" left="252" width="55" height="18" font="4">&#34;Y&#34; &#34;9&#34;</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">11</text>
+<text top="100" left="149" width="318" height="17" font="5"><b>Collecting Gameday data with pitchRx</b></text>
+<text top="139" left="148" width="234" height="13" font="4">The main scraping function in <b>pitchRx</b>,</text>
+<text top="135" left="385" width="359" height="18" font="4">scrape, can be used to easily obtain data from the files listed</text>
+<text top="155" left="149" width="48" height="13" font="4">in Table</text>
+<text top="155" left="200" width="7" height="13" font="7"><a href="2014-1-sievert.html#3">1</a></text>
+<text top="155" left="207" width="387" height="13" font="4"><a href="2014-1-sievert.html#3">. </a>In fact, any combination of these files can be queried using the</text>
+<text top="152" left="597" width="147" height="18" font="4">suffix argument. In the</text>
+<text top="172" left="149" width="114" height="13" font="4">example below, the</text>
+<text top="168" left="266" width="480" height="18" font="4">start and end arguments are also used so that all available file types for June 1st,</text>
+<text top="188" left="149" width="101" height="13" font="4">2011 are queried.</text>
+<text top="212" left="149" width="110" height="18" font="4">library(pitchRx)</text>
+<text top="228" left="149" width="412" height="18" font="4">files &lt;- c(&#34;inning/inning_all.xml&#34;, &#34;inning/inning_hit.xml&#34;,</text>
+<text top="245" left="163" width="247" height="18" font="4">&#34;miniscoreboard.xml&#34;, &#34;players.xml&#34;)</text>
+<text top="261" left="149" width="487" height="18" font="4">dat &lt;- scrape(start = &#34;2011-06-01&#34;, end = &#34;2011-06-01&#34;, suffix = files)</text>
+<text top="291" left="148" width="23" height="13" font="4">The</text>
+<text top="288" left="175" width="569" height="18" font="4">game.ids option can be used instead of start and end to obtain an equivalent dat object. This</text>
+<text top="308" left="149" width="595" height="13" font="4">option can be useful if the user wants to query specific games rather than all games played over a</text>
+<text top="324" left="148" width="225" height="13" font="4">particular time span. When using this</text>
+<text top="321" left="377" width="361" height="18" font="4">game.ids option, the built-in gids object, is quite convenient.</text>
+<text top="348" left="149" width="213" height="18" font="4">data(gids, package = &#34;pitchRx&#34;)</text>
+<text top="364" left="149" width="274" height="18" font="4">gids11 &lt;- gids[grep(&#34;2011_06_01&#34;, gids)]</text>
+<text top="381" left="149" width="82" height="18" font="4">head(gids11)</text>
+<text top="410" left="149" width="494" height="18" font="4">#&gt; [1] &#34;gid_2011_06_01_anamlb_kcamlb_1&#34; &#34;gid_2011_06_01_balmlb_seamlb_1&#34;</text>
+<text top="427" left="149" width="494" height="18" font="4">#&gt; [3] &#34;gid_2011_06_01_chamlb_bosmlb_1&#34; &#34;gid_2011_06_01_clemlb_tormlb_1&#34;</text>
+<text top="443" left="149" width="494" height="18" font="4">#&gt; [5] &#34;gid_2011_06_01_colmlb_lanmlb_1&#34; &#34;gid_2011_06_01_flomlb_arimlb_1&#34;</text>
+<text top="473" left="149" width="329" height="18" font="4">dat &lt;- scrape(game.ids = gids11, suffix = files)</text>
+<text top="506" left="148" width="60" height="13" font="4">The object</text>
+<text top="503" left="211" width="533" height="18" font="4">dat is a list of data frames containing all data available for June 1st, 2011 using scrape. The</text>
+<text top="523" left="149" width="315" height="13" font="4">list names match the table names provided in Table</text>
+<text top="523" left="467" width="7" height="13" font="7"><a href="2014-1-sievert.html#3">1</a></text>
+<text top="523" left="474" width="89" height="13" font="4"><a href="2014-1-sievert.html#3">. </a>For example,</text>
+<text top="520" left="567" width="177" height="18" font="4">dat$atbat is data frame with</text>
+<text top="539" left="149" width="206" height="13" font="4">every at bat on June 1st, 2011 and</text>
+<text top="536" left="358" width="386" height="18" font="4">dat$pitch has information related to the outcome of each pitch</text>
+<text top="556" left="148" width="228" height="13" font="4">(including PITCHf/x parameters). The</text>
+<text top="552" left="380" width="364" height="18" font="4">object.size of dat is nearly 300MB. Multiplying this number</text>
+<text top="572" left="149" width="595" height="13" font="4">by 100 days exceeds the memory of most machines. Thus, if a large amount of data is required, the</text>
+<text top="589" left="149" width="267" height="13" font="4">user should exploit the R database interface <a href="2014-1-sievert.html#15">(</a></text>
+<text top="589" left="416" width="227" height="13" font="7"><a href="2014-1-sievert.html#15">R Special Interest Group on Databases</a></text>
+<text top="589" left="643" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="589" left="650" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2013</a></text>
+<text top="589" left="677" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="634" left="149" width="298" height="17" font="5"><b>Storing and querying Gameday data</b></text>
+<text top="672" left="149" width="595" height="13" font="4">Since PITCHf/x data can easily exhaust memory, one should consider establishing a database instance</text>
+<text top="689" left="149" width="75" height="13" font="4">before using</text>
+<text top="685" left="228" width="516" height="18" font="4">scrape. By passing a database connection to the connect argument, scrape will try to</text>
+<text top="705" left="149" width="597" height="13" font="4">create (and/or append to existing) tables using that connection. If the connection fails for some reason,</text>
+<text top="722" left="149" width="544" height="13" font="4">tables will be written as csv files in the current working directory. The benefits of using the</text>
+<text top="718" left="696" width="48" height="18" font="4">connect</text>
+<text top="738" left="149" width="517" height="13" font="4">argument includes improved memory management which can greatly reduce run time.</text>
+<text top="735" left="670" width="74" height="18" font="4">connect will</text>
+<text top="754" left="149" width="468" height="13" font="4">support a MySQL connection, but creating a SQLite database is quite easy with</text>
+<text top="755" left="620" width="34" height="13" font="9"><a href="http://CRAN.R-project.org/package=dplyr"><b>dplyr</b></a></text>
+<text top="754" left="657" width="4" height="13" font="4"><a href="2014-1-sievert.html#15">(</a></text>
+<text top="754" left="662" width="82" height="13" font="7"><a href="2014-1-sievert.html#15">Wickham and</a></text>
+<text top="771" left="149" width="50" height="13" font="7"><a href="2014-1-sievert.html#15">Francois</a></text>
+<text top="771" left="199" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="771" left="206" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2014</a></text>
+<text top="771" left="233" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="794" left="149" width="96" height="18" font="4">library(dplyr)</text>
+<text top="811" left="149" width="357" height="18" font="4">db &lt;- src_sqlite(&#34;GamedayDB.sqlite3&#34;, create = TRUE)</text>
+<text top="827" left="149" width="370" height="18" font="4"># Collect and store all PITCHf/x data from 2008 to now</text>
+<text top="844" left="149" width="316" height="18" font="4">scrape(start = &#34;2008-01-01&#34;, end = Sys.Date(),</text>
+<text top="860" left="163" width="350" height="18" font="4">suffix = &#34;inning/inning_all.xml&#34;, connect = db$con)</text>
+<text top="890" left="149" width="595" height="13" font="4">In the later sections, animations of four-seam and cut fastballs thrown by Mariano Rivera and Phil</text>
+<text top="907" left="149" width="595" height="13" font="4">Hughes during the 2011 season are created. In order to obtain the data for those animations, one</text>
+<text top="923" left="149" width="72" height="13" font="4">could query</text>
+<text top="920" left="224" width="520" height="18" font="4">db which now has PITCHf/x data from 2008 to date. This query requires criteria on: the</text>
+<text top="936" left="149" width="595" height="18" font="4">pitcher_name field (in the atbat table), the pitch_type field (in the pitch table), and the date field</text>
+<text top="956" left="148" width="596" height="13" font="4">(in both tables). To reduce the time required to search those records, one should create an index on</text>
+<text top="973" left="149" width="149" height="13" font="4">each of these three fields.</text>
+<text top="996" left="149" width="82" height="18" font="4">library(DBI)</text>
+<text top="1013" left="149" width="494" height="18" font="4">dbSendQuery(db$con, &#34;CREATE INDEX pitcher_index ON atbat(pitcher_name)&#34;)</text>
+<text top="1029" left="149" width="460" height="18" font="4">dbSendQuery(db$con, &#34;CREATE INDEX type_index ON pitch(pitch_type)&#34;)</text>
+<text top="1045" left="149" width="418" height="18" font="4">dbSendQuery(db$con, &#34;CREATE INDEX date_atbat ON atbat(date)&#34;)</text>
+<text top="1076" left="148" width="264" height="13" font="4">As a part of our query, we’ll have to join the</text>
+<text top="1072" left="416" width="330" height="18" font="4">atbat table together with the pitch table. For this task,</text>
+<text top="1092" left="149" width="19" height="13" font="4">the</text>
+<text top="1089" left="171" width="573" height="18" font="4">gameday_link and num fields are helpful since together they provide a way to match pitches with</text>
+<text top="1109" left="149" width="309" height="13" font="4">at bats. For this reason, a multi-column index on the</text>
+<text top="1105" left="461" width="283" height="18" font="4">gameday_link and num fields will further reduce</text>
+<text top="1125" left="149" width="128" height="13" font="4">run time of the query.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">12</text>
+<text top="100" left="149" width="508" height="18" font="4">dbSendQuery(db$con, 'CREATE INDEX pitch_join ON pitch(gameday_link, num)')</text>
+<text top="116" left="149" width="508" height="18" font="4">dbSendQuery(db$con, 'CREATE INDEX atbat_join ON atbat(gameday_link, num)')</text>
+<text top="146" left="148" width="596" height="13" font="4">Although the query itself could be expressed entirely in SQL, <b>dplyr</b>’s grammar for data manipulation</text>
+<text top="163" left="148" width="405" height="13" font="4">(which is database agnostic) can help to simplify the task. In this case,</text>
+<text top="160" left="557" width="187" height="18" font="4">at.bat is a tabular representation</text>
+<text top="179" left="149" width="79" height="13" font="4">of the remote</text>
+<text top="176" left="231" width="513" height="18" font="4">atbat table restricted to cases where Rivera or Hughes was the pitcher. That is, at.bat</text>
+<text top="196" left="149" width="595" height="13" font="4">does not contain the actual data, but it does contain the information necessary to retrieve it from the</text>
+<text top="212" left="149" width="56" height="13" font="4">database.</text>
+<text top="236" left="149" width="206" height="18" font="4">at.bat &lt;- tbl(db, &#34;atbat&#34;) %&gt;%</text>
+<text top="252" left="163" width="412" height="18" font="4">filter(pitcher_name %in% c(&#34;Mariano Rivera&#34;, &#34;Phil Hughes&#34;))</text>
+<text top="282" left="149" width="55" height="13" font="4">Similarly,</text>
+<text top="279" left="207" width="537" height="18" font="4">fbs is a tabular representation of the pitch table restricted to four-seam (FF) and cut fastballs</text>
+<text top="299" left="148" width="29" height="13" font="4">(FC).</text>
+<text top="322" left="149" width="185" height="18" font="4">fbs &lt;- tbl(db, &#34;pitch&#34;) %&gt;%</text>
+<text top="339" left="163" width="254" height="18" font="4">filter(pitch_type %in% c(&#34;FF&#34;, &#34;FC&#34;))</text>
+<text top="369" left="148" width="19" height="13" font="4">An</text>
+<text top="366" left="170" width="574" height="18" font="4">inner_join of these two filtered tables returns a tabular representation of all four-seam and cut</text>
+<text top="386" left="149" width="286" height="13" font="4">fastballs thrown by Rivera and Hughes. Before</text>
+<text top="382" left="439" width="305" height="18" font="4">collect actually performs the database query and</text>
+<text top="402" left="149" width="596" height="13" font="4">brings the relevant data into the R session, another restriction is added so that only pitches from 2011</text>
+<text top="418" left="149" width="78" height="13" font="4">are included.</text>
+<text top="442" left="149" width="261" height="18" font="4">pitches &lt;- inner_join(fbs, at.bat) %&gt;%</text>
+<text top="458" left="163" width="377" height="18" font="4">filter(date &gt;= &#34;2011_01_01&#34; &amp; date &lt;= &#34;2012_01_01&#34;) %&gt;%</text>
+<text top="475" left="163" width="62" height="18" font="4">collect()</text>
+<text top="523" left="149" width="178" height="17" font="5"><b>Visualizing PITCHf/x</b></text>
+<text top="565" left="149" width="232" height="15" font="6"><b>Strike-zone plots and umpire bias</b></text>
+<text top="596" left="148" width="596" height="13" font="4">Amongst the most common PITCHf/x graphics are strike-zone plots. Such a plot has two axes and</text>
+<text top="613" left="149" width="595" height="13" font="4">the coordinates represent the location of baseballs as they cross home plate. The term strike-zone plot</text>
+<text top="629" left="149" width="595" height="13" font="4">can refer to either density or probabilistic plots. Density plots are useful for exploring what actually</text>
+<text top="646" left="149" width="595" height="13" font="4">occurred, but probabilistic plots can help address much more interesting questions using statistical</text>
+<text top="662" left="149" width="595" height="13" font="4">inference. Although probabilistic plots can be used to visually track any event probability across</text>
+<text top="679" left="149" width="595" height="13" font="4">the strike-zone, their most popular use is for addressing umpire bias in a strike versus ball decision</text>
+<text top="695" left="149" width="113" height="13" font="7"><a href="2014-1-sievert.html#14">Green and Daniels</a></text>
+<text top="695" left="265" width="5" height="13" font="4"><a href="2014-1-sievert.html#14">(</a></text>
+<text top="695" left="270" width="27" height="13" font="7"><a href="2014-1-sievert.html#14">2014</a></text>
+<text top="695" left="297" width="447" height="13" font="4"><a href="2014-1-sievert.html#14">). </a>The probabilistic plots section demonstrates how <b>pitchRx </b>simplifies the</text>
+<text top="711" left="148" width="596" height="13" font="4">process behind creating such plots via a case study on the impact of home field advantage on umpire</text>
+<text top="728" left="149" width="58" height="13" font="4">decisions.</text>
+<text top="749" left="171" width="573" height="13" font="4">In the world of sports, it is a common belief that umpires (or referees) have a tendency to favor</text>
+<text top="765" left="149" width="595" height="13" font="4">the home team. PITCHf/x provides a unique opportunity to add to this discussion by modeling the</text>
+<text top="782" left="148" width="596" height="13" font="4">probability of a called strike at home games versus away games. Specifically, conditioned upon the</text>
+<text top="798" left="149" width="596" height="13" font="4">umpire making a decision at a specific location in the strike-zone, if the probability that a home pitcher</text>
+<text top="815" left="149" width="595" height="13" font="4">receives a called strike is higher than the probability that an away pitcher receives a called strike, then</text>
+<text top="831" left="149" width="385" height="13" font="4">there is evidence to support umpire bias towards a home pitcher.</text>
+<text top="852" left="171" width="573" height="13" font="4">There are many different possible outcomes of each pitch, but we can condition on the umpire</text>
+<text top="868" left="149" width="595" height="13" font="4">making a decision by limiting to the following two cases. A called strike is an outcome of a pitch where</text>
+<text top="885" left="149" width="596" height="13" font="4">the batter does not swing and the umpire declares the pitch a strike (which is a favorable outcome for</text>
+<text top="901" left="149" width="595" height="13" font="4">the pitcher). A ball is another outcome where the batter does not swing and the umpire declares the</text>
+<text top="918" left="148" width="355" height="13" font="4">pitch a ball (which is a favorable outcome for the batter). All</text>
+<text top="914" left="507" width="237" height="18" font="4">decisions made between 2008 and 2013</text>
+<text top="934" left="149" width="126" height="13" font="4">can be obtained from</text>
+<text top="931" left="278" width="242" height="18" font="4">db with the following query using <b>dplyr</b>.</text>
+<text top="958" left="149" width="460" height="18" font="4"># First, add an index on the pitch description to speed up run-time</text>
+<text top="974" left="149" width="405" height="18" font="4">dbSendQuery(db$con, &#34;CREATE INDEX des_index ON pitch(des)&#34;)</text>
+<text top="1007" left="149" width="199" height="18" font="4">pitch &lt;- tbl(db, &#34;pitch&#34;) %&gt;%</text>
+<text top="1023" left="163" width="322" height="18" font="4">filter(des %in% c(&#34;Called Strike&#34;, &#34;Ball&#34;)) %&gt;%</text>
+<text top="1040" left="163" width="240" height="18" font="4"># Keep pitch location, descriptions</text>
+<text top="1056" left="163" width="288" height="18" font="4">select(px, pz, des, gameday_link, num) %&gt;%</text>
+<text top="1073" left="163" width="206" height="18" font="4"># 0-1 indicator of strike/ball</text>
+<text top="1089" left="163" width="350" height="18" font="4">mutate(strike = as.numeric(des == &#34;Called Strike&#34;))</text>
+<text top="1122" left="149" width="199" height="18" font="4">atbat &lt;- tbl(db, &#34;atbat&#34;) %&gt;%</text>
+<text top="1138" left="163" width="501" height="18" font="4"># Select variables to be used later as covariates in probabilistic models</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">13</text>
+<text top="100" left="163" width="487" height="18" font="4">select(b_height, p_throws, stand, inning_side, date, gameday_link, num)</text>
+<text top="133" left="149" width="281" height="18" font="4">decisions &lt;- inner_join(pitch, atbat) %&gt;%</text>
+<text top="149" left="163" width="219" height="18" font="4">filter(date &lt;= &#34;2014_01_01&#34;) %&gt;%</text>
+<text top="165" left="163" width="62" height="18" font="4">collect()</text>
+<text top="211" left="149" width="92" height="15" font="6"><b>Density plots</b></text>
+<text top="243" left="148" width="22" height="13" font="4">The</text>
+<text top="239" left="174" width="570" height="18" font="4">decisions data frame contains data on over 2.5 million pitches thrown from 2008 to 2013. About</text>
+<text top="259" left="149" width="360" height="13" font="4">a third of them are called strikes and two-thirds balls. Figure</text>
+<text top="259" left="512" width="7" height="13" font="7"><a href="2014-1-sievert.html#9">2</a></text>
+<text top="259" left="522" width="224" height="13" font="4">shows the density of all called strikes.</text>
+<text top="275" left="149" width="595" height="13" font="4">Clearly, most called strikes occur on the outer region of the strike-zone. Many factors could contribute</text>
+<text top="292" left="149" width="334" height="13" font="4">to this phenomenon; which we will not investigate here.</text>
+<text top="315" left="149" width="412" height="18" font="4"># strikeFX uses the stand variable to calculate strike-zones</text>
+<text top="331" left="149" width="549" height="18" font="4"># Here is a slick way to create better facet titles without changing data values</text>
+<text top="348" left="149" width="261" height="18" font="4">relabel &lt;- function(variable, value) {</text>
+<text top="364" left="163" width="336" height="18" font="4">value &lt;- sub(&#34;^R$&#34;, &#34;Right-Handed Batter&#34;, value)</text>
+<text top="381" left="163" width="268" height="18" font="4">sub(&#34;^L$&#34;, &#34;Left-Handed Batter&#34;, value)</text>
+<text top="397" left="149" width="7" height="18" font="4">}</text>
+<text top="414" left="149" width="281" height="18" font="4">strikes &lt;- subset(decisions, strike == 1)</text>
+<text top="430" left="149" width="583" height="18" font="4">strikeFX(strikes, geom = &#34;raster&#34;, layer = facet_grid(. ~ stand, labeller = relabel))</text>
+<text top="790" left="149" width="54" height="13" font="3"><b>Figure 2:</b></text>
+<text top="790" left="213" width="532" height="13" font="4">Density of called strikes for right-handed batters and left-handed batters (from 2008 to</text>
+<text top="806" left="149" width="35" height="13" font="4">2013).</text>
+<text top="843" left="171" width="38" height="13" font="4">Figure</text>
+<text top="843" left="213" width="7" height="13" font="7"><a href="2014-1-sievert.html#9">2</a></text>
+<text top="843" left="223" width="462" height="13" font="4">shows one static rectangle (or strike-zone) per plot automatically generated by</text>
+<text top="839" left="688" width="58" height="18" font="4">strikeFX.</text>
+<text top="859" left="148" width="598" height="13" font="4">The definition of the strike-zone is notoriously ambiguous. As a result, the boundaries of the strike-</text>
+<text top="876" left="149" width="595" height="13" font="4">zone may be noticeably different in some situations. However, we can achieve a fairly accurate</text>
+<text top="892" left="149" width="569" height="13" font="4">representation of strike-zones using a rectangle defined by batters’ average height and stance <a href="2014-1-sievert.html#14">(</a></text>
+<text top="892" left="718" width="25" height="13" font="7"><a href="2014-1-sievert.html#14">Fast</a></text>
+<text top="892" left="742" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="909" left="149" width="26" height="13" font="7"><a href="2014-1-sievert.html#14">2011</a></text>
+<text top="909" left="175" width="68" height="13" font="4"><a href="2014-1-sievert.html#14">). </a>As Figure</text>
+<text top="909" left="246" width="7" height="13" font="7"><a href="2014-1-sievert.html#11">4</a></text>
+<text top="909" left="255" width="489" height="13" font="4">reinforces, batter stance makes an important difference since the strike-zone seems to</text>
+<text top="925" left="149" width="595" height="13" font="4">be horizontally shifted away from the batter. The batter’s height is also important since the strike-zone</text>
+<text top="942" left="149" width="468" height="13" font="4">is classically defined as approximately between the batter’s knees and armpits.</text>
+<text top="962" left="171" width="39" height="13" font="4">Figure</text>
+<text top="962" left="214" width="7" height="13" font="7"><a href="2014-1-sievert.html#9">2</a></text>
+<text top="962" left="224" width="237" height="13" font="4">has is one strike-zone per plot since the</text>
+<text top="959" left="464" width="280" height="18" font="4">layer option contains a <b>ggplot2 </b>argument that</text>
+<text top="979" left="149" width="595" height="13" font="4">facets according to batter stance. Facet layers are a powerful tool for analyzing PITCHf/x data because</text>
+<text top="995" left="149" width="462" height="13" font="4">they help produce quick and insightful comparisons. In addition to using the</text>
+<text top="992" left="615" width="130" height="18" font="4">layer option, one can</text>
+<text top="1012" left="149" width="220" height="13" font="4">add layers to a graphic returned by</text>
+<text top="1008" left="373" width="371" height="18" font="4">strikeFX using <b>ggplot2 </b>arithmetic. It is also worth pointing</text>
+<text top="1028" left="149" width="90" height="13" font="4">out that Figure</text>
+<text top="1028" left="242" width="7" height="13" font="7"><a href="2014-1-sievert.html#9">2</a></text>
+<text top="1028" left="252" width="294" height="13" font="4">could have been created without introducing the</text>
+<text top="1025" left="550" width="194" height="18" font="4">strikes data frame by using the</text>
+<text top="1041" left="149" width="191" height="18" font="4">density1 and density2 options.</text>
+<text top="1068" left="149" width="521" height="18" font="4">strikeFX(decisions, geom = &#34;raster&#34;, density1 = list(des = &#34;Called Strike&#34;),</text>
+<text top="1084" left="163" width="569" height="18" font="4">density2 = list(des = &#34;Called Strike&#34;)) + facet_grid(. ~ stand, labeller = relabel)</text>
+<text top="1114" left="149" width="101" height="13" font="4">In general, when</text>
+<text top="1111" left="253" width="491" height="18" font="4">density1 and density2 are identical, the result is equivalent to subsetting the data</text>
+<text top="1130" left="149" width="510" height="13" font="4">frame appropriately beforehand. More importantly, by specifying different values for</text>
+<text top="1127" left="663" width="82" height="18" font="4">density1 and</text>
+<text top="1144" left="149" width="596" height="18" font="4">density2, differenced densities are easily generated. In this case, a grid of density estimates for</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="10" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="10" family="Helvetica" color="#7f7f7f"/>
+	<fontspec id="16" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="10" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">14</text>
+<text top="100" left="149" width="595" height="18" font="4">density2 are subtracted from the corresponding grid of density estimates for density1. Note that the</text>
+<text top="120" left="149" width="42" height="13" font="4">default</text>
+<text top="116" left="194" width="552" height="18" font="4">NULL value for either density option infers that the entire data set defines the relevant density.</text>
+<text top="136" left="148" width="47" height="13" font="4">Thus, if</text>
+<text top="133" left="199" width="545" height="18" font="4">density2 was NULL (when density1 = list(des = 'Called Strike')), we would obtain</text>
+<text top="152" left="149" width="520" height="13" font="4">the density of called strikes minus the density of both called strikes and balls. In Figure</text>
+<text top="152" left="672" width="7" height="13" font="7"><a href="2014-1-sievert.html#10">3</a></text>
+<text top="152" left="679" width="66" height="13" font="4"><a href="2014-1-sievert.html#10">, </a>we define</text>
+<text top="165" left="149" width="595" height="18" font="4">density1 as called strikes and define density2 as balls. As expected, we see positive density values</text>
+<text top="185" left="148" width="555" height="13" font="4">(in blue) inside the strike-zone and negative density values (in red) outside of the strike-zone.</text>
+<text top="209" left="149" width="521" height="18" font="4">strikeFX(decisions, geom = &#34;raster&#34;, density1 = list(des = &#34;Called Strike&#34;),</text>
+<text top="225" left="163" width="556" height="18" font="4">density2 = list(des = &#34;Ball&#34;), layer = facet_grid(. ~ stand, labeller = relabel))</text>
+<text top="293" left="260" width="105" height="11" font="14">Left−Handed Batter</text>
+<text top="293" left="472" width="113" height="11" font="14">Right−Handed Batter</text>
+<text top="480" left="192" width="7" height="11" font="15">1</text>
+<text top="431" left="192" width="7" height="11" font="15">2</text>
+<text top="383" left="192" width="7" height="11" font="15">3</text>
+<text top="335" left="192" width="7" height="11" font="15">4</text>
+<text top="526" left="210" width="14" height="11" font="15">−2</text>
+<text top="526" left="258" width="14" height="11" font="15">−1</text>
+<text top="526" left="309" width="7" height="11" font="15">0</text>
+<text top="526" left="357" width="7" height="11" font="15">1</text>
+<text top="526" left="405" width="7" height="11" font="15">2</text>
+<text top="526" left="426" width="14" height="11" font="15">−2</text>
+<text top="526" left="474" width="14" height="11" font="15">−1</text>
+<text top="526" left="525" width="7" height="11" font="15">0</text>
+<text top="526" left="573" width="7" height="11" font="15">1</text>
+<text top="526" left="621" width="7" height="11" font="15">2</text>
+<text top="539" left="340" width="160" height="13" font="16">Horizontal Pitch Location</text>
+<text top="465" left="187" width="0" height="13" font="17">Height from Ground</text>
+<text top="439" left="678" width="17" height="11" font="14">0.0</text>
+<text top="406" left="678" width="17" height="11" font="14">0.2</text>
+<text top="373" left="678" width="17" height="11" font="14">0.4</text>
+<text top="353" left="652" width="31" height="11" font="18"><b>value</b></text>
+<text top="586" left="149" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="586" left="208" width="536" height="13" font="4">Density of called strikes minus density of balls for both right-handed batters and left-handed</text>
+<text top="602" left="149" width="595" height="13" font="4">batters (from 2008 to 2013). The blue region indicates a higher frequency of called strikes and the red</text>
+<text top="619" left="149" width="259" height="13" font="4">region indicates a higher frequency of balls.</text>
+<text top="656" left="171" width="573" height="13" font="4">These density plots are helpful for visualizing the observed frequency of events; however, they are</text>
+<text top="672" left="149" width="597" height="13" font="4">not very useful for addressing our umpire bias hypothesis. Instead of looking simply at the density,</text>
+<text top="689" left="148" width="596" height="13" font="4">we want to model the probability of a strike called at each coordinate given the umpire has to make a</text>
+<text top="705" left="149" width="53" height="13" font="4">decision.</text>
+<text top="747" left="149" width="125" height="15" font="6"><b>Probabilistic plots</b></text>
+<text top="779" left="148" width="596" height="13" font="4">There are many approaches to probabilistic modeling over a two dimensional spatial region. Since our</text>
+<text top="795" left="149" width="595" height="13" font="4">response is often categorical, generalized additive models (GAMs) is a popular and desirable approach</text>
+<text top="812" left="149" width="238" height="13" font="4">to modeling events over the strike-zone <a href="2014-1-sievert.html#14">(</a></text>
+<text top="812" left="387" width="30" height="13" font="7"><a href="2014-1-sievert.html#14">Mills</a></text>
+<text top="812" left="417" width="3" height="13" font="4"><a href="2014-1-sievert.html#14">,</a></text>
+<text top="812" left="423" width="26" height="13" font="7"><a href="2014-1-sievert.html#14">2010</a></text>
+<text top="812" left="450" width="294" height="13" font="4"><a href="2014-1-sievert.html#14">). </a>There are numerous R package implementations</text>
+<text top="828" left="149" width="103" height="13" font="4">of GAMs, but the</text>
+<text top="825" left="255" width="128" height="18" font="4">bam function from the</text>
+<text top="828" left="386" width="33" height="13" font="9"><a href="http://CRAN.R-project.org/package=mgcv"><b>mgcv</b></a></text>
+<text top="828" left="423" width="247" height="13" font="4">package has several desirable properties <a href="2014-1-sievert.html#15">(</a></text>
+<text top="828" left="670" width="35" height="13" font="7"><a href="2014-1-sievert.html#15">Wood</a></text>
+<text top="828" left="705" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="828" left="712" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2006</a></text>
+<text top="828" left="739" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="845" left="149" width="595" height="13" font="4">Most importantly, the smoothing parameter can be estimated using several different methods. In</text>
+<text top="861" left="149" width="595" height="13" font="4">order to have a reasonable estimate of the smooth 2D surface, GAMs require fairly large amount of</text>
+<text top="878" left="149" width="596" height="13" font="4">observations. As a result, run time can be an issue – especially when modeling 2.5 million observations!</text>
+<text top="894" left="148" width="92" height="13" font="4">Thankfully, the</text>
+<text top="891" left="244" width="500" height="18" font="4">bam function has a cluster argument which allows one to distribute computations</text>
+<text top="910" left="149" width="335" height="13" font="4">across multiple cores using the built in <b>parallel </b>package.</text>
+<text top="934" left="149" width="117" height="18" font="4">library(parallel)</text>
+<text top="950" left="149" width="247" height="18" font="4">cl &lt;- makeCluster(detectCores() - 1)</text>
+<text top="967" left="149" width="89" height="18" font="4">library(mgcv)</text>
+<text top="983" left="149" width="418" height="18" font="4">m &lt;- bam(strike ~ interaction(stand, p_throws, inning_side) +</text>
+<text top="1000" left="163" width="398" height="18" font="4">s(px, pz, by = interaction(stand, p_throws, inning_side)),</text>
+<text top="1016" left="163" width="453" height="18" font="4">data = decisions, family = binomial(link = 'logit'), cluster = cl)</text>
+<text top="1046" left="148" width="596" height="13" font="4">This formula models the probability of a strike as a function of the baseball’s spatial location, the</text>
+<text top="1063" left="149" width="595" height="13" font="4">batter’s stance, the pitcher’s throwing arm, and the side of the inning. Since home pitchers always</text>
+<text top="1079" left="148" width="212" height="13" font="4">pitch during the top of the inning,</text>
+<text top="1076" left="365" width="379" height="18" font="4">inning_side also serves as an indication of whether a pitch is</text>
+<text top="1096" left="149" width="252" height="13" font="4">thrown by a home pitcher. In this case, the</text>
+<text top="1092" left="405" width="339" height="18" font="4">interaction function creates a factor with eight different</text>
+<text top="1112" left="149" width="595" height="13" font="4">levels since every input factor has two levels. Consequently, there are 8 different levels of smooth</text>
+<text top="1129" left="149" width="252" height="13" font="4">surfaces over the spatial region defined by</text>
+<text top="1125" left="404" width="60" height="18" font="4">px and pz.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">15</text>
+<text top="103" left="171" width="102" height="13" font="4">The fitted model</text>
+<text top="100" left="277" width="467" height="18" font="4">m contains a lot of information which strikeFX uses in conjunction with any</text>
+<text top="120" left="149" width="46" height="13" font="3"><b>ggplot2</b></text>
+<text top="120" left="200" width="544" height="13" font="4">facet commands to infer which and how surfaces should be plotted. In particular, the</text>
+<text top="133" left="148" width="596" height="18" font="4">var.summary is used to identify model covariates, as well their default conditioning values. In our</text>
+<text top="152" left="149" width="121" height="13" font="4">case, the majority of</text>
+<text top="149" left="274" width="470" height="18" font="4">decisions are from right-handed pitchers and the top of the inning. Thus, the</text>
+<text top="169" left="149" width="182" height="13" font="4">default conditioning values are</text>
+<text top="165" left="334" width="410" height="18" font="4">&#34;top&#34; for inning_side and &#34;R&#34; for p_throws. If different conditioning</text>
+<text top="185" left="148" width="109" height="13" font="4">values are desired,</text>
+<text top="182" left="261" width="386" height="18" font="4">var.summary can be modified accordingly. To demonstrate, Figure</text>
+<text top="185" left="650" width="7" height="13" font="7"><a href="2014-1-sievert.html#11">4</a></text>
+<text top="185" left="660" width="84" height="13" font="4">shows 2 of the</text>
+<text top="202" left="149" width="394" height="13" font="4">8 possible surfaces that correspond to a right-handed away pitcher.</text>
+<text top="224" left="149" width="501" height="18" font="4">away &lt;- list(inning_side = factor(&#34;bottom&#34;, levels = c(&#34;top&#34;, &#34;bottom&#34;)))</text>
+<text top="241" left="149" width="329" height="18" font="4">m$var.summary &lt;- modifyList(m$var.summary, away)</text>
+<text top="257" left="149" width="556" height="18" font="4">strikeFX(decisions, model = m, layer = facet_grid(. ~ stand, labeller = relabel))</text>
+<text top="324" left="258" width="105" height="11" font="14">Left−Handed Batter</text>
+<text top="324" left="467" width="113" height="11" font="14">Right−Handed Batter</text>
+<text top="508" left="192" width="7" height="11" font="15">1</text>
+<text top="461" left="192" width="7" height="11" font="15">2</text>
+<text top="413" left="192" width="7" height="11" font="15">3</text>
+<text top="366" left="192" width="7" height="11" font="15">4</text>
+<text top="554" left="209" width="14" height="11" font="15">−2</text>
+<text top="554" left="257" width="14" height="11" font="15">−1</text>
+<text top="554" left="308" width="7" height="11" font="15">0</text>
+<text top="554" left="355" width="7" height="11" font="15">1</text>
+<text top="554" left="402" width="7" height="11" font="15">2</text>
+<text top="554" left="422" width="14" height="11" font="15">−2</text>
+<text top="554" left="469" width="14" height="11" font="15">−1</text>
+<text top="554" left="520" width="7" height="11" font="15">0</text>
+<text top="554" left="568" width="7" height="11" font="15">1</text>
+<text top="554" left="615" width="7" height="11" font="15">2</text>
+<text top="567" left="337" width="160" height="13" font="16">Horizontal Pitch Location</text>
+<text top="495" left="187" width="0" height="13" font="17">Height from Ground</text>
+<text top="472" left="671" width="24" height="11" font="14">0.25</text>
+<text top="444" left="671" width="24" height="11" font="14">0.50</text>
+<text top="416" left="671" width="24" height="11" font="14">0.75</text>
+<text top="382" left="645" width="6" height="11" font="18"><b>z</b></text>
+<text top="616" left="149" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="616" left="206" width="538" height="13" font="4">Probability that a right-handed away pitcher receives a called strike (provided the umpire</text>
+<text top="632" left="149" width="435" height="13" font="4">has to make a decision). Plots are faceted by the handedness of the batter.</text>
+<text top="668" left="171" width="573" height="13" font="4">Using the same intuition exploited earlier to obtain differenced density plots, we can easily obtain</text>
+<text top="684" left="149" width="279" height="13" font="4">differenced probability plots. To obtain Figure</text>
+<text top="684" left="431" width="7" height="13" font="7"><a href="2014-1-sievert.html#12">5</a></text>
+<text top="684" left="438" width="97" height="13" font="4"><a href="2014-1-sievert.html#12">, </a>we simply add</text>
+<text top="681" left="539" width="205" height="18" font="4">p_throws as another facet variable</text>
+<text top="701" left="149" width="22" height="13" font="4">and</text>
+<text top="697" left="174" width="570" height="18" font="4">inning_side as a differencing variable. In this case, conditioning values do not matter since every</text>
+<text top="717" left="149" width="357" height="13" font="4">one of the 8 surfaces are required in order to produce Figure</text>
+<text top="717" left="509" width="7" height="13" font="7"><a href="2014-1-sievert.html#12">5</a></text>
+<text top="717" left="516" width="3" height="13" font="4"><a href="2014-1-sievert.html#12">.</a></text>
+<text top="740" left="149" width="425" height="18" font="4"># Function to create better labels for both stand and p_throws</text>
+<text top="756" left="149" width="268" height="18" font="4">relabel2 &lt;- function(variable, value) {</text>
+<text top="772" left="163" width="178" height="18" font="4">if (variable %in% &#34;stand&#34;)</text>
+<text top="789" left="176" width="268" height="18" font="4">return(sub(&#34;^L$&#34;, &#34;Left-Handed Batter&#34;,</text>
+<text top="805" left="190" width="288" height="18" font="4">sub(&#34;^R$&#34;, &#34;Right-Handed Batter&#34;, value)))</text>
+<text top="822" left="163" width="199" height="18" font="4">if (variable %in% &#34;p_throws&#34;)</text>
+<text top="838" left="176" width="274" height="18" font="4">return(sub(&#34;^L$&#34;, &#34;Left-Handed Pitcher&#34;,</text>
+<text top="855" left="190" width="295" height="18" font="4">sub(&#34;^R$&#34;, &#34;Right-Handed Pitcher&#34;, value)))</text>
+<text top="871" left="149" width="7" height="18" font="4">}</text>
+<text top="888" left="149" width="610" height="18" font="4">strikeFX(decisions, model = m, layer = facet_grid(p_throws ~ stand, labeller = relabel2),</text>
+<text top="904" left="163" width="535" height="18" font="4">density1 = list(inning_side = &#34;top&#34;), density2 = list(inning_side = &#34;bottom&#34;))</text>
+<text top="933" left="171" width="204" height="13" font="4">The four different plots in Figure</text>
+<text top="933" left="379" width="7" height="13" font="7"><a href="2014-1-sievert.html#12">5</a></text>
+<text top="933" left="391" width="353" height="13" font="4">represent the four different combination of values among</text>
+<text top="946" left="149" width="595" height="18" font="4">p_throws and stand. In general, provided that a pitcher throws to a batter in the blue region, the</text>
+<text top="966" left="148" width="596" height="13" font="4">pitch is more likely to be called a strike if the pitcher is on their home turf. Interestingly, there is a</text>
+<text top="983" left="148" width="596" height="13" font="4">well-defined blue elliptical band around the boundaries of the typical strike-zone. Thus, home pitchers</text>
+<text top="999" left="149" width="598" height="13" font="4">are more likely to receive a favorable call – especially when the classification of the pitch is in question.</text>
+<text top="1015" left="149" width="595" height="13" font="4">In some areas, the home pitcher has up to a 6 percent higher probability of receiving a called strike</text>
+<text top="1032" left="149" width="537" height="13" font="4">than an away pitcher. The subtle differences in spatial patterns across the different values of</text>
+<text top="1028" left="689" width="55" height="18" font="4">p_throws</text>
+<text top="1048" left="149" width="23" height="13" font="4">and</text>
+<text top="1045" left="176" width="568" height="18" font="4">stand are interesting as well. For instance, pitching at home has a large positive impact for a</text>
+<text top="1065" left="149" width="595" height="13" font="4">left-handed pitcher throwing in the lower inside portion of the strike-zone to a right-handed batter, but</text>
+<text top="1081" left="149" width="596" height="13" font="4">the impact seems negligible in the mirror opposite case. Differenced probabilistic densities are clearly</text>
+<text top="1098" left="149" width="369" height="13" font="4">an interesting visual tool for analyzing PITCHf/x data. With</text>
+<text top="1094" left="522" width="223" height="18" font="4">strikeFX, one can quickly and easily</text>
+<text top="1114" left="149" width="595" height="13" font="4">make all sorts of visual comparisons for various situations. In fact, one can explore and compare the</text>
+<text top="1130" left="148" width="596" height="13" font="4">probabilistic structure of any well-defined event over a strike-zone region (for example, the probability</text>
+<text top="1147" left="149" width="280" height="13" font="4">a batter reaches base) using a similar approach.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="13" family="Helvetica" color="#000000"/>
+	<fontspec id="20" size="13" family="Helvetica" color="#7f7f7f"/>
+	<fontspec id="21" size="13" family="Helvetica" color="#000000"/>
+	<fontspec id="22" size="16" family="Helvetica" color="#000000"/>
+	<fontspec id="23" size="16" family="Helvetica" color="#000000"/>
+	<fontspec id="24" size="13" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">16</text>
+<text top="125" left="263" width="278" height="14" font="19">Left−Handed Batter Right−Handed Batter</text>
+<text top="251" left="241" width="8" height="14" font="20">1</text>
+<text top="220" left="241" width="8" height="14" font="20">2</text>
+<text top="188" left="241" width="8" height="14" font="20">3</text>
+<text top="157" left="241" width="8" height="14" font="20">4</text>
+<text top="393" left="241" width="8" height="14" font="20">1</text>
+<text top="362" left="241" width="8" height="14" font="20">2</text>
+<text top="331" left="241" width="8" height="14" font="20">3</text>
+<text top="300" left="241" width="8" height="14" font="20">4</text>
+<text top="130" left="544" width="0" height="14" font="21">Left−Handed Pitcher</text>
+<text top="267" left="544" width="0" height="14" font="21">Right−Handed Pitcher</text>
+<text top="431" left="258" width="17" height="14" font="20">−2</text>
+<text top="431" left="289" width="17" height="14" font="20">−1</text>
+<text top="431" left="324" width="8" height="14" font="20">0</text>
+<text top="431" left="355" width="8" height="14" font="20">1</text>
+<text top="431" left="386" width="31" height="14" font="20">2 −2</text>
+<text top="431" left="431" width="17" height="14" font="20">−1</text>
+<text top="431" left="466" width="8" height="14" font="20">0</text>
+<text top="431" left="497" width="8" height="14" font="20">1</text>
+<text top="431" left="528" width="8" height="14" font="20">2</text>
+<text top="447" left="300" width="199" height="17" font="22">Horizontal Pitch Location</text>
+<text top="347" left="236" width="0" height="17" font="23">Height from Ground</text>
+<text top="322" left="614" width="29" height="14" font="19">0.00</text>
+<text top="291" left="614" width="29" height="14" font="19">0.02</text>
+<text top="261" left="614" width="29" height="14" font="19">0.04</text>
+<text top="230" left="614" width="29" height="14" font="19">0.06</text>
+<text top="207" left="582" width="8" height="14" font="24"><b>z</b></text>
+<text top="493" left="149" width="54" height="13" font="3"><b>Figure 5:</b></text>
+<text top="493" left="208" width="536" height="13" font="4">Difference between home and away pitchers in the probability of a strike (provided the</text>
+<text top="509" left="149" width="595" height="13" font="4">umpire has to make a decision). The blue regions indicate a higher probability of a strike for home</text>
+<text top="526" left="148" width="596" height="13" font="4">pitchers and red regions indicate a higher probability of a strike for away pitchers. Plots are faceted by</text>
+<text top="542" left="149" width="294" height="13" font="4">the handedness of both the pitcher and the batter.</text>
+<text top="591" left="149" width="93" height="15" font="6"><b>2D animation</b></text>
+<text top="619" left="149" width="595" height="18" font="4">animateFX provides convenient and flexible functionality for animating the trajectory of any desired</text>
+<text top="639" left="149" width="595" height="13" font="4">set of pitches. For demonstration purposes, this section animates every four-seam and cut fastball</text>
+<text top="655" left="149" width="595" height="13" font="4">thrown by Mariano Rivera and Phil Hughes during the 2011 season. These pitches provide a good</text>
+<text top="672" left="149" width="595" height="13" font="4">example of how facets play an important role in extracting new insights. Similar methods can be used</text>
+<text top="688" left="149" width="426" height="13" font="4">to analyze any MLB player (or combination of players) in greater detail.</text>
+<text top="706" left="171" width="573" height="18" font="4">animateFX tracks three dimensional pitch locations over a sequence of two dimensional plots. The</text>
+<text top="725" left="149" width="595" height="13" font="4">animation takes on the viewpoint of the umpire; that is, each time the plot refreshes, the balls are</text>
+<text top="742" left="149" width="595" height="13" font="4">getting closer to the viewer. This is reflected with the increase in size of the points as the animation</text>
+<text top="758" left="148" width="596" height="13" font="4">progresses. Obviously, some pitches travel faster than others, which explains the different sizes within</text>
+<text top="775" left="149" width="595" height="13" font="4">a particular frame. Animations revert to the initial point of release once all of the baseballs have</text>
+<text top="791" left="149" width="299" height="13" font="4">reached home plate. During an interactive session,</text>
+<text top="788" left="451" width="293" height="18" font="4">animateFX produces a series of plots that may not</text>
+<text top="808" left="148" width="336" height="13" font="4">viewed easily. One option available to the user is to wrap</text>
+<text top="804" left="488" width="256" height="18" font="4">animation::saveHTML around animateFX to</text>
+<text top="824" left="148" width="375" height="13" font="4">view the animation in a browser with proper looping controls <a href="2014-1-sievert.html#15">(</a></text>
+<text top="824" left="523" width="19" height="13" font="7"><a href="2014-1-sievert.html#15">Xie</a></text>
+<text top="824" left="542" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="824" left="549" width="34" height="13" font="7"><a href="2014-1-sievert.html#15">2013a</a></text>
+<text top="824" left="583" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="845" left="171" width="435" height="13" font="4">To reduce the time and thinking required to produce these animations,</text>
+<text top="842" left="610" width="134" height="18" font="4">animateFX has default</text>
+<text top="861" left="149" width="595" height="13" font="4">settings for the geometry, color, opacity and size associated with each plot. Any of these assumptions</text>
+<text top="878" left="149" width="595" height="13" font="4">can be altered - except for the point geometry. In order for animations to work, a data frame with</text>
+<text top="894" left="149" width="597" height="13" font="4">the appropriately named PITCHf/x parameters (that is, x0, y0, z0, vx0, vy0, vz0, ax0, ay0 and az0)</text>
+<text top="911" left="149" width="128" height="13" font="4">is required. In Figure</text>
+<text top="911" left="280" width="7" height="13" font="7"><a href="2014-1-sievert.html#13">6</a></text>
+<text top="911" left="287" width="457" height="13" font="4"><a href="2014-1-sievert.html#13">, </a>every four-seam and cut fastball thrown by Rivera and Hughes during the</text>
+<text top="927" left="149" width="205" height="13" font="4">2011 season is visualized using the</text>
+<text top="924" left="358" width="386" height="18" font="4">pitches data frame obtained earlier (the animation is available at</text>
+<text top="940" left="149" width="268" height="18" font="7"><a href="http://cpsievert.github.io/pitchRx/ani1">http://cpsievert.github.io/pitchRx/ani1</a></text>
+<text top="944" left="416" width="8" height="13" font="4"><a href="http://cpsievert.github.io/pitchRx/ani1">).</a></text>
+<text top="967" left="149" width="384" height="18" font="4">animateFX(pitches, layer=list(theme_bw(), coord_equal(),</text>
+<text top="984" left="163" width="357" height="18" font="4">facet_grid(pitcher_name~stand, labeller = relabel)))</text>
+<text top="1014" left="171" width="252" height="13" font="4">In the animation corresponding to Figure</text>
+<text top="1014" left="428" width="7" height="13" font="7"><a href="2014-1-sievert.html#13">6</a></text>
+<text top="1014" left="434" width="310" height="13" font="4"><a href="2014-1-sievert.html#13">, </a>the upper right-hand portion (Rivera throwing to</text>
+<text top="1030" left="149" width="597" height="13" font="4">right-handed batters) reveals the clearest pattern in flight trajectories. Around the point of release,</text>
+<text top="1047" left="149" width="595" height="13" font="4">Rivera’s two pitch types are hard to distinguish. However, after a certain point, there is a very different</text>
+<text top="1063" left="149" width="595" height="13" font="4">flight path among the two pitch types. Specifically, the drastic left-to-right movement of the cut fastball</text>
+<text top="1080" left="149" width="597" height="13" font="4">is noticeably different from the slight right-to-left movement of the four-seam fastball. In recent years,</text>
+<text top="1096" left="149" width="595" height="13" font="4">cut fastballs have gained notoriety among the baseball community as a coveted pitch for pitchers have</text>
+<text top="1112" left="149" width="595" height="13" font="4">at their disposal. This is largely due to the difficulty that a batter has in distinguishing the cut fastball</text>
+<text top="1129" left="149" width="595" height="13" font="4">from another fastball as the ball travels toward home plate. Clearly, this presents an advantage for the</text>
+<text top="1145" left="148" width="596" height="13" font="4">pitcher since they can use deception to reduce batter’s ability to predict where the ball will cross home</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="13" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="25" size="7" family="Times" color="#000000"/>
+	<fontspec id="26" size="7" family="Times" color="#000000"/>
+	<fontspec id="27" size="9" family="Times" color="#000000"/>
+	<fontspec id="28" size="7" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">17</text>
+<text top="115" left="281" width="81" height="9" font="25">Left−Handed Batter</text>
+<text top="115" left="419" width="87" height="9" font="25">Right−Handed Batter</text>
+<text top="253" left="241" width="5" height="9" font="25">0</text>
+<text top="217" left="241" width="5" height="9" font="25">2</text>
+<text top="182" left="241" width="5" height="9" font="25">4</text>
+<text top="146" left="241" width="5" height="9" font="25">6</text>
+<text top="395" left="241" width="5" height="9" font="25">0</text>
+<text top="359" left="241" width="5" height="9" font="25">2</text>
+<text top="323" left="241" width="5" height="9" font="25">4</text>
+<text top="287" left="241" width="5" height="9" font="25">6</text>
+<text top="156" left="535" width="0" height="9" font="26">Mar</text>
+<text top="172" left="535" width="0" height="9" font="26">iano Riv</text>
+<text top="205" left="535" width="0" height="9" font="26">er</text>
+<text top="213" left="535" width="0" height="9" font="26">a</text>
+<text top="304" left="535" width="0" height="9" font="26">Phil Hughes</text>
+<text top="411" left="280" width="11" height="9" font="25">−2</text>
+<text top="411" left="319" width="5" height="9" font="25">0</text>
+<text top="411" left="355" width="5" height="9" font="25">2</text>
+<text top="411" left="421" width="11" height="9" font="25">−2</text>
+<text top="411" left="460" width="5" height="9" font="25">0</text>
+<text top="411" left="496" width="5" height="9" font="25">2</text>
+<text top="421" left="330" width="123" height="11" font="1">Horizontal Pitch Location</text>
+<text top="305" left="237" width="0" height="11" font="27">Height from Ground</text>
+<text top="243" left="558" width="52" height="9" font="28"><b>pitch_types</b></text>
+<text top="259" left="576" width="64" height="9" font="25">Fastball (cutter)</text>
+<text top="275" left="576" width="85" height="9" font="25">Fastball (four−seam)</text>
+<text top="458" left="149" width="54" height="13" font="3"><b>Figure 6:</b></text>
+<text top="458" left="209" width="535" height="13" font="4">The last frame of an animation of every four-seam and cutting fastballs thrown by NY</text>
+<text top="474" left="148" width="596" height="13" font="4">Yankee pitchers Mariano Rivera and Phil Hughes during the 2011 season. The actual animation can be</text>
+<text top="491" left="148" width="44" height="13" font="4">viewed</text>
+<text top="491" left="195" width="26" height="13" font="7"><a href="http://cpsievert.github.io/pitchRx/ani1">here</a></text>
+<text top="491" left="221" width="523" height="13" font="4"><a href="http://cpsievert.github.io/pitchRx/ani1">. </a>Pitches are faceted by pitcher and batting stance. For instance, the top left plot portrays</text>
+<text top="507" left="148" width="284" height="13" font="4">pitches thrown by Rivera to left-handed batters.</text>
+<text top="557" left="148" width="596" height="13" font="4">plate. This deception factor combined with Rivera’s ability to locate his pitches explain his accolades</text>
+<text top="574" left="149" width="247" height="13" font="4">as one of the greatest pitchers of all time <a href="2014-1-sievert.html#15">(</a></text>
+<text top="574" left="395" width="35" height="13" font="7"><a href="2014-1-sievert.html#15">Traub</a></text>
+<text top="574" left="430" width="3" height="13" font="4"><a href="2014-1-sievert.html#15">,</a></text>
+<text top="574" left="437" width="27" height="13" font="7"><a href="2014-1-sievert.html#15">2010</a></text>
+<text top="574" left="464" width="8" height="13" font="4"><a href="2014-1-sievert.html#15">).</a></text>
+<text top="594" left="171" width="575" height="13" font="4">Although we see a clear pattern in Rivera’s pitches, MLB pitchers are hardly ever that predictable.</text>
+<text top="611" left="148" width="596" height="13" font="4">Animating that many pitches for another pitcher can produce a very cluttered graphic which is hard to</text>
+<text top="627" left="149" width="595" height="13" font="4">interpret (especially when many pitch types are considered). However, we may still want to obtain an</text>
+<text top="644" left="149" width="595" height="13" font="4">indication of pitch trajectory over a set of many pitches. A way to achieve this is to average over the</text>
+<text top="660" left="149" width="469" height="13" font="4">PITCHf/x parameters to produce an overall sense of pitch type behavior (via the</text>
+<text top="657" left="621" width="123" height="18" font="4">avg.by option). Note</text>
+<text top="677" left="149" width="527" height="13" font="4">that the facet variables are automatically considered indexing variables. That is, in Figure</text>
+<text top="677" left="679" width="7" height="13" font="7"><a href="2014-1-sievert.html#14">7</a></text>
+<text top="677" left="686" width="58" height="13" font="4"><a href="2014-1-sievert.html#14">, </a>there are</text>
+<text top="693" left="149" width="595" height="13" font="4">eight ’average’ pitches since there are two pitch types, two pitchers, and two types of batting stance</text>
+<text top="709" left="148" width="171" height="13" font="4">(the animation is available at</text>
+<text top="706" left="323" width="268" height="18" font="7"><a href="http://cpsievert.github.io/pitchRx/ani2">http://cpsievert.github.io/pitchRx/ani2</a></text>
+<text top="709" left="590" width="8" height="13" font="4"><a href="http://cpsievert.github.io/pitchRx/ani2">).</a></text>
+<text top="733" left="149" width="562" height="18" font="4">animateFX(pitches, avg.by = &#34;pitch_types&#34;, layer = list(coord_equal(), theme_bw(),</text>
+<text top="749" left="163" width="357" height="18" font="4">facet_grid(pitcher_name~stand, labeller = relabel)))</text>
+<text top="801" left="149" width="159" height="15" font="6"><b>Interactive 3D graphics</b></text>
+<text top="833" left="149" width="17" height="13" font="3"><b>rgl</b></text>
+<text top="833" left="169" width="351" height="13" font="4">is an R package that utilizes OpenGL for graphics rendering.</text>
+<text top="829" left="525" width="222" height="18" font="4">interactiveFX utilizes <b>rgl </b>functional-</text>
+<text top="849" left="149" width="384" height="13" font="4">ity to reproduce flight paths on an interactive 3D platform. Figure</text>
+<text top="849" left="536" width="7" height="13" font="7"><a href="2014-1-sievert.html#15">8</a></text>
+<text top="849" left="546" width="198" height="13" font="4">has two static pictures of Mariano</text>
+<text top="866" left="149" width="595" height="13" font="4">Rivera’s 2011 fastballs on this interactive platform. This is great for gaining new perspectives on a</text>
+<text top="882" left="149" width="494" height="13" font="4">certain set of pitches, since the trajectories can be viewed from any angle. Figure</text>
+<text top="882" left="646" width="7" height="13" font="7"><a href="2014-1-sievert.html#15">8</a></text>
+<text top="882" left="657" width="87" height="13" font="4">showcases the</text>
+<text top="898" left="149" width="312" height="13" font="4">difference in trajectory between Rivera’s pitch types.</text>
+<text top="922" left="149" width="405" height="18" font="4">Rivera &lt;- subset(pitches, pitcher_name == &#34;Mariano Rivera&#34;)</text>
+<text top="938" left="149" width="309" height="18" font="4">interactiveFX(Rivera, avg.by = &#34;pitch_types&#34;)</text>
+<text top="993" left="149" width="94" height="17" font="5"><b>Conclusion</b></text>
+<text top="1032" left="148" width="48" height="13" font="3"><b>pitchRx</b></text>
+<text top="1031" left="200" width="545" height="13" font="4">utilizes <b>XML2R</b>’s convenient framework for manipulating XML content in order to provide</text>
+<text top="1048" left="149" width="595" height="13" font="4">easy access to PITCHf/x and related Gameday data. <b>pitchRx </b>removes access barriers which allows the</text>
+<text top="1064" left="149" width="595" height="13" font="4">average R user and baseball fan to spend their valuable time analyzing Gameday’s enormous source</text>
+<text top="1081" left="149" width="595" height="13" font="4">of baseball information. <b>pitchRx </b>also provides a suite of functions that greatly reduce the amount of</text>
+<text top="1097" left="148" width="596" height="13" font="4">work involved to create popular PITCHf/x graphics. For those interested in obtaining other XML</text>
+<text top="1114" left="149" width="595" height="13" font="4">data, <b>pitchRx </b>serves as a nice example of leveraging <b>XML2R </b>to quickly assemble custom XML data</text>
+<text top="1130" left="149" width="138" height="13" font="4">collection mechanisms.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="14" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">18</text>
+<text top="113" left="281" width="82" height="9" font="25">Left−Handed Batter</text>
+<text top="113" left="421" width="88" height="9" font="25">Right−Handed Batter</text>
+<text top="253" left="241" width="5" height="9" font="25">0</text>
+<text top="217" left="241" width="5" height="9" font="25">2</text>
+<text top="181" left="241" width="5" height="9" font="25">4</text>
+<text top="144" left="241" width="5" height="9" font="25">6</text>
+<text top="395" left="241" width="5" height="9" font="25">0</text>
+<text top="359" left="241" width="5" height="9" font="25">2</text>
+<text top="323" left="241" width="5" height="9" font="25">4</text>
+<text top="287" left="241" width="5" height="9" font="25">6</text>
+<text top="155" left="538" width="0" height="9" font="26">Mar</text>
+<text top="171" left="538" width="0" height="9" font="26">iano Riv</text>
+<text top="204" left="538" width="0" height="9" font="26">er</text>
+<text top="213" left="538" width="0" height="9" font="26">a</text>
+<text top="304" left="538" width="0" height="9" font="26">Phil Hughes</text>
+<text top="412" left="280" width="11" height="9" font="25">−2</text>
+<text top="412" left="319" width="5" height="9" font="25">0</text>
+<text top="412" left="356" width="5" height="9" font="25">2</text>
+<text top="412" left="423" width="11" height="9" font="25">−2</text>
+<text top="412" left="462" width="5" height="9" font="25">0</text>
+<text top="412" left="498" width="5" height="9" font="25">2</text>
+<text top="422" left="331" width="125" height="11" font="1">Horizontal Pitch Location</text>
+<text top="306" left="237" width="0" height="11" font="27">Height from Ground</text>
+<text top="243" left="561" width="52" height="9" font="28"><b>pitch_types</b></text>
+<text top="258" left="579" width="65" height="9" font="25">Fastball (cutter)</text>
+<text top="274" left="579" width="86" height="9" font="25">Fastball (four−seam)</text>
+<text top="460" left="149" width="54" height="13" font="3"><b>Figure 7:</b></text>
+<text top="460" left="209" width="536" height="13" font="4">The last frame of an animation of ’averaged’ four-seam and cutting fastballs thrown by</text>
+<text top="477" left="149" width="595" height="13" font="4">NY Yankee pitchers Mariano Rivera and Phil Hughes during the 2011 season. The actual animation</text>
+<text top="493" left="149" width="86" height="13" font="4">can be viewed</text>
+<text top="493" left="238" width="26" height="13" font="7"><a href="http://cpsievert.github.io/pitchRx/ani2">here</a></text>
+<text top="493" left="264" width="482" height="13" font="4"><a href="http://cpsievert.github.io/pitchRx/ani2">. </a>PITCHf/x parameters are averaged over pitch type, pitcher and batting stance.</text>
+<text top="510" left="149" width="596" height="13" font="4">For instance, the bottom right plot portrays an “average four-seam” and “average cutter” thrown by</text>
+<text top="526" left="149" width="191" height="13" font="4">Hughes to right-handed batters.</text>
+<text top="573" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="612" left="149" width="595" height="13" font="4">Many thanks to my major professor, Dr. Heike Hofmann, for her direction and support throughout</text>
+<text top="628" left="149" width="595" height="13" font="4">this project. Thanks also to the anonymous reviewers for helpful feedback. This document was created</text>
+<text top="644" left="149" width="55" height="13" font="4">using the</text>
+<text top="644" left="207" width="31" height="13" font="9"><a href="http://CRAN.R-project.org/package=knitr"><b>knitr</b></a></text>
+<text top="644" left="241" width="49" height="13" font="4">package</text>
+<text top="644" left="293" width="19" height="13" font="7"><a href="2014-1-sievert.html#15">Xie</a></text>
+<text top="644" left="316" width="4" height="13" font="4"><a href="2014-1-sievert.html#15">(</a></text>
+<text top="644" left="321" width="34" height="13" font="7"><a href="2014-1-sievert.html#15">2013b</a></text>
+<text top="644" left="355" width="185" height="13" font="4"><a href="2014-1-sievert.html#15">). </a>The source files can be found</text>
+<text top="644" left="543" width="26" height="13" font="7"><a href="https://github.com/cpsievert/RJournal-pitchRx">here</a></text>
+<text top="644" left="569" width="3" height="13" font="4"><a href="https://github.com/cpsievert/RJournal-pitchRx">.</a></text>
+<text top="689" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="728" left="149" width="521" height="13" font="4">D. Adler, D. Murdoch, and others. rgl: 3D Visualization Device System (OpenGL). URL</text>
+<text top="725" left="673" width="75" height="18" font="7"><a href="http://rgl.neoscientists.org">http://rgl.</a></text>
+<text top="741" left="164" width="117" height="18" font="7"><a href="http://rgl.neoscientists.org">neoscientists.org</a></text>
+<text top="744" left="280" width="188" height="13" font="4"><a href="http://rgl.neoscientists.org">. </a>R package version 0.93.963. <a href="2014-1-sievert.html#2">[p</a></text>
+<text top="744" left="469" width="7" height="13" font="7"><a href="2014-1-sievert.html#2">6</a></text>
+<text top="744" left="475" width="4" height="13" font="4"><a href="2014-1-sievert.html#2">]</a></text>
+<text top="773" left="149" width="596" height="13" font="4">A. Alt and M. S. White. Tracking an object with multiple asynchronous cameras, 09 2008. URL</text>
+<text top="786" left="164" width="377" height="18" font="7"><a href="http://www.patentlens.net/patentlens/patent/US_7062320/">http://www.patentlens.net/patentlens/patent/US_7062320/</a></text>
+<text top="789" left="541" width="21" height="13" font="4"><a href="http://www.patentlens.net/patentlens/patent/US_7062320/">. </a><a href="2014-1-sievert.html#1">[p</a></text>
+<text top="789" left="562" width="7" height="13" font="7"><a href="2014-1-sievert.html#1">5</a></text>
+<text top="789" left="569" width="4" height="13" font="4"><a href="2014-1-sievert.html#1">]</a></text>
+<text top="818" left="149" width="339" height="13" font="4">N. DiMeo. Baseball’s particle accelerator, Aug. 2007. URL</text>
+<text top="814" left="492" width="254" height="18" font="7"><a href="http://www.slate.com/articles/sports/sports_nut/2007/08/baseballs_particle_accelerator.html">http://www.slate.com/articles/sports/</a></text>
+<text top="831" left="164" width="370" height="18" font="7"><a href="http://www.slate.com/articles/sports/sports_nut/2007/08/baseballs_particle_accelerator.html">sports_nut/2007/08/baseballs_particle_accelerator.html</a></text>
+<text top="834" left="534" width="190" height="13" font="4"><a href="http://www.slate.com/articles/sports/sports_nut/2007/08/baseballs_particle_accelerator.html">. </a>Last visited on 07/12/2012. <a href="2014-1-sievert.html#1">[p</a></text>
+<text top="834" left="724" width="7" height="13" font="7"><a href="2014-1-sievert.html#1">5</a></text>
+<text top="834" left="730" width="4" height="13" font="4"><a href="2014-1-sievert.html#1">]</a></text>
+<text top="863" left="149" width="326" height="13" font="4">M. Fast. How to build a pitch database, Aug. 2007. URL</text>
+<text top="859" left="478" width="268" height="18" font="7"><a href="http://fastballs.wordpress.com/2007/08/23/how-to-build-a-pitch-database/">http://fastballs.wordpress.com/2007/08/</a></text>
+<text top="876" left="164" width="230" height="18" font="7"><a href="http://fastballs.wordpress.com/2007/08/23/how-to-build-a-pitch-database/">23/how-to-build-a-pitch-database/</a></text>
+<text top="879" left="394" width="190" height="13" font="4"><a href="http://fastballs.wordpress.com/2007/08/23/how-to-build-a-pitch-database/">. </a>Last visited on 12/15/2012. <a href="2014-1-sievert.html#2">[p</a></text>
+<text top="879" left="583" width="7" height="13" font="7"><a href="2014-1-sievert.html#2">6</a></text>
+<text top="879" left="590" width="4" height="13" font="4"><a href="2014-1-sievert.html#2">]</a></text>
+<text top="907" left="149" width="360" height="13" font="4">M. Fast. Spinning yarn: A zone of their own, July 2011. URL</text>
+<text top="904" left="512" width="233" height="18" font="7"><a href="http://www.baseballprospectus.com/article.php?articleid=14572">http://www.baseballprospectus.com/</a></text>
+<text top="920" left="164" width="185" height="18" font="7"><a href="http://www.baseballprospectus.com/article.php?articleid=14572">article.php?articleid=14572</a></text>
+<text top="924" left="349" width="190" height="13" font="4"><a href="http://www.baseballprospectus.com/article.php?articleid=14572">. </a>Last visited on 06/17/2013. <a href="2014-1-sievert.html#9">[p</a></text>
+<text top="924" left="538" width="13" height="13" font="7"><a href="2014-1-sievert.html#9">13</a></text>
+<text top="924" left="552" width="4" height="13" font="4"><a href="2014-1-sievert.html#9">]</a></text>
+<text top="952" left="149" width="598" height="13" font="4">E. Green and D. P. Daniels. What does it take to call a strike? three biases in umpire decision making.</text>
+<text top="969" left="164" width="287" height="13" font="4">In MIT Sloan Sports Analytics Conference, 2014. <a href="2014-1-sievert.html#8">[p</a></text>
+<text top="969" left="451" width="13" height="13" font="7"><a href="2014-1-sievert.html#8">12</a></text>
+<text top="969" left="464" width="4" height="13" font="4"><a href="2014-1-sievert.html#8">]</a></text>
+<text top="997" left="149" width="595" height="13" font="4">M. Marchi and J. Albert. Analyzing Baseball Data with R. Chapman and Hall/CRC, 2013. ISBN</text>
+<text top="1013" left="164" width="123" height="13" font="4">9781466570221. URL</text>
+<text top="1010" left="290" width="240" height="18" font="7"><a href="http://baseballwithr.wordpress.com/">http://baseballwithr.wordpress.com/</a></text>
+<text top="1013" left="530" width="21" height="13" font="4"><a href="http://baseballwithr.wordpress.com/">. </a><a href="2014-1-sievert.html#2">[p</a></text>
+<text top="1013" left="551" width="7" height="13" font="7"><a href="2014-1-sievert.html#2">6</a></text>
+<text top="1013" left="558" width="4" height="13" font="4"><a href="2014-1-sievert.html#2">]</a></text>
+<text top="1042" left="149" width="546" height="13" font="4">B. Mills. Rethinking ’loess’ for binomial-response PITCHf/x strike zone maps, Dec. 2010. URL</text>
+<text top="1038" left="697" width="48" height="18" font="7"><a href="http://princeofslides.blogspot.com/2010/12/rethinking-loess-for-binomial-response.html">http://</a></text>
+<text top="1055" left="164" width="545" height="18" font="7"><a href="http://princeofslides.blogspot.com/2010/12/rethinking-loess-for-binomial-response.html">princeofslides.blogspot.com/2010/12/rethinking-loess-for-binomial-response.html</a></text>
+<text top="1058" left="709" width="35" height="13" font="4"><a href="http://princeofslides.blogspot.com/2010/12/rethinking-loess-for-binomial-response.html">. </a>Last</text>
+<text top="1075" left="163" width="153" height="13" font="4">visited on 06/20/2013. <a href="2014-1-sievert.html#10">[p</a></text>
+<text top="1075" left="316" width="13" height="13" font="7"><a href="2014-1-sievert.html#10">14</a></text>
+<text top="1075" left="330" width="4" height="13" font="4"><a href="2014-1-sievert.html#10">]</a></text>
+<text top="1103" left="149" width="559" height="13" font="4">A. Nathan. A statistical study of PITCHf/x pitched baseball trajectories, Feb. 2008. URL</text>
+<text top="1100" left="713" width="34" height="18" font="7"><a href="http://webusers.npl.illinois.edu/~a-nathan/pob/MCAnalysis.pdf">http:</a></text>
+<text top="1116" left="163" width="385" height="18" font="7"><a href="http://webusers.npl.illinois.edu/~a-nathan/pob/MCAnalysis.pdf">//webusers.npl.illinois.edu/~a-nathan/pob/MCAnalysis.pdf</a></text>
+<text top="1120" left="548" width="185" height="13" font="4"><a href="http://webusers.npl.illinois.edu/~a-nathan/pob/MCAnalysis.pdf">. </a>Last visited on 07/25/2012. <a href="2014-1-sievert.html#1">[p</a></text>
+<text top="1120" left="733" width="7" height="13" font="7"><a href="2014-1-sievert.html#1">5</a></text>
+<text top="1120" left="740" width="4" height="13" font="4"><a href="2014-1-sievert.html#1">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="15" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">19</text>
+<text top="418" left="149" width="53" height="13" font="3"><b>Figure 8:</b></text>
+<text top="418" left="206" width="540" height="13" font="4">3D scatterplot of pitches from Rivera. Pitches are plotted every one-hundredth of a second.</text>
+<text top="435" left="149" width="595" height="13" font="4">Cutting fastballs are shown in red and four-seam fastballs are shown in blue. The left hand plot takes</text>
+<text top="451" left="149" width="595" height="13" font="4">a viewpoint of Rivera and the right hand plot takes a viewpoint near the umpire. Note these are static</text>
+<text top="468" left="148" width="189" height="13" font="4">pictures of an interactive object.</text>
+<text top="517" left="149" width="595" height="13" font="4">M. A. Pane, S. L. Ventura, R. C. Steorts, and A. C. Thomas. Trouble With The Curve: Improving MLB</text>
+<text top="534" left="164" width="287" height="13" font="4">Pitch Classification. ArXiv e-prints, Apr. 2013. <a href="2014-1-sievert.html#1">[p</a></text>
+<text top="534" left="450" width="7" height="13" font="7"><a href="2014-1-sievert.html#1">5</a></text>
+<text top="534" left="457" width="4" height="13" font="4"><a href="2014-1-sievert.html#1">]</a></text>
+<text top="562" left="149" width="445" height="13" font="4">R Special Interest Group on Databases. DBI: R Database Interface, 2013. URL</text>
+<text top="559" left="597" width="152" height="18" font="7"><a href="http://CRAN.R-project.org/package=DBI">http://CRAN.R-project.</a></text>
+<text top="575" left="164" width="103" height="18" font="7"><a href="http://CRAN.R-project.org/package=DBI">org/package=DBI</a></text>
+<text top="579" left="267" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=DBI">. </a>R package version 0.2-7. <a href="2014-1-sievert.html#7">[p</a></text>
+<text top="579" left="436" width="13" height="13" font="7"><a href="2014-1-sievert.html#7">11</a></text>
+<text top="579" left="449" width="4" height="13" font="4"><a href="2014-1-sievert.html#7">]</a></text>
+<text top="607" left="149" width="349" height="13" font="4">C. Sievert. XML2R: EasieR XML Data Collection, 2014a. URL</text>
+<text top="604" left="501" width="226" height="18" font="7"><a href="http://cpsievert.github.com/XML2R">http://cpsievert.github.com/XML2R</a></text>
+<text top="607" left="727" width="17" height="13" font="4"><a href="http://cpsievert.github.com/XML2R">. </a>R</text>
+<text top="624" left="163" width="147" height="13" font="4">package version 0.0.4. <a href="2014-1-sievert.html#2">[p</a></text>
+<text top="624" left="311" width="7" height="13" font="7"><a href="2014-1-sievert.html#2">6</a></text>
+<text top="624" left="318" width="4" height="13" font="4"><a href="2014-1-sievert.html#2">]</a></text>
+<text top="652" left="149" width="598" height="13" font="4">C. Sievert. pitchRx: Tools for Scraping XML Data and Visualizing Major League Baseball PITCHf/x, 2014b.</text>
+<text top="668" left="164" width="28" height="13" font="4">URL</text>
+<text top="665" left="195" width="240" height="18" font="7"><a href="http://cpsievert.github.com/pitchRx">http://cpsievert.github.com/pitchRx</a></text>
+<text top="668" left="435" width="158" height="13" font="4"><a href="http://cpsievert.github.com/pitchRx">. </a>R package version 1.5. <a href="2014-1-sievert.html#1">[p</a></text>
+<text top="668" left="593" width="7" height="13" font="7"><a href="2014-1-sievert.html#1">5</a></text>
+<text top="668" left="599" width="4" height="13" font="4"><a href="2014-1-sievert.html#1">]</a></text>
+<text top="697" left="149" width="360" height="13" font="4">J. Traub. Mariano Rivera, king of the closers, June 2010. URL</text>
+<text top="693" left="512" width="233" height="18" font="7"><a href="http://www.nytimes.com/2010/07/04/magazine/04Rivera-t.html">http://www.nytimes.com/2010/07/04/</a></text>
+<text top="710" left="164" width="165" height="18" font="7"><a href="http://www.nytimes.com/2010/07/04/magazine/04Rivera-t.html">magazine/04Rivera-t.html</a></text>
+<text top="713" left="329" width="190" height="13" font="4"><a href="http://www.nytimes.com/2010/07/04/magazine/04Rivera-t.html">. </a>Last visited on 02/04/2013. <a href="2014-1-sievert.html#13">[p</a></text>
+<text top="713" left="519" width="13" height="13" font="7"><a href="2014-1-sievert.html#13">17</a></text>
+<text top="713" left="532" width="4" height="13" font="4"><a href="2014-1-sievert.html#13">]</a></text>
+<text top="742" left="149" width="598" height="13" font="4">H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer, New York, 2009. ISBN 978-0-387-</text>
+<text top="758" left="164" width="81" height="13" font="4">98140-6. URL</text>
+<text top="755" left="248" width="199" height="18" font="7"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="758" left="447" width="21" height="13" font="4"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2014-1-sievert.html#2">[p</a></text>
+<text top="758" left="468" width="7" height="13" font="7"><a href="2014-1-sievert.html#2">6</a></text>
+<text top="758" left="474" width="4" height="13" font="4"><a href="2014-1-sievert.html#2">]</a></text>
+<text top="786" left="149" width="598" height="13" font="4">H. Wickham and R. Francois. dplyr: A Grammar of Data Manipulation, 2014. R package version 0.2.</text>
+<text top="803" left="164" width="13" height="13" font="4"><a href="2014-1-sievert.html#7">[p</a></text>
+<text top="803" left="176" width="13" height="13" font="7"><a href="2014-1-sievert.html#7">11</a></text>
+<text top="803" left="190" width="4" height="13" font="4"><a href="2014-1-sievert.html#7">]</a></text>
+<text top="831" left="149" width="565" height="13" font="4">S. Wood. Generalized Additive Models: An Introduction with R. Chapman and Hall/CRC, 2006. <a href="2014-1-sievert.html#10">[p</a></text>
+<text top="831" left="713" width="13" height="13" font="7"><a href="2014-1-sievert.html#10">14</a></text>
+<text top="831" left="727" width="4" height="13" font="4"><a href="2014-1-sievert.html#10">]</a></text>
+<text top="860" left="149" width="595" height="13" font="4">Y. Xie. animation: An R package for creating animations and demonstrating statistical methods. Journal</text>
+<text top="876" left="164" width="261" height="14" font="4">of Statistical Software, 53(1):1–27, 2013a. URL</text>
+<text top="873" left="428" width="226" height="18" font="7"><a href="http://www.jstatsoft.org/v53/i01/">http://www.jstatsoft.org/v53/i01/</a></text>
+<text top="876" left="655" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v53/i01/">. </a><a href="2014-1-sievert.html#12">[p</a></text>
+<text top="876" left="675" width="13" height="13" font="7"><a href="2014-1-sievert.html#12">16</a></text>
+<text top="876" left="689" width="4" height="13" font="4"><a href="2014-1-sievert.html#12">]</a></text>
+<text top="905" left="149" width="598" height="13" font="4">Y. Xie. Dynamic Documents with R and knitr. Chapman and Hall/CRC, 2013b. ISBN 978-1482203530.</text>
+<text top="921" left="164" width="13" height="13" font="4"><a href="2014-1-sievert.html#14">[p</a></text>
+<text top="921" left="176" width="13" height="13" font="7"><a href="2014-1-sievert.html#14">18</a></text>
+<text top="921" left="190" width="4" height="13" font="4"><a href="2014-1-sievert.html#14">]</a></text>
+<text top="967" left="148" width="80" height="13" font="4">Carson Sievert</text>
+<text top="984" left="148" width="132" height="13" font="4">Department of Statistics</text>
+<text top="1000" left="149" width="120" height="13" font="4">Iowa State University</text>
+<text top="1013" left="149" width="130" height="18" font="7"><a href="mailto:sievert@iastate.edu">sievert@iastate.edu</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+	<fontspec id="9" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">197</text>
+<text top="98" left="149" width="483" height="30" font="2"><b>Possible Directions for Improving</b></text>
+<text top="137" left="149" width="409" height="30" font="2"><b>Dependency Versioning in R</b></text>
+<text top="173" left="149" width="95" height="15" font="0">by Jeroen Ooms</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="210" width="535" height="13" font="4">One of the most powerful features of R is its infrastructure for contributed code. The</text>
+<text top="231" left="149" width="595" height="13" font="4">built-in package manager and complementary repositories provide a great system for development</text>
+<text top="247" left="149" width="595" height="13" font="4">and exchange of code, and have played an important role in the growth of the platform towards the</text>
+<text top="264" left="149" width="595" height="13" font="4">de-facto standard in statistical computing that it is today. However, the number of packages on CRAN</text>
+<text top="280" left="149" width="595" height="13" font="4">and other repositories has increased beyond what might have been foreseen, and is revealing some</text>
+<text top="297" left="149" width="595" height="13" font="4">limitations of the current design. One such problem is the general lack of dependency versioning in</text>
+<text top="313" left="149" width="595" height="13" font="4">the infrastructure. This paper explores this problem in greater detail, and suggests approaches taken</text>
+<text top="329" left="149" width="595" height="13" font="4">by other open source communities that might work for R as well. Three use cases are defined that</text>
+<text top="346" left="149" width="595" height="13" font="4">exemplify the issue, and illustrate how improving this aspect of package management could increase</text>
+<text top="362" left="149" width="379" height="13" font="4">reliability while supporting further growth of the R community.</text>
+<text top="407" left="149" width="216" height="17" font="5"><b>Package management in R</b></text>
+<text top="446" left="149" width="467" height="13" font="4">One of the most powerful features of R is its infrastructure for contributed code <a href="2013-1-ooms.html#9">(</a></text>
+<text top="446" left="615" width="21" height="13" font="6"><a href="2013-1-ooms.html#9">Fox</a></text>
+<text top="446" left="637" width="3" height="13" font="4"><a href="2013-1-ooms.html#9">,</a></text>
+<text top="446" left="643" width="26" height="13" font="6"><a href="2013-1-ooms.html#9">2009</a></text>
+<text top="446" left="669" width="75" height="13" font="4"><a href="2013-1-ooms.html#9">). </a>The base R</text>
+<text top="462" left="149" width="595" height="13" font="4">software suite that is released several times per year ships with the base and recommended packages</text>
+<text top="479" left="149" width="595" height="13" font="4">and provides a solid foundation for statistical computing. However, most R users will quickly resort</text>
+<text top="495" left="149" width="595" height="13" font="4">to the package manager and install packages contributed by other users. By default, these packages</text>
+<text top="512" left="149" width="359" height="13" font="4">are installed from the “Comprehensive R Archive Network” <a href="http://CRAN.R-project.org/package=CRAN">(</a></text>
+<text top="512" left="508" width="41" height="13" font="7"><a href="http://CRAN.R-project.org/package=CRAN"><b>CRAN</b></a></text>
+<text top="512" left="549" width="195" height="13" font="4"><a href="http://CRAN.R-project.org/package=CRAN">), </a>featuring over 4300 contributed</text>
+<text top="528" left="148" width="431" height="13" font="4">packages as of 2013. In addition, other repositories like BioConductor <a href="2013-1-ooms.html#10">(</a></text>
+<text top="528" left="579" width="99" height="13" font="6"><a href="2013-1-ooms.html#10">Gentleman et al.</a></text>
+<text top="528" left="678" width="3" height="13" font="4"><a href="2013-1-ooms.html#10">,</a></text>
+<text top="528" left="685" width="27" height="13" font="6"><a href="2013-1-ooms.html#10">2004</a></text>
+<text top="528" left="713" width="31" height="13" font="4"><a href="2013-1-ooms.html#10">) </a>and</text>
+<text top="545" left="149" width="50" height="13" font="4">Github <a href="2013-1-ooms.html#9">(</a></text>
+<text top="545" left="199" width="81" height="13" font="6"><a href="2013-1-ooms.html#9">Dabbish et al.</a></text>
+<text top="545" left="280" width="3" height="13" font="4"><a href="2013-1-ooms.html#9">,</a></text>
+<text top="545" left="286" width="27" height="13" font="6"><a href="2013-1-ooms.html#9">2012</a></text>
+<text top="545" left="313" width="326" height="13" font="4"><a href="2013-1-ooms.html#9">) </a>are hosting a respectable number of packages as well.</text>
+<text top="566" left="171" width="573" height="13" font="4">The R Core team has done a tremendous job in coordinating the development of the base software</text>
+<text top="582" left="149" width="595" height="13" font="4">along with providing, supporting, and maintaining an infrastructure for contributed code. The system</text>
+<text top="598" left="149" width="595" height="13" font="4">for sharing and installing contributed packages is easily taken for granted, but could in fact not</text>
+<text top="615" left="149" width="595" height="13" font="4">survive without the commitment and daily efforts from the repository maintainers. The process</text>
+<text top="631" left="149" width="595" height="13" font="4">from submission to publication of a package involves several manual steps needed to ensure that all</text>
+<text top="648" left="148" width="596" height="13" font="4">published packages meet standards and work as expected, on a variety of platforms, architectures</text>
+<text top="664" left="149" width="595" height="13" font="4">and R versions. In spite of rapid growth and limited resources, CRAN has managed to maintain high</text>
+<text top="681" left="149" width="595" height="13" font="4">standards on the quality of packages. Before continuing, we want to express appreciation for the</text>
+<text top="697" left="149" width="596" height="13" font="4">countless hours invested by volunteers in organizing this unique forum for statistical software. They</text>
+<text top="713" left="149" width="595" height="13" font="4">facilitate the innovation and collaboration in our field, and unite the community in creating software</text>
+<text top="730" left="149" width="595" height="13" font="4">that is both of the highest quality and publicly available. We want to emphasize that suggestions made</text>
+<text top="746" left="149" width="595" height="13" font="4">in this paper are in no way intended as criticism on the status quo. If anything, we hope that our ideas</text>
+<text top="763" left="149" width="595" height="13" font="4">help address some challenges to support further growth without having to compromise on the open</text>
+<text top="779" left="149" width="246" height="13" font="4">and dynamic nature of the infrastructure.</text>
+<text top="822" left="149" width="174" height="15" font="8"><b>The dependency network</b></text>
+<text top="853" left="149" width="595" height="13" font="4">Most R packages depend on one or more other packages, resulting in a complex network of recursive</text>
+<text top="870" left="149" width="245" height="13" font="4">dependencies. Each package includes a ‘</text>
+<text top="870" left="394" width="86" height="11" font="9">DESCRIPTION</text>
+<text top="870" left="480" width="264" height="13" font="4">’ file which allows for declaration of several</text>
+<text top="886" left="149" width="595" height="13" font="4">types of dependencies, including Depends, Imports, Suggests and Enhances. Based on the type of</text>
+<text top="902" left="149" width="595" height="13" font="4">dependency relationship, other packages are automatically installed, loaded and/or attached with</text>
+<text top="919" left="149" width="595" height="13" font="4">the requested package. Package management is also related to the issue of namespacing, because</text>
+<text top="935" left="149" width="353" height="13" font="4">different packages can use identical names for objects. The ‘</text>
+<text top="936" left="502" width="75" height="11" font="9">NAMESPACE</text>
+<text top="935" left="577" width="167" height="13" font="4">’ file allows the developer to</text>
+<text top="952" left="149" width="595" height="13" font="4">explicitly define objects to be exported or imported from other packages. This prevents the need to</text>
+<text top="968" left="149" width="595" height="13" font="4">attach all dependencies and lookup variables at runtime, and thereby decreases chances of masking</text>
+<text top="985" left="149" width="595" height="13" font="4">and naming-conflicts. Unfortunately, many packages are not taking advantage of this feature, and</text>
+<text top="1001" left="149" width="595" height="13" font="4">thereby force R to attach all dependencies, unnecessarily filling the search path of a session with</text>
+<text top="1017" left="148" width="553" height="13" font="4">packages that the user has not asked for. However, this is not the primary focus of this paper.</text>
+<text top="1060" left="149" width="132" height="15" font="8"><b>Package versioning</b></text>
+<text top="1091" left="149" width="597" height="13" font="4">Even though CRAN consistently archives older versions of every package when updates are published,</text>
+<text top="1108" left="149" width="595" height="13" font="4">the R software itself takes limited advantage of this archive. The package manager identifies packages</text>
+<text top="1124" left="149" width="595" height="13" font="4">by name only when installing or loading a package. The install.packages function downloads and</text>
+<text top="1141" left="149" width="595" height="13" font="4">installs the current version of a CRAN package into a single global library. This library contains a</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">198</text>
+<text top="103" left="149" width="597" height="13" font="4">single version of each package. If a previous version of the package is already installed on the system,</text>
+<text top="120" left="149" width="595" height="13" font="4">it is overwritten without warning. Similarly, the library function will load the earliest found package</text>
+<text top="136" left="148" width="136" height="13" font="4">with a matching name.</text>
+<text top="157" left="171" width="29" height="13" font="4">The ‘</text>
+<text top="158" left="200" width="83" height="11" font="9">DESCRIPTION</text>
+<text top="157" left="283" width="462" height="13" font="4">’ file does allow the package author to specify a certain version of a dependency</text>
+<text top="173" left="149" width="595" height="13" font="4">by postfixing the package name with &gt;=, &lt;= or == and a version string. However, using this feature</text>
+<text top="190" left="149" width="595" height="13" font="4">is actually dangerous because R might not be able to satisfy these conditions, causing errors. This is</text>
+<text top="206" left="149" width="595" height="13" font="4">again the result of R libraries, sessions and repositories being limited to a single current version of each</text>
+<text top="223" left="148" width="596" height="13" font="4">package. When a package would require a version of a dependency that is not already installed or</text>
+<text top="239" left="149" width="595" height="13" font="4">current on CRAN, it can not be resolved automatically. Furthermore, upgrading a package in the global</text>
+<text top="256" left="149" width="595" height="13" font="4">library to the current CRAN version might break other packages that require the previously installed</text>
+<text top="272" left="148" width="596" height="13" font="4">version. Experienced R users might try to avoid such problems by manually maintaining separate</text>
+<text top="288" left="149" width="595" height="13" font="4">libraries for different tasks and projects. However, R can still not have multiple versions of a package</text>
+<text top="305" left="149" width="595" height="13" font="4">loaded concurrently. This is perhaps the most fundamental problem because it is nearly impossible to</text>
+<text top="321" left="148" width="596" height="13" font="4">work around. If package authors would actually declare specific versions of dependencies, any two</text>
+<text top="338" left="148" width="596" height="13" font="4">packages requiring different versions of one and the same dependency will conflict and cannot be</text>
+<text top="354" left="149" width="596" height="13" font="4">used together. In practice, this limitation discourages package authors to be explicit about dependency</text>
+<text top="371" left="148" width="596" height="13" font="4">versions. The &gt;= operator is used by some packages, but it only checks if an installed dependency is</text>
+<text top="387" left="149" width="595" height="13" font="4">outdated and needs to be synchronized with CRAN. It still assumes that any current or future version</text>
+<text top="404" left="148" width="598" height="13" font="4">will suffice, and does not protect packages from breaking when their dependency packages change.</text>
+<text top="420" left="148" width="272" height="13" font="4">The &lt;= and == operators are barely used at all.</text>
+<text top="441" left="171" width="573" height="13" font="4">When identifying a package by its name only, we implicitly make the assumption that different</text>
+<text top="457" left="148" width="596" height="13" font="4">versions of the package are interchangeable. This basic assumption has far-reaching implications and</text>
+<text top="474" left="149" width="595" height="13" font="4">consequences on the distributed development process and reliability of the software as a whole. In the</text>
+<text top="490" left="149" width="595" height="13" font="4">context of the increasingly large pool of inter-dependent packages, violations of this assumption are</text>
+<text top="507" left="149" width="596" height="13" font="4">becoming increasingly apparent and problematic. In this paper we explore this problem is greater</text>
+<text top="523" left="149" width="595" height="13" font="4">detail, and try to make a case for moving away from this assumption, towards systematic versioning of</text>
+<text top="540" left="149" width="596" height="13" font="4">dependency relationships. The term dependency in this context does not exclusively refer to formally</text>
+<text top="556" left="149" width="596" height="13" font="4">defined relations between R packages. Our interpretation is a bit more general in the sense that any</text>
+<text top="572" left="149" width="595" height="13" font="4">R script, Sweave document, or third party application depends on R and certain packages that are</text>
+<text top="589" left="149" width="595" height="13" font="4">needed to make it function. The paper is largely motivated by personal experiences, as we have come</text>
+<text top="605" left="149" width="595" height="13" font="4">to believe that limitations of the current dependency system are underlying multiple problems that</text>
+<text top="622" left="149" width="595" height="13" font="4">R users and developers might experience. Properly addressing these concerns could resolve several</text>
+<text top="638" left="149" width="550" height="13" font="4">lingering issues at once, and make R a more reliable and widely applicable analytical engine.</text>
+<text top="683" left="149" width="77" height="17" font="5"><b>Use cases</b></text>
+<text top="722" left="148" width="596" height="13" font="4">A dependency defines a relationship wherein a certain piece of software requires some other software</text>
+<text top="738" left="149" width="595" height="13" font="4">to run or compile. However, software constantly evolves, and in the open source world this happens</text>
+<text top="755" left="149" width="596" height="13" font="4">largely unmanaged. Consequently, any software library might actually be something different today</text>
+<text top="771" left="149" width="595" height="13" font="4">than it was yesterday. Hence, solely defining the dependency relationship in terms of the name of</text>
+<text top="788" left="149" width="597" height="13" font="4">the software is often insufficient. We need to be more specific, and declare explicitly which version(s),</text>
+<text top="804" left="149" width="595" height="13" font="4">branch(es) or release(s) of the other software package will make our program work. This is what we</text>
+<text top="820" left="148" width="232" height="13" font="4">will refer to as dependency versioning.</text>
+<text top="841" left="171" width="573" height="13" font="4">This problem is not at all unique to R; in fact a large share of this paper consists of taking a closer</text>
+<text top="858" left="149" width="595" height="13" font="4">look at how other open source communities are managing this process, and if some of their solutions</text>
+<text top="874" left="149" width="595" height="13" font="4">could apply to R as well. But first we will elaborate a bit further on how this problem exactly appears</text>
+<text top="891" left="149" width="595" height="13" font="4">in the context of R. This section describes three use cases that reveal some limitations of the current</text>
+<text top="907" left="149" width="595" height="13" font="4">system. These use cases delineate the problem and lead towards suggestions for improvements in</text>
+<text top="924" left="149" width="122" height="13" font="4">subsequent sections.</text>
+<text top="966" left="149" width="278" height="15" font="8"><b>Case 1: Archive / repository maintenance</b></text>
+<text top="997" left="148" width="596" height="13" font="4">A medium to large sized repository with thousands of packages has a complicated network of</text>
+<text top="1014" left="149" width="596" height="13" font="4">dependencies between packages. CRAN is designed to consider the very latest version of every</text>
+<text top="1030" left="148" width="596" height="13" font="4">package as the only current version. This design relies on the assumption that at any given time, the</text>
+<text top="1047" left="149" width="596" height="13" font="4">latest versions of all packages are compatible. Therefore, R’s built-in package manager can simply</text>
+<text top="1063" left="149" width="597" height="13" font="4">download and install the current versions of all dependencies along with the requested package,</text>
+<text top="1080" left="148" width="596" height="13" font="4">which seems convenient. However, to developers this means that every package update needs to</text>
+<text top="1096" left="149" width="596" height="13" font="4">maintain full backward compatibility with all previous versions. No version can introduce any</text>
+<text top="1112" left="149" width="595" height="13" font="4">breaking changes, because other packages in the repository might be relying on things in a certain</text>
+<text top="1129" left="148" width="596" height="13" font="4">way. Functions or objects may never be removed or modified; names, arguments, behavior, etc, must</text>
+<text top="1145" left="149" width="595" height="13" font="4">remain the same. As the dependency network gets larger and more complex, this policy becomes</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">199</text>
+<text top="103" left="149" width="596" height="13" font="4">increasingly vulnerable. It puts a heavy burden on contributing developers, especially the popular</text>
+<text top="120" left="149" width="595" height="13" font="4">ones, and results in increasingly large packages that are never allowed to deprecate or clean up old</text>
+<text top="136" left="149" width="136" height="13" font="4">code and functionality.</text>
+<text top="157" left="171" width="575" height="13" font="4">In practice, the assumption is easily violated. Every time a package update is pushed to CRAN,</text>
+<text top="173" left="149" width="595" height="13" font="4">there is a real chance of some reverse dependencies failing due to a breaking change. In the case of the</text>
+<text top="190" left="149" width="595" height="13" font="4">most popular packages, the probability of this happening is often closer to 1 than to 0, regardless of the</text>
+<text top="206" left="149" width="595" height="13" font="4">author. Uwe Ligges has stated in his keynote presentation at useR that CRAN automatically detects</text>
+<text top="223" left="149" width="595" height="13" font="4">some of these problems by rebuilding every package up in the dependency tree. However, only a small</text>
+<text top="239" left="149" width="595" height="13" font="4">fraction of potential problems reveal themselves during the build of a package, and when found, there</text>
+<text top="256" left="149" width="501" height="13" font="4">is no obvious solution. One recent example was the forced roll-back of the <b>ggplot2 </b><a href="2013-1-ooms.html#0">(</a></text>
+<text top="256" left="650" width="57" height="13" font="6"><a href="2013-1-ooms.html#0">Wickham</a></text>
+<text top="256" left="707" width="3" height="13" font="4"><a href="2013-1-ooms.html#0">,</a></text>
+<text top="256" left="714" width="27" height="13" font="6"><a href="2013-1-ooms.html#0">2009</a></text>
+<text top="256" left="741" width="5" height="13" font="4"><a href="2013-1-ooms.html#0">)</a></text>
+<text top="272" left="149" width="595" height="13" font="4">update to version 0.9.0, because the introduced changes caused several other packages to break. The</text>
+<text top="288" left="149" width="595" height="13" font="4">author of the <b>ggplot2 </b>package has since been required to announce upcoming updates to authors of</text>
+<text top="305" left="148" width="596" height="13" font="4">packages that depend on <b>ggplot2</b>, and provide a release candidate to test compatibility. The dependent</text>
+<text top="321" left="148" width="596" height="13" font="4">packages are then required to synchronize their releases if any problems arise. However, such manual</text>
+<text top="338" left="149" width="598" height="13" font="4">solutions are far from flawless and put even more work on the shoulders of contributing developers.</text>
+<text top="354" left="149" width="595" height="13" font="4">It is doubtful that all package authors on CRAN have time and resources to engage in an extensive</text>
+<text top="371" left="149" width="595" height="13" font="4">dialogue with other maintainers for each update of a package. We feel strongly that a more systematic</text>
+<text top="387" left="149" width="595" height="13" font="4">solution is needed to guarantee that software published on CRAN keeps working over time; current</text>
+<text top="404" left="149" width="148" height="13" font="4">as well as older versions.</text>
+<text top="424" left="171" width="575" height="13" font="4">When the repository reaches a critical size, and some packages collect hundreds of reverse depen-</text>
+<text top="441" left="149" width="595" height="13" font="4">dencies, we have little choice but to acknowledge the fact that every package has only been developed</text>
+<text top="457" left="149" width="596" height="13" font="4">for, and tested with, certain versions of its dependencies. A policy of assuming that any current or</text>
+<text top="474" left="149" width="595" height="13" font="4">future version of a dependency should suffice is dangerous and sets the wrong incentives for package</text>
+<text top="490" left="149" width="595" height="13" font="4">authors. It discourages change, refactoring or cleanup, and results in packages accumulating an</text>
+<text top="507" left="149" width="595" height="13" font="4">increasingly heavy body of legacy code. And as the repository grows, it is inevitable that packages will</text>
+<text top="523" left="149" width="595" height="13" font="4">nevertheless eventually break as part of the process. What is needed is a redesign that supports the</text>
+<text top="540" left="149" width="598" height="13" font="4">continuous decentralized change of software and helps facilitate more reliable package development.</text>
+<text top="556" left="148" width="596" height="13" font="4">This is not impossible: there are numerous open source communities managing repositories with</text>
+<text top="572" left="149" width="595" height="13" font="4">more complex dependency structures than CRAN. Although specifics vary, they form interesting role</text>
+<text top="589" left="149" width="595" height="13" font="4">models to our community. As we will see later on, a properly archived repository can actually come to</text>
+<text top="605" left="149" width="321" height="13" font="4">be a great asset rather than a liability to the developer.</text>
+<text top="648" left="149" width="161" height="15" font="8"><b>Case 2: Reproducibility</b></text>
+<text top="679" left="149" width="595" height="13" font="4">Replication is the ultimate standard by which scientific claims are judged. However, complexity of</text>
+<text top="696" left="149" width="456" height="13" font="4">data and methods can make this difficult to achieve in computational science <a href="2013-1-ooms.html#10">(</a></text>
+<text top="696" left="605" width="29" height="13" font="6"><a href="2013-1-ooms.html#10">Peng</a></text>
+<text top="696" left="634" width="3" height="13" font="4"><a href="2013-1-ooms.html#10">,</a></text>
+<text top="696" left="641" width="26" height="13" font="6"><a href="2013-1-ooms.html#10">2011</a></text>
+<text top="696" left="667" width="77" height="13" font="4"><a href="2013-1-ooms.html#10">). </a>As a leader</text>
+<text top="712" left="149" width="595" height="13" font="4">in scientific computing, R takes a pioneering role in providing a system that encourages researchers to</text>
+<text top="728" left="149" width="557" height="13" font="4">strive towards the gold standard. The CRAN Task View on Reproducible Research states that:</text>
+<text top="758" left="186" width="521" height="13" font="4">The goal of reproducible research is to tie specific instructions to data analysis and experimental</text>
+<text top="775" left="186" width="387" height="13" font="4">data so that scholarship can be recreated, better understood and verified.</text>
+<text top="805" left="149" width="595" height="13" font="4">In R, reproducible research is largely facilitated using literate programming techniques implemented in</text>
+<text top="821" left="148" width="311" height="13" font="4">packages like <b>Sweave </b>that mix (weave) R code with L</text>
+<text top="821" left="455" width="8" height="10" font="10">A</text>
+<text top="821" left="461" width="286" height="17" font="4">TEX-markup to create a “reproducible document”</text>
+<text top="838" left="148" width="5" height="13" font="4"><a href="2013-1-ooms.html#10">(</a></text>
+<text top="838" left="153" width="39" height="13" font="6"><a href="2013-1-ooms.html#10">Leisch</a></text>
+<text top="838" left="192" width="3" height="13" font="4"><a href="2013-1-ooms.html#10">,</a></text>
+<text top="838" left="199" width="27" height="13" font="6"><a href="2013-1-ooms.html#10">2002</a></text>
+<text top="838" left="227" width="517" height="13" font="4"><a href="2013-1-ooms.html#10">). </a>However, those ever faced with the task of actually reproducing such a document</text>
+<text top="854" left="149" width="595" height="13" font="4">might have experienced that the Sweave file does not always compile out of the box. Especially if it</text>
+<text top="870" left="148" width="596" height="13" font="4">was written several years ago and loads some contributed packages, chances are that essential things</text>
+<text top="887" left="149" width="595" height="13" font="4">have changed in the software since the document was created. When we find ourselves in such a</text>
+<text top="903" left="149" width="597" height="13" font="4">situation, recovering the packages needed to reproduce the document might turn out to be non-trivial.</text>
+<text top="924" left="171" width="573" height="13" font="4">An example: suppose we would like to reproduce a Sweave document which was created with</text>
+<text top="941" left="149" width="214" height="13" font="4">R 2.13 and loads the <b>caret </b>package <a href="2013-1-ooms.html#10">(</a></text>
+<text top="941" left="363" width="34" height="13" font="6"><a href="2013-1-ooms.html#10">Kuhn</a></text>
+<text top="941" left="397" width="3" height="13" font="4"><a href="2013-1-ooms.html#10">,</a></text>
+<text top="941" left="404" width="27" height="13" font="6"><a href="2013-1-ooms.html#10">2013</a></text>
+<text top="941" left="431" width="313" height="13" font="4"><a href="2013-1-ooms.html#10">). </a>If no further instructions are provided, this means</text>
+<text top="957" left="149" width="596" height="13" font="4">that any of the approximately 25 releases of <b>caret </b>in the life cycle of R 2.13 (April 2011 to February</text>
+<text top="974" left="149" width="595" height="13" font="4">2012) could have been used, making reproducibility unlikely. Sometimes authors add comments in</text>
+<text top="990" left="149" width="595" height="13" font="4">the code where the package is loaded, stating that e.g. <b>caret 4.78 </b>was used. However, this information</text>
+<text top="1006" left="149" width="597" height="13" font="4">might also turn out to be insufficient: <b>caret </b>depends on 4 packages, and suggests another 59 packages,</text>
+<text top="1023" left="149" width="595" height="13" font="4">almost all of which have had numerous releases in R 2.13 time frame. Consequently, <b>caret 4.78 </b>might</text>
+<text top="1039" left="149" width="595" height="13" font="4">not work anymore because of changes in these dependencies. We then need to do further investigation</text>
+<text top="1056" left="149" width="595" height="13" font="4">to figure out which versions of the dependency packages were current at the time of the <b>caret 4.78</b></text>
+<text top="1072" left="149" width="595" height="13" font="4">release. Instead, lets assume that the prescient researcher anticipated all of this, and saved the full</text>
+<text top="1089" left="149" width="595" height="13" font="4">output of sessionInfo() along with the Sweave document, directly after it was compiled. This output</text>
+<text top="1105" left="149" width="596" height="13" font="4">lists the version of each loaded package in the active R session. We could then proceed by manually</text>
+<text top="1121" left="149" width="597" height="13" font="4">downloading and installing R 2.13 along with all of the required packages from the archive. However,</text>
+<text top="1138" left="149" width="597" height="13" font="4">users on a commercial operating systems might be up for another surprise: unlike source packages,</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">200</text>
+<text top="103" left="149" width="595" height="13" font="4">binary packages are not fully archived. For example, the only binary builds available for R 2.13 are</text>
+<text top="120" left="149" width="595" height="13" font="4">respectively <b>caret 5.13 </b>on Windows, and <b>caret 5.14 </b>on OSX. Most likely, they will face the task of</text>
+<text top="136" left="149" width="595" height="13" font="4">rebuilding each of the required packages from source in an attempt to reconstruct the environment of</text>
+<text top="152" left="149" width="64" height="13" font="4">the author.</text>
+<text top="173" left="171" width="573" height="13" font="4">Needless to say, this situation is suboptimal. For manually compiling a single Sweave document</text>
+<text top="190" left="148" width="596" height="13" font="4">we might be willing to make this effort, but it does not provide a solid foundation for systematic or</text>
+<text top="206" left="149" width="595" height="13" font="4">automated reproducible software practices. To make results generated by R more reproducible, we</text>
+<text top="223" left="149" width="595" height="13" font="4">need better conventions and/or native support that is both explicit and specific about contributed</text>
+<text top="239" left="149" width="595" height="13" font="4">code. For an R script or Sweave document to stand the test of time, it should work at least on the same</text>
+<text top="256" left="148" width="596" height="13" font="4">version of R that was used by the author. In this respect, R has higher requirements on versioning than</text>
+<text top="272" left="149" width="595" height="13" font="4">other software. Reproducible research does not just require a version that will make things work, but</text>
+<text top="288" left="149" width="595" height="13" font="4">one that generates exactly the same output. In order to systematically reproduce results R, package</text>
+<text top="305" left="148" width="596" height="13" font="4">versions either need to be standardized, or become a natural part of the language. We realize this will</text>
+<text top="321" left="149" width="598" height="13" font="4">not archive perfect reproducibility, as problems can still arise due to OS or compiler specific behavior.</text>
+<text top="338" left="149" width="595" height="13" font="4">However, it will be a major step forward that has the potential of turning reproducibility into a natural</text>
+<text top="354" left="149" width="318" height="13" font="4">feature of the software, rather than a tedious exercise.</text>
+<text top="397" left="149" width="215" height="15" font="8"><b>Case 3: Production applications</b></text>
+<text top="428" left="149" width="596" height="13" font="4">R is no longer exclusively used by the local statistician through an interactive console. It is increasingly</text>
+<text top="445" left="148" width="596" height="13" font="4">powering systems, stacks and applications with embedded analytics and graphics. When R is part of</text>
+<text top="461" left="149" width="595" height="13" font="4">say, an application used in hospitals to create on-demand graphics from patient data, the underlying</text>
+<text top="477" left="149" width="595" height="13" font="4">code needs to be stable, reliable, and redistributable. Within such an application, even a minor change</text>
+<text top="494" left="149" width="598" height="13" font="4">in code or behavior can result in complete failure of the system and cannot easily be fixed or debugged.</text>
+<text top="510" left="148" width="535" height="13" font="4">Therefore, when an application is put in production, software has to be completely frozen.</text>
+<text top="531" left="171" width="573" height="13" font="4">An application that builds on R has been developed and tested with certain versions of the base</text>
+<text top="548" left="149" width="596" height="13" font="4">software and R packages used by the application. In order to put this application in production, exactly</text>
+<text top="564" left="149" width="598" height="13" font="4">these versions need to be shipped, installed and loaded by the application on production servers.</text>
+<text top="581" left="149" width="595" height="13" font="4">Managing, distributing and deploying production software with R is remarkably hard, due to limited</text>
+<text top="597" left="149" width="596" height="13" font="4">native dependency versioning and the single global library design. Administrators might discover</text>
+<text top="613" left="149" width="595" height="13" font="4">that an application that was working in one place does not work elsewhere, even though exactly the</text>
+<text top="630" left="149" width="595" height="13" font="4">same operating system, version of R, and installation scripts were used. The problem of course is that</text>
+<text top="646" left="149" width="595" height="13" font="4">the contributed packages constantly change. Problems become more complicated when a machine is</text>
+<text top="663" left="149" width="595" height="13" font="4">hosting many applications that were developed by different people and depend on various packages</text>
+<text top="679" left="149" width="132" height="13" font="4">and package versions.</text>
+<text top="700" left="171" width="573" height="13" font="4">The default behavior of loading packages from a global library with bleeding edge versions is</text>
+<text top="717" left="149" width="597" height="13" font="4">unsuitable for building applications. Because the CRAN repository has no notion of stable branches,</text>
+<text top="733" left="149" width="596" height="13" font="4">one manually needs to download and install the correct versions of packages in a separate library</text>
+<text top="749" left="149" width="596" height="13" font="4">for each application to avoid conflicts. This is quite tricky and hard to scale when hosting many</text>
+<text top="766" left="149" width="595" height="13" font="4">applications. In practice, application developers might not even be aware of these pitfalls, and design</text>
+<text top="782" left="149" width="595" height="13" font="4">their applications to rely on the default behavior of the package manager. They then find out the hard</text>
+<text top="799" left="148" width="596" height="13" font="4">way that applications start breaking down later on, because of upstream changes or library conflicts</text>
+<text top="815" left="148" width="141" height="13" font="4">with other applications.</text>
+<text top="860" left="149" width="258" height="17" font="5"><b>Solution 1: staged distributions</b></text>
+<text top="899" left="148" width="596" height="13" font="4">The problem of managing bottom-up decentralized software development is not new; rather it is a</text>
+<text top="915" left="149" width="595" height="13" font="4">typical feature of the open source development process. The remainder of this paper will explore two</text>
+<text top="932" left="149" width="595" height="13" font="4">solutions from other open source communities, and suggest how these might apply to R. The current</text>
+<text top="948" left="149" width="510" height="13" font="4">section describes the more classic solution that relies on staged software distributions.</text>
+<text top="969" left="171" width="573" height="13" font="4">A software distribution (also referred to as a distribution or a distro) is a collection of software</text>
+<text top="985" left="149" width="595" height="13" font="4">components built, assembled and configured so that it can be used essentially &#34;as is&#34; for its intended</text>
+<text top="1002" left="148" width="596" height="13" font="4">purpose. Maintainers of distributions do not develop software themselves; they collect software</text>
+<text top="1018" left="149" width="595" height="13" font="4">from various sources, package it up and redistribute it as a system. Distributions introduce a formal</text>
+<text top="1035" left="149" width="595" height="13" font="4">release cycle on the continuously changing upstream developments and maintainers of a distribution</text>
+<text top="1051" left="149" width="595" height="13" font="4">take responsibility for ensuring compatibility of different packages within a certain release of the</text>
+<text top="1068" left="149" width="595" height="13" font="4">distribution. Software distributions are most commonly known in the context of free operating systems</text>
+<text top="1084" left="148" width="596" height="13" font="4">(BSD, Linux, etc). Staging and shipping software in a distribution has proven to scale well to very</text>
+<text top="1101" left="149" width="595" height="13" font="4">large code bases. For example, the popular Debian GNU/Linux distribution (after which R’s package</text>
+<text top="1117" left="149" width="596" height="13" font="4">description format was modeled) features over 29000 packages with a large and complex dependency</text>
+<text top="1133" left="149" width="595" height="13" font="4">network. No single person is familiar with even a fraction of the code base that is hosted in this</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">201</text>
+<text top="103" left="149" width="595" height="13" font="4">repository. Yet through well organized staging and testing, this distribution is known to be one of</text>
+<text top="120" left="149" width="596" height="13" font="4">the most reliable operating systems today, and is the foundation for a large share of the global IT</text>
+<text top="136" left="149" width="85" height="13" font="4">infrastructure.</text>
+<text top="178" left="149" width="115" height="15" font="8"><b>The release cycle</b></text>
+<text top="210" left="149" width="595" height="13" font="4">In a nutshell, a staged distribution release can be organized as follows. At any time, package authors</text>
+<text top="226" left="149" width="595" height="13" font="4">can upload new versions of packages to the devel pool, also known as the unstable branch. A release</text>
+<text top="243" left="149" width="598" height="13" font="4">cycle starts with distribution maintainers announcing a code freeze date, several months in advance.</text>
+<text top="259" left="148" width="596" height="13" font="4">At this point, package authors are notified to ensure that their packages in the unstable branch are</text>
+<text top="276" left="149" width="595" height="13" font="4">up to date, fix bugs and resolve other problems. At the date of the code freeze, a copy (fork) of the</text>
+<text top="292" left="149" width="595" height="13" font="4">unstable repository is made, named and versioned, which goes into the testing phase. Software in</text>
+<text top="309" left="149" width="595" height="13" font="4">this branch will then be subject to several iterations of intensive testing and bug fixing, sometimes</text>
+<text top="325" left="149" width="595" height="13" font="4">accompanied by alpha or beta releases of the distribution. However, software versions in the testing</text>
+<text top="341" left="149" width="596" height="13" font="4">branch will no longer receive any major updates that could potentially have side effects or break other</text>
+<text top="358" left="148" width="596" height="13" font="4">packages. The goal is to converge to increasingly stable set of software. When after several testing</text>
+<text top="374" left="149" width="595" height="13" font="4">rounds the distribution maintainers are confident that all serious problems are fixed, the branch is</text>
+<text top="391" left="149" width="596" height="13" font="4">tagged stable and released to the public. Software in a stable release will usually only receive minor</text>
+<text top="407" left="149" width="596" height="13" font="4">non-breaking updates, like important compatibility fixes and security updates. For the next “major</text>
+<text top="424" left="149" width="597" height="13" font="4">release” of any software, the user will have to wait for the next cycle of the distribution. As such,</text>
+<text top="440" left="149" width="595" height="13" font="4">everyone using a certain release of the distribution is using exactly the same versions of all programs</text>
+<text top="456" left="149" width="595" height="13" font="4">and libraries on the system. This is convenient for both users and developers and gives distributions a</text>
+<text top="473" left="149" width="455" height="13" font="4">key role in bringing decentralized open source development efforts together.</text>
+<text top="515" left="149" width="274" height="15" font="8"><b>R: downstream staging and repackaging</b></text>
+<text top="547" left="148" width="596" height="13" font="4">The semi annual releases of the r-base software suite can already be considered as a distribution of the</text>
+<text top="563" left="149" width="595" height="13" font="4">29 base and recommended packages. However in the case of R, this collection is limited to software</text>
+<text top="580" left="149" width="595" height="13" font="4">that has been centrally developed and released by the same group of people; it does not include</text>
+<text top="596" left="149" width="596" height="13" font="4">contributed code. Due to the lack of native support for dependency versioning in R, several third party</text>
+<text top="613" left="148" width="596" height="13" font="4">projects have introduced some form of downstream staging in order to create stable, redistributable</text>
+<text top="629" left="149" width="595" height="13" font="4">collections R software. This section lists some examples and explains why this is suboptimal. In the</text>
+<text top="645" left="149" width="595" height="13" font="4">next section we will discuss what would be involved with extending the R release cycle to contributed</text>
+<text top="662" left="148" width="58" height="13" font="4">packages.</text>
+<text top="683" left="171" width="575" height="13" font="4">One way of staging R packages downstream is by including them in existing software distributions.</text>
+<text top="699" left="149" width="79" height="13" font="4">For example,</text>
+<text top="699" left="232" width="160" height="13" font="6"><a href="2013-1-ooms.html#9">Eddelbuettel and Blundell</a></text>
+<text top="699" left="396" width="5" height="13" font="4"><a href="2013-1-ooms.html#9">(</a></text>
+<text top="699" left="400" width="27" height="13" font="6"><a href="2013-1-ooms.html#9">2009</a></text>
+<text top="699" left="428" width="316" height="13" font="4"><a href="2013-1-ooms.html#9">) </a>have wrapped some popular CRAN packages into</text>
+<text top="716" left="149" width="21" height="11" font="4">deb</text>
+<text top="716" left="173" width="571" height="13" font="4">packages for the Debian and Ubuntu systems. Thereby, pre-compiled binaries are shipped in</text>
+<text top="732" left="149" width="595" height="13" font="4">the distribution along with the R base software, putting version compatibility in the hands of the</text>
+<text top="749" left="149" width="595" height="13" font="4">maintainers (among other benefits). This works well, but requires a lot of effort and commitment from</text>
+<text top="765" left="149" width="598" height="13" font="4">the package maintainer, which is why this has only been done for a small subset of the CRAN packages.</text>
+<text top="781" left="149" width="597" height="13" font="4">Most distributions expect high standards on the quality of the software and package maintenance,</text>
+<text top="798" left="148" width="596" height="13" font="4">which makes this approach hard to scale up to many more packages. Furthermore, we are tied to the</text>
+<text top="814" left="149" width="595" height="13" font="4">release cycle of the distribution, resulting in a somewhat arbitrary and perhaps unfortunate snapshot</text>
+<text top="831" left="149" width="595" height="13" font="4">of CRAN packages when the distribution freezes. Also, different distributions will have different</text>
+<text top="847" left="148" width="456" height="13" font="4">policies on if, when and which packages they wish to ship with their system.</text>
+<text top="868" left="171" width="573" height="13" font="4">Another approach is illustrated by domain-specific projects like BioConductor (genomic data) and</text>
+<text top="885" left="149" width="595" height="13" font="4">REvolution R Enterprise (big data). Both these systems combine a fixed version of R with a custom</text>
+<text top="901" left="149" width="596" height="13" font="4">library of frozen R packages. In the case of REvolution, the full library is included with the installer; for</text>
+<text top="917" left="149" width="595" height="13" font="4">BioConductor they are provided through a dedicated repository. In both cases, this effectively prevents</text>
+<text top="934" left="149" width="595" height="13" font="4">installed software from being altered unexpectedly by upstream changes. However, this also leads</text>
+<text top="950" left="149" width="595" height="13" font="4">to a split in the community between users of R, BioConductor, and REvolution Enterprise. Because</text>
+<text top="967" left="149" width="595" height="13" font="4">of the differences in libraries, R code is not automatically portable between these systems, leading to</text>
+<text top="983" left="149" width="595" height="13" font="4">fragmentation and duplication of efforts. E.g. BioConductor seems to host many packages that could</text>
+<text top="1000" left="149" width="596" height="13" font="4">be more generally useful; yet they are unknown to most users of R. Furthermore, both projects only</text>
+<text top="1016" left="149" width="571" height="13" font="4">target a limited set of packages; they still rely on CRAN for the majority of the contributed code.</text>
+<text top="1037" left="171" width="573" height="13" font="4">The goal of staging is to tie a fixed set of contributed packages to a certain release of R. If these</text>
+<text top="1053" left="149" width="595" height="13" font="4">decisions are passed down to distributions or organizations, a multitude of local conventions and</text>
+<text top="1070" left="149" width="595" height="13" font="4">repositories arise, and different groups of users will still be using different package versions. This</text>
+<text top="1086" left="149" width="598" height="13" font="4">leads to unnecessary fragmentation of the community by system, organization, or distribution channel.</text>
+<text top="1103" left="149" width="595" height="13" font="4">Moreover, it is often hard to assess compatibility of third party packages, resulting in somewhat</text>
+<text top="1119" left="149" width="595" height="13" font="4">arbitrary local decision making. It seems that the people who are in the best position to manage</text>
+<text top="1136" left="149" width="595" height="13" font="4">and control compatibility are the package authors themselves. This leads us to conclude that a more</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">202</text>
+<text top="103" left="149" width="428" height="13" font="4">appropriate place to organize staging of R packages is further upstream.</text>
+<text top="145" left="149" width="259" height="15" font="8"><b>Branching and staging in CRAN itself</b></text>
+<text top="177" left="149" width="595" height="13" font="4">Given that the community of R contributors evolves mainly around CRAN, the most desirable</text>
+<text top="193" left="149" width="597" height="13" font="4">approach to organizing staging would be by integrating it with the publication process. Currently,</text>
+<text top="210" left="149" width="595" height="13" font="4">CRAN is managed as what distributions would consider a development or unstable branch. It</text>
+<text top="226" left="149" width="595" height="13" font="4">consists of the pool of bleeding-edge versions, straight from package authors. Consequently it is wise</text>
+<text top="243" left="149" width="595" height="13" font="4">to assume that software in this branch might break on a regular basis. Usually, the main purpose of</text>
+<text top="259" left="149" width="598" height="13" font="4">an unstable branch is for developers to exchange new versions and test compatibility of software.</text>
+<text top="276" left="149" width="597" height="13" font="4">Regular users obtain software releases from stable branches instead. This does not sound unfamiliar:</text>
+<text top="292" left="149" width="595" height="13" font="4">the r-base software also distinguishes between stable versions r-release and r-release-old , and an</text>
+<text top="309" left="149" width="234" height="13" font="4">unstable development version, r-devel .</text>
+<text top="329" left="171" width="575" height="13" font="4">The fact that R already has an semi-annual release cycle for the 29 base and recommended packages,</text>
+<text top="346" left="148" width="596" height="13" font="4">would make it relatively straightforward to extend this cycle to CRAN packages. A snapshot of</text>
+<text top="362" left="149" width="596" height="13" font="4">CRAN could be frozen along with every version of r-release, and new package updates would only</text>
+<text top="379" left="149" width="596" height="13" font="4">be published to the r-devel branch. In practice, this could perhaps quite easily be implemented by</text>
+<text top="395" left="149" width="595" height="13" font="4">creating a directory on CRAN for each release of R, containing symbolic links to the versions of the</text>
+<text top="412" left="148" width="597" height="13" font="4">packages considered stable for this release. In the case of binary packages for OSX and Windows,</text>
+<text top="428" left="149" width="596" height="13" font="4">CRAN actually already has separate directories with builds for each release of R. However currently</text>
+<text top="445" left="149" width="595" height="13" font="4">these are not frozen and continuously updated. In a staged repository, newly submitted packages are</text>
+<text top="461" left="149" width="595" height="13" font="4">only build for the current devel and testing branches; they should not affect stable releases. Exceptions</text>
+<text top="477" left="149" width="595" height="13" font="4">to this process could still be granted to authors that need to push an important update or bugfix within</text>
+<text top="494" left="149" width="568" height="13" font="4">a stable branch, commonly referred to as backporting, but this should only happen incidentally.</text>
+<text top="515" left="171" width="573" height="13" font="4">To fully make the transition to a staged CRAN, the default behavior of the package manager must</text>
+<text top="531" left="149" width="595" height="13" font="4">be modified to download packages from the stable branch of the current version of R, rather than the</text>
+<text top="548" left="149" width="595" height="13" font="4">latest development release. As such, all users on a given version of R will be using the same version of</text>
+<text top="564" left="149" width="596" height="13" font="4">each CRAN package, regardless on when it was installed. The user could still be given an option to try</text>
+<text top="581" left="149" width="595" height="13" font="4">and install the development version from the unstable branch, for example by adding an additional</text>
+<text top="597" left="148" width="597" height="13" font="4">parameter to install.packages named devel=TRUE. However when installing an unstable package,</text>
+<text top="613" left="149" width="595" height="13" font="4">it must be flagged, and the user must be warned that this version is not properly tested and might</text>
+<text top="630" left="149" width="595" height="13" font="4">not be working as expected. Furthermore, when loading this package a warning could be shown</text>
+<text top="646" left="148" width="596" height="13" font="4">with the version number so that it is also obvious from the output that results were produced using a</text>
+<text top="663" left="149" width="596" height="13" font="4">non-standard version of the contributed package. Finally, users that would always like to use the very</text>
+<text top="679" left="149" width="595" height="13" font="4">latest versions of all packages, e.g. developers, could install the r-devel release of R. This version</text>
+<text top="696" left="149" width="595" height="13" font="4">contains the latest commits by R Core and downloads packages from the devel branch on CRAN, but</text>
+<text top="712" left="149" width="414" height="13" font="4">should not be used or in production or reproducible research settings.</text>
+<text top="754" left="149" width="155" height="15" font="8"><b>Organizational change</b></text>
+<text top="786" left="148" width="596" height="13" font="4">Appropriate default behavior of the software is a key element to encourage adoption of conventions</text>
+<text top="802" left="149" width="595" height="13" font="4">and standards in the community. But just as important is communication and coordination between</text>
+<text top="819" left="149" width="595" height="13" font="4">repository maintainers and package authors. To make staging work, package authors must be notified</text>
+<text top="835" left="149" width="595" height="13" font="4">of upcoming deadlines, code freezes or currently broken packages. Everyone must realize that the</text>
+<text top="852" left="148" width="596" height="13" font="4">package version that is current at the time of code freeze, will be used by the majority of users of the</text>
+<text top="868" left="149" width="595" height="13" font="4">upcoming version of R. Updates to already released stable branches can only be granted in exceptional</text>
+<text top="885" left="149" width="595" height="13" font="4">circumstances, and must guarantee to maintain full backward compatibility. The policies of the</text>
+<text top="901" left="149" width="555" height="13" font="4">BioConductor project provide a good starting point and could be adapted to work for CRAN.</text>
+<text top="922" left="171" width="573" height="13" font="4">Transitioning to a system of “stable” and “development” branches in CRAN, where the stable</text>
+<text top="938" left="149" width="598" height="13" font="4">branch is conventional for regular users, could tremendously improve the reliability of the software.</text>
+<text top="955" left="148" width="598" height="13" font="4">The version of the R software itself would automatically imply certain versions of contributed packages.</text>
+<text top="971" left="149" width="595" height="13" font="4">Hence, all that is required to reproduce a Sweave document created several years ago, is which version</text>
+<text top="988" left="149" width="595" height="13" font="4">of R was used to create the document. When deploying an application that depends on R 2.15.2 and</text>
+<text top="1004" left="148" width="596" height="13" font="4">various contributed packages, we can be sure that a year later the application can be deployed just as</text>
+<text top="1021" left="149" width="595" height="13" font="4">easily, even though the authors of contributed packages used by the application might have decided</text>
+<text top="1037" left="149" width="595" height="13" font="4">to implement some breaking changes. And package updates that deprecate old functionality or might</text>
+<text top="1053" left="149" width="595" height="13" font="4">break other packages that depend on it, can be uploaded to the unstable branch without worries, as</text>
+<text top="1070" left="149" width="595" height="13" font="4">the stable branches will remain unchanged and users won’t be affected. The authors of the dependent</text>
+<text top="1086" left="148" width="596" height="13" font="4">packages that broke due to the update can be warned and will have sufficient time to fix problems</text>
+<text top="1103" left="149" width="175" height="13" font="4">before the next stable release.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">203</text>
+<text top="100" left="149" width="356" height="17" font="5"><b>Solution 2: versioned package management</b></text>
+<text top="139" left="148" width="597" height="13" font="4">The previous section described the “classical” solution of creating distributable sets of compatible,</text>
+<text top="155" left="149" width="596" height="13" font="4">stable software. This is a proven approach and has been adopted in some way or another by many</text>
+<text top="172" left="149" width="595" height="13" font="4">open-source communities. However, one drawback of this approach might be that some additional</text>
+<text top="188" left="149" width="595" height="13" font="4">coordination is needed for every release. Another drawback is that it makes the software a bit more</text>
+<text top="205" left="149" width="595" height="13" font="4">conservative, in the sense that regular users will generally be using versions of packages that are at</text>
+<text top="221" left="149" width="595" height="13" font="4">least a couple of months old. The current section describes a different approach to the problem that is</text>
+<text top="237" left="149" width="596" height="13" font="4">used by for example the Javascript community. This method is both reliable and flexible, however</text>
+<text top="254" left="148" width="431" height="13" font="4">would require some more fundamental changes to be implemented in R.</text>
+<text top="296" left="149" width="122" height="15" font="8"><b>Node.js and NPM</b></text>
+<text top="328" left="149" width="595" height="13" font="4">One of the most recent and fastest growing open source communities is that of the node.js software</text>
+<text top="344" left="148" width="596" height="13" font="4">(for short: node), a Javascript server system based on the open source engine V8 from Google. One</text>
+<text top="361" left="149" width="595" height="13" font="4">of the reasons that the community has been able to grow rapidly is because of the excellent package</text>
+<text top="377" left="149" width="595" height="13" font="4">manager and identically named repository, NPM . Even though this package manager is only 3 years</text>
+<text top="394" left="149" width="595" height="13" font="4">old, it is currently hosting over 30000 packages with more than a million downloads daily, and has</text>
+<text top="410" left="148" width="596" height="13" font="4">quickly become the standard way of distributing Javascript code. The NPM package manager is a</text>
+<text top="426" left="148" width="596" height="13" font="4">powerful tool for development, publication and deployment of both libraries and applications. NPM</text>
+<text top="443" left="149" width="595" height="13" font="4">addresses some problems that Javascript and R actually have in common, and makes an interesting</text>
+<text top="459" left="149" width="291" height="13" font="4">role model for a modern solution to the problem.</text>
+<text top="598" left="148" width="596" height="13" font="4">The Javascript community can be described as decentralized, unorganized and highly fragmented</text>
+<text top="614" left="149" width="595" height="13" font="4">development without any quality control authority. Similar to CRAN, NPM basically allows anyone to</text>
+<text top="631" left="149" width="596" height="13" font="4">claim a “package name” and start publishing packages and updates to the repositories. The repository</text>
+<text top="647" left="149" width="598" height="13" font="4">has no notion of branches and simply stores every version of a package indefinitely in its archives.</text>
+<text top="663" left="149" width="595" height="13" font="4">However, a major difference with R is how the package manager handles installation, loading and</text>
+<text top="680" left="149" width="155" height="13" font="4">namespacing of packages.</text>
+<text top="722" left="149" width="155" height="15" font="8"><b>Dependencies in NPM</b></text>
+<text top="754" left="149" width="262" height="13" font="4">Every NPM package ships with a file named ‘</text>
+<text top="755" left="411" width="71" height="11" font="9">package.json</text>
+<text top="754" left="482" width="184" height="13" font="4">’, which is the equivalent of the ‘</text>
+<text top="755" left="665" width="83" height="11" font="9">DESCRIPTION</text>
+<text top="754" left="748" width="4" height="13" font="4">’</text>
+<text top="770" left="149" width="595" height="13" font="4">in R packages, yet a bit more advanced. An overview of the full feature set of the package manager is</text>
+<text top="787" left="149" width="595" height="13" font="4">beyond the scope of this paper, but the interested reader is highly encouraged to take a look over the</text>
+<text top="803" left="149" width="205" height="13" font="4">fence at this well designed system:</text>
+<text top="804" left="358" width="213" height="11" font="6"><a href="https://npmjs.org/doc/json.html">https://npmjs.org/doc/json.html</a></text>
+<text top="803" left="570" width="174" height="13" font="4"><a href="https://npmjs.org/doc/json.html">. </a>The most relevant feature in</text>
+<text top="820" left="149" width="405" height="13" font="4">the context CRAN is how NPM declares and resolves dependencies.</text>
+<text top="840" left="171" width="573" height="13" font="4">Package dependencies are defined using a combination of the package name and version range</text>
+<text top="857" left="149" width="595" height="14" font="4">descriptor. This descriptor is specified with a simple dedicated syntax, that extends some of the</text>
+<text top="873" left="149" width="373" height="13" font="4">standard versioning notation. Below a snippet taken from the ‘</text>
+<text top="874" left="522" width="72" height="11" font="9">package.json</text>
+<text top="873" left="594" width="150" height="13" font="4">’ file in the NPM manual:</text>
+<text top="910" left="169" width="123" height="11" font="4">&#34;dependencies&#34; : {</text>
+<text top="926" left="190" width="206" height="11" font="4">&#34;foo&#34; : &#34;1.0.0 - 2.9999.9999&#34;,</text>
+<text top="943" left="190" width="171" height="11" font="4">&#34;bar&#34; : &#34;&gt;=1.0.2 &lt;2.1.2&#34;,</text>
+<text top="959" left="190" width="171" height="11" font="4">&#34;baz&#34; : &#34;&gt;1.0.2 &lt;=2.3.4&#34;,</text>
+<text top="976" left="190" width="110" height="11" font="4">&#34;boo&#34; : &#34;2.0.1&#34;,</text>
+<text top="992" left="190" width="240" height="11" font="4">&#34;qux&#34; : &#34;&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5&#34;,</text>
+<text top="1008" left="190" width="261" height="11" font="4">&#34;asd&#34; : &#34;http://asdf.com/asdf.tar.gz&#34;,</text>
+<text top="1025" left="190" width="103" height="11" font="4">&#34;til&#34; : &#34;~1.2&#34;,</text>
+<text top="1041" left="190" width="117" height="11" font="4">&#34;elf&#34; : &#34;~1.2.3&#34;,</text>
+<text top="1058" left="190" width="96" height="11" font="4">&#34;two&#34; : &#34;2.x&#34;,</text>
+<text top="1074" left="190" width="110" height="11" font="4">&#34;thr&#34; : &#34;3.3.x&#34;,</text>
+<text top="1091" left="169" width="7" height="11" font="4">}</text>
+<text top="1126" left="148" width="597" height="13" font="4">The version range descriptor syntax is a powerful tool to specify which version(s) or version range(s)</text>
+<text top="1142" left="149" width="595" height="13" font="4">of dependencies are required. It provides the exact information needed to build, install and/or load</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">204</text>
+<text top="103" left="149" width="595" height="13" font="4">the software. In contrast to R, NPM takes full advantage of this information. In R, all packages are</text>
+<text top="120" left="149" width="595" height="13" font="4">installed in one or more global libraries, and at any given time a subset of these packages is loaded in</text>
+<text top="136" left="149" width="595" height="13" font="4">memory. This is where NPM takes a very different approach. During installation of a package, NPM</text>
+<text top="152" left="149" width="595" height="13" font="4">creates a subdirectory for dependencies inside the installation directory of the package. It compares</text>
+<text top="169" left="149" width="276" height="13" font="4">the list of dependency declarations from the ‘</text>
+<text top="170" left="424" width="74" height="11" font="9">package.json</text>
+<text top="169" left="498" width="247" height="13" font="4">’ with an index of the repository archive,</text>
+<text top="185" left="149" width="595" height="13" font="4">and then constructs a private library containing the full dependency tree and precise versions as</text>
+<text top="202" left="149" width="595" height="13" font="4">specified by the author. Hence, every installed package has its own library of dependencies. This</text>
+<text top="218" left="148" width="596" height="13" font="4">works recursively, i.e. every dependency package inside the library again has its own dependency</text>
+<text top="235" left="149" width="42" height="13" font="4">library.</text>
+<text top="267" left="149" width="268" height="11" font="4">jeroen@ubuntu:~/Desktop$ npm install d3</text>
+<text top="283" left="149" width="226" height="11" font="4">jeroen@ubuntu:~/Desktop$ npm list</text>
+<text top="300" left="148" width="137" height="11" font="4">/home/jeroen/Desktop</text>
+<text top="316" left="176" width="62" height="11" font="4">d3@2.10.3</text>
+<text top="333" left="190" width="82" height="11" font="4">jsdom@0.2.14</text>
+<text top="349" left="204" width="110" height="11" font="4">contextify@0.1.3</text>
+<text top="365" left="217" width="96" height="11" font="4">bindings@1.0.0</text>
+<text top="382" left="204" width="75" height="11" font="4">cssom@0.2.5</text>
+<text top="398" left="204" width="110" height="11" font="4">htmlparser@1.7.6</text>
+<text top="415" left="204" width="96" height="11" font="4">request@2.12.0</text>
+<text top="431" left="217" width="103" height="11" font="4">form-data@0.0.3</text>
+<text top="448" left="231" width="75" height="11" font="4">async@0.1.9</text>
+<text top="464" left="231" width="144" height="11" font="4">combined-stream@0.0.3</text>
+<text top="480" left="245" width="137" height="11" font="4">delayed-stream@0.0.5</text>
+<text top="497" left="217" width="69" height="11" font="4">mime@1.2.7</text>
+<text top="513" left="190" width="82" height="11" font="4">sizzle@1.1.0</text>
+<text top="544" left="149" width="596" height="13" font="4">By default, a package loads dependencies from its private library, and the namespace of the dependency</text>
+<text top="561" left="149" width="596" height="13" font="4">is imported explicitly in the code. This way, an installed NPM package is completely unaffected by</text>
+<text top="577" left="149" width="596" height="13" font="4">other applications, packages, and package updates being installed on the machine. The private library</text>
+<text top="594" left="149" width="596" height="13" font="4">of any package contains all required dependencies, with the exact versions that were used to develop</text>
+<text top="610" left="149" width="595" height="13" font="4">the package. A package or application that has been tested to work with certain versions of its</text>
+<text top="627" left="149" width="595" height="13" font="4">dependencies, can easily be installed years later on another machine, even though the latest versions</text>
+<text top="643" left="149" width="351" height="13" font="4">of dependencies have had major changes in the mean time.</text>
+<text top="685" left="149" width="65" height="15" font="8"><b>Back to R</b></text>
+<text top="716" left="148" width="596" height="13" font="4">A similar way of managing packages could be very beneficial to R as well. It would enable the same</text>
+<text top="733" left="149" width="595" height="13" font="4">dynamic development and stable installation of packages that has resulted in a small revolution within</text>
+<text top="749" left="149" width="596" height="13" font="4">the Javascript community. The only serious drawback of this design is that it requires more disk</text>
+<text top="765" left="149" width="598" height="13" font="4">space and slightly more memory, due to multiple versions of packages being installed and/or loaded.</text>
+<text top="782" left="148" width="596" height="13" font="4">Yet the memory required to load an additional package is minor in comparison with loading and</text>
+<text top="798" left="149" width="595" height="13" font="4">manipulating a medium sized dataset. Considering the wide availability of low cost disk space and</text>
+<text top="815" left="149" width="596" height="13" font="4">memory these days, we expect that most users and developers will happily pay this small price for</text>
+<text top="831" left="149" width="312" height="13" font="4">more reliable software and reduced debugging time.</text>
+<text top="852" left="171" width="573" height="13" font="4">Unfortunately, implementing a package manager like NPM for R would require some fundamental</text>
+<text top="869" left="149" width="595" height="13" font="4">changes in the way R installs and loads packages and namespaces, which might break backward</text>
+<text top="885" left="149" width="595" height="13" font="4">compatibility at this point. One change that would probably be required for this is to move away from</text>
+<text top="901" left="149" width="595" height="13" font="4">the Depends relation definition, and require all packages to rely on Imports and a NAMESPACE file to</text>
+<text top="918" left="149" width="595" height="13" font="4">explicitly import objects from other packages. A more challenging problem might be that R should be</text>
+<text top="934" left="149" width="598" height="13" font="4">able to load multiple versions of a package simultaneously while keeping their namespaces separated.</text>
+<text top="951" left="148" width="596" height="13" font="4">This is necessary for example when two packages are in use, which both depend on different versions</text>
+<text top="967" left="149" width="595" height="13" font="4">of one and the same third package. In this case, the objects, methods and classes exported by the</text>
+<text top="984" left="149" width="432" height="13" font="4">dependency package should affect only the package that imported them.</text>
+<text top="1005" left="171" width="573" height="13" font="4">Finally, it would be great if the package manager was capable of installing multiple versions of a</text>
+<text top="1021" left="148" width="596" height="13" font="4">package inside a library, for example by appending the package version to the name of the installation</text>
+<text top="1037" left="149" width="595" height="13" font="4">directory (e.g. MASS_7.3-22). The library and require functions could then be extended with an</text>
+<text top="1054" left="149" width="595" height="13" font="4">argument specifying the version to be loaded. This argument could use the same version range</text>
+<text top="1070" left="149" width="595" height="13" font="4">descriptor syntax that packages use to declare dependencies. Missing versions could automatically be</text>
+<text top="1087" left="149" width="224" height="13" font="4">installed, as nothing gets overwritten.</text>
+<text top="1115" left="163" width="226" height="11" font="4">library(ggplot2, version=&#34;0.8.9&#34;)</text>
+<text top="1131" left="163" width="206" height="11" font="4">library(MASS, version=&#34;7.3-x&#34;)</text>
+<text top="1147" left="163" width="219" height="11" font="4">library(Matrix, version=&#34;&gt;=1.0&#34;)</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">205</text>
+<text top="103" left="171" width="573" height="13" font="4">Code as above leaves little ambiguity and tremendously increases reliability and reproducibility</text>
+<text top="120" left="149" width="595" height="13" font="4">of R code. When the code is explicit about which package versions are loaded, and packages are</text>
+<text top="136" left="149" width="595" height="13" font="4">explicit about dependency versions, an R script or Sweave document that once worked on a certain</text>
+<text top="152" left="148" width="596" height="13" font="4">version of R, will work for other users, on different systems, and keep working over time, regardless</text>
+<text top="169" left="149" width="595" height="13" font="4">of upstream changes. For users not concerned with dependency versioning, the default value of the</text>
+<text top="186" left="148" width="48" height="11" font="4">version</text>
+<text top="185" left="200" width="544" height="13" font="4">argument could be set to &#34;*&#34;. This value indicates that any version will do, in which case the</text>
+<text top="202" left="148" width="511" height="13" font="4">package manager gives preference to the most recent available version of the package.</text>
+<text top="223" left="171" width="573" height="13" font="4">The benefits of a package manager capable of importing specific versions of packages would</text>
+<text top="239" left="149" width="596" height="13" font="4">not just be limited to contributed code. Such a package manager would also reduce the necessity</text>
+<text top="256" left="149" width="595" height="13" font="4">to include all of the standard library and more in the R releases. If implemented, the R Core team</text>
+<text top="272" left="149" width="595" height="13" font="4">could consider moving some of the base and recommended packages out of the r-base distribution, and</text>
+<text top="288" left="149" width="595" height="13" font="4">offer them exclusively through CRAN. This way, the R software could eventually become the minimal</text>
+<text top="305" left="149" width="598" height="13" font="4">core containing only the language interpreter and package manager, similar to e.g. Node and NPM.</text>
+<text top="321" left="149" width="595" height="13" font="4">More high-level functionality could be loaded on demand as versioning is controlled by the package</text>
+<text top="338" left="149" width="595" height="13" font="4">manager. This would allow for less frequent releases of the R software itself, and further improve</text>
+<text top="354" left="149" width="336" height="13" font="4">compatibility and reproducibility between versions of R.</text>
+<text top="399" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="438" left="148" width="596" height="13" font="4">The infrastructure for contributed code has supported the steady growth and adoption of the R</text>
+<text top="454" left="149" width="595" height="13" font="4">software. For the majority of users, contributed code is just as essential in their daily work as the R</text>
+<text top="471" left="149" width="595" height="13" font="4">base software suite. But the number of packages on CRAN has grown beyond what could have been</text>
+<text top="487" left="149" width="598" height="13" font="4">foreseen, and practices and policies that used to work on a smaller scale are becoming unsustainable.</text>
+<text top="504" left="148" width="596" height="13" font="4">At the same time there is an increasing demand for more reliable, stable software, that can be used</text>
+<text top="520" left="149" width="595" height="13" font="4">as part of embedded systems, enterprise applications, or reproducible research. The design and</text>
+<text top="536" left="148" width="596" height="13" font="4">policies of CRAN and the package manager shape the development process and play an important</text>
+<text top="553" left="149" width="595" height="13" font="4">role in determining the future of the platform. The current practice of publishing package updates</text>
+<text top="569" left="149" width="595" height="13" font="4">directly to end-users facilitates a highly versatile development, but comes at the cost of reliability. The</text>
+<text top="586" left="149" width="595" height="13" font="4">default behavior of R to install packages in a single library with only the latest versions is perhaps</text>
+<text top="602" left="149" width="595" height="13" font="4">more appropriate for developers than regular users. After nearly two decades of development, R has</text>
+<text top="619" left="149" width="500" height="13" font="4">reached a maturity where a slightly more conservative approach could be beneficial.</text>
+<text top="640" left="171" width="575" height="13" font="4">This paper explained the problem of dependency versioning, and tried to make a case for tran-</text>
+<text top="656" left="149" width="595" height="13" font="4">sitioning to a system that does not assume that package versions are interchangeable. The most</text>
+<text top="672" left="149" width="595" height="13" font="4">straightforward approach would be by extending the r-release and r-devel branches to the full CRAN</text>
+<text top="689" left="149" width="597" height="13" font="4">repository, and only publish updates of contributed packages to the r-devel branch of R. This way,</text>
+<text top="705" left="149" width="595" height="13" font="4">the stable versions of R are tied to a fixed version of each CRAN package, making the code base and</text>
+<text top="722" left="149" width="598" height="13" font="4">behavior of a given release of R less ambiguous. Furthermore, a release cycle allows us to concen-</text>
+<text top="738" left="149" width="595" height="13" font="4">trate coordination and testing efforts for contributed packages along with releases of R, rather than</text>
+<text top="755" left="149" width="203" height="13" font="4">continuously throughout the year.</text>
+<text top="776" left="171" width="573" height="13" font="4">In the long term, a more fundamental revision of the packaging system could be considered, in</text>
+<text top="792" left="149" width="595" height="13" font="4">order to facilitate dynamic contributed development without sacrificing reliability. However, this</text>
+<text top="808" left="148" width="596" height="13" font="4">would involve major changes in the way libraries and namespaces are managed. The most challenging</text>
+<text top="825" left="148" width="596" height="13" font="4">problem will be support for concurrently loading multiple versions of a package. But when the</text>
+<text top="841" left="149" width="596" height="13" font="4">time is ready to make the jump to the next major release of R, we hope that R Core will consider</text>
+<text top="858" left="149" width="595" height="13" font="4">revising this important part of the software, adopting modern approaches and best practices of</text>
+<text top="874" left="148" width="596" height="13" font="4">package management that are powering collaboration and uniting efforts within other open source</text>
+<text top="891" left="149" width="81" height="13" font="4">communities.</text>
+<text top="935" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="974" left="149" width="595" height="13" font="4">L. Dabbish, C. Stuart, J. Tsay, and J. Herbsleb. Social coding in github: transparency and collaboration</text>
+<text top="991" left="164" width="580" height="13" font="4">in an open software repository. In Proceedings of the ACM 2012 conference on Computer Supported</text>
+<text top="1007" left="163" width="296" height="14" font="4">Cooperative Work, pages 1277–1286. ACM, 2012. <a href="2013-1-ooms.html#1">[p</a></text>
+<text top="1007" left="459" width="20" height="13" font="6"><a href="2013-1-ooms.html#1">197</a></text>
+<text top="1007" left="480" width="4" height="13" font="4"><a href="2013-1-ooms.html#1">]</a></text>
+<text top="1036" left="149" width="595" height="13" font="4">D. Eddelbuettel and C. Blundell. cran2deb: A fully automated CRAN to Debian package generation</text>
+<text top="1052" left="164" width="402" height="13" font="4">system. Presented at UseR Conference, July 10-12, Rennes, 2009. URL</text>
+<text top="1053" left="569" width="180" height="11" font="6"><a href="https://r-forge.r-project.org/projects/cran2deb/">https://r-forge.r-project.</a></text>
+<text top="1069" left="164" width="151" height="11" font="6"><a href="https://r-forge.r-project.org/projects/cran2deb/">org/projects/cran2deb/</a></text>
+<text top="1068" left="315" width="21" height="13" font="4"><a href="https://r-forge.r-project.org/projects/cran2deb/">. </a><a href="2013-1-ooms.html#5">[p</a></text>
+<text top="1068" left="335" width="20" height="13" font="6"><a href="2013-1-ooms.html#5">201</a></text>
+<text top="1068" left="356" width="4" height="13" font="4"><a href="2013-1-ooms.html#5">]</a></text>
+<text top="1097" left="149" width="598" height="13" font="4">J. Fox. Aspects of the Social Organization and Trajectory of the R project. The R Journal, 1(2):5–13, 2009.</text>
+<text top="1113" left="164" width="13" height="13" font="4"><a href="2013-1-ooms.html#1">[p</a></text>
+<text top="1113" left="176" width="20" height="13" font="6"><a href="2013-1-ooms.html#1">197</a></text>
+<text top="1113" left="196" width="4" height="13" font="4"><a href="2013-1-ooms.html#1">]</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">206</text>
+<text top="103" left="149" width="597" height="13" font="4">R. Gentleman, V. Carey, D. Bates, B. Bolstad, M. Dettling, S. Dudoit, B. Ellis, L. Gautier, Y. Ge, J. Gentry,</text>
+<text top="120" left="164" width="583" height="13" font="4">et al. Bioconductor: open software development for computational biology and bioinformatics.</text>
+<text top="136" left="163" width="203" height="14" font="4">Genome biology, 5(10):R80, 2004. <a href="2013-1-ooms.html#1">[p</a></text>
+<text top="136" left="366" width="20" height="13" font="6"><a href="2013-1-ooms.html#1">197</a></text>
+<text top="136" left="386" width="4" height="13" font="4"><a href="2013-1-ooms.html#1">]</a></text>
+<text top="164" left="149" width="412" height="13" font="4">M. Kuhn. caret: Classification and Regression Training, 2013. URL</text>
+<text top="165" left="566" width="179" height="11" font="6"><a href="http://CRAN.R-project.org/package=caret">http://CRAN.R-project.org/</a></text>
+<text top="181" left="164" width="89" height="11" font="6"><a href="http://CRAN.R-project.org/package=caret">package=caret</a></text>
+<text top="181" left="253" width="183" height="13" font="4"><a href="http://CRAN.R-project.org/package=caret">. </a>R package version 5.16-04. <a href="2013-1-ooms.html#3">[p</a></text>
+<text top="181" left="435" width="20" height="13" font="6"><a href="2013-1-ooms.html#3">199</a></text>
+<text top="181" left="456" width="4" height="13" font="4"><a href="2013-1-ooms.html#3">]</a></text>
+<text top="209" left="149" width="595" height="13" font="4">F. Leisch. Sweave. Dynamic generation of statistical reports using literate data analysis. Report Series</text>
+<text top="226" left="163" width="581" height="14" font="4">SFB &#34;Adaptive Information Systems and Modelling in Economics and Management Science&#34;, 2002. URL</text>
+<text top="243" left="164" width="274" height="11" font="6"><a href="http://epub.wu.ac.at/1788/1/document.pdf">http://epub.wu.ac.at/1788/1/document.pdf</a></text>
+<text top="242" left="438" width="21" height="13" font="4"><a href="http://epub.wu.ac.at/1788/1/document.pdf">. </a><a href="2013-1-ooms.html#3">[p</a></text>
+<text top="242" left="459" width="20" height="13" font="6"><a href="2013-1-ooms.html#3">199</a></text>
+<text top="242" left="479" width="4" height="13" font="4"><a href="2013-1-ooms.html#3">]</a></text>
+<text top="271" left="149" width="571" height="13" font="4">R. D. Peng. Reproducible research in computational science. Science, 334(6060):1226–1227, 2011. [<a href="2013-1-ooms.html#3">p</a></text>
+<text top="271" left="720" width="20" height="13" font="6"><a href="2013-1-ooms.html#3">199</a></text>
+<text top="271" left="740" width="4" height="13" font="4"><a href="2013-1-ooms.html#3">]</a></text>
+<text top="299" left="149" width="598" height="13" font="4">H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009. ISBN 978-0-387-98140-6.</text>
+<text top="315" left="164" width="28" height="13" font="4">URL</text>
+<text top="316" left="195" width="199" height="11" font="6"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="315" left="394" width="21" height="13" font="4"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2013-1-ooms.html#0">[p</a></text>
+<text top="315" left="414" width="20" height="13" font="6"><a href="2013-1-ooms.html#0">118</a></text>
+<text top="315" left="435" width="3" height="13" font="4"><a href="2013-1-ooms.html#0">,</a></text>
+<text top="315" left="441" width="20" height="13" font="6"><a href="2013-1-ooms.html#3">199</a></text>
+<text top="315" left="462" width="4" height="13" font="4"><a href="2013-1-ooms.html#3">]</a></text>
+<text top="362" left="149" width="69" height="13" font="4">Jeroen Ooms</text>
+<text top="378" left="148" width="132" height="13" font="4">Department of Statistics</text>
+<text top="394" left="148" width="130" height="13" font="4">University of California</text>
+<text top="411" left="148" width="65" height="13" font="4">Los Angeles</text>
+<text top="428" left="149" width="171" height="11" font="6"><a href="mailto:jeroen.ooms@stat.ucla.edu">jeroen.ooms@stat.ucla.edu</a></text>
+<text top="444" left="149" width="192" height="11" font="6"><a href="http://jeroenooms.github.io/">http://jeroenooms.github.io/</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+	<fontspec id="11" size="6" family="Times" color="#000000"/>
+	<fontspec id="12" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">15</text>
+<text top="98" left="149" width="536" height="30" font="2"><b>fanplot: An R Package for Visualising</b></text>
+<text top="137" left="149" width="352" height="30" font="2"><b>Sequential Distributions</b></text>
+<text top="173" left="149" width="89" height="15" font="0">by Guy J. Abel</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="538" height="13" font="4">Fan charts, first developed by the Bank of England in 1996, have become a standard method</text>
+<text top="231" left="149" width="595" height="13" font="4">for visualising forecasts with uncertainty. Using shading fan charts focus the attention towards the</text>
+<text top="247" left="148" width="596" height="13" font="4">whole distribution away from a single central measure. This article describes the basics of plotting</text>
+<text top="264" left="149" width="595" height="13" font="4">fan charts using an R add-on package alongside some additional methods for displaying sequential</text>
+<text top="280" left="149" width="595" height="13" font="4">distributions. Examples are based on distributions of both estimated parameters from a time series</text>
+<text top="297" left="149" width="250" height="13" font="4">model and future values with uncertainty.</text>
+<text top="341" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="380" left="149" width="485" height="13" font="4">Probabilities are notoriously difficult to communicate effectively to lay audiences <a href="2015-1-abel.html#9">(</a></text>
+<text top="380" left="634" width="109" height="13" font="6"><a href="2015-1-abel.html#9">Spiegelhalter et al.</a></text>
+<text top="380" left="742" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="397" left="149" width="27" height="13" font="6"><a href="2015-1-abel.html#9">2011</a></text>
+<text top="397" left="176" width="568" height="13" font="4"><a href="2015-1-abel.html#9">). </a>Fan charts provide one such method to illustrate either forecasts or past results that are based</text>
+<text top="413" left="149" width="595" height="13" font="4">on probabilistic distributions. Using shading fan charts focus the attention of the reader on the whole</text>
+<text top="430" left="149" width="595" height="13" font="4">distribution away from a single central estimate. Visualising the distribution can aid in communicating</text>
+<text top="446" left="149" width="595" height="13" font="4">the degree of underlying uncertainty in probabilistic forecasts to non-specialists, that might not have</text>
+<text top="462" left="149" width="310" height="13" font="4">been apparent in basic plots and summary statistics.</text>
+<text top="483" left="171" width="573" height="13" font="4">Fan charts were first introduced by the Bank of England for their inflation forecasts in February</text>
+<text top="500" left="148" width="35" height="13" font="4">1996 <a href="2015-1-abel.html#8">(</a></text>
+<text top="500" left="183" width="73" height="13" font="6"><a href="2015-1-abel.html#8">Britton et al.</a></text>
+<text top="500" left="256" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="500" left="263" width="27" height="13" font="6"><a href="2015-1-abel.html#8">1998</a></text>
+<text top="500" left="290" width="454" height="13" font="4"><a href="2015-1-abel.html#8">). </a>Since their initial development fan charts have become a standard method</text>
+<text top="516" left="149" width="464" height="13" font="4">to display uncertainty of future economic indicators by many central banks <a href="2015-1-abel.html#8">(</a></text>
+<text top="516" left="613" width="28" height="13" font="6"><a href="2015-1-abel.html#8">Julio</a></text>
+<text top="516" left="641" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="516" left="648" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2007</a></text>
+<text top="516" left="675" width="69" height="13" font="4"><a href="2015-1-abel.html#8">). </a>Their use</text>
+<text top="533" left="149" width="326" height="13" font="4">has also spread to other fields such as climate science <a href="2015-1-abel.html#8">(</a></text>
+<text top="533" left="474" width="125" height="13" font="6"><a href="2015-1-abel.html#8">McShane and Wyner</a></text>
+<text top="533" left="599" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="533" left="606" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2011</a></text>
+<text top="533" left="633" width="112" height="13" font="4"><a href="2015-1-abel.html#8">) </a>and demography</text>
+<text top="549" left="148" width="4" height="13" font="4"><a href="2015-1-abel.html#8">(</a></text>
+<text top="549" left="153" width="80" height="13" font="6"><a href="2015-1-abel.html#8">Gerland et al.</a></text>
+<text top="549" left="233" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="549" left="240" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2014</a></text>
+<text top="549" left="267" width="8" height="13" font="4"><a href="2015-1-abel.html#8">).</a></text>
+<text top="570" left="171" width="381" height="13" font="4">Fan charts can be created using various software. Within R, the</text>
+<text top="570" left="556" width="25" height="13" font="7"><a href="http://CRAN.R-project.org/package=vars"><b>vars</b></a></text>
+<text top="570" left="585" width="58" height="13" font="4">package <a href="2015-1-abel.html#9">(</a></text>
+<text top="570" left="642" width="29" height="13" font="6"><a href="2015-1-abel.html#9">Pfaff</a></text>
+<text top="570" left="671" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="570" left="678" width="27" height="13" font="6"><a href="2015-1-abel.html#9">2008</a></text>
+<text top="570" left="705" width="39" height="13" font="4"><a href="2015-1-abel.html#9">) </a>has a</text>
+<text top="583" left="149" width="597" height="18" font="4">fanchart function for forecasts of confidence regions. It is based solely on “varpred” class objects,</text>
+<text top="603" left="149" width="595" height="13" font="4">i.e., on the predictions of Vector Autoregressive models fitted using other functions within the <b>vars</b></text>
+<text top="619" left="148" width="138" height="13" font="4">package. Similarly, the</text>
+<text top="619" left="290" width="48" height="13" font="7"><a href="http://CRAN.R-project.org/package=forecast"><b>forecast</b></a></text>
+<text top="619" left="342" width="58" height="13" font="4">package <a href="2015-1-abel.html#8">(</a></text>
+<text top="619" left="400" width="161" height="13" font="6"><a href="2015-1-abel.html#8">Hyndman and Khandakar</a></text>
+<text top="619" left="561" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="619" left="568" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2008</a></text>
+<text top="619" left="595" width="149" height="13" font="4"><a href="2015-1-abel.html#8">) </a>produces fan charts for</text>
+<text top="636" left="149" width="384" height="13" font="4">forecasts based on time series models from the “forecast” class.</text>
+<text top="636" left="538" width="28" height="13" font="6"><a href="2015-1-abel.html#8">Julio</a></text>
+<text top="636" left="570" width="5" height="13" font="4"><a href="2015-1-abel.html#8">(</a></text>
+<text top="636" left="574" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2009</a></text>
+<text top="636" left="602" width="142" height="13" font="4"><a href="2015-1-abel.html#8">) </a>provides VBA code in</text>
+<text top="652" left="149" width="596" height="13" font="4">order to plot fan charts for quarterly GDP data in Excel. Alternatively one could use point and click</text>
+<text top="669" left="149" width="478" height="13" font="4">methods in Excel to build customised fan charts based on stacked area <a href="2015-1-abel.html#0">charts.</a></text>
+<text top="666" left="627" width="5" height="10" font="8"><a href="2015-1-abel.html#0">1</a></text>
+<text top="669" left="639" width="66" height="13" font="6"><a href="2015-1-abel.html#8">Buchmann</a></text>
+<text top="669" left="709" width="5" height="13" font="4"><a href="2015-1-abel.html#8">(</a></text>
+<text top="669" left="713" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2010</a></text>
+<text top="669" left="741" width="5" height="13" font="4"><a href="2015-1-abel.html#8">)</a></text>
+<text top="685" left="148" width="596" height="13" font="4">provides MATLAB code to create fan charts for user supplied forecast distributions with a limited</text>
+<text top="701" left="149" width="245" height="13" font="4">amount of control for the plotted display.</text>
+<text top="722" left="171" width="573" height="13" font="4">In any of the fore-mentioned options users are restricted in either their ability to effectively adapt</text>
+<text top="739" left="149" width="595" height="13" font="4">the properties of fan charts or create plots based on alternative models, values or simulated data. The</text>
+<text top="755" left="149" width="270" height="13" font="4">aim of this article is to illustrate R code in the</text>
+<text top="755" left="423" width="45" height="13" font="7"><a href="http://CRAN.R-project.org/package=fanplot"><b>fanplot</b></a></text>
+<text top="755" left="471" width="273" height="13" font="4">package to create fan charts of different styles</text>
+<text top="772" left="149" width="596" height="13" font="4">and from a range of input data. These are demonstrated on data from sequential Monte Carlo Markov</text>
+<text top="788" left="149" width="595" height="13" font="4">chain (MCMC) simulated distributions of parameters in a stochastic volatility model and expert based</text>
+<text top="805" left="149" width="408" height="13" font="4">forecasts for the Consumer Price Index (CPI) of the Bank of England.</text>
+<text top="849" left="149" width="399" height="17" font="5"><b>Fan charts for sequential simulated distributions</b></text>
+<text top="888" left="148" width="598" height="13" font="4">The <b>fanplot </b>package can used to display any form of sequential distributions along a plots x-axis.</text>
+<text top="905" left="148" width="588" height="13" font="4">To illustrate, we use posterior density distributions of the estimated volatility of daily returns (y</text>
+<text top="909" left="737" width="3" height="10" font="9">t</text>
+<text top="905" left="741" width="5" height="13" font="4">)</text>
+<text top="921" left="149" width="434" height="13" font="4">from the Pound/Dollar exchange rate from 02/10/1981 to 28/6/1985. As</text>
+<text top="921" left="586" width="83" height="13" font="6"><a href="2015-1-abel.html#9">Meyer and Yu</a></text>
+<text top="921" left="673" width="4" height="13" font="4"><a href="2015-1-abel.html#9">(</a></text>
+<text top="921" left="677" width="27" height="13" font="6"><a href="2015-1-abel.html#9">2002</a></text>
+<text top="921" left="704" width="42" height="13" font="4"><a href="2015-1-abel.html#9">) </a>show,</text>
+<text top="938" left="148" width="596" height="13" font="4">posterior distributions for the volatility process can be estimated in WinBUGS by fitting the stochastic</text>
+<text top="954" left="148" width="98" height="13" font="4">volatility model;</text>
+<text top="979" left="285" width="7" height="13" font="4">y</text>
+<text top="983" left="292" width="3" height="10" font="9">t</text>
+<text top="978" left="297" width="4" height="13" font="0">|</text>
+<text top="982" left="301" width="6" height="10" font="10"><i>θ</i></text>
+<text top="983" left="307" width="3" height="10" font="9">t</text>
+<text top="979" left="316" width="11" height="12" font="0">=</text>
+<text top="979" left="330" width="21" height="13" font="4">exp</text>
+<text top="969" left="354" width="19" height="14" font="4"> 1</text>
+<text top="988" left="366" width="7" height="13" font="4">2</text>
+<text top="982" left="375" width="6" height="10" font="10"><i>θ</i></text>
+<text top="983" left="381" width="3" height="10" font="9">t</text>
+<text top="969" left="386" width="10" height="6" font="4"></text>
+<text top="979" left="398" width="7" height="13" font="4">u</text>
+<text top="983" left="406" width="3" height="10" font="9">t</text>
+<text top="979" left="437" width="7" height="13" font="4">u</text>
+<text top="983" left="445" width="3" height="10" font="9">t</text>
+<text top="978" left="453" width="11" height="13" font="0">∼</text>
+<text top="979" left="469" width="10" height="13" font="4">N</text>
+<text top="979" left="480" width="5" height="12" font="0">(</text>
+<text top="979" left="486" width="19" height="13" font="4">0, 1</text>
+<text top="979" left="505" width="5" height="12" font="0">)</text>
+<text top="979" left="538" width="4" height="13" font="4">t</text>
+<text top="979" left="546" width="11" height="12" font="0">=</text>
+<text top="979" left="561" width="47" height="13" font="4">1, . . . , n.</text>
+<text top="979" left="728" width="16" height="13" font="4">(1)</text>
+<text top="1009" left="148" width="132" height="13" font="4">The latent volatilities <i>θ</i></text>
+<text top="1013" left="281" width="3" height="10" font="9">t</text>
+<text top="1009" left="285" width="376" height="13" font="4">, which are unknown states in a state-space model terminology <a href="2015-1-abel.html#8">(</a></text>
+<text top="1009" left="661" width="44" height="13" font="6"><a href="2015-1-abel.html#8">Harvey</a></text>
+<text top="1009" left="705" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="1009" left="712" width="26" height="13" font="6"><a href="2015-1-abel.html#8">1990</a></text>
+<text top="1009" left="738" width="8" height="13" font="4"><a href="2015-1-abel.html#8">),</a></text>
+<text top="1025" left="149" width="503" height="13" font="4">are assumed to follow a Markovian transition over time given by the state equations:</text>
+<text top="1059" left="239" width="6" height="10" font="10"><i>θ</i></text>
+<text top="1060" left="245" width="3" height="10" font="9">t</text>
+<text top="1055" left="250" width="4" height="13" font="0">|</text>
+<text top="1059" left="254" width="6" height="10" font="10"><i>θ</i></text>
+<text top="1061" left="260" width="18" height="11" font="9">t−1</text>
+<text top="1056" left="279" width="40" height="13" font="4">, <i>µ</i>, <i>φ</i>, <i>τ</i></text>
+<text top="1052" left="320" width="5" height="10" font="9">2</text>
+<text top="1056" left="329" width="11" height="12" font="0">=</text>
+<text top="1059" left="344" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1056" left="355" width="11" height="12" font="0">+</text>
+<text top="1059" left="369" width="8" height="10" font="10"><i>φ</i></text>
+<text top="1056" left="379" width="29" height="13" font="4">log <i>σ</i></text>
+<text top="1052" left="408" width="5" height="10" font="9">2</text>
+<text top="1062" left="407" width="18" height="11" font="9">t−1</text>
+<text top="1056" left="428" width="11" height="12" font="0">+</text>
+<text top="1056" left="442" width="7" height="13" font="4">v</text>
+<text top="1060" left="449" width="3" height="10" font="9">t</text>
+<text top="1056" left="481" width="7" height="13" font="4">v</text>
+<text top="1060" left="488" width="3" height="10" font="9">t</text>
+<text top="1055" left="496" width="11" height="13" font="0">∼</text>
+<text top="1056" left="512" width="10" height="13" font="4">N</text>
+<text top="1056" left="523" width="5" height="12" font="0">(</text>
+<text top="1056" left="528" width="20" height="13" font="4">0, <i>τ</i></text>
+<text top="1052" left="548" width="5" height="10" font="9">2</text>
+<text top="1056" left="555" width="5" height="12" font="0">)</text>
+<text top="1056" left="587" width="4" height="13" font="4">t</text>
+<text top="1056" left="596" width="11" height="12" font="0">=</text>
+<text top="1056" left="611" width="43" height="13" font="4">1, . . . , n</text>
+<text top="1056" left="728" width="16" height="13" font="4">(2)</text>
+<text top="1087" left="148" width="37" height="13" font="4">with <i>θ</i></text>
+<text top="1092" left="185" width="5" height="10" font="9">0</text>
+<text top="1086" left="195" width="11" height="13" font="0">∼</text>
+<text top="1087" left="211" width="10" height="13" font="4">N</text>
+<text top="1087" left="222" width="5" height="12" font="0">(</text>
+<text top="1090" left="228" width="8" height="10" font="10"><i>µ</i></text>
+<text top="1087" left="236" width="13" height="13" font="4">, <i>τ</i></text>
+<text top="1084" left="249" width="5" height="10" font="9">2</text>
+<text top="1087" left="255" width="5" height="12" font="0">)</text>
+<text top="1087" left="261" width="3" height="13" font="4">.</text>
+<text top="1114" left="165" width="4" height="9" font="11">1</text>
+<text top="1116" left="170" width="18" height="12" font="1">See</text>
+<text top="1113" left="194" width="511" height="16" font="12"><a href="http://peltiertech.com/WordPress/excel-fan-chart-showing-uncertainty-in-projections">http://peltiertech.com/WordPress/excel-fan-chart-showing-uncertainty-in-projections</a></text>
+<text top="1116" left="710" width="34" height="12" font="1">for an</text>
+<text top="1130" left="149" width="73" height="12" font="1">Excel tutorial.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="9" family="Helvetica" color="#000000"/>
+	<fontspec id="14" size="9" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">16</text>
+<text top="485" left="186" width="6" height="10" font="13">0</text>
+<text top="485" left="283" width="18" height="10" font="13">200</text>
+<text top="485" left="386" width="18" height="10" font="13">400</text>
+<text top="485" left="489" width="18" height="10" font="13">600</text>
+<text top="485" left="591" width="18" height="10" font="13">800</text>
+<text top="485" left="691" width="25" height="10" font="13">1000</text>
+<text top="412" left="157" width="0" height="10" font="14">−2</text>
+<text top="320" left="157" width="0" height="10" font="14">−1</text>
+<text top="226" left="157" width="0" height="10" font="14">0</text>
+<text top="134" left="157" width="0" height="10" font="14">1</text>
+<text top="512" left="202" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="511" left="259" width="433" height="13" font="4">Stochastic Volatility Fan Chart for the Pound-Dollar Exchange Rate Data.</text>
+<text top="561" left="171" width="251" height="13" font="4">A sample of the posterior distributions of <i>θ</i></text>
+<text top="565" left="423" width="3" height="10" font="9">t</text>
+<text top="561" left="430" width="107" height="13" font="4">is contained in the</text>
+<text top="558" left="541" width="206" height="18" font="4">th.mcmc object of the <b>fanplot </b>pack-</text>
+<text top="578" left="149" width="595" height="13" font="4">age. It consists of (1000) rows corresponding to MCMC simulations and (945) columns corresponding</text>
+<text top="594" left="149" width="343" height="13" font="4">to time points t. Example code to replicate this object using</text>
+<text top="594" left="495" width="90" height="13" font="7"><a href="http://CRAN.R-project.org/package=R2OpenBUGS"><b>R2OpenBUGS</b></a></text>
+<text top="594" left="588" width="4" height="13" font="4"><a href="2015-1-abel.html#9">(</a></text>
+<text top="594" left="592" width="66" height="13" font="6"><a href="2015-1-abel.html#9">Sturtz et al.</a></text>
+<text top="594" left="658" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="594" left="665" width="26" height="13" font="6"><a href="2015-1-abel.html#9">2005</a></text>
+<text top="594" left="691" width="53" height="13" font="4"><a href="2015-1-abel.html#9">) </a>is given</text>
+<text top="611" left="149" width="124" height="13" font="4">in the help file for the</text>
+<text top="607" left="276" width="284" height="18" font="4">th.mcmc object. It is based on the BUGS model of</text>
+<text top="611" left="563" width="82" height="13" font="6"><a href="2015-1-abel.html#9">Meyer and Yu</a></text>
+<text top="611" left="648" width="4" height="13" font="4"><a href="2015-1-abel.html#9">(</a></text>
+<text top="611" left="652" width="26" height="13" font="6"><a href="2015-1-abel.html#9">2002</a></text>
+<text top="611" left="679" width="65" height="13" font="4"><a href="2015-1-abel.html#9">) </a>replicated</text>
+<text top="627" left="149" width="34" height="13" font="4">in the</text>
+<text top="624" left="186" width="558" height="18" font="4">my1.R file of the <b>fanplot </b>package. Time ordered simulated distributions, such as th.mcmc, can</text>
+<text top="643" left="149" width="164" height="13" font="4">be easily extracted from the</text>
+<text top="640" left="316" width="326" height="18" font="4">sims.list element of an <b>R2OpenBUGS </b>“bugs” object.</text>
+<text top="664" left="171" width="293" height="13" font="4">A fan chart of the evolution of the distribution of <i>θ</i></text>
+<text top="669" left="464" width="3" height="10" font="9">t</text>
+<text top="664" left="472" width="52" height="13" font="4">in Figure</text>
+<text top="664" left="528" width="7" height="13" font="6"><a href="2015-1-abel.html#2">1</a></text>
+<text top="664" left="537" width="176" height="13" font="4">can be plotted using either the</text>
+<text top="661" left="717" width="27" height="18" font="4">fan0</text>
+<text top="681" left="149" width="13" height="13" font="4">or</text>
+<text top="677" left="165" width="579" height="18" font="4">fan function. The fan0 function, which we will first discuss, provides the simplest representation;</text>
+<text top="704" left="149" width="123" height="18" font="4">library(&#34;fanplot&#34;)</text>
+<text top="721" left="149" width="137" height="18" font="4">fan0(data = th.mcmc)</text>
+<text top="751" left="148" width="596" height="13" font="4">The plotting function calculates the values of 100 equally spaced percentiles of each future distribution</text>
+<text top="767" left="148" width="106" height="13" font="4">when the default</text>
+<text top="764" left="259" width="486" height="18" font="4">data.type = &#34;simulations&#34; is set. This allows 50 fans to be plotted from the</text>
+<text top="781" left="149" width="595" height="18" font="4">heat.colours colour palette, providing darker shadings for the more probable percentiles. The axis</text>
+<text top="800" left="149" width="181" height="13" font="4">limits are determined from the</text>
+<text top="797" left="333" width="411" height="18" font="4">data argument. By default, the y-axis limits to 85 percent of the range</text>
+<text top="817" left="149" width="361" height="13" font="4">of the MCMC distributions to reduce white space in the plot.</text>
+<text top="838" left="171" width="573" height="13" font="4">Similar plots of sequential distributions from alternative Bayesian models can be easily plotted</text>
+<text top="854" left="149" width="55" height="13" font="4">using the</text>
+<text top="851" left="207" width="537" height="18" font="4">fan0 or fan functions. The data argument accepts objects from a range of classes including</text>
+<text top="871" left="147" width="447" height="13" font="4">“mcmc” which is typically used to handle BUGS or JAGS results via the</text>
+<text top="867" left="599" width="145" height="18" font="4">read.coda or read.jags</text>
+<text top="887" left="149" width="69" height="13" font="4">commands.</text>
+<text top="908" left="171" width="70" height="13" font="4">The data in</text>
+<text top="905" left="246" width="498" height="18" font="4">th.mcmc are based on trading day observations only. Irregular time series can be</text>
+<text top="924" left="149" width="129" height="13" font="4">handled by passing a</text>
+<text top="924" left="282" width="22" height="13" font="7"><a href="http://CRAN.R-project.org/package=zoo"><b>zoo</b></a></text>
+<text top="924" left="307" width="112" height="13" font="4">time series object <a href="2015-1-abel.html#9">(</a></text>
+<text top="924" left="419" width="153" height="13" font="6"><a href="2015-1-abel.html#9">Zeileis and Grothendieck</a></text>
+<text top="924" left="573" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="924" left="580" width="27" height="13" font="6"><a href="2015-1-abel.html#9">2005</a></text>
+<text top="924" left="607" width="139" height="13" font="4"><a href="2015-1-abel.html#9">) </a>to the data argument.</text>
+<text top="941" left="148" width="197" height="13" font="4">The trading days are given in the</text>
+<text top="937" left="348" width="110" height="18" font="4">spvdx object of the</text>
+<text top="941" left="461" width="40" height="13" font="7"><a href="http://CRAN.R-project.org/package=tsbugs"><b>tsbugs</b></a></text>
+<text top="941" left="505" width="57" height="13" font="4">package <a href="2015-1-abel.html#8">(</a></text>
+<text top="941" left="562" width="60" height="13" font="6"><a href="2015-1-abel.html#8">Abel et al.</a></text>
+<text top="941" left="622" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="941" left="628" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2013</a></text>
+<text top="941" left="655" width="8" height="13" font="4"><a href="2015-1-abel.html#8">).</a></text>
+<text top="964" left="149" width="96" height="18" font="4">library(&#34;zoo&#34;)</text>
+<text top="981" left="149" width="117" height="18" font="4">library(&#34;tsbugs&#34;)</text>
+<text top="1014" left="149" width="316" height="18" font="4"># create irregular multiple time series object</text>
+<text top="1030" left="149" width="322" height="18" font="4">th.mcmc2 &lt;- zoo(th.mcmc, order.by = svpdx$date)</text>
+<text top="1030" left="951" width="14" height="18" font="4">#$</text>
+<text top="1063" left="149" width="41" height="18" font="4"># plot</text>
+<text top="1079" left="149" width="439" height="18" font="4">fan0(data = th.mcmc2, type = &#34;interval&#34;, ln = c(0.5, 0.8, 0.95),</text>
+<text top="1096" left="183" width="165" height="18" font="4">llab = TRUE, rcex = 0.6)</text>
+<text top="1126" left="149" width="391" height="13" font="4">Basing the fan chart on a <b>zoo </b>time series allows the x-axis in Figure</text>
+<text top="1126" left="543" width="7" height="13" font="6"><a href="2015-1-abel.html#3">2</a></text>
+<text top="1126" left="553" width="191" height="13" font="4">to use the corresponding trading</text>
+<text top="1143" left="149" width="318" height="13" font="4">days rather than the observations index as in Figure</text>
+<text top="1143" left="470" width="7" height="13" font="6"><a href="2015-1-abel.html#2">1</a></text>
+<text top="1143" left="477" width="108" height="13" font="4"><a href="2015-1-abel.html#2">. </a>When argument</text>
+<text top="1139" left="589" width="156" height="18" font="4">type = &#34;interval&#34; is set,</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="4" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">17</text>
+<text top="485" left="211" width="25" height="10" font="13">1982</text>
+<text top="485" left="349" width="25" height="10" font="13">1983</text>
+<text top="485" left="486" width="25" height="10" font="13">1984</text>
+<text top="485" left="624" width="25" height="10" font="13">1985</text>
+<text top="412" left="157" width="0" height="10" font="14">−2</text>
+<text top="320" left="157" width="0" height="10" font="14">−1</text>
+<text top="226" left="157" width="0" height="10" font="14">0</text>
+<text top="134" left="157" width="0" height="10" font="14">1</text>
+<text top="273" left="705" width="18" height="6" font="15">L95%</text>
+<text top="255" left="705" width="18" height="6" font="15">L80%</text>
+<text top="238" left="705" width="18" height="6" font="15">L50%</text>
+<text top="195" left="705" width="19" height="6" font="15">U50%</text>
+<text top="176" left="705" width="19" height="6" font="15">U80%</text>
+<text top="158" left="705" width="19" height="6" font="15">U95%</text>
+<text top="317" left="171" width="18" height="6" font="15">L95%</text>
+<text top="305" left="171" width="18" height="6" font="15">L80%</text>
+<text top="294" left="171" width="18" height="6" font="15">L50%</text>
+<text top="268" left="169" width="19" height="6" font="15">U50%</text>
+<text top="257" left="169" width="19" height="6" font="15">U80%</text>
+<text top="245" left="169" width="19" height="6" font="15">U95%</text>
+<text top="217" left="705" width="6" height="6" font="15">M</text>
+<text top="280" left="183" width="6" height="6" font="15">M</text>
+<text top="512" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="511" left="207" width="537" height="13" font="4">Stochastic Volatility Fan Chart for the Pound-Dollar Exchange Rate Data with Prediction</text>
+<text top="528" left="149" width="56" height="13" font="4">Intervals.</text>
+<text top="578" left="149" width="19" height="13" font="4">the</text>
+<text top="574" left="171" width="573" height="18" font="4">probs argument corresponds to prediction intervals. Consequently, the default interval fan chart</text>
+<text top="594" left="149" width="595" height="13" font="4">comprises of three different shades, running from the darkest for the 50th prediction interval to the</text>
+<text top="611" left="149" width="461" height="13" font="4">lightest for the 95th prediction interval. Contour lines are are controlled by the</text>
+<text top="607" left="614" width="130" height="18" font="4">ln argument, which is</text>
+<text top="627" left="149" width="31" height="13" font="4">set to</text>
+<text top="624" left="183" width="203" height="18" font="4">NULL by default for fan0. In Figure</text>
+<text top="627" left="390" width="7" height="13" font="6"><a href="2015-1-abel.html#3">2</a></text>
+<text top="627" left="396" width="151" height="13" font="4"><a href="2015-1-abel.html#3">, </a>changes in the default of</text>
+<text top="624" left="551" width="193" height="18" font="4">ln overlays lines on the fan chart</text>
+<text top="643" left="149" width="595" height="13" font="4">for the upper and lower bounds of the 50th, 80th and 95th prediction intervals. A further line is plotted</text>
+<text top="660" left="149" width="135" height="13" font="4">along the median of <i>θ</i></text>
+<text top="664" left="284" width="3" height="10" font="9">t</text>
+<text top="660" left="293" width="105" height="13" font="4">controlled by the</text>
+<text top="656" left="402" width="345" height="18" font="4">med.ln argument and shown when type = &#34;interval&#34;.</text>
+<text top="676" left="149" width="595" height="13" font="4">Labels on the right hand side are by default added to correspond to the upper and lower bounds</text>
+<text top="693" left="149" width="414" height="13" font="4">of each plotted line. The text size of the labels are controlled by the</text>
+<text top="689" left="567" width="177" height="18" font="4">rcex argument. This is set to</text>
+<text top="709" left="149" width="596" height="13" font="4">0.6 to incorporate the labels without extending the limits of the x-axis. The left labels are added by</text>
+<text top="726" left="149" width="40" height="13" font="4">setting</text>
+<text top="722" left="193" width="552" height="18" font="4">llab = TRUE and take the same text properties as the right labels. Users can customize many</text>
+<text top="742" left="148" width="598" height="13" font="4">properties of the fan chart shading, labels contour lines, labels and axis through a range of arguments.</text>
+<text top="763" left="171" width="573" height="13" font="4">Spaghetti plots are a method of viewing data to visualize possible values through a systems. They</text>
+<text top="779" left="149" width="440" height="13" font="4">are commonly used on geographical data, such as meteorological forecasts <a href="2015-1-abel.html#9">(</a></text>
+<text top="779" left="589" width="70" height="13" font="6"><a href="2015-1-abel.html#9">Sanyal et al.</a></text>
+<text top="779" left="658" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="779" left="665" width="26" height="13" font="6"><a href="2015-1-abel.html#9">2010</a></text>
+<text top="779" left="691" width="54" height="13" font="4"><a href="2015-1-abel.html#9">) </a>to show</text>
+<text top="796" left="148" width="459" height="13" font="4">possible or realised paths, or over time, such in longitudinal data analysis <a href="2015-1-abel.html#8">(</a></text>
+<text top="796" left="608" width="134" height="13" font="6"><a href="2015-1-abel.html#8">Hedeker and Gibbons</a></text>
+<text top="796" left="742" width="3" height="13" font="4"><a href="2015-1-abel.html#8">,</a></text>
+<text top="812" left="149" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2006</a></text>
+<text top="812" left="176" width="568" height="13" font="4"><a href="2015-1-abel.html#8">). </a>Spaghetti plots can also be used represent uncertainty shown by a range of possible future</text>
+<text top="829" left="149" width="305" height="13" font="4">trajectories or past estimates. For example, using the</text>
+<text top="825" left="458" width="133" height="18" font="4">th.mcmc2 object Figure</text>
+<text top="829" left="594" width="7" height="13" font="6"><a href="2015-1-abel.html#4">3</a></text>
+<text top="829" left="604" width="140" height="13" font="4">displays 20 random sets</text>
+<text top="845" left="149" width="21" height="13" font="4">of <i>θ</i></text>
+<text top="849" left="170" width="3" height="10" font="9">t</text>
+<text top="845" left="178" width="261" height="13" font="4">simulations plotted by setting the argument</text>
+<text top="842" left="442" width="134" height="18" font="4">style = &#34;spaghetti&#34;;</text>
+<text top="872" left="149" width="247" height="18" font="4"># transparent fan with visible lines</text>
+<text top="888" left="149" width="604" height="18" font="4">fan0(th.mcmc2, ln = c(5, 20, 50, 80, 95), alpha = 0, ln.col = &#34;darkorange&#34;, llab = TRUE)</text>
+<text top="921" left="149" width="117" height="18" font="4"># spaghetti lines</text>
+<text top="937" left="149" width="412" height="18" font="4">fan(th.mcmc2, style = &#34;spaghetti&#34;, n.spag = 20, alpha = 0.3)</text>
+<text top="971" left="148" width="511" height="13" font="4">The initial fan chart is completely transparent from setting the transparency argument</text>
+<text top="967" left="662" width="82" height="18" font="4">alpha = 0. In</text>
+<text top="987" left="149" width="488" height="13" font="4">order for the percentile lines to be visible a non-transparent colour is used for the</text>
+<text top="984" left="640" width="107" height="18" font="4">ln.col argument.</text>
+<text top="1004" left="149" width="257" height="13" font="4">Lines are plotted according the user defined</text>
+<text top="1000" left="409" width="335" height="18" font="4">ln argument to provide underlying uncertainty measures</text>
+<text top="1020" left="149" width="595" height="13" font="4">for the posterior probability distribution. The spaghetti lines, which are semi-transparent, are based</text>
+<text top="1036" left="149" width="516" height="13" font="4">on a random selection of simulations. They are superimposed on a fan chart using the</text>
+<text top="1033" left="668" width="78" height="18" font="4">fan function,</text>
+<text top="1053" left="148" width="251" height="13" font="4">which operates in much the similar way as</text>
+<text top="1050" left="402" width="342" height="18" font="4">fan0. The most important difference between the two is in</text>
+<text top="1069" left="149" width="149" height="13" font="4">the default setting of the</text>
+<text top="1066" left="301" width="443" height="18" font="4">add argument, which controls whether to create a new plot window for a</text>
+<text top="1086" left="149" width="283" height="13" font="4">fan chart or add it to an existing device. For the</text>
+<text top="1082" left="435" width="309" height="18" font="4">fan function, add is set to TRUE and hence its is more</text>
+<text top="1102" left="149" width="427" height="13" font="4">appropriately used to add a fan chart to an existing plotting device. The</text>
+<text top="1099" left="580" width="164" height="18" font="4">fan function also adds lines</text>
+<text top="1119" left="149" width="429" height="13" font="4">and labels on select contours by default as illustrated in the next section.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="16" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="8" family="Times" color="#000000"/>
+	<fontspec id="18" size="5" family="Times" color="#000000"/>
+	<fontspec id="19" size="5" family="Times" color="#000000"/>
+	<fontspec id="20" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">18</text>
+<text top="485" left="211" width="25" height="10" font="13">1982</text>
+<text top="485" left="349" width="25" height="10" font="13">1983</text>
+<text top="485" left="486" width="25" height="10" font="13">1984</text>
+<text top="485" left="624" width="25" height="10" font="13">1985</text>
+<text top="412" left="157" width="0" height="10" font="14">−2</text>
+<text top="320" left="157" width="0" height="10" font="14">−1</text>
+<text top="226" left="157" width="0" height="10" font="14">0</text>
+<text top="134" left="157" width="0" height="10" font="14">1</text>
+<text top="262" left="705" width="13" height="8" font="16">5%</text>
+<text top="243" left="705" width="18" height="8" font="16">20%</text>
+<text top="216" left="705" width="18" height="8" font="16">50%</text>
+<text top="190" left="705" width="18" height="8" font="16">80%</text>
+<text top="164" left="705" width="18" height="8" font="16">95%</text>
+<text top="312" left="175" width="13" height="8" font="16">5%</text>
+<text top="297" left="170" width="18" height="8" font="16">20%</text>
+<text top="279" left="170" width="18" height="8" font="16">50%</text>
+<text top="264" left="170" width="18" height="8" font="16">80%</text>
+<text top="250" left="170" width="18" height="8" font="16">95%</text>
+<text top="512" left="189" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="511" left="247" width="457" height="13" font="4">Stochastic Volatility Spaghetti Plot for the Pound-Dollar Exchange Rate Data.</text>
+<text top="558" left="149" width="222" height="17" font="5"><b>Bank of England fan charts</b></text>
+<text top="597" left="148" width="596" height="13" font="4">The Monetary Policy Committee (MPC) of the Bank of England produces fan charts of forecasts for</text>
+<text top="613" left="149" width="595" height="13" font="4">Consumer Price Index (CPI) of inflation and Gross Domestic Product in their quarterly Inflation</text>
+<text top="630" left="149" width="597" height="13" font="4">Reports. Alongside the fan charts, the Bank of England provides data, in the form of central location,</text>
+<text top="646" left="149" width="589" height="13" font="4">uncertainty and skewness parameters of a split-normal distribution that underlie their fan <a href="2015-1-abel.html#0">charts.</a></text>
+<text top="644" left="738" width="5" height="10" font="8"><a href="2015-1-abel.html#0">2</a></text>
+<text top="663" left="148" width="395" height="13" font="4">The probability density of the split-normal distribution is given by</text>
+<text top="663" left="546" width="28" height="13" font="6"><a href="2015-1-abel.html#8">Julio</a></text>
+<text top="663" left="578" width="4" height="13" font="4"><a href="2015-1-abel.html#8">(</a></text>
+<text top="663" left="582" width="27" height="13" font="6"><a href="2015-1-abel.html#8">2007</a></text>
+<text top="663" left="609" width="4" height="13" font="4"><a href="2015-1-abel.html#8">)</a></text>
+<text top="660" left="613" width="5" height="10" font="8"><a href="2015-1-abel.html#0">3</a></text>
+<text top="663" left="623" width="16" height="13" font="4">as,</text>
+<text top="713" left="263" width="4" height="13" font="4">f</text>
+<text top="713" left="269" width="5" height="12" font="0">(</text>
+<text top="713" left="275" width="34" height="14" font="4">x; <i>µ</i>, <i>σ</i></text>
+<text top="718" left="308" width="5" height="10" font="9">1</text>
+<text top="713" left="314" width="13" height="13" font="4">, <i>σ</i></text>
+<text top="718" left="327" width="5" height="10" font="9">2</text>
+<text top="713" left="333" width="20" height="12" font="0">) =</text>
+<text top="691" left="357" width="12" height="6" font="4"></text>
+<text top="703" left="357" width="12" height="6" font="4"></text>
+<text top="707" left="357" width="12" height="6" font="4"></text>
+<text top="731" left="357" width="12" height="6" font="4"></text>
+<text top="735" left="357" width="12" height="6" font="4"></text>
+<text top="688" left="399" width="9" height="10" font="9">√</text>
+<text top="698" left="408" width="5" height="10" font="9">2</text>
+<text top="701" left="379" width="9" height="10" font="9">√</text>
+<text top="712" left="388" width="18" height="8" font="17"><i>π</i>(<i>σ</i></text>
+<text top="713" left="405" width="4" height="7" font="18">1</text>
+<text top="709" left="410" width="15" height="10" font="9">+<i>σ</i></text>
+<text top="713" left="424" width="4" height="7" font="18">2</text>
+<text top="709" left="429" width="4" height="10" font="9">)</text>
+<text top="701" left="435" width="5" height="13" font="4">e</text>
+<text top="691" left="440" width="8" height="10" font="9">−</text>
+<text top="690" left="455" width="4" height="7" font="18">1</text>
+<text top="700" left="451" width="12" height="7" font="18">2<i>σ</i>2</text>
+<text top="704" left="458" width="4" height="7" font="18">1</text>
+<text top="692" left="465" width="30" height="10" font="9">(x−<i>µ</i>)</text>
+<text top="691" left="495" width="4" height="7" font="18">2</text>
+<text top="701" left="515" width="17" height="13" font="4">for</text>
+<text top="700" left="539" width="11" height="13" font="0">−</text>
+<text top="698" left="552" width="11" height="17" font="4">∞</text>
+<text top="701" left="568" width="11" height="12" font="0">&lt;</text>
+<text top="701" left="583" width="7" height="13" font="4">x</text>
+<text top="700" left="594" width="11" height="13" font="0">≤</text>
+<text top="704" left="609" width="8" height="10" font="10"><i>µ</i></text>
+<text top="717" left="399" width="9" height="10" font="9">√</text>
+<text top="727" left="408" width="5" height="10" font="9">2</text>
+<text top="730" left="379" width="9" height="10" font="9">√</text>
+<text top="741" left="388" width="18" height="8" font="17"><i>π</i>(<i>σ</i></text>
+<text top="743" left="405" width="4" height="7" font="18">1</text>
+<text top="739" left="410" width="15" height="10" font="9">+<i>σ</i></text>
+<text top="743" left="424" width="4" height="7" font="18">2</text>
+<text top="739" left="429" width="4" height="10" font="9">)</text>
+<text top="730" left="435" width="5" height="13" font="4">e</text>
+<text top="721" left="440" width="8" height="10" font="9">−</text>
+<text top="720" left="455" width="4" height="7" font="18">1</text>
+<text top="730" left="451" width="12" height="7" font="18">2<i>σ</i>2</text>
+<text top="733" left="458" width="4" height="7" font="18">2</text>
+<text top="722" left="465" width="30" height="10" font="9">(x−<i>µ</i>)</text>
+<text top="720" left="495" width="4" height="7" font="18">2</text>
+<text top="730" left="515" width="29" height="13" font="4">for <i>µ</i></text>
+<text top="730" left="548" width="11" height="12" font="0">&lt;</text>
+<text top="730" left="563" width="7" height="13" font="4">x</text>
+<text top="730" left="574" width="11" height="12" font="0">&lt;</text>
+<text top="727" left="589" width="11" height="17" font="4">∞</text>
+<text top="713" left="625" width="3" height="13" font="4">,</text>
+<text top="713" left="728" width="16" height="13" font="4">(3)</text>
+<text top="763" left="148" width="393" height="13" font="4">where <i>µ </i>represents the mode, and the two standard deviations <i>σ</i></text>
+<text top="768" left="541" width="5" height="10" font="9">1</text>
+<text top="763" left="550" width="35" height="13" font="4">and <i>σ</i></text>
+<text top="768" left="584" width="5" height="10" font="9">2</text>
+<text top="763" left="594" width="150" height="13" font="4">can be derived given the</text>
+<text top="780" left="149" width="386" height="13" font="4">overall uncertainty parameter, <i>σ </i>and skewness parameters, <i>γ</i>, as;</text>
+<text top="814" left="362" width="8" height="10" font="10"><i>σ</i></text>
+<text top="807" left="370" width="5" height="10" font="9">2</text>
+<text top="810" left="380" width="11" height="12" font="0">=</text>
+<text top="814" left="395" width="8" height="10" font="10"><i>σ</i></text>
+<text top="807" left="402" width="5" height="10" font="9">2</text>
+<text top="817" left="401" width="5" height="10" font="9">1</text>
+<text top="810" left="409" width="5" height="12" font="0">(</text>
+<text top="811" left="414" width="7" height="13" font="4">1</text>
+<text top="810" left="424" width="11" height="12" font="0">+</text>
+<text top="814" left="438" width="8" height="10" font="10"><i>γ</i></text>
+<text top="810" left="446" width="20" height="12" font="0">) =</text>
+<text top="814" left="471" width="8" height="10" font="10"><i>σ</i></text>
+<text top="807" left="478" width="5" height="10" font="9">2</text>
+<text top="817" left="477" width="5" height="10" font="9">2</text>
+<text top="810" left="485" width="5" height="12" font="0">(</text>
+<text top="811" left="490" width="7" height="13" font="4">1</text>
+<text top="810" left="500" width="11" height="13" font="0">−</text>
+<text top="814" left="514" width="8" height="10" font="10"><i>γ</i></text>
+<text top="810" left="522" width="5" height="12" font="0">)</text>
+<text top="811" left="528" width="3" height="13" font="4">.</text>
+<text top="811" left="728" width="16" height="13" font="4">(4)</text>
+<text top="840" left="149" width="596" height="13" font="4">Functions for the probability density, cumulative distribution, quantiles and random generation for</text>
+<text top="856" left="149" width="391" height="13" font="4">the split-normal distribution can be found in the <b>fanplot </b>package.</text>
+<text top="877" left="171" width="22" height="13" font="4">The</text>
+<text top="874" left="196" width="548" height="18" font="4">boe data frame provides historical details on the forecasts of the MPC for CPI inflation between</text>
+<text top="894" left="149" width="117" height="13" font="4">Q1 2004 to Q4 2013.</text>
+<text top="917" left="149" width="75" height="18" font="4">&gt; head(boe)</text>
+<text top="933" left="163" width="34" height="18" font="4">time0</text>
+<text top="933" left="224" width="178" height="18" font="4">time mode uncertainty skew</text>
+<text top="950" left="149" width="137" height="18" font="4">1 2004 2004.00 1.34</text>
+<text top="950" left="327" width="41" height="18" font="4">0.2249</text>
+<text top="950" left="396" width="7" height="18" font="4">0</text>
+<text top="966" left="149" width="137" height="18" font="4">2 2004 2004.25 1.60</text>
+<text top="966" left="327" width="41" height="18" font="4">0.3149</text>
+<text top="966" left="396" width="7" height="18" font="4">0</text>
+<text top="983" left="149" width="137" height="18" font="4">3 2004 2004.50 1.60</text>
+<text top="983" left="327" width="41" height="18" font="4">0.3824</text>
+<text top="983" left="396" width="7" height="18" font="4">0</text>
+<text top="999" left="149" width="137" height="18" font="4">4 2004 2004.75 1.71</text>
+<text top="999" left="327" width="41" height="18" font="4">0.4274</text>
+<text top="999" left="396" width="7" height="18" font="4">0</text>
+<text top="1016" left="149" width="137" height="18" font="4">5 2004 2005.00 1.77</text>
+<text top="1016" left="327" width="41" height="18" font="4">0.4499</text>
+<text top="1016" left="396" width="7" height="18" font="4">0</text>
+<text top="1032" left="149" width="137" height="18" font="4">6 2004 2005.25 1.68</text>
+<text top="1032" left="327" width="41" height="18" font="4">0.4761</text>
+<text top="1032" left="396" width="7" height="18" font="4">0</text>
+<text top="1062" left="148" width="98" height="13" font="4">The first column</text>
+<text top="1059" left="249" width="496" height="18" font="4">time0 refers to the base year of forecast, the second, time indexes future projections,</text>
+<text top="1079" left="148" width="596" height="13" font="4">whilst the remaining three columns provide values for the corresponding projected central location</text>
+<text top="1095" left="148" width="267" height="13" font="4">(<i>µ</i>), uncertainty (<i>σ</i>) and skew (<i>γ</i>) parameters:</text>
+<text top="1122" left="165" width="4" height="9" font="11">2</text>
+<text top="1124" left="170" width="570" height="12" font="1">The Bank of England predominately refer to the equivalent, re-parametrised, two-piece normal distribution.</text>
+<text top="1137" left="165" width="4" height="9" font="11"><a href="2015-1-abel.html#9">3</a></text>
+<text top="1139" left="170" width="32" height="12" font="20"><a href="2015-1-abel.html#9">Wallis</a></text>
+<text top="1139" left="206" width="4" height="12" font="1"><a href="2015-1-abel.html#9">(</a></text>
+<text top="1139" left="210" width="24" height="12" font="20"><a href="2015-1-abel.html#9">2014</a></text>
+<text top="1139" left="234" width="342" height="12" font="1"><a href="2015-1-abel.html#9">) </a>notes the two-piece normal distribution was first introduced by</text>
+<text top="1139" left="578" width="42" height="12" font="20"><a href="2015-1-abel.html#8">Fechner</a></text>
+<text top="1139" left="623" width="4" height="12" font="1"><a href="2015-1-abel.html#8">(</a></text>
+<text top="1139" left="627" width="24" height="12" font="20"><a href="2015-1-abel.html#8">1897</a></text>
+<text top="1139" left="651" width="7" height="12" font="1"><a href="2015-1-abel.html#8">).</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">19</text>
+<text top="103" left="171" width="575" height="13" font="4">Bank of England style fan charts vary from quarter to quarter but follow a similar theme through-</text>
+<text top="120" left="149" width="504" height="13" font="4">out, which can be replicated in R using the <b>fanplot </b>package. The input data given to a</text>
+<text top="116" left="656" width="88" height="18" font="4">fan function to</text>
+<text top="136" left="148" width="596" height="13" font="4">plot a fan chart differs from the simulations of the previous section. Rather than many simulations</text>
+<text top="152" left="149" width="595" height="13" font="4">from distributions in each time period we can pass a “matrix” object of time ordered values from</text>
+<text top="169" left="149" width="208" height="13" font="4">the split-normal quantile functi<a href="2015-1-abel.html#0">on.</a></text>
+<text top="166" left="357" width="5" height="10" font="8"><a href="2015-1-abel.html#0">4</a></text>
+<text top="169" left="368" width="296" height="13" font="4">As is the case for passing simulated values to the</text>
+<text top="165" left="667" width="78" height="18" font="4">fan function,</text>
+<text top="185" left="149" width="595" height="13" font="4">rows of the data object represent a set of user defined probabilities and columns represent a set of</text>
+<text top="202" left="149" width="595" height="13" font="4">time points. For example, in the code below, a subset of the Bank of England future parameters of</text>
+<text top="218" left="149" width="597" height="13" font="4">CPI published in Q1 2013 are first selected. Then a vector of probabilities related to the percentiles,</text>
+<text top="235" left="149" width="516" height="13" font="4">that we ultimately would like to plot different shaded fans for, are created. Finally, in a</text>
+<text top="231" left="668" width="76" height="18" font="4">for loop, the</text>
+<text top="248" left="149" width="595" height="18" font="4">qsplitnorm function calculates the values for which the time-specific (i) split-normal distribution will</text>
+<text top="268" left="149" width="251" height="13" font="4">be less than or equal to the probabilities of</text>
+<text top="264" left="403" width="10" height="18" font="4">p.</text>
+<text top="291" left="149" width="151" height="18" font="4"># select relevant data</text>
+<text top="307" left="149" width="69" height="18" font="4">y0 &lt;- 2013</text>
+<text top="324" left="149" width="219" height="18" font="4">boe0 &lt;- subset(boe, time0 == y0)</text>
+<text top="340" left="149" width="103" height="18" font="4">k &lt;- nrow(boe0)</text>
+<text top="373" left="149" width="357" height="18" font="4"># guess work to set percentiles the boe are plotting</text>
+<text top="390" left="149" width="178" height="18" font="4">p &lt;- seq(0.05, 0.95, 0.05)</text>
+<text top="406" left="149" width="144" height="18" font="4">p &lt;- c(0.01, p, 0.99)</text>
+<text top="439" left="149" width="562" height="18" font="4"># quantiles of split-normal distribution for each probability (row) at each future</text>
+<text top="455" left="149" width="144" height="18" font="4"># time point (column)</text>
+<text top="472" left="149" width="329" height="18" font="4">cpival &lt;- matrix(NA, nrow = length(p), ncol = k)</text>
+<text top="488" left="149" width="96" height="18" font="4">for (i in 1:k)</text>
+<text top="505" left="169" width="336" height="18" font="4">cpival[, i] &lt;- qsplitnorm(p, mode = boe0$mode[i],</text>
+<text top="521" left="348" width="171" height="18" font="4">sd = boe0$uncertainty[i],</text>
+<text top="538" left="348" width="137" height="18" font="4">skew = boe0$skew[i])</text>
+<text top="538" left="883" width="14" height="18" font="4">#$</text>
+<text top="568" left="148" width="93" height="13" font="4">The new object</text>
+<text top="564" left="245" width="499" height="18" font="4">cpival contains values evaluated from the qsplitnorm function in 6 rows, for our</text>
+<text top="584" left="149" width="261" height="13" font="4">selected probabilities used in the calculation</text>
+<text top="581" left="414" width="331" height="18" font="4">p, and 13 columns for successive time periods for which</text>
+<text top="601" left="149" width="216" height="13" font="4">the MPC provide future parameters.</text>
+<text top="622" left="171" width="22" height="13" font="4">The</text>
+<text top="618" left="197" width="549" height="18" font="4">cpival object can be used to add a fan chart to an active R graphic device. In the code below,</text>
+<text top="638" left="149" width="105" height="13" font="4">the area of Figure</text>
+<text top="638" left="257" width="7" height="13" font="6"><a href="2015-1-abel.html#6">4</a></text>
+<text top="638" left="267" width="452" height="13" font="4">is set up when plotting the past CPI data, contained in the time series object</text>
+<text top="635" left="722" width="24" height="18" font="4">cpi.</text>
+<text top="655" left="148" width="23" height="13" font="4">The</text>
+<text top="651" left="175" width="571" height="18" font="4">xlim arguments are set to ensure space on the right hand side of the plotting area for the fan.</text>
+<text top="671" left="149" width="563" height="13" font="4">Following as closely as possible the Bank of England style for plotting fan charts for Q1 <a href="2015-1-abel.html#0">2013</a></text>
+<text top="668" left="712" width="5" height="10" font="8"><a href="2015-1-abel.html#0">5</a></text>
+<text top="671" left="718" width="26" height="13" font="4"><a href="2015-1-abel.html#0">, </a>the</text>
+<text top="687" left="148" width="596" height="13" font="4">plotting area is set to near square, the background for future values is a gray colour, y-axis are plotted</text>
+<text top="704" left="149" width="596" height="13" font="4">on the right hand side, a horizontal line are added for the CPI target and a vertical line for the two-year</text>
+<text top="720" left="149" width="74" height="13" font="4">ahead point.</text>
+<text top="744" left="149" width="75" height="18" font="4"># past data</text>
+<text top="760" left="149" width="316" height="18" font="4">plot(cpi, type = &#34;l&#34;, col = &#34;tomato&#34;, lwd = 2,</text>
+<text top="777" left="183" width="288" height="18" font="4">xlim = c(y0 - 5, y0 + 3), ylim = c(-2, 7),</text>
+<text top="793" left="183" width="233" height="18" font="4">xaxt = &#34;n&#34;, yaxt = &#34;n&#34;, ylab = &#34;&#34;)</text>
+<text top="826" left="149" width="295" height="18" font="4"># background shading during forecast period</text>
+<text top="842" left="149" width="418" height="18" font="4">rect(y0 - 0.25, par(&#34;usr&#34;)[3] - 1, y0 + 3, par(&#34;usr&#34;)[4] + 1,</text>
+<text top="859" left="183" width="233" height="18" font="4">border = &#34;gray90&#34;, col = &#34;gray90&#34;)</text>
+<text top="892" left="149" width="62" height="18" font="4"># add fan</text>
+<text top="908" left="149" width="350" height="18" font="4">fan(data = cpival, data.type = &#34;values&#34;, probs = p,</text>
+<text top="925" left="176" width="439" height="18" font="4">start = y0, frequency = 4, anchor = cpi[time(cpi) == y0 - 0.25],</text>
+<text top="941" left="176" width="508" height="18" font="4">fan.col = colorRampPalette(c(&#34;tomato&#34;, &#34;gray90&#34;)), ln = NULL, rlab = NULL)</text>
+<text top="974" left="149" width="110" height="18" font="4"># boe aesthetics</text>
+<text top="990" left="149" width="370" height="18" font="4">axis(2, at = -2:7, las = 2, tcl = 0.5, labels = FALSE)</text>
+<text top="1007" left="149" width="261" height="18" font="4">axis(4, at = -2:7, las = 2, tcl = 0.5)</text>
+<text top="1023" left="149" width="233" height="18" font="4">axis(1, at = 2008:2016, tcl = 0.5)</text>
+<text top="1040" left="149" width="425" height="18" font="4">axis(1, at = seq(2008, 2016, 0.25), labels = FALSE, tcl = 0.2)</text>
+<text top="1056" left="149" width="89" height="18" font="4">abline(h = 2)</text>
+<text top="1056" left="368" width="110" height="18" font="4"># boe cpi target</text>
+<text top="1073" left="149" width="309" height="18" font="4">abline(v = y0 + 1.75, lty = 2) # 2 year line</text>
+<text top="1107" left="165" width="4" height="9" font="11">4</text>
+<text top="1109" left="170" width="350" height="12" font="1">Note, values from any distributions quantile function can be used.</text>
+<text top="1122" left="165" width="4" height="9" font="11">5</text>
+<text top="1124" left="170" width="448" height="12" font="1">The CPI fan chart for Q1 2013 can be viewed in the February 2013 Inflation Report <a href="2015-1-abel.html#8">(</a></text>
+<text top="1124" left="618" width="90" height="12" font="20"><a href="2015-1-abel.html#8">Bank of England</a></text>
+<text top="1124" left="708" width="3" height="12" font="1"><a href="2015-1-abel.html#8">,</a></text>
+<text top="1124" left="714" width="24" height="12" font="20"><a href="2015-1-abel.html#8">2013</a></text>
+<text top="1124" left="738" width="7" height="12" font="1"><a href="2015-1-abel.html#8">),</a></text>
+<text top="1138" left="149" width="51" height="12" font="1">Chart 5.3.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">20</text>
+<text top="457" left="635" width="13" height="10" font="13">−2</text>
+<text top="420" left="635" width="13" height="10" font="13">−1</text>
+<text top="382" left="635" width="6" height="10" font="13">0</text>
+<text top="344" left="635" width="6" height="10" font="13">1</text>
+<text top="306" left="635" width="6" height="10" font="13">2</text>
+<text top="268" left="635" width="6" height="10" font="13">3</text>
+<text top="231" left="635" width="6" height="10" font="13">4</text>
+<text top="193" left="635" width="6" height="10" font="13">5</text>
+<text top="155" left="635" width="6" height="10" font="13">6</text>
+<text top="117" left="635" width="6" height="10" font="13">7</text>
+<text top="485" left="269" width="25" height="10" font="13">2008</text>
+<text top="485" left="310" width="25" height="10" font="13">2009</text>
+<text top="485" left="352" width="25" height="10" font="13">2010</text>
+<text top="485" left="393" width="25" height="10" font="13">2011</text>
+<text top="485" left="434" width="25" height="10" font="13">2012</text>
+<text top="485" left="476" width="25" height="10" font="13">2013</text>
+<text top="485" left="517" width="25" height="10" font="13">2014</text>
+<text top="485" left="558" width="25" height="10" font="13">2015</text>
+<text top="485" left="600" width="25" height="10" font="13">2016</text>
+<text top="512" left="149" width="54" height="13" font="3"><b>Figure 4:</b></text>
+<text top="511" left="208" width="536" height="13" font="4">Fan chart, in the Bank of England style, for the MPC Q1 2013 forecast of the percentage</text>
+<text top="528" left="149" width="194" height="13" font="4">increase in prices on year earlier.</text>
+<text top="578" left="148" width="251" height="13" font="4">The fan chart itself is outputted from the</text>
+<text top="574" left="404" width="340" height="18" font="4">fan function, where arguments are set to ensure a close</text>
+<text top="594" left="149" width="595" height="13" font="4">resemblance of the R plot to that produced by the Bank of England. The first three arguments in the</text>
+<text top="607" left="149" width="595" height="18" font="4">fan function called in the above code, provide the cpival data to be plotted, indicate that the data</text>
+<text top="627" left="149" width="595" height="13" font="4">are a set of calculated values (as opposed to simulations as in the previous examples) and provide</text>
+<text top="643" left="149" width="289" height="13" font="4">the probabilities that correspond to each row of</text>
+<text top="640" left="442" width="302" height="18" font="4">cpival object. The next two arguments define the</text>
+<text top="660" left="149" width="595" height="13" font="4">start time and frequency of the data. These operate in a similar fashion to those used when defining</text>
+<text top="676" left="149" width="145" height="13" font="4">time series in R with the</text>
+<text top="673" left="298" width="447" height="18" font="4">ts function. The anchor argument is set to the value of CPI before the start</text>
+<text top="693" left="149" width="598" height="13" font="4">of the fan chart. This allows a join between the value of the Q1 2013 observation and the fan chart.</text>
+<text top="709" left="148" width="22" height="13" font="4">The</text>
+<text top="706" left="174" width="570" height="18" font="4">fan.col argument is set to a colour palette for shades between tomato and gray90. The final two</text>
+<text top="726" left="149" width="118" height="13" font="4">arguments are set to</text>
+<text top="722" left="271" width="474" height="18" font="4">NULL to suppress the plotting of contour lines at the boundary of each shaded fan</text>
+<text top="742" left="149" width="293" height="13" font="4">and their labels, as per the Bank of England style.</text>
+<text top="763" left="171" width="168" height="13" font="4">An alternative plot in Figure</text>
+<text top="763" left="342" width="7" height="13" font="6"><a href="2015-1-abel.html#7">5</a></text>
+<text top="763" left="352" width="392" height="13" font="4">is based on a regular time series object of simulated data and some</text>
+<text top="779" left="149" width="153" height="13" font="4">other style settings in the</text>
+<text top="776" left="305" width="439" height="18" font="4">fan function. These produce a fan chart with a greater array of coloured</text>
+<text top="796" left="149" width="595" height="13" font="4">fans with labels and contour lines alongside selected percentiles of the future distribution. The input</text>
+<text top="812" left="149" width="380" height="13" font="4">data is based upon 10,000 simulated values produced using the</text>
+<text top="809" left="532" width="212" height="18" font="4">rsplitnorm function and the future</text>
+<text top="829" left="149" width="398" height="13" font="4">split-normal distribution parameters from Q1 2013 in the truncated</text>
+<text top="825" left="551" width="98" height="18" font="4">boe0 data frame;</text>
+<text top="852" left="149" width="165" height="18" font="4"># simulate future values</text>
+<text top="869" left="149" width="302" height="18" font="4">cpisim &lt;- matrix(NA, nrow = 10000, ncol = k)</text>
+<text top="885" left="149" width="96" height="18" font="4">for (i in 1:k)</text>
+<text top="902" left="163" width="391" height="18" font="4">cpisim[, i] &lt;- rsplitnorm(n = 10000, mode = boe0$mode[i],</text>
+<text top="918" left="341" width="171" height="18" font="4">sd = boe0$uncertainty[i],</text>
+<text top="934" left="341" width="137" height="18" font="4">skew = boe0$skew[i])</text>
+<text top="965" left="148" width="245" height="13" font="4">The fan chart based on the simulations in</text>
+<text top="961" left="397" width="334" height="18" font="4">cpisim are then be added to the truncated CPI data plot;</text>
+<text top="988" left="149" width="206" height="18" font="4"># truncate cpi series and plot</text>
+<text top="1005" left="149" width="556" height="18" font="4">cpi0 &lt;- ts(cpi[time(cpi) &lt; 2013], start = start(cpi), frequency = frequency(cpi))</text>
+<text top="1021" left="149" width="350" height="18" font="4">plot(cpi0, type = &#34;l&#34;, lwd = 2, las = 1, ylab = &#34;&#34;,</text>
+<text top="1038" left="183" width="302" height="18" font="4">xlim = c(y0 - 5, y0 + 3.5), ylim = c(-2, 7))</text>
+<text top="1070" left="149" width="62" height="18" font="4"># add fan</text>
+<text top="1087" left="149" width="158" height="18" font="4">library(&#34;RColorBrewer&#34;)</text>
+<text top="1103" left="149" width="453" height="18" font="4">fan(data = cpisim, type = &#34;interval&#34;, probs = seq(0.01,0.99,0.01),</text>
+<text top="1120" left="176" width="412" height="18" font="4">start = y0, frequency = 4, ln = c(50,80,95), med.ln = FALSE,</text>
+<text top="1136" left="176" width="460" height="18" font="4">fan.col = colorRampPalette(colors = rev(brewer.pal(9, &#34;Oranges&#34;))))</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="21" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">21</text>
+<text top="485" left="269" width="25" height="10" font="13">2008</text>
+<text top="485" left="347" width="25" height="10" font="13">2010</text>
+<text top="485" left="424" width="25" height="10" font="13">2012</text>
+<text top="485" left="502" width="25" height="10" font="13">2014</text>
+<text top="485" left="580" width="25" height="10" font="13">2016</text>
+<text top="457" left="245" width="13" height="10" font="13">−2</text>
+<text top="382" left="252" width="6" height="10" font="13">0</text>
+<text top="306" left="252" width="6" height="10" font="13">2</text>
+<text top="231" left="252" width="6" height="10" font="13">4</text>
+<text top="155" left="252" width="6" height="10" font="13">6</text>
+<text top="422" left="593" width="23" height="8" font="16">L95%</text>
+<text top="381" left="593" width="23" height="8" font="16">L80%</text>
+<text top="348" left="593" width="23" height="8" font="16">L50%</text>
+<text top="270" left="593" width="24" height="8" font="16">U50%</text>
+<text top="234" left="593" width="24" height="8" font="16">U80%</text>
+<text top="194" left="593" width="24" height="8" font="16">U95%</text>
+<text top="512" left="253" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="511" left="311" width="329" height="13" font="4">Alternative fan chart for the MPC Q1 2013 CPI forecast.</text>
+<text top="558" left="148" width="596" height="13" font="4">This code shows how users can control multiple visual elements of the fan chart, not previously</text>
+<text top="575" left="149" width="122" height="13" font="4">illustrated. In Figure</text>
+<text top="575" left="274" width="7" height="13" font="6"><a href="2015-1-abel.html#7">5</a></text>
+<text top="575" left="284" width="460" height="13" font="4">the fan is based on 50 shadings for 100 equally spaced percentiles of the future</text>
+<text top="591" left="149" width="201" height="13" font="4">distributions specified through the</text>
+<text top="588" left="352" width="392" height="18" font="4">probs argument. The colour scheme is based on the Oranges palette</text>
+<text top="608" left="149" width="52" height="13" font="4">from the</text>
+<text top="608" left="204" width="88" height="13" font="7"><a href="http://CRAN.R-project.org/package=RColorBrewer"><b>RColorBrewer</b></a></text>
+<text top="608" left="295" width="58" height="13" font="4">package <a href="2015-1-abel.html#9">(</a></text>
+<text top="608" left="353" width="59" height="13" font="6"><a href="2015-1-abel.html#9">Neuwirth</a></text>
+<text top="608" left="412" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="608" left="419" width="27" height="13" font="6"><a href="2015-1-abel.html#9">2014</a></text>
+<text top="608" left="446" width="298" height="13" font="4"><a href="2015-1-abel.html#9">). </a>Contour lines for the upper and lower intervals</text>
+<text top="624" left="149" width="410" height="13" font="4">of the 50th, 80th and 95th prediction intervals are imposed using the</text>
+<text top="621" left="562" width="184" height="18" font="4">ln argument. The median line,</text>
+<text top="641" left="148" width="143" height="13" font="4">plotted by default when</text>
+<text top="637" left="295" width="390" height="18" font="4">type = &#34;interval&#34; is set, is removed using the med.ln argument.</text>
+<text top="662" left="171" width="66" height="13" font="4">Box plots <a href="2015-1-abel.html#9">(</a></text>
+<text top="662" left="237" width="37" height="13" font="6"><a href="2015-1-abel.html#9">Tukey</a></text>
+<text top="662" left="275" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="662" left="282" width="27" height="13" font="6"><a href="2015-1-abel.html#9">1977</a></text>
+<text top="662" left="310" width="435" height="13" font="4"><a href="2015-1-abel.html#9">) </a>are commonly used as a simple descriptive statistics to visualise data</text>
+<text top="678" left="149" width="162" height="13" font="4">through their quartiles. The</text>
+<text top="675" left="314" width="430" height="18" font="4">boxplot function in R has many options including the display of multiple</text>
+<text top="694" left="149" width="595" height="13" font="4">box plots based on sequential distributions. However, when data is based on a time series with</text>
+<text top="711" left="149" width="595" height="13" font="4">multiple observations during a unit of time, such as quarterly data, fixing the location of the plot</text>
+<text top="727" left="149" width="233" height="13" font="4">on the x-axis can be cumbersome. The</text>
+<text top="724" left="385" width="359" height="18" font="4">fan function overcomes this problem when setting style =</text>
+<text top="740" left="149" width="123" height="18" font="4">&#34;boxplot&#34;. In Figure</text>
+<text top="744" left="276" width="7" height="13" font="6"><a href="2015-1-abel.html#8">6</a></text>
+<text top="744" left="286" width="176" height="13" font="4">the simulated future CPI data</text>
+<text top="740" left="465" width="240" height="18" font="4">cpisim are passed to the data argument:</text>
+<text top="766" left="149" width="110" height="18" font="4"># plot past data</text>
+<text top="782" left="149" width="480" height="18" font="4">plot(cpi0, type = &#34;l&#34;, xlim = c(y0-5, y0+3), ylim = c(-2, 7), lwd = 2)</text>
+<text top="815" left="149" width="75" height="18" font="4"># box plots</text>
+<text top="832" left="149" width="508" height="18" font="4">fan(cpisim, style = &#34;boxplot&#34;, start = y0, frequency = 4, outline = FALSE)</text>
+<text top="861" left="148" width="23" height="13" font="4">The</text>
+<text top="857" left="175" width="569" height="18" font="4">fan function allows users to easily the locate sequential distributions of box plots on the x-axis</text>
+<text top="877" left="149" width="56" height="13" font="4">using the</text>
+<text top="874" left="208" width="536" height="18" font="4">start and frequency arguments. Additional arguments in the fan function are passed to</text>
+<text top="890" left="149" width="570" height="18" font="4">boxplot. For example from the code above, outliers are suppressed by setting outline = FALSE.</text>
+<text top="938" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="976" left="148" width="596" height="13" font="4">The <b>fanplot </b>package allows users to easily visualise uncertainty based on either simulations from</text>
+<text top="993" left="149" width="598" height="13" font="4">sequential distributions or values based on pre-calculated quartiles of distribution. Interactive visuali-</text>
+<text top="1009" left="149" width="265" height="13" font="4">sations of fan charts, as demonstrated in the</text>
+<text top="1006" left="417" width="179" height="18" font="4">net_elicit.R demo using the</text>
+<text top="1009" left="600" width="34" height="13" font="7"><a href="http://CRAN.R-project.org/package=shiny"><b>shiny</b></a></text>
+<text top="1009" left="638" width="58" height="13" font="4">package <a href="2015-1-abel.html#9">(</a></text>
+<text top="1009" left="695" width="49" height="13" font="6"><a href="2015-1-abel.html#9">RStudio</a></text>
+<text top="1026" left="149" width="47" height="13" font="6"><a href="2015-1-abel.html#9">and Inc.</a></text>
+<text top="1026" left="196" width="3" height="13" font="4"><a href="2015-1-abel.html#9">,</a></text>
+<text top="1026" left="202" width="26" height="13" font="6"><a href="2015-1-abel.html#9">2014</a></text>
+<text top="1026" left="229" width="412" height="13" font="4"><a href="2015-1-abel.html#9">), </a>could potentially allow for an intuitive elicitation of experts for<a href="2015-1-abel.html#0">ecasts</a></text>
+<text top="1023" left="641" width="5" height="10" font="8"><a href="2015-1-abel.html#0">6</a></text>
+<text top="1026" left="647" width="97" height="13" font="4"><a href="2015-1-abel.html#0">. </a>Data of various</text>
+<text top="1042" left="149" width="595" height="13" font="4">classes can be incorporated including regular time series (”mts”), irregular time series (”zoo”) and</text>
+<text top="1059" left="149" width="595" height="13" font="4">simulations from, say, MCMC via “matrix”, “data.frame” or “mcmc” type objects. The fanplot package</text>
+<text top="1075" left="149" width="596" height="13" font="4">also has a range of options to adjust colour shadings of fan charts, their lines and labels, and specify</text>
+<text top="1092" left="148" width="413" height="13" font="4">whether to display prediction intervals or percentiles of <a href="2015-1-abel.html#0">distributions.</a></text>
+<text top="1089" left="562" width="5" height="10" font="8"><a href="2015-1-abel.html#0">7</a></text>
+<text top="1117" left="165" width="4" height="9" font="11">6</text>
+<text top="1119" left="170" width="41" height="12" font="1">Run via</text>
+<text top="1116" left="215" width="305" height="16" font="21">demo(net_elicit, package = &#34;fanplot&#34;, ask = FALSE)</text>
+<text top="1119" left="520" width="3" height="12" font="1">.</text>
+<text top="1132" left="165" width="4" height="9" font="11">7</text>
+<text top="1134" left="170" width="428" height="12" font="1">An illustration of many of these options are provided in a demo file, run via</text>
+<text top="1131" left="603" width="141" height="16" font="21">demo(sv_fan, package =</text>
+<text top="1145" left="149" width="140" height="16" font="21">&#34;fanplot&#34;, ask = FALSE)</text>
+<text top="1148" left="289" width="3" height="12" font="1">.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">22</text>
+<text top="485" left="269" width="25" height="10" font="13">2008</text>
+<text top="485" left="352" width="25" height="10" font="13">2010</text>
+<text top="485" left="434" width="25" height="10" font="13">2012</text>
+<text top="485" left="517" width="25" height="10" font="13">2014</text>
+<text top="485" left="600" width="25" height="10" font="13">2016</text>
+<text top="457" left="245" width="13" height="10" font="13">−2</text>
+<text top="382" left="252" width="6" height="10" font="13">0</text>
+<text top="306" left="252" width="6" height="10" font="13">2</text>
+<text top="231" left="252" width="6" height="10" font="13">4</text>
+<text top="155" left="252" width="6" height="10" font="13">6</text>
+<text top="512" left="287" width="53" height="13" font="3"><b>Figure 6:</b></text>
+<text top="511" left="345" width="261" height="13" font="4">Box plots for the MPC Q1 2013 CPI forecast.</text>
+<text top="557" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="596" left="149" width="595" height="13" font="4">G. J. Abel, J. Bijak, J. J. Forster, J. Raymer, P. W. F. Smith, and J. S. Wong. Integrating uncertainty in time</text>
+<text top="612" left="164" width="582" height="13" font="4">series population forecasts: An illustration using a simple projection model. Demographic Research,</text>
+<text top="628" left="164" width="161" height="13" font="4">29:1187–1226, Dec. 2013. <a href="2015-1-abel.html#2">[p</a></text>
+<text top="628" left="325" width="13" height="13" font="6"><a href="2015-1-abel.html#2">16</a></text>
+<text top="628" left="338" width="4" height="13" font="4"><a href="2015-1-abel.html#2">]</a></text>
+<text top="656" left="149" width="111" height="13" font="4">Bank of England.</text>
+<text top="656" left="276" width="196" height="13" font="4">Inflation report February 2013.</text>
+<text top="656" left="487" width="259" height="13" font="4">Technical report, Bank of England, Lon-</text>
+<text top="673" left="164" width="207" height="13" font="4">don, United Kingdom, 2013. URL</text>
+<text top="669" left="375" width="370" height="18" font="6"><a href="http://www.bankofengland.co.uk/publications/Documents/inflationreport/2013/ir13feb.pdf">http://www.bankofengland.co.uk/publications/Documents/</a></text>
+<text top="686" left="164" width="219" height="18" font="6"><a href="http://www.bankofengland.co.uk/publications/Documents/inflationreport/2013/ir13feb.pdf">inflationreport/2013/ir13feb.pdf</a></text>
+<text top="689" left="383" width="21" height="13" font="4"><a href="http://www.bankofengland.co.uk/publications/Documents/inflationreport/2013/ir13feb.pdf">. </a><a href="2015-1-abel.html#5">[p</a></text>
+<text top="689" left="404" width="13" height="13" font="6"><a href="2015-1-abel.html#5">19</a></text>
+<text top="689" left="417" width="4" height="13" font="4"><a href="2015-1-abel.html#5">]</a></text>
+<text top="717" left="149" width="595" height="13" font="4">E. Britton, P. Fisher, and J. Whitley. The Inflation Report projections: understanding the fan chart. Bank</text>
+<text top="733" left="164" width="276" height="14" font="4">of England Quarterly Bulletin, 38:30–37, 1998. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="733" left="440" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="733" left="454" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="761" left="149" width="93" height="13" font="4">M. Buchmann.</text>
+<text top="761" left="259" width="268" height="13" font="4">MATLAB file exchange: Fan chart, 2010.</text>
+<text top="761" left="545" width="28" height="13" font="4">URL</text>
+<text top="757" left="581" width="165" height="18" font="6"><a href="http://www.mathworks.de/matlabcentral/fileexchange/27702-fan-chart">http://www.mathworks.de/</a></text>
+<text top="774" left="164" width="290" height="18" font="6"><a href="http://www.mathworks.de/matlabcentral/fileexchange/27702-fan-chart">matlabcentral/fileexchange/27702-fan-chart</a></text>
+<text top="777" left="453" width="21" height="13" font="4"><a href="http://www.mathworks.de/matlabcentral/fileexchange/27702-fan-chart">. </a><a href="2015-1-abel.html#1">[p</a></text>
+<text top="777" left="474" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="777" left="488" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="805" left="149" width="479" height="13" font="4">G. T. Fechner. Kollektivmasslehre. Leipzig, Germany: Wilhelm Engelmann, 1897. <a href="2015-1-abel.html#4">[p</a></text>
+<text top="805" left="628" width="13" height="13" font="6"><a href="2015-1-abel.html#4">18</a></text>
+<text top="805" left="642" width="4" height="13" font="4"><a href="2015-1-abel.html#4">]</a></text>
+<text top="833" left="149" width="597" height="13" font="4">P. Gerland, A. E. Raftery, H. Sevˇcíková, N. Li, D. Gu, T. Spoorenberg, L. Alkema, B. K. Fosdick, J. Chunn,</text>
+<text top="849" left="164" width="581" height="13" font="4">N. Lalic, G. Bay, T. Buettner, G. K. Heilig, and J. Wilmoth. World population stabilization unlikely</text>
+<text top="866" left="164" width="319" height="13" font="4">this century. Science, 387(6635):803–805, Sept. 2014. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="866" left="483" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="866" left="497" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="893" left="149" width="596" height="13" font="4">A. C. Harvey. Forecasting, Structural Time Series Models and the Kalman Filter. Cambridge University</text>
+<text top="910" left="164" width="267" height="13" font="4">Press, Cambridge, United Kingdom, 1990. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="910" left="431" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="910" left="444" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="937" left="149" width="597" height="13" font="4">D. Hedeker and R. D. Gibbons. Longitudinal Data Analysis. John Wiley &amp; Sons, Hoboken, NJ, USA,</text>
+<text top="954" left="164" width="48" height="13" font="4">2006. <a href="2015-1-abel.html#3">[p</a></text>
+<text top="954" left="211" width="13" height="13" font="6"><a href="2015-1-abel.html#3">17</a></text>
+<text top="954" left="225" width="4" height="13" font="4"><a href="2015-1-abel.html#3">]</a></text>
+<text top="982" left="149" width="598" height="13" font="4">R. J. Hyndman and Y. Khandakar. Automatic time series forecasting: The forecast package for R.</text>
+<text top="998" left="164" width="267" height="14" font="4">Journal of Statistical Software, 27:1–22, 2008. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="998" left="431" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="998" left="445" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="1026" left="149" width="559" height="13" font="4">J. M. Julio. The fan chart: The technical details of the new implementation. 2007. URL</text>
+<text top="1022" left="713" width="34" height="18" font="6"><a href="http://www.banrep.gov.co/docum/ftp/borra468.pdf">http:</a></text>
+<text top="1039" left="163" width="288" height="18" font="6"><a href="http://www.banrep.gov.co/docum/ftp/borra468.pdf">//www.banrep.gov.co/docum/ftp/borra468.pdf</a></text>
+<text top="1042" left="451" width="21" height="13" font="4"><a href="http://www.banrep.gov.co/docum/ftp/borra468.pdf">. </a><a href="2015-1-abel.html#1">[p</a></text>
+<text top="1042" left="472" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="1042" left="485" width="3" height="13" font="4"><a href="2015-1-abel.html#1">,</a></text>
+<text top="1042" left="492" width="13" height="13" font="6"><a href="2015-1-abel.html#4">18</a></text>
+<text top="1042" left="506" width="4" height="13" font="4"><a href="2015-1-abel.html#4">]</a></text>
+<text top="1070" left="149" width="379" height="13" font="4">J. M. Julio. The HPD fan chart with data revision. 2009. URL</text>
+<text top="1066" left="532" width="213" height="18" font="6"><a href="http://mpra.ub.uni-muenchen.de/57714/">http://mpra.ub.uni-muenchen.de/</a></text>
+<text top="1083" left="164" width="41" height="18" font="6"><a href="http://mpra.ub.uni-muenchen.de/57714/">57714/</a></text>
+<text top="1086" left="205" width="21" height="13" font="4"><a href="http://mpra.ub.uni-muenchen.de/57714/">. </a><a href="2015-1-abel.html#1">[p</a></text>
+<text top="1086" left="226" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="1086" left="239" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="1114" left="149" width="598" height="13" font="4">B. B. McShane and A. J. Wyner. A statistical analysis of multiple temperature proxies: Are reconstruc-</text>
+<text top="1130" left="164" width="582" height="13" font="4">tions of surface temperatures over the last 1000 years reliable? The Annals of Applied Statistics, 5(1):</text>
+<text top="1147" left="164" width="112" height="13" font="4">5–44, Mar. 2011. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="1147" left="276" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="1147" left="289" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">23</text>
+<text top="103" left="149" width="597" height="13" font="4">R. Meyer and J. Yu. BUGS for a Bayesian analysis of stochastic volatility models. Econometrics Journal,</text>
+<text top="120" left="164" width="157" height="13" font="4">3(2):198–215, Dec. 2002. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="120" left="321" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="120" left="334" width="3" height="13" font="4"><a href="2015-1-abel.html#1">,</a></text>
+<text top="120" left="341" width="13" height="13" font="6"><a href="2015-1-abel.html#2">16</a></text>
+<text top="120" left="354" width="4" height="13" font="4"><a href="2015-1-abel.html#2">]</a></text>
+<text top="148" left="149" width="358" height="13" font="4">E. Neuwirth. RColorBrewer: ColorBrewer Palettes, 2014. URL</text>
+<text top="145" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=RColorBrewer">http://CRAN.R-project.org/package=</a></text>
+<text top="161" left="164" width="82" height="18" font="6"><a href="http://CRAN.R-project.org/package=RColorBrewer">RColorBrewer</a></text>
+<text top="164" left="246" width="21" height="13" font="4"><a href="http://CRAN.R-project.org/package=RColorBrewer">. </a><a href="2015-1-abel.html#7">[p</a></text>
+<text top="164" left="267" width="13" height="13" font="6"><a href="2015-1-abel.html#7">21</a></text>
+<text top="164" left="280" width="4" height="13" font="4"><a href="2015-1-abel.html#7">]</a></text>
+<text top="193" left="149" width="595" height="13" font="4">B. Pfaff. VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical</text>
+<text top="209" left="163" width="138" height="14" font="4">Software, 27(4), 2008. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="209" left="301" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="209" left="315" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="238" left="149" width="414" height="13" font="4">RStudio and Inc. shiny: Web Application Framework for R, 2014. URL</text>
+<text top="234" left="566" width="179" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">http://CRAN.R-project.org/</a></text>
+<text top="251" left="164" width="89" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">package=shiny</a></text>
+<text top="254" left="253" width="21" height="13" font="4"><a href="http://CRAN.R-project.org/package=shiny">. </a><a href="2015-1-abel.html#7">[p</a></text>
+<text top="254" left="274" width="13" height="13" font="6"><a href="2015-1-abel.html#7">21</a></text>
+<text top="254" left="287" width="4" height="13" font="4"><a href="2015-1-abel.html#7">]</a></text>
+<text top="282" left="149" width="595" height="13" font="4">J. Sanyal, S. Zhang, J. Dyer, A. Mercer, P. Amburn, and R. J. Moorhead. Noodles: a tool for visualization</text>
+<text top="299" left="164" width="580" height="13" font="4">of numerical weather model ensemble uncertainty. IEEE Transactions on Visualization and Computer</text>
+<text top="315" left="163" width="203" height="14" font="4">Graphics, 16(6):1421–1430, 2010. <a href="2015-1-abel.html#3">[p</a></text>
+<text top="315" left="366" width="13" height="13" font="6"><a href="2015-1-abel.html#3">17</a></text>
+<text top="315" left="380" width="4" height="13" font="4"><a href="2015-1-abel.html#3">]</a></text>
+<text top="344" left="149" width="597" height="13" font="4">D. Spiegelhalter, M. Pearson, and I. Short. Visualizing uncertainty about the future. Science, 333(6048):</text>
+<text top="360" left="163" width="148" height="13" font="4">1393–1400, Sept. 2011. <a href="2015-1-abel.html#1">[p</a></text>
+<text top="360" left="311" width="13" height="13" font="6"><a href="2015-1-abel.html#1">15</a></text>
+<text top="360" left="324" width="4" height="13" font="4"><a href="2015-1-abel.html#1">]</a></text>
+<text top="389" left="149" width="595" height="13" font="4">S. Sturtz, U. Ligges, and A. Gelman. R2WinBUGS: a package for running WinBUGS from R. Journal of</text>
+<text top="405" left="163" width="226" height="14" font="4">Statistical Software, 12(3):1–16, 2005. <a href="2015-1-abel.html#2">[p</a></text>
+<text top="405" left="390" width="13" height="13" font="6"><a href="2015-1-abel.html#2">16</a></text>
+<text top="405" left="403" width="4" height="13" font="4"><a href="2015-1-abel.html#2">]</a></text>
+<text top="433" left="149" width="596" height="13" font="4">J. W. Tukey. Exploratory Data Analysis. Addison-Wesley Publishing Company, Reading, MA, USA, 1</text>
+<text top="450" left="164" width="96" height="13" font="4">edition, 1977. <a href="2015-1-abel.html#7">[p</a></text>
+<text top="450" left="260" width="13" height="13" font="6"><a href="2015-1-abel.html#7">21</a></text>
+<text top="450" left="274" width="4" height="13" font="4"><a href="2015-1-abel.html#7">]</a></text>
+<text top="478" left="149" width="598" height="13" font="4">K. F. Wallis. The two-piece normal, binormal, or double Gaussian distribution: Its origin and rediscov-</text>
+<text top="495" left="164" width="303" height="13" font="4">eries. Statistical Science, 29(1):106–112, Feb. 2014. <a href="2015-1-abel.html#4">[p</a></text>
+<text top="495" left="467" width="13" height="13" font="6"><a href="2015-1-abel.html#4">18</a></text>
+<text top="495" left="480" width="4" height="13" font="4"><a href="2015-1-abel.html#4">]</a></text>
+<text top="523" left="149" width="595" height="13" font="4">A. Zeileis and G. Grothendieck. zoo: S3 infrastructure for regular and irregular time series. Journal of</text>
+<text top="539" left="163" width="226" height="14" font="4">Statistical Software, 30(6):1–27, 2005. <a href="2015-1-abel.html#2">[p</a></text>
+<text top="540" left="390" width="13" height="13" font="6"><a href="2015-1-abel.html#2">16</a></text>
+<text top="540" left="403" width="4" height="13" font="4"><a href="2015-1-abel.html#2">]</a></text>
+<text top="586" left="148" width="63" height="13" font="4">Guy J. Abel</text>
+<text top="602" left="148" width="255" height="13" font="4">Wittgenstein Centre (IIASA, VID/ÖAW, WU)</text>
+<text top="619" left="148" width="344" height="13" font="4">Vienna Institute of Demography/Austrian Academy of Sciences</text>
+<text top="635" left="148" width="175" height="13" font="4">Wohllebengasse 12-14, 6th floor,</text>
+<text top="651" left="148" width="117" height="13" font="4">1040 Vienna, Austria</text>
+<text top="665" left="149" width="130" height="18" font="6"><a href="mailto:guy.abel@oeaw.ac.at">guy.abel@oeaw.ac.at</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

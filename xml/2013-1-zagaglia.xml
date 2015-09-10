@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">80</text>
+<text top="98" left="149" width="585" height="30" font="2"><b>PIN: Measuring Asymmetric Information</b></text>
+<text top="137" left="149" width="396" height="30" font="2"><b>in Financial Markets with R</b></text>
+<text top="173" left="149" width="108" height="15" font="0">by Paolo Zagaglia</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="538" height="13" font="4">The package <b>PIN </b>computes a measure of asymmetric information in financial markets, the</text>
+<text top="231" left="149" width="595" height="13" font="4">so-called probability of informed trading. This is obtained from a sequential trade model and is used</text>
+<text top="247" left="149" width="595" height="13" font="4">to study the determinants of an asset price. Since the probability of informed trading depends on the</text>
+<text top="264" left="149" width="595" height="13" font="4">number of buy- and sell-initiated trades during a trading day, this paper discusses the entire modelling</text>
+<text top="280" left="149" width="595" height="13" font="4">cycle, from data handling to the computation of the probability of informed trading and the estimation</text>
+<text top="297" left="149" width="305" height="13" font="4">of parameters for the underlying theoretical model.</text>
+<text top="341" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="380" left="148" width="597" height="13" font="4">A large set of finance packages are available in R for an array of tasks including, among others,</text>
+<text top="397" left="148" width="154" height="13" font="4">portfolio analysis (e.g., see</text>
+<text top="397" left="306" width="66" height="13" font="6"><a href="2013-1-zagaglia.html#6">Boudt et al.</a></text>
+<text top="397" left="372" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="397" left="378" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">2010</a></text>
+<text top="397" left="405" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">;</a></text>
+<text top="397" left="411" width="61" height="13" font="6"><a href="2013-1-zagaglia.html#6">Kane et al.</a></text>
+<text top="397" left="472" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="397" left="479" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">2011</a></text>
+<text top="397" left="505" width="239" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>Only a small set of tools is available for</text>
+<text top="413" left="149" width="595" height="13" font="4">the study of intra-daily transactions, mostly focused on data-management issues. Yet these represent</text>
+<text top="430" left="149" width="423" height="13" font="4">only the first building block for modelling the dynamics of asset prices.</text>
+<text top="450" left="171" width="573" height="13" font="4">In recent years, the rise of algorithmic and high-frequency trading has shed a bright light on the fact</text>
+<text top="467" left="149" width="597" height="13" font="4">that movements in financial market prices are largely affected by microstructure forces. In particular,</text>
+<text top="483" left="149" width="595" height="13" font="4">some traders in the market may enjoy privileged information about the value of an asset, while others</text>
+<text top="500" left="149" width="596" height="13" font="4">may be trading merely on the basis of public news. The risk that an individual uninformed trader may</text>
+<text top="516" left="149" width="595" height="13" font="4">face an informed counterparty in the market-place is then an important determinant of asset prices</text>
+<text top="533" left="148" width="50" height="13" font="4">(e.g., see</text>
+<text top="533" left="202" width="69" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="533" left="271" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="533" left="278" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2002</a></text>
+<text top="533" left="305" width="439" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>Hence, measuring the probability that a counterparty enjoys asymmetric</text>
+<text top="549" left="149" width="595" height="13" font="4">information, also known as probability of informed trading (PIN), allows a trader to correctly price a</text>
+<text top="566" left="149" width="74" height="13" font="4">security (see</text>
+<text top="566" left="226" width="112" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley and O’Hara</a></text>
+<text top="566" left="338" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="566" left="345" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1987</a></text>
+<text top="566" left="372" width="8" height="13" font="4"><a href="2013-1-zagaglia.html#6">).</a></text>
+<text top="586" left="171" width="22" height="13" font="4">The</text>
+<text top="587" left="196" width="25" height="13" font="7"><a href="http://CRAN.R-project.org/package=PIN"><b>PIN</b></a></text>
+<text top="586" left="224" width="55" height="13" font="4">package <a href="2013-1-zagaglia.html#7">(</a></text>
+<text top="586" left="279" width="51" height="13" font="6"><a href="2013-1-zagaglia.html#7">Zagaglia</a></text>
+<text top="586" left="330" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#7">,</a></text>
+<text top="586" left="336" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#7">2013</a></text>
+<text top="586" left="362" width="382" height="13" font="4"><a href="2013-1-zagaglia.html#7">) </a>provides tools for calculating the probability of informed trading</text>
+<text top="603" left="148" width="73" height="13" font="4">proposed by</text>
+<text top="603" left="224" width="68" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="603" left="295" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="603" left="299" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="603" left="325" width="419" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>This measure is obtained by estimating a model of strategic interaction</text>
+<text top="619" left="149" width="595" height="13" font="4">between traders with different information sets. In particular, the probability of informed trading</text>
+<text top="636" left="149" width="440" height="13" font="4">depends on the number of buy- and sell-trades taking place in the market.</text>
+<text top="657" left="171" width="575" height="13" font="4">Knowledge about whether a trade is initiated by the buying or selling party is not always available.</text>
+<text top="673" left="149" width="598" height="13" font="4">In this case, the so-called signing of trades can be obtained from applying alternative classification al-</text>
+<text top="690" left="149" width="341" height="13" font="4">gorithms on trade and quote data, when available (e.g., see</text>
+<text top="690" left="493" width="86" height="13" font="6"><a href="2013-1-zagaglia.html#6">Lee and Ready</a></text>
+<text top="690" left="579" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="690" left="586" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">1991</a></text>
+<text top="690" left="612" width="132" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>These functionalities</text>
+<text top="706" left="149" width="274" height="13" font="4">are already offered by excellent packages in R.</text>
+<text top="727" left="171" width="573" height="13" font="4">To illustrate the complementarity between these data-handling tools and the <b>PIN </b>package, I</text>
+<text top="743" left="148" width="261" height="13" font="4">present a sample application that uses the</text>
+<text top="743" left="414" width="90" height="13" font="7"><a href="http://CRAN.R-project.org/package=highfrequency"><b>highfrequency</b></a></text>
+<text top="743" left="509" width="67" height="13" font="4">package of</text>
+<text top="743" left="581" width="106" height="13" font="6"><a href="2013-1-zagaglia.html#6">Cornelissen et al.</a></text>
+<text top="743" left="691" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="743" left="696" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2013</a></text>
+<text top="743" left="723" width="21" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>I</text>
+<text top="760" left="149" width="595" height="13" font="4">consider a data set of fictitious trades and quotes for a given trading day that is well representative</text>
+<text top="776" left="149" width="595" height="13" font="4">of standard limited order books. This allows me to consider a preliminary issue surrounding the</text>
+<text top="793" left="149" width="595" height="13" font="4">availability of data. Quotes often need to be matched to the available trades, in the sense of making</text>
+<text top="809" left="149" width="595" height="13" font="4">the time stamps of the two consistent with each other. Only after this is done, can the user compute</text>
+<text top="826" left="149" width="595" height="13" font="4">the number of implicit buy- and sell-trades, estimate the parameters of the sequential trade model</text>
+<text top="842" left="149" width="12" height="13" font="4">of</text>
+<text top="842" left="164" width="71" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="842" left="239" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="842" left="243" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="842" left="271" width="474" height="13" font="4"><a href="2013-1-zagaglia.html#6">), </a>and compute the resulting PIN. In other words, I discuss the entire empirical</text>
+<text top="858" left="149" width="330" height="13" font="4">modelling cycle for the probability of informed trading.</text>
+<text top="879" left="171" width="573" height="13" font="4">I should stress that typical applications of the PIN focus on the stock market. This is mostly due to</text>
+<text top="896" left="149" width="595" height="13" font="4">the large availability of accessible data. However, recent empirical contributions have estimated the</text>
+<text top="912" left="149" width="447" height="13" font="4">PIN for alternative markets, such as the U.S. government bond market (see</text>
+<text top="912" left="599" width="44" height="13" font="6"><a href="2013-1-zagaglia.html#6">Li et al.</a></text>
+<text top="912" left="643" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="912" left="650" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2009</a></text>
+<text top="912" left="677" width="8" height="13" font="4"><a href="2013-1-zagaglia.html#6">).</a></text>
+<text top="912" left="689" width="55" height="13" font="6"><a href="2013-1-zagaglia.html#6">Idier and</a></text>
+<text top="929" left="149" width="49" height="13" font="6"><a href="2013-1-zagaglia.html#6">Nardelli</a></text>
+<text top="929" left="202" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="929" left="206" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2011</a></text>
+<text top="929" left="233" width="513" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>provide an application to the European overnight money market. This is an over-the-</text>
+<text top="945" left="149" width="595" height="13" font="4">counter market, for which only representative price quotes are available. Estimating the probability of</text>
+<text top="962" left="149" width="597" height="13" font="4">informed trading on markets that do not feature a transparent organization of exchanges—for instance,</text>
+<text top="978" left="149" width="483" height="13" font="4">in the form of an order book or a market-maker—requires adapting the model of</text>
+<text top="978" left="635" width="71" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="978" left="709" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="978" left="714" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="978" left="741" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">)</a></text>
+<text top="994" left="149" width="596" height="13" font="4">to take into account the relevant idiosyncratic features. For this reason, the discussion in this paper</text>
+<text top="1011" left="149" width="595" height="13" font="4">focuses on standard market structures, such as those of today’s stock markets, and disregards the</text>
+<text top="1027" left="149" width="313" height="13" font="4">more controversial case of over-the-counter markets.</text>
+<text top="1072" left="149" width="378" height="17" font="5"><b>R packages for market microstructure analysis</b></text>
+<text top="1111" left="148" width="596" height="13" font="4">The basic prerequisite for any application in market microstructure is the availability of proper financial</text>
+<text top="1127" left="149" width="595" height="13" font="4">data. Hence, the R developers’ community has proposed a number of efficient and powerful tools to</text>
+<text top="1144" left="149" width="240" height="13" font="4">address the resulting big-data challenge.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="3" family="Times" color="#000000"/>
+	<fontspec id="11" size="7" family="Times" color="#000000"/>
+	<fontspec id="12" size="5" family="Times" color="#000000"/>
+	<fontspec id="13" size="4" family="Times" color="#000000"/>
+	<fontspec id="14" size="4" family="Times" color="#000000"/>
+	<fontspec id="15" size="4" family="Times" color="#0000ff"/>
+	<fontspec id="16" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="17" size="12" family="Times" color="#000000"/>
+	<fontspec id="18" size="6" family="Times" color="#000000"/>
+	<fontspec id="19" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">81</text>
+<text top="187" left="66" width="0" height="7" font="14">This content downloaded  on Tue, 12 Mar 2013 07:49:27 AM</text>
+<text top="206" left="59" width="0" height="7" font="14">All use subject to </text>
+<text top="256" left="59" width="0" height="7" font="15">JSTOR Terms and Conditions</text>
+<text top="435" left="365" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="435" left="422" width="106" height="13" font="4">The trading game</text>
+<text top="484" left="171" width="516" height="13" font="4">The starting point consists in downloading the data set from a provider. The package</text>
+<text top="484" left="691" width="53" height="13" font="7"><a href="http://CRAN.R-project.org/package=IBrokers"><b>IBrokers</b></a></text>
+<text top="501" left="149" width="15" height="13" font="4">by</text>
+<text top="501" left="167" width="31" height="13" font="6"><a href="2013-1-zagaglia.html#6">Ryan</a></text>
+<text top="501" left="201" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="501" left="206" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2011</a></text>
+<text top="501" left="233" width="511" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>provides access to the data-feed supplied by Interactive Brokers and automates data</text>
+<text top="517" left="149" width="311" height="13" font="4">requests for the creation of high-frequency data sets.</text>
+<text top="538" left="171" width="573" height="13" font="4">Given the availability of a financial-market data set, a variety of excellent functions are available</text>
+<text top="555" left="149" width="598" height="13" font="4">in R for data management, including data re-shuffling, plotting and computing descriptive statistics.</text>
+<text top="571" left="149" width="61" height="13" font="6"><a href="2013-1-zagaglia.html#6">Kane et al.</a></text>
+<text top="571" left="214" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="571" left="218" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">2011</a></text>
+<text top="571" left="244" width="130" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>presents the package</text>
+<text top="571" left="378" width="64" height="13" font="7"><a href="http://CRAN.R-project.org/package=orderbook"><b>orderbook</b></a></text>
+<text top="571" left="442" width="302" height="13" font="4"><a href="http://CRAN.R-project.org/package=orderbook">, </a>which provides data-handling functionalities from</text>
+<text top="587" left="149" width="123" height="13" font="4">limited order books.</text>
+<text top="587" left="276" width="138" height="13" font="6"><a href="2013-1-zagaglia.html#6">Boudt and Cornelissen</a></text>
+<text top="587" left="417" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="587" left="422" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2012</a></text>
+<text top="587" left="449" width="295" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>present R functions for managing the trade and</text>
+<text top="604" left="148" width="596" height="13" font="4">quote (TAQ) data set from NASDAQ and NYSE in R. TAQ data set files are available in different forms</text>
+<text top="620" left="149" width="598" height="13" font="4">that report different types of information, potentially involving a detailed structure of the order books.</text>
+<text top="637" left="148" width="596" height="13" font="4">This can easily result in terabytes of data. For this purpose, Emerson and Kane have extended the</text>
+<text top="653" left="149" width="403" height="13" font="4">available packages with the aim of handling terabyte-large data <a href="2013-1-zagaglia.html#0">sets</a></text>
+<text top="650" left="552" width="5" height="10" font="16"><a href="2013-1-zagaglia.html#0">1</a></text>
+<text top="653" left="558" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#0">.</a></text>
+<text top="674" left="171" width="573" height="13" font="4">Only a few tools are available to the user community for the study of market-microstructure issues</text>
+<text top="691" left="149" width="28" height="13" font="4">in R.</text>
+<text top="691" left="181" width="62" height="13" font="6"><a href="2013-1-zagaglia.html#6">Enos et al.</a></text>
+<text top="691" left="246" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="691" left="251" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2008</a></text>
+<text top="691" left="278" width="466" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>present a library for the computation of trade costs in market transaction of</text>
+<text top="707" left="149" width="250" height="13" font="4">stocks. In a recent conference pr<a href="2013-1-zagaglia.html#0">esentation</a></text>
+<text top="704" left="399" width="5" height="10" font="16"><a href="2013-1-zagaglia.html#0">2</a></text>
+<text top="707" left="405" width="339" height="13" font="4"><a href="2013-1-zagaglia.html#0">, </a>Yan and Zivot discuss the implementation of models for</text>
+<text top="723" left="148" width="282" height="13" font="4">price impact and discovery in the stock market.</text>
+<text top="744" left="171" width="503" height="13" font="4">The <b>RTAQ </b>package has recently been incorporated into the <b>highfrequency </b>package <a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="744" left="675" width="70" height="13" font="6"><a href="2013-1-zagaglia.html#6">Cornelissen</a></text>
+<text top="761" left="149" width="29" height="13" font="6"><a href="2013-1-zagaglia.html#6">et al.</a></text>
+<text top="761" left="178" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="761" left="186" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2013</a></text>
+<text top="761" left="213" width="531" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>In this extension, the user is provided with functions to compute different measures</text>
+<text top="777" left="149" width="221" height="13" font="4">of market liquidity, such as those of</text>
+<text top="777" left="374" width="132" height="13" font="6"><a href="2013-1-zagaglia.html#6">Hasbrouck and Seppi</a></text>
+<text top="777" left="510" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="777" left="515" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2001</a></text>
+<text top="777" left="542" width="32" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>and</text>
+<text top="777" left="579" width="88" height="13" font="6"><a href="2013-1-zagaglia.html#6">Venkataraman</a></text>
+<text top="777" left="671" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="777" left="676" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2001</a></text>
+<text top="777" left="703" width="41" height="13" font="4"><a href="2013-1-zagaglia.html#6">). </a>This</text>
+<text top="794" left="148" width="596" height="13" font="4">package also provides functionalities for classifying trade origination. Not all the markets provide</text>
+<text top="810" left="148" width="596" height="13" font="4">public information on whether a trade starts either from the buy-side, or from the sell-side. This is a</text>
+<text top="827" left="148" width="596" height="13" font="4">prerequisite for studying a large number of topics in market microstructure, including asymmetric</text>
+<text top="843" left="149" width="596" height="13" font="4">information and informed trading. For this purpose, several methods have been proposed to infer</text>
+<text top="859" left="149" width="595" height="13" font="4">trade direction from changes in market prices and quotes. The <b>highfrequency </b>package implements</text>
+<text top="876" left="149" width="371" height="13" font="4">an effective modification of the so-called tick rule proposed by</text>
+<text top="876" left="523" width="88" height="13" font="6"><a href="2013-1-zagaglia.html#6">Lee and Ready</a></text>
+<text top="876" left="615" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="876" left="620" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1991</a></text>
+<text top="876" left="647" width="8" height="13" font="4"><a href="2013-1-zagaglia.html#6">).</a></text>
+<text top="921" left="149" width="388" height="17" font="5"><b>Computing the probability of informed trading</b></text>
+<text top="962" left="149" width="149" height="15" font="17"><b>The theoretical model</b></text>
+<text top="994" left="149" width="72" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="994" left="224" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="994" left="229" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="994" left="256" width="254" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>build on the sequential trading model of</text>
+<text top="994" left="514" width="131" height="13" font="6"><a href="2013-1-zagaglia.html#6">Glosten and Milgrom</a></text>
+<text top="994" left="649" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="994" left="653" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1987</a></text>
+<text top="994" left="681" width="31" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>and</text>
+<text top="994" left="716" width="28" height="13" font="6"><a href="2013-1-zagaglia.html#6">Kyle</a></text>
+<text top="1010" left="148" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="1010" left="153" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">1985</a></text>
+<text top="1010" left="179" width="567" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>to estimate the probability that a counterpart in the trading process enjoys superior information.</text>
+<text top="1027" left="148" width="598" height="13" font="4">This is based on the assumption that the market is composed by a heterogeneous population of traders.</text>
+<text top="1043" left="149" width="342" height="13" font="4">Some traders are informed , while others are uninformed .</text>
+<text top="1064" left="171" width="573" height="13" font="4">Within each trading day, a competitive market-maker buys or sells a security at the bid and ask</text>
+<text top="1091" left="165" width="4" height="9" font="18">1</text>
+<text top="1093" left="170" width="234" height="12" font="1">Towards Terabytes of TAQ, R in Finance 2012,</text>
+<text top="1094" left="407" width="341" height="10" font="19"><a href="http://www.rinfinance.com/agenda/2012/talk/Emerson+Kane.pdf">http://www.rinfinance.com/agenda/2012/talk/Emerson+Kane.</a></text>
+<text top="1108" left="149" width="18" height="10" font="19"><a href="http://www.rinfinance.com/agenda/2012/talk/Emerson+Kane.pdf">pdf</a></text>
+<text top="1120" left="165" width="4" height="9" font="18">2</text>
+<text top="1122" left="170" width="340" height="12" font="1">Estimating the Dynamics of Price Discovery, R in Finance 2012,</text>
+<text top="1123" left="514" width="232" height="10" font="19"><a href="http://www.rinfinance.com/agenda/2012/talk/Yan+Zivot.pptx">http://www.rinfinance.com/agenda/2012/</a></text>
+<text top="1137" left="149" width="116" height="10" font="19"><a href="http://www.rinfinance.com/agenda/2012/talk/Yan+Zivot.pptx">talk/Yan+Zivot.pptx</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="20" size="11" family="Times" color="#000000"/>
+	<fontspec id="21" size="8" family="Times" color="#000000"/>
+	<fontspec id="22" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">82</text>
+<text top="103" left="148" width="596" height="13" font="4">quotes that he or she announce publicly to the market. Since the market-maker is risk-neutral and</text>
+<text top="120" left="149" width="595" height="13" font="4">competes with the traders in the transactions, the resulting prices represent the expected value of the</text>
+<text top="136" left="149" width="434" height="13" font="4">stock conditional on the market-maker’s information at the time of trade.</text>
+<text top="157" left="171" width="573" height="13" font="4">Before the beginning of a trading day, nature determines whether an information event relevant to</text>
+<text top="173" left="149" width="595" height="13" font="4">the value of the stock will occur. Information events are independently distributed and occur with</text>
+<text top="190" left="148" width="596" height="13" font="4">probability <i>α</i>. Good news events take place with a probability <i>δ </i>and bad news events occur with a</text>
+<text top="206" left="148" width="74" height="13" font="4">probability 1</text>
+<text top="205" left="225" width="11" height="16" font="0">−</text>
+<text top="209" left="239" width="6" height="10" font="20"><i>δ</i></text>
+<text top="206" left="245" width="499" height="13" font="4">. At the end of the day, the information set of each actor in the market is complete and</text>
+<text top="223" left="149" width="221" height="13" font="4">the true value of the stock is realized.</text>
+<text top="244" left="171" width="573" height="13" font="4">The market-maker knows both the probability of these events taking place and the arrival order of</text>
+<text top="260" left="149" width="522" height="13" font="4">information to the market. However, he or she does not know which event is realized.</text>
+<text top="260" left="675" width="72" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="276" left="148" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="276" left="153" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="276" left="179" width="565" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>assume that the market-maker is Bayesian in that they use the information from trade arrival to</text>
+<text top="293" left="149" width="595" height="13" font="4">update their belief about information events. Since the information set is independent across days, the</text>
+<text top="309" left="149" width="503" height="13" font="4">model structure allows the change in beliefs to be considered separately on each day.</text>
+<text top="330" left="171" width="573" height="13" font="4">In this framework, the market is made by the traders that can observe the signals about the true</text>
+<text top="347" left="149" width="595" height="13" font="4">stock value and that benefit from asymmetric information. There are also uninformed traders that</text>
+<text top="363" left="149" width="596" height="13" font="4">receive no news about the stock price. These two groups of traders enter the market with a frequency</text>
+<text top="380" left="149" width="489" height="13" font="4">determined by independent Poisson processes at any minute within a trading day.</text>
+<text top="401" left="171" width="573" height="13" font="4">An information-revealing event causes informed traders to enter the market. For instance, if a</text>
+<text top="417" left="147" width="597" height="13" font="4">‘high-value’ or ‘good’ signal materializes, these traders buy the stock. The arrival of news events both</text>
+<text top="433" left="149" width="424" height="13" font="4">to the market and to each trader follow independent Poisson processes.</text>
+<text top="454" left="171" width="556" height="13" font="4">The set of events and associated probabilities can be represented in the trading tree of Figure</text>
+<text top="454" left="731" width="12" height="13" font="7"><a href="2013-1-zagaglia.html#2"><b>??</b></a></text>
+<text top="454" left="743" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#2">.</a></text>
+<text top="471" left="148" width="597" height="13" font="4">At the first node of the tree, nature selects whether an information event occurs. If an event does occur,</text>
+<text top="487" left="149" width="595" height="13" font="4">nature determines the sign of the resulting news. The three nodes of ‘no event’, ‘good news’ and ‘bad</text>
+<text top="504" left="149" width="265" height="13" font="4">news’ placed before the dotted line of Figure</text>
+<text top="504" left="418" width="12" height="13" font="7"><a href="2013-1-zagaglia.html#2"><b>??</b></a></text>
+<text top="504" left="433" width="312" height="13" font="4">occur only once per day. Given the node selected for</text>
+<text top="520" left="149" width="595" height="13" font="4">the day, traders arrive according to the relevant Poisson processes. On good-event days, the arrival</text>
+<text top="537" left="149" width="60" height="13" font="4">rates are <i>e</i></text>
+<text top="536" left="211" width="11" height="12" font="0">+</text>
+<text top="540" left="225" width="8" height="10" font="20"><i>µ</i></text>
+<text top="537" left="237" width="508" height="13" font="4">for buy orders and <i>e </i>for sell orders. On bad-event days, the arrival rates are <i>e </i>for buys</text>
+<text top="553" left="149" width="33" height="13" font="4">and <i>e</i></text>
+<text top="553" left="185" width="11" height="12" font="0">+</text>
+<text top="556" left="199" width="8" height="10" font="20"><i>µ</i></text>
+<text top="553" left="211" width="533" height="13" font="4">for sells. Finally, on days without information-revealing news, only uninformed traders</text>
+<text top="569" left="149" width="282" height="13" font="4">take part in the market with an arrival rate of <i>e</i>.</text>
+<text top="590" left="171" width="575" height="13" font="4">While observing changes in the order book, traders obtain information about order arrival. How-</text>
+<text top="607" left="149" width="595" height="13" font="4">ever, they cannot observe the underlying motives for trading by counterparties. In other words, traders</text>
+<text top="623" left="149" width="595" height="13" font="4">do not know the parameter values of the model consistent with trading patterns. However, these</text>
+<text top="640" left="148" width="337" height="13" font="4">parameters can be estimated from data on order arrivals.</text>
+<text top="682" left="149" width="346" height="15" font="17"><b>Empirical implementation of the theoretical model</b></text>
+<text top="714" left="149" width="564" height="13" font="4">In order to reduce the parameter space, it is typically assumed that the sell- and buy-arrival rates <i>e</i></text>
+<text top="719" left="713" width="5" height="10" font="21">b</text>
+<text top="714" left="722" width="22" height="13" font="4">and</text>
+<text top="733" left="149" width="6" height="10" font="20"><i>e</i></text>
+<text top="734" left="155" width="4" height="10" font="21">s</text>
+<text top="730" left="164" width="580" height="13" font="4">are equal. On a good-day event, the probability of observing a sequence of buy- and sell-initiated</text>
+<text top="746" left="149" width="105" height="13" font="4">trades is given by</text>
+<text top="773" left="357" width="5" height="13" font="4">e</text>
+<text top="769" left="363" width="44" height="13" font="21">−(<i>µ</i>+<i>e</i>)T</text>
+<text top="764" left="410" width="10" height="12" font="0">[(</text>
+<text top="767" left="420" width="8" height="10" font="20"><i>µ</i></text>
+<text top="764" left="431" width="11" height="12" font="0">+</text>
+<text top="767" left="445" width="6" height="10" font="20"><i>e</i></text>
+<text top="764" left="452" width="5" height="12" font="0">)</text>
+<text top="764" left="457" width="8" height="13" font="4">T</text>
+<text top="764" left="466" width="4" height="12" font="0">]</text>
+<text top="761" left="471" width="6" height="10" font="21">B</text>
+<text top="782" left="438" width="12" height="14" font="4">B!</text>
+<text top="773" left="480" width="5" height="13" font="4">e</text>
+<text top="772" left="485" width="12" height="8" font="22"><i>e</i>T</text>
+<text top="764" left="500" width="5" height="12" font="0">(</text>
+<text top="767" left="506" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="764" left="522" width="5" height="12" font="0">)</text>
+<text top="761" left="527" width="6" height="10" font="21">S</text>
+<text top="782" left="511" width="12" height="14" font="4">S!</text>
+<text top="773" left="728" width="16" height="13" font="4">(1)</text>
+<text top="800" left="149" width="271" height="13" font="4">On a bad-signal day, this probability becomes</text>
+<text top="839" left="357" width="5" height="13" font="4">e</text>
+<text top="838" left="363" width="12" height="8" font="22"><i>e</i>T</text>
+<text top="830" left="377" width="5" height="12" font="0">(</text>
+<text top="833" left="383" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="830" left="399" width="5" height="12" font="0">)</text>
+<text top="827" left="405" width="6" height="10" font="21">B</text>
+<text top="848" left="389" width="12" height="14" font="4">B!</text>
+<text top="839" left="414" width="5" height="13" font="4">e</text>
+<text top="835" left="420" width="44" height="13" font="21">−(<i>µ</i>+<i>e</i>)T</text>
+<text top="830" left="467" width="10" height="12" font="0">[(</text>
+<text top="833" left="477" width="8" height="10" font="20"><i>µ</i></text>
+<text top="830" left="488" width="11" height="12" font="0">+</text>
+<text top="833" left="502" width="6" height="10" font="20"><i>e</i></text>
+<text top="830" left="508" width="5" height="12" font="0">)</text>
+<text top="830" left="514" width="8" height="13" font="4">T</text>
+<text top="830" left="523" width="4" height="12" font="0">]</text>
+<text top="827" left="527" width="6" height="10" font="21">S</text>
+<text top="848" left="495" width="12" height="14" font="4">S!</text>
+<text top="839" left="728" width="16" height="13" font="4">(2)</text>
+<text top="872" left="149" width="595" height="13" font="4">Finally, when information-revealing events do not take place, the likelihood of observing orders is</text>
+<text top="889" left="149" width="48" height="13" font="4">equal to</text>
+<text top="915" left="390" width="5" height="13" font="4">e</text>
+<text top="915" left="396" width="12" height="8" font="22"><i>e</i>T</text>
+<text top="906" left="410" width="5" height="12" font="0">(</text>
+<text top="910" left="416" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="906" left="432" width="5" height="12" font="0">)</text>
+<text top="904" left="438" width="6" height="10" font="21">B</text>
+<text top="925" left="422" width="12" height="14" font="4">B!</text>
+<text top="915" left="447" width="5" height="13" font="4">e</text>
+<text top="915" left="453" width="12" height="8" font="22"><i>e</i>T</text>
+<text top="906" left="467" width="5" height="12" font="0">(</text>
+<text top="910" left="473" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="906" left="489" width="5" height="12" font="0">)</text>
+<text top="904" left="494" width="6" height="10" font="21">S</text>
+<text top="925" left="478" width="12" height="14" font="4">S!</text>
+<text top="916" left="728" width="16" height="13" font="4">(3)</text>
+<text top="947" left="171" width="573" height="13" font="4">Assuming that trading activity is independent across T days, the likelihood of trading activity</text>
+<text top="963" left="149" width="85" height="13" font="4">takes the form</text>
+<text top="1003" left="164" width="8" height="13" font="4">L</text>
+<text top="1004" left="174" width="4" height="12" font="0">[</text>
+<text top="1002" left="179" width="7" height="16" font="0">{</text>
+<text top="1003" left="186" width="22" height="14" font="4">B, S</text>
+<text top="1002" left="208" width="11" height="16" font="0">}|</text>
+<text top="1007" left="220" width="6" height="10" font="20"><i>θ</i></text>
+<text top="1004" left="226" width="28" height="12" font="0">] = (</text>
+<text top="1003" left="255" width="7" height="13" font="4">1</text>
+<text top="1002" left="265" width="11" height="16" font="0">−</text>
+<text top="1007" left="278" width="7" height="10" font="20"><i>α</i></text>
+<text top="1003" left="286" width="5" height="12" font="0">)</text>
+<text top="1003" left="292" width="5" height="13" font="4">e</text>
+<text top="999" left="297" width="20" height="13" font="21">−<i>e</i>T</text>
+<text top="994" left="321" width="5" height="12" font="0">(</text>
+<text top="998" left="326" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="994" left="342" width="5" height="12" font="0">)</text>
+<text top="992" left="348" width="6" height="10" font="21">B</text>
+<text top="1013" left="332" width="12" height="14" font="4">B!</text>
+<text top="1003" left="357" width="5" height="13" font="4">e</text>
+<text top="999" left="363" width="20" height="13" font="21">−<i>e</i>T</text>
+<text top="994" left="386" width="5" height="12" font="0">(</text>
+<text top="998" left="392" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="994" left="408" width="5" height="12" font="0">)</text>
+<text top="992" left="413" width="6" height="10" font="21">S</text>
+<text top="1013" left="397" width="12" height="14" font="4">S!</text>
+<text top="1040" left="340" width="11" height="12" font="0">+</text>
+<text top="1043" left="354" width="19" height="10" font="20"><i>αδ</i>e</text>
+<text top="1036" left="374" width="20" height="13" font="21">−<i>e</i>T</text>
+<text top="1031" left="397" width="5" height="12" font="0">(</text>
+<text top="1034" left="403" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="1031" left="418" width="5" height="12" font="0">)</text>
+<text top="1028" left="424" width="6" height="10" font="21">B</text>
+<text top="1049" left="408" width="12" height="14" font="4">B!</text>
+<text top="1040" left="434" width="5" height="13" font="4">e</text>
+<text top="1036" left="439" width="44" height="13" font="21">−(<i>µ</i>+<i>e</i>)T</text>
+<text top="1031" left="487" width="10" height="12" font="0">[(</text>
+<text top="1034" left="497" width="8" height="10" font="20"><i>µ</i></text>
+<text top="1031" left="508" width="11" height="12" font="0">+</text>
+<text top="1034" left="521" width="6" height="10" font="20"><i>e</i></text>
+<text top="1031" left="528" width="5" height="12" font="0">)</text>
+<text top="1031" left="534" width="8" height="13" font="4">T</text>
+<text top="1031" left="543" width="4" height="12" font="0">]</text>
+<text top="1028" left="547" width="6" height="10" font="21">S</text>
+<text top="1049" left="514" width="12" height="14" font="4">S!</text>
+<text top="1077" left="464" width="11" height="12" font="0">+</text>
+<text top="1080" left="477" width="7" height="10" font="20"><i>α</i></text>
+<text top="1077" left="485" width="5" height="12" font="0">(</text>
+<text top="1077" left="490" width="7" height="13" font="4">1</text>
+<text top="1076" left="500" width="11" height="16" font="0">−</text>
+<text top="1080" left="514" width="6" height="10" font="20"><i>δ</i></text>
+<text top="1077" left="520" width="5" height="12" font="0">)</text>
+<text top="1077" left="526" width="5" height="13" font="4">e</text>
+<text top="1073" left="532" width="44" height="13" font="21">−(<i>µ</i>+<i>e</i>)T</text>
+<text top="1068" left="579" width="10" height="12" font="0">[(</text>
+<text top="1071" left="589" width="8" height="10" font="20"><i>µ</i></text>
+<text top="1068" left="600" width="11" height="12" font="0">+</text>
+<text top="1071" left="614" width="6" height="10" font="20"><i>e</i></text>
+<text top="1068" left="620" width="5" height="12" font="0">)</text>
+<text top="1068" left="626" width="8" height="13" font="4">T</text>
+<text top="1068" left="635" width="4" height="12" font="0">]</text>
+<text top="1065" left="640" width="6" height="10" font="21">B</text>
+<text top="1086" left="607" width="12" height="14" font="4">B!</text>
+<text top="1077" left="649" width="5" height="13" font="4">e</text>
+<text top="1073" left="654" width="20" height="13" font="21">−<i>e</i>T</text>
+<text top="1068" left="678" width="5" height="12" font="0">(</text>
+<text top="1071" left="684" width="15" height="10" font="20"><i>e</i>T</text>
+<text top="1068" left="699" width="5" height="12" font="0">)</text>
+<text top="1065" left="705" width="6" height="10" font="21">S</text>
+<text top="1086" left="689" width="12" height="14" font="4">S!</text>
+<text top="1077" left="728" width="16" height="13" font="4">(4)</text>
+<text top="1111" left="148" width="158" height="13" font="4">with the parameter space <i>θ</i></text>
+<text top="1110" left="311" width="11" height="12" font="0">=</text>
+<text top="1114" left="326" width="7" height="10" font="20"><i>α</i></text>
+<text top="1111" left="333" width="411" height="13" font="4">, <i>δ</i>, <i>e</i>, <i>µ</i>. Over h independent days, the likelihood of observing the data</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="23" size="16" family="Times" color="#000000"/>
+	<fontspec id="24" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">83</text>
+<text top="103" left="150" width="13" height="13" font="4">M</text>
+<text top="103" left="166" width="20" height="12" font="0">= (</text>
+<text top="103" left="187" width="8" height="13" font="4">B</text>
+<text top="108" left="196" width="3" height="10" font="21">i</text>
+<text top="103" left="199" width="13" height="13" font="4">, S</text>
+<text top="108" left="213" width="3" height="10" font="21">i</text>
+<text top="103" left="217" width="5" height="12" font="0">)</text>
+<text top="100" left="223" width="5" height="10" font="21">h</text>
+<text top="110" left="222" width="17" height="11" font="21">i=1</text>
+<text top="103" left="244" width="222" height="13" font="4">is the product of the daily likelihoods</text>
+<text top="146" left="374" width="8" height="13" font="4">L</text>
+<text top="146" left="385" width="4" height="12" font="0">[</text>
+<text top="146" left="390" width="13" height="13" font="4">M</text>
+<text top="144" left="403" width="4" height="16" font="0">|</text>
+<text top="149" left="407" width="6" height="10" font="20"><i>θ</i></text>
+<text top="146" left="414" width="19" height="12" font="0">] =</text>
+<text top="133" left="443" width="5" height="10" font="21">h</text>
+<text top="140" left="437" width="17" height="24" font="23">∏</text>
+<text top="163" left="437" width="17" height="11" font="21">i=1</text>
+<text top="146" left="456" width="8" height="13" font="4">L</text>
+<text top="146" left="467" width="5" height="12" font="0">(</text>
+<text top="149" left="472" width="6" height="10" font="20"><i>θ</i></text>
+<text top="144" left="479" width="4" height="16" font="0">|</text>
+<text top="146" left="484" width="8" height="13" font="4">B</text>
+<text top="151" left="492" width="3" height="10" font="21">i</text>
+<text top="146" left="496" width="13" height="13" font="4">, S</text>
+<text top="151" left="509" width="3" height="10" font="21">i</text>
+<text top="146" left="513" width="5" height="12" font="0">)</text>
+<text top="146" left="728" width="16" height="13" font="4">(5)</text>
+<text top="186" left="148" width="450" height="13" font="4">To deal with the issue of convergence in numerical maximization, I follow</text>
+<text top="186" left="602" width="75" height="13" font="6"><a href="2013-1-zagaglia.html#6">Aktasa et al.</a></text>
+<text top="186" left="681" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="186" left="685" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2007</a></text>
+<text top="186" left="713" width="31" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>and</text>
+<text top="202" left="149" width="70" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="202" left="222" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="202" left="227" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2008</a></text>
+<text top="202" left="254" width="238" height="13" font="4"><a href="2013-1-zagaglia.html#6">), </a>and re-arrange the likelihood function</text>
+<text top="202" left="495" width="7" height="13" font="6"><a href="2013-1-zagaglia.html#4">5</a></text>
+<text top="202" left="505" width="16" height="13" font="4">as:</text>
+<text top="248" left="164" width="8" height="13" font="4">L</text>
+<text top="248" left="174" width="4" height="12" font="0">[</text>
+<text top="248" left="179" width="13" height="13" font="4">M</text>
+<text top="247" left="192" width="4" height="16" font="0">|</text>
+<text top="251" left="197" width="6" height="10" font="20"><i>θ</i></text>
+<text top="248" left="203" width="19" height="12" font="0">] =</text>
+<text top="235" left="232" width="6" height="10" font="21">T</text>
+<text top="242" left="228" width="14" height="24" font="23">∑</text>
+<text top="265" left="226" width="18" height="11" font="21">t=1</text>
+<text top="248" left="246" width="4" height="12" font="0">[</text>
+<text top="247" left="250" width="11" height="16" font="0">−</text>
+<text top="248" left="261" width="13" height="13" font="4">2<i>e</i></text>
+<text top="248" left="278" width="11" height="12" font="0">+</text>
+<text top="248" left="292" width="13" height="13" font="4">M</text>
+<text top="252" left="305" width="3" height="10" font="21">t</text>
+<text top="248" left="311" width="21" height="13" font="4">ln x</text>
+<text top="248" left="336" width="19" height="13" font="0">+ (</text>
+<text top="248" left="355" width="8" height="13" font="4">B</text>
+<text top="252" left="364" width="3" height="10" font="21">t</text>
+<text top="248" left="371" width="11" height="12" font="0">+</text>
+<text top="248" left="385" width="7" height="13" font="4">S</text>
+<text top="252" left="392" width="3" height="10" font="21">t</text>
+<text top="248" left="397" width="5" height="12" font="0">)</text>
+<text top="248" left="405" width="12" height="13" font="4">ln</text>
+<text top="248" left="417" width="5" height="12" font="0">(</text>
+<text top="251" left="422" width="8" height="10" font="20"><i>µ</i></text>
+<text top="248" left="433" width="11" height="12" font="0">+</text>
+<text top="251" left="447" width="6" height="10" font="20"><i>e</i></text>
+<text top="248" left="454" width="10" height="13" font="0">)]</text>
+<text top="293" left="323" width="11" height="12" font="0">+</text>
+<text top="281" left="342" width="6" height="10" font="21">T</text>
+<text top="288" left="338" width="14" height="24" font="23">∑</text>
+<text top="310" left="337" width="18" height="11" font="21">t=1</text>
+<text top="293" left="357" width="12" height="13" font="4">ln</text>
+<text top="287" left="371" width="6" height="6" font="4">h</text>
+<text top="296" left="377" width="7" height="10" font="20"><i>α</i></text>
+<text top="293" left="385" width="5" height="12" font="0">(</text>
+<text top="293" left="391" width="7" height="13" font="4">1</text>
+<text top="292" left="400" width="11" height="16" font="0">−</text>
+<text top="296" left="414" width="7" height="10" font="20"><i>α</i></text>
+<text top="293" left="421" width="5" height="12" font="0">)</text>
+<text top="293" left="427" width="5" height="13" font="4">e</text>
+<text top="289" left="433" width="23" height="13" font="21">−mu</text>
+<text top="293" left="457" width="7" height="13" font="4">x</text>
+<text top="290" left="464" width="6" height="10" font="21">S</text>
+<text top="293" left="470" width="2" height="7" font="24">t</text>
+<text top="289" left="473" width="19" height="13" font="21">−M</text>
+<text top="293" left="493" width="2" height="7" font="24">t</text>
+<text top="293" left="499" width="11" height="12" font="0">+</text>
+<text top="296" left="513" width="19" height="10" font="20"><i>αδ</i>e</text>
+<text top="289" left="533" width="15" height="13" font="21">−<i>µ</i></text>
+<text top="293" left="549" width="7" height="13" font="4">x</text>
+<text top="290" left="556" width="6" height="10" font="21">B</text>
+<text top="293" left="563" width="2" height="7" font="24">t</text>
+<text top="289" left="566" width="19" height="13" font="21">−M</text>
+<text top="293" left="585" width="2" height="7" font="24">t</text>
+<text top="293" left="592" width="19" height="12" font="0">+ (</text>
+<text top="293" left="611" width="7" height="13" font="4">1</text>
+<text top="292" left="621" width="11" height="16" font="0">−</text>
+<text top="296" left="635" width="7" height="10" font="20"><i>α</i></text>
+<text top="293" left="642" width="5" height="12" font="0">)</text>
+<text top="293" left="648" width="7" height="13" font="4">x</text>
+<text top="290" left="656" width="6" height="10" font="21">B</text>
+<text top="293" left="662" width="2" height="7" font="24">t</text>
+<text top="290" left="665" width="15" height="10" font="21">+S</text>
+<text top="293" left="680" width="2" height="7" font="24">t</text>
+<text top="289" left="684" width="19" height="13" font="21">−M</text>
+<text top="293" left="703" width="2" height="7" font="24">t</text>
+<text top="287" left="707" width="6" height="6" font="4">i</text>
+<text top="293" left="728" width="16" height="13" font="4">(6)</text>
+<text top="334" left="148" width="44" height="13" font="4">with M</text>
+<text top="338" left="193" width="3" height="10" font="21">t</text>
+<text top="334" left="201" width="11" height="12" font="0">=</text>
+<text top="334" left="216" width="24" height="13" font="4">min</text>
+<text top="334" left="239" width="5" height="12" font="0">(</text>
+<text top="334" left="245" width="8" height="13" font="4">B</text>
+<text top="338" left="254" width="3" height="10" font="21">t</text>
+<text top="334" left="258" width="13" height="13" font="4">, S</text>
+<text top="338" left="271" width="3" height="10" font="21">t</text>
+<text top="334" left="276" width="19" height="12" font="0">) +</text>
+<text top="334" left="298" width="26" height="13" font="4">max</text>
+<text top="334" left="324" width="5" height="12" font="0">(</text>
+<text top="334" left="330" width="8" height="13" font="4">B</text>
+<text top="338" left="338" width="3" height="10" font="21">t</text>
+<text top="334" left="342" width="13" height="13" font="4">, S</text>
+<text top="338" left="356" width="3" height="10" font="21">t</text>
+<text top="334" left="360" width="5" height="12" font="0">)</text>
+<text top="334" left="366" width="55" height="13" font="4">/2, and x</text>
+<text top="338" left="421" width="3" height="10" font="21">t</text>
+<text top="334" left="430" width="11" height="12" font="0">=</text>
+<text top="337" left="445" width="6" height="10" font="20"><i>e</i></text>
+<text top="334" left="451" width="8" height="13" font="4">/</text>
+<text top="334" left="460" width="5" height="12" font="0">(</text>
+<text top="337" left="465" width="8" height="10" font="20"><i>µ</i></text>
+<text top="334" left="476" width="11" height="12" font="0">+</text>
+<text top="337" left="490" width="6" height="10" font="20"><i>e</i></text>
+<text top="334" left="497" width="5" height="12" font="0">)</text>
+<text top="334" left="502" width="3" height="13" font="4">.</text>
+<text top="355" left="171" width="222" height="13" font="4">Consistent with the literature (e.g., see</text>
+<text top="355" left="397" width="68" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="355" left="465" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="355" left="472" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">2002</a></text>
+<text top="355" left="498" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="355" left="504" width="26" height="13" font="6"><a href="2013-1-zagaglia.html#6">1996</a></text>
+<text top="355" left="531" width="213" height="13" font="4"><a href="2013-1-zagaglia.html#6">), </a>the role of asymmetric information</text>
+<text top="371" left="149" width="351" height="13" font="4">is measured by the probability of informed trading (PIN</text>
+<text top="375" left="500" width="3" height="10" font="21">t</text>
+<text top="371" left="504" width="240" height="13" font="4">). This is defined as the unconditional</text>
+<text top="388" left="148" width="531" height="13" font="4">probability that informed traders buy or sell an asset at each point in time, and is equal to</text>
+<text top="421" left="398" width="24" height="13" font="4">PIN</text>
+<text top="426" left="422" width="3" height="10" font="21">t</text>
+<text top="421" left="431" width="11" height="12" font="0">=</text>
+<text top="415" left="462" width="15" height="10" font="20"><i>αµ</i></text>
+<text top="434" left="447" width="15" height="10" font="20"><i>αµ</i></text>
+<text top="430" left="466" width="11" height="12" font="0">+</text>
+<text top="431" left="479" width="13" height="13" font="4">2<i>e</i></text>
+<text top="421" left="728" width="16" height="13" font="4">(7)</text>
+<text top="458" left="148" width="596" height="13" font="4">When this probability is high, uninformed traders face a higher risk of trading with a counterparty</text>
+<text top="475" left="149" width="136" height="13" font="4">that is better informed.</text>
+<text top="496" left="171" width="561" height="13" font="4">The package PIN includes an R function for the computation of the log-likelihood function</text>
+<text top="496" left="736" width="7" height="13" font="6"><a href="2013-1-zagaglia.html#4">6</a></text>
+<text top="496" left="743" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#4">.</a></text>
+<text top="512" left="148" width="596" height="13" font="4">This takes as inputs the parameter values—in the order <i>e</i>, <i>µ</i>, <i>α</i>, <i>δ</i>—and the time series of daily data</text>
+<text top="528" left="149" width="367" height="13" font="4">on number of buy- and sell-initiated trades—arranged as a n</text>
+<text top="527" left="519" width="11" height="16" font="0">×</text>
+<text top="528" left="532" width="212" height="14" font="4">w matrix, where n is the number of</text>
+<text top="545" left="149" width="595" height="13" font="4">trading days. The first column of this data matrix includes the number of buy trades and the second</text>
+<text top="561" left="149" width="200" height="13" font="4">one has the number of sell trades.</text>
+<text top="605" left="149" width="161" height="17" font="5"><b>A practical example</b></text>
+<text top="644" left="149" width="595" height="13" font="4">In this section I present an example of how to integrate the PIN package with other tools available in</text>
+<text top="660" left="149" width="595" height="13" font="4">R for handling market-microstructure data sets. In particular, the application presented here relies on</text>
+<text top="677" left="149" width="337" height="13" font="4">the capabilities provided by the <b>highfrequency </b>package.</text>
+<text top="698" left="171" width="575" height="13" font="4">I discuss the computation of PIN using a data set of fictitious quotes and trades for an ideal stock.</text>
+<text top="714" left="148" width="598" height="13" font="4">These quotes and trades are provided as two data sets–sample_qdata and sample_tdata, respectively—</text>
+<text top="731" left="149" width="335" height="13" font="4">in the public distribution of the package <b>highfrequency</b><a href="2013-1-zagaglia.html#0">.</a></text>
+<text top="728" left="484" width="5" height="10" font="16"><a href="2013-1-zagaglia.html#0">3</a></text>
+<text top="751" left="171" width="573" height="13" font="4">The noteworthy characteristic of the database for trades and quotes is that its structure follows the</text>
+<text top="768" left="148" width="596" height="13" font="4">TAQ format for standard NYSE stocks. In other words, the approach discussed here is general enough</text>
+<text top="784" left="149" width="405" height="13" font="4">to handle a data source that has been a key reference in the industry.</text>
+<text top="805" left="171" width="573" height="13" font="4">It should be stressed that the fictitious trades and quotes refer to one trading day only. This is an</text>
+<text top="822" left="149" width="526" height="13" font="4">evident simplification, which is typically avoided in empirical studies of PIN. For instance,</text>
+<text top="822" left="678" width="68" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="838" left="148" width="5" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="838" left="153" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2002</a></text>
+<text top="838" left="180" width="564" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>exclude stocks that have less than 60 days of quotes and trades data, suggesting that would</text>
+<text top="855" left="149" width="596" height="13" font="4">disrupt the reliability of the model parameter estimates. The PIN package allows estimations over any</text>
+<text top="871" left="149" width="595" height="13" font="4">sample length to be run. Moreover, the application presented in this paper can easily be extended to</text>
+<text top="887" left="149" width="197" height="13" font="4">cover more than one trading day.</text>
+<text top="908" left="171" width="575" height="13" font="4">As a starting point, I load the relevant packages into R, including those required by the <b>highfre-</b></text>
+<text top="925" left="148" width="45" height="13" font="3"><b>quency</b></text>
+<text top="925" left="197" width="52" height="13" font="4">package:</text>
+<text top="950" left="149" width="82" height="11" font="4">library(zoo)</text>
+<text top="966" left="149" width="82" height="11" font="4">library(xts)</text>
+<text top="983" left="149" width="151" height="11" font="4">library(highfrequency)</text>
+<text top="999" left="149" width="82" height="11" font="4">library(TTR)</text>
+<text top="1016" left="149" width="117" height="11" font="4">library(timeDate)</text>
+<text top="1032" left="149" width="117" height="11" font="4">library(quantmod)</text>
+<text top="1048" left="149" width="82" height="11" font="4">library(PIN)</text>
+<text top="1072" left="148" width="596" height="13" font="4">Then, I prepare the data set for the estimation of PIN. The <b>highfrequency </b>package includes two</text>
+<text top="1089" left="149" width="595" height="13" font="4">sample files with the trades and quotes. These two pieces of information need to be matched, in the</text>
+<text top="1105" left="149" width="595" height="13" font="4">sense of ordering the quoting activity that is consistent with the recorded trades within a given trading</text>
+<text top="1122" left="149" width="26" height="13" font="4">day:</text>
+<text top="1146" left="165" width="4" height="9" font="18">3</text>
+<text top="1148" left="170" width="473" height="12" font="1">Hence, data for these fictitious trades and quotes are available online to the R community.</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">84</text>
+<text top="104" left="149" width="123" height="11" font="4">#Load data samples</text>
+<text top="120" left="149" width="123" height="11" font="4">data(sample_tdata)</text>
+<text top="137" left="149" width="123" height="11" font="4">data(sample_qdata)</text>
+<text top="169" left="149" width="213" height="11" font="4">#Match the trade and quote data</text>
+<text top="186" left="149" width="377" height="11" font="4">tqdata &lt;- matchTradesQuotes(sample_tdata, sample_qdata)</text>
+<text top="212" left="148" width="597" height="13" font="4">The data set used in this example does not include information on trade direction. As stressed earlier,</text>
+<text top="229" left="149" width="595" height="13" font="4">this is an issue that is present in certain markets and can be addressed using the trade classification</text>
+<text top="245" left="149" width="596" height="13" font="4">algorithms proposed in the finance literature. Here I use the functionality of the <b>highfrequency</b></text>
+<text top="262" left="148" width="511" height="13" font="4">package to apply the Lee-Ready approach that combines trading and quoting activity:</text>
+<text top="289" left="149" width="206" height="11" font="4">x &lt;- getTradeDirection(tqdata)</text>
+<text top="322" left="149" width="185" height="11" font="4">tradeDirection &lt;- matrix(x)</text>
+<text top="355" left="149" width="254" height="11" font="4">buy_side &lt;- which(tradeDirection &gt; 0)</text>
+<text top="388" left="149" width="274" height="11" font="4">num_buy_side &lt;- length(matrix(buy_side))</text>
+<text top="404" left="149" width="453" height="11" font="4">num_sell_side &lt;- length(tradeDirection) - length(matrix(buy_side))</text>
+<text top="437" left="149" width="309" height="11" font="4">ntrades &lt;- cbind(num_buy_side, num_sell_side)</text>
+<text top="463" left="171" width="282" height="13" font="4">The maximization of the log-likelihood function</text>
+<text top="463" left="456" width="7" height="13" font="6"><a href="2013-1-zagaglia.html#4">6</a></text>
+<text top="463" left="466" width="280" height="13" font="4">is a prerequisite for the computation of the PIN.</text>
+<text top="480" left="149" width="595" height="13" font="4">Ideally, one should perform a constrained optimization and restrict the spaces of all the parameters</text>
+<text top="496" left="149" width="130" height="13" font="4">over the unit interval</text>
+<text top="496" left="283" width="4" height="12" font="0">[</text>
+<text top="496" left="287" width="19" height="13" font="4">0, 1</text>
+<text top="496" left="306" width="4" height="12" font="0">]</text>
+<text top="496" left="310" width="434" height="13" font="4">. For this particular data set, I employ the general optimization routine</text>
+<text top="513" left="149" width="34" height="11" font="4">optim</text>
+<text top="513" left="183" width="3" height="13" font="4">:</text>
+<text top="540" left="149" width="281" height="11" font="4">initparams &lt;- cbind(0.15, 0.05, 0.5, 0.5)</text>
+<text top="573" left="149" width="123" height="11" font="4">options(warn = -1)</text>
+<text top="589" left="149" width="466" height="11" font="4">param_optim &lt;- optim(initparams, pin_likelihood, gr = NULL, ntrades)</text>
+<text top="616" left="148" width="596" height="13" font="4">The optimizing parameters are 1, 0.3715623, 0.7255069 and 0.2808594. These estimated values suggest</text>
+<text top="632" left="149" width="456" height="13" font="4">that there is a high probability for the trading day to reveal information (i.e., ˆ<i>α</i></text>
+<text top="631" left="609" width="11" height="16" font="0">≈</text>
+<text top="632" left="624" width="120" height="13" font="4">0.72. When there are</text>
+<text top="649" left="149" width="398" height="13" font="4">no news events, only uninformed traders take part in the market (<i>e</i></text>
+<text top="648" left="551" width="11" height="12" font="0">=</text>
+<text top="649" left="566" width="15" height="13" font="4">1).</text>
+<text top="670" left="171" width="573" height="13" font="4">Finally, given the optimizing parameters, the computation of the probability of informed trading</text>
+<text top="686" left="149" width="110" height="13" font="4">is straightforward:</text>
+<text top="713" left="149" width="178" height="11" font="4">epsi &lt;- param_optim$par[1]</text>
+<text top="730" left="149" width="21" height="11" font="4">miu</text>
+<text top="730" left="183" width="144" height="11" font="4">&lt;- param_optim$par[2]</text>
+<text top="746" left="149" width="178" height="11" font="4">alph &lt;- param_optim$par[3]</text>
+<text top="763" left="149" width="178" height="11" font="4">delt &lt;- param_optim$par[4]</text>
+<text top="796" left="149" width="254" height="11" font="4">pin &lt;- (alph*miu)/(alph*miu + 2*epsi)</text>
+<text top="822" left="149" width="595" height="13" font="4">In this case, I obtain a low probability of trading with an informed counterparty, which is equal to</text>
+<text top="838" left="149" width="61" height="13" font="4">0.1187762.</text>
+<text top="883" left="149" width="94" height="17" font="5"><b>Conclusion</b></text>
+<text top="922" left="148" width="598" height="13" font="4">This article discusses an application in R of concepts and methods of financial market microstructure.</text>
+<text top="938" left="149" width="595" height="13" font="4">In particular, I present a package for the computation of the probability of informed trading. This</text>
+<text top="955" left="149" width="595" height="13" font="4">is a standard measure of asymmetric information that is based on trade direction. I show how the</text>
+<text top="971" left="148" width="596" height="13" font="4">proposed PIN package fits into the broader context of the available tools for handling microstructure</text>
+<text top="988" left="149" width="29" height="13" font="4">data.</text>
+<text top="1009" left="171" width="573" height="13" font="4">The routines outlined here could be extended along several dimensions. It would be useful to</text>
+<text top="1025" left="149" width="554" height="13" font="4">include alternative measures of information asymmetry. The time-varying PIN specification of</text>
+<text top="1025" left="707" width="38" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley</a></text>
+<text top="1042" left="149" width="28" height="13" font="6"><a href="2013-1-zagaglia.html#6">et al.</a></text>
+<text top="1042" left="180" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="1042" left="185" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2008</a></text>
+<text top="1042" left="212" width="532" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>represents a relevant candidate. Also, the Volume-Synchronized Probability of Informed</text>
+<text top="1058" left="148" width="596" height="13" font="4">Trading - VPIN - is a key information metric that is increasingly becoming the industry standard (see</text>
+<text top="1074" left="149" width="70" height="13" font="6"><a href="2013-1-zagaglia.html#6">Easley et al.</a></text>
+<text top="1074" left="219" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#6">,</a></text>
+<text top="1074" left="226" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">2012</a></text>
+<text top="1074" left="252" width="8" height="13" font="4"><a href="2013-1-zagaglia.html#6">).</a></text>
+<text top="1095" left="171" width="575" height="13" font="4">The provision of liquidity to the market is related to the presence of asymmetric information.</text>
+<text top="1112" left="148" width="596" height="13" font="4">This consideration is especially relevant for market-makers, who manage inventories against the risk</text>
+<text top="1128" left="149" width="595" height="13" font="4">that counterparties have superior information on the true value of an asset. Hence, any tool that</text>
+<text top="1145" left="149" width="596" height="13" font="4">computes the PIN provides an incomplete picture of the market if it says nothing about the sources for</text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">85</text>
+<text top="103" left="149" width="595" height="13" font="4">market liquidity. For this reason, it would be beneficial to provide tools for the measurement of price</text>
+<text top="120" left="148" width="219" height="13" font="4">pressures, such as those proposed by</text>
+<text top="120" left="371" width="165" height="13" font="6"><a href="2013-1-zagaglia.html#6">Hendershott and Menkveld</a></text>
+<text top="120" left="540" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">(</a></text>
+<text top="120" left="544" width="27" height="13" font="6"><a href="2013-1-zagaglia.html#6">1991</a></text>
+<text top="120" left="571" width="89" height="13" font="4"><a href="2013-1-zagaglia.html#6">) </a>for the NYSE.</text>
+<text top="164" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="203" left="148" width="596" height="13" font="4">The author is very grateful to two anonymous referees for very effective comments that have shaped</text>
+<text top="219" left="149" width="256" height="13" font="4">the revision of this article to a major extent.</text>
+<text top="264" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="303" left="149" width="598" height="13" font="4">N. Aktasa, E. de Bodta, F. Declerckc, and H. Van Oppensa. The PIN Anomaly around M&amp;A Announce-</text>
+<text top="319" left="164" width="341" height="13" font="4">ments. Journal of Financial Markets, 10(2):169–191, 2007. <a href="2013-1-zagaglia.html#4">[p</a></text>
+<text top="319" left="505" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#4">83</a></text>
+<text top="319" left="518" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#4">]</a></text>
+<text top="347" left="149" width="277" height="13" font="4">K. Boudt and J. Cornelissen. RTAQ, 2012. URL</text>
+<text top="348" left="429" width="316" height="11" font="6"><a href="http://cran.r-project.org/src/contrib/Archive/RTAQ/">http://cran.r-project.org/src/contrib/Archive/</a></text>
+<text top="364" left="164" width="34" height="11" font="6"><a href="http://cran.r-project.org/src/contrib/Archive/RTAQ/">RTAQ/</a></text>
+<text top="364" left="198" width="158" height="13" font="4"><a href="http://cran.r-project.org/src/contrib/Archive/RTAQ/">. </a>R package version 0.2. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="364" left="356" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="364" left="369" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="392" left="149" width="595" height="13" font="4">K. Boudt, P. Carl, and B. G. Peterson. PortfolioAnalytics: Portfolio Analysis, including Numeric Methods for</text>
+<text top="408" left="163" width="205" height="14" font="4">Optimization of Portfolios, 2010. URL</text>
+<text top="409" left="371" width="372" height="11" font="6"><a href="http://r-forge.r-project.org/projects/returnanalytics/">http://r-forge.r-project.org/projects/returnanalytics/</a></text>
+<text top="408" left="743" width="3" height="13" font="4"><a href="http://r-forge.r-project.org/projects/returnanalytics/">.</a></text>
+<text top="425" left="164" width="150" height="13" font="4">R package version 0.6. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="425" left="313" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="425" left="327" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#1">]</a></text>
+<text top="453" left="149" width="413" height="13" font="4">J. Cornelissen, K. Boudt, and S. Payseur. highfrequency, 2013. URL</text>
+<text top="453" left="566" width="179" height="11" font="6"><a href="http://CRAN.R-project.org/package=highfrequency">http://CRAN.R-project.org/</a></text>
+<text top="470" left="164" width="144" height="11" font="6"><a href="http://CRAN.R-project.org/package=highfrequency">package=highfrequency</a></text>
+<text top="469" left="308" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=highfrequency">. </a>R package version 0.2. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="469" left="466" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="469" left="479" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#1">,</a></text>
+<text top="469" left="486" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="469" left="499" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="497" left="149" width="595" height="13" font="4">D. Easley and M. O’Hara. Price, Trade Size, and Information in Securities Markets. Journal of Financial</text>
+<text top="513" left="163" width="185" height="14" font="4">Economics, 19(1):69–90, 1987. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="513" left="349" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="513" left="362" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#1">]</a></text>
+<text top="541" left="149" width="596" height="13" font="4">D. Easley, N. M. Kiefer, M. O’Hara, and J. B. Paperman. Liquidity, Information, and Infrequently</text>
+<text top="558" left="163" width="345" height="13" font="4">Traded Stocks. Journal of Finance, 51(4):1405–1436, 1996. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="558" left="509" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="558" left="522" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#1">,</a></text>
+<text top="558" left="529" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="558" left="542" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#2">,</a></text>
+<text top="558" left="549" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#3">82</a></text>
+<text top="558" left="562" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#3">,</a></text>
+<text top="558" left="569" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#4">83</a></text>
+<text top="558" left="583" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#4">]</a></text>
+<text top="586" left="149" width="595" height="13" font="4">D. Easley, S. Hvidkjaer, and M. O’Hara. Is Information Risk a Determinant of Asset Returns? Journal of</text>
+<text top="602" left="163" width="197" height="14" font="4">Finance, 57(5):2185–2221, 2002. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="602" left="360" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="602" left="374" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#1">,</a></text>
+<text top="602" left="381" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#4">83</a></text>
+<text top="602" left="394" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#4">]</a></text>
+<text top="630" left="149" width="595" height="13" font="4">D. Easley, R. F. Engle, M. O’Hara, and L. Wu. Time-Varying Arrival Rates of Informed and Uninformed</text>
+<text top="647" left="163" width="371" height="13" font="4">Traders. Journal of Financial Econometrics, 6(2):171–207, 2008. <a href="2013-1-zagaglia.html#4">[p</a></text>
+<text top="647" left="534" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#4">83</a></text>
+<text top="647" left="548" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#4">,</a></text>
+<text top="647" left="555" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#5">84</a></text>
+<text top="647" left="568" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#5">]</a></text>
+<text top="675" left="149" width="598" height="13" font="4">D. Easley, M. M. L. de Prado, and M. O’Hara. Flow Toxicity and Liquidity in a High Frequency World.</text>
+<text top="691" left="163" width="143" height="13" font="4">Working paper, 2012. <a href="2013-1-zagaglia.html#5">[p</a></text>
+<text top="691" left="306" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#5">84</a></text>
+<text top="691" left="320" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#5">]</a></text>
+<text top="719" left="149" width="597" height="13" font="4">J. Enos, D. Kane, A. R. Narayan, A. Schwartz, D. Suo, and L. Zhao. Trade Costs. R News, 8(1):10–13,</text>
+<text top="736" left="164" width="48" height="13" font="4">2008. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="736" left="211" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="736" left="225" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="764" left="149" width="598" height="13" font="4">L. R. Glosten and P. R. Milgrom. Bid Ask and Transaction Price in a Specialist Market with Heteroge-</text>
+<text top="780" left="164" width="466" height="13" font="4">neously Informed Traders. Journal of Financial Economics, 14(1):71–100, 1987. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="780" left="629" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="780" left="643" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="808" left="149" width="595" height="13" font="4">J. Hasbrouck and D. J. Seppi. Common Factors in Prices, Order Flows and Liquidity. Journal of Financial</text>
+<text top="824" left="163" width="199" height="14" font="4">Economics, 59(1):383–411, 2001. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="824" left="362" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="824" left="375" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="852" left="149" width="520" height="13" font="4">T. Hendershott and A. J. Menkveld. Price Pressures. Unpublished version, 209, 1991. <a href="2013-1-zagaglia.html#6">[p</a></text>
+<text top="852" left="669" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#6">85</a></text>
+<text top="852" left="682" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#6">]</a></text>
+<text top="880" left="149" width="598" height="13" font="4">J. Idier and S. Nardelli. Probability of Informed Trading on the Euro Overnight Market Rate. Interna-</text>
+<text top="897" left="164" width="360" height="14" font="4">tional Journal of Finance and Economics, 16(2):131–145, 2011. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="897" left="524" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="897" left="537" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#1">]</a></text>
+<text top="925" left="149" width="597" height="13" font="4">D. Kane, A. Liu, and K. Nguyen. Analyzing an Electronic Limit Order Book. The R Journal, 2(64–68):1,</text>
+<text top="941" left="164" width="48" height="13" font="4">2011. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="941" left="211" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="941" left="225" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#1">,</a></text>
+<text top="941" left="232" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="941" left="245" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="969" left="149" width="551" height="13" font="4">A. S. Kyle. Continuous Auctions and Insider Trading. Econometrica, 53(6):1315–1335, 1985. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="969" left="700" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="969" left="714" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="997" left="149" width="597" height="13" font="4">C. M. C. Lee and M. J. Ready. Inferring Trade Direction from Intraday Data. Journal of Finance, 46(2):</text>
+<text top="1014" left="164" width="101" height="13" font="4">733–746, 1991. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="1014" left="265" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="1014" left="279" width="3" height="13" font="4"><a href="2013-1-zagaglia.html#1">,</a></text>
+<text top="1014" left="285" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="1014" left="299" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="1042" left="149" width="595" height="13" font="4">H. Li, J. Wang, C. Wu, and Y. He. Are Liquidity and Information Risks Priced in the Treasury Bond</text>
+<text top="1058" left="164" width="295" height="13" font="4">Market? Journal of Finance, 64(1):467–503, 2009. <a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="1058" left="459" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="1058" left="472" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#1">]</a></text>
+<text top="1086" left="149" width="180" height="13" font="4">J. A. Ryan. IBrokers, 2011. URL</text>
+<text top="1087" left="332" width="296" height="11" font="6"><a href="http://CRAN.R-project.org/package=IBrokers/">http://CRAN.R-project.org/package=IBrokers/</a></text>
+<text top="1086" left="628" width="116" height="13" font="4"><a href="http://CRAN.R-project.org/package=IBrokers/">. </a>R package version</text>
+<text top="1102" left="164" width="56" height="13" font="4">0.9-10. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="1102" left="219" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="1102" left="233" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="1130" left="149" width="595" height="13" font="4">K. Venkataraman. Automated Versus Floor Trading: An Analysis of Execution Costs on the Paris and</text>
+<text top="1147" left="164" width="389" height="13" font="4">New York Exchanges. Journal of Finance, 56(2):1445–1485, 2001. <a href="2013-1-zagaglia.html#2">[p</a></text>
+<text top="1147" left="552" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#2">81</a></text>
+<text top="1147" left="566" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#2">]</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">86</text>
+<text top="103" left="149" width="595" height="13" font="4">P. Zagaglia. PIN: Estimates the Parameters of a Trading-tree Model for the Computation of the Probability</text>
+<text top="119" left="164" width="181" height="14" font="4">of Informed Trading, 2013. URL</text>
+<text top="120" left="349" width="255" height="11" font="6"><a href="http://CRAN.R-project.org/package=PIN">http://CRAN.R-project.org/package=PIN</a></text>
+<text top="120" left="603" width="143" height="13" font="4"><a href="http://CRAN.R-project.org/package=PIN">. </a>R package version 0.8.</text>
+<text top="136" left="164" width="13" height="13" font="4"><a href="2013-1-zagaglia.html#1">[p</a></text>
+<text top="136" left="176" width="13" height="13" font="6"><a href="2013-1-zagaglia.html#1">80</a></text>
+<text top="136" left="190" width="4" height="13" font="4"><a href="2013-1-zagaglia.html#1">]</a></text>
+<text top="182" left="148" width="81" height="13" font="4">Paolo Zagaglia</text>
+<text top="199" left="149" width="224" height="13" font="4">International Entrepreneurship Academy</text>
+<text top="215" left="148" width="84" height="13" font="4">Dublin, Ireland</text>
+<text top="232" left="148" width="227" height="13" font="4">Rimini Centre for Economic Analysis and</text>
+<text top="248" left="148" width="460" height="13" font="4">Department of Economics and Department of Cultural Goods, Università di Bologna</text>
+<text top="264" left="148" width="76" height="13" font="4">Bologna, Italy</text>
+<text top="282" left="149" width="165" height="11" font="6"><a href="mailto:paolo.zagaglia@gmail.com">paolo.zagaglia@gmail.com</a></text>
+<text top="1210" left="148" width="186" height="15" font="0">The R Journal Vol. 5/1, June</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

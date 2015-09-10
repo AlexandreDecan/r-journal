@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="16" family="Helvetica" color="#000000"/>
+	<fontspec id="9" size="16" family="Times" color="#006400"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">19</text>
+<text top="121" left="82" width="436" height="36" font="2"><b>Debugging grid Graphics</b></text>
+<text top="173" left="82" width="184" height="15" font="0">by Paul Murrell and Velvet Ly</text>
+<text top="213" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="213" left="168" width="247" height="15" font="0">A graphical scene that has been pro-</text>
+<text top="231" left="96" width="319" height="15" font="0">duced using the <b>grid </b>graphics package consists</text>
+<text top="249" left="96" width="319" height="15" font="0">of grobs (graphical objects) and viewports. This</text>
+<text top="267" left="96" width="319" height="15" font="0">article describes functions that allow the explo-</text>
+<text top="285" left="96" width="319" height="15" font="0">ration and inspection of the grobs and viewports</text>
+<text top="303" left="96" width="319" height="15" font="0">in a <b>grid </b>scene, including several functions that</text>
+<text top="321" left="96" width="319" height="15" font="0">are available in a new package called <b>gridDe-</b></text>
+<text top="339" left="96" width="27" height="15" font="3"><b>bug</b></text>
+<text top="338" left="123" width="292" height="15" font="0">. The ability to explore the grobs and view-</text>
+<text top="356" left="96" width="319" height="15" font="0">ports in a <b>grid </b>scene is useful for adding more</text>
+<text top="374" left="96" width="319" height="15" font="0">drawing to a scene that was produced using <b>grid</b></text>
+<text top="392" left="96" width="319" height="15" font="0">and for understanding and debugging the <b>grid</b></text>
+<text top="410" left="96" width="183" height="15" font="0">code that produced a scene.</text>
+<text top="497" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="547" left="82" width="346" height="15" font="0">The <b>grid </b>graphics package for R contains features</text>
+<text top="565" left="82" width="346" height="15" font="0">that are intended to assist in the creation of flexi-</text>
+<text top="583" left="82" width="346" height="15" font="0">ble, complex graphical scenes, such as the plots that</text>
+<text top="601" left="82" width="171" height="15" font="0">are produced by <b>lattice </b><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">(</a></text>
+<text top="601" left="253" width="43" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">Sarkar</a></text>
+<text top="601" left="296" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">,</a></text>
+<text top="601" left="306" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">2008</a></text>
+<text top="601" left="335" width="36" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">) </a>and</text>
+<text top="601" left="377" width="51" height="15" font="6"><a href="http://cran.r-project.org/package=ggplot2"><b>ggplot2</b></a></text>
+<text top="619" left="82" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">(</a></text>
+<text top="619" left="87" width="63" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">Wickham</a></text>
+<text top="619" left="150" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">,</a></text>
+<text top="619" left="158" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">2009</a></text>
+<text top="619" left="188" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">).</a></text>
+<text top="642" left="105" width="324" height="15" font="0">Two particularly important features are view-</text>
+<text top="660" left="82" width="346" height="15" font="0">ports, which represent rectangular regions on the</text>
+<text top="678" left="82" width="346" height="15" font="0">page for drawing into, and grobs, which represent</text>
+<text top="696" left="82" width="290" height="15" font="0">shapes that have been drawn onto the page.</text>
+<text top="720" left="105" width="324" height="15" font="0">To illustrate these <b>grid </b>concepts, the following</text>
+<text top="738" left="82" width="346" height="15" font="0">code draws a simple scene consisting of a narrow</text>
+<text top="756" left="82" width="346" height="15" font="0">“strip” region atop a larger “panel” region, with a</text>
+<text top="774" left="82" width="346" height="15" font="0">rectangle boundary drawn for each region and the</text>
+<text top="792" left="82" width="229" height="15" font="0">top region shaded grey (see Figure</text>
+<text top="792" left="315" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="792" left="322" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">).</a></text>
+<text top="848" left="82" width="103" height="10" font="7">&gt; library(grid)</text>
+<text top="897" left="82" width="178" height="10" font="7">&gt; stripVP &lt;- viewport(y=1,</text>
+<text top="913" left="82" width="7" height="10" font="7">+</text>
+<text top="913" left="233" width="165" height="10" font="7">height=unit(1, &#34;lines&#34;),</text>
+<text top="930" left="82" width="7" height="10" font="7">+</text>
+<text top="930" left="233" width="75" height="10" font="7">just=&#34;top&#34;,</text>
+<text top="946" left="82" width="7" height="10" font="7">+</text>
+<text top="946" left="233" width="103" height="10" font="7">name=&#34;stripvp&#34;)</text>
+<text top="962" left="82" width="178" height="10" font="7">&gt; panelVP &lt;- viewport(y=0,</text>
+<text top="979" left="82" width="7" height="10" font="7">+</text>
+<text top="979" left="233" width="158" height="10" font="7">height=unit(1, &#34;npc&#34;) -</text>
+<text top="995" left="82" width="7" height="10" font="7">+</text>
+<text top="995" left="281" width="117" height="10" font="7">unit(1, &#34;lines&#34;),</text>
+<text top="1012" left="82" width="7" height="10" font="7">+</text>
+<text top="1012" left="233" width="96" height="10" font="7">just=&#34;bottom&#34;,</text>
+<text top="1028" left="82" width="7" height="10" font="7">+</text>
+<text top="1028" left="233" width="103" height="10" font="7">name=&#34;panelvp&#34;)</text>
+<text top="1077" left="82" width="158" height="10" font="7">&gt; pushViewport(stripVP)</text>
+<text top="1093" left="82" width="240" height="10" font="7">&gt; grid.rect(gp=gpar(fill=&#34;grey80&#34;),</text>
+<text top="1110" left="82" width="7" height="10" font="7">+</text>
+<text top="1110" left="165" width="117" height="10" font="7">name=&#34;striprect&#34;)</text>
+<text top="1126" left="82" width="96" height="10" font="7">&gt; upViewport()</text>
+<text top="1142" left="82" width="158" height="10" font="7">&gt; pushViewport(panelVP)</text>
+<text top="1159" left="82" width="199" height="10" font="7">&gt; grid.rect(name=&#34;panelrect&#34;)</text>
+<text top="1175" left="82" width="96" height="10" font="7">&gt; upViewport()</text>
+<text top="330" left="459" width="346" height="15" font="0">Figure 1: A scene consisting of two viewports, with</text>
+<text top="348" left="459" width="173" height="15" font="0">a rectangle drawn in each.</text>
+<text top="383" left="481" width="324" height="15" font="0">One benefit that accrues from using viewports to</text>
+<text top="401" left="459" width="163" height="15" font="0">draw the scene in Figure</text>
+<text top="401" left="625" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="401" left="636" width="169" height="15" font="0">is that, once the scene has</text>
+<text top="419" left="459" width="346" height="15" font="0">been drawn, the viewports can be revisited to add</text>
+<text top="437" left="459" width="346" height="15" font="0">further drawing to the scene. For example, the fol-</text>
+<text top="455" left="459" width="346" height="15" font="0">lowing code revisits the “strip” region and adds a</text>
+<text top="473" left="459" width="136" height="15" font="0">text label (see Figure</text>
+<text top="473" left="598" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">2</a></text>
+<text top="473" left="606" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">).</a></text>
+<text top="501" left="459" width="171" height="10" font="7">&gt; downViewport(&#34;stripvp&#34;)</text>
+<text top="518" left="459" width="295" height="10" font="7">&gt; grid.text(&#34;strip text&#34;, name=&#34;striptext&#34;)</text>
+<text top="534" left="459" width="96" height="10" font="7">&gt; upViewport()</text>
+<text top="582" left="598" width="68" height="17" font="8">strip text</text>
+<text top="717" left="459" width="210" height="15" font="0">Figure 2: The scene from Figure</text>
+<text top="717" left="673" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="717" left="684" width="122" height="15" font="0">with text added to</text>
+<text top="735" left="459" width="114" height="15" font="0">the top viewport.</text>
+<text top="771" left="481" width="324" height="15" font="0">One benefit that accrues from the fact that <b>grid</b></text>
+<text top="789" left="459" width="346" height="15" font="0">creates grobs representing the shapes in a scene is</text>
+<text top="807" left="459" width="346" height="15" font="0">that, after the scene has been drawn, it is possible to</text>
+<text top="824" left="459" width="346" height="15" font="0">modify elements of the scene. For example, the fol-</text>
+<text top="842" left="459" width="346" height="15" font="0">lowing code modifies the text that was just drawn in</text>
+<text top="860" left="459" width="346" height="15" font="0">the strip region so that it is dark green, italic, and in</text>
+<text top="878" left="459" width="146" height="15" font="0">a serif font (see Figure</text>
+<text top="878" left="609" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">3</a></text>
+<text top="878" left="616" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">).</a></text>
+<text top="921" left="586" width="93" height="16" font="9"><i>modified text</i></text>
+<text top="1056" left="459" width="209" height="15" font="0">Figure 3: The scene from Figure</text>
+<text top="1056" left="672" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">2</a></text>
+<text top="1056" left="683" width="122" height="15" font="0">with the text mod-</text>
+<text top="1074" left="459" width="249" height="15" font="0">ified to be dark green, italic, and serif.</text>
+<text top="1110" left="459" width="165" height="10" font="7">&gt; grid.edit(&#34;striptext&#34;,</text>
+<text top="1126" left="459" width="7" height="10" font="7">+</text>
+<text top="1126" left="541" width="151" height="10" font="7">label=&#34;modified text&#34;,</text>
+<text top="1142" left="459" width="7" height="10" font="7">+</text>
+<text top="1142" left="541" width="165" height="10" font="7">gp=gpar(col=&#34;darkgreen&#34;,</text>
+<text top="1159" left="459" width="7" height="10" font="7">+</text>
+<text top="1159" left="555" width="123" height="10" font="7">fontface=&#34;italic&#34;,</text>
+<text top="1175" left="459" width="7" height="10" font="7">+</text>
+<text top="1175" left="555" width="137" height="10" font="7">fontfamily=&#34;serif&#34;))</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="15" family="Times" color="#000000"/>
+	<fontspec id="11" size="9" family="Times" color="#00004c"/>
+	<fontspec id="12" size="19" family="Times" color="#000000"/>
+	<fontspec id="13" size="6" family="Times" color="#000000"/>
+	<fontspec id="14" size="9" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">20</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="105" width="324" height="15" font="0">The following code shows that it is also possible</text>
+<text top="143" left="82" width="346" height="15" font="0">to remove objects from a scene — this returns the</text>
+<text top="161" left="82" width="216" height="15" font="0">scene to its original state (Figure</text>
+<text top="161" left="303" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="161" left="310" width="119" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">) </a>by removing the</text>
+<text top="179" left="82" width="199" height="15" font="0">text that we had added above.</text>
+<text top="213" left="82" width="178" height="10" font="7">&gt; grid.remove(&#34;striptext&#34;)</text>
+<text top="252" left="82" width="208" height="17" font="10"><b>The importance of names</b></text>
+<text top="283" left="82" width="346" height="15" font="0">The ability to navigate within viewports in a scene</text>
+<text top="301" left="82" width="346" height="15" font="0">and the ability to modify grobs within a scene both</text>
+<text top="319" left="82" width="346" height="15" font="0">depend upon being able to unambiguously specify a</text>
+<text top="337" left="82" width="185" height="15" font="0">particular viewport or grob.</text>
+<text top="355" left="105" width="324" height="15" font="0">All viewports and grobs have a name, so speci-</text>
+<text top="373" left="82" width="346" height="15" font="0">fying a particular viewport or grob is simply a mat-</text>
+<text top="391" left="82" width="346" height="15" font="0">ter of specifying the relevant viewport name or grob</text>
+<text top="409" left="82" width="40" height="15" font="0">name.</text>
+<text top="426" left="105" width="324" height="15" font="0">In the simple example above, this is not a difficult</text>
+<text top="444" left="82" width="346" height="15" font="0">task because we have the code that created the scene</text>
+<text top="462" left="82" width="346" height="15" font="0">so we can see the names that were used. However,</text>
+<text top="480" left="82" width="346" height="15" font="0">when a scene has been generated by someone else’s</text>
+<text top="498" left="82" width="346" height="15" font="0">code, for example, a call to a <b>lattice </b>plotting func-</text>
+<text top="516" left="82" width="346" height="15" font="0">tion, it may not be very easy to determine the name</text>
+<text top="534" left="82" width="144" height="15" font="0">of a viewport or gr<a href="2012-2-RJournal_2012-2_Murrell+Ly.html#2">ob.</a></text>
+<text top="531" left="227" width="6" height="11" font="11"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#2">1</a></text>
+<text top="576" left="82" width="149" height="17" font="10"><b>Pity the developer</b></text>
+<text top="607" left="82" width="346" height="15" font="0">Problems can also arise when we want to develop</text>
+<text top="625" left="82" width="346" height="15" font="0">new functions that draw scenes using <b>grid</b>. In this</text>
+<text top="642" left="82" width="346" height="15" font="0">case, knowing the names of viewports and grobs is</text>
+<text top="660" left="82" width="346" height="15" font="0">not the problem because we have created the names.</text>
+<text top="678" left="82" width="346" height="15" font="0">Instead, the problem is knowing where on the page</text>
+<text top="696" left="82" width="346" height="15" font="0">the viewports and grobs have ended up. The result</text>
+<text top="714" left="82" width="346" height="15" font="0">of running error-ridden <b>grid </b>code can be a confusing</text>
+<text top="732" left="82" width="346" height="15" font="0">jumble of drawing output. In this case, it is useful</text>
+<text top="750" left="82" width="346" height="15" font="0">to be able to identify where on the page a particular</text>
+<text top="768" left="82" width="225" height="15" font="0">viewport or grob has been drawn.</text>
+<text top="810" left="82" width="129" height="17" font="10"><b>Pity the student</b></text>
+<text top="841" left="82" width="346" height="15" font="0">Even when the author of a piece of <b>grid </b>code knows</text>
+<text top="858" left="82" width="346" height="15" font="0">exactly what the code is doing, and the code is be-</text>
+<text top="876" left="82" width="346" height="15" font="0">having correctly, it can be difficult to convey to other</text>
+<text top="894" left="82" width="346" height="15" font="0">people the relationship between the <b>grid </b>code and</text>
+<text top="912" left="82" width="346" height="15" font="0">the output that it produces on a page. This is another</text>
+<text top="930" left="82" width="346" height="15" font="0">situation where it can be useful to provide a visual</text>
+<text top="948" left="82" width="346" height="15" font="0">cue about the location on the page of abstract con-</text>
+<text top="966" left="82" width="346" height="15" font="0">cepts such as viewports and grobs and the relation-</text>
+<text top="984" left="82" width="136" height="15" font="0">ships between them.</text>
+<text top="1024" left="105" width="324" height="15" font="0">This article describes a number of functions that</text>
+<text top="1041" left="82" width="288" height="15" font="0">are provided by the <b>grid </b>package and the</text>
+<text top="1042" left="376" width="53" height="15" font="6"><a href="http://cran.r-project.org/package=gridDebug"><b>gridDe-</b></a></text>
+<text top="1060" left="82" width="27" height="15" font="6"><a href="http://cran.r-project.org/package=gridDebug"><b>bug</b></a></text>
+<text top="1059" left="113" width="64" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">(</a></text>
+<text top="1059" left="177" width="101" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">Murrell and Ly</a></text>
+<text top="1059" left="279" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">,</a></text>
+<text top="1059" left="287" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">2011</a></text>
+<text top="1059" left="317" width="112" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">) </a>to help identify</text>
+<text top="1077" left="82" width="346" height="15" font="0">what viewports and grobs have been used to create</text>
+<text top="1095" left="82" width="346" height="15" font="0">a scene and track exactly where each viewport and</text>
+<text top="1113" left="82" width="346" height="15" font="0">grob has been drawn on the page. These functions</text>
+<text top="1131" left="82" width="346" height="15" font="0">will be introduced in the following sections using</text>
+<text top="1149" left="82" width="346" height="15" font="0">the very simple <b>grid </b>scene that was described above.</text>
+<text top="125" left="459" width="346" height="15" font="0">These introductions are then followed by a section</text>
+<text top="143" left="459" width="346" height="15" font="0">that looks at some more complex <b>grid </b>scenes in order</text>
+<text top="161" left="459" width="346" height="15" font="0">to demonstrate more sophisticated uses of the func-</text>
+<text top="179" left="459" width="221" height="15" font="0">tions, plus some alternative tools.</text>
+<text top="225" left="459" width="231" height="21" font="4"><b>The </b>grid.ls() <b>function</b></text>
+<text top="263" left="459" width="346" height="15" font="0">A simple listing of the names of all grobs in a scene</text>
+<text top="281" left="459" width="346" height="15" font="0">can be produced using the grid.ls() function. For</text>
+<text top="299" left="459" width="346" height="15" font="0">example, the following code lists the grobs in Fig-</text>
+<text top="317" left="459" width="22" height="15" font="0">ure</text>
+<text top="317" left="487" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="317" left="495" width="311" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">, </a>which consists of just two rectangles called</text>
+<text top="336" left="459" width="84" height="12" font="0">&#34;striprect&#34;</text>
+<text top="335" left="546" width="113" height="15" font="0">and &#34;panelrect&#34;</text>
+<text top="363" left="459" width="75" height="10" font="7">&gt; grid.ls()</text>
+<text top="389" left="459" width="62" height="10" font="7">striprect</text>
+<text top="405" left="459" width="62" height="10" font="7">panelrect</text>
+<text top="431" left="481" width="324" height="15" font="0">The grid.ls() function can also be used to list</text>
+<text top="449" left="459" width="346" height="15" font="0">viewports in the current scene, via the viewports ar-</text>
+<text top="466" left="459" width="346" height="15" font="0">gument and the fullNames argument can be speci-</text>
+<text top="484" left="459" width="346" height="15" font="0">fied to print further information in the listing so that</text>
+<text top="502" left="459" width="346" height="15" font="0">it is easier to distinguish viewports from grobs. The</text>
+<text top="520" left="459" width="346" height="15" font="0">following code produces a more complete listing of</text>
+<text top="538" left="459" width="152" height="15" font="0">the scene from Figure</text>
+<text top="538" left="618" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="538" left="632" width="173" height="15" font="0">with both viewports and</text>
+<text top="556" left="459" width="346" height="15" font="0">grobs listed. Notice that the names are indented to</text>
+<text top="574" left="459" width="346" height="15" font="0">reflect the fact that some viewports are nested within</text>
+<text top="592" left="459" width="346" height="15" font="0">others and also to reflect the fact that the grobs are</text>
+<text top="610" left="459" width="225" height="15" font="0">drawn within different viewports.</text>
+<text top="638" left="459" width="281" height="10" font="7">&gt; grid.ls(viewports=TRUE, fullNames=TRUE)</text>
+<text top="664" left="459" width="96" height="10" font="7">viewport[ROOT]</text>
+<text top="680" left="473" width="117" height="10" font="7">viewport[stripvp]</text>
+<text top="697" left="486" width="103" height="10" font="7">rect[striprect]</text>
+<text top="713" left="486" width="89" height="10" font="7">upViewport[1]</text>
+<text top="730" left="473" width="117" height="10" font="7">viewport[panelvp]</text>
+<text top="746" left="486" width="103" height="10" font="7">rect[panelrect]</text>
+<text top="763" left="486" width="89" height="10" font="7">upViewport[1]</text>
+<text top="788" left="481" width="324" height="15" font="0">This function is useful for at least viewing the</text>
+<text top="806" left="459" width="346" height="15" font="0">names of all grobs and viewports in a scene and it</text>
+<text top="824" left="459" width="346" height="15" font="0">gives some indication of the structure of the scene.</text>
+<text top="841" left="459" width="346" height="15" font="0">Even for a complex scene, such as a <b>lattice </b>mul-</text>
+<text top="859" left="459" width="346" height="15" font="0">tipanel conditioning plot it is possible, if a little</text>
+<text top="877" left="459" width="346" height="15" font="0">tedious, to identify important components of the</text>
+<text top="895" left="459" width="40" height="15" font="0">scene.</text>
+<text top="941" left="459" width="242" height="21" font="4"><b>The </b>showGrob() <b>function</b></text>
+<text top="980" left="459" width="346" height="15" font="0">The showGrob() function displays the names of the</text>
+<text top="998" left="459" width="346" height="15" font="0">grobs in a scene by labelling them on the current</text>
+<text top="1016" left="459" width="40" height="15" font="0">scene.</text>
+<text top="1016" left="514" width="291" height="15" font="0">By default, a semitransparent rectangle is</text>
+<text top="1034" left="459" width="346" height="15" font="0">drawn to show the extent of each grob and the name</text>
+<text top="1051" left="459" width="346" height="15" font="0">of the grob is drawn within that rectangle. For exam-</text>
+<text top="1069" left="459" width="346" height="15" font="0">ple, the following code labels the grobs in the simple</text>
+<text top="1087" left="459" width="120" height="15" font="0">scene from Figure</text>
+<text top="1087" left="584" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="1087" left="592" width="214" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">. </a>The resulting labelled scene is</text>
+<text top="1105" left="459" width="109" height="15" font="0">shown in Figure</text>
+<text top="1105" left="572" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">4</a></text>
+<text top="1105" left="584" width="222" height="15" font="0">— there are two rectangles called</text>
+<text top="1125" left="459" width="84" height="12" font="0">&#34;striprect&#34;</text>
+<text top="1123" left="546" width="117" height="15" font="0">and &#34;panelrect&#34;.</text>
+<text top="1151" left="459" width="82" height="10" font="7">&gt; showGrob()</text>
+<text top="1173" left="99" width="4" height="9" font="13">1</text>
+<text top="1175" left="104" width="648" height="12" font="1">The <b>lattice </b>package does provide some assistance in the form of the trellis.vpname() and trellis.grobname() functions.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="16" family="Helvetica" color="#ff0000"/>
+	<fontspec id="16" size="16" family="Helvetica" color="#0000ff"/>
+	<fontspec id="17" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="5" family="Helvetica" color="#ffffff"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">21</text>
+<text top="147" left="224" width="64" height="17" font="15">striprect</text>
+<text top="201" left="219" width="74" height="17" font="15">panelrect</text>
+<text top="282" left="82" width="230" height="15" font="0">Figure 4: The scene from Figure</text>
+<text top="282" left="319" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="282" left="334" width="95" height="15" font="0">with labelling</text>
+<text top="300" left="82" width="346" height="15" font="0">added by the showGrob() function to show the loca-</text>
+<text top="318" left="82" width="346" height="15" font="0">tions and names of the grobs used to draw the scene.</text>
+<text top="354" left="105" width="324" height="15" font="0">In more complex scenes, it is common for sev-</text>
+<text top="372" left="82" width="346" height="15" font="0">eral grobs to overlap each other so that this sort</text>
+<text top="390" left="82" width="233" height="15" font="0">of labelling becomes very messy.</text>
+<text top="390" left="334" width="95" height="15" font="0">Later sections</text>
+<text top="408" left="82" width="346" height="15" font="0">will demonstrate how to cope with that complex-</text>
+<text top="426" left="82" width="346" height="15" font="0">ity using other functions and other arguments to the</text>
+<text top="445" left="82" width="76" height="12" font="0">showGrob()</text>
+<text top="444" left="162" width="59" height="15" font="0">function.</text>
+<text top="494" left="82" width="286" height="21" font="4"><b>The </b>showViewport() <b>function</b></text>
+<text top="534" left="82" width="346" height="15" font="0">The showViewport() function performs a similar task</text>
+<text top="552" left="82" width="346" height="15" font="0">to showGrob() except that it labels the viewports in a</text>
+<text top="570" left="82" width="346" height="15" font="0">scene. Again, the labelling consists of a semitrans-</text>
+<text top="588" left="82" width="346" height="15" font="0">parent rectangle and the name of the viewport. For</text>
+<text top="605" left="82" width="346" height="15" font="0">example, the following code labels the viewports in</text>
+<text top="623" left="82" width="147" height="15" font="0">the scene from Figure</text>
+<text top="623" left="235" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="623" left="242" width="187" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">, </a>which has a narrow view-</text>
+<text top="641" left="82" width="346" height="15" font="0">port called &#34;stripvp&#34; on top and a larger viewport</text>
+<text top="659" left="82" width="158" height="15" font="0">called &#34;panelvp&#34; below.</text>
+<text top="695" left="82" width="110" height="10" font="7">&gt; showViewport()</text>
+<text top="804" left="224" width="63" height="17" font="16">panelvp</text>
+<text top="750" left="229" width="53" height="17" font="16">stripvp</text>
+<text top="886" left="82" width="230" height="15" font="0">Figure 5: The scene from Figure</text>
+<text top="886" left="319" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="886" left="334" width="95" height="15" font="0">with labelling</text>
+<text top="904" left="82" width="346" height="15" font="0">added by the showViewport() function to show the</text>
+<text top="922" left="82" width="346" height="15" font="0">locations and names of the viewports that were used</text>
+<text top="939" left="82" width="120" height="15" font="0">to draw the scene.</text>
+<text top="976" left="105" width="324" height="15" font="0">In more complex scenes, it is common for view-</text>
+<text top="994" left="82" width="346" height="15" font="0">ports to overlap each other, so the default output</text>
+<text top="1011" left="82" width="346" height="15" font="0">from showViewport() is less legible. Later sections</text>
+<text top="1029" left="82" width="346" height="15" font="0">will describe solutions to this problem using further</text>
+<text top="1047" left="82" width="346" height="15" font="0">arguments to showViewport() as well as different de-</text>
+<text top="1065" left="82" width="124" height="15" font="0">bugging functions.</text>
+<text top="1115" left="82" width="237" height="21" font="4"><b>The gridDebug package</b></text>
+<text top="1155" left="82" width="346" height="15" font="0">The <b>gridDebug </b>package provides some additional</text>
+<text top="1173" left="82" width="346" height="15" font="0">tools for debugging <b>grid </b>output. The gridTree()</text>
+<text top="125" left="459" width="346" height="15" font="0">function draws a scene graph from a <b>grid </b>scene, us-</text>
+<text top="143" left="459" width="47" height="15" font="0">ing the</text>
+<text top="143" left="511" width="40" height="15" font="6"><a href="http://cran.r-project.org/package=graph"><b>graph</b></a></text>
+<text top="143" left="555" width="25" height="15" font="0">and</text>
+<text top="143" left="586" width="71" height="15" font="6"><a href="http://cran.r-project.org/package=Rgraphviz"><b>Rgraphviz</b></a></text>
+<text top="143" left="662" width="71" height="15" font="0">packages <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">(</a></text>
+<text top="143" left="732" width="73" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">Gentleman</a></text>
+<text top="161" left="459" width="31" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">et al.</a></text>
+<text top="161" left="490" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">,</a></text>
+<text top="161" left="497" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">2010</a></text>
+<text top="161" left="527" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">;</a></text>
+<text top="161" left="534" width="81" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">Gentry et al.</a></text>
+<text top="161" left="615" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">,</a></text>
+<text top="161" left="622" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">2010</a></text>
+<text top="161" left="652" width="57" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">), </a>via the</text>
+<text top="161" left="712" width="93" height="15" font="6"><a href="http://cran.r-project.org/package=gridGraphviz"><b>gridGraphviz</b></a></text>
+<text top="179" left="459" width="66" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">(</a></text>
+<text top="179" left="525" width="51" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">Murrell</a></text>
+<text top="179" left="575" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">,</a></text>
+<text top="179" left="586" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">2011</a></text>
+<text top="179" left="616" width="190" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">). </a>This is a node-and-edge</text>
+<text top="197" left="459" width="346" height="15" font="0">graph that contains a node for each grob and each</text>
+<text top="215" left="459" width="346" height="15" font="0">viewport in the current <b>grid </b>scene. The graph has an</text>
+<text top="233" left="459" width="346" height="15" font="0">edge from each child viewport to its parent viewport</text>
+<text top="251" left="459" width="346" height="15" font="0">and an edge from each grob to the viewport within</text>
+<text top="268" left="459" width="346" height="15" font="0">which the grob is drawn. The nodes are labelled with</text>
+<text top="286" left="459" width="346" height="15" font="0">the name of the corresponding grobs and viewports.</text>
+<text top="304" left="459" width="346" height="15" font="0">For example, the following code produces a scene</text>
+<text top="322" left="459" width="251" height="15" font="0">graph for the simple scene in Figure</text>
+<text top="322" left="716" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="322" left="723" width="82" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">. </a>The scene</text>
+<text top="340" left="459" width="165" height="15" font="0">graph is shown in Figure</text>
+<text top="340" left="628" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">6</a></text>
+<text top="340" left="635" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">.</a></text>
+<text top="375" left="459" width="137" height="10" font="7">&gt; library(gridDebug)</text>
+<text top="408" left="459" width="82" height="10" font="7">&gt; gridTree()</text>
+<text top="465" left="621" width="21" height="7" font="17">ROOT</text>
+<text top="556" left="529" width="22" height="7" font="17">stripvp</text>
+<text top="647" left="527" width="27" height="7" font="18">striprect</text>
+<text top="556" left="710" width="26" height="7" font="17">panelvp</text>
+<text top="647" left="708" width="31" height="7" font="18">panelrect</text>
+<text top="715" left="459" width="346" height="15" font="0">Figure 6: A node-and-edge graph of the scene from</text>
+<text top="733" left="459" width="43" height="15" font="0">Figure</text>
+<text top="733" left="507" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">1</a></text>
+<text top="733" left="515" width="291" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">. </a>Both viewports are direct descendants of</text>
+<text top="751" left="459" width="346" height="15" font="0">the ROOT viewport and one grob is drawn in each</text>
+<text top="769" left="459" width="64" height="15" font="0">viewport.</text>
+<text top="805" left="481" width="324" height="15" font="0">This graph shows that the two viewports have</text>
+<text top="823" left="459" width="346" height="15" font="0">both been pushed directly beneath the ROOT viewport</text>
+<text top="840" left="459" width="346" height="15" font="0">(they are siblings) and that each grob has been drawn</text>
+<text top="858" left="459" width="151" height="15" font="0">in a separate viewport.</text>
+<text top="877" left="481" width="324" height="15" font="0">One advantage of this function is that it is unaf-</text>
+<text top="895" left="459" width="346" height="15" font="0">fected by overlapping grobs or viewports. The main</text>
+<text top="913" left="459" width="346" height="15" font="0">downside is that node labels become very small as</text>
+<text top="930" left="459" width="223" height="15" font="0">the scene becomes more complex.</text>
+<text top="979" left="459" width="209" height="21" font="4"><b>More complex scenes</b></text>
+<text top="1018" left="459" width="346" height="15" font="0">We will now consider a more complex scene and look</text>
+<text top="1036" left="459" width="346" height="15" font="0">at how the various debugging functions that have</text>
+<text top="1054" left="459" width="346" height="15" font="0">just been described can be adapted to cope with the</text>
+<text top="1072" left="459" width="346" height="15" font="0">additional complexity. As an example, we will look</text>
+<text top="1090" left="459" width="346" height="15" font="0">at a plot produced by the histogram() function from</text>
+<text top="1108" left="459" width="200" height="15" font="0">the <b>lattice </b>package (see Figure</text>
+<text top="1108" left="662" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="1108" left="670" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">).</a></text>
+<text top="1143" left="459" width="123" height="10" font="7">&gt; library(lattice)</text>
+<text top="1175" left="459" width="213" height="10" font="7">&gt; histogram(faithful$eruptions)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="20" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="21" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="22" size="15" family="Times" color="#000000"/>
+	<fontspec id="23" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="24" size="3" family="Helvetica" color="#000000"/>
+	<fontspec id="25" size="3" family="Helvetica" color="#000000"/>
+	<fontspec id="26" size="4" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">22</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="451" left="227" width="73" height="9" font="19">faithful$eruptions</text>
+<text top="314" left="94" width="0" height="9" font="20">P</text>
+<text top="308" left="94" width="0" height="9" font="20">ercent of T</text>
+<text top="263" left="94" width="0" height="9" font="20">otal</text>
+<text top="407" left="108" width="4" height="7" font="21">0</text>
+<text top="355" left="108" width="4" height="7" font="21">5</text>
+<text top="303" left="104" width="9" height="7" font="21">10</text>
+<text top="251" left="104" width="9" height="7" font="21">15</text>
+<text top="200" left="104" width="9" height="7" font="21">20</text>
+<text top="436" left="172" width="4" height="7" font="21">2</text>
+<text top="436" left="238" width="4" height="7" font="21">3</text>
+<text top="436" left="304" width="4" height="7" font="21">4</text>
+<text top="436" left="370" width="4" height="7" font="21">5</text>
+<text top="499" left="82" width="346" height="15" font="0">Figure 7: A more complex <b>grid </b>scene consisting of</text>
+<text top="517" left="82" width="346" height="15" font="0">a simple plot produced by the histogram() function</text>
+<text top="535" left="82" width="163" height="15" font="0">from the <b>lattice </b>package.</text>
+<text top="575" left="82" width="193" height="17" font="10"><b>The </b>grid.ls() <b>function</b></text>
+<text top="606" left="82" width="346" height="15" font="0">For more complex scenes, the number of viewports</text>
+<text top="624" left="82" width="346" height="15" font="0">and grobs can make it difficult to consume the listing</text>
+<text top="641" left="82" width="346" height="15" font="0">from grid.ls() and, as viewports and grobs become</text>
+<text top="659" left="82" width="346" height="15" font="0">nested to greater depths, simple indenting can be in-</text>
+<text top="677" left="82" width="255" height="15" font="0">sufficient to convey the nesting clearly.</text>
+<text top="695" left="105" width="324" height="15" font="0">One solution is to specify a different formatting</text>
+<text top="713" left="82" width="346" height="15" font="0">function via the print argument to the grid.ls()</text>
+<text top="731" left="82" width="346" height="15" font="0">function. For example, the following code lists all</text>
+<text top="749" left="82" width="228" height="15" font="0">grobs and viewports from Figure</text>
+<text top="749" left="317" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="749" left="324" width="105" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">, </a>but with only</text>
+<text top="767" left="82" width="346" height="15" font="0">one line for each grob. The nesting of viewports is</text>
+<text top="785" left="82" width="346" height="15" font="0">shown by listing the full viewport path to each grob.</text>
+<text top="803" left="82" width="43" height="15" font="0">Figure</text>
+<text top="803" left="129" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#5">8</a></text>
+<text top="803" left="140" width="181" height="15" font="0">shows the resulting output.</text>
+<text top="835" left="82" width="329" height="10" font="7">&gt; grid.ls(viewports=TRUE, print=grobPathListing)</text>
+<text top="864" left="105" width="324" height="15" font="0">Another solution is to capture (rather than just</text>
+<text top="882" left="82" width="346" height="15" font="0">print) the result from grid.ls(). This is a list ob-</text>
+<text top="900" left="82" width="346" height="15" font="0">ject containing a lot of information about the current</text>
+<text top="918" left="82" width="346" height="15" font="0">scene and it can be processed computationally to an-</text>
+<text top="936" left="82" width="346" height="15" font="0">swer more complex questions about the scene (see</text>
+<text top="954" left="82" width="43" height="15" font="0">Figure</text>
+<text top="954" left="129" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#5">9</a></text>
+<text top="954" left="136" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#5">).</a></text>
+<text top="986" left="82" width="281" height="10" font="7">&gt; sceneListing &lt;- grid.ls(viewports=TRUE,</text>
+<text top="1002" left="82" width="7" height="10" font="7">+</text>
+<text top="1002" left="261" width="82" height="10" font="7">print=FALSE)</text>
+<text top="1032" left="82" width="219" height="10" font="7">&gt; do.call(&#34;cbind&#34;, sceneListing)</text>
+<text top="1071" left="82" width="202" height="17" font="10"><b>The </b>showGrob() <b>function</b></text>
+<text top="1101" left="82" width="346" height="15" font="0">In a more complex scene, it is common for grobs to</text>
+<text top="1119" left="82" width="346" height="15" font="0">overlap each other, which can result in a messy la-</text>
+<text top="1137" left="82" width="346" height="15" font="0">belling from the showGrob() function. Another prob-</text>
+<text top="1155" left="82" width="346" height="15" font="0">lem is that text grobs do not label well because the</text>
+<text top="1173" left="82" width="346" height="15" font="0">labelling text is hard to read when overlaid on the</text>
+<text top="125" left="459" width="346" height="15" font="0">text that is being labelled. One possible solution is to</text>
+<text top="143" left="459" width="346" height="15" font="0">vary the graphical parameters used in the labelling.</text>
+<text top="161" left="459" width="346" height="15" font="0">For example, the following code sets the fill colour</text>
+<text top="179" left="459" width="346" height="15" font="0">for the grob bounding rectangles to be opaque (see</text>
+<text top="197" left="459" width="43" height="15" font="0">Figure</text>
+<text top="197" left="505" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">10</a></text>
+<text top="197" left="520" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">).</a></text>
+<text top="226" left="459" width="288" height="10" font="7">&gt; showGrob(gp=gpar(fill=rgb(1, .85, .85)))</text>
+<text top="419" left="596" width="72" height="8" font="21">plot_01.background</text>
+<text top="581" left="608" width="63" height="8" font="21">faithful$eruptions</text>
+<text top="581" left="617" width="44" height="8" font="21">plot_01.xlab</text>
+<text top="439" left="469" width="0" height="8" font="23">P</text>
+<text top="434" left="469" width="0" height="8" font="23">ercent of T</text>
+<text top="395" left="469" width="0" height="8" font="23">otal</text>
+<text top="433" left="469" width="0" height="8" font="23">plot_01.ylab</text>
+<text top="269" left="617" width="64" height="5" font="24">plot_01.ticks.top.panel.1.1</text>
+<text top="436" left="492" width="0" height="5" font="25">plot_01.ticks</text>
+<text top="406" left="492" width="0" height="5" font="25">.left.panel.1.1</text>
+<text top="540" left="481" width="4" height="6" font="26">0</text>
+<text top="486" left="481" width="4" height="6" font="26">5</text>
+<text top="433" left="477" width="8" height="6" font="26">10</text>
+<text top="379" left="477" width="8" height="6" font="26">15</text>
+<text top="326" left="477" width="8" height="6" font="26">20</text>
+<text top="486" left="484" width="0" height="8" font="23">plot_01.ticklabels</text>
+<text top="422" left="484" width="0" height="8" font="23">.left.panel.1.1</text>
+<text top="560" left="613" width="73" height="5" font="24">plot_01.ticks.bottom.panel.1.1</text>
+<text top="568" left="545" width="4" height="6" font="26">2</text>
+<text top="568" left="613" width="4" height="6" font="26">3</text>
+<text top="568" left="681" width="4" height="6" font="26">4</text>
+<text top="568" left="749" width="4" height="6" font="26">5</text>
+<text top="567" left="596" width="106" height="6" font="26">plot_01.ticklabels.bottom.panel.1.1</text>
+<text top="438" left="789" width="0" height="5" font="25">plot_01.ticks</text>
+<text top="407" left="789" width="0" height="5" font="25">.r</text>
+<text top="404" left="789" width="0" height="5" font="25">ight.panel.1.1</text>
+<text top="539" left="562" width="154" height="8" font="21">plot_01.histogram.baseline.lines.panel.1.1</text>
+<text top="413" left="580" width="118" height="8" font="21">plot_01.histogram.rect.panel.1.1</text>
+<text top="413" left="594" width="89" height="8" font="21">plot_01.border.panel.1.1</text>
+<text top="627" left="459" width="272" height="15" font="0">Figure 10: The <b>lattice </b>plot from Figure</text>
+<text top="627" left="738" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="627" left="752" width="54" height="15" font="0">with la-</text>
+<text top="645" left="459" width="346" height="15" font="0">belling added by the showGrob() function to show</text>
+<text top="663" left="459" width="346" height="15" font="0">the locations and names of the grobs that were used</text>
+<text top="680" left="459" width="120" height="15" font="0">to draw the scene.</text>
+<text top="716" left="481" width="324" height="15" font="0">One problem with this solution is that some</text>
+<text top="734" left="459" width="346" height="15" font="0">overlapping grobs are not visible at all. To solve</text>
+<text top="752" left="459" width="346" height="15" font="0">this, the gPath argument can be used to specify a</text>
+<text top="770" left="459" width="346" height="15" font="0">particular grob to label. The following code uses</text>
+<text top="788" left="459" width="346" height="15" font="0">this approach to label just the rectangle grob called</text>
+<text top="807" left="459" width="259" height="12" font="0">&#34;plot_01.histogram.rect.panel.1.1&#34;</text>
+<text top="806" left="726" width="79" height="15" font="0">(the rectan-</text>
+<text top="824" left="459" width="346" height="15" font="0">gle grob that draws the histogram bars; see Figure</text>
+<text top="842" left="459" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#5">11</a></text>
+<text top="842" left="474" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#5">).</a></text>
+<text top="871" left="459" width="357" height="10" font="7">&gt; showGrob(gPath=&#34;plot_01.histogram.rect.panel.1.1&#34;)</text>
+<text top="909" left="459" width="239" height="17" font="10"><b>The </b>showViewport() <b>function</b></text>
+<text top="940" left="459" width="346" height="15" font="0">In complex scenes, it is also very common for view-</text>
+<text top="958" left="459" width="346" height="15" font="0">ports to overlap each other. It is possible to dis-</text>
+<text top="976" left="459" width="346" height="15" font="0">play just a specific viewport with showViewport(),</text>
+<text top="994" left="459" width="346" height="15" font="0">by supplying a viewport path as the first argument,</text>
+<text top="1012" left="459" width="346" height="15" font="0">but another option is to draw all viewports sepa-</text>
+<text top="1030" left="459" width="346" height="15" font="0">rately via the leaves argument. The following code</text>
+<text top="1048" left="459" width="346" height="15" font="0">demonstrates this approach and the result is shown</text>
+<text top="1065" left="459" width="60" height="15" font="0">in Figure</text>
+<text top="1065" left="522" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">12</a></text>
+<text top="1065" left="537" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">.</a></text>
+<text top="1083" left="481" width="324" height="15" font="0">In this case, there are eight viewports to display,</text>
+<text top="1101" left="459" width="346" height="15" font="0">so eight sub-regions have been drawn. Each sub-</text>
+<text top="1119" left="459" width="346" height="15" font="0">region represents an entire page, within which the lo-</text>
+<text top="1137" left="459" width="346" height="15" font="0">cation of one viewport is indicated with a shaded re-</text>
+<text top="1155" left="459" width="346" height="15" font="0">gion. For example, the viewport &#34;plot_01.&#34; takes up</text>
+<text top="1173" left="459" width="346" height="15" font="0">the entire page, but the viewport &#34;plot_01.xlab.vp&#34;</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="27" size="6" family="Helvetica" color="#ff0000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">23</text>
+<text top="140" left="82" width="27" height="10" font="7">ROOT</text>
+<text top="140" left="473" width="137" height="10" font="7">| plot_01.background</text>
+<text top="157" left="82" width="288" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.xlab.vp</text>
+<text top="157" left="473" width="96" height="10" font="7">| plot_01.xlab</text>
+<text top="173" left="82" width="288" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.ylab.vp</text>
+<text top="173" left="473" width="96" height="10" font="7">| plot_01.ylab</text>
+<text top="189" left="82" width="350" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.strip.1.1.off.vp</text>
+<text top="189" left="473" width="199" height="10" font="7">| plot_01.ticks.top.panel.1.1</text>
+<text top="206" left="82" width="597" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.strip.left.1.1.off.vp | plot_01.ticks.left.panel.1.1</text>
+<text top="222" left="82" width="631" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.strip.left.1.1.off.vp | plot_01.ticklabels.left.panel.1.1</text>
+<text top="239" left="82" width="350" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp</text>
+<text top="239" left="473" width="219" height="10" font="7">| plot_01.ticks.bottom.panel.1.1</text>
+<text top="255" left="82" width="350" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp</text>
+<text top="255" left="473" width="254" height="10" font="7">| plot_01.ticklabels.bottom.panel.1.1</text>
+<text top="272" left="82" width="350" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp</text>
+<text top="272" left="473" width="213" height="10" font="7">| plot_01.ticks.right.panel.1.1</text>
+<text top="288" left="82" width="322" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.vp</text>
+<text top="288" left="473" width="302" height="10" font="7">| plot_01.histogram.baseline.lines.panel.1.1</text>
+<text top="305" left="82" width="322" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.vp</text>
+<text top="305" left="473" width="233" height="10" font="7">| plot_01.histogram.rect.panel.1.1</text>
+<text top="321" left="82" width="350" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp</text>
+<text top="321" left="473" width="178" height="10" font="7">| plot_01.border.panel.1.1</text>
+<text top="365" left="165" width="382" height="15" font="0">Figure 8: A listing of the grobs and viewports from Figure</text>
+<text top="365" left="551" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="365" left="562" width="160" height="15" font="0">produced by grid.ls().</text>
+<text top="450" left="206" width="171" height="10" font="7">name gDepth vpDepth gPath</text>
+<text top="450" left="631" width="41" height="10" font="7">vpPath</text>
+<text top="450" left="727" width="27" height="10" font="7">type</text>
+<text top="467" left="82" width="7" height="10" font="7">1</text>
+<text top="467" left="206" width="27" height="10" font="7">ROOT</text>
+<text top="467" left="275" width="7" height="10" font="7">0</text>
+<text top="467" left="329" width="7" height="10" font="7">0</text>
+<text top="467" left="693" width="62" height="10" font="7">vpListing</text>
+<text top="483" left="82" width="7" height="10" font="7">2</text>
+<text top="483" left="110" width="123" height="10" font="7">plot_01.background</text>
+<text top="483" left="275" width="7" height="10" font="7">0</text>
+<text top="483" left="329" width="7" height="10" font="7">1</text>
+<text top="483" left="645" width="110" height="10" font="7">ROOT grobListing</text>
+<text top="500" left="82" width="7" height="10" font="7">3</text>
+<text top="500" left="103" width="130" height="10" font="7">plot_01.toplevel.vp</text>
+<text top="500" left="275" width="7" height="10" font="7">0</text>
+<text top="500" left="329" width="7" height="10" font="7">1</text>
+<text top="500" left="645" width="27" height="10" font="7">ROOT</text>
+<text top="500" left="693" width="62" height="10" font="7">vpListing</text>
+<text top="516" left="82" width="7" height="10" font="7">4</text>
+<text top="516" left="131" width="103" height="10" font="7">plot_01.xlab.vp</text>
+<text top="516" left="275" width="7" height="10" font="7">0</text>
+<text top="516" left="329" width="7" height="10" font="7">2</text>
+<text top="516" left="501" width="171" height="10" font="7">ROOT::plot_01.toplevel.vp</text>
+<text top="516" left="693" width="62" height="10" font="7">vpListing</text>
+<text top="532" left="82" width="7" height="10" font="7">5</text>
+<text top="532" left="151" width="82" height="10" font="7">plot_01.xlab</text>
+<text top="532" left="275" width="7" height="10" font="7">0</text>
+<text top="532" left="329" width="7" height="10" font="7">3</text>
+<text top="532" left="384" width="370" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.xlab.vp grobListing</text>
+<text top="549" left="82" width="7" height="10" font="7">6</text>
+<text top="549" left="227" width="7" height="10" font="7">1</text>
+<text top="549" left="275" width="7" height="10" font="7">0</text>
+<text top="549" left="329" width="7" height="10" font="7">3</text>
+<text top="549" left="384" width="370" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.xlab.vp vpUpListing</text>
+<text top="565" left="82" width="7" height="10" font="7">7</text>
+<text top="565" left="131" width="103" height="10" font="7">plot_01.ylab.vp</text>
+<text top="565" left="275" width="7" height="10" font="7">0</text>
+<text top="565" left="329" width="7" height="10" font="7">2</text>
+<text top="565" left="501" width="171" height="10" font="7">ROOT::plot_01.toplevel.vp</text>
+<text top="565" left="693" width="62" height="10" font="7">vpListing</text>
+<text top="582" left="82" width="7" height="10" font="7">8</text>
+<text top="582" left="151" width="82" height="10" font="7">plot_01.ylab</text>
+<text top="582" left="275" width="7" height="10" font="7">0</text>
+<text top="582" left="329" width="7" height="10" font="7">3</text>
+<text top="582" left="384" width="370" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.ylab.vp grobListing</text>
+<text top="598" left="82" width="7" height="10" font="7">9</text>
+<text top="598" left="227" width="7" height="10" font="7">1</text>
+<text top="598" left="275" width="7" height="10" font="7">0</text>
+<text top="598" left="329" width="7" height="10" font="7">3</text>
+<text top="598" left="384" width="370" height="10" font="7">ROOT::plot_01.toplevel.vp::plot_01.ylab.vp vpUpListing</text>
+<text top="615" left="82" width="14" height="10" font="7">10</text>
+<text top="615" left="117" width="117" height="10" font="7">plot_01.figure.vp</text>
+<text top="615" left="275" width="7" height="10" font="7">0</text>
+<text top="615" left="329" width="7" height="10" font="7">2</text>
+<text top="615" left="501" width="171" height="10" font="7">ROOT::plot_01.toplevel.vp</text>
+<text top="615" left="693" width="62" height="10" font="7">vpListing</text>
+<text top="657" left="82" width="545" height="15" font="0">Figure 9: The raw result that is returned by a grid.ls() call for the scene in Figure</text>
+<text top="657" left="631" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="657" left="639" width="166" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">. </a>Only the first 10 lines of</text>
+<text top="675" left="82" width="145" height="15" font="0">information is shown.</text>
+<text top="1085" left="418" width="65" height="8" font="21">faithful$eruptions</text>
+<text top="937" left="274" width="0" height="8" font="23">P</text>
+<text top="932" left="274" width="0" height="8" font="23">ercent of T</text>
+<text top="892" left="274" width="0" height="8" font="23">otal</text>
+<text top="1043" left="286" width="4" height="7" font="17">0</text>
+<text top="987" left="286" width="4" height="7" font="17">5</text>
+<text top="931" left="282" width="8" height="7" font="17">10</text>
+<text top="875" left="282" width="8" height="7" font="17">15</text>
+<text top="819" left="282" width="8" height="7" font="17">20</text>
+<text top="1072" left="353" width="4" height="7" font="17">2</text>
+<text top="1072" left="424" width="4" height="7" font="17">3</text>
+<text top="1072" left="495" width="4" height="7" font="17">4</text>
+<text top="1072" left="566" width="4" height="7" font="17">5</text>
+<text top="911" left="390" width="123" height="8" font="27">plot_01.histogram.rect.panel.1.1</text>
+<text top="1132" left="82" width="252" height="15" font="0">Figure 11: The <b>lattice </b>plot from Figure</text>
+<text top="1132" left="338" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="1132" left="349" width="457" height="15" font="0">with labelling added by the showGrob() function to show the location</text>
+<text top="1150" left="82" width="314" height="15" font="0">of grob &#34;plot_01.histogram.rect.panel.1.1&#34;.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="28" size="6" family="Helvetica" color="#7f7f7f"/>
+<text top="67" left="82" width="15" height="15" font="0">24</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">only occupies a narrow strip towards the bot-</text>
+<text top="143" left="82" width="119" height="15" font="0">tom of the page.</text>
+<text top="143" left="219" width="210" height="15" font="0">Some viewports, for example,</text>
+<text top="162" left="82" width="198" height="12" font="0">&#34;plot_01.strip.1.1.off.vp&#34;</text>
+<text top="161" left="281" width="148" height="15" font="0">, have zero height or</text>
+<text top="179" left="82" width="278" height="15" font="0">zero width so appear as just straight lines.</text>
+<text top="214" left="82" width="281" height="10" font="7">&gt; showViewport(newpage=TRUE, leaves=TRUE,</text>
+<text top="230" left="82" width="7" height="10" font="7">+</text>
+<text top="230" left="185" width="82" height="10" font="7">col=&#34;black&#34;)</text>
+<text top="334" left="126" width="29" height="8" font="21">plot_01.</text>
+<text top="329" left="232" width="61" height="8" font="21">plot_01.figure.vp</text>
+<text top="329" left="346" width="64" height="6" font="26">plot_01.panel.1.1.off.vp</text>
+<text top="445" left="116" width="62" height="6" font="26">plot_01.panel.1.1.vp</text>
+<text top="416" left="222" width="81" height="8" font="21">plot_01.strip.1.1.off.vp</text>
+<text top="488" left="350" width="0" height="8" font="23">plot_01.str</text>
+<text top="450" left="350" width="0" height="8" font="23">ip</text>
+<text top="443" left="350" width="0" height="8" font="23">.left.1.1.off</text>
+<text top="405" left="350" width="0" height="8" font="23">.vp</text>
+<text top="612" left="119" width="55" height="8" font="21">plot_01.xlab.vp</text>
+<text top="584" left="208" width="0" height="8" font="23">plot_01.ylab</text>
+<text top="540" left="208" width="0" height="8" font="23">.vp</text>
+<text top="657" left="82" width="346" height="15" font="0">Figure 12: The result of calling showViewport() to</text>
+<text top="675" left="82" width="346" height="15" font="0">display the viewports used to draw the scene in Fig-</text>
+<text top="693" left="82" width="22" height="15" font="0">ure</text>
+<text top="693" left="109" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="693" left="116" width="313" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">, </a>with each viewport displayed on its own in a</text>
+<text top="711" left="82" width="346" height="15" font="0">separate “mini page” to overcome the fact that sev-</text>
+<text top="729" left="82" width="224" height="15" font="0">eral viewports overlap each other.</text>
+<text top="771" left="82" width="202" height="17" font="10"><b>The </b>gridTree() <b>function</b></text>
+<text top="802" left="82" width="346" height="15" font="0">One advantage of the gridTree() function is that it</text>
+<text top="820" left="82" width="346" height="15" font="0">is immune to the overlap of grobs and viewports in a</text>
+<text top="838" left="82" width="346" height="15" font="0">scene. This is because this sort of display emphasizes</text>
+<text top="856" left="82" width="346" height="15" font="0">the conceptual structure of the scene rather than re-</text>
+<text top="874" left="82" width="346" height="15" font="0">flecting the location of grobs and viewports on the</text>
+<text top="892" left="82" width="36" height="15" font="0">page.</text>
+<text top="910" left="105" width="324" height="15" font="0">The following code produces a scene graph for</text>
+<text top="928" left="82" width="178" height="15" font="0">the <b>lattice </b>plot from Figure</text>
+<text top="928" left="264" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="928" left="276" width="153" height="15" font="0">and the result is shown</text>
+<text top="946" left="82" width="60" height="15" font="0">in Figure</text>
+<text top="946" left="146" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">13</a></text>
+<text top="946" left="161" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">.</a></text>
+<text top="981" left="82" width="82" height="10" font="7">&gt; gridTree()</text>
+<text top="1013" left="105" width="324" height="15" font="0">One problem that does arise with the gridTree()</text>
+<text top="1031" left="82" width="346" height="15" font="0">function is that the grob and viewport names, which</text>
+<text top="1049" left="82" width="346" height="15" font="0">are used to label the nodes of the scene graph, can</text>
+<text top="1067" left="82" width="169" height="15" font="0">become too small to read.</text>
+<text top="1085" left="105" width="324" height="15" font="0">The following code demonstrates this problem</text>
+<text top="1103" left="82" width="346" height="15" font="0">with an example plot from the <b>ggplot2 </b>package. The</text>
+<text top="1121" left="82" width="155" height="15" font="0">plot is shown in Figure</text>
+<text top="1121" left="242" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">14</a></text>
+<text top="1121" left="261" width="168" height="15" font="0">and the scene graph gen-</text>
+<text top="1139" left="82" width="268" height="15" font="0">erated by gridTree() is shown in Figure</text>
+<text top="1139" left="354" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">15</a></text>
+<text top="1139" left="369" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">.</a></text>
+<text top="1173" left="82" width="123" height="10" font="7">&gt; library(ggplot2)</text>
+<text top="127" left="459" width="274" height="10" font="7">&gt; qplot(faithful$eruptions, binwidth=.5)</text>
+<text top="561" left="596" width="73" height="9" font="19">faithful$eruptions</text>
+<text top="404" left="474" width="0" height="9" font="20">count</text>
+<text top="530" left="482" width="4" height="7" font="28">0</text>
+<text top="493" left="477" width="9" height="7" font="28">10</text>
+<text top="456" left="477" width="9" height="7" font="28">20</text>
+<text top="419" left="477" width="9" height="7" font="28">30</text>
+<text top="382" left="477" width="9" height="7" font="28">40</text>
+<text top="345" left="477" width="9" height="7" font="28">50</text>
+<text top="308" left="477" width="9" height="7" font="28">60</text>
+<text top="271" left="477" width="9" height="7" font="28">70</text>
+<text top="552" left="503" width="4" height="7" font="28">1</text>
+<text top="552" left="557" width="4" height="7" font="28">2</text>
+<text top="552" left="611" width="4" height="7" font="28">3</text>
+<text top="552" left="665" width="4" height="7" font="28">4</text>
+<text top="552" left="718" width="4" height="7" font="28">5</text>
+<text top="552" left="772" width="4" height="7" font="28">6</text>
+<text top="608" left="459" width="346" height="15" font="0">Figure 14: A more complex <b>grid </b>scene consisting of</text>
+<text top="626" left="459" width="346" height="15" font="0">a simple plot produced by the qplot() function from</text>
+<text top="644" left="459" width="138" height="15" font="0">the <b>ggplot2 </b>package.</text>
+<text top="693" left="481" width="324" height="15" font="0">Although it is impossible to read the names of</text>
+<text top="711" left="459" width="346" height="15" font="0">individual grobs and viewports on this graph, it is</text>
+<text top="729" left="459" width="346" height="15" font="0">still interesting to compare the structure of this scene</text>
+<text top="747" left="459" width="321" height="15" font="0">with the graph from the <b>lattice </b>plot in Figure</text>
+<text top="747" left="787" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">13</a></text>
+<text top="747" left="802" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#7">.</a></text>
+<text top="765" left="459" width="346" height="15" font="0">The graph clearly shows that the <b>lattice </b>package uses</text>
+<text top="783" left="459" width="346" height="15" font="0">two levels of viewports, but only simple grobs, while</text>
+<text top="801" left="459" width="346" height="15" font="0">the <b>ggplot2 </b>package has a single, relatively complex,</text>
+<text top="820" left="459" width="346" height="15" font="0">gTree that contains numerous other grobs, gTrees and</text>
+<text top="836" left="459" width="70" height="15" font="0">viewports.</text>
+<text top="955" left="459" width="132" height="17" font="10"><b>Interactive tools</b></text>
+<text top="1012" left="459" width="346" height="15" font="0">The problem of unreadable labels on a scene graph</text>
+<text top="1030" left="459" width="346" height="15" font="0">may be alleviated by using the gridTreeTips() func-</text>
+<text top="1048" left="459" width="346" height="15" font="0">tion, from the <b>gridDebug </b>package. This makes use</text>
+<text top="1065" left="459" width="39" height="15" font="0">of the</text>
+<text top="1066" left="503" width="61" height="15" font="6"><a href="http://cran.r-project.org/package=gridSVG"><b>gridSVG</b></a></text>
+<text top="1065" left="570" width="65" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">(</a></text>
+<text top="1065" left="635" width="127" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">Murrell and Potter</a></text>
+<text top="1065" left="761" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">,</a></text>
+<text top="1065" left="770" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">2011</a></text>
+<text top="1065" left="800" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#9">)</a></text>
+<text top="1083" left="459" width="346" height="15" font="0">to produce an SVG version of the scene graph with</text>
+<text top="1101" left="459" width="346" height="15" font="0">simple interaction added so that, when the mouse</text>
+<text top="1119" left="459" width="346" height="15" font="0">hovers over a node in the scene graph, a tooltip pops</text>
+<text top="1137" left="459" width="264" height="15" font="0">up to show the name of the node. Figure</text>
+<text top="1137" left="726" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">16</a></text>
+<text top="1137" left="744" width="61" height="15" font="0">shows an</text>
+<text top="1155" left="459" width="346" height="15" font="0">example of the output from this function (as viewed</text>
+<text top="1173" left="459" width="72" height="15" font="0">in Firefox).</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="29" size="1" family="Helvetica" color="#000000"/>
+	<fontspec id="30" size="1" family="Helvetica" color="#ffffff"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">25</text>
+<text top="165" left="340" width="10" height="3" font="29">ROOT</text>
+<text top="272" left="314" width="12" height="3" font="30">plot_01.</text>
+<text top="275" left="311" width="18" height="3" font="30">background</text>
+<text top="270" left="363" width="12" height="3" font="29">plot_01.</text>
+<text top="274" left="363" width="13" height="3" font="29">toplevel.</text>
+<text top="277" left="368" width="4" height="3" font="29">vp</text>
+<text top="381" left="189" width="12" height="3" font="29">plot_01.</text>
+<text top="385" left="190" width="11" height="3" font="29">xlab.vp</text>
+<text top="490" left="189" width="12" height="3" font="30">plot_01.</text>
+<text top="494" left="192" width="6" height="3" font="30">xlab</text>
+<text top="381" left="239" width="12" height="3" font="29">plot_01.</text>
+<text top="385" left="240" width="11" height="3" font="29">ylab.vp</text>
+<text top="490" left="239" width="12" height="3" font="30">plot_01.</text>
+<text top="494" left="242" width="6" height="3" font="30">ylab</text>
+<text top="379" left="289" width="12" height="3" font="29">plot_01.</text>
+<text top="383" left="290" width="10" height="3" font="29">figure.</text>
+<text top="386" left="293" width="4" height="3" font="29">vp</text>
+<text top="379" left="338" width="12" height="3" font="29">plot_01.</text>
+<text top="383" left="337" width="15" height="3" font="29">panel.1.1.</text>
+<text top="386" left="343" width="4" height="3" font="29">vp</text>
+<text top="379" left="388" width="12" height="3" font="29">plot_01.</text>
+<text top="383" left="388" width="13" height="3" font="29">strip.1.1.</text>
+<text top="386" left="390" width="8" height="3" font="29">off.vp</text>
+<text top="486" left="388" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="390" width="8" height="3" font="30">ticks.</text>
+<text top="494" left="391" width="6" height="3" font="30">top.</text>
+<text top="497" left="387" width="14" height="3" font="30">panel.1.1</text>
+<text top="377" left="438" width="12" height="3" font="29">plot_01.</text>
+<text top="381" left="440" width="7" height="3" font="29">strip.</text>
+<text top="385" left="438" width="11" height="3" font="29">left.1.1.</text>
+<text top="388" left="440" width="8" height="3" font="29">off.vp</text>
+<text top="486" left="438" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="440" width="8" height="3" font="30">ticks.</text>
+<text top="494" left="441" width="6" height="3" font="30">left.</text>
+<text top="497" left="437" width="14" height="3" font="30">panel.1.1</text>
+<text top="486" left="487" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="486" width="15" height="3" font="30">ticklabels.</text>
+<text top="494" left="491" width="6" height="3" font="30">left.</text>
+<text top="497" left="487" width="14" height="3" font="30">panel.1.1</text>
+<text top="379" left="562" width="12" height="3" font="29">plot_01.</text>
+<text top="383" left="561" width="15" height="3" font="29">panel.1.1.</text>
+<text top="386" left="564" width="8" height="3" font="29">off.vp</text>
+<text top="486" left="537" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="539" width="8" height="3" font="30">ticks.</text>
+<text top="494" left="538" width="11" height="3" font="30">bottom.</text>
+<text top="497" left="536" width="14" height="3" font="30">panel.1.1</text>
+<text top="486" left="587" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="585" width="15" height="3" font="30">ticklabels.</text>
+<text top="494" left="587" width="11" height="3" font="30">bottom.</text>
+<text top="497" left="586" width="14" height="3" font="30">panel.1.1</text>
+<text top="486" left="636" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="639" width="8" height="3" font="30">ticks.</text>
+<text top="494" left="639" width="8" height="3" font="30">right.</text>
+<text top="497" left="635" width="14" height="3" font="30">panel.1.1</text>
+<text top="484" left="289" width="12" height="3" font="30">plot_01.</text>
+<text top="488" left="287" width="16" height="3" font="30">histogram.</text>
+<text top="492" left="288" width="14" height="3" font="30">baseline.</text>
+<text top="495" left="291" width="8" height="3" font="30">lines.</text>
+<text top="499" left="288" width="14" height="3" font="30">panel.1.1</text>
+<text top="486" left="338" width="12" height="3" font="30">plot_01.</text>
+<text top="490" left="337" width="16" height="3" font="30">histogram.</text>
+<text top="494" left="341" width="7" height="3" font="30">rect.</text>
+<text top="497" left="338" width="14" height="3" font="30">panel.1.1</text>
+<text top="488" left="686" width="12" height="3" font="30">plot_01.</text>
+<text top="492" left="687" width="11" height="3" font="30">border.</text>
+<text top="495" left="685" width="14" height="3" font="30">panel.1.1</text>
+<text top="382" left="612" width="11" height="3" font="29">plot_01</text>
+<text top="568" left="242" width="392" height="15" font="0">Figure 13: A node-and-edge graph of the scene from Figure</text>
+<text top="568" left="638" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#4">7</a></text>
+<text top="1148" left="82" width="391" height="15" font="0">Figure 15: A node-and-edge graph of the scene from Figure</text>
+<text top="1148" left="478" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">14</a></text>
+<text top="1148" left="493" width="313" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">. </a>This scene graph was produced using <b>ggplot2</b></text>
+<text top="1166" left="82" width="547" height="15" font="0">version 0.8.9. More recent versions of <b>ggplot2 </b>will produce a different scene graph.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">26</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="536" left="82" width="346" height="15" font="0">Figure 16: A node-and-edge graph of the scene</text>
+<text top="554" left="82" width="82" height="15" font="0">from Figure</text>
+<text top="554" left="172" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">14</a></text>
+<text top="554" left="194" width="235" height="15" font="0">in SVG format so that, when the</text>
+<text top="572" left="82" width="346" height="15" font="0">mouse hovers over a node on the graph, a tooltip</text>
+<text top="590" left="82" width="222" height="15" font="0">shows the name of the node.</text>
+<text top="590" left="329" width="100" height="15" font="0">The mouse is</text>
+<text top="608" left="82" width="346" height="15" font="0">hovering over the node for the viewport called</text>
+<text top="627" left="82" width="160" height="12" font="0">&#34;plot_01.toplevel.vp&#34;</text>
+<text top="626" left="243" width="4" height="15" font="0">.</text>
+<text top="662" left="105" width="324" height="15" font="0">Another function from the <b>gridDebug </b>pack-</text>
+<text top="680" left="82" width="346" height="15" font="0">age, which also makes use of <b>gridSVG</b>, is the</text>
+<text top="700" left="82" width="99" height="12" font="0">grobBrowser()</text>
+<text top="698" left="187" width="242" height="15" font="0">function. This takes any <b>grid </b>scene</text>
+<text top="716" left="82" width="346" height="15" font="0">and produces an SVG version of the scene that also</text>
+<text top="734" left="82" width="346" height="15" font="0">contains tooltips. In this case, whenever the mouse</text>
+<text top="752" left="82" width="346" height="15" font="0">hovers over a grob in the scene, a tooltip pops up to</text>
+<text top="770" left="82" width="235" height="15" font="0">show the name of the grob. Figure</text>
+<text top="770" left="322" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">17</a></text>
+<text top="770" left="342" width="87" height="15" font="0">shows an ex-</text>
+<text top="788" left="82" width="346" height="15" font="0">ample of the output from this function (as viewed in</text>
+<text top="806" left="82" width="55" height="15" font="0">Firefox).</text>
+<text top="852" left="82" width="192" height="17" font="10"><b>Tools in other packages</b></text>
+<text top="884" left="82" width="25" height="15" font="0">The</text>
+<text top="884" left="115" width="61" height="15" font="6"><a href="http://cran.r-project.org/package=playwith"><b>playwith</b></a></text>
+<text top="884" left="185" width="67" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">(</a></text>
+<text top="884" left="252" width="61" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">Andrews</a></text>
+<text top="884" left="313" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">,</a></text>
+<text top="884" left="324" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">2010</a></text>
+<text top="884" left="354" width="75" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">) </a>also pro-</text>
+<text top="902" left="82" width="346" height="15" font="0">vides some tools for exploring the grobs in a <b>grid</b></text>
+<text top="920" left="82" width="346" height="15" font="0">scene. The showGrobsBB() function produces a simi-</text>
+<text top="938" left="82" width="346" height="15" font="0">lar result to showGrob() and identifyGrob() allows</text>
+<text top="956" left="82" width="346" height="15" font="0">the user to click within a normal R graphics device to</text>
+<text top="974" left="82" width="346" height="15" font="0">identify grobs. If the click occurs within the bound-</text>
+<text top="992" left="82" width="346" height="15" font="0">ing box of a grob then the name of that grob is re-</text>
+<text top="1010" left="82" width="346" height="15" font="0">turned as the result. The result may be several grob</text>
+<text top="1028" left="82" width="246" height="15" font="0">names if there are overlapping grobs.</text>
+<text top="1079" left="82" width="122" height="21" font="4"><b>Conclusions</b></text>
+<text top="1119" left="82" width="346" height="15" font="0">This article has described several tools that assist</text>
+<text top="1137" left="82" width="346" height="15" font="0">with the debugging of <b>grid </b>graphics code, whether</text>
+<text top="1155" left="82" width="346" height="15" font="0">that is trying to understand someone else’s code, try-</text>
+<text top="1173" left="82" width="346" height="15" font="0">ing to understand your own code, or trying to ex-</text>
+<text top="125" left="459" width="212" height="15" font="0">plain <b>grid </b>code to someone else.</text>
+<text top="143" left="481" width="324" height="15" font="0">The tools provide various ways to view the</text>
+<text top="161" left="459" width="346" height="15" font="0">names of grobs and viewports that were used to</text>
+<text top="179" left="459" width="346" height="15" font="0">draw a scene, the relationships between the grobs</text>
+<text top="197" left="459" width="346" height="15" font="0">and viewports, and where those grobs and viewports</text>
+<text top="215" left="459" width="219" height="15" font="0">end up when drawn on the page.</text>
+<text top="234" left="481" width="324" height="15" font="0">Each of the tools has various weaknesses, so it</text>
+<text top="252" left="459" width="346" height="15" font="0">may be necessary to use them in combination with</text>
+<text top="270" left="459" width="346" height="15" font="0">each other in order to gain a complete understand-</text>
+<text top="287" left="459" width="153" height="15" font="0">ing of a complex scene.</text>
+<text top="337" left="459" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="377" left="459" width="346" height="15" font="0">Many thanks to the anonymous reviewers for their</text>
+<text top="395" left="459" width="227" height="15" font="0">useful comments and suggestions.</text>
+<text top="827" left="459" width="237" height="15" font="0">Figure 17: The scene from Figure</text>
+<text top="827" left="702" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">14</a></text>
+<text top="827" left="724" width="81" height="15" font="0">in SVG for-</text>
+<text top="845" left="459" width="346" height="15" font="0">mat so that, when the mouse hovers over a grob</text>
+<text top="863" left="459" width="346" height="15" font="0">in the scene, a tooltip shows the name of the grob.</text>
+<text top="881" left="459" width="346" height="15" font="0">The mouse is hovering over one of the bars in the</text>
+<text top="899" left="459" width="346" height="15" font="0">histogram, which corresponds to the grob called</text>
+<text top="918" left="459" width="259" height="12" font="0">&#34;plot_01.histogram.rect.panel.1.1&#34;</text>
+<text top="917" left="718" width="4" height="15" font="0">.</text>
+<text top="962" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="1001" left="459" width="346" height="15" font="0">F. Andrews. playwith: A GUI for interactive plots using</text>
+<text top="1019" left="474" width="127" height="15" font="0">GTK+, 2010. URL</text>
+<text top="1021" left="606" width="199" height="12" font="5"><a href="http://CRAN.R-project.org/package=playwith">http://CRAN.R-project.org/</a></text>
+<text top="1039" left="474" width="122" height="12" font="5"><a href="http://CRAN.R-project.org/package=playwith">package=playwith</a></text>
+<text top="1037" left="596" width="190" height="15" font="0"><a href="http://CRAN.R-project.org/package=playwith">. </a>R package version 0.9-53. <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">[p</a></text>
+<text top="1037" left="785" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">26</a></text>
+<text top="1037" left="800" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#8">]</a></text>
+<text top="1069" left="459" width="346" height="15" font="0">R. Gentleman, E. Whalen, W. Huber, and S. Fal-</text>
+<text top="1087" left="474" width="332" height="15" font="0">con. graph: A package to handle graph data structures,</text>
+<text top="1105" left="474" width="69" height="15" font="0">2010. URL</text>
+<text top="1107" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=graph">http://CRAN.R-project.org/package=</a></text>
+<text top="1124" left="474" width="38" height="12" font="5"><a href="http://CRAN.R-project.org/package=graph">graph</a></text>
+<text top="1123" left="512" width="194" height="15" font="0"><a href="http://CRAN.R-project.org/package=graph">. </a>R package version 1.28.0. <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">[p</a></text>
+<text top="1123" left="706" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">21</a></text>
+<text top="1123" left="721" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">]</a></text>
+<text top="1155" left="459" width="346" height="15" font="0">J. Gentry, L. Long, R. Gentleman, S. Falcon, F. Hahne,</text>
+<text top="1173" left="474" width="332" height="15" font="0">D. Sarkar, and K. Hansen. Rgraphviz: Provides plot-</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">27</text>
+<text top="125" left="97" width="332" height="15" font="0">ting capabilities for R graph objects, 2010. R package</text>
+<text top="143" left="97" width="113" height="15" font="0">version 1.23.6. <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">[p</a></text>
+<text top="143" left="211" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">21</a></text>
+<text top="143" left="226" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">]</a></text>
+<text top="170" left="82" width="73" height="15" font="0">P. Murrell.</text>
+<text top="170" left="174" width="255" height="15" font="0">gridGraphviz: Drawing Node-and-Edge</text>
+<text top="188" left="97" width="332" height="15" font="0">Graphs Using Grid, 2011. R package version 0.1.</text>
+<text top="206" left="97" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">[p</a></text>
+<text top="206" left="111" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">21</a></text>
+<text top="206" left="126" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#3">]</a></text>
+<text top="233" left="82" width="147" height="15" font="0">P. Murrell and V. Ly.</text>
+<text top="233" left="246" width="183" height="15" font="0">gridDebug: Debugging Grid</text>
+<text top="250" left="97" width="267" height="15" font="0">Graphics, 2011. R package version 0.2. <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#2">[p</a></text>
+<text top="251" left="364" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#2">20</a></text>
+<text top="251" left="379" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#2">]</a></text>
+<text top="277" left="82" width="346" height="15" font="0">P. Murrell and S. Potter. gridSVG: Export grid graphics</text>
+<text top="295" left="97" width="271" height="15" font="0">as SVG, 2011. R package version 0.7-0. <a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">[p</a></text>
+<text top="295" left="369" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">24</a></text>
+<text top="295" left="384" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#6">]</a></text>
+<text top="322" left="82" width="346" height="15" font="0">D. Sarkar. Lattice: Multivariate Data Visualization with</text>
+<text top="340" left="97" width="229" height="15" font="0">R. Springer, New York, 2008. URL</text>
+<text top="342" left="330" width="99" height="12" font="5"><a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.</a></text>
+<text top="360" left="97" width="162" height="12" font="5"><a href="http://lmdvr.r-forge.r-project.org">r-forge.r-project.org</a></text>
+<text top="358" left="259" width="170" height="15" font="0"><a href="http://lmdvr.r-forge.r-project.org">. </a>ISBN 978-0-387-75968-5.</text>
+<text top="376" left="97" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">[p</a></text>
+<text top="376" left="111" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">19</a></text>
+<text top="376" left="126" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">]</a></text>
+<text top="125" left="459" width="346" height="15" font="0">H. Wickham. ggplot2: elegant graphics for data analysis.</text>
+<text top="143" left="474" width="332" height="15" font="0">Springer New York, 2009. ISBN 978-0-387-98140-6.</text>
+<text top="161" left="474" width="31" height="15" font="0">URL</text>
+<text top="162" left="508" width="221" height="12" font="5"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="161" left="729" width="23" height="15" font="0"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">[p</a></text>
+<text top="161" left="752" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">19</a></text>
+<text top="161" left="767" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell+Ly.html#1">]</a></text>
+<text top="214" left="459" width="80" height="15" font="0">Paul Murrell</text>
+<text top="232" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="250" left="459" width="168" height="15" font="0">The University of Auckland</text>
+<text top="268" left="459" width="81" height="15" font="0">New Zealand</text>
+<text top="287" left="459" width="183" height="12" font="5"><a href="mailto:paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></text>
+<text top="322" left="459" width="57" height="15" font="0">Velvet Ly</text>
+<text top="340" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="358" left="459" width="168" height="15" font="0">The University of Auckland</text>
+<text top="376" left="459" width="81" height="15" font="0">New Zealand</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

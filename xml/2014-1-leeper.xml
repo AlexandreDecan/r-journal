@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="6" size="15" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="10" family="Times" color="#7282aa"/>
+	<fontspec id="11" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">151</text>
+<text top="98" left="149" width="582" height="30" font="2"><b>Archiving Reproducible Research with R</b></text>
+<text top="137" left="149" width="202" height="30" font="2"><b>and Dataverse</b></text>
+<text top="173" left="149" width="121" height="15" font="0">by Thomas J. Leeper</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="205" width="539" height="13" font="4">Reproducible research and data archiving are increasingly important issues in research</text>
+<text top="231" left="149" width="468" height="13" font="4">involving statistical analyses of quantitative data. This article introduces the</text>
+<text top="231" left="621" width="24" height="13" font="5"><a href="http://CRAN.R-project.org/package=dvn"><b>dvn</b></a></text>
+<text top="231" left="649" width="95" height="13" font="4">package, which</text>
+<text top="247" left="149" width="595" height="13" font="4">allows R users to publicly archive datasets, analysis files, codebooks, and associated metadata in</text>
+<text top="264" left="149" width="595" height="13" font="4">Dataverse Network online repositories, an open-source data archiving project sponsored by Harvard</text>
+<text top="280" left="149" width="595" height="13" font="4">University. In this article I review the importance of data archiving in the context of reproducible</text>
+<text top="297" left="149" width="595" height="13" font="4">research, introduce the Dataverse Network, explain the implementation of the <b>dvn </b>package, and</text>
+<text top="313" left="148" width="438" height="13" font="4">provide example code for archiving and releasing data using the package.</text>
+<text top="358" left="149" width="339" height="17" font="6"><b>Data archiving and reproducible research</b></text>
+<text top="397" left="149" width="598" height="13" font="4">Reproducible research involves the careful, annotated preservation of data, analysis code, and asso-</text>
+<text top="413" left="149" width="596" height="13" font="4">ciated files, such that statistical procedures, output, and published results can be directly and fully</text>
+<text top="430" left="149" width="171" height="13" font="4">replicated (see, for example,</text>
+<text top="430" left="324" width="30" height="13" font="7"><a href="2014-1-leeper.html#7">King</a></text>
+<text top="430" left="353" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="430" left="360" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">1995</a></text>
+<text top="430" left="388" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">;</a></text>
+<text top="430" left="395" width="35" height="13" font="7"><a href="2014-1-leeper.html#7">Boyer</a></text>
+<text top="430" left="430" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="430" left="438" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2003</a></text>
+<text top="430" left="465" width="279" height="13" font="4"><a href="2014-1-leeper.html#7">). </a>R provides an increasingly large set of tools</text>
+<text top="446" left="149" width="451" height="13" font="4">for engaging in reproducible research practices. Perhaps most prominent is</text>
+<text top="446" left="603" width="31" height="13" font="5"><a href="http://CRAN.R-project.org/package=knitr"><b>knitr</b></a></text>
+<text top="446" left="637" width="5" height="13" font="4"><a href="2014-1-leeper.html#8">(</a></text>
+<text top="446" left="642" width="20" height="13" font="7"><a href="2014-1-leeper.html#8">Xie</a></text>
+<text top="446" left="662" width="3" height="13" font="4"><a href="2014-1-leeper.html#8">,</a></text>
+<text top="446" left="668" width="27" height="13" font="7"><a href="2014-1-leeper.html#8">2013</a></text>
+<text top="446" left="696" width="49" height="13" font="4"><a href="2014-1-leeper.html#8">), </a>which</text>
+<text top="462" left="149" width="140" height="13" font="4">expands upon Sweave <a href="2014-1-leeper.html#7">(</a></text>
+<text top="462" left="289" width="38" height="13" font="7"><a href="2014-1-leeper.html#7">Leisch</a></text>
+<text top="462" left="326" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="462" left="333" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2002</a></text>
+<text top="462" left="360" width="384" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>to help R users produce fully reproducible research reports for a</text>
+<text top="479" left="148" width="174" height="13" font="4">variety of markup languages.</text>
+<text top="479" left="327" width="54" height="13" font="7"><a href="2014-1-leeper.html#7">Gandrud</a></text>
+<text top="479" left="384" width="4" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="479" left="389" width="34" height="13" font="7"><a href="2014-1-leeper.html#7">2013b</a></text>
+<text top="479" left="423" width="321" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>and others have advocated for the widespread use of</text>
+<text top="495" left="149" width="596" height="13" font="4">reproducible research tools, but a major shortcoming of the existing set of tools is a means of easily</text>
+<text top="512" left="149" width="596" height="13" font="4">archiving reproducible research files for use by others. While it is easy to privately archive files for</text>
+<text top="528" left="149" width="596" height="13" font="4">reproducing one’s own work later on, making study files publicly available is not something readily</text>
+<text top="545" left="149" width="228" height="13" font="4">supported by R or other existing tools.</text>
+<text top="566" left="171" width="573" height="13" font="4">A reproducible research workflow is most valuable when it allows others to replicate results</text>
+<text top="582" left="149" width="595" height="13" font="4">and reproduce published results precisely. Thus complete records of all data and analyses need to</text>
+<text top="598" left="149" width="452" height="13" font="4">be publicly and persistently available via a stable, freely available archive.</text>
+<text top="598" left="606" width="56" height="13" font="7"><a href="2014-1-leeper.html#7">Gandrud</a></text>
+<text top="598" left="665" width="5" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="598" left="670" width="34" height="13" font="7"><a href="2014-1-leeper.html#7">2013a</a></text>
+<text top="598" left="704" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="598" left="707" width="8" height="13" font="7"><a href="2014-1-leeper.html#7">b</a></text>
+<text top="598" left="715" width="29" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>has</text>
+<text top="615" left="149" width="597" height="13" font="4">advocated for the use of Dropbox and GitHub for fulfilling this archiving role. Both sites are supported,</text>
+<text top="631" left="149" width="298" height="13" font="4">to varying extents, by existing R packages: <b>rDrop </b><a href="2014-1-leeper.html#7">(</a></text>
+<text top="631" left="447" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">Ram</a></text>
+<text top="631" left="474" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="631" left="481" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2012</a></text>
+<text top="631" left="508" width="163" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>for Dropbox and <b>rgithub </b><a href="2014-1-leeper.html#7">(</a></text>
+<text top="631" left="671" width="72" height="13" font="7"><a href="2014-1-leeper.html#7">Scheidegger</a></text>
+<text top="631" left="742" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="648" left="149" width="26" height="13" font="7"><a href="2014-1-leeper.html#7">2013</a></text>
+<text top="648" left="175" width="569" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>for GitHub. However, Dropbox is not designed for persistent archiving, depends on assumptions</text>
+<text top="664" left="149" width="596" height="13" font="4">about the future availability of a proprietary, closed-source web service, and offers no platform for</text>
+<text top="681" left="149" width="596" height="13" font="4">finding archived data (thus introducing a further dependence on the publication of a Dropbox link</text>
+<text top="697" left="149" width="595" height="13" font="4">somewhere else on the web). GitHub, which integrates with the git version-control system (which</text>
+<text top="713" left="149" width="595" height="13" font="4">many R users may already invoke as part of their existing workflow), is helpful for supporting an</text>
+<text top="730" left="149" width="595" height="13" font="4">ongoing (and possibly collaborative) reproducible research workflow but is not designed to be a</text>
+<text top="746" left="148" width="138" height="13" font="4">persistent data archive.</text>
+<text top="767" left="171" width="573" height="13" font="4">Thus researchers remain in need of a service dedicated to the persistent preservation of data with</text>
+<text top="784" left="149" width="598" height="13" font="4">sophisticated metadata support to allow others to easily find, understand, and use archived files.</text>
+<text top="800" left="149" width="595" height="13" font="4">One such option is The Dataverse Network, a free-to-use, open-source data archive sponsored and</text>
+<text top="817" left="149" width="483" height="13" font="4">developed by the Institute for Quantitative Social Science at Harvard University <a href="2014-1-leeper.html#7">(</a></text>
+<text top="817" left="632" width="77" height="13" font="7"><a href="2014-1-leeper.html#7">Altman et al.</a></text>
+<text top="817" left="709" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="817" left="716" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2001</a></text>
+<text top="817" left="742" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">;</a></text>
+<text top="833" left="149" width="30" height="13" font="7"><a href="2014-1-leeper.html#7">King</a></text>
+<text top="833" left="178" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="833" left="185" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2007</a></text>
+<text top="833" left="213" width="8" height="13" font="4"><a href="2014-1-leeper.html#7">).</a></text>
+<text top="830" left="221" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">1</a></text>
+<text top="833" left="232" width="512" height="13" font="4">The next section introduces The Dataverse Network and the remainder of the article</text>
+<text top="849" left="149" width="429" height="13" font="4">describes how to utilize the archive directly from R via the <b>dvn </b>package.</text>
+<text top="894" left="149" width="195" height="17" font="6"><b>The Dataverse Network</b></text>
+<text top="937" left="148" width="590" height="13" font="4">The Dataverse Network is a server application that hosts collections of studies, called <a href="2014-1-leeper.html#0">dataverses.</a></text>
+<text top="934" left="738" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">2</a></text>
+<text top="953" left="148" width="598" height="13" font="4">As an open-source application, The Dataverse Network has many instances (i.e., hosted by differ-</text>
+<text top="969" left="149" width="596" height="13" font="4">ent institutions) and each implementation, e.g., the Harvard IQSS Dataverse Network, hosts many</text>
+<text top="986" left="149" width="596" height="13" font="4">dataverses controlled by individuals, institutions, and academic journals. Though there are few</text>
+<text top="1002" left="148" width="596" height="13" font="4">The Dataverse Network instances (about 10 worldwide), each of these — especially those hosted by</text>
+<text top="1019" left="149" width="595" height="13" font="4">Harvard University and the Odum Institute at the University of North Carolina–Chapel Hill — hosts</text>
+<text top="1035" left="149" width="598" height="13" font="4">thousands of individual dataverses containing a collective hundreds of thousands of study listings.</text>
+<text top="1052" left="149" width="595" height="13" font="4">Consequently, The Dataverse Network is an increasingly prominent repository of data and associated</text>
+<text top="1068" left="149" width="595" height="13" font="4">files and is the default archive for many journals that currently require public archiving of replication</text>
+<text top="1084" left="149" width="595" height="13" font="4">files as a condition of publication. To use The Dataverse Network, one needs to create an account. To</text>
+<text top="1111" left="165" width="4" height="9" font="9">1</text>
+<text top="1113" left="170" width="115" height="12" font="1">Another alternative is</text>
+<text top="1110" left="289" width="122" height="16" font="10"><a href="http://figshare.com/">http://figshare.com/</a></text>
+<text top="1113" left="410" width="167" height="12" font="1"><a href="http://figshare.com/">, </a>which is already supported by</text>
+<text top="1113" left="580" width="48" height="12" font="11"><a href="http://CRAN.R-project.org/package=rfigshare"><b>rfigshare</b></a></text>
+<text top="1113" left="628" width="3" height="12" font="1"><a href="http://CRAN.R-project.org/package=rfigshare">.</a></text>
+<text top="1126" left="165" width="4" height="9" font="9">2</text>
+<text top="1128" left="170" width="574" height="12" font="1">Hereafter, the small-d “dataverse” refers to a collection of studies stored with The Dataverse Network and</text>
+<text top="1142" left="147" width="337" height="12" font="1">“The Dataverse Network” refers to the general web application.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="9" family="Times" color="#000000"/>
+	<fontspec id="13" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">152</text>
+<text top="103" left="149" width="598" height="13" font="4">release studies, one also needs to create a personal dataverse collection associated with the account.</text>
+<text top="120" left="148" width="596" height="13" font="4">Accounts are tied to specific The Dataverse Network instances, so in this article we will focus for</text>
+<text top="136" left="149" width="139" height="13" font="4">simplicity’s sake on the</text>
+<text top="136" left="291" width="197" height="13" font="7"><a href="http://thedata.harvard.edu/dvn/">The Harvard Dataverse Network</a></text>
+<text top="136" left="488" width="3" height="13" font="4"><a href="http://thedata.harvard.edu/dvn/">.</a></text>
+<text top="157" left="171" width="575" height="13" font="4">Each study archived in a dataverse contains, at a minimum, an identifying title, but may addition-</text>
+<text top="173" left="149" width="595" height="13" font="4">ally include an array of metadata and files. This means The Dataverse Network can be used to store</text>
+<text top="190" left="149" width="595" height="13" font="4">not just a free-standing data file, but associated files in almost any format and one might include files</text>
+<text top="206" left="149" width="595" height="13" font="4">such as data, codebooks, analysis replication files, statistical packages, questionnaires, experimental</text>
+<text top="223" left="149" width="595" height="13" font="4">materials, and so forth. Data uploaded to a dataverse is converted to a generic tabular format and</text>
+<text top="239" left="149" width="595" height="13" font="4">can be subsequently downloaded into one of several common formats (e.g., Stata, S-Plus, R, and</text>
+<text top="256" left="149" width="88" height="13" font="4">tab-delimited).</text>
+<text top="276" left="171" width="459" height="13" font="4">Once created, a study is given a global identifier in the form of either a <a href="2014-1-leeper.html#0">Handle,</a></text>
+<text top="274" left="630" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">3</a></text>
+<text top="276" left="639" width="99" height="13" font="4">or DataCite <a href="2014-1-leeper.html#0">DOI,</a></text>
+<text top="274" left="738" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">4</a></text>
+<text top="293" left="149" width="595" height="13" font="4">digital object identifiers that uniquely and globally identify the study. Studies are version controlled</text>
+<text top="309" left="148" width="596" height="13" font="4">when new files are added or when metadata is modified, and previous versions remain persistently</text>
+<text top="326" left="149" width="595" height="13" font="4">accessible. Furthermore, when data files are modified, the study identifier is updated with additional</text>
+<text top="342" left="148" width="453" height="13" font="4">version information in the form of Universal Numeric Fingerprint (UNF) <a href="2014-1-leeper.html#7">(</a></text>
+<text top="342" left="601" width="106" height="13" font="7"><a href="2014-1-leeper.html#7">Altman and King</a></text>
+<text top="342" left="708" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="342" left="715" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2007</a></text>
+<text top="342" left="742" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">;</a></text>
+<text top="359" left="148" width="44" height="13" font="7"><a href="2014-1-leeper.html#7">Altman</a></text>
+<text top="359" left="193" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="359" left="199" width="26" height="13" font="7"><a href="2014-1-leeper.html#7">2008</a></text>
+<text top="359" left="225" width="519" height="13" font="4"><a href="2014-1-leeper.html#7">). </a>The UNF is a format-independent hash of a data file, which provides a unique identifier</text>
+<text top="375" left="149" width="595" height="13" font="4">for a dataset without revealing the content of that dataset, such that any change to the underlying</text>
+<text top="392" left="149" width="596" height="13" font="4">data yields a new UNF. This means that data stored in a dataverse can be cited (e.g., in scholarly</text>
+<text top="408" left="148" width="507" height="13" font="4">publications) not only by their handle but also by their specific version using the UNF<a href="2014-1-leeper.html#0">.</a></text>
+<text top="405" left="656" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">5</a></text>
+<text top="408" left="665" width="79" height="13" font="4">Reproducible</text>
+<text top="424" left="149" width="595" height="13" font="4">research efforts can thus be enhanced by use not only of the same named dataset but the exact same</text>
+<text top="441" left="148" width="494" height="13" font="4">version of that dataset, a major advantage over storing data in other types of archi<a href="2014-1-leeper.html#0">ve.</a></text>
+<text top="438" left="642" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">6</a></text>
+<text top="441" left="652" width="92" height="13" font="4">Via a UNF, data</text>
+<text top="457" left="149" width="595" height="13" font="4">users can thus check a dataset they possess against one cited in a research publication or stored in a</text>
+<text top="474" left="149" width="61" height="13" font="4"><a href="2014-1-leeper.html#0">dataverse.</a></text>
+<text top="471" left="210" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">7</a></text>
+<text top="495" left="171" width="573" height="13" font="4">Archiving data and files using The Dataverse Network also means that those files can be made</text>
+<text top="511" left="149" width="595" height="13" font="4">available to others. The Dataverse Network settings offer fine-grained control over access to archived</text>
+<text top="528" left="149" width="595" height="13" font="4">studies, meaning a study collection can be regulated anywhere from completely publicly accessible, to</text>
+<text top="544" left="149" width="595" height="13" font="4">accessible only to registered users, to accessible only to whitelisted users. Public data then becomes</text>
+<text top="560" left="149" width="596" height="13" font="4">easily searchable by others based on any of the metadata associated with the study files, a major</text>
+<text top="577" left="149" width="278" height="13" font="4">advantage over archiving on any other <a href="2014-1-leeper.html#0">website.</a></text>
+<text top="574" left="427" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">8</a></text>
+<text top="577" left="437" width="307" height="13" font="4">The supported metadata elements include almost all</text>
+<text top="593" left="149" width="543" height="13" font="4">imaginable aspects of a data collection, include those provided by the Dublin Core standar<a href="2014-1-leeper.html#0">d,</a></text>
+<text top="591" left="692" width="5" height="10" font="8"><a href="2014-1-leeper.html#0">9</a></text>
+<text top="593" left="701" width="43" height="13" font="4">such as</text>
+<text top="610" left="149" width="274" height="13" font="4">creator, subject, description, date, type, <a href="2014-1-leeper.html#0">rights,</a></text>
+<text top="607" left="423" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">10</a></text>
+<text top="610" left="438" width="306" height="13" font="4">citation, etc. Additional metadata elements are also</text>
+<text top="626" left="149" width="597" height="13" font="4">supported and Dataverse additionally supplies metadata in the Data Documentation Initiative (DDI)</text>
+<text top="643" left="149" width="43" height="13" font="4"><a href="2014-1-leeper.html#0">format,</a></text>
+<text top="640" left="192" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">11</a></text>
+<text top="643" left="207" width="532" height="13" font="4">a comprehensive metadata schema for quantitative data, especially for the social sciences.</text>
+<text top="687" left="149" width="139" height="17" font="6"><b>The dvn package</b></text>
+<text top="726" left="148" width="597" height="13" font="4">The <b>dvn </b>package provides a lightweight wrapper for two Application Programming Interfaces (APIs)</text>
+<text top="743" left="148" width="596" height="13" font="4">provided by The Dataverse Network. The first API — called the Data Sharing API — is essentially a</text>
+<text top="759" left="149" width="595" height="13" font="4">search utility for locating existing studies within a Dataverse Network instance using simple HTTP</text>
+<text top="776" left="149" width="595" height="13" font="4">GET requests. The second API — called the Data Deposit API — is a bit more complicated. It is built</text>
+<text top="792" left="149" width="437" height="13" font="4">on the SWORD (Simple Web-service Offering Repository Deposit) pr<a href="2014-1-leeper.html#0">otocol,</a></text>
+<text top="789" left="586" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">12</a></text>
+<text top="792" left="600" width="144" height="13" font="4">an open-source standard</text>
+<text top="808" left="149" width="190" height="13" font="4">for the deposit of digital recor<a href="2014-1-leeper.html#0">ds.</a></text>
+<text top="806" left="339" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">13</a></text>
+<text top="808" left="354" width="390" height="13" font="4">This API relies on HTTP requests to GET, PUT, POST, and DELETE</text>
+<text top="825" left="149" width="466" height="13" font="4">resources on a Dataverse server. Access to both APIs is implemented through</text>
+<text top="825" left="618" width="37" height="13" font="5"><a href="http://CRAN.R-project.org/package=RCurl"><b>RCurl</b></a></text>
+<text top="825" left="659" width="5" height="13" font="4"><a href="2014-1-leeper.html#8">(</a></text>
+<text top="825" left="664" width="79" height="13" font="7"><a href="2014-1-leeper.html#8">Temple Lang</a></text>
+<text top="825" left="742" width="3" height="13" font="4"><a href="2014-1-leeper.html#8">,</a></text>
+<text top="841" left="149" width="34" height="13" font="7"><a href="2014-1-leeper.html#8">2012a</a></text>
+<text top="841" left="183" width="194" height="13" font="4"><a href="2014-1-leeper.html#8">) </a>and responses are parsed with</text>
+<text top="841" left="381" width="31" height="13" font="5"><a href="http://CRAN.R-project.org/package=XML"><b>XML</b></a></text>
+<text top="841" left="415" width="5" height="13" font="4"><a href="2014-1-leeper.html#8">(</a></text>
+<text top="841" left="420" width="79" height="13" font="7"><a href="2014-1-leeper.html#8">Temple Lang</a></text>
+<text top="841" left="499" width="3" height="13" font="4"><a href="2014-1-leeper.html#8">,</a></text>
+<text top="841" left="506" width="35" height="13" font="7"><a href="2014-1-leeper.html#8">2012b</a></text>
+<text top="841" left="541" width="203" height="13" font="4"><a href="2014-1-leeper.html#8">). </a>From the user perspective, <b>dvn</b></text>
+<text top="858" left="149" width="595" height="13" font="4">masks the distinction between the two APIs, offering functions both for conducting data searches and</text>
+<text top="874" left="149" width="297" height="13" font="4">for archiving data, code, and associated metadata.</text>
+<text top="901" left="165" width="4" height="9" font="9"><a href="http://hdl.net/">3</a></text>
+<text top="900" left="170" width="91" height="16" font="10"><a href="http://hdl.net/">http://hdl.net/</a></text>
+<text top="916" left="165" width="4" height="9" font="9"><a href="http://www.datacite.org/">4</a></text>
+<text top="915" left="170" width="146" height="16" font="10"><a href="http://www.datacite.org/">http://www.datacite.org/</a></text>
+<text top="930" left="165" width="4" height="9" font="9">5</text>
+<text top="933" left="170" width="574" height="12" font="1">The version-controlled Handle thus serves as a complete data citation, referencing a specific version of a</text>
+<text top="947" left="149" width="110" height="12" font="1">specific data file (see</text>
+<text top="944" left="262" width="219" height="16" font="10"><a href="http://thedata.org/citation/standard">http://thedata.org/citation/standard</a></text>
+<text top="947" left="481" width="263" height="12" font="1"><a href="http://thedata.org/citation/standard">). </a>A description of (current) Version 5 of the UNF</text>
+<text top="961" left="149" width="127" height="12" font="1">algorithm is available at</text>
+<text top="958" left="279" width="240" height="16" font="10"><a href="http://thedata.org/book/unf-version-5-0">http://thedata.org/book/unf-version-5-0</a></text>
+<text top="961" left="519" width="3" height="12" font="1"><a href="http://thedata.org/book/unf-version-5-0">.</a></text>
+<text top="974" left="165" width="4" height="9" font="9">6</text>
+<text top="976" left="170" width="508" height="12" font="1">Of course, a version-controlled repository (e.g., on GitHub), would also create a hash for objects.</text>
+<text top="989" left="165" width="4" height="9" font="9">7</text>
+<text top="991" left="170" width="465" height="12" font="1">Functions necessary to calculate a UNF signature on a dataframe are provided by <b>UNF </b><a href="2014-1-leeper.html#7">(</a></text>
+<text top="991" left="635" width="36" height="12" font="13"><a href="2014-1-leeper.html#7">Leeper</a></text>
+<text top="991" left="672" width="3" height="12" font="1"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="991" left="678" width="24" height="12" font="13"><a href="2014-1-leeper.html#7">2013</a></text>
+<text top="991" left="702" width="7" height="12" font="1"><a href="2014-1-leeper.html#7">).</a></text>
+<text top="1003" left="165" width="4" height="9" font="9">8</text>
+<text top="1006" left="170" width="511" height="12" font="1">The need for metadata in the reproducible research workflow has previously been identified by</text>
+<text top="1006" left="685" width="59" height="12" font="13"><a href="2014-1-leeper.html#7">Gentleman</a></text>
+<text top="1020" left="149" width="92" height="12" font="13"><a href="2014-1-leeper.html#7">and Temple Lang</a></text>
+<text top="1020" left="244" width="4" height="12" font="1"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="1020" left="248" width="24" height="12" font="13"><a href="2014-1-leeper.html#7">2004</a></text>
+<text top="1020" left="272" width="7" height="12" font="1"><a href="2014-1-leeper.html#7">).</a></text>
+<text top="1032" left="165" width="4" height="9" font="9"><a href="http://dublincore.org/documents/dcmi-terms/">9</a></text>
+<text top="1031" left="170" width="263" height="16" font="10"><a href="http://dublincore.org/documents/dcmi-terms/">http://dublincore.org/documents/dcmi-terms/</a></text>
+<text top="1047" left="161" width="9" height="9" font="9">10</text>
+<text top="1049" left="170" width="574" height="12" font="1">The Dataverse Network supports any user-defined licensing terms for data use. For a discussion of issues</text>
+<text top="1064" left="149" width="149" height="12" font="1">related to data licensing, see</text>
+<text top="1064" left="301" width="44" height="12" font="13"><a href="2014-1-leeper.html#7">Stodden</a></text>
+<text top="1064" left="348" width="4" height="12" font="1"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="1064" left="352" width="24" height="12" font="13"><a href="2014-1-leeper.html#7">2009</a></text>
+<text top="1064" left="375" width="7" height="12" font="1"><a href="2014-1-leeper.html#7">).</a></text>
+<text top="1076" left="161" width="9" height="9" font="9"><a href="http://www.ddialliance.org/Specification/">11</a></text>
+<text top="1075" left="170" width="250" height="16" font="10"><a href="http://www.ddialliance.org/Specification/">http://www.ddialliance.org/Specification/</a></text>
+<text top="1091" left="161" width="9" height="9" font="9"><a href="http://swordapp.org/">12</a></text>
+<text top="1090" left="170" width="122" height="16" font="10"><a href="http://swordapp.org/">http://swordapp.org/</a></text>
+<text top="1106" left="161" width="9" height="9" font="9">13</text>
+<text top="1108" left="170" width="574" height="12" font="1">As an example, the SWORD standard is also used by Open Journal Systems for managing articles through the</text>
+<text top="1122" left="149" width="380" height="12" font="1">review and publication process and for making them publicly available.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="12" family="Times" color="#000000"/>
+	<fontspec id="15" size="10" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">153</text>
+<text top="103" left="171" width="562" height="13" font="4">Thus <b>dvn </b>adds to an increasingly large number of packages that connect R to web-based <a href="2014-1-leeper.html#0">services,</a></text>
+<text top="100" left="733" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">14</a></text>
+<text top="120" left="149" width="270" height="13" font="4">such as those built by the ROpenSci pr<a href="2014-1-leeper.html#0">oject.</a></text>
+<text top="117" left="419" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">15</a></text>
+<text top="120" left="436" width="308" height="13" font="4">Perhaps the most proximate existing R package to</text>
+<text top="136" left="149" width="24" height="13" font="3"><b>dvn</b></text>
+<text top="136" left="178" width="10" height="13" font="4">is</text>
+<text top="136" left="193" width="54" height="13" font="5"><a href="http://CRAN.R-project.org/package=rfigshare"><b>rfigshare</b></a></text>
+<text top="136" left="251" width="5" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="136" left="256" width="90" height="13" font="7"><a href="2014-1-leeper.html#7">Boettiger et al.</a></text>
+<text top="136" left="346" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="136" left="355" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2013</a></text>
+<text top="136" left="382" width="325" height="13" font="4"><a href="2014-1-leeper.html#7">), </a>which allows R users to persistently store files on</text>
+<text top="133" left="712" width="34" height="18" font="7"><a href="http://figshare.com/">http:</a></text>
+<text top="149" left="148" width="103" height="18" font="7"><a href="http://figshare.com/">//figshare.com/</a></text>
+<text top="152" left="251" width="3" height="13" font="4"><a href="http://figshare.com/">.</a></text>
+<text top="153" left="264" width="41" height="13" font="5"><a href="http://CRAN.R-project.org/package=rdryad"><b>rdryad</b></a></text>
+<text top="152" left="310" width="5" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="152" left="314" width="114" height="13" font="7"><a href="2014-1-leeper.html#7">Chamberlain et al.</a></text>
+<text top="152" left="429" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="152" left="437" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2013</a></text>
+<text top="152" left="464" width="33" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>and</text>
+<text top="153" left="502" width="87" height="13" font="5"><a href="http://CRAN.R-project.org/package=OAIHarvester"><b>OAIHarvester</b></a></text>
+<text top="152" left="594" width="5" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="152" left="599" width="44" height="13" font="7"><a href="2014-1-leeper.html#7">Hornik</a></text>
+<text top="152" left="642" width="3" height="13" font="4"><a href="2014-1-leeper.html#7">,</a></text>
+<text top="152" left="651" width="27" height="13" font="7"><a href="2014-1-leeper.html#7">2013</a></text>
+<text top="152" left="678" width="66" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>— which</text>
+<text top="169" left="149" width="287" height="13" font="4">can be used to harvest metadata records from</text>
+<text top="165" left="440" width="144" height="18" font="7"><a href="http://datadryad.org/">http://datadryad.org/</a></text>
+<text top="169" left="589" width="155" height="13" font="4">or, in the latter case, any</text>
+<text top="185" left="148" width="325" height="13" font="4">public repository that supports the OAI-PMH standar<a href="2014-1-leeper.html#0">d</a></text>
+<text top="183" left="473" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">16</a></text>
+<text top="185" left="488" width="256" height="13" font="4">— share commonalities with The Dataverse</text>
+<text top="202" left="149" width="459" height="13" font="4">Network Data Sharing API but neither allows users to upload their own files.</text>
+<text top="223" left="171" width="24" height="13" font="3"><b>dvn</b></text>
+<text top="223" left="199" width="548" height="13" font="4">will remain under active development for the foreseeable future and will track any modifica-</text>
+<text top="239" left="149" width="595" height="13" font="4">tions made to The Dataverse Network APIs. Bug reports, code pull requests, and other suggestions are</text>
+<text top="256" left="148" width="196" height="13" font="4">welcome on the <b>dvn </b>homepage at</text>
+<text top="252" left="348" width="213" height="18" font="7"><a href="https://github.com/rOpenSci/dvn">https://github.com/rOpenSci/dvn</a></text>
+<text top="256" left="560" width="184" height="13" font="4"><a href="https://github.com/rOpenSci/dvn">. </a>The next two sections describe</text>
+<text top="272" left="149" width="280" height="13" font="4">functionality of the package in its current form.</text>
+<text top="314" left="149" width="240" height="15" font="14"><b>Data and metadata search with dvn</b></text>
+<text top="346" left="148" width="596" height="13" font="4">The search functionality of <b>dvn </b>can be used to easily locate archived data in any public Dataverse</text>
+<text top="362" left="149" width="552" height="13" font="4">Network. <b>dvn </b>defaults to providing access to The Harvard Dataverse Network (located at</text>
+<text top="359" left="705" width="41" height="18" font="7"><a href="https://thedata.harvard.edu/dvn/">https:</a></text>
+<text top="375" left="148" width="178" height="18" font="7"><a href="https://thedata.harvard.edu/dvn/">//thedata.harvard.edu/dvn/</a></text>
+<text top="379" left="326" width="419" height="13" font="4"><a href="https://thedata.harvard.edu/dvn/">), </a>but this can be changed in each function call or globally using options:</text>
+<text top="402" left="149" width="206" height="18" font="4"># use Odum Institute Dataverse</text>
+<text top="419" left="149" width="316" height="18" font="4">options(dvn = 'https://arc.irss.unc.edu/dvn/')</text>
+<text top="435" left="149" width="192" height="18" font="4"># use Harvard IQSS Dataverse</text>
+<text top="452" left="149" width="336" height="18" font="4">options(dvn = 'https://thedata.harvard.edu/dvn/')</text>
+<text top="482" left="149" width="205" height="13" font="4">for any valid Dataverse <a href="2014-1-leeper.html#0">Network.</a></text>
+<text top="479" left="354" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">17</a></text>
+<text top="482" left="370" width="374" height="13" font="4">With a Dataverse Network selected, we can easily search that</text>
+<text top="498" left="149" width="277" height="13" font="4">network for studies using any metadata field.</text>
+<text top="495" left="431" width="313" height="18" font="4">dvSearchField provides a list of available metadata</text>
+<text top="515" left="149" width="595" height="13" font="4">search fields. These can be used to search for studies by various authors or on various topics using</text>
+<text top="528" left="149" width="246" height="18" font="4">dvSearch (which accepts a boolean logic):</text>
+<text top="555" left="149" width="254" height="18" font="4">dvSearch(list(authorName = &#34;leeper&#34;))</text>
+<text top="571" left="149" width="460" height="18" font="4">dvSearch(list(title = &#34;Denmark&#34;, title = &#34;Sweden&#34;), boolean = &#34;OR&#34;)</text>
+<text top="588" left="149" width="130" height="18" font="4">dvSearch(&#34;Puppies&#34;)</text>
+<text top="618" left="149" width="43" height="13" font="4">Calling</text>
+<text top="614" left="195" width="549" height="18" font="4">dvSearch with a single character argument searches all metadata fields simultaneously using</text>
+<text top="634" left="149" width="451" height="13" font="4">a boolean OR logic. The result is (presently) a one-column dataframe listing</text>
+<text top="631" left="603" width="141" height="18" font="4">objectId values, which</text>
+<text top="651" left="149" width="264" height="13" font="4">represent the global identifier for each study<a href="2014-1-leeper.html#0">.</a></text>
+<text top="648" left="413" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">18</a></text>
+<text top="651" left="428" width="318" height="13" font="4">Here is an example using our final search from above:</text>
+<text top="677" left="149" width="144" height="18" font="4">&gt; dvSearch('puppies')</text>
+<text top="694" left="149" width="171" height="18" font="4">2 search results returned</text>
+<text top="727" left="217" width="55" height="18" font="4">objectId</text>
+<text top="743" left="149" width="123" height="18" font="4">1 hdl:1902.1/21521</text>
+<text top="759" left="149" width="123" height="18" font="4">2 hdl:1902.1/21522</text>
+<text top="793" left="171" width="19" height="13" font="4">An</text>
+<text top="789" left="195" width="549" height="18" font="4">objectId can then be used to retrieve detailed metadata available for a study. Metadata</text>
+<text top="809" left="149" width="545" height="13" font="4">is available in two formats: Dublic Core (DC) and Data Documentation Initiative <a href="2014-1-leeper.html#0">(DDI).</a></text>
+<text top="806" left="694" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">19</a></text>
+<text top="809" left="709" width="35" height="13" font="4">DC is</text>
+<text top="826" left="149" width="598" height="13" font="4">an almost universally adopted, minimalist metadata schema widely used in information science.</text>
+<text top="842" left="149" width="595" height="13" font="4">DDI is a more sophisticated format designed initially for social science data applications that can</text>
+<text top="858" left="149" width="299" height="13" font="4">include considerably more metadata <a href="2014-1-leeper.html#0">information.</a></text>
+<text top="856" left="448" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">20</a></text>
+<text top="858" left="463" width="281" height="13" font="4">By default, Dataverse and <b>dvn </b>return the more</text>
+<text top="875" left="149" width="452" height="13" font="4">comprehensive DDI format. To request DC, one needs to specify it using the</text>
+<text top="871" left="604" width="140" height="18" font="4">format.type argument:</text>
+<text top="901" left="149" width="384" height="18" font="4">dvMetadata(&#34;hdl:1902.1/21964&#34;) # return DDI (by default)</text>
+<text top="918" left="149" width="439" height="18" font="4">dvMetadata(&#34;hdl:1902.1/21964&#34;, format.type=&#34;oai_dc&#34;) # return DC</text>
+<text top="951" left="171" width="58" height="13" font="4">Currently</text>
+<text top="948" left="233" width="511" height="18" font="4">dvMetadata returns metadata as a character string with S3 class &#34;dvMetadata&#34; because</text>
+<text top="968" left="149" width="595" height="13" font="4">both DC and DDI output can be quite extensive and are better viewed in a text editor than in the</text>
+<text top="994" left="161" width="9" height="9" font="9"><a href="http://cran.r-project.org/web/views/WebTechnologies.html">14</a></text>
+<text top="993" left="170" width="342" height="16" font="10"><a href="http://cran.r-project.org/web/views/WebTechnologies.html">http://cran.r-project.org/web/views/WebTechnologies.html</a></text>
+<text top="1009" left="161" width="9" height="9" font="9"><a href="http://ropensci.org/">15</a></text>
+<text top="1008" left="170" width="122" height="16" font="10"><a href="http://ropensci.org/">http://ropensci.org/</a></text>
+<text top="1024" left="161" width="9" height="9" font="9"><a href="http://www.openarchives.org/pmh/">16</a></text>
+<text top="1023" left="170" width="195" height="16" font="10"><a href="http://www.openarchives.org/pmh/">http://www.openarchives.org/pmh/</a></text>
+<text top="1039" left="161" width="9" height="9" font="9">17</text>
+<text top="1041" left="170" width="17" height="12" font="1">See</text>
+<text top="1038" left="191" width="338" height="16" font="10"><a href="http://thedata.org/book/dataverse-networks-around-world">http://thedata.org/book/dataverse-networks-around-world</a></text>
+<text top="1041" left="531" width="213" height="12" font="1">for a complete listing of public Dataverse</text>
+<text top="1055" left="149" width="524" height="12" font="1">Networks. Harvard also hosts a demo server for experimenting with The Dataverse Network:</text>
+<text top="1052" left="679" width="67" height="16" font="10"><a href="http://dvn-demo.iq.harvard.edu/dvn/">http://dvn-</a></text>
+<text top="1066" left="149" width="146" height="16" font="10"><a href="http://dvn-demo.iq.harvard.edu/dvn/">demo.iq.harvard.edu/dvn/</a></text>
+<text top="1069" left="295" width="3" height="12" font="1"><a href="http://dvn-demo.iq.harvard.edu/dvn/">.</a></text>
+<text top="1082" left="161" width="9" height="9" font="9">18</text>
+<text top="1084" left="170" width="574" height="12" font="1">Dataverse has used both Handles and DOIs as global identifiers, thus the generic and forward-compatible</text>
+<text top="1095" left="149" width="49" height="16" font="15">objectId</text>
+<text top="1098" left="201" width="67" height="12" font="1">terminology.</text>
+<text top="1111" left="161" width="9" height="9" font="9">19</text>
+<text top="1113" left="170" width="465" height="12" font="1">For a given study, it is possible to check the availability of different metadata formats using</text>
+<text top="1110" left="638" width="104" height="16" font="15">dvMetadataFormats</text>
+<text top="1113" left="741" width="3" height="12" font="1">.</text>
+<text top="1126" left="161" width="9" height="9" font="9">20</text>
+<text top="1128" left="170" width="574" height="12" font="1">A crosswalk mapping metadata elements from DC, DDI, and the Dataverse web interface is available at</text>
+<text top="1139" left="149" width="454" height="16" font="10"><a href="http://thedata.harvard.edu/guides/dataverse-api-main.html#data-deposit-api">http://thedata.harvard.edu/guides/dataverse-api-main.html#data-deposit-api</a></text>
+<text top="1142" left="603" width="3" height="12" font="1"><a href="http://thedata.harvard.edu/guides/dataverse-api-main.html#data-deposit-api">.</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">154</text>
+<text top="103" left="149" width="596" height="13" font="4">R console. For similar reasons, <b>dvn </b>does not fully parse the DDI or DC XML. Instead, the wrapper</text>
+<text top="120" left="149" width="49" height="13" font="4">function</text>
+<text top="116" left="202" width="489" height="18" font="4">dvExtractFileIds extracts relevant information from the DDI formatted <a href="2014-1-leeper.html#0">metadata.</a></text>
+<text top="117" left="691" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">21</a></text>
+<text top="120" left="706" width="38" height="13" font="4">Here’s</text>
+<text top="136" left="149" width="72" height="13" font="4">an example:</text>
+<text top="162" left="149" width="391" height="18" font="4">files &lt;- dvExtractFileIds(dvMetadata(&#34;hdl:1902.1/21964&#34;))</text>
+<text top="179" left="149" width="233" height="18" font="4">&gt; files[, c('fileName', 'fileId')]</text>
+<text top="195" left="327" width="110" height="18" font="4">fileName fileId</text>
+<text top="212" left="149" width="7" height="18" font="4">1</text>
+<text top="212" left="183" width="254" height="18" font="4">study2-replication-analysis.r 2341713</text>
+<text top="228" left="149" width="7" height="18" font="4">2</text>
+<text top="228" left="183" width="254" height="18" font="4">study1-replication-analysis.r 2341709</text>
+<text top="245" left="149" width="7" height="18" font="4">3</text>
+<text top="245" left="307" width="130" height="18" font="4">coefpaste.r 2341888</text>
+<text top="261" left="149" width="7" height="18" font="4">4</text>
+<text top="261" left="300" width="137" height="18" font="4">expResults.r 2341889</text>
+<text top="278" left="149" width="7" height="18" font="4">5</text>
+<text top="278" left="238" width="199" height="18" font="4">Study 2 Codebook.docx 2341712</text>
+<text top="294" left="149" width="288" height="18" font="4">6 study2-data-final-2012-06-08.csv 2341711</text>
+<text top="310" left="149" width="288" height="18" font="4">7 study1-data-final-2012-06-08.csv 2341710</text>
+<text top="327" left="149" width="7" height="18" font="4">8</text>
+<text top="327" left="245" width="192" height="18" font="4">Study 2 Webpages.zip 2341714</text>
+<text top="343" left="149" width="7" height="18" font="4">9</text>
+<text top="343" left="245" width="192" height="18" font="4">Study 1 Webpages.zip 2341715</text>
+<text top="377" left="148" width="40" height="13" font="4">With a</text>
+<text top="373" left="191" width="553" height="18" font="4">fileId returned by dvExtractFileIds, one can see the formats available for a file (e.g., data</text>
+<text top="393" left="149" width="301" height="13" font="4">can be downloaded in a number of formats), using</text>
+<text top="390" left="453" width="99" height="18" font="4">dvDownloadInfo:</text>
+<text top="419" left="149" width="226" height="18" font="4">&gt; dvDownloadInfo(files$fileId[1])</text>
+<text top="436" left="149" width="69" height="18" font="4">File Name:</text>
+<text top="436" left="265" width="199" height="18" font="4">study2-replication-analysis.r</text>
+<text top="452" left="149" width="55" height="18" font="4">File ID:</text>
+<text top="452" left="265" width="48" height="18" font="4">2341713</text>
+<text top="469" left="149" width="69" height="18" font="4">File Type:</text>
+<text top="469" left="265" width="192" height="18" font="4">text/plain; charset=US-ASCII</text>
+<text top="485" left="149" width="69" height="18" font="4">File Size:</text>
+<text top="485" left="265" width="34" height="18" font="4">15699</text>
+<text top="502" left="149" width="178" height="18" font="4">Authentication: anonymous</text>
+<text top="518" left="149" width="96" height="18" font="4">Direct Access?</text>
+<text top="518" left="265" width="34" height="18" font="4">false</text>
+<text top="551" left="176" width="130" height="18" font="4">Terms of Use apply.</text>
+<text top="584" left="149" width="110" height="18" font="4">Access Services:</text>
+<text top="600" left="163" width="75" height="18" font="4">serviceName</text>
+<text top="600" left="320" width="75" height="18" font="4">serviceArgs</text>
+<text top="600" left="430" width="75" height="18" font="4">contentType</text>
+<text top="617" left="149" width="89" height="18" font="4">1 termsofuse</text>
+<text top="617" left="293" width="103" height="18" font="4">TermsOfUse=true</text>
+<text top="617" left="437" width="69" height="18" font="4">text/plain</text>
+<text top="633" left="149" width="7" height="18" font="4">2</text>
+<text top="633" left="176" width="329" height="18" font="4">bundleTOU package=WithTermsOfUse application/zip</text>
+<text top="650" left="512" width="75" height="18" font="4">serviceDesc</text>
+<text top="666" left="149" width="439" height="18" font="4">1 Terms of Use/Access Restrictions associated with the data file</text>
+<text top="682" left="149" width="7" height="18" font="4">2</text>
+<text top="682" left="265" width="322" height="18" font="4">Data File and the Terms of Use in a Zip archive</text>
+<text top="716" left="149" width="156" height="13" font="4">If allowed by Terms of Use,</text>
+<text top="712" left="308" width="436" height="18" font="4">dvDownload can be used to download a file directly into memory. Otherwise</text>
+<text top="732" left="149" width="77" height="13" font="4">the output of</text>
+<text top="729" left="229" width="515" height="18" font="4">dvDownload will advise the user to download the data through a browser using the URI</text>
+<text top="749" left="149" width="70" height="13" font="4">returned by</text>
+<text top="745" left="222" width="113" height="18" font="4">dvExtractFileIds:</text>
+<text top="775" left="149" width="199" height="18" font="4">&gt; dvDownload(files$fileId[1])</text>
+<text top="792" left="149" width="261" height="18" font="4">Error in dvDownload(files$fileId[1]) :</text>
+<text top="808" left="176" width="130" height="18" font="4">Terms of Use apply.</text>
+<text top="841" left="149" width="240" height="18" font="4">Data cannot be accessed directly...</text>
+<text top="857" left="149" width="357" height="18" font="4">try browsing URI from dvExtractFileIds(dvMetadata())</text>
+<text top="890" left="149" width="96" height="18" font="4">&gt; files$URI[1]</text>
+<text top="907" left="149" width="446" height="18" font="4">[1] http://thedata.harvard.edu/dvn/dv/leeper/FileDownload/study2-</text>
+<text top="923" left="149" width="254" height="18" font="4">replication-analysis.r?fileId=2341713</text>
+<text top="969" left="149" width="175" height="15" font="14"><b>Depositing data with dvn</b></text>
+<text top="1000" left="148" width="596" height="13" font="4">While searching for extant data files is a helpful feature to have within R, the <b>dvn </b>wrappers for the</text>
+<text top="1017" left="149" width="595" height="13" font="4">Data Deposit API offer much more useful tools for archiving a reproducible research project. The basic</text>
+<text top="1033" left="148" width="189" height="13" font="4">workflow involves functions to:</text>
+<text top="1060" left="169" width="277" height="13" font="4">1. create a study using appropriate metadata (</text>
+<text top="1057" left="445" width="94" height="18" font="4">dvCreateStudy)</text>
+<text top="1083" left="169" width="230" height="13" font="4">2. add one or more files to that study (</text>
+<text top="1079" left="399" width="66" height="18" font="4">dvAddFile)</text>
+<text top="1105" left="169" width="203" height="13" font="4">3. release the study to the public (</text>
+<text top="1102" left="372" width="101" height="18" font="4">dvReleaseStudy)</text>
+<text top="1132" left="161" width="9" height="9" font="9">21</text>
+<text top="1134" left="170" width="574" height="12" font="1">Another wrapper extracts Terms of Use from DDI metadata and opens those terms of use as a temporary</text>
+<text top="1148" left="149" width="58" height="12" font="1">HTML file:</text>
+<text top="1145" left="211" width="207" height="16" font="15">dvTermsOfUse(dvMetadata(objectid))</text>
+<text top="1148" left="418" width="3" height="12" font="1">.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">155</text>
+<text top="103" left="171" width="573" height="13" font="4">Use of the Data Deposit functions requires authentication, which is currently provided by HTTP</text>
+<text top="120" left="149" width="596" height="13" font="4">basic authentication, relying on the username and password associated with a Dataverse Network</text>
+<text top="136" left="149" width="595" height="13" font="4">user account. The username and password can be included atomically in each function call or stored</text>
+<text top="152" left="149" width="595" height="13" font="4">globally (to conserve typing and allow the sharing of code without credentials embedded in each</text>
+<text top="169" left="149" width="82" height="13" font="4">function call):</text>
+<text top="193" left="149" width="206" height="18" font="4">options(dvn.user = &#34;username&#34;)</text>
+<text top="210" left="149" width="199" height="18" font="4">options(dvn.pwd = &#34;password&#34;)</text>
+<text top="241" left="148" width="306" height="13" font="4">As a simple check of authentication, one can call</text>
+<text top="237" left="460" width="284" height="18" font="4">dvServiceDoc() with no arguments, which (if</text>
+<text top="257" left="149" width="595" height="13" font="4">authentication is successful) returns a brief statement confirming the Dataverse implementation and</text>
+<text top="274" left="149" width="595" height="13" font="4">user account in use along with a list of available dataverse collections, or otherwise reports an HTTP</text>
+<text top="290" left="149" width="129" height="13" font="4">403 (Forbidden) code.</text>
+<text top="311" left="171" width="235" height="13" font="4">To create a study, we simply need to call</text>
+<text top="308" left="410" width="334" height="18" font="4">dvCreateStudy with some associated metadata in Dublin</text>
+<text top="328" left="149" width="381" height="13" font="4">Core format. We can either build a metadata file manually or use</text>
+<text top="324" left="533" width="212" height="18" font="4">dvBuildMetadata to build that XML</text>
+<text top="344" left="149" width="501" height="13" font="4">for us. The only required field is “title.” The built metadata can then be supplied to</text>
+<text top="341" left="653" width="93" height="18" font="4">dvCreateStudy,</text>
+<text top="360" left="149" width="426" height="13" font="4">additionally specifying a named dataverse to which the user has <a href="2014-1-leeper.html#0">access:</a></text>
+<text top="358" left="575" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">22</a></text>
+<text top="385" left="149" width="274" height="18" font="4">m &lt;- dvBuildMetadata(title = &#34;My Study&#34;)</text>
+<text top="401" left="149" width="247" height="18" font="4">s &lt;- dvCreateStudy(&#34;mydataverse&#34;, m)</text>
+<text top="432" left="149" width="595" height="13" font="4">If successful, the response is a simple summary of the created study. Included in the response is the</text>
+<text top="449" left="149" width="74" height="13" font="4">new study’s</text>
+<text top="445" left="227" width="517" height="18" font="4">objectId, which uniquely identifies the study. We can use either the objectId or the</text>
+<text top="465" left="149" width="88" height="13" font="4">return value of</text>
+<text top="462" left="241" width="494" height="18" font="4">dvCreateStudy (an object of class &#34;dvStudyAtom&#34;) to add files and release the study.</text>
+<text top="486" left="171" width="573" height="13" font="4">We can add files in a number of ways and in a number of formats. For example, we can add one or</text>
+<text top="503" left="149" width="287" height="13" font="4">more files simply by specifying their filenames in</text>
+<text top="499" left="439" width="305" height="18" font="4">dvAddFile. The filename is used to list the file in the</text>
+<text top="519" left="149" width="596" height="13" font="4">study. We can also send multiple files in a compressed zip directory, which The Dataverse Network</text>
+<text top="535" left="149" width="223" height="13" font="4">application will automatically <a href="2014-1-leeper.html#0">unpack.</a></text>
+<text top="533" left="372" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">23</a></text>
+<text top="535" left="387" width="357" height="13" font="4">Another option is to directly send a named dataframe directly</text>
+<text top="552" left="149" width="86" height="13" font="4">from memory:</text>
+<text top="574" left="149" width="316" height="18" font="4"># add files and release study using `objectid`</text>
+<text top="590" left="149" width="178" height="18" font="4">dvAddFile(s, &#34;mydata.zip&#34;)</text>
+<text top="607" left="149" width="165" height="18" font="4"># or add multiple files:</text>
+<text top="623" left="149" width="281" height="18" font="4">dvAddFile(s, c(&#34;file1.csv&#34;, &#34;file2.txt&#34;))</text>
+<text top="640" left="149" width="213" height="18" font="4"># or add R dataframes as files:</text>
+<text top="656" left="149" width="268" height="18" font="4">mydf &lt;- data.frame(x = 1:10, y = 11:20)</text>
+<text top="673" left="149" width="219" height="18" font="4">dvAddFile(s, dataframe = &#34;mydf&#34;)</text>
+<text top="701" left="148" width="596" height="13" font="4">Adding files is non-destructive, so we can add files all at once in a single .zip directory or we can</text>
+<text top="718" left="149" width="595" height="13" font="4">add them sequentially. The Dataverse Network does not overwrite an existing file. Attempting</text>
+<text top="734" left="149" width="210" height="13" font="4">to do so will result in an error and</text>
+<text top="731" left="363" width="383" height="18" font="4">dvAddFile will return NULL. If a file fails to upload successfully,</text>
+<text top="747" left="149" width="595" height="18" font="4">dvAddFile will return an error, and if a data file uploads successfully but then fails to decompress or is</text>
+<text top="767" left="149" width="595" height="13" font="4">in an unrecognizable format, you will receive an email to the account affiliated with your dataverse</text>
+<text top="784" left="149" width="169" height="13" font="4">informing you of the failure.</text>
+<text top="805" left="171" width="371" height="13" font="4">With metadata and files added, we can release the study using</text>
+<text top="801" left="546" width="200" height="18" font="4">dvReleaseStudy. Before doing so,</text>
+<text top="821" left="149" width="280" height="13" font="4">it may be reasonable to check the study using</text>
+<text top="818" left="433" width="312" height="18" font="4">dvStudyStatement to see a short summary of study</text>
+<text top="837" left="149" width="53" height="13" font="4">contents:</text>
+<text top="859" left="149" width="144" height="18" font="4">&gt; dvStudyStatement(s)</text>
+<text top="876" left="149" width="151" height="18" font="4">Study author: Unknown</text>
+<text top="892" left="149" width="82" height="18" font="4">Study title:</text>
+<text top="892" left="252" width="55" height="18" font="4">My Study</text>
+<text top="909" left="149" width="62" height="18" font="4">ObjectId:</text>
+<text top="909" left="252" width="144" height="18" font="4">doi:10.7910/DVN/ILAJO</text>
+<text top="925" left="149" width="69" height="18" font="4">Study URI:</text>
+<text top="925" left="252" width="487" height="18" font="4">https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit/study/</text>
+<text top="942" left="252" width="144" height="18" font="4">doi:10.7910/DVN/ILAJO</text>
+<text top="958" left="149" width="268" height="18" font="4">Last updated: 2013-12-02T09:56:07.298Z</text>
+<text top="975" left="149" width="48" height="18" font="4">Status:</text>
+<text top="975" left="252" width="34" height="18" font="4">DRAFT</text>
+<text top="991" left="149" width="48" height="18" font="4">Locked?</text>
+<text top="991" left="252" width="34" height="18" font="4">false</text>
+<text top="1007" left="149" width="41" height="18" font="4">Files:</text>
+<text top="1024" left="163" width="21" height="18" font="4">src</text>
+<text top="1040" left="149" width="590" height="18" font="4">1 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2349641/</text>
+<text top="1057" left="163" width="55" height="18" font="4">mydf.tab</text>
+<text top="1073" left="163" width="27" height="18" font="4">type</text>
+<text top="1073" left="361" width="48" height="18" font="4">updated</text>
+<text top="1073" left="533" width="41" height="18" font="4">fileId</text>
+<text top="1090" left="149" width="185" height="18" font="4">1 text/tab-separated-values</text>
+<text top="1090" left="361" width="219" height="18" font="4">2013-12-02T09:56:16.227Z 2349641</text>
+<text top="1117" left="161" width="9" height="9" font="9">22</text>
+<text top="1119" left="170" width="265" height="12" font="1">Access can be checked by examining the output of</text>
+<text top="1116" left="439" width="73" height="16" font="15">dvServiceDoc</text>
+<text top="1119" left="512" width="3" height="12" font="1">.</text>
+<text top="1132" left="161" width="9" height="9" font="9">23</text>
+<text top="1134" left="170" width="65" height="12" font="1">An optional</text>
+<text top="1131" left="239" width="49" height="16" font="15">category</text>
+<text top="1134" left="291" width="453" height="12" font="1">argument additionally allows you to group files into categories, such as “data” and</text>
+<text top="1148" left="147" width="40" height="12" font="1">“code.”</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">156</text>
+<text top="103" left="148" width="596" height="13" font="4">The above example output shows a variety of information, including the lack of a study author, the</text>
+<text top="120" left="149" width="117" height="13" font="4">state of the study as</text>
+<text top="116" left="269" width="475" height="18" font="4">DRAFT (meaning the current version is unreleased), and a list of the included files</text>
+<text top="136" left="148" width="66" height="13" font="4">(we see the</text>
+<text top="133" left="218" width="393" height="18" font="4">mydf object uploaded above). If satisfied, we can release the study:</text>
+<text top="162" left="149" width="117" height="18" font="4">dvReleaseStudy(s)</text>
+<text top="196" left="171" width="575" height="13" font="4">When a study is released, it becomes immediately accessible via its persistent Handle or DOI.</text>
+<text top="212" left="149" width="595" height="13" font="4">If changes are made to the dataverse (either metadata or files), these remain in draft form until the</text>
+<text top="229" left="149" width="595" height="13" font="4">dataverse is released again. Each release is persistently available unless the entire study collection is</text>
+<text top="245" left="149" width="47" height="13" font="4"><a href="2014-1-leeper.html#0">deleted.</a></text>
+<text top="242" left="196" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">24</a></text>
+<text top="266" left="171" width="480" height="13" font="4">Before releasing a study, we can delete it from The Dataverse Network server using</text>
+<text top="263" left="654" width="92" height="18" font="4">dvDeleteStudy.</text>
+<text top="282" left="149" width="595" height="13" font="4">Once a study is released, it cannot be deleted, but access to it can be revoked. Thus, calling</text>
+<text top="295" left="149" width="596" height="18" font="4">dvDeleteStudy only deletes studies that are unreleased. Calling dvDeleteStudy on a released study</text>
+<text top="315" left="149" width="595" height="13" font="4">revokes public access, but a persistent page will remain at the study URL noting that a study was</text>
+<text top="332" left="148" width="394" height="13" font="4">previously released. Similarly, it is possible to delete files using</text>
+<text top="328" left="547" width="198" height="18" font="4">dvDeleteFile with an argument</text>
+<text top="348" left="149" width="83" height="13" font="4">specifying the</text>
+<text top="345" left="235" width="327" height="18" font="4">fileId (which we can extract from dvStudyStatement):</text>
+<text top="375" left="149" width="178" height="18" font="4">&gt; d &lt;- dvStudyStatement(s)</text>
+<text top="391" left="149" width="110" height="18" font="4">&gt; d$files$fileId</text>
+<text top="408" left="149" width="158" height="18" font="4">[1] &#34;2349642&#34; &#34;2349641&#34;</text>
+<text top="424" left="149" width="171" height="18" font="4">&gt; dvDeleteFile(&#34;2349642&#34;)</text>
+<text top="440" left="149" width="247" height="18" font="4">Operation appears to have succeeded.</text>
+<text top="457" left="149" width="41" height="18" font="4">[1] &#34;&#34;</text>
+<text top="490" left="149" width="420" height="13" font="4">If a file deletion is successful, <b>dvn </b>will report a success message and</text>
+<text top="487" left="573" width="171" height="18" font="4">dvDeleteFile will return an</text>
+<text top="507" left="149" width="138" height="13" font="4">empty character <a href="2014-1-leeper.html#0">string.</a></text>
+<text top="504" left="286" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">25</a></text>
+<text top="528" left="171" width="266" height="13" font="4">We can also modify a study’s metadata using</text>
+<text top="524" left="441" width="305" height="18" font="4">dvEditStudy, supplied with a metadata listing (e.g.,</text>
+<text top="544" left="149" width="86" height="13" font="4">as returned by</text>
+<text top="541" left="238" width="111" height="18" font="4">dvBuildMetadata<a href="2014-1-leeper.html#0">).</a></text>
+<text top="541" left="349" width="10" height="10" font="8"><a href="2014-1-leeper.html#0">26</a></text>
+<text top="570" left="149" width="556" height="18" font="4">&gt; m2 &lt;- dvBuildMetadata(title = 'An Actual Title', creator = 'Me', date = '2013')</text>
+<text top="587" left="149" width="137" height="18" font="4">&gt; dvEditStudy(s, m2)</text>
+<text top="603" left="149" width="62" height="18" font="4">Citation:</text>
+<text top="603" left="252" width="460" height="18" font="4">Me, 2013, &#34;An Actual Title&#34;, http://dx.doi.org/10.7910/DVN/ILAJO V1</text>
+<text top="620" left="149" width="62" height="18" font="4">ObjectId:</text>
+<text top="620" left="252" width="144" height="18" font="4">doi:10.7910/DVN/ILAJO</text>
+<text top="636" left="149" width="69" height="18" font="4">Study URI:</text>
+<text top="636" left="252" width="487" height="18" font="4">https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit/study/</text>
+<text top="653" left="252" width="144" height="18" font="4">doi:10.7910/DVN/ILAJO</text>
+<text top="669" left="149" width="295" height="18" font="4">Generated by: http://www.swordapp.org/ 2.0</text>
+<text top="702" left="148" width="597" height="13" font="4">The response reflects the updated metadata. If changes are made to a study (files are added or deleted,</text>
+<text top="719" left="149" width="397" height="13" font="4">or metadata is modified), those changes will be visible via <b>dvn </b>as a</text>
+<text top="715" left="549" width="195" height="18" font="4">DRAFT study version, but will not</text>
+<text top="735" left="149" width="420" height="13" font="4">be public. To make them public, simply release the study again with</text>
+<text top="732" left="572" width="172" height="18" font="4">dvReleaseStudy. Both study</text>
+<text top="752" left="148" width="489" height="13" font="4">versions will remain accessible via The Dataverse Network web browser interface.</text>
+<text top="773" left="171" width="573" height="13" font="4">Once we’ve created one or more studies (regardless of whether they are released), we can view</text>
+<text top="789" left="149" width="67" height="13" font="4">them using</text>
+<text top="786" left="219" width="428" height="18" font="4">dvUserStudies for a named dataverse or from a dvServiceDoc response:</text>
+<text top="813" left="149" width="192" height="18" font="4">dvUserStudies(&#34;mydataverse&#34;)</text>
+<text top="829" left="149" width="34" height="18" font="4"># or:</text>
+<text top="845" left="149" width="199" height="18" font="4">dvUserStudies(dvServiceDoc())</text>
+<text top="876" left="148" width="287" height="13" font="4">Thus while we only need three core functions (</text>
+<text top="872" left="435" width="309" height="18" font="4">dvCreateStudy, dvAddFile, and dvReleaseStudy) to</text>
+<text top="892" left="149" width="595" height="13" font="4">complete a reproducible research workflow, the other functions supplied by <b>dvn </b>allow a great degree</text>
+<text top="909" left="149" width="325" height="13" font="4">of control over the appearance and contents of a study.</text>
+<text top="953" left="149" width="94" height="17" font="6"><b>Conclusion</b></text>
+<text top="992" left="148" width="16" height="13" font="4">As</text>
+<text top="992" left="168" width="56" height="13" font="7"><a href="2014-1-leeper.html#7">Gandrud</a></text>
+<text top="992" left="227" width="5" height="13" font="4"><a href="2014-1-leeper.html#7">(</a></text>
+<text top="992" left="232" width="35" height="13" font="7"><a href="2014-1-leeper.html#7">2013b</a></text>
+<text top="992" left="267" width="480" height="13" font="4"><a href="2014-1-leeper.html#7">) </a>has demonstrated, R is a powerful tool in the reproducible research workflow.</text>
+<text top="1009" left="148" width="596" height="13" font="4">Yet a missing element of that workflow to-date has been the easy ability to store research files in a</text>
+<text top="1025" left="148" width="597" height="13" font="4">persistent, public data repository designed for reproducible research. The Dataverse Network is a free,</text>
+<text top="1042" left="149" width="596" height="13" font="4">open-source service explicitly dedicated to permanently storing data, with implementations hosted by</text>
+<text top="1068" left="161" width="9" height="9" font="9">24</text>
+<text top="1070" left="170" width="575" height="12" font="1">Note, however, that The Dataverse Network APIs do not currently offer access to previous study versions,</text>
+<text top="1085" left="149" width="254" height="12" font="1">though they are accessible via the web interface.</text>
+<text top="1097" left="161" width="9" height="9" font="9">25</text>
+<text top="1099" left="170" width="574" height="12" font="1">Note, however, that attempting to delete a file that does not exist returns no error message from the SWORD</text>
+<text top="1114" left="149" width="35" height="12" font="1">server.</text>
+<text top="1126" left="161" width="9" height="9" font="9">26</text>
+<text top="1128" left="170" width="574" height="12" font="1">Note, however, that this function completely overwrites all metadata in a study, effectively deleting the current</text>
+<text top="1143" left="149" width="306" height="12" font="1">metadata and repopulating it with the supplied metadata.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">157</text>
+<text top="103" left="149" width="595" height="13" font="4">a variety of institutions (mostly research universities) offering additional choice over whom to trust</text>
+<text top="120" left="148" width="598" height="13" font="4">with the persistent storage of study records. By automatically providing study records a unique URI,</text>
+<text top="136" left="149" width="595" height="13" font="4">data stored using The Dataverse Network has a version-controlled and persistent identifier that can be</text>
+<text top="152" left="149" width="595" height="13" font="4">cited by subsequent users of the data, continuing the reproducible workflow process beyond the phase</text>
+<text top="169" left="149" width="595" height="13" font="4">of data production and initial analysis. With the popularity of The Dataverse Network increasing, it is</text>
+<text top="185" left="149" width="595" height="13" font="4">a logical choice for archiving one’s reproducible data and analysis files. <b>dvn </b>thus provides R users</text>
+<text top="202" left="148" width="596" height="13" font="4">with the tools necessary to quickly and easily integrate data archiving into the reproducible research</text>
+<text top="218" left="148" width="60" height="13" font="4">workflow.</text>
+<text top="263" left="149" width="109" height="17" font="6"><b>Bibliography</b></text>
+<text top="302" left="149" width="595" height="13" font="4">M. Altman. A fingerprint method for scientific data verification. In T. Sobh, editor, Advances in</text>
+<text top="318" left="163" width="582" height="14" font="4">Computer and Information Sciences and Engineering, chapter 57, pages 311–316. Springer Netherlands,</text>
+<text top="335" left="164" width="543" height="13" font="4">Netherlands, 2008. ISBN 978-1-4020-8740-0. doi: 10.1007/978-1-4020-8741-7_57. URL</text>
+<text top="331" left="712" width="34" height="18" font="7"><a href="http://link.springer.com/chapter/10.1007/978-1-4020-8741-7_57">http:</a></text>
+<text top="348" left="163" width="387" height="18" font="7"><a href="http://link.springer.com/chapter/10.1007/978-1-4020-8741-7_57">//link.springer.com/chapter/10.1007/978-1-4020-8741-7_57</a></text>
+<text top="351" left="550" width="21" height="13" font="4"><a href="http://link.springer.com/chapter/10.1007/978-1-4020-8741-7_57">. </a><a href="2014-1-leeper.html#2">[p</a></text>
+<text top="351" left="571" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="351" left="591" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="380" left="149" width="595" height="13" font="4">M. Altman and G. King. A proposed standard for the scholarly citation of quantitative data. D-Lib</text>
+<text top="396" left="164" width="405" height="14" font="4">Magazine, 13(3/4):1, 2007. doi: 10.1045/march2007-altman. URL</text>
+<text top="393" left="574" width="171" height="18" font="7"><a href="http://www.dlib.org/dlib/march07/altman/03altman.html">http://www.dlib.org/dlib/</a></text>
+<text top="409" left="164" width="192" height="18" font="7"><a href="http://www.dlib.org/dlib/march07/altman/03altman.html">march07/altman/03altman.html</a></text>
+<text top="412" left="356" width="21" height="13" font="4"><a href="http://www.dlib.org/dlib/march07/altman/03altman.html">. </a><a href="2014-1-leeper.html#2">[p</a></text>
+<text top="412" left="377" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="412" left="397" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="441" left="149" width="595" height="13" font="4">M. Altman, L. Andreev, M. Diggory, G. King, A. Sone, S. Verba, D. L. Kiskis, and M. Krot. A digital</text>
+<text top="457" left="164" width="580" height="13" font="4">library for the dissemination and replication of quantitative social science research: The virtual data</text>
+<text top="474" left="164" width="361" height="13" font="4">center. Social Science Computer Review, 19(4):458–470, 2001. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="474" left="525" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="474" left="545" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="502" left="149" width="596" height="13" font="4">C. Boettiger, S. Chamberlain, K. Ram, and E. Hart. rfigshare: an R interface to figshare.com, 2013. URL</text>
+<text top="515" left="164" width="377" height="18" font="7"><a href="http://cran.fhcrc.org/web/packages/rfigshare/index.html">http://cran.fhcrc.org/web/packages/rfigshare/index.html</a></text>
+<text top="519" left="541" width="169" height="13" font="4"><a href="http://cran.fhcrc.org/web/packages/rfigshare/index.html">. </a>R package version 0.2-6. <a href="2014-1-leeper.html#3">[p</a></text>
+<text top="519" left="710" width="20" height="13" font="7"><a href="2014-1-leeper.html#3">153</a></text>
+<text top="519" left="730" width="4" height="13" font="4"><a href="2014-1-leeper.html#3">]</a></text>
+<text top="547" left="149" width="598" height="13" font="4">M. A. Boyer. Symposium on replication in international studies research. International Studies Per-</text>
+<text top="563" left="164" width="155" height="14" font="4">specives, 4:72–107, 2003. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="563" left="319" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="563" left="339" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="592" left="149" width="559" height="13" font="4">S. Chamberlain, C. Boettiger, and K. Ram. rdryad: Interface to the API for Dryad, 2013. URL</text>
+<text top="588" left="712" width="34" height="18" font="7"><a href="http://cran.r-project.org/web/packages/rdryad/index.html">http:</a></text>
+<text top="605" left="163" width="351" height="18" font="7"><a href="http://cran.r-project.org/web/packages/rdryad/index.html">//cran.r-project.org/web/packages/rdryad/index.html</a></text>
+<text top="608" left="514" width="168" height="13" font="4"><a href="http://cran.r-project.org/web/packages/rdryad/index.html">. </a>R package version 0.1.1. <a href="2014-1-leeper.html#3">[p</a></text>
+<text top="608" left="682" width="20" height="13" font="7"><a href="2014-1-leeper.html#3">153</a></text>
+<text top="608" left="702" width="4" height="13" font="4"><a href="2014-1-leeper.html#3">]</a></text>
+<text top="637" left="149" width="595" height="13" font="4">C. Gandrud. Github: A tool for social data development and verification in the cloud. The Political</text>
+<text top="653" left="164" width="213" height="14" font="4">Methodologist, 20(2):7–16, 2013a. URL</text>
+<text top="650" left="380" width="364" height="18" font="7"><a href="http://polmeth.wustl.edu/methodologist/tpm_v20_n2.pdf">http://polmeth.wustl.edu/methodologist/tpm_v20_n2.pdf</a></text>
+<text top="653" left="743" width="3" height="13" font="4"><a href="http://polmeth.wustl.edu/methodologist/tpm_v20_n2.pdf">.</a></text>
+<text top="669" left="164" width="13" height="13" font="4"><a href="2014-1-leeper.html#1">[p</a></text>
+<text top="669" left="176" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="669" left="196" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="698" left="149" width="598" height="13" font="4">C. Gandrud. Reproducible Research with R and RStudio. Chapman and Hall/CRC, Boca Raton, FL, 2013b.</text>
+<text top="714" left="164" width="143" height="13" font="4">ISBN 9781466572843. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="714" left="306" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="714" left="326" width="3" height="13" font="4"><a href="2014-1-leeper.html#1">,</a></text>
+<text top="714" left="333" width="20" height="13" font="7"><a href="2014-1-leeper.html#6">156</a></text>
+<text top="714" left="353" width="4" height="13" font="4"><a href="2014-1-leeper.html#6">]</a></text>
+<text top="743" left="149" width="595" height="13" font="4">R. Gentleman and D. Temple Lang. Bioconductor project statistical analyses and reproducible statistical</text>
+<text top="759" left="164" width="334" height="13" font="4">analyses and reproducible. Unpublished paper, 2004. <a href="2014-1-leeper.html#2">[p</a></text>
+<text top="759" left="497" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="759" left="518" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="788" left="149" width="444" height="13" font="4">K. Hornik. OAIHarvester: Harvest Metadata Using OAI-PMH v2.0, 2013. URL</text>
+<text top="784" left="596" width="152" height="18" font="7"><a href="http://cran.r-project.org/web/packages/OAIHarvester/index.html">http://cran.r-project.</a></text>
+<text top="801" left="164" width="274" height="18" font="7"><a href="http://cran.r-project.org/web/packages/OAIHarvester/index.html">org/web/packages/OAIHarvester/index.html</a></text>
+<text top="804" left="438" width="169" height="13" font="4"><a href="http://cran.r-project.org/web/packages/OAIHarvester/index.html">. </a>R package version 0.1-6. <a href="2014-1-leeper.html#3">[p</a></text>
+<text top="804" left="607" width="20" height="13" font="7"><a href="2014-1-leeper.html#3">153</a></text>
+<text top="804" left="627" width="4" height="13" font="4"><a href="2014-1-leeper.html#3">]</a></text>
+<text top="832" left="149" width="542" height="13" font="4">G. King. Replication, replication. PS: Political Science &amp; Politics, 28(3):444–451, Sept. 1995. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="832" left="691" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="832" left="711" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="861" left="149" width="595" height="13" font="4">G. King. An introduction to the Dataverse Network as an infrastructure for data sharing. Sociological</text>
+<text top="877" left="164" width="581" height="14" font="4">Methods &amp; Research, 36(2):173–199, Nov. 2007. ISSN 0049-1241. doi: 10.1177/0049124107306660. URL</text>
+<text top="890" left="164" width="377" height="18" font="7"><a href="http://smr.sagepub.com/cgi/doi/10.1177/0049124107306660">http://smr.sagepub.com/cgi/doi/10.1177/0049124107306660</a></text>
+<text top="894" left="541" width="21" height="13" font="4"><a href="http://smr.sagepub.com/cgi/doi/10.1177/0049124107306660">. </a><a href="2014-1-leeper.html#1">[p</a></text>
+<text top="894" left="562" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="894" left="582" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="922" left="149" width="597" height="13" font="4">T. J. Leeper. UNF: Tools for creating universal numeric fingerprints for data. Aarhus University, Aarhus,</text>
+<text top="938" left="164" width="126" height="13" font="4">Denmark, 2013. URL</text>
+<text top="935" left="293" width="199" height="18" font="7"><a href="https://github.com/leeper/UNF">https://github.com/leeper/UNF</a></text>
+<text top="938" left="492" width="158" height="13" font="4"><a href="https://github.com/leeper/UNF">. </a>R package version 0.1. <a href="2014-1-leeper.html#2">[p</a></text>
+<text top="938" left="650" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="938" left="670" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="967" left="149" width="595" height="13" font="4">F. Leisch. Sweave: Dynamic generation of statistical reports using literate data analysis. Compstat 2002</text>
+<text top="983" left="162" width="382" height="14" font="4">- Proceedings in Computational Statistics, (69):575–580, 2002. URL</text>
+<text top="980" left="548" width="200" height="18" font="7"><a href="http://www.stat.uni-muenchen.de/~leisch/Sweave/">http://www.stat.uni-muenchen.</a></text>
+<text top="996" left="164" width="123" height="18" font="7"><a href="http://www.stat.uni-muenchen.de/~leisch/Sweave/">de/~leisch/Sweave/</a></text>
+<text top="1000" left="287" width="21" height="13" font="4"><a href="http://www.stat.uni-muenchen.de/~leisch/Sweave/">. </a><a href="2014-1-leeper.html#1">[p</a></text>
+<text top="1000" left="308" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="1000" left="328" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="1028" left="149" width="355" height="13" font="4">K. Ram. rDrop: Programmatic interface to Dropbox, 2012. URL</text>
+<text top="1025" left="507" width="219" height="18" font="7"><a href="https://github.com/karthik/rDrop">https://github.com/karthik/rDrop</a></text>
+<text top="1028" left="727" width="17" height="13" font="4"><a href="https://github.com/karthik/rDrop">. </a>R</text>
+<text top="1045" left="163" width="149" height="13" font="4">package version 0.3-0. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="1045" left="312" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="1045" left="332" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="1073" left="149" width="407" height="13" font="4">C. Scheidegger. rgithub: R bindings for the Github API, 2013. URL</text>
+<text top="1070" left="560" width="185" height="18" font="7"><a href="https://github.com/cscheid/rgithub">https://github.com/cscheid/</a></text>
+<text top="1086" left="164" width="48" height="18" font="7"><a href="https://github.com/cscheid/rgithub">rgithub</a></text>
+<text top="1089" left="212" width="168" height="13" font="4"><a href="https://github.com/cscheid/rgithub">. </a>R package version 0.9.5. <a href="2014-1-leeper.html#1">[p</a></text>
+<text top="1089" left="380" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="1089" left="400" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="1118" left="149" width="595" height="13" font="4">V. Stodden. Enabling reproducible research: Licensing for scientific innovation. International Journal of</text>
+<text top="1134" left="163" width="275" height="14" font="4">Communications Law &amp; Policy, 13:1–25, 2009. <a href="2014-1-leeper.html#2">[p</a></text>
+<text top="1134" left="439" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="1134" left="459" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">158</text>
+<text top="103" left="149" width="498" height="13" font="4">D. Temple Lang. RCurl: General network (HTTP/FTP/...) client interface for R, 2012a. URL</text>
+<text top="100" left="649" width="96" height="18" font="7"><a href="http://cran.r-project.org/web/packages/RCurl/index.html">http://cran.r-</a></text>
+<text top="116" left="164" width="281" height="18" font="7"><a href="http://cran.r-project.org/web/packages/RCurl/index.html">project.org/web/packages/RCurl/index.html</a></text>
+<text top="120" left="445" width="21" height="13" font="4"><a href="http://cran.r-project.org/web/packages/RCurl/index.html">. </a><a href="2014-1-leeper.html#2">[p</a></text>
+<text top="120" left="466" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="120" left="486" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="148" left="149" width="559" height="13" font="4">D. Temple Lang. XML: Tools for parsing and generating XML within R and S-Plus, 2012b. URL</text>
+<text top="145" left="712" width="34" height="18" font="7"><a href="http://cran.r-project.org/package=XML">http:</a></text>
+<text top="161" left="163" width="220" height="18" font="7"><a href="http://cran.r-project.org/package=XML">//cran.r-project.org/package=XML</a></text>
+<text top="164" left="383" width="21" height="13" font="4"><a href="http://cran.r-project.org/package=XML">. </a><a href="2014-1-leeper.html#2">[p</a></text>
+<text top="164" left="404" width="20" height="13" font="7"><a href="2014-1-leeper.html#2">152</a></text>
+<text top="164" left="424" width="4" height="13" font="4"><a href="2014-1-leeper.html#2">]</a></text>
+<text top="193" left="149" width="558" height="13" font="4">Y. Xie. knitr: A general-purpose package for dynamic report generation in r, 2013. URL</text>
+<text top="189" left="712" width="34" height="18" font="7"><a href="http://cran.r-project.org/web/packages/knitr/index.html">http:</a></text>
+<text top="206" left="163" width="344" height="18" font="7"><a href="http://cran.r-project.org/web/packages/knitr/index.html">//cran.r-project.org/web/packages/knitr/index.html</a></text>
+<text top="209" left="507" width="21" height="13" font="4"><a href="http://cran.r-project.org/web/packages/knitr/index.html">. </a><a href="2014-1-leeper.html#1">[p</a></text>
+<text top="209" left="528" width="20" height="13" font="7"><a href="2014-1-leeper.html#1">151</a></text>
+<text top="209" left="548" width="4" height="13" font="4"><a href="2014-1-leeper.html#1">]</a></text>
+<text top="255" left="148" width="92" height="13" font="4">Thomas J. Leeper</text>
+<text top="272" left="148" width="266" height="13" font="4">Department of Political Science and Government</text>
+<text top="288" left="148" width="103" height="13" font="4">Aarhus University</text>
+<text top="305" left="148" width="51" height="13" font="4">Denmark</text>
+<text top="318" left="149" width="144" height="18" font="7"><a href="mailto:thosjleeper@gmail.com">thosjleeper@gmail.com</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

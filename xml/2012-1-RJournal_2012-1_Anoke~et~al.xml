@@ -1,0 +1,1519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">45</text>
+<text top="121" left="82" width="554" height="36" font="2"><b>xgrid and R: Parallel Distributed</b></text>
+<text top="166" left="82" width="695" height="36" font="2"><b>Processing Using Heterogeneous Groups</b></text>
+<text top="211" left="82" width="347" height="36" font="2"><b>of Apple Computers</b></text>
+<text top="262" left="82" width="346" height="15" font="0">by Sarah C. Anoke, Yuting Zhao, Rafael Jaeger and</text>
+<text top="280" left="82" width="113" height="15" font="0">Nicholas J. Horton</text>
+<text top="314" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="314" left="166" width="249" height="15" font="0">The Apple Xgrid system provides ac-</text>
+<text top="332" left="96" width="319" height="15" font="0">cess to groups (or grids) of computers that can be</text>
+<text top="350" left="96" width="319" height="15" font="0">used to facilitate parallel processing. We describe</text>
+<text top="368" left="96" width="319" height="15" font="0">the <b>xgrid </b>package which facilitates access to this</text>
+<text top="386" left="96" width="319" height="15" font="0">system to undertake independent simulations</text>
+<text top="404" left="96" width="319" height="15" font="0">or other long-running jobs that can be divided</text>
+<text top="422" left="96" width="319" height="15" font="0">into replicate runs within R. Detailed examples</text>
+<text top="440" left="96" width="319" height="15" font="0">are provided to demonstrate the interface, along</text>
+<text top="458" left="96" width="319" height="15" font="0">with results from a simulation study of the per-</text>
+<text top="476" left="96" width="319" height="15" font="0">formance gains using a variety of grids. Use of</text>
+<text top="494" left="96" width="319" height="15" font="0">the grid for “embarassingly parallel” indepen-</text>
+<text top="512" left="96" width="319" height="15" font="0">dent jobs has the potential for major speedups</text>
+<text top="530" left="96" width="319" height="15" font="0">in time to completion. Appendices provide guid-</text>
+<text top="547" left="96" width="319" height="15" font="0">ance on setting up the workflow, utilizing add-</text>
+<text top="565" left="96" width="319" height="15" font="0">on packages, and constructing grids using exist-</text>
+<text top="583" left="96" width="91" height="15" font="0">ing machines.</text>
+<text top="631" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="670" left="82" width="346" height="15" font="0">Many scientific computations can be sped up by di-</text>
+<text top="688" left="82" width="346" height="15" font="0">viding them into smaller tasks and distributing the</text>
+<text top="706" left="82" width="346" height="15" font="0">computations to multiple systems for simultaneous</text>
+<text top="724" left="82" width="346" height="15" font="0">processing. Particularly in the case of embarrassingly</text>
+<text top="742" left="82" width="61" height="15" font="0">parallel <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="742" left="143" width="136" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Wilkinson and Allen</a></text>
+<text top="742" left="279" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="742" left="287" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">1999</a></text>
+<text top="742" left="317" width="112" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>statistical simu-</text>
+<text top="760" left="82" width="346" height="15" font="0">lations, where the outcome of any given simulation</text>
+<text top="778" left="82" width="346" height="15" font="0">is independent of others, parallel computing on ex-</text>
+<text top="796" left="82" width="346" height="15" font="0">isting grids of computers can dramatically increase</text>
+<text top="814" left="82" width="346" height="15" font="0">computation speed. Rather than waiting for the pre-</text>
+<text top="832" left="82" width="346" height="15" font="0">vious simulation to complete before moving on to the</text>
+<text top="850" left="82" width="346" height="15" font="0">next, a grid controller can distribute tasks to agents</text>
+<text top="868" left="82" width="346" height="15" font="0">(also known as nodes) as quickly as they can process</text>
+<text top="886" left="82" width="346" height="15" font="0">them in parallel. As the number of nodes in the grid</text>
+<text top="904" left="82" width="346" height="15" font="0">increases, the total computation time for a given job</text>
+<text top="921" left="82" width="204" height="15" font="0">will generally decrease. Figure</text>
+<text top="921" left="291" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#2">1</a></text>
+<text top="921" left="303" width="126" height="15" font="0">provides a concep-</text>
+<text top="939" left="82" width="197" height="15" font="0">tual model of this framework.</text>
+<text top="958" left="105" width="324" height="15" font="0">Several solutions exist to facilitate parallel com-</text>
+<text top="976" left="82" width="124" height="15" font="0">putation within R.</text>
+<text top="976" left="212" width="96" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Wegener et al.</a></text>
+<text top="976" left="314" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="976" left="319" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2007</a></text>
+<text top="976" left="349" width="80" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>developed</text>
+<text top="994" left="82" width="43" height="15" font="6"><a href="http://cran.r-project.org/package=GridR"><b>GridR</b></a></text>
+<text top="994" left="126" width="303" height="15" font="0"><a href="http://cran.r-project.org/package=GridR">, </a>a condor-based environment for settings</text>
+<text top="1012" left="82" width="346" height="15" font="0">where one can connect directly to agents in a grid.</text>
+<text top="1030" left="82" width="25" height="15" font="0">The</text>
+<text top="1030" left="114" width="38" height="15" font="6"><a href="http://cran.r-project.org/package=Rmpi"><b>Rmpi</b></a></text>
+<text top="1030" left="158" width="65" height="15" font="0">package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1030" left="223" width="18" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Yu</a></text>
+<text top="1030" left="241" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="1030" left="251" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2002</a></text>
+<text top="1030" left="281" width="148" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>is an R wrapper for</text>
+<text top="1048" left="82" width="346" height="15" font="0">the popular Message Passing Interface (MPI) proto-</text>
+<text top="1065" left="82" width="346" height="15" font="0">col and provides extremely low-level control over</text>
+<text top="1083" left="82" width="250" height="15" font="0">grid functionality. The <b>rpvm </b>package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1083" left="332" width="93" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Li and Rossini</a></text>
+<text top="1083" left="425" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="1101" left="82" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2001</a></text>
+<text top="1101" left="112" width="317" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>provides a connection to a Parallel Virtual Ma-</text>
+<text top="1119" left="82" width="45" height="15" font="0">chine <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1119" left="127" width="70" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Geist et al.</a></text>
+<text top="1119" left="197" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="1119" left="205" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">1994</a></text>
+<text top="1119" left="235" width="38" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">). </a>The</text>
+<text top="1119" left="277" width="37" height="15" font="6"><a href="http://cran.r-project.org/package=snow"><b>snow</b></a></text>
+<text top="1119" left="317" width="63" height="15" font="0">package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1119" left="381" width="48" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Rossini</a></text>
+<text top="1137" left="82" width="34" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">et al.</a></text>
+<text top="1137" left="117" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="1137" left="127" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2007</a></text>
+<text top="1137" left="157" width="272" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>provides a simpler implementation of</text>
+<text top="1155" left="82" width="38" height="15" font="3"><b>Rmpi</b></text>
+<text top="1155" left="126" width="303" height="15" font="0">and <b>rpvm</b>, using a low-level socket function-</text>
+<text top="1173" left="82" width="63" height="15" font="0">ality. The</text>
+<text top="1173" left="153" width="66" height="15" font="6"><a href="http://cran.r-project.org/package=multicore"><b>multicore</b></a></text>
+<text top="1173" left="225" width="66" height="15" font="0">package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1173" left="291" width="57" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Urbanek</a></text>
+<text top="1173" left="349" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="1173" left="359" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2011</a></text>
+<text top="1173" left="389" width="40" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>pro-</text>
+<text top="262" left="459" width="346" height="15" font="0">vides several functions to divide work between a sin-</text>
+<text top="280" left="459" width="346" height="15" font="0">gle machine’s multiple cores. Starting with release</text>
+<text top="298" left="459" width="346" height="15" font="0">2.14.0, <b>snow </b>and <b>multicore </b>are available as slightly</text>
+<text top="316" left="459" width="346" height="15" font="0">revised copies within the <b>parallel </b>package in base R.</text>
+<text top="336" left="481" width="128" height="15" font="0">The Apple Xgrid <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="336" left="609" width="72" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Apple Inc.</a></text>
+<text top="336" left="681" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="336" left="691" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2009</a></text>
+<text top="336" left="721" width="85" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>technology</text>
+<text top="354" left="459" width="346" height="15" font="0">is a parallel computing environment. Many Ap-</text>
+<text top="372" left="459" width="346" height="15" font="0">ple Xgrids already exist in academic settings, and</text>
+<text top="390" left="459" width="346" height="15" font="0">are straightforward to set up. As loosely organized</text>
+<text top="408" left="459" width="346" height="15" font="0">clusters, Apple Xgrids provide graceful degradation,</text>
+<text top="426" left="459" width="346" height="15" font="0">where agents can easily be added to or removed from</text>
+<text top="444" left="459" width="346" height="15" font="0">the grid without disrupting its operation. Xgrid sup-</text>
+<text top="461" left="459" width="346" height="15" font="0">ports heterogeneous agents (also a plus in many set-</text>
+<text top="479" left="459" width="346" height="15" font="0">tings, where a single grid might include a lab, class-</text>
+<text top="497" left="459" width="346" height="15" font="0">room, individual computers, as well as more pow-</text>
+<text top="515" left="459" width="346" height="15" font="0">erful dedicated servers) and provides automated</text>
+<text top="533" left="459" width="346" height="15" font="0">housekeeping and cleanup. The Xgrid Admin pro-</text>
+<text top="551" left="459" width="346" height="15" font="0">gram provides a graphical overview of the controller,</text>
+<text top="569" left="459" width="346" height="15" font="0">agents and jobs that are being managed (instructions</text>
+<text top="587" left="459" width="346" height="15" font="0">on downloading and installing this tool can be found</text>
+<text top="605" left="459" width="106" height="15" font="0">in Appendix C).</text>
+<text top="625" left="481" width="112" height="15" font="0">We created the</text>
+<text top="625" left="604" width="36" height="15" font="6"><a href="http://cran.r-project.org/package=xgrid"><b>xgrid</b></a></text>
+<text top="625" left="650" width="70" height="15" font="0">package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="625" left="721" width="85" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Horton and</a></text>
+<text top="642" left="459" width="44" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Anoke</a></text>
+<text top="642" left="503" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="642" left="510" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2012</a></text>
+<text top="642" left="540" width="266" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>to provide a simple interface to this dis-</text>
+<text top="660" left="459" width="346" height="15" font="0">tributed computing system. The package facilitates</text>
+<text top="678" left="459" width="346" height="15" font="0">use of an Apple Xgrid for distributed processing of</text>
+<text top="696" left="459" width="346" height="15" font="0">a simulation with many independent repetitions, by</text>
+<text top="714" left="459" width="346" height="15" font="0">simplifying job submission (or grid stuffing) and col-</text>
+<text top="732" left="459" width="346" height="15" font="0">lation of results. It provides a relatively thin but use-</text>
+<text top="750" left="459" width="346" height="15" font="0">ful layer between R and Apple’s ‘xgrid’ shell com-</text>
+<text top="768" left="459" width="346" height="15" font="0">mand, where the user constructs input scripts to be</text>
+<text top="786" left="459" width="346" height="15" font="0">run remotely. A similar set of routines, optimized for</text>
+<text top="804" left="459" width="346" height="15" font="0">parallel estimation of JAGS (just another Gibbs sam-</text>
+<text top="822" left="459" width="233" height="15" font="0">pler) models is available within the</text>
+<text top="822" left="696" width="51" height="15" font="6"><a href="http://cran.r-project.org/package=runjags"><b>runjags</b></a></text>
+<text top="822" left="751" width="54" height="15" font="0">package</text>
+<text top="840" left="459" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="840" left="464" width="65" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Denwood</a></text>
+<text top="840" left="529" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="840" left="540" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2010</a></text>
+<text top="840" left="570" width="236" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">). </a>However, with the exception of</text>
+<text top="858" left="459" width="51" height="15" font="3"><b>runjags</b></text>
+<text top="858" left="510" width="295" height="15" font="0">, none of the previously mentioned packages</text>
+<text top="876" left="459" width="337" height="15" font="0">support parallel computation over an Apple Xgrid.</text>
+<text top="895" left="481" width="324" height="15" font="0">We begin by describing the <b>xgrid </b>package in-</text>
+<text top="913" left="459" width="346" height="15" font="0">terface to the Apple Xgrid, detailing two examples</text>
+<text top="931" left="459" width="346" height="15" font="0">which utilize this setup, summarizing simulation</text>
+<text top="949" left="459" width="346" height="15" font="0">studies that characterize the performance of a variety</text>
+<text top="967" left="459" width="346" height="15" font="0">of tasks on different grid configurations, then close</text>
+<text top="985" left="459" width="346" height="15" font="0">with a summary. We also include a glossary of terms</text>
+<text top="1003" left="459" width="346" height="15" font="0">and provide three appendices detailing how to ac-</text>
+<text top="1021" left="459" width="346" height="15" font="0">cess a grid using R (Appendix A), how to utilize add-</text>
+<text top="1039" left="459" width="346" height="15" font="0">on packages within R (Appendix B), and how to con-</text>
+<text top="1057" left="459" width="341" height="15" font="0">struct a grid using existing machines (Appendix C).</text>
+<text top="1113" left="459" width="286" height="21" font="4"><b>Controlling an Xgrid using R</b></text>
+<text top="1155" left="459" width="346" height="15" font="0">To facilitate use of an Apple Xgrid using R, we cre-</text>
+<text top="1173" left="459" width="346" height="15" font="0">ated the <b>xgrid </b>package, which contains support rou-</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="7" size="9" family="Times" color="#000000"/>
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">46</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="210" width="100" height="13" font="1">1. Initiate simulations.</text>
+<text top="126" left="372" width="179" height="13" font="1">2. Simulations transferred to controller.</text>
+<text top="249" left="306" width="168" height="13" font="1">7. Controller retrieves and collates     </text>
+<text top="262" left="306" width="160" height="13" font="1">individual job results and returns </text>
+<text top="276" left="306" width="85" height="13" font="1">them to the client.</text>
+<text top="168" left="562" width="119" height="13" font="1">3. Controller splits simula-</text>
+<text top="181" left="562" width="109" height="13" font="1">tions into multiple jobs.</text>
+<text top="248" left="561" width="116" height="13" font="1">4. Jobs are transferred to </text>
+<text top="261" left="561" width="125" height="13" font="1">the agents on the network </text>
+<text top="274" left="561" width="121" height="13" font="1">as they become available. </text>
+<text top="418" left="210" width="129" height="13" font="1">6. Agents return job results. </text>
+<text top="514" left="401" width="236" height="13" font="1">5. Agents compute a single job with multiple tasks. </text>
+<text top="211" left="247" width="29" height="14" font="7"><b>Client</b></text>
+<text top="212" left="494" width="50" height="14" font="7"><b>Controller</b></text>
+<text top="495" left="499" width="35" height="14" font="7"><b>Agents</b></text>
+<text top="555" left="137" width="614" height="15" font="0">Figure 1: Conceptual model of the Apple Xgrid framework (derived from graphic by F. Loxy)</text>
+<text top="604" left="82" width="346" height="15" font="0">tines to split up, submit, monitor, then retrieve re-</text>
+<text top="622" left="82" width="265" height="15" font="0">sults from a series of simulation studies.</text>
+<text top="647" left="105" width="324" height="15" font="0">The xgrid() function connects to the grid by re-</text>
+<text top="665" left="82" width="346" height="15" font="0">peated calls to the xgrid command at the Mac OS X</text>
+<text top="682" left="82" width="195" height="15" font="0">shell level on the client. Table</text>
+<text top="682" left="281" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#3">1</a></text>
+<text top="682" left="293" width="136" height="15" font="0">displays some of the</text>
+<text top="700" left="82" width="346" height="15" font="0">actions supported by the xgrid command and their</text>
+<text top="718" left="82" width="346" height="15" font="0">analogous routines in the <b>xgrid </b>package. While users</text>
+<text top="736" left="82" width="346" height="15" font="0">will ordinarily not need to use these routines, they</text>
+<text top="754" left="82" width="346" height="15" font="0">are helpful in understanding the workflow. These</text>
+<text top="772" left="82" width="346" height="15" font="0">routines are designed to call a specified R script with</text>
+<text top="790" left="82" width="346" height="15" font="0">suitable environment (packages, input files) on a re-</text>
+<text top="808" left="82" width="346" height="15" font="0">mote machine. The remote job is given arguments as</text>
+<text top="826" left="82" width="346" height="15" font="0">part of a call to ‘R CMD BATCH’, which allow it to cre-</text>
+<text top="844" left="82" width="346" height="15" font="0">ate a unique location to save results, which are com-</text>
+<text top="862" left="82" width="346" height="15" font="0">municated back to the client by way of R object files</text>
+<text top="880" left="82" width="346" height="15" font="0">created with the R saveRDS() function. Much of the</text>
+<text top="898" left="82" width="346" height="15" font="0">work involves specifying a naming structure for the</text>
+<text top="916" left="82" width="346" height="15" font="0">jobs, to allow the results to be automatically collated.</text>
+<text top="940" left="105" width="324" height="15" font="0">The xgrid() function is called to start a series of</text>
+<text top="958" left="82" width="346" height="15" font="0">simulations. This function takes as arguments the R</text>
+<text top="976" left="82" width="303" height="15" font="0">script to run on the grid (by default set to ‘</text>
+<text top="977" left="385" width="31" height="12" font="8">job.R</text>
+<text top="976" left="416" width="13" height="15" font="0">’),</text>
+<text top="994" left="82" width="346" height="15" font="0">the directory containing input files (by default set to</text>
+<text top="1012" left="82" width="4" height="15" font="0">‘</text>
+<text top="1013" left="87" width="29" height="12" font="8">input</text>
+<text top="1012" left="116" width="313" height="15" font="0">’), the directory to save output created within R</text>
+<text top="1030" left="82" width="212" height="15" font="0">on the agent (by default set to ‘</text>
+<text top="1031" left="295" width="37" height="12" font="8">output</text>
+<text top="1030" left="332" width="97" height="15" font="0">’), and a name</text>
+<text top="1048" left="82" width="251" height="15" font="0">for the results file (by default set to ‘</text>
+<text top="1049" left="333" width="83" height="12" font="8">RESULTS.rds</text>
+<text top="1048" left="416" width="13" height="15" font="0">’).</text>
+<text top="1065" left="82" width="346" height="15" font="0">In addition, the total number of iterations in the sim-</text>
+<text top="1083" left="82" width="346" height="15" font="0">ulation (numsim) and number of tasks per job (ntask)</text>
+<text top="1101" left="82" width="346" height="15" font="0">can be specified. The xgrid() function divides the to-</text>
+<text top="1119" left="82" width="346" height="15" font="0">tal number of iterations into numsim/ntask individ-</text>
+<text top="1137" left="82" width="346" height="15" font="0">ual jobs, where each job is responsible for calculating</text>
+<text top="1155" left="82" width="346" height="15" font="0">the specified number of tasks on a single agent (see</text>
+<text top="1173" left="82" width="43" height="15" font="0">Figure</text>
+<text top="1173" left="129" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#2">1</a></text>
+<text top="1173" left="136" width="293" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#2">). </a>For example, if 2,000 iterations are desired,</text>
+<text top="604" left="459" width="346" height="15" font="0">these could be divided into 200 jobs each running 10</text>
+<text top="622" left="459" width="346" height="15" font="0">of the tasks. The number of active jobs on the grid can</text>
+<text top="640" left="459" width="346" height="15" font="0">be controlled using the throttle option (by default,</text>
+<text top="658" left="459" width="346" height="15" font="0">all jobs are submitted then queued until an agent is</text>
+<text top="676" left="459" width="346" height="15" font="0">available). The throttle option helps facilitate shar-</text>
+<text top="694" left="459" width="346" height="15" font="0">ing a large grid between multiple users (since by de-</text>
+<text top="712" left="459" width="346" height="15" font="0">fault the Apple Xgrid system provides no load bal-</text>
+<text top="730" left="459" width="152" height="15" font="0">ancing amongst users).</text>
+<text top="752" left="481" width="324" height="15" font="0">The xgrid() function checks for errors in</text>
+<text top="770" left="459" width="346" height="15" font="0">specification, then begins to repeatedly call the</text>
+<text top="789" left="459" width="99" height="12" font="0">xgridsubmit()</text>
+<text top="788" left="568" width="238" height="15" font="0">function for each job that needs</text>
+<text top="806" left="459" width="346" height="15" font="0">to be created. The xgrid() function also calls</text>
+<text top="825" left="459" width="99" height="12" font="0">xgridsubmit()</text>
+<text top="824" left="562" width="244" height="15" font="0">to create a properly formatted ‘xgrid</text>
+<text top="843" left="459" width="84" height="12" font="0">-job submit</text>
+<text top="842" left="543" width="263" height="15" font="0">’ command using Mac OS X through the</text>
+<text top="860" left="459" width="346" height="15" font="0">R system() function. This has the effect of execut-</text>
+<text top="878" left="459" width="346" height="15" font="0">ing a command of the form ‘R CMD BATCH file.R’ on</text>
+<text top="895" left="459" width="346" height="15" font="0">the grid, with appropriate arguments (the number of</text>
+<text top="913" left="459" width="346" height="15" font="0">repetitions to run, parameters to pass along and the</text>
+<text top="931" left="459" width="346" height="15" font="0">name of the unique filename to save results). The re-</text>
+<text top="949" left="459" width="346" height="15" font="0">sults of the system() call are saved to be able to de-</text>
+<text top="967" left="459" width="346" height="15" font="0">termine the identification number for that particular</text>
+<text top="985" left="459" width="346" height="15" font="0">job. This number can be used to check the status of</text>
+<text top="1003" left="459" width="346" height="15" font="0">the job as well as retrieve its results and delete it from</text>
+<text top="1021" left="459" width="221" height="15" font="0">the system once it has completed.</text>
+<text top="1043" left="481" width="324" height="15" font="0">Once all of the jobs have been submitted, xgrid()</text>
+<text top="1061" left="459" width="346" height="15" font="0">then periodically polls the list of active jobs un-</text>
+<text top="1079" left="459" width="346" height="15" font="0">til they are completed. This function makes a call</text>
+<text top="1097" left="459" width="346" height="15" font="0">to xgridattr() and determines the value of the</text>
+<text top="1116" left="459" width="69" height="12" font="0">jobStatus</text>
+<text top="1115" left="533" width="273" height="15" font="0">attribute. The function waits (sleeps) be-</text>
+<text top="1133" left="459" width="281" height="15" font="0">tween each poll, to lessen load on the grid.</text>
+<text top="1155" left="481" width="324" height="15" font="0">When a job has completed, its results are re-</text>
+<text top="1173" left="459" width="346" height="15" font="0">trieved using xgridresults() then deleted from the</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="15" family="Times" color="#000000"/>
+	<fontspec id="10" size="12" family="Times" color="#000000"/>
+	<fontspec id="11" size="13" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">47</text>
+<text top="128" left="208" width="44" height="15" font="0">Action</text>
+<text top="128" left="289" width="72" height="15" font="0">R Function</text>
+<text top="128" left="413" width="77" height="15" font="0">Description</text>
+<text top="154" left="208" width="46" height="15" font="0">submit</text>
+<text top="155" left="289" width="99" height="12" font="0">xgridsubmit()</text>
+<text top="154" left="413" width="221" height="15" font="0">submit a job to the grid controller</text>
+<text top="172" left="208" width="63" height="15" font="0">attributes</text>
+<text top="173" left="289" width="84" height="12" font="0">xgridattr()</text>
+<text top="172" left="413" width="177" height="15" font="0">check on the status of a job</text>
+<text top="190" left="208" width="44" height="15" font="0">results</text>
+<text top="191" left="289" width="107" height="12" font="0">xgridresults()</text>
+<text top="190" left="413" width="267" height="15" font="0">retrieve the results from a completed job</text>
+<text top="208" left="208" width="40" height="15" font="0">delete</text>
+<text top="209" left="289" width="99" height="12" font="0">xgriddelete()</text>
+<text top="208" left="413" width="88" height="15" font="0">delete the job</text>
+<text top="244" left="95" width="694" height="15" font="0">Table 1: Job actions supported by the xgrid command and their analogous functions in the <b>xgrid </b>package</text>
+<text top="293" left="82" width="346" height="15" font="0">system using xgriddelete(). This capability relies</text>
+<text top="311" left="82" width="346" height="15" font="0">on the properties of the Apple Xgrid, which can be</text>
+<text top="329" left="82" width="346" height="15" font="0">set up to have all files created by the agent when run-</text>
+<text top="347" left="82" width="217" height="15" font="0">ning a given job copied to the ‘</text>
+<text top="348" left="299" width="37" height="12" font="8">output</text>
+<text top="347" left="336" width="93" height="15" font="0">’ directory on</text>
+<text top="365" left="82" width="346" height="15" font="0">the client computer. When all jobs have completed,</text>
+<text top="383" left="82" width="346" height="15" font="0">the individual result files are combined into a single</text>
+<text top="401" left="82" width="264" height="15" font="0">data frame in the current directory. The ‘</text>
+<text top="402" left="346" width="37" height="12" font="8">output</text>
+<text top="401" left="384" width="45" height="15" font="0">’ direc-</text>
+<text top="419" left="82" width="346" height="15" font="0">tory has a complete listing of the individual results</text>
+<text top="437" left="82" width="346" height="15" font="0">as well as the R output from the remote agents. This</text>
+<text top="455" left="82" width="346" height="15" font="0">directory can be useful for debugging in case of prob-</text>
+<text top="473" left="82" width="346" height="15" font="0">lems and the contents are typically accessed only in</text>
+<text top="491" left="82" width="77" height="15" font="0">those cases.</text>
+<text top="509" left="105" width="324" height="15" font="0">To help demonstrate how to access an existing</text>
+<text top="527" left="82" width="346" height="15" font="0">Xgrid, we provide two detailed examples: one in-</text>
+<text top="545" left="82" width="346" height="15" font="0">volving a relatively straightforward computation as-</text>
+<text top="563" left="82" width="346" height="15" font="0">sessing the robustness of the one-sample t-test and</text>
+<text top="581" left="82" width="346" height="15" font="0">the second requiring use of add-on packages to un-</text>
+<text top="599" left="82" width="346" height="15" font="0">dertake simulations of a latent class model. These ex-</text>
+<text top="617" left="82" width="346" height="15" font="0">amples are provided as vignettes within the package.</text>
+<text top="635" left="82" width="346" height="15" font="0">In addition, the example files are available for down-</text>
+<text top="653" left="82" width="65" height="15" font="0">load from</text>
+<text top="654" left="151" width="236" height="12" font="5"><a href="http://www.math.smith.edu/xgrid">http://www.math.smith.edu/xgrid</a></text>
+<text top="653" left="387" width="4" height="15" font="0"><a href="http://www.math.smith.edu/xgrid">.</a></text>
+<text top="703" left="82" width="94" height="21" font="4"><b>Examples</b></text>
+<text top="743" left="82" width="346" height="17" font="9"><b>Example 1: Assessing the robustness of the</b></text>
+<text top="764" left="82" width="140" height="17" font="9"><b>one-sample t-test</b></text>
+<text top="796" left="82" width="346" height="15" font="0">The t-test is remarkedly robust to violations of its un-</text>
+<text top="814" left="82" width="154" height="15" font="0">derlying assumptions <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="814" left="236" width="146" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Sawiloswky and Blair</a></text>
+<text top="814" left="382" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="814" left="390" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">1992</a></text>
+<text top="814" left="420" width="9" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">).</a></text>
+<text top="832" left="82" width="83" height="15" font="0">However, as</text>
+<text top="832" left="170" width="73" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Hesterberg</a></text>
+<text top="832" left="248" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="832" left="253" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2008</a></text>
+<text top="832" left="282" width="147" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>argues, not only is it</text>
+<text top="850" left="82" width="346" height="15" font="0">possible for the total non-coverage to exceed <i>α</i>, the</text>
+<text top="868" left="82" width="346" height="15" font="0">asymmetry of the test statistic causes one tail to ac-</text>
+<text top="886" left="82" width="346" height="15" font="0">count for more than its share of the overall <i>α </i>level.</text>
+<text top="904" left="82" width="346" height="15" font="0">Hesterberg found that sample sizes in the thousands</text>
+<text top="921" left="82" width="234" height="15" font="0">were needed to get symmetric tails.</text>
+<text top="940" left="105" width="324" height="15" font="0">In this example, we demonstrate how to utilize an</text>
+<text top="958" left="82" width="346" height="15" font="0">Apple Xgrid cluster to investigate the robustness of</text>
+<text top="976" left="82" width="346" height="15" font="0">the one-sample t-test, by looking at how the <i>α </i>level</text>
+<text top="994" left="82" width="346" height="15" font="0">is split between the two tails. When the number of</text>
+<text top="1012" left="82" width="201" height="15" font="0">simulation iterations is small (</text>
+<text top="1012" left="284" width="12" height="14" font="11">&lt;</text>
+<text top="1012" left="300" width="129" height="15" font="0">100, 000), this study</text>
+<text top="1030" left="82" width="346" height="15" font="0">runs very quickly as a loop in R. Here, we provide</text>
+<text top="1048" left="82" width="299" height="15" font="0">the computation of a study consisting of 10</text>
+<text top="1045" left="382" width="6" height="11" font="1">6</text>
+<text top="1048" left="394" width="35" height="15" font="0">itera-</text>
+<text top="1065" left="82" width="346" height="15" font="0">tions. A more efficient alternative would be to use</text>
+<text top="1085" left="82" width="46" height="12" font="0">pvec()</text>
+<text top="1083" left="134" width="295" height="15" font="0">or mclapply() of the <b>multicore </b>package to</text>
+<text top="1101" left="82" width="346" height="15" font="0">distribute this study over the cores of a single ma-</text>
+<text top="1119" left="82" width="346" height="15" font="0">chine. However for the purposes of illustration, we</text>
+<text top="1137" left="82" width="346" height="15" font="0">conduct this simple statistical investigation over an</text>
+<text top="1155" left="82" width="346" height="15" font="0">Xgrid to demonstrate package usage, and to compare</text>
+<text top="1173" left="82" width="346" height="15" font="0">the results and computation time to the same study</text>
+<text top="293" left="459" width="259" height="15" font="0">run with a for loop on a local machine.</text>
+<text top="318" left="481" width="324" height="15" font="0">Our first step is to set up an appropriate directory</text>
+<text top="336" left="459" width="261" height="15" font="0">structure for our simulation (see Figure</text>
+<text top="336" left="723" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">5</a></text>
+<text top="336" left="731" width="74" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">; </a>Appendix</text>
+<text top="354" left="459" width="346" height="15" font="0">A provides an overview of requirements). The first</text>
+<text top="372" left="459" width="118" height="15" font="0">item is the folder ‘</text>
+<text top="373" left="577" width="29" height="12" font="8">input</text>
+<text top="372" left="606" width="199" height="15" font="0">’, which contains two files that</text>
+<text top="390" left="459" width="346" height="15" font="0">will be run on the remote agents. The first of these</text>
+<text top="408" left="459" width="39" height="15" font="0">files, ‘</text>
+<text top="409" left="498" width="31" height="12" font="8">job.R</text>
+<text top="408" left="529" width="56" height="15" font="0">’ (Figure</text>
+<text top="408" left="589" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#3">2</a></text>
+<text top="408" left="597" width="209" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#3">), </a>defines the code to run a par-</text>
+<text top="426" left="459" width="162" height="15" font="0">ticular task, ntask times.</text>
+<text top="450" left="481" width="324" height="15" font="0">In this example, the job() function begins by gen-</text>
+<text top="468" left="459" width="346" height="15" font="0">erating a sample of param exponential random vari-</text>
+<text top="486" left="459" width="346" height="15" font="0">ables with mean 1. A one-sample t-test is conducted</text>
+<text top="504" left="459" width="346" height="15" font="0">on this sample and logical (TRUE/FALSE) values de-</text>
+<text top="522" left="459" width="346" height="15" font="0">noting whether the test rejected in that tail are saved</text>
+<text top="540" left="459" width="346" height="15" font="0">in the vectors leftreject and rightreject. This</text>
+<text top="558" left="459" width="346" height="15" font="0">process is repeated ntask times, after which job() re-</text>
+<text top="576" left="459" width="346" height="15" font="0">turns a data frame with the rejection results and the</text>
+<text top="594" left="459" width="180" height="15" font="0">corresponding sample size.</text>
+<text top="640" left="464" width="281" height="10" font="8"># Assess the robustness of the one-sample</text>
+<text top="657" left="464" width="316" height="10" font="8"># t-test when underlying data are exponential.</text>
+<text top="673" left="464" width="281" height="10" font="8"># This function returns a data frame with</text>
+<text top="689" left="464" width="322" height="10" font="8"># number of rows equal to the value of &#34;ntask&#34;.</text>
+<text top="706" left="464" width="322" height="10" font="8"># The option &#34;param&#34; specifies the sample size.</text>
+<text top="722" left="464" width="213" height="10" font="8">job &lt;- function(ntask, param) {</text>
+<text top="739" left="485" width="89" height="10" font="8">alpha &lt;- 0.05</text>
+<text top="739" left="587" width="219" height="10" font="8"># how often to reject under null</text>
+<text top="755" left="485" width="192" height="10" font="8">leftreject &lt;- logical(ntask)</text>
+<text top="755" left="697" width="89" height="10" font="8"># placeholder</text>
+<text top="772" left="485" width="199" height="10" font="8">rightreject &lt;- logical(ntask)</text>
+<text top="772" left="697" width="89" height="10" font="8"># for results</text>
+<text top="788" left="485" width="137" height="10" font="8">for (i in 1:ntask) {</text>
+<text top="805" left="505" width="123" height="10" font="8">dat &lt;- rexp(param)</text>
+<text top="805" left="642" width="151" height="10" font="8"># generate skewed data</text>
+<text top="821" left="505" width="185" height="10" font="8">left &lt;- t.test(dat, mu = 1,</text>
+<text top="837" left="526" width="144" height="10" font="8">alternative = &#34;less&#34;)</text>
+<text top="854" left="505" width="274" height="10" font="8">leftreject[i] &lt;- left$p.value &lt;= alpha/2</text>
+<text top="870" left="505" width="192" height="10" font="8">right &lt;- t.test(dat, mu = 1,</text>
+<text top="887" left="526" width="165" height="10" font="8">alternative = &#34;greater&#34;)</text>
+<text top="903" left="505" width="288" height="10" font="8">rightreject[i] &lt;- right$p.value &lt;= alpha/2</text>
+<text top="920" left="485" width="7" height="10" font="8">}</text>
+<text top="936" left="485" width="288" height="10" font="8">return(data.frame(leftreject, rightreject,</text>
+<text top="953" left="505" width="158" height="10" font="8">n = rep(param, ntask)))</text>
+<text top="969" left="464" width="7" height="10" font="8">}</text>
+<text top="1000" left="542" width="146" height="15" font="0">Figure 2: Contents of ‘</text>
+<text top="1001" left="687" width="31" height="12" font="8">job.R</text>
+<text top="1000" left="718" width="4" height="15" font="0">’</text>
+<text top="1041" left="481" width="86" height="15" font="0">The folder ‘</text>
+<text top="1042" left="567" width="29" height="12" font="8">input</text>
+<text top="1041" left="596" width="115" height="15" font="0">’ also contains ‘</text>
+<text top="1042" left="711" width="50" height="12" font="8">runjob.R</text>
+<text top="1041" left="762" width="44" height="15" font="0">’ (Fig-</text>
+<text top="1059" left="459" width="22" height="15" font="0">ure</text>
+<text top="1059" left="489" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">3</a></text>
+<text top="1059" left="496" width="309" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">), </a>which retrieves command line arguments</text>
+<text top="1077" left="459" width="346" height="15" font="0">generated by xgrid() and passes them to job(). The</text>
+<text top="1095" left="459" width="346" height="15" font="0">results from the completed job are saved as res0,</text>
+<text top="1113" left="459" width="238" height="15" font="0">which is subsequently saved to the ‘</text>
+<text top="1114" left="697" width="37" height="12" font="8">output</text>
+<text top="1113" left="735" width="50" height="15" font="0">’ folder.</text>
+<text top="1137" left="481" width="77" height="15" font="0">The folder ‘</text>
+<text top="1138" left="558" width="29" height="12" font="8">input</text>
+<text top="1137" left="588" width="218" height="15" font="0">’ may also contain other files (in-</text>
+<text top="1155" left="459" width="346" height="15" font="0">cluding add-on packages or other files needed for the</text>
+<text top="1173" left="459" width="261" height="15" font="0">simulation; see Appendix B for details).</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">48</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="126" left="88" width="103" height="10" font="8">source(&#34;job.R&#34;)</text>
+<text top="142" left="88" width="309" height="10" font="8"># commandArgs() is expecting three arguments:</text>
+<text top="159" left="88" width="295" height="10" font="8"># 1) number of tasks to run within this job</text>
+<text top="175" left="88" width="261" height="10" font="8"># 2) parameter to pass to the function</text>
+<text top="192" left="88" width="309" height="10" font="8"># 3) place to stash the results when finished</text>
+<text top="208" left="88" width="27" height="10" font="8">args</text>
+<text top="208" left="149" width="240" height="10" font="8">&lt;- commandArgs(trailingOnly = TRUE)</text>
+<text top="225" left="88" width="41" height="10" font="8">ntask1</text>
+<text top="225" left="149" width="151" height="10" font="8">&lt;- as.numeric(args[1])</text>
+<text top="241" left="88" width="41" height="10" font="8">param1</text>
+<text top="241" left="149" width="69" height="10" font="8">&lt;- args[2]</text>
+<text top="258" left="88" width="48" height="10" font="8">resfile</text>
+<text top="258" left="149" width="69" height="10" font="8">&lt;- args[3]</text>
+<text top="274" left="88" width="27" height="10" font="8">res0</text>
+<text top="274" left="149" width="261" height="10" font="8">&lt;- job(ntask = ntask1, param = param1)</text>
+<text top="290" left="88" width="130" height="10" font="8"># stash the results</text>
+<text top="307" left="88" width="199" height="10" font="8">saveRDS(res0, file = resfile)</text>
+<text top="337" left="156" width="146" height="15" font="0">Figure 3: Contents of ‘</text>
+<text top="339" left="301" width="50" height="12" font="8">runjob.R</text>
+<text top="337" left="352" width="4" height="15" font="0">’</text>
+<text top="382" left="105" width="324" height="15" font="0">The next item in the directory structure is</text>
+<text top="400" left="82" width="4" height="15" font="0">‘</text>
+<text top="401" left="87" width="74" height="12" font="8">simulation.R</text>
+<text top="400" left="160" width="56" height="15" font="0">’ (Figure</text>
+<text top="400" left="221" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">4</a></text>
+<text top="400" left="229" width="200" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">), </a>which contains R code to be</text>
+<text top="418" left="82" width="346" height="15" font="0">run on the client machine using source(). The call to</text>
+<text top="437" left="82" width="53" height="12" font="0">xgrid()</text>
+<text top="435" left="142" width="287" height="15" font="0">submits the simulation to the grid for cal-</text>
+<text top="453" left="82" width="346" height="15" font="0">culation, which includes passing param and ntask</text>
+<text top="471" left="82" width="115" height="15" font="0">to job() within ‘</text>
+<text top="472" left="197" width="31" height="12" font="8">job.R</text>
+<text top="471" left="228" width="201" height="15" font="0">’. Results from all jobs are re-</text>
+<text top="489" left="82" width="346" height="15" font="0">turned as one data frame, res. The call to with()</text>
+<text top="507" left="82" width="346" height="15" font="0">summarizes all results in a table and prints them to</text>
+<text top="525" left="82" width="78" height="15" font="0">the console.</text>
+<text top="571" left="88" width="96" height="10" font="8">require(xgrid)</text>
+<text top="587" left="88" width="137" height="10" font="8"># run the simulation</text>
+<text top="603" left="88" width="295" height="10" font="8">res &lt;- xgrid(Rcmd = &#34;runjob.R&#34;, param = 30,</text>
+<text top="620" left="108" width="206" height="10" font="8">numsim = 10^6, ntask = 5*10^4)</text>
+<text top="636" left="88" width="144" height="10" font="8"># analyze the results</text>
+<text top="653" left="88" width="274" height="10" font="8">with(res, table(leftreject,rightreject))</text>
+<text top="683" left="144" width="146" height="15" font="0">Figure 4: Contents of ‘</text>
+<text top="684" left="290" width="74" height="12" font="8">simulation.R</text>
+<text top="683" left="363" width="4" height="15" font="0">’</text>
+<text top="730" left="105" width="200" height="15" font="0">Here we specify a total of 10</text>
+<text top="727" left="305" width="6" height="11" font="1">6</text>
+<text top="730" left="317" width="112" height="15" font="0">simulation itera-</text>
+<text top="748" left="82" width="251" height="15" font="0">tions, to be split into twenty jobs of 5</text>
+<text top="747" left="337" width="12" height="15" font="11">×</text>
+<text top="748" left="353" width="15" height="15" font="0">10</text>
+<text top="745" left="368" width="6" height="11" font="1">4</text>
+<text top="748" left="379" width="50" height="15" font="0">simula-</text>
+<text top="766" left="82" width="346" height="15" font="0">tions each. Note that the number of jobs is calculated</text>
+<text top="784" left="82" width="346" height="15" font="0">as the total number of simulation iterations (numsim)</text>
+<text top="802" left="82" width="346" height="15" font="0">divided by the number of tasks per job (ntask). Each</text>
+<text top="820" left="82" width="311" height="15" font="0">simulation iteration has a sample size of param.</text>
+<text top="847" left="105" width="279" height="15" font="0">The final item in the directory structure is ‘</text>
+<text top="848" left="384" width="37" height="12" font="8">output</text>
+<text top="847" left="421" width="8" height="15" font="0">’.</text>
+<text top="865" left="82" width="346" height="15" font="0">Initially empty, results returned from the grid are</text>
+<text top="883" left="82" width="346" height="15" font="0">saved here (this directory is automatically created if</text>
+<text top="901" left="82" width="165" height="15" font="0">it does not already exist).</text>
+<text top="929" left="105" width="43" height="15" font="0">Figure</text>
+<text top="929" left="152" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">5</a></text>
+<text top="929" left="164" width="265" height="15" font="0">displays the file structure within the di-</text>
+<text top="947" left="82" width="213" height="15" font="0">rectory used to access the Xgrid.</text>
+<text top="974" left="105" width="324" height="15" font="0">Jobs are submitted to the grid by running</text>
+<text top="992" left="82" width="4" height="15" font="0">‘</text>
+<text top="993" left="87" width="74" height="12" font="8">simulation.R</text>
+<text top="992" left="160" width="268" height="15" font="0">’. In this particular simulation, twenty</text>
+<text top="1010" left="82" width="346" height="15" font="0">jobs are submitted. As jobs are completed, the results</text>
+<text top="1028" left="82" width="109" height="15" font="0">are saved in the ‘</text>
+<text top="1029" left="191" width="37" height="12" font="8">output</text>
+<text top="1028" left="229" width="200" height="15" font="0">’ folder then removed from the</text>
+<text top="1046" left="82" width="31" height="15" font="0">grid.</text>
+<text top="1074" left="105" width="49" height="15" font="0">Figures</text>
+<text top="1074" left="158" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">6</a></text>
+<text top="1074" left="170" width="25" height="15" font="0">and</text>
+<text top="1074" left="200" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">7</a></text>
+<text top="1074" left="212" width="217" height="15" font="0">display management tools avail-</text>
+<text top="1092" left="82" width="249" height="15" font="0">able using the Xgrid Admin interface.</text>
+<text top="1119" left="105" width="279" height="15" font="0">In addition to returning a data frame (10</text>
+<text top="1116" left="384" width="6" height="11" font="1">6</text>
+<text top="1119" left="396" width="33" height="15" font="0">rows</text>
+<text top="1137" left="82" width="346" height="15" font="0">and 3 columns) with the collated results, the xgrid()</text>
+<text top="1155" left="82" width="346" height="15" font="0">function saves this object as a file (by default as res</text>
+<text top="1173" left="82" width="70" height="15" font="0">in the file ‘</text>
+<text top="1174" left="152" width="83" height="12" font="8">RESULTS.rds</text>
+<text top="1173" left="235" width="13" height="15" font="0">’).</text>
+<text top="347" left="459" width="346" height="15" font="0">Figure 5: File structure needed on the client to access</text>
+<text top="365" left="459" width="98" height="15" font="0">the Xgrid (the ‘</text>
+<text top="366" left="557" width="25" height="12" font="8">rlibs</text>
+<text top="365" left="582" width="224" height="15" font="0">’ folder contains any add-on pack-</text>
+<text top="383" left="459" width="229" height="15" font="0">ages required by the remote agent)</text>
+<text top="771" left="459" width="346" height="15" font="0">Figure 6: Monitoring overall grid status using the</text>
+<text top="789" left="459" width="166" height="15" font="0">Xgrid Admin application</text>
+<text top="1176" left="479" width="305" height="15" font="0">Figure 7: Job management using Xgrid Admin</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">49</text>
+<text top="128" left="653" width="35" height="15" font="0">Class</text>
+<text top="154" left="113" width="51" height="15" font="0">Criteria</text>
+<text top="154" left="484" width="62" height="15" font="0">Acronym</text>
+<text top="154" left="585" width="7" height="15" font="0">2</text>
+<text top="154" left="631" width="7" height="15" font="0">3</text>
+<text top="154" left="677" width="7" height="15" font="3"><b>4</b></text>
+<text top="154" left="722" width="7" height="15" font="0">5</text>
+<text top="154" left="759" width="17" height="15" font="0">6+</text>
+<text top="180" left="113" width="206" height="15" font="0">Bayesian Information Criterion</text>
+<text top="180" left="484" width="25" height="15" font="0">BIC</text>
+<text top="180" left="565" width="27" height="15" font="0">49%</text>
+<text top="180" left="611" width="27" height="15" font="0">44%</text>
+<text top="180" left="663" width="21" height="15" font="3"><b>7%</b></text>
+<text top="180" left="710" width="20" height="15" font="0">0%</text>
+<text top="180" left="755" width="20" height="15" font="0">0%</text>
+<text top="198" left="113" width="194" height="15" font="0">Akaike Information Criterion</text>
+<text top="198" left="484" width="27" height="15" font="0">AIC</text>
+<text top="198" left="573" width="20" height="15" font="0">0%</text>
+<text top="198" left="618" width="20" height="15" font="0">0%</text>
+<text top="198" left="656" width="28" height="15" font="3"><b>53%</b></text>
+<text top="198" left="702" width="27" height="15" font="0">31%</text>
+<text top="198" left="748" width="27" height="15" font="0">16%</text>
+<text top="216" left="113" width="268" height="15" font="0">Consistent Akaike Information Criterion</text>
+<text top="216" left="484" width="34" height="15" font="0">cAIC</text>
+<text top="216" left="565" width="27" height="15" font="0">73%</text>
+<text top="216" left="611" width="27" height="15" font="0">25%</text>
+<text top="216" left="663" width="21" height="15" font="3"><b>2%</b></text>
+<text top="216" left="710" width="20" height="15" font="0">0%</text>
+<text top="216" left="755" width="20" height="15" font="0">0%</text>
+<text top="233" left="113" width="354" height="15" font="0">Sample Size Adjusted Bayesian Information Criterion</text>
+<text top="233" left="484" width="32" height="15" font="0">aBIC</text>
+<text top="233" left="573" width="20" height="15" font="0">0%</text>
+<text top="233" left="618" width="20" height="15" font="0">5%</text>
+<text top="234" left="656" width="28" height="15" font="3"><b>87%</b></text>
+<text top="233" left="710" width="20" height="15" font="0">6%</text>
+<text top="233" left="755" width="20" height="15" font="0">2%</text>
+<text top="270" left="82" width="723" height="15" font="0">Table 2: Percentage of times (out of 100 simulations) that a particular number of classes was selected as the</text>
+<text top="288" left="82" width="723" height="15" font="0">best model (where the true data derive from 4 distinct and equiprobable classes, simulation sample size 300),</text>
+<text top="306" left="82" width="98" height="15" font="0">reprinted from</text>
+<text top="306" left="184" width="95" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Swanson et al.</a></text>
+<text top="306" left="282" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="306" left="287" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2011</a></text>
+<text top="306" left="317" width="425" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">). </a>Note that a perfect criterion would have “100%” under class 4.</text>
+<text top="355" left="105" width="324" height="15" font="0">In terms of our motivating example, when the un-</text>
+<text top="373" left="82" width="346" height="15" font="0">derlying data are normally distributed, we would ex-</text>
+<text top="391" left="82" width="346" height="15" font="0">pect to reject the null hypothesis 2.5% of the time on</text>
+<text top="409" left="82" width="346" height="15" font="0">the left and 2.5% on the right. The simulation yielded</text>
+<text top="427" left="82" width="346" height="15" font="0">rejection rates of 6.5% and 0.7% for left and right, re-</text>
+<text top="445" left="82" width="346" height="15" font="0">spectively. This confirms Hesterberg’s argument re-</text>
+<text top="463" left="82" width="346" height="15" font="0">garding lack of robustness for both the overall <i>α</i>-level</text>
+<text top="480" left="82" width="196" height="15" font="0">as well as the individual tails.</text>
+<text top="499" left="105" width="324" height="15" font="0">Regarding computation time, this simulation</text>
+<text top="517" left="82" width="346" height="15" font="0">took 48.2 seconds (standard deviation of 0.7 seconds)</text>
+<text top="535" left="82" width="346" height="15" font="0">when run on a heterogeneous mixture of twenty</text>
+<text top="553" left="82" width="346" height="15" font="0">iMacs and Mac Pros. When run locally on a single</text>
+<text top="571" left="82" width="346" height="15" font="0">quad-core Intel Xeon Mac Pro computer, this simula-</text>
+<text top="589" left="82" width="346" height="15" font="0">tion took 592 seconds (standard deviation of 0.4 sec-</text>
+<text top="607" left="82" width="41" height="15" font="0">onds).</text>
+<text top="653" left="82" width="346" height="17" font="9"><b>Example 2: Fitting latent class models us-</b></text>
+<text top="674" left="82" width="168" height="17" font="9"><b>ing add-on packages</b></text>
+<text top="706" left="82" width="346" height="15" font="0">Our second example is more realistic, as it involves</text>
+<text top="724" left="82" width="346" height="15" font="0">simulations that would ordinarily take days to com-</text>
+<text top="742" left="82" width="346" height="15" font="0">plete (as opposed to seconds for the one-sample t-</text>
+<text top="760" left="82" width="346" height="15" font="0">test). It involves study of the properties of latent</text>
+<text top="778" left="82" width="346" height="15" font="0">class models, which are used to determine better</text>
+<text top="796" left="82" width="317" height="15" font="0">schemes for classification of eating disorders <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="796" left="399" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Keel</a></text>
+<text top="814" left="82" width="35" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">et al.</a></text>
+<text top="814" left="118" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="814" left="129" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2004</a></text>
+<text top="814" left="159" width="270" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">). </a>The development of an empirically-</text>
+<text top="832" left="82" width="346" height="15" font="0">created eating disorder classification system is of</text>
+<text top="849" left="82" width="346" height="15" font="0">public health interest as it may help identify indi-</text>
+<text top="867" left="82" width="346" height="15" font="0">viduals who would benefit from diagnosis and treat-</text>
+<text top="885" left="82" width="38" height="15" font="0">ment.</text>
+<text top="904" left="105" width="108" height="15" font="0">As described by</text>
+<text top="904" left="217" width="122" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Collins and Lanza</a></text>
+<text top="904" left="343" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="904" left="348" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2009</a></text>
+<text top="904" left="378" width="51" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">), </a>latent</text>
+<text top="922" left="82" width="346" height="15" font="0">class analysis (LCA) is used to identify subgroups in</text>
+<text top="940" left="82" width="346" height="15" font="0">a population. There are several criteria used to eval-</text>
+<text top="958" left="82" width="346" height="15" font="0">uate the fit of a given model, including the Akaike</text>
+<text top="976" left="82" width="346" height="15" font="0">Information Criterion (AIC), the Bayesian Informa-</text>
+<text top="994" left="82" width="346" height="15" font="0">tion Criterion (BIC), the Consistent Akaike Informa-</text>
+<text top="1012" left="82" width="346" height="15" font="0">tion Criterion (cAIC), and the Sample Size Adjusted</text>
+<text top="1030" left="82" width="346" height="15" font="0">Bayesian Information Criterion (aBIC). These crite-</text>
+<text top="1048" left="82" width="346" height="15" font="0">ria are useful, but further guidance is needed for re-</text>
+<text top="1065" left="82" width="346" height="15" font="0">searchers to choose between them, as well as bet-</text>
+<text top="1083" left="82" width="346" height="15" font="0">ter understand how their accuracy is affected by</text>
+<text top="1101" left="82" width="346" height="15" font="0">methodological factors encountered in eating disor-</text>
+<text top="1119" left="82" width="346" height="15" font="0">der classification research, such as unbalanced class</text>
+<text top="1137" left="82" width="346" height="15" font="0">size, sample size, missing data, and under- or over-</text>
+<text top="1155" left="82" width="175" height="15" font="0">specification of the model.</text>
+<text top="1155" left="262" width="96" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Swanson et al.</a></text>
+<text top="1155" left="362" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="1155" left="367" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2011</a></text>
+<text top="1155" left="397" width="32" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>un-</text>
+<text top="1173" left="82" width="346" height="15" font="0">dertook a comprehensive review of these model cri-</text>
+<text top="355" left="459" width="346" height="15" font="0">teria, including a full simulation study to generate</text>
+<text top="373" left="459" width="346" height="15" font="0">hypothetical data sets, and investigated how each</text>
+<text top="391" left="459" width="346" height="15" font="0">criterion behaved in a variety of statistical environ-</text>
+<text top="409" left="459" width="346" height="15" font="0">ments. For this example, we replicate some of their</text>
+<text top="427" left="459" width="346" height="15" font="0">simulations using an Apple Xgrid to speed up com-</text>
+<text top="445" left="459" width="93" height="15" font="0">putation time.</text>
+<text top="464" left="481" width="324" height="15" font="0">Following the approach of Swanson et al., we</text>
+<text top="482" left="459" width="346" height="15" font="0">generated “true models” where we specified an arbi-</text>
+<text top="500" left="459" width="346" height="15" font="0">trary four-class structure (with balanced number of</text>
+<text top="517" left="459" width="346" height="15" font="0">observations in each class). This structure was com-</text>
+<text top="535" left="459" width="346" height="15" font="0">posed of 10 binary indicators in a simulated data set</text>
+<text top="553" left="459" width="346" height="15" font="0">of size 300. The model was fitted using the poLCA()</text>
+<text top="571" left="459" width="96" height="15" font="0">function of the</text>
+<text top="571" left="558" width="49" height="15" font="6"><a href="http://cran.r-project.org/package=poLCA"><b>poLCA</b></a></text>
+<text top="571" left="610" width="196" height="15" font="0">(polytomous latent class anal-</text>
+<text top="589" left="459" width="99" height="15" font="0">ysis) package <a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="589" left="558" width="117" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Linzer and Lewis</a></text>
+<text top="589" left="675" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="589" left="684" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2011</a></text>
+<text top="589" left="713" width="92" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">). </a>Separate la-</text>
+<text top="607" left="459" width="346" height="15" font="0">tent class models were fitted specifying the number</text>
+<text top="625" left="459" width="346" height="15" font="0">of classes, ranging from two to six. For each simula-</text>
+<text top="643" left="459" width="346" height="15" font="0">tion, we determined the lowest values of BIC, AIC,</text>
+<text top="661" left="459" width="346" height="15" font="0">cAIC and aBIC and recorded the class structure asso-</text>
+<text top="679" left="459" width="147" height="15" font="0">ciated with that value.</text>
+<text top="698" left="481" width="324" height="15" font="0">Swanson and colleagues found that for this set of</text>
+<text top="716" left="459" width="346" height="15" font="0">parameter values, the AIC and aBIC picked the cor-</text>
+<text top="734" left="459" width="346" height="15" font="0">rect number of classes more than half the time (see</text>
+<text top="752" left="459" width="35" height="15" font="0">Table</text>
+<text top="752" left="498" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#5">2</a></text>
+<text top="752" left="505" width="9" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#5">).</a></text>
+<text top="771" left="481" width="324" height="15" font="0">This example illustrates the computational bur-</text>
+<text top="789" left="459" width="346" height="15" font="0">den of undertaking simulation studies to assess the</text>
+<text top="807" left="459" width="346" height="15" font="0">performance of modern statistical methods, as sev-</text>
+<text top="825" left="459" width="346" height="15" font="0">eral minutes are needed to undertake each of the sin-</text>
+<text top="843" left="459" width="346" height="15" font="0">gle iterations of the simulation (which may explain</text>
+<text top="861" left="459" width="346" height="15" font="0">why Swanson and colleagues only ran 100 simula-</text>
+<text top="879" left="459" width="214" height="15" font="0">tions for each of their scenarios).</text>
+<text top="898" left="481" width="324" height="15" font="0">A complication of this example is that fitting LCA</text>
+<text top="916" left="459" width="346" height="15" font="0">models in R requires the use of add-on packages. For</text>
+<text top="933" left="459" width="346" height="15" font="0">instance, we use <b>poLCA </b>and its supporting pack-</text>
+<text top="951" left="459" width="346" height="15" font="0">ages with an Apple Xgrid to conduct our simulation.</text>
+<text top="969" left="459" width="346" height="15" font="0">When a simulation requires add-on packages, they</text>
+<text top="987" left="459" width="346" height="15" font="0">must be preloaded within the job and shipped over</text>
+<text top="1005" left="459" width="346" height="15" font="0">to the Xgrid. The specific steps of utilizing add-on</text>
+<text top="1023" left="459" width="253" height="15" font="0">packages are provided in Appendix B.</text>
+<text top="1071" left="459" width="126" height="15" font="3"><b>Simulation results</b></text>
+<text top="1101" left="459" width="346" height="15" font="0">To better understand the potential performance</text>
+<text top="1119" left="459" width="346" height="15" font="0">gains when running simulations on the grid, we as-</text>
+<text top="1137" left="459" width="346" height="15" font="0">sessed the relative performance of a variety of grids</text>
+<text top="1155" left="459" width="346" height="15" font="0">with different characteristics and differing numbers</text>
+<text top="1173" left="459" width="346" height="15" font="0">of tasks per job (since there is some overhead to the</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">50</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="128" left="213" width="109" height="15" font="0">Grid description</text>
+<text top="130" left="462" width="38" height="12" font="0">ntask</text>
+<text top="130" left="518" width="53" height="12" font="0">numjobs</text>
+<text top="130" left="593" width="30" height="12" font="0">mean</text>
+<text top="130" left="660" width="15" height="12" font="0">sd</text>
+<text top="154" left="213" width="143" height="15" font="0">Mac Pro (1 processor)</text>
+<text top="154" left="467" width="34" height="15" font="0">1,000</text>
+<text top="154" left="564" width="7" height="15" font="0">1</text>
+<text top="154" left="590" width="34" height="15" font="0">43.98</text>
+<text top="154" left="649" width="26" height="15" font="0">0.27</text>
+<text top="172" left="213" width="149" height="15" font="0">Mac Pro (8 processors)</text>
+<text top="172" left="486" width="15" height="15" font="0">20</text>
+<text top="172" left="557" width="15" height="15" font="0">50</text>
+<text top="172" left="597" width="26" height="15" font="0">9.97</text>
+<text top="172" left="649" width="26" height="15" font="0">0.04</text>
+<text top="190" left="213" width="149" height="15" font="0">Mac Pro (8 processors)</text>
+<text top="190" left="486" width="15" height="15" font="0">10</text>
+<text top="190" left="549" width="22" height="15" font="0">100</text>
+<text top="190" left="597" width="26" height="15" font="0">9.65</text>
+<text top="190" left="649" width="26" height="15" font="0">0.05</text>
+<text top="208" left="213" width="149" height="15" font="0">Mac Pro (8 processors)</text>
+<text top="208" left="493" width="7" height="15" font="0">4</text>
+<text top="208" left="549" width="22" height="15" font="0">250</text>
+<text top="208" left="597" width="26" height="15" font="0">9.84</text>
+<text top="208" left="649" width="26" height="15" font="0">0.59</text>
+<text top="226" left="213" width="232" height="15" font="0">grid of 11 machines (66 processors)</text>
+<text top="226" left="493" width="7" height="15" font="0">1</text>
+<text top="226" left="538" width="34" height="15" font="0">1,000</text>
+<text top="226" left="597" width="26" height="15" font="0">1.02</text>
+<text top="226" left="641" width="34" height="15" font="0">0.003</text>
+<text top="244" left="213" width="232" height="15" font="0">grid of 11 machines (77 processors)</text>
+<text top="244" left="493" width="7" height="15" font="0">1</text>
+<text top="244" left="538" width="34" height="15" font="0">1,000</text>
+<text top="244" left="597" width="26" height="15" font="0">0.91</text>
+<text top="244" left="641" width="34" height="15" font="0">0.003</text>
+<text top="262" left="213" width="232" height="15" font="0">grid of 11 machines (88 processors)</text>
+<text top="262" left="486" width="15" height="15" font="0">20</text>
+<text top="262" left="557" width="15" height="15" font="0">50</text>
+<text top="262" left="597" width="26" height="15" font="0">1.28</text>
+<text top="262" left="649" width="26" height="15" font="0">0.01</text>
+<text top="279" left="213" width="232" height="15" font="0">grid of 11 machines (88 processors)</text>
+<text top="279" left="486" width="15" height="15" font="0">10</text>
+<text top="279" left="549" width="22" height="15" font="0">100</text>
+<text top="279" left="597" width="26" height="15" font="0">1.20</text>
+<text top="279" left="649" width="26" height="15" font="0">0.04</text>
+<text top="297" left="213" width="232" height="15" font="0">grid of 11 machines (88 processors)</text>
+<text top="297" left="493" width="7" height="15" font="0">8</text>
+<text top="297" left="549" width="22" height="15" font="0">125</text>
+<text top="297" left="597" width="26" height="15" font="0">1.04</text>
+<text top="297" left="649" width="26" height="15" font="0">0.03</text>
+<text top="315" left="213" width="232" height="15" font="0">grid of 11 machines (88 processors)</text>
+<text top="315" left="493" width="7" height="15" font="0">4</text>
+<text top="315" left="549" width="22" height="15" font="0">250</text>
+<text top="315" left="597" width="26" height="15" font="0">0.87</text>
+<text top="315" left="649" width="26" height="15" font="0">0.01</text>
+<text top="333" left="213" width="232" height="15" font="0">grid of 11 machines (88 processors)</text>
+<text top="333" left="493" width="7" height="15" font="0">1</text>
+<text top="333" left="538" width="34" height="15" font="0">1,000</text>
+<text top="333" left="597" width="26" height="15" font="0">0.87</text>
+<text top="333" left="641" width="34" height="15" font="0">0.004</text>
+<text top="370" left="82" width="723" height="15" font="0">Table 3: Mean and standard deviation of elapsed timing results (in hours) to run 1,000 simulations (each with</text>
+<text top="388" left="82" width="723" height="15" font="0">three repetitions) using poLCA(), by grid and number of tasks per job. Note that the Mac Pro processors were</text>
+<text top="406" left="82" width="387" height="15" font="0">rated at 3 GHz while the grid CPUs were rated at 2.8 GHz.</text>
+<text top="455" left="82" width="346" height="15" font="0">Apple Xgrid system). One grid was a single quad-</text>
+<text top="473" left="82" width="346" height="15" font="0">core Intel Xeon Mac Pro computer (two quad-core</text>
+<text top="491" left="82" width="346" height="15" font="0">processors, for total of 8 processors, each rated at 3</text>
+<text top="509" left="82" width="346" height="15" font="0">GHz, total 24 GHz). The other was a grid of eleven</text>
+<text top="526" left="82" width="346" height="15" font="0">rack-mounted quad-core Intel servers (a total of 88</text>
+<text top="544" left="82" width="346" height="15" font="0">processors, each rated at 2.8 GHz, total 246.4 GHz).</text>
+<text top="562" left="82" width="346" height="15" font="0">For comparison, we also ran the job directly within</text>
+<text top="580" left="82" width="346" height="15" font="0">R on the Mac Pro computer (equivalent to ‘ntask =</text>
+<text top="600" left="82" width="122" height="12" font="0">1000,numjobs = 1</text>
+<text top="598" left="204" width="225" height="15" font="0">’), as well as on the 88 processor</text>
+<text top="616" left="82" width="346" height="15" font="0">grid but restricting the number of active jobs to 66</text>
+<text top="634" left="82" width="346" height="15" font="0">or 77 using the throttle option within xgrid(). For</text>
+<text top="652" left="82" width="346" height="15" font="0">each setup, we varied the number of tasks (ntask)</text>
+<text top="670" left="82" width="346" height="15" font="0">while maintaining 1,000 simulations for each sce-</text>
+<text top="688" left="82" width="220" height="15" font="0">nario (ntask * numjobs = 1000).</text>
+<text top="724" left="105" width="324" height="15" font="0">For simulations with a relatively small number of</text>
+<text top="742" left="82" width="346" height="15" font="0">tasks per job and a large number of jobs, the time to</text>
+<text top="760" left="82" width="346" height="15" font="0">submit them to the grid controller can be measured</text>
+<text top="778" left="82" width="346" height="15" font="0">in minutes; this overhead may be nontrivial. Also, for</text>
+<text top="796" left="82" width="346" height="15" font="0">simulations on a quiescent grid where the number of</text>
+<text top="814" left="82" width="346" height="15" font="0">jobs is not evenly divisible by the number of avail-</text>
+<text top="832" left="82" width="346" height="15" font="0">able processors, some part of the grid may be idle</text>
+<text top="850" left="82" width="346" height="15" font="0">near the end of the simulation and the elapsed time</text>
+<text top="868" left="82" width="146" height="15" font="0">longer than necessary.</text>
+<text top="904" left="105" width="324" height="15" font="0">Each simulation was repeated three times and the</text>
+<text top="922" left="82" width="346" height="15" font="0">mean and standard deviation of total elapsed time</text>
+<text top="940" left="82" width="200" height="15" font="0">(in hours) was recorded. Table</text>
+<text top="940" left="286" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#6">3</a></text>
+<text top="940" left="297" width="131" height="15" font="0">displays the results.</text>
+<text top="976" left="105" width="324" height="15" font="0">As expected, there was considerable speedup by</text>
+<text top="994" left="82" width="346" height="15" font="0">using the grid. When moving from a single proces-</text>
+<text top="1012" left="82" width="346" height="15" font="0">sor to 8, we were able to speed up our simulation by</text>
+<text top="1030" left="82" width="346" height="15" font="0">34 hours – a 78% decrease in elapsed time [(43.98-</text>
+<text top="1048" left="82" width="346" height="15" font="0">9.84)/43.98]. We saw an even larger decrease of 98%</text>
+<text top="1065" left="82" width="346" height="15" font="0">when moving to 88 (somewhat slower) processors.</text>
+<text top="1083" left="82" width="346" height="15" font="0">There were only modest differences in the elapsed</text>
+<text top="1101" left="82" width="346" height="15" font="0">time comparing different configurations of the num-</text>
+<text top="1119" left="82" width="346" height="15" font="0">ber of tasks per job and number of jobs, indicating</text>
+<text top="1137" left="82" width="346" height="15" font="0">that the overhead of the system imposes a relatively</text>
+<text top="1155" left="82" width="346" height="15" font="0">small cost. Once the job granularity is sufficiently</text>
+<text top="1173" left="82" width="245" height="15" font="0">fine, performance change is minimal.</text>
+<text top="450" left="459" width="96" height="21" font="4"><b>Summary</b></text>
+<text top="490" left="459" width="346" height="15" font="0">We have described an implementation of a “grid</text>
+<text top="508" left="459" width="346" height="15" font="0">stuffer” that can be used to access an Apple Xgrid</text>
+<text top="526" left="459" width="346" height="15" font="0">from within R. Xgrid is an attractive platform for</text>
+<text top="544" left="459" width="346" height="15" font="0">scientific computing because it can be easily set up,</text>
+<text top="562" left="459" width="346" height="15" font="0">and it handles tedious housekeeping and collation of</text>
+<text top="580" left="459" width="346" height="15" font="0">results from large simulations with relatively mini-</text>
+<text top="598" left="459" width="346" height="15" font="0">mal effort. Core technologies in Mac OS X and eas-</text>
+<text top="616" left="459" width="346" height="15" font="0">ily available extensions simplify the process of cre-</text>
+<text top="634" left="459" width="346" height="15" font="0">ating a grid. An Xgrid may be configured with little</text>
+<text top="652" left="459" width="346" height="15" font="0">knowledge of advanced networking technologies or</text>
+<text top="670" left="459" width="233" height="15" font="0">disruption of networking activities.</text>
+<text top="688" left="481" width="324" height="15" font="0">Another attractive feature of this environment</text>
+<text top="706" left="459" width="346" height="15" font="0">is that the Xgrid degrades gracefully. If an individ-</text>
+<text top="724" left="459" width="346" height="15" font="0">ual agent fails, then the controller will automatically</text>
+<text top="742" left="459" width="346" height="15" font="0">resubmit the job to another agent. Once all of the</text>
+<text top="760" left="459" width="346" height="15" font="0">submitted jobs are queued up on a controller, the</text>
+<text top="779" left="459" width="53" height="12" font="0">xgrid()</text>
+<text top="778" left="519" width="286" height="15" font="0">function can handle temporary controller</text>
+<text top="796" left="459" width="346" height="15" font="0">failures (if the controller restarts then all pending</text>
+<text top="814" left="459" width="346" height="15" font="0">and running jobs will be restarted automatically).</text>
+<text top="832" left="459" width="346" height="15" font="0">If the client crashes, the entire simulation must be</text>
+<text top="850" left="459" width="346" height="15" font="0">restarted. It may be feasible to keep track of this state</text>
+<text top="868" left="459" width="315" height="15" font="0">to allow more fault tolerance in a future release.</text>
+<text top="886" left="481" width="324" height="15" font="0">A limitation of the Apple Xgrid system is that</text>
+<text top="904" left="459" width="346" height="15" font="0">it is proprietary, which may limit its use. A second</text>
+<text top="922" left="459" width="346" height="15" font="0">limitation is that it requires some effort on the part</text>
+<text top="940" left="459" width="346" height="15" font="0">of the user to structure their program in a manner</text>
+<text top="958" left="459" width="346" height="15" font="0">that can be divided into chunks then reassembled.</text>
+<text top="976" left="459" width="346" height="15" font="0">Because of the relatively thin communication con-</text>
+<text top="994" left="459" width="346" height="15" font="0">nections between the client and controller, the user</text>
+<text top="1012" left="459" width="346" height="15" font="0">is restricted to passing configuration via command</text>
+<text top="1030" left="459" width="346" height="15" font="0">line arguments in R, which must be parsed by the</text>
+<text top="1048" left="459" width="346" height="15" font="0">agent. Results are then passed back via the filesys-</text>
+<text top="1065" left="459" width="346" height="15" font="0">tem. In addition to the need for particular files to be</text>
+<text top="1083" left="459" width="346" height="15" font="0">created that can be run on the client as well as on the</text>
+<text top="1101" left="459" width="346" height="15" font="0">controller, use of the Apple Xgrid system may also</text>
+<text top="1119" left="459" width="346" height="15" font="0">require separate installation of additional packages</text>
+<text top="1137" left="459" width="346" height="15" font="0">needed for the simulation (particularly if the user</text>
+<text top="1155" left="459" width="346" height="15" font="0">does not have administrative access or control of the</text>
+<text top="1173" left="459" width="125" height="15" font="0">individual agents).</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">51</text>
+<text top="125" left="105" width="324" height="15" font="0">However, as demonstrated by our simulation</text>
+<text top="143" left="82" width="346" height="15" font="0">studies, the Apple Xgrid system is particularly well-</text>
+<text top="161" left="82" width="346" height="15" font="0">suited for embarrassingly parallel problems (e.g.</text>
+<text top="179" left="82" width="346" height="15" font="0">simulation studies with multiple independent runs).</text>
+<text top="197" left="82" width="346" height="15" font="0">It can be set up on a heterogeneous set of machines</text>
+<text top="215" left="82" width="346" height="15" font="0">(such as a computer classroom) and configured to</text>
+<text top="233" left="82" width="346" height="15" font="0">run when these agents are idle. For such a setup, the</text>
+<text top="251" left="82" width="346" height="15" font="0">overall process load tends to balance if the simula-</text>
+<text top="268" left="82" width="346" height="15" font="0">tion is broken up into sufficiently fine grained jobs,</text>
+<text top="286" left="82" width="346" height="15" font="0">as faster agents will take on more than their share of</text>
+<text top="304" left="82" width="30" height="15" font="0">jobs.</text>
+<text top="327" left="105" width="324" height="15" font="0">The Xgrid software is available as an additional</text>
+<text top="345" left="82" width="346" height="15" font="0">download for Apple users as part of Mac OS X</text>
+<text top="363" left="82" width="346" height="15" font="0">Server, and it is straightforward to set up a grid us-</text>
+<text top="381" left="82" width="346" height="15" font="0">ing existing computers (instructions are provided in</text>
+<text top="399" left="82" width="346" height="15" font="0">Appendix C). In our tests, it took approximately 30</text>
+<text top="417" left="82" width="346" height="15" font="0">minutes to set up an Apple Xgrid on a simple net-</text>
+<text top="435" left="82" width="237" height="15" font="0">work consisting of three computers.</text>
+<text top="458" left="105" width="324" height="15" font="0">Our implementation provides for three distinct</text>
+<text top="476" left="82" width="346" height="15" font="0">authentication schemes (Kerberos, clear text pass-</text>
+<text top="494" left="82" width="346" height="15" font="0">word, or none). While the Xgrid system provides</text>
+<text top="512" left="82" width="346" height="15" font="0">full support for authentication using Kerberos, this</text>
+<text top="530" left="82" width="346" height="15" font="0">requires more configuration and is beyond the</text>
+<text top="548" left="82" width="346" height="15" font="0">scope of this paper. The system documentation</text>
+<text top="566" left="82" width="5" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">(</a></text>
+<text top="566" left="87" width="74" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">Apple Inc.</a></text>
+<text top="566" left="162" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">,</a></text>
+<text top="566" left="174" width="30" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">2009</a></text>
+<text top="566" left="204" width="225" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#11">) </a>provides a comprehensive re-</text>
+<text top="584" left="82" width="346" height="15" font="0">view of administration using this mechanism. If</text>
+<text top="602" left="82" width="346" height="15" font="0">the ‘auth = &#34;Password&#34;’ option is used, then the</text>
+<text top="621" left="82" width="191" height="12" font="0">XGRID_CONTROLLER_PASSWORD</text>
+<text top="620" left="282" width="147" height="15" font="0">environment variable</text>
+<text top="638" left="82" width="346" height="15" font="0">must be set by the user to specify the password. As</text>
+<text top="655" left="82" width="346" height="15" font="0">with any shared networking resource, care should be</text>
+<text top="673" left="82" width="346" height="15" font="0">taken when less secure approaches are used to ac-</text>
+<text top="691" left="82" width="346" height="15" font="0">cess the controller and agents. Firewalling the Xgrid</text>
+<text top="709" left="82" width="346" height="15" font="0">controller and agents from outside networks may be</text>
+<text top="727" left="82" width="73" height="15" font="0">warranted.</text>
+<text top="750" left="105" width="324" height="15" font="0">There are a number of areas of potential improve-</text>
+<text top="768" left="82" width="346" height="15" font="0">ment for this interface. It may be feasible to create a</text>
+<text top="786" left="82" width="346" height="15" font="0">single XML file to allow all of the simulations to be</text>
+<text top="804" left="82" width="346" height="15" font="0">included as multiple tasks within a single job. This</text>
+<text top="822" left="82" width="346" height="15" font="0">has the potential to decrease input/output load and</text>
+<text top="840" left="82" width="137" height="15" font="0">simplify monitoring.</text>
+<text top="863" left="105" width="324" height="15" font="0">As described previously, the use of parallel com-</text>
+<text top="881" left="82" width="346" height="15" font="0">puting to speed up scientific computation using R by</text>
+<text top="899" left="82" width="346" height="15" font="0">use of multiple cores, tightly connected clusters, and</text>
+<text top="917" left="82" width="346" height="15" font="0">other approaches remains an active area of research.</text>
+<text top="935" left="82" width="346" height="15" font="0">Other approaches exist, though address different is-</text>
+<text top="953" left="82" width="346" height="15" font="0">sues. For example, the <b>GridR </b>package does not sup-</text>
+<text top="971" left="82" width="346" height="15" font="0">port access through the xgrid command and requires</text>
+<text top="989" left="82" width="346" height="15" font="0">access to individual agents. The <b>runjags </b>package</text>
+<text top="1007" left="82" width="346" height="15" font="0">provides an alternative interface that is particularly</text>
+<text top="1024" left="82" width="346" height="15" font="0">well suited for Bayesian estimation using Gibbs sam-</text>
+<text top="1042" left="82" width="38" height="15" font="0">pling.</text>
+<text top="1065" left="105" width="324" height="15" font="0">Our setup focuses on a simple (but common)</text>
+<text top="1083" left="82" width="346" height="15" font="0">problem: embarrassingly parallel computations that</text>
+<text top="1101" left="82" width="346" height="15" font="0">can be chopped into multiple tasks or jobs. The abil-</text>
+<text top="1119" left="82" width="346" height="15" font="0">ity to dramatically speed up such simulations within</text>
+<text top="1137" left="82" width="346" height="15" font="0">R by running them on a designated grid (or less for-</text>
+<text top="1155" left="82" width="346" height="15" font="0">mally on a set of idle machines) may be an attractive</text>
+<text top="1173" left="82" width="313" height="15" font="0">option in many settings with Apple computers.</text>
+<text top="121" left="459" width="87" height="21" font="4"><b>Glossary</b></text>
+<text top="160" left="459" width="42" height="15" font="3"><b>Agent</b></text>
+<text top="160" left="508" width="297" height="15" font="0">A member of a grid that performs tasks dis-</text>
+<text top="178" left="496" width="309" height="15" font="0">tributed to it by the controller (also known as a</text>
+<text top="196" left="496" width="274" height="15" font="0">node). An agent can be its own controller.</text>
+<text top="223" left="459" width="209" height="15" font="3"><b>Apple Remote Desktop (ARD)</b></text>
+<text top="222" left="675" width="130" height="15" font="0">An application that</text>
+<text top="240" left="496" width="309" height="15" font="0">allows a user to monitor or control networked</text>
+<text top="258" left="496" width="135" height="15" font="0">computers remotely.</text>
+<text top="285" left="459" width="139" height="15" font="3"><b>Bonjour networking</b></text>
+<text top="285" left="605" width="200" height="15" font="0">Apple’s automatic network</text>
+<text top="303" left="496" width="309" height="15" font="0">service discovery and configuration tool. Built</text>
+<text top="321" left="496" width="309" height="15" font="0">on a variety of commonly used networking</text>
+<text top="339" left="496" width="309" height="15" font="0">protocols, Bonjour allows Mac computers to</text>
+<text top="357" left="496" width="309" height="15" font="0">easily communicate with each other and with</text>
+<text top="375" left="496" width="309" height="15" font="0">a large number of compatible devices, with lit-</text>
+<text top="393" left="496" width="243" height="15" font="0">tle to no user configuration required.</text>
+<text top="420" left="459" width="42" height="15" font="3"><b>Client</b></text>
+<text top="420" left="509" width="297" height="15" font="0">A computer that submits jobs to the con-</text>
+<text top="438" left="496" width="173" height="15" font="0">troller for grid processing.</text>
+<text top="465" left="459" width="71" height="15" font="3"><b>Controller</b></text>
+<text top="465" left="537" width="268" height="15" font="0">A computer (running OS X Server or</text>
+<text top="483" left="496" width="309" height="15" font="0">XgridLite) that accepts jobs from clients and</text>
+<text top="500" left="496" width="309" height="15" font="0">distributes them to agents. A controller can also</text>
+<text top="518" left="496" width="182" height="15" font="0">be an agent within the grid.</text>
+<text top="545" left="459" width="157" height="15" font="3"><b>Embarassingly parallel</b></text>
+<text top="545" left="624" width="182" height="15" font="0">A computation that can be</text>
+<text top="563" left="496" width="309" height="15" font="0">divided into a series of independent tasks</text>
+<text top="581" left="496" width="299" height="15" font="0">where little or no communication is required.</text>
+<text top="608" left="459" width="32" height="15" font="3"><b>Grid</b></text>
+<text top="608" left="499" width="307" height="15" font="0">More general than an Apple Xgrid, a group</text>
+<text top="626" left="496" width="309" height="15" font="0">of machines (agents), managed by a con-</text>
+<text top="644" left="496" width="309" height="15" font="0">troller, which accept and perform computa-</text>
+<text top="662" left="496" width="79" height="15" font="0">tional tasks.</text>
+<text top="689" left="459" width="81" height="15" font="3"><b>Grid stuffer</b></text>
+<text top="689" left="548" width="258" height="15" font="0">An application that submit jobs and re-</text>
+<text top="707" left="496" width="309" height="15" font="0">trieves their results through the xgrid com-</text>
+<text top="725" left="496" width="309" height="15" font="0">mand. The xgrid() function within the <b>xgrid</b></text>
+<text top="743" left="496" width="260" height="15" font="0">package implements a grid stuffer in R.</text>
+<text top="770" left="459" width="23" height="15" font="3"><b>Job</b></text>
+<text top="770" left="490" width="316" height="15" font="0">A group of one or more tasks submitted by a</text>
+<text top="787" left="496" width="148" height="15" font="0">client to the controller.</text>
+<text top="814" left="459" width="116" height="15" font="3"><b>Mac OS X Server</b></text>
+<text top="814" left="582" width="223" height="15" font="0">A Unix server operating system</text>
+<text top="832" left="496" width="309" height="15" font="0">from Apple, that provides advanced features</text>
+<text top="850" left="496" width="309" height="15" font="0">for operating an Xgrid controller (for those</text>
+<text top="868" left="496" width="309" height="15" font="0">without Mac OS X Server, the XgridLite panel</text>
+<text top="886" left="496" width="309" height="15" font="0">provides similar functionality for grid comput-</text>
+<text top="904" left="496" width="30" height="15" font="0">ing).</text>
+<text top="931" left="459" width="56" height="15" font="3"><b>plist file</b></text>
+<text top="931" left="522" width="283" height="15" font="0">Short for “property list file”. On Mac OS</text>
+<text top="949" left="496" width="309" height="15" font="0">computers, this is an XML file that stores user-</text>
+<text top="967" left="496" width="309" height="15" font="0">or system-defined settings for an application or</text>
+<text top="985" left="496" width="309" height="15" font="0">extension. For example, the “Preferences” pane</text>
+<text top="1003" left="496" width="309" height="15" font="0">in an application is linked to a plist file such</text>
+<text top="1021" left="496" width="309" height="15" font="0">that when Preferences are changed, their val-</text>
+<text top="1039" left="496" width="309" height="15" font="0">ues are recorded in the plist file, to be read by</text>
+<text top="1057" left="496" width="293" height="15" font="0">other parts of the application when running.</text>
+<text top="1084" left="459" width="109" height="15" font="3"><b>Preference pane</b></text>
+<text top="1083" left="575" width="230" height="15" font="0">Any of the sections under the Mac</text>
+<text top="1101" left="496" width="309" height="15" font="0">OS X System Preferences, each controlling a</text>
+<text top="1119" left="496" width="309" height="15" font="0">different aspect of the operating system (desk-</text>
+<text top="1137" left="496" width="309" height="15" font="0">top background, energy saving preferences,</text>
+<text top="1155" left="496" width="309" height="15" font="0">etc.) or of user-installed programs. XgridLite is</text>
+<text top="1173" left="496" width="309" height="15" font="0">a preference pane, since it is simply a GUI for</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">52</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="120" width="309" height="15" font="0">core system tools (such as the xgridctl com-</text>
+<text top="143" left="120" width="47" height="15" font="0">mand).</text>
+<text top="174" left="82" width="97" height="15" font="3"><b>Processor core</b></text>
+<text top="173" left="187" width="242" height="15" font="0">Independent processors in the same</text>
+<text top="191" left="120" width="309" height="15" font="0">CPU. Most modern computers have multi-core</text>
+<text top="209" left="120" width="309" height="15" font="0">CPUs, usually with 2 or 4 cores. Multi-core sys-</text>
+<text top="227" left="120" width="309" height="15" font="0">tems can execute more tasks simultaneously (in</text>
+<text top="245" left="120" width="309" height="15" font="0">our case, multiple R runs at the same time).</text>
+<text top="263" left="120" width="309" height="15" font="0">Multi-core systems are often able to manage</text>
+<text top="281" left="120" width="309" height="15" font="0">tasks more efficiently, since less time is spent</text>
+<text top="299" left="120" width="299" height="15" font="0">waiting for a core to be ready to process data.</text>
+<text top="330" left="82" width="32" height="15" font="3"><b>Task</b></text>
+<text top="329" left="122" width="307" height="15" font="0">Sub-components of jobs. A job may contain</text>
+<text top="347" left="120" width="309" height="15" font="0">many tasks, each of which can be performed</text>
+<text top="365" left="120" width="309" height="15" font="0">individually, or may depend on the results of</text>
+<text top="383" left="120" width="123" height="15" font="0">other tasks or jobs.</text>
+<text top="414" left="82" width="38" height="15" font="3"><b>Xgrid</b></text>
+<text top="414" left="128" width="301" height="15" font="0">Software and distributed computing proto-</text>
+<text top="432" left="120" width="309" height="15" font="0">col developed by Apple that allows networked</text>
+<text top="450" left="120" width="309" height="15" font="0">computers to contribute to distributed compu-</text>
+<text top="468" left="120" width="48" height="15" font="0">tations.</text>
+<text top="498" left="82" width="65" height="15" font="3"><b>XgridLite</b></text>
+<text top="498" left="155" width="69" height="15" font="0">Preference</text>
+<text top="498" left="243" width="32" height="15" font="0">pane</text>
+<text top="498" left="295" width="60" height="15" font="0">authored</text>
+<text top="498" left="375" width="17" height="15" font="0">by</text>
+<text top="498" left="411" width="18" height="15" font="0">Ed</text>
+<text top="516" left="120" width="309" height="15" font="0">Baskerville. A free GUI to access Xgrid func-</text>
+<text top="534" left="120" width="309" height="15" font="0">tionality that is built into all Mac OS X comput-</text>
+<text top="552" left="120" width="309" height="15" font="0">ers. Also facilitates configuration of controllers</text>
+<text top="570" left="120" width="309" height="15" font="0">(similar functionality is provided by Mac OS X</text>
+<text top="588" left="120" width="51" height="15" font="0">Server).</text>
+<text top="635" left="82" width="346" height="21" font="4"><b>Appendix A: Accessing the Apple</b></text>
+<text top="662" left="82" width="136" height="21" font="4"><b>Xgrid using R</b></text>
+<text top="701" left="82" width="346" height="15" font="0">This section details the steps needed to access an ex-</text>
+<text top="719" left="82" width="346" height="15" font="0">isting Xgrid using R. All commands are executed on</text>
+<text top="737" left="82" width="64" height="15" font="0">the client.</text>
+<text top="780" left="82" width="258" height="17" font="9"><b>Install the package from CRAN</b></text>
+<text top="810" left="82" width="346" height="15" font="0">The first step is to install the package from CRAN on</text>
+<text top="828" left="82" width="321" height="15" font="0">the client computer (needs to be done only once)</text>
+<text top="863" left="82" width="191" height="12" font="0">install.packages(&#34;xgrid&#34;)</text>
+<text top="905" left="82" width="346" height="17" font="9"><b>Determine hostname and access informa-</b></text>
+<text top="925" left="82" width="197" height="17" font="9"><b>tion for the Apple Xgrid</b></text>
+<text top="956" left="82" width="346" height="15" font="0">The next step is to determine the access procedures</text>
+<text top="974" left="82" width="346" height="15" font="0">for your particular grid. These include the host-</text>
+<text top="992" left="82" width="346" height="15" font="0">name (specified as the grid option) and authoriza-</text>
+<text top="1010" left="82" width="278" height="15" font="0">tion scheme (specified as the auth option).</text>
+<text top="1053" left="82" width="274" height="17" font="9"><b>Create directory and file structure</b></text>
+<text top="1083" left="82" width="346" height="15" font="0">An overview of the required directory structure is</text>
+<text top="1101" left="82" width="124" height="15" font="0">provided in Figure</text>
+<text top="1101" left="210" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">5</a></text>
+<text top="1101" left="218" width="4" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">.</a></text>
+<text top="1119" left="105" width="36" height="15" font="0">The ‘</text>
+<text top="1120" left="141" width="29" height="12" font="8">input</text>
+<text top="1119" left="170" width="192" height="15" font="0">’ folder contains two files, ‘</text>
+<text top="1120" left="362" width="31" height="12" font="8">job.R</text>
+<text top="1119" left="393" width="36" height="15" font="0">’ and</text>
+<text top="1137" left="82" width="4" height="15" font="0">‘</text>
+<text top="1138" left="87" width="50" height="12" font="8">runjob.R</text>
+<text top="1137" left="137" width="75" height="15" font="0">’. The file ‘</text>
+<text top="1138" left="212" width="31" height="12" font="8">job.R</text>
+<text top="1137" left="243" width="186" height="15" font="0">’ contains the definition for</text>
+<text top="1155" left="82" width="346" height="15" font="0">the function job(). This function expects two argu-</text>
+<text top="1173" left="82" width="346" height="15" font="0">ments: ntask, which specifies the number of tasks</text>
+<text top="125" left="459" width="346" height="15" font="0">per job, and param, used to define any parameter of</text>
+<text top="143" left="459" width="346" height="15" font="0">interest. Note that job() must have ntask and param</text>
+<text top="161" left="459" width="346" height="15" font="0">as arguments, but can be modified to take more. This</text>
+<text top="179" left="459" width="346" height="15" font="0">function returns a data frame, where each row is</text>
+<text top="197" left="459" width="207" height="15" font="0">the result of one task. The file ‘</text>
+<text top="198" left="666" width="50" height="12" font="8">runjob.R</text>
+<text top="197" left="717" width="89" height="15" font="0">’ (running on</text>
+<text top="215" left="459" width="346" height="15" font="0">the agent) receives three arguments when called by</text>
+<text top="234" left="459" width="53" height="12" font="0">xgrid()</text>
+<text top="233" left="518" width="287" height="15" font="0">(running on the client): ntask, param, and</text>
+<text top="252" left="459" width="53" height="12" font="0">resfile</text>
+<text top="251" left="516" width="129" height="15" font="0">(see description of ‘</text>
+<text top="252" left="645" width="74" height="12" font="8">simulation.R</text>
+<text top="251" left="719" width="86" height="15" font="0">’ below). The</text>
+<text top="268" left="459" width="346" height="15" font="0">arguments ntask and param are passed to job(), and</text>
+<text top="286" left="459" width="346" height="15" font="0">the data frame returned by job() is saved to the</text>
+<text top="304" left="459" width="48" height="15" font="0">folder ‘</text>
+<text top="305" left="506" width="37" height="12" font="8">output</text>
+<text top="304" left="544" width="246" height="15" font="0">’, with filename specified by resfile.</text>
+<text top="322" left="481" width="81" height="15" font="0">The folder ‘</text>
+<text top="323" left="562" width="37" height="12" font="8">output</text>
+<text top="322" left="600" width="206" height="15" font="0">’ will contain the results from</text>
+<text top="340" left="459" width="346" height="15" font="0">the simulations. If created manually, it should be</text>
+<text top="358" left="459" width="346" height="15" font="0">empty. If not created manually, the function xgrid()</text>
+<text top="376" left="459" width="85" height="15" font="0">will create it.</text>
+<text top="394" left="481" width="74" height="15" font="0">The script ‘</text>
+<text top="395" left="556" width="74" height="12" font="8">simulation.R</text>
+<text top="394" left="630" width="176" height="15" font="0">’ accesses the controller by</text>
+<text top="412" left="459" width="346" height="15" font="0">calling xgrid() and allows the user to override any</text>
+<text top="430" left="459" width="125" height="15" font="0">default arguments.</text>
+<text top="470" left="459" width="143" height="15" font="3"><b>Call </b>xgrid() <b>within ‘</b></text>
+<text top="471" left="601" width="74" height="12" font="8">simulation.R</text>
+<text top="470" left="675" width="4" height="15" font="0">’</text>
+<text top="499" left="459" width="346" height="15" font="0">After loading the <b>xgrid </b>package and calling the</text>
+<text top="518" left="459" width="53" height="12" font="0">xgrid()</text>
+<text top="517" left="515" width="162" height="15" font="0">function as described in ‘</text>
+<text top="518" left="677" width="74" height="12" font="8">simulation.R</text>
+<text top="517" left="751" width="54" height="15" font="0">’, results</text>
+<text top="535" left="459" width="346" height="15" font="0">from all numsim simulations are collated and returned</text>
+<text top="553" left="459" width="346" height="15" font="0">as the object res. This object is also saved as the file</text>
+<text top="570" left="459" width="4" height="15" font="0">‘</text>
+<text top="572" left="463" width="83" height="12" font="8">RESULTS.rds</text>
+<text top="570" left="546" width="260" height="15" font="0">’, at the root of the directory structure.</text>
+<text top="588" left="459" width="211" height="15" font="0">This can be analyzed as needed.</text>
+<text top="635" left="459" width="98" height="21" font="4"><b>Appendix</b></text>
+<text top="635" left="580" width="20" height="21" font="4"><b>B:</b></text>
+<text top="635" left="622" width="59" height="21" font="4"><b>Using</b></text>
+<text top="635" left="704" width="102" height="21" font="4"><b>additional</b></text>
+<text top="662" left="459" width="304" height="21" font="4"><b>packages with the Apple Xgrid</b></text>
+<text top="700" left="459" width="346" height="15" font="0">One of the strengths of R is the large number of add-</text>
+<text top="718" left="459" width="346" height="15" font="0">on packages that extend the system. If the user of the</text>
+<text top="736" left="459" width="346" height="15" font="0">grid has administrative privileges on the individual</text>
+<text top="754" left="459" width="346" height="15" font="0">machines then any needed packages can be installed</text>
+<text top="772" left="459" width="135" height="15" font="0">in the usual manner.</text>
+<text top="790" left="481" width="324" height="15" font="0">However, if no administrative access is available,</text>
+<text top="808" left="459" width="346" height="15" font="0">it is possible to utilize such packages within this</text>
+<text top="826" left="459" width="285" height="15" font="0">setup by manually installing them in the ‘</text>
+<text top="827" left="743" width="58" height="12" font="8">input/rlibs</text>
+<text top="826" left="801" width="4" height="15" font="0">’</text>
+<text top="844" left="459" width="308" height="15" font="0">directory and loading them within a given job.</text>
+<text top="862" left="481" width="324" height="15" font="0">This appendix details how to make a package</text>
+<text top="880" left="459" width="285" height="15" font="0">available to a job running on a given agent.</text>
+<text top="911" left="478" width="328" height="15" font="0">1. Install the appropriate distribution file from</text>
+<text top="929" left="496" width="203" height="15" font="0">CRAN into the directory ‘</text>
+<text top="930" left="699" width="58" height="12" font="8">input/rlibs</text>
+<text top="929" left="757" width="48" height="15" font="0">’. This</text>
+<text top="947" left="496" width="309" height="15" font="0">can be done by using the lib argument</text>
+<text top="965" left="496" width="309" height="15" font="0">of install.packages(). For instance, in Ex-</text>
+<text top="983" left="496" width="309" height="15" font="0">ample 2 we can install <b>poLCA </b>by us-</text>
+<text top="1000" left="496" width="309" height="15" font="0">ing the call install.packages(&#34;poLCA&#34;,lib =</text>
+<text top="1020" left="496" width="152" height="12" font="0">&#34;~/.../input/rlibs&#34;)</text>
+<text top="1018" left="649" width="67" height="15" font="0">, where ‘</text>
+<text top="1020" left="715" width="27" height="12" font="8">~/.../</text>
+<text top="1018" left="742" width="63" height="15" font="0">’ empha-</text>
+<text top="1036" left="496" width="256" height="15" font="0">sizes use of the absolute path to the ‘</text>
+<text top="1037" left="752" width="25" height="12" font="8">rlibs</text>
+<text top="1036" left="777" width="28" height="15" font="0">’ di-</text>
+<text top="1054" left="496" width="49" height="15" font="0">rectory.</text>
+<text top="1083" left="478" width="328" height="15" font="0">2. Access the add-on package within a job run-</text>
+<text top="1101" left="496" width="309" height="15" font="0">ning on an agent. This is done by using</text>
+<text top="1119" left="496" width="309" height="15" font="0">the lib.loc option within the standard in-</text>
+<text top="1137" left="496" width="309" height="15" font="0">vocation of library(). For instance, in Ex-</text>
+<text top="1155" left="496" width="309" height="15" font="0">ample 2 this can be done by using the call</text>
+<text top="1174" left="496" width="244" height="12" font="0">library(poLCA,lib.loc=&#34;./rlibs&#34;)</text>
+<text top="1173" left="740" width="4" height="15" font="0">.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">53</text>
+<text top="125" left="105" width="324" height="15" font="0">It should be noted that the package will need to</text>
+<text top="143" left="82" width="346" height="15" font="0">be shipped over to the agent for each job, which may</text>
+<text top="161" left="82" width="346" height="15" font="0">be less efficient than installing the package once per</text>
+<text top="179" left="82" width="346" height="15" font="0">agent in the usual manner (but the latter option may</text>
+<text top="197" left="82" width="346" height="15" font="0">not be available unless the grid user has administra-</text>
+<text top="215" left="82" width="239" height="15" font="0">tive access to the individual agents).</text>
+<text top="276" left="82" width="244" height="21" font="4"><b>Appendix C: Xgrid setup</b></text>
+<text top="320" left="82" width="346" height="15" font="0">In this section we discuss the steps required to set up</text>
+<text top="338" left="82" width="346" height="15" font="0">a new Xgrid using XgridLite under Mac OS X 10.6</text>
+<text top="356" left="82" width="346" height="15" font="0">or 10.7. We presume some background in system ad-</text>
+<text top="374" left="82" width="346" height="15" font="0">ministration and note that installation of a grid will</text>
+<text top="392" left="82" width="297" height="15" font="0">likely require the assistance of technical staff.</text>
+<text top="412" left="105" width="324" height="15" font="0">Depending on the nature of the network and</text>
+<text top="430" left="82" width="346" height="15" font="0">machines involved, different Xgrid-related tools can</text>
+<text top="448" left="82" width="346" height="15" font="0">be used, including Mac OS X Server and XgridLite.</text>
+<text top="466" left="82" width="346" height="15" font="0">Mac OS X Server has several advantages, but for the</text>
+<text top="484" left="82" width="346" height="15" font="0">purposes of this paper, we restrict our attention to</text>
+<text top="502" left="82" width="67" height="15" font="0">XgridLite.</text>
+<text top="559" left="82" width="227" height="17" font="9"><b>Anatomy of an Apple Xgrid</b></text>
+<text top="594" left="82" width="346" height="15" font="0">It is important to understand the flow of informa-</text>
+<text top="612" left="82" width="346" height="15" font="0">tion through an Apple Xgrid and the relationship be-</text>
+<text top="630" left="82" width="346" height="15" font="0">tween the different computers involved. The center-</text>
+<text top="648" left="82" width="325" height="15" font="0">point of an Apple Xgrid is the controller (Figure</text>
+<text top="648" left="413" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#2">1</a></text>
+<text top="648" left="420" width="9" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#2">).</a></text>
+<text top="666" left="82" width="346" height="15" font="0">When clients submit jobs to the grid, the controller</text>
+<text top="684" left="82" width="346" height="15" font="0">distributes them to agents, which make themselves</text>
+<text top="702" left="82" width="346" height="15" font="0">available to the controller on the local network (using</text>
+<text top="720" left="82" width="346" height="15" font="0">Apple’s Bonjour network discovery). That is, rather</text>
+<text top="738" left="82" width="346" height="15" font="0">than the controller keeping a master list of which</text>
+<text top="756" left="82" width="346" height="15" font="0">agents are part of the grid, agents detect the pres-</text>
+<text top="774" left="82" width="346" height="15" font="0">ence of a controller on the network and, depending</text>
+<text top="791" left="82" width="346" height="15" font="0">on their configuration, make themselves available for</text>
+<text top="809" left="82" width="98" height="15" font="0">job processing.</text>
+<text top="830" left="105" width="324" height="15" font="0">This loosely coupled grid structure means that</text>
+<text top="848" left="82" width="346" height="15" font="0">if an agent previously involved in computation is</text>
+<text top="866" left="82" width="346" height="15" font="0">unavailable, the controller simply passes jobs to</text>
+<text top="884" left="82" width="346" height="15" font="0">other agents. This functionality is known as graceful</text>
+<text top="902" left="82" width="346" height="15" font="0">degradation. Once an agent has completed its com-</text>
+<text top="920" left="82" width="346" height="15" font="0">putation, the results are made available to the con-</text>
+<text top="938" left="82" width="346" height="15" font="0">troller, where the client can retrieve them. As a result,</text>
+<text top="955" left="82" width="346" height="15" font="0">the client never communicates directly with agents,</text>
+<text top="973" left="82" width="158" height="15" font="0">only with the controller.</text>
+<text top="1030" left="82" width="196" height="17" font="9"><b>Downloading XgridLite</b></text>
+<text top="1065" left="82" width="63" height="15" font="0">XgridLite</text>
+<text top="1065" left="165" width="5" height="15" font="0"><a href="http://edbaskerville.com/software/xgridlite">(</a></text>
+<text top="1067" left="170" width="259" height="12" font="5"><a href="http://edbaskerville.com/software/xgridlite">http://edbaskerville.com/software/</a></text>
+<text top="1085" left="82" width="69" height="12" font="5"><a href="http://edbaskerville.com/software/xgridlite">xgridlite</a></text>
+<text top="1083" left="151" width="278" height="15" font="0"><a href="http://edbaskerville.com/software/xgridlite">) </a>is free and open-source software, re-</text>
+<text top="1101" left="82" width="346" height="15" font="0">leased under the GNU GPL (general public license),</text>
+<text top="1119" left="82" width="346" height="15" font="0">and installed as a Mac OS X preference pane. Once it</text>
+<text top="1137" left="82" width="346" height="15" font="0">is installed, it is found in the “Other” section (at the</text>
+<text top="1155" left="82" width="325" height="15" font="0">bottom) of the System Preferences (Apple menu</text>
+<text top="1154" left="413" width="16" height="15" font="11">→</text>
+<text top="1173" left="82" width="136" height="15" font="0">System Preferences).</text>
+<text top="123" left="459" width="212" height="17" font="9"><b>Downloading server tools</b></text>
+<text top="156" left="459" width="346" height="15" font="0">Although not necessary to install and operate an Ap-</text>
+<text top="174" left="459" width="346" height="15" font="0">ple Xgrid, the free Apple software suite called Mac</text>
+<text top="192" left="459" width="346" height="15" font="0">OS X Server Tools is extremely useful. In particular,</text>
+<text top="210" left="459" width="263" height="15" font="0">the Xgrid Admin application (see Figure</text>
+<text top="210" left="725" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">6</a></text>
+<text top="210" left="732" width="73" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#4">) </a>allows for</text>
+<text top="228" left="459" width="346" height="15" font="0">the monitoring of any number of Apple Xgrids, in-</text>
+<text top="246" left="459" width="346" height="15" font="0">cluding statistics on the grid such as the number of</text>
+<text top="264" left="459" width="346" height="15" font="0">agents and total processing power, as well as a list</text>
+<text top="282" left="459" width="346" height="15" font="0">of jobs which can be paused, stopped, restarted, and</text>
+<text top="300" left="459" width="346" height="15" font="0">deleted. Most “grid stuffers” (our system included)</text>
+<text top="318" left="459" width="346" height="15" font="0">are designed to clean up after themselves, so the job</text>
+<text top="335" left="459" width="346" height="15" font="0">management functions in Xgrid Admin are primarily</text>
+<text top="353" left="459" width="260" height="15" font="0">useful for monitoring the status of jobs.</text>
+<text top="403" left="459" width="183" height="17" font="9"><b>Setting up a controller</b></text>
+<text top="436" left="459" width="43" height="15" font="0">Figure</text>
+<text top="436" left="505" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#9">8</a></text>
+<text top="436" left="515" width="290" height="15" font="0">displays the process of setting up a grid con-</text>
+<text top="454" left="459" width="346" height="15" font="0">troller within XgridLite. To start the Xgrid controller</text>
+<text top="472" left="459" width="346" height="15" font="0">service, simply click the “Start” button. Authentica-</text>
+<text top="490" left="459" width="346" height="15" font="0">tion settings are configured with the “Set Client Pass-</text>
+<text top="508" left="459" width="346" height="15" font="0">word...” and “Set Agent Password...” buttons. From</text>
+<text top="526" left="459" width="346" height="15" font="0">the XgridLite panel, you can also reset the controller</text>
+<text top="544" left="459" width="85" height="15" font="0">or turn it off.</text>
+<text top="839" left="528" width="208" height="15" font="0">Figure 8: Setting up a controller</text>
+<text top="875" left="481" width="324" height="15" font="0">Unlike many other client-server relationships, the</text>
+<text top="893" left="459" width="346" height="15" font="0">Xgrid controller authenticates to the client, rather</text>
+<text top="911" left="459" width="346" height="15" font="0">than the other way around. That is, the password en-</text>
+<text top="929" left="459" width="346" height="15" font="0">tered in the XgridLite “Set Agent Password...” field</text>
+<text top="947" left="459" width="346" height="15" font="0">is provided to agents, not required of them. Individual</text>
+<text top="965" left="459" width="346" height="15" font="0">agents must be configured to require that particular</text>
+<text top="983" left="459" width="336" height="15" font="0">password (or none at all) in order to join the Xgrid.</text>
+<text top="1032" left="459" width="142" height="17" font="9"><b>Setting up agents</b></text>
+<text top="1065" left="459" width="346" height="15" font="0">To set up an agent to join the Xgrid, open the Shar-</text>
+<text top="1083" left="459" width="346" height="15" font="0">ing preferences pane (“Internet &amp; Wireless” section</text>
+<text top="1101" left="459" width="305" height="15" font="0">in OS 10.6) in System Preferences (see Figures</text>
+<text top="1101" left="768" width="7" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#10">9</a></text>
+<text top="1101" left="780" width="25" height="15" font="0">and</text>
+<text top="1119" left="459" width="15" height="15" font="5"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#10">10</a></text>
+<text top="1119" left="474" width="332" height="15" font="0"><a href="2012-1-RJournal_2012-1_Anoke~et~al.html#10">). </a>Select the “Xgrid Sharing” item in the list on the</text>
+<text top="1137" left="459" width="346" height="15" font="0">left. Click the “Configure...” button. From here, you</text>
+<text top="1155" left="459" width="346" height="15" font="0">can choose whether the agent should join the first</text>
+<text top="1173" left="459" width="346" height="15" font="0">available Xgrid, or a specific one. The latter of these</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">54</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">options is usually best – the drop-down menu of con-</text>
+<text top="143" left="82" width="346" height="15" font="0">trollers will auto-populate with all that are currently</text>
+<text top="161" left="82" width="57" height="15" font="0">running.</text>
+<text top="507" left="82" width="346" height="15" font="0">Figure 9: Sharing setup to configure an agent for</text>
+<text top="525" left="82" width="38" height="15" font="0">Xgrid</text>
+<text top="875" left="99" width="314" height="15" font="0">Figure 10: Specifying the controller for an agent</text>
+<text top="916" left="105" width="324" height="15" font="0">If there are multiple controllers on a network, you</text>
+<text top="934" left="82" width="346" height="15" font="0">may want to choose one specifically so that the agent</text>
+<text top="952" left="82" width="346" height="15" font="0">does not default to a different one. You may also</text>
+<text top="970" left="82" width="346" height="15" font="0">choose whether or not the agent should accept tasks</text>
+<text top="987" left="82" width="346" height="15" font="0">when idle. Then click “Done” and choose the desired</text>
+<text top="1005" left="82" width="346" height="15" font="0">authentication method (most likely “Password” or</text>
+<text top="1023" left="82" width="346" height="15" font="0">[less advisable] “None”) in the main window. If ap-</text>
+<text top="1041" left="82" width="346" height="15" font="0">plicable, enter the password that will be required of</text>
+<text top="1059" left="82" width="346" height="15" font="0">the controller. Then, select the checkbox next to the</text>
+<text top="1077" left="82" width="346" height="15" font="0">“Xgrid Sharing” item on the left. The agent needs to</text>
+<text top="1095" left="82" width="240" height="15" font="0">be restarted to complete the process.</text>
+<text top="1119" left="105" width="324" height="15" font="0">Note that a controller can also be an agent within</text>
+<text top="1137" left="82" width="346" height="15" font="0">its grid. However, it is important to consider that if</text>
+<text top="1155" left="82" width="346" height="15" font="0">the controller is also an agent, this has the potential</text>
+<text top="1173" left="82" width="138" height="15" font="0">to slow a simulation.</text>
+<text top="123" left="459" width="99" height="17" font="9"><b>Automation</b></text>
+<text top="154" left="459" width="346" height="15" font="0">For those with more experience in system adminis-</text>
+<text top="172" left="459" width="346" height="15" font="0">tration and access to Apple Remote Desktop (ARD)</text>
+<text top="190" left="459" width="346" height="15" font="0">or secure shell (SSH) on the agent machines (or work</text>
+<text top="208" left="459" width="346" height="15" font="0">with an administrator who does), the process of set-</text>
+<text top="226" left="459" width="346" height="15" font="0">ting up agents can be automated. R can be installed</text>
+<text top="244" left="459" width="346" height="15" font="0">remotely (allowing you to be sure that it is installed</text>
+<text top="262" left="459" width="346" height="15" font="0">in the same location on each machine), the file that</text>
+<text top="280" left="459" width="346" height="15" font="0">contains Xgrid agent settings can be pushed to all</text>
+<text top="298" left="459" width="346" height="15" font="0">agents and, finally, the agent service can be acti-</text>
+<text top="316" left="459" width="346" height="15" font="0">vated. We will not discuss the ARD remote package</text>
+<text top="334" left="459" width="346" height="15" font="0">installation process in detail here, but a full expla-</text>
+<text top="352" left="459" width="346" height="15" font="0">nation can be found in the Apple Remote Desktop</text>
+<text top="370" left="459" width="158" height="15" font="0">Administrator Guide at</text>
+<text top="371" left="622" width="183" height="12" font="5"><a href="http://images.apple.com/remotedesktop/pdf/ARD_Admin_Guide_v3.3.pdf">http://images.apple.com/</a></text>
+<text top="389" left="459" width="320" height="12" font="5"><a href="http://images.apple.com/remotedesktop/pdf/ARD_Admin_Guide_v3.3.pdf">remotedesktop/pdf/ARD_Admin_Guide_v3.3.pdf</a></text>
+<text top="388" left="779" width="4" height="15" font="0"><a href="http://images.apple.com/remotedesktop/pdf/ARD_Admin_Guide_v3.3.pdf">.</a></text>
+<text top="406" left="481" width="25" height="15" font="0">The</text>
+<text top="406" left="525" width="51" height="15" font="0">settings</text>
+<text top="406" left="594" width="19" height="15" font="0">for</text>
+<text top="406" left="631" width="21" height="15" font="0">the</text>
+<text top="406" left="670" width="38" height="15" font="0">Xgrid</text>
+<text top="406" left="726" width="37" height="15" font="0">agent</text>
+<text top="406" left="781" width="24" height="15" font="0">ser-</text>
+<text top="424" left="459" width="346" height="15" font="0">vice are stored in the plist file located at</text>
+<text top="442" left="459" width="4" height="15" font="0">‘</text>
+<text top="443" left="463" width="285" height="12" font="8">/Library/Preferences/com.apple.xgrid.agent.plist</text>
+<text top="442" left="748" width="58" height="15" font="0">’. These</text>
+<text top="460" left="459" width="346" height="15" font="0">settings include authentication options, controller</text>
+<text top="478" left="459" width="346" height="15" font="0">binding, and the number of physical processor cores</text>
+<text top="496" left="459" width="346" height="15" font="0">the agent should report to the controller (see the note</text>
+<text top="514" left="459" width="346" height="15" font="0">below for a discussion of this value, which is signif-</text>
+<text top="531" left="459" width="346" height="15" font="0">icant). The simplest way to automate the creation of</text>
+<text top="549" left="459" width="346" height="15" font="0">an Apple Xgrid is to configure the agent service on a</text>
+<text top="567" left="459" width="346" height="15" font="0">specific computer with the desired settings and then</text>
+<text top="585" left="459" width="346" height="15" font="0">push the above plist file to the same relative loca-</text>
+<text top="603" left="459" width="346" height="15" font="0">tion on all agents. Keep the processor core settings</text>
+<text top="621" left="459" width="346" height="15" font="0">in mind; you may need to push different versions</text>
+<text top="639" left="459" width="346" height="15" font="0">of the file to different agents in a heterogeneous</text>
+<text top="657" left="459" width="346" height="15" font="0">grid (see Note 3 below). Once all agents have the</text>
+<text top="675" left="459" width="346" height="15" font="0">proper plist file, run the commands ‘xgridctl agent</text>
+<text top="694" left="459" width="46" height="12" font="0">enable</text>
+<text top="693" left="505" width="270" height="15" font="0">’ and ‘xgridctl agent on’ on the agents.</text>
+<text top="737" left="459" width="48" height="17" font="9"><b>Notes</b></text>
+<text top="769" left="478" width="328" height="15" font="0">1. Mac OS X Server provides several additional</text>
+<text top="787" left="496" width="309" height="15" font="0">options for setting up an Xgrid controller.</text>
+<text top="805" left="496" width="309" height="15" font="0">These include Kerberos authentication and cus-</text>
+<text top="823" left="496" width="309" height="15" font="0">tomized Xgrid cache files location. Depending</text>
+<text top="840" left="496" width="309" height="15" font="0">on your network setup, these features may bol-</text>
+<text top="858" left="496" width="309" height="15" font="0">ster security, but we will not explore them fur-</text>
+<text top="876" left="496" width="63" height="15" font="0">ther here.</text>
+<text top="908" left="478" width="328" height="15" font="0">2. R <b>must </b>be installed in the same location on</text>
+<text top="926" left="496" width="309" height="15" font="0">each agent. If it is installed locally by an end-</text>
+<text top="944" left="496" width="309" height="15" font="0">user, it should default to the proper location,</text>
+<text top="962" left="496" width="309" height="15" font="0">but it is worth verifying this before running</text>
+<text top="980" left="496" width="309" height="15" font="0">tasks, otherwise they may fail. As mentioned</text>
+<text top="998" left="496" width="309" height="15" font="0">previously, installing R remotely using ARD is</text>
+<text top="1016" left="496" width="309" height="15" font="0">an easy way to ensure an identical instantiation</text>
+<text top="1034" left="496" width="95" height="15" font="0">on each agent.</text>
+<text top="1065" left="478" width="328" height="15" font="0">3. The reported number of processor cores (the</text>
+<text top="1085" left="496" width="107" height="12" font="0">ProcessorCount</text>
+<text top="1083" left="613" width="192" height="15" font="0">attribute) is significant be-</text>
+<text top="1101" left="496" width="309" height="15" font="0">cause the controller considers it the maximum</text>
+<text top="1119" left="496" width="309" height="15" font="0">number of tasks the agent can execute simulta-</text>
+<text top="1137" left="496" width="309" height="15" font="0">neously. On Mac OS X 10.6, agents by default</text>
+<text top="1155" left="496" width="309" height="15" font="0">report the number of cores (not processors) that</text>
+<text top="1173" left="496" width="202" height="15" font="0">they have (see discussion at</text>
+<text top="1174" left="706" width="99" height="12" font="5"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">http://lists.</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">C</a></text>
+<text top="69" left="94" width="86" height="12" font="1"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">ONTRIBUTED</a></text>
+<text top="67" left="184" width="10" height="15" font="0"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">R</a></text>
+<text top="69" left="195" width="61" height="12" font="1"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">ESEARCH</a></text>
+<text top="67" left="261" width="12" height="15" font="0"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">A</a></text>
+<text top="69" left="273" width="53" height="12" font="1"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">RTICLES</a></text>
+<text top="67" left="790" width="15" height="15" font="0"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">55</a></text>
+<text top="126" left="120" width="306" height="12" font="5"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">apple.com/archives/Xgrid-users/2009/Oct/</a></text>
+<text top="144" left="120" width="99" height="12" font="5"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">msg00001.html</a></text>
+<text top="143" left="219" width="210" height="15" font="0"><a href="http://lists.apple.com/archives/Xgrid-users/2009/Oct/msg00001.html">). </a>The ProcessorCount attribute</text>
+<text top="161" left="120" width="309" height="15" font="0">can be modified depending on the nature of the</text>
+<text top="179" left="120" width="309" height="15" font="0">grid. Since R uses only 1 processor per core, this</text>
+<text top="197" left="120" width="309" height="15" font="0">may leave many processors idle if the default</text>
+<text top="215" left="120" width="166" height="15" font="0">behavior is not modified.</text>
+<text top="242" left="101" width="328" height="15" font="0">4. Because Xgrid jobs are executed as the user</text>
+<text top="260" left="120" width="309" height="15" font="0">“nobody” on grid agents, they are given lower</text>
+<text top="277" left="120" width="196" height="15" font="0">priority if the CPU is not idle.</text>
+<text top="323" left="82" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="362" left="82" width="346" height="15" font="0">Thanks to Tony Caldanaro and Randall Pruim for</text>
+<text top="379" left="82" width="346" height="15" font="0">technical assistance, as well as Molly Johnson, two</text>
+<text top="397" left="82" width="346" height="15" font="0">anonymous reviewers and the associate editor for</text>
+<text top="415" left="82" width="346" height="15" font="0">comments and useful suggestions on an earlier draft.</text>
+<text top="433" left="82" width="346" height="15" font="0">This material is based in part upon work sup-</text>
+<text top="451" left="82" width="346" height="15" font="0">ported by the National Institute of Mental Health</text>
+<text top="469" left="82" width="346" height="15" font="0">(5R01MH087786-02) and the US National Science</text>
+<text top="487" left="82" width="346" height="15" font="0">Foundation (DUE-0920350, DMS-0721661, and DMS-</text>
+<text top="505" left="82" width="61" height="15" font="0">0602110).</text>
+<text top="550" left="82" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="589" left="82" width="346" height="15" font="0">Apple Inc. Mac OS X Server: Xgrid Administration</text>
+<text top="607" left="97" width="332" height="15" font="0">and High Performance Computing (Version 10.6 Snow</text>
+<text top="625" left="97" width="172" height="15" font="0">Leopard). Apple Inc., 2009.</text>
+<text top="652" left="82" width="346" height="15" font="0">L. M. Collins and S. T. Lanza. Latent Class and Latent</text>
+<text top="670" left="97" width="332" height="15" font="0">Transition Analysis: With Applications in the Social,</text>
+<text top="688" left="97" width="279" height="15" font="0">Behavioral, and Health Sciences. Wiley, 2009.</text>
+<text top="715" left="82" width="115" height="15" font="0">M. J. Denwood.</text>
+<text top="715" left="221" width="208" height="15" font="0">runjags: Run Bayesian MCMC</text>
+<text top="732" left="97" width="332" height="15" font="0">Models in the BUGS syntax from Within R,</text>
+<text top="750" left="97" width="34" height="15" font="0">2010.</text>
+<text top="750" left="158" width="31" height="15" font="0">URL</text>
+<text top="752" left="200" width="229" height="12" font="5"><a href="http://cran.r-project.org/web/packages/runjags/">http://cran.r-project.org/web/</a></text>
+<text top="770" left="97" width="130" height="12" font="5"><a href="http://cran.r-project.org/web/packages/runjags/">packages/runjags/</a></text>
+<text top="768" left="227" width="180" height="15" font="0"><a href="http://cran.r-project.org/web/packages/runjags/">. </a>R package version 0.9.9-1.</text>
+<text top="795" left="82" width="346" height="15" font="0">A. Geist, A. Beguelin, J. Dongarra, W. Jiang,</text>
+<text top="813" left="97" width="332" height="15" font="0">R. Manchek, and V. Sunderam. PVM: Parallel Vir-</text>
+<text top="831" left="97" width="332" height="15" font="0">tual Machine: A Users’ Guide and Tutorial for Net-</text>
+<text top="849" left="97" width="332" height="15" font="0">worked Parallel Computing. MIT Press, 1994. URL</text>
+<text top="868" left="97" width="213" height="12" font="5"><a href="http://www.csm.ornl.gov/pvm/">http://www.csm.ornl.gov/pvm/</a></text>
+<text top="867" left="311" width="4" height="15" font="0"><a href="http://www.csm.ornl.gov/pvm/">.</a></text>
+<text top="894" left="82" width="96" height="15" font="0">T. Hesterberg.</text>
+<text top="894" left="193" width="161" height="15" font="0">It’s time to retire the n</text>
+<text top="893" left="360" width="12" height="15" font="11">≥</text>
+<text top="894" left="377" width="52" height="15" font="0">30 rule.</text>
+<text top="912" left="97" width="332" height="15" font="0">Proceedings of the Joint Statistical Meetings, 2008.</text>
+<text top="930" left="97" width="31" height="15" font="0">URL</text>
+<text top="931" left="132" width="297" height="12" font="5"><a href="http://home.comcast.net/~timhesterberg/articles/">http://home.comcast.net/~timhesterberg/</a></text>
+<text top="949" left="97" width="69" height="12" font="5"><a href="http://home.comcast.net/~timhesterberg/articles/">articles/</a></text>
+<text top="948" left="166" width="4" height="15" font="0"><a href="http://home.comcast.net/~timhesterberg/articles/">.</a></text>
+<text top="975" left="82" width="346" height="15" font="0">N. Horton and S. Anoke. xgrid: Access Apple Xgrid</text>
+<text top="992" left="97" width="128" height="15" font="0">using R, 2012. URL</text>
+<text top="994" left="230" width="199" height="12" font="5"><a href="http://CRAN.R-project.org/package=xgrid">http://CRAN.R-project.org/</a></text>
+<text top="1012" left="97" width="99" height="12" font="5"><a href="http://CRAN.R-project.org/package=xgrid">package=xgrid</a></text>
+<text top="1011" left="197" width="169" height="15" font="0"><a href="http://CRAN.R-project.org/package=xgrid">. </a>R package version 0.2-5.</text>
+<text top="1037" left="82" width="346" height="15" font="0">P. K. Keel, M. Fichter, N. Quadflieg, C. M. Bulik,</text>
+<text top="1055" left="97" width="332" height="15" font="0">M. G. Baxter, L. Thornton, K. A. Halmi, A. S.</text>
+<text top="1073" left="97" width="332" height="15" font="0">Kaplan, M. Strober, D. B. Woodside, S. J. Crow,</text>
+<text top="1091" left="97" width="332" height="15" font="0">J. E. Mitchell, A. Rotondo, M. Mauri, G. Cassano,</text>
+<text top="1109" left="97" width="332" height="15" font="0">J. Treasure, D. Goldman, W. H. Berrettini, and</text>
+<text top="1127" left="97" width="332" height="15" font="0">W. H. Kaye. Application of a latent class analysis</text>
+<text top="1145" left="97" width="332" height="15" font="0">to empirically define eating disorder phenotypes.</text>
+<text top="1163" left="97" width="332" height="15" font="0">Archives of General Psychiatry, 61(2):192–200, Febru-</text>
+<text top="1181" left="97" width="59" height="15" font="0">ary 2004.</text>
+<text top="125" left="459" width="346" height="15" font="0">N. M. Li and A. J. Rossini. rpvm: Cluster statistical</text>
+<text top="143" left="474" width="259" height="15" font="0">computing in R. R News, 1(3):4–7, 2001.</text>
+<text top="170" left="459" width="346" height="15" font="0">D. A. Linzer and J. B. Lewis. poLCA: An R package</text>
+<text top="188" left="474" width="332" height="15" font="0">for polytomous variable latent class analysis. Jour-</text>
+<text top="206" left="474" width="332" height="15" font="0">nal of Statistical Software, 42(10):1–29, 2011. URL</text>
+<text top="225" left="474" width="252" height="12" font="5"><a href="http://www.jstatsoft.org/v42/i10/">http://www.jstatsoft.org/v42/i10/</a></text>
+<text top="224" left="725" width="4" height="15" font="0"><a href="http://www.jstatsoft.org/v42/i10/">.</a></text>
+<text top="251" left="459" width="346" height="15" font="0">A. J. Rossini, L. Tierney, and N. Li. Simple parallel</text>
+<text top="269" left="474" width="332" height="15" font="0">statistical computing in R. Journal of Computational</text>
+<text top="286" left="474" width="282" height="15" font="0">and Graphical Statistics, 16(2):399–420, 2007.</text>
+<text top="313" left="459" width="346" height="15" font="0">S. S. Sawiloswky and R. C. Blair. A more realistic</text>
+<text top="331" left="474" width="332" height="15" font="0">look at the robustness and Type II error properties</text>
+<text top="349" left="474" width="332" height="15" font="0">of the t test to departures from population normal-</text>
+<text top="367" left="474" width="304" height="15" font="0">ity. Psychological Bulletin, 111(2):352–360, 1992.</text>
+<text top="394" left="459" width="346" height="15" font="0">S. A. Swanson, K. Lindenberg, S. Bauer, and R. D.</text>
+<text top="412" left="474" width="332" height="15" font="0">Crosby. A Monte Carlo investigation of factors in-</text>
+<text top="430" left="474" width="332" height="15" font="0">fluencing latent class analysis: An application to</text>
+<text top="448" left="474" width="332" height="15" font="0">eating disorder research. Journal of Abnormal Psy-</text>
+<text top="466" left="474" width="190" height="15" font="0">chology, 121(1):225–231, 2011.</text>
+<text top="493" left="459" width="84" height="15" font="0">S. Urbanek.</text>
+<text top="493" left="571" width="235" height="15" font="0">multicore: Parallel processing of R</text>
+<text top="511" left="474" width="332" height="15" font="0">code on machines with multiple cores or CPUs,</text>
+<text top="529" left="474" width="69" height="15" font="0">2011. URL</text>
+<text top="530" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=multicore">http://CRAN.R-project.org/package=</a></text>
+<text top="548" left="474" width="69" height="12" font="5"><a href="http://CRAN.R-project.org/package=multicore">multicore</a></text>
+<text top="547" left="542" width="169" height="15" font="0"><a href="http://CRAN.R-project.org/package=multicore">. </a>R package version 0.1-7.</text>
+<text top="574" left="459" width="346" height="15" font="0">D. Wegener, T. Sengstag, S. Sfakianakis, and A. A.</text>
+<text top="592" left="474" width="332" height="15" font="0">S. Rüping. GridR: An R-based grid-enabled tool</text>
+<text top="609" left="474" width="332" height="15" font="0">for data analysis in ACGT Clinico-Genomic Trials.</text>
+<text top="627" left="474" width="332" height="15" font="0">Proceedings of the 3rd International Conference on e-</text>
+<text top="645" left="474" width="314" height="15" font="0">Science and Grid Computing (eScience 2007), 2007.</text>
+<text top="672" left="459" width="190" height="15" font="0">B. Wilkinson and M. Allen.</text>
+<text top="672" left="664" width="141" height="15" font="0">Parallel Programming:</text>
+<text top="690" left="474" width="332" height="15" font="0">Techniques and Applications Using Networked Work-</text>
+<text top="708" left="474" width="330" height="15" font="0">stations and Parallel Computers. Prentice Hall, 1999.</text>
+<text top="735" left="459" width="346" height="15" font="0">H. Yu. Rmpi: Parallel statistical computing in R. R</text>
+<text top="753" left="474" width="149" height="15" font="0">News, 2(2):10–14, 2002.</text>
+<text top="796" left="459" width="77" height="15" font="0">Sarah Anoke</text>
+<text top="814" left="459" width="346" height="15" font="0">Department of Mathematics and Statistics, Smith College</text>
+<text top="832" left="459" width="228" height="15" font="0">Clark Science Center, 44 College Lane</text>
+<text top="850" left="459" width="225" height="15" font="0">Northampton, MA 01063-0001 USA</text>
+<text top="870" left="459" width="145" height="12" font="5"><a href="mailto:sanoke527@gmail.com">sanoke527@gmail.com</a></text>
+<text top="904" left="459" width="76" height="15" font="0">Yuting Zhao</text>
+<text top="922" left="459" width="346" height="15" font="0">Department of Mathematics and Statistics, Smith College</text>
+<text top="940" left="459" width="228" height="15" font="0">Clark Science Center, 44 College Lane</text>
+<text top="958" left="459" width="225" height="15" font="0">Northampton, MA 01063-0001 USA</text>
+<text top="977" left="459" width="122" height="12" font="5"><a href="mailto:yuzhao@smith.edu">yuzhao@smith.edu</a></text>
+<text top="1012" left="459" width="78" height="15" font="0">Rafael Jaeger</text>
+<text top="1030" left="459" width="110" height="15" font="0">Brown University</text>
+<text top="1047" left="459" width="164" height="15" font="0">Providence, RI 02912 USA</text>
+<text top="1067" left="459" width="175" height="12" font="5"><a href="mailto:rafael_jaeger@brown.edu">rafael_jaeger@brown.edu</a></text>
+<text top="1101" left="459" width="113" height="15" font="0">Nicholas J. Horton</text>
+<text top="1119" left="459" width="346" height="15" font="0">Department of Mathematics and Statistics, Smith College</text>
+<text top="1137" left="459" width="228" height="15" font="0">Clark Science Center, 44 College Lane</text>
+<text top="1155" left="459" width="225" height="15" font="0">Northampton, MA 01063-0001 USA</text>
+<text top="1174" left="459" width="130" height="12" font="5"><a href="mailto:nhorton@smith.edu">nhorton@smith.edu</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 4/1, June 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

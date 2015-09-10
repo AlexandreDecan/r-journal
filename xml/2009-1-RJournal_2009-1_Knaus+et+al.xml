@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#00004c"/>
+	<fontspec id="4" size="12" family="Times" color="#000000"/>
+	<fontspec id="5" size="19" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">54</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="614" height="36" font="2"><b>Easier Parallel Computing in R with</b></text>
+<text top="166" left="82" width="386" height="36" font="2"><b>snowfall and sfCluster</b></text>
+<text top="218" left="82" width="346" height="15" font="0">by Jochen Knaus, Christine Porzelius, Harald Binder and</text>
+<text top="235" left="82" width="104" height="15" font="0">Guido Schwarzer</text>
+<text top="272" left="82" width="346" height="15" font="0">Many statistical analysis tasks in areas such as bioin-</text>
+<text top="290" left="82" width="346" height="15" font="0">formatics are computationally very intensive, while</text>
+<text top="308" left="82" width="346" height="15" font="0">lots of them rely on embarrassingly parallel compu-</text>
+<text top="326" left="82" width="55" height="15" font="0">tations <a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">(</a></text>
+<text top="326" left="137" width="83" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">Grama et al.</a></text>
+<text top="326" left="221" width="4" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">,</a></text>
+<text top="326" left="230" width="30" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">2003</a></text>
+<text top="326" left="260" width="169" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">). </a>Multiple computers or</text>
+<text top="344" left="82" width="346" height="15" font="0">even multiple processor cores on standard desktop</text>
+<text top="362" left="82" width="346" height="15" font="0">computers, which are widespread nowadays, can</text>
+<text top="380" left="82" width="230" height="15" font="0">easily contribute to faster analyses.</text>
+<text top="398" left="105" width="324" height="15" font="0">R itself does not allow parallel execution. There</text>
+<text top="416" left="82" width="346" height="15" font="0">are some existing solutions for R to distribute calcu-</text>
+<text top="434" left="82" width="346" height="15" font="0">lations over many computers — a cluster — for ex-</text>
+<text top="452" left="82" width="346" height="15" font="0">ample <b>Rmpi</b>, <b>rpvm</b>, <b>snow</b>, <b>nws </b>or <b>papply</b>. However</text>
+<text top="470" left="82" width="346" height="15" font="0">these solutions require the user to setup and manage</text>
+<text top="488" left="82" width="346" height="15" font="0">the cluster on his own and therefore deeper knowl-</text>
+<text top="506" left="82" width="346" height="15" font="0">edge about cluster computing itself is needed. From</text>
+<text top="524" left="82" width="346" height="15" font="0">our experience this is a barrier for lots of R users, who</text>
+<text top="542" left="82" width="323" height="15" font="0">basically use it as a tool for statistical computing.</text>
+<text top="560" left="105" width="324" height="15" font="0">Parallel computing has several pitfalls. A single</text>
+<text top="578" left="82" width="346" height="15" font="0">program can easily affect a complete computing in-</text>
+<text top="596" left="82" width="346" height="15" font="0">frastructure on maloperation such as allocating too</text>
+<text top="614" left="82" width="346" height="15" font="0">many CPUs or RAM leaving no resources for other</text>
+<text top="632" left="82" width="346" height="15" font="0">users and their processes, or degrading the perfor-</text>
+<text top="650" left="82" width="346" height="15" font="0">mance of one or more individual machines. Another</text>
+<text top="668" left="82" width="346" height="15" font="0">problem is the difficulty of keeping track of what is</text>
+<text top="686" left="82" width="346" height="15" font="0">going on in the cluster, which is sometimes hard if</text>
+<text top="704" left="82" width="295" height="15" font="0">the program fails for some reason on a slave.</text>
+<text top="722" left="105" width="324" height="15" font="0">We developed the management tool sfCluster</text>
+<text top="740" left="82" width="346" height="15" font="0">and the corresponding R package <b>snowfall</b>, which</text>
+<text top="758" left="82" width="346" height="15" font="0">are designed to make parallel programming easier</text>
+<text top="776" left="82" width="346" height="15" font="0">and more flexible. sfCluster completely hides the</text>
+<text top="794" left="82" width="346" height="15" font="0">setup and handling of clusters from the user and</text>
+<text top="812" left="82" width="346" height="15" font="0">monitors the execution of all parallel programs for</text>
+<text top="830" left="82" width="311" height="15" font="0">problems affecting machines and the cluster.</text>
+<text top="830" left="408" width="21" height="15" font="0">To-</text>
+<text top="848" left="82" width="346" height="15" font="0">gether with <b>snowfall </b>it allows the use of parallel</text>
+<text top="866" left="82" width="346" height="15" font="0">computing in R without further knowledge of clus-</text>
+<text top="884" left="82" width="253" height="15" font="0">ter implementation and configuration.</text>
+<text top="935" left="82" width="86" height="21" font="5"><b>snowfall</b></text>
+<text top="974" left="82" width="346" height="15" font="0">The R package <b>snowfall </b>is built as an extended ab-</text>
+<text top="992" left="82" width="346" height="15" font="0">straction layer above the well established <b>snow </b>pack-</text>
+<text top="1010" left="82" width="346" height="15" font="0">age by L. Tierney, A. J. Rossini, N. Li and H. Sev-</text>
+<text top="1028" left="82" width="52" height="15" font="0">cikova <a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">(</a></text>
+<text top="1028" left="135" width="83" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">Rossini et al.</a></text>
+<text top="1028" left="218" width="4" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">,</a></text>
+<text top="1028" left="225" width="30" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">2007</a></text>
+<text top="1028" left="255" width="174" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">). </a>Note this is not a techni-</text>
+<text top="1046" left="82" width="346" height="15" font="0">cal layer, but an enhancement in useablity. <b>snowfall</b></text>
+<text top="1064" left="82" width="346" height="15" font="0">can use all networking types implemented in <b>snow</b>,</text>
+<text top="1082" left="82" width="328" height="15" font="0">which are socket, MPI, PVM and NetWorkSpaces.</text>
+<text top="1101" left="105" width="324" height="15" font="0">snowfall is also usable on its own (without</text>
+<text top="1119" left="82" width="346" height="15" font="0">sfCluster), which makes it handy on single multicore</text>
+<text top="1137" left="82" width="346" height="15" font="0">machines, for development or for distribution inside</text>
+<text top="1154" left="82" width="64" height="15" font="0">packages.</text>
+<text top="1173" left="105" width="324" height="15" font="0">The design goal was to make parallel computing</text>
+<text top="218" left="459" width="346" height="15" font="0">accessible to R programmers without further general</text>
+<text top="236" left="459" width="346" height="15" font="0">computing knowledge. The Application Program-</text>
+<text top="254" left="459" width="346" height="15" font="0">ming Interface (API) of <b>snowfall </b>is similar to <b>snow</b></text>
+<text top="271" left="459" width="346" height="15" font="0">and indeed <b>snow </b>functions can be called directly. So</text>
+<text top="289" left="459" width="329" height="15" font="0">porting of existing <b>snow </b>programs is very simple.</text>
+<text top="309" left="481" width="280" height="15" font="0">The main <b>snowfall </b>features are as follows:</text>
+<text top="347" left="480" width="326" height="15" font="0">• All cluster functions and <b>snow </b>wrappers in-</text>
+<text top="365" left="496" width="309" height="15" font="0">clude extended error handling with stopping</text>
+<text top="383" left="496" width="309" height="15" font="0">on error, which makes it easier to find improper</text>
+<text top="401" left="496" width="309" height="15" font="0">behaviour for users without deeper knowledge</text>
+<text top="419" left="496" width="71" height="15" font="0">of clusters.</text>
+<text top="454" left="480" width="326" height="15" font="0">• In addition to <b>snow </b>functions, there are several</text>
+<text top="472" left="496" width="309" height="15" font="0">functions for common tasks in parallel comput-</text>
+<text top="490" left="496" width="309" height="15" font="0">ing. For example functions for loading pack-</text>
+<text top="508" left="496" width="309" height="15" font="0">ages and sources in the cluster and exchanging</text>
+<text top="526" left="496" width="309" height="15" font="0">variables between cluster nodes are present, as</text>
+<text top="544" left="496" width="309" height="15" font="0">well as helpers for saving intermediate results</text>
+<text top="561" left="496" width="125" height="15" font="0">during calculation.</text>
+<text top="597" left="480" width="326" height="15" font="0">• Cluster settings can be controlled with com-</text>
+<text top="615" left="496" width="309" height="15" font="0">mand line arguments. Users do not have to</text>
+<text top="633" left="496" width="309" height="15" font="0">change their R scripts to switch between se-</text>
+<text top="651" left="496" width="309" height="15" font="0">quential or parallel execution, or to change the</text>
+<text top="668" left="496" width="268" height="15" font="0">number of cores or type of clusters used.</text>
+<text top="704" left="480" width="326" height="15" font="0">• Connector to sfCluster: Used with sfCluster,</text>
+<text top="722" left="496" width="309" height="15" font="0">configuration does not have to be done on ini-</text>
+<text top="740" left="496" width="309" height="15" font="0">tialisation as all values are taken from the user-</text>
+<text top="758" left="496" width="159" height="15" font="0">given sfCluster settings.</text>
+<text top="793" left="480" width="326" height="15" font="0">• All functions work in sequential execution, too,</text>
+<text top="811" left="496" width="309" height="15" font="0">i.e. without a cluster. This is useful for develop-</text>
+<text top="829" left="496" width="309" height="15" font="0">ment and distribution of packages using <b>snow-</b></text>
+<text top="847" left="496" width="23" height="15" font="4"><b>fall</b></text>
+<text top="847" left="519" width="286" height="15" font="0">. Switching between sequential and parallel</text>
+<text top="865" left="496" width="309" height="15" font="0">execution does not require code changes inside</text>
+<text top="882" left="496" width="309" height="15" font="0">the parallel program (and can be changed on</text>
+<text top="900" left="496" width="91" height="15" font="0">initialisation).</text>
+<text top="939" left="481" width="324" height="15" font="0">Like <b>snow</b>, <b>snowfall </b>basically uses list functions</text>
+<text top="957" left="459" width="346" height="15" font="0">for parallelisation. Calculations are distributed on</text>
+<text top="974" left="459" width="346" height="15" font="0">slaves for different list elements. This is directly ap-</text>
+<text top="992" left="459" width="346" height="15" font="0">plicable to any data parallel problem, for example</text>
+<text top="1010" left="459" width="346" height="15" font="0">bootstrapping or cross-validation can be represented</text>
+<text top="1028" left="459" width="346" height="15" font="0">with this approach (other types of parallelisation can</text>
+<text top="1046" left="459" width="294" height="15" font="0">also be used, but probably with more effort).</text>
+<text top="1065" left="481" width="324" height="15" font="0">Generally, a cluster constitutes single machines,</text>
+<text top="1083" left="459" width="346" height="15" font="0">called nodes, which are chosen out of a set of all ma-</text>
+<text top="1101" left="459" width="346" height="15" font="0">chines usable as nodes, called the universe. The cal-</text>
+<text top="1119" left="459" width="346" height="15" font="0">culation is started on a master node, which spawns</text>
+<text top="1137" left="459" width="346" height="15" font="0">worker R processes (sometimes also called slaves).</text>
+<text top="1155" left="459" width="346" height="15" font="0">A CPU is a single calculation unit of which modern</text>
+<text top="1173" left="459" width="241" height="15" font="0">computers may have more than one.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="6" size="11" family="Times" color="#000000"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+	<fontspec id="8" size="9" family="Times" color="#00004c"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="9" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">55</text>
+<text top="126" left="91" width="117" height="10" font="6">library(snowfall)</text>
+<text top="142" left="91" width="219" height="10" font="6"># 1. Initialisation of snowfall.</text>
+<text top="159" left="91" width="316" height="10" font="6"># (if used with sfCluster, just call sfInit())</text>
+<text top="175" left="91" width="288" height="10" font="6">sfInit(parallel=TRUE, cpus=4, type=&#34;SOCK&#34;)</text>
+<text top="208" left="91" width="123" height="10" font="6"># 2. Loading data.</text>
+<text top="225" left="91" width="89" height="10" font="6">require(mvna)</text>
+<text top="241" left="91" width="89" height="10" font="6">data(sir.adm)</text>
+<text top="274" left="91" width="274" height="10" font="6"># 3. Wrapper, which can be parallelised.</text>
+<text top="290" left="91" width="178" height="10" font="6">wrapper &lt;- function(idx) {</text>
+<text top="307" left="105" width="240" height="10" font="6"># Output progress in worker logfile</text>
+<text top="323" left="105" width="240" height="10" font="6">cat( &#34;Current index: &#34;, idx, &#34;\n&#34; )</text>
+<text top="340" left="105" width="316" height="10" font="6">index &lt;- sample(1:nrow(sir.adm), replace=TRUE)</text>
+<text top="356" left="105" width="165" height="10" font="6">temp &lt;- sir.adm[index, ]</text>
+<text top="373" left="105" width="309" height="10" font="6">fit &lt;- crr(temp$time, temp$status, temp$pneu)</text>
+<text top="389" left="105" width="110" height="10" font="6">return(fit$coef)</text>
+<text top="406" left="91" width="7" height="10" font="6">}</text>
+<text top="438" left="91" width="322" height="10" font="6"># 4. Exporting needed data and loading required</text>
+<text top="455" left="91" width="7" height="10" font="6">#</text>
+<text top="455" left="125" width="137" height="10" font="6">packages on workers.</text>
+<text top="471" left="91" width="130" height="10" font="6">sfExport(&#34;sir.adm&#34;)</text>
+<text top="488" left="91" width="117" height="10" font="6">sfLibrary(cmprsk)</text>
+<text top="521" left="91" width="288" height="10" font="6"># 5. Start network random number generator</text>
+<text top="537" left="91" width="7" height="10" font="6">#</text>
+<text top="537" left="125" width="261" height="10" font="6">(as &#34;sample&#34; is using random numbers).</text>
+<text top="553" left="91" width="130" height="10" font="6">sfClusterSetupRNG()</text>
+<text top="586" left="91" width="185" height="10" font="6"># 6. Distribute calculation</text>
+<text top="603" left="91" width="240" height="10" font="6">result &lt;- sfLapply(1:1000, wrapper)</text>
+<text top="636" left="91" width="219" height="10" font="6"># Result is always in list form.</text>
+<text top="652" left="91" width="137" height="10" font="6">mean(unlist(result))</text>
+<text top="685" left="91" width="123" height="10" font="6"># 7. Stop snowfall</text>
+<text top="701" left="91" width="55" height="10" font="6">sfStop()</text>
+<text top="747" left="108" width="296" height="15" font="0">Figure 1: Example bootstrap using snowfall.</text>
+<text top="782" left="105" width="324" height="15" font="0">For most basic programs, the parallelisation fol-</text>
+<text top="800" left="82" width="288" height="15" font="0">lows the workflow of the example in Figure</text>
+<text top="800" left="375" width="7" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">1</a></text>
+<text top="800" left="382" width="4" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">.</a></text>
+<text top="833" left="101" width="328" height="15" font="0">1. Initialisation. Call sfInit with parameters if</text>
+<text top="851" left="120" width="309" height="15" font="0">not using sfCluster or without parameters if</text>
+<text top="869" left="120" width="309" height="15" font="0">used with sfCluster. Parameters are used to</text>
+<text top="887" left="120" width="309" height="15" font="0">switch between parallel or sequential execution</text>
+<text top="905" left="120" width="309" height="15" font="0">(argument parallel, default FALSE) and the</text>
+<text top="923" left="120" width="309" height="15" font="0">number of CPUs wanted (argument cpus with</text>
+<text top="941" left="120" width="309" height="15" font="0">numerical value, in sequential mode always ‘1’,</text>
+<text top="959" left="120" width="309" height="15" font="0">in parallel mode the default is ‘2’). Used with</text>
+<text top="977" left="120" width="309" height="15" font="0">sfCluster, these parameters are taken from the</text>
+<text top="995" left="120" width="118" height="15" font="0">sfCluster settings.</text>
+<text top="1025" left="101" width="328" height="15" font="0">2. Load the data and prepare the data needed in</text>
+<text top="1043" left="120" width="309" height="15" font="0">the parallel calculations (for example generat-</text>
+<text top="1061" left="120" width="213" height="15" font="0">ing data for a simulation study).</text>
+<text top="1092" left="101" width="328" height="15" font="0">3. Wrap parallel code into a wrapper function</text>
+<text top="125" left="496" width="309" height="15" font="0">(function wrapper in the example), callable by</text>
+<text top="143" left="496" width="116" height="15" font="0">an R list function.</text>
+<text top="171" left="478" width="328" height="15" font="0">4. Export objects needed in the parallel calcu-</text>
+<text top="189" left="496" width="266" height="15" font="0">lation (e.g., sir.adm) to cluster nodes.</text>
+<text top="189" left="777" width="28" height="15" font="0">It is</text>
+<text top="207" left="496" width="309" height="15" font="0">also necessary to load required packages on all</text>
+<text top="225" left="496" width="309" height="15" font="0">workers. Exporting objects can reduce the total</text>
+<text top="243" left="496" width="309" height="15" font="0">amount of data transmitted. If there are only a</text>
+<text top="261" left="496" width="309" height="15" font="0">few objects needed in the parallel function, you</text>
+<text top="279" left="496" width="309" height="15" font="0">can export them implicitly using additional ar-</text>
+<text top="297" left="496" width="309" height="15" font="0">guments in the wrapper function and specify-</text>
+<text top="315" left="496" width="287" height="15" font="0">ing them in the parallel call (e.g. sfLapply).</text>
+<text top="343" left="478" width="328" height="15" font="0">5. Optional step: start a network random num-</text>
+<text top="361" left="496" width="309" height="15" font="0">ber generator. Such random number genera-</text>
+<text top="379" left="496" width="309" height="15" font="0">tors ensure that nodes produce independent se-</text>
+<text top="397" left="496" width="309" height="15" font="0">quences of random numbers. The sequences,</text>
+<text top="415" left="496" width="309" height="15" font="0">and hence results relying on random numbers,</text>
+<text top="433" left="496" width="309" height="15" font="0">are reproducible provided that the same num-</text>
+<text top="451" left="496" width="309" height="15" font="0">ber of workers process the same sequence of</text>
+<text top="468" left="496" width="37" height="15" font="0">tasks.</text>
+<text top="497" left="478" width="328" height="15" font="0">6. Distribute the calculation to the cluster by us-</text>
+<text top="515" left="496" width="309" height="15" font="0">ing a parallel list function (sfLapply in the</text>
+<text top="533" left="496" width="65" height="15" font="0">example).</text>
+<text top="533" left="578" width="228" height="15" font="0">This function distributes calls of</text>
+<text top="552" left="496" width="53" height="12" font="0">wrapper</text>
+<text top="550" left="555" width="250" height="15" font="0">to workers (which usually means in-</text>
+<text top="568" left="496" width="309" height="15" font="0">dex 1 to index n is called on CPU 1 to CPU n</text>
+<text top="586" left="496" width="309" height="15" font="0">respectively. These calls are then executed in</text>
+<text top="604" left="496" width="309" height="15" font="0">parallel. If the list is longer than the amount</text>
+<text top="622" left="496" width="118" height="15" font="0">of CPUs, index n</text>
+<text top="622" left="619" width="12" height="14" font="7">+</text>
+<text top="622" left="635" width="171" height="15" font="0">1 is scheduled on CPU 1</text>
+<text top="640" left="496" width="36" height="15" font="0">again</text>
+<text top="637" left="537" width="6" height="11" font="8"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">1</a></text>
+<text top="640" left="544" width="262" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">). </a>That also means all used data inside</text>
+<text top="658" left="496" width="309" height="15" font="0">the wrapper function must be exported first, to</text>
+<text top="676" left="496" width="299" height="15" font="0">have them existing on any node (see point 2).</text>
+<text top="704" left="478" width="328" height="15" font="0">7. Stop cluster via sfStop() (If used with</text>
+<text top="722" left="496" width="309" height="15" font="0">sfCluster this is not stopping the cluster itself,</text>
+<text top="740" left="496" width="261" height="15" font="0">but allows reinitialisation with sfInit).</text>
+<text top="769" left="481" width="324" height="15" font="0">Probably the most irritating thing in the example</text>
+<text top="787" left="459" width="346" height="15" font="0">is the export of the data frame. On the provided type</text>
+<text top="805" left="459" width="346" height="15" font="0">of cluster computing, the source program runs only</text>
+<text top="823" left="459" width="346" height="15" font="0">on the master first of all. Local variables and objects</text>
+<text top="841" left="459" width="346" height="15" font="0">remain on the master, so workers do not automati-</text>
+<text top="859" left="459" width="346" height="15" font="0">cally have access to them. All data, functions and</text>
+<text top="876" left="459" width="346" height="15" font="0">packages needed for the parallel calculation have to</text>
+<text top="894" left="459" width="346" height="15" font="0">be transfered to the workers’ processes first. Export</text>
+<text top="912" left="459" width="346" height="15" font="0">means objects are instantiated on the slaves. Unlike</text>
+<text top="930" left="459" width="37" height="15" font="4"><b>snow</b></text>
+<text top="930" left="495" width="310" height="15" font="0">’s export function, local variables can be ex-</text>
+<text top="948" left="459" width="346" height="15" font="0">ported, too. As a further addition, all variables can</text>
+<text top="966" left="459" width="340" height="15" font="0">be exported or removed from the worker pr<a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">ocesses.</a></text>
+<text top="963" left="799" width="6" height="11" font="8"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#2">2</a></text>
+<text top="984" left="481" width="324" height="15" font="0">Basic networking parameters (like execution</text>
+<text top="1002" left="459" width="346" height="15" font="0">mode and the number of CPUs on each machine)</text>
+<text top="1020" left="459" width="346" height="15" font="0">can be set on the command line, as seen in Fig-</text>
+<text top="1038" left="459" width="22" height="15" font="0">ure</text>
+<text top="1038" left="486" width="7" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#3">2</a></text>
+<text top="1038" left="494" width="312" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#3">. </a>Arguments provided in sfInit() will over-</text>
+<text top="1056" left="459" width="242" height="15" font="0">ride the command line arguments.</text>
+<text top="1056" left="716" width="89" height="15" font="0">For example,</text>
+<text top="1074" left="459" width="346" height="15" font="0">a script that always uses MPI clusters might in-</text>
+<text top="1092" left="459" width="346" height="15" font="0">clude sfInit(type=&#34;MPI&#34;). This mechanism can be</text>
+<text top="1116" left="99" width="4" height="9" font="9">1</text>
+<text top="1118" left="104" width="701" height="12" font="1">If calls to the wrapper function take different times, as with search problems, or you have computers with different speeds, most likely</text>
+<text top="1132" left="82" width="723" height="12" font="1">you will want to use a load balanced version, like sfClusterApplyLB, which dynamically re-schedules calls of wrapper to CPUs which</text>
+<text top="1146" left="82" width="170" height="12" font="1">have finished their previous job.</text>
+<text top="1159" left="99" width="4" height="9" font="9">2</text>
+<text top="1161" left="104" width="701" height="12" font="1">There are more elaborate ways to integrate data transfer, e.g. NetWorkSpaces, but from our experience, <b>snowfall</b>’s exporting functions</text>
+<text top="1175" left="82" width="193" height="12" font="1">are enough for most common needs.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">56</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="126" left="183" width="412" height="10" font="6"># Start a socket cluster on local machine using 3 processors</text>
+<text top="142" left="183" width="336" height="10" font="6">R CMD BATCH myParPrg.R --args --parallel --cpus=3</text>
+<text top="175" left="183" width="521" height="10" font="6"># Start a socket cluster with 5 cores (3 on localhost, 2 on machine &#34;other&#34;)</text>
+<text top="192" left="183" width="412" height="10" font="6">R --args --parallel --hosts=localhost:3,other:2 &lt; myParPrg.R</text>
+<text top="225" left="183" width="370" height="10" font="6"># Start using MPI with 5 cores on R interactive shell.</text>
+<text top="241" left="183" width="268" height="10" font="6">R --args --parallel --type=MPI --cpus=5</text>
+<text top="287" left="207" width="474" height="15" font="0">Figure 2: Examples for snowfall configuration using the command line.</text>
+<text top="336" left="82" width="346" height="15" font="0">used in R scripts using <b>snowfall</b>, as a connector to</text>
+<text top="354" left="82" width="346" height="15" font="0">sfCluster, or as a binding to other workload and man-</text>
+<text top="372" left="82" width="96" height="15" font="0">agement tools.</text>
+<text top="390" left="105" width="324" height="15" font="0">In all current parallel computing solutions inter-</text>
+<text top="407" left="82" width="346" height="15" font="0">mediate results are lost if the cluster dies, perhaps</text>
+<text top="425" left="82" width="346" height="15" font="0">due to a shutdown or crash of one of the used ma-</text>
+<text top="443" left="82" width="346" height="15" font="0">chines. <b>snowfall </b>offers a function which saves all</text>
+<text top="461" left="82" width="346" height="15" font="0">available parts of results to disc and reloads them on</text>
+<text top="479" left="82" width="346" height="15" font="0">a restored run. Indeed it does not save each finished</text>
+<text top="497" left="82" width="346" height="15" font="0">part, but any number of CPUs parts (for example:</text>
+<text top="515" left="82" width="346" height="15" font="0">Working on a list with 100 segments on a 5 CPU clus-</text>
+<text top="533" left="82" width="346" height="15" font="0">ter, 20 result steps are saved). This function cannot</text>
+<text top="551" left="82" width="346" height="15" font="0">prevent a loss of results, but can greatly save time on</text>
+<text top="569" left="82" width="346" height="15" font="0">long running clusters. As a side effect this can also</text>
+<text top="587" left="82" width="346" height="15" font="0">be used to realise a kind of “dynamic” resource allo-</text>
+<text top="605" left="82" width="346" height="15" font="0">cation: just stop and restart with restoring results on</text>
+<text top="623" left="82" width="169" height="15" font="0">a differently sized cluster.</text>
+<text top="641" left="105" width="324" height="15" font="0">Note that the state of the RNG is not saved in</text>
+<text top="658" left="82" width="346" height="15" font="0">the current version of <b>snowfall</b>. Users wishing to</text>
+<text top="676" left="82" width="346" height="15" font="0">use random numbers need to implement customized</text>
+<text top="694" left="82" width="346" height="15" font="0">save and restore functions, or use pre-calculated ran-</text>
+<text top="712" left="82" width="97" height="15" font="0">dom numbers.</text>
+<text top="758" left="82" width="90" height="21" font="5"><b>sfCluster</b></text>
+<text top="796" left="82" width="346" height="15" font="0">sfCluster is a Unix commandline tool which is built</text>
+<text top="814" left="82" width="346" height="15" font="0">to handle cluster setup, monitoring and shutdown</text>
+<text top="832" left="82" width="346" height="15" font="0">automatically and therefore hides these tasks from</text>
+<text top="850" left="82" width="346" height="15" font="0">the user. This is done as safely as possible enabling</text>
+<text top="868" left="82" width="346" height="15" font="0">cluster computing even for inexperienced users. Us-</text>
+<text top="886" left="82" width="346" height="15" font="0">ing <b>snowfall </b>as the R frontend, users can change re-</text>
+<text top="904" left="82" width="346" height="15" font="0">source settings without changing their R program.</text>
+<text top="922" left="82" width="346" height="15" font="0">sfCluster is written in Perl, using only Open Source</text>
+<text top="940" left="82" width="36" height="15" font="0">tools.</text>
+<text top="958" left="105" width="324" height="15" font="0">On the backend, sfCluster is currently built upon</text>
+<text top="976" left="82" width="264" height="15" font="0">MPI, using the LAM implementation <a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">(</a></text>
+<text top="976" left="347" width="78" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">Burns et al.</a></text>
+<text top="976" left="425" width="4" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">,</a></text>
+<text top="994" left="82" width="30" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">1994</a></text>
+<text top="994" left="112" width="317" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">), </a>which is available on most common Unix dis-</text>
+<text top="1012" left="82" width="69" height="15" font="0">tributions.</text>
+<text top="1030" left="105" width="324" height="15" font="0">Basically, a cluster is defined by two resources:</text>
+<text top="1048" left="82" width="346" height="15" font="0">CPU and memory. The monitoring of memory usage</text>
+<text top="1065" left="82" width="346" height="15" font="0">is very important, as a machine is practically unus-</text>
+<text top="1083" left="82" width="346" height="15" font="0">able for high performance purposes if it is running</text>
+<text top="1101" left="82" width="346" height="15" font="0">out of physical memory and starts to swap memory</text>
+<text top="1119" left="82" width="346" height="15" font="0">on the hard disk. sfCluster is able to probe memory</text>
+<text top="1137" left="82" width="346" height="15" font="0">usage of a program automatically (by running it in</text>
+<text top="1155" left="82" width="346" height="15" font="0">sequential mode for a certain time) or to set the up-</text>
+<text top="1173" left="82" width="215" height="15" font="0">per bound to a user-given value.</text>
+<text top="336" left="481" width="324" height="15" font="0">The resource allocation can be widely configured:</text>
+<text top="354" left="459" width="346" height="15" font="0">Even partial usage of a specific machine is possible</text>
+<text top="372" left="459" width="346" height="15" font="0">(for example on a machine with 4 CPUs, which is</text>
+<text top="390" left="459" width="346" height="15" font="0">used for other purposes as well, it is possible to allow</text>
+<text top="407" left="459" width="346" height="15" font="0">only e.g. 2 cores for usage in clusters and sfCluster</text>
+<text top="425" left="459" width="346" height="15" font="0">ensures that no more than 2 CPUs are used by par-</text>
+<text top="443" left="459" width="346" height="15" font="0">allel computing on this machine). The restriction of</text>
+<text top="461" left="459" width="346" height="15" font="0">usage can leave calculation resources for other tasks,</text>
+<text top="479" left="459" width="346" height="15" font="0">e.g. if a computer is used for other calculations or</text>
+<text top="497" left="459" width="346" height="15" font="0">perhaps a computing pool for students is used for</text>
+<text top="515" left="459" width="346" height="15" font="0">cluster programs, leaving enough CPU power for the</text>
+<text top="533" left="459" width="161" height="15" font="0">users of those machines.</text>
+<text top="553" left="481" width="324" height="15" font="0">sfCluster checks the cluster universe to find ma-</text>
+<text top="571" left="459" width="346" height="15" font="0">chines with free resources to start the program (with</text>
+<text top="589" left="459" width="346" height="15" font="0">the desired amount of resources — or less, if the</text>
+<text top="607" left="459" width="346" height="15" font="0">requested resources are not available). These ma-</text>
+<text top="625" left="459" width="346" height="15" font="0">chines, or better, parts of these machines, are built</text>
+<text top="643" left="459" width="346" height="15" font="0">into a new cluster, which belongs to the new pro-</text>
+<text top="661" left="459" width="346" height="15" font="0">gram. This is done via LAM sessions, so each pro-</text>
+<text top="679" left="459" width="290" height="15" font="0">gram has its own independent LAM cluster.</text>
+<text top="699" left="481" width="324" height="15" font="0">Optionally sfCluster can keep track of resource</text>
+<text top="717" left="459" width="346" height="15" font="0">usage during runtime and can stop cluster programs</text>
+<text top="735" left="459" width="346" height="15" font="0">if they exceed their given memory usage, machines</text>
+<text top="753" left="459" width="346" height="15" font="0">start to swap, or similar events. On any run, all</text>
+<text top="771" left="459" width="346" height="15" font="0">spawned R worker processes are detected and on</text>
+<text top="789" left="459" width="346" height="15" font="0">shut down it is ensured that all of them are killed,</text>
+<text top="807" left="459" width="346" height="15" font="0">even if LAM itself is not closed/shut down correctly.</text>
+<text top="827" left="481" width="324" height="15" font="0">The complete workflow of sfCluster is shown in</text>
+<text top="845" left="459" width="43" height="15" font="0">Figure</text>
+<text top="845" left="505" width="7" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#4">3</a></text>
+<text top="845" left="513" width="4" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#4">.</a></text>
+<text top="866" left="481" width="324" height="15" font="0">An additional mechanism for resource adminis-</text>
+<text top="884" left="459" width="346" height="15" font="0">tration is offered through user groups, which divide</text>
+<text top="902" left="459" width="346" height="15" font="0">the cluster universe into “subuniverses”. This can</text>
+<text top="920" left="459" width="346" height="15" font="0">be used to preserve specific machines for specific</text>
+<text top="937" left="459" width="346" height="15" font="0">users. For example, users can be divided in two</text>
+<text top="955" left="459" width="346" height="15" font="0">groups, one able to use the whole universe, the other</text>
+<text top="973" left="459" width="346" height="15" font="0">only specific machines or a subset of the universe.</text>
+<text top="991" left="459" width="346" height="15" font="0">This feature was introduced, because we intercon-</text>
+<text top="1009" left="459" width="346" height="15" font="0">nect the machine pools from two institutes to one</text>
+<text top="1027" left="459" width="346" height="15" font="0">universe, where some scientists can use all machines,</text>
+<text top="1045" left="459" width="320" height="15" font="0">and some only the machines from their institute.</text>
+<text top="1065" left="481" width="324" height="15" font="0">sfCluster features three main parallel execution</text>
+<text top="1083" left="459" width="346" height="15" font="0">modes. All of these setup and start a cluster for the</text>
+<text top="1101" left="459" width="346" height="15" font="0">program as described, run R and once the program</text>
+<text top="1119" left="459" width="346" height="15" font="0">has finished, shutdown the cluster. The batch- and</text>
+<text top="1137" left="459" width="346" height="15" font="0">monitoring mode shuts down the cluster on inter-</text>
+<text top="1155" left="459" width="346" height="15" font="0">ruption from the user (using keys Ctrl-C on most</text>
+<text top="1173" left="459" width="97" height="15" font="0">Unix systems).</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">57</text>
+<text top="441" left="339" width="211" height="15" font="0">Figure 3: Workflow of sfCluster.</text>
+<text top="490" left="101" width="328" height="15" font="0">1. Parallel batchmode: Parallel counterpart to R</text>
+<text top="509" left="120" width="69" height="12" font="0">CMD BATCH</text>
+<text top="508" left="188" width="241" height="15" font="0">. Called using sfCluster -b or by</text>
+<text top="526" left="120" width="229" height="15" font="0">the optionally installed R CMD par.</text>
+<text top="566" left="101" width="328" height="15" font="0">2. Interactive R shell (sfCluster -i or R CMD</text>
+<text top="585" left="120" width="46" height="12" font="0">parint</text>
+<text top="584" left="166" width="9" height="15" font="0">).</text>
+<text top="625" left="101" width="328" height="15" font="0">3. Monitoring mode (sfCluster -m or R CMD</text>
+<text top="644" left="120" width="46" height="12" font="0">parmon</text>
+<text top="643" left="166" width="263" height="15" font="0">): Behaves similarly to batchmode, but</text>
+<text top="661" left="120" width="309" height="15" font="0">features a process monitor for workers, ac-</text>
+<text top="678" left="120" width="309" height="15" font="0">cess to worker logfiles, system output and de-</text>
+<text top="696" left="120" width="309" height="15" font="0">bugging and runtime messages. The visuali-</text>
+<text top="714" left="120" width="309" height="15" font="0">sation in the terminal is done using Ncurses.</text>
+<text top="732" left="120" width="233" height="15" font="0">For an example output see Figure</text>
+<text top="732" left="359" width="7" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">4</a></text>
+<text top="732" left="367" width="62" height="15" font="0"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#5">: </a>A clus-</text>
+<text top="750" left="120" width="309" height="15" font="0">ter with 9 worker processes (marked SL) and</text>
+<text top="768" left="120" width="309" height="15" font="0">one master process (marked MA) are running</text>
+<text top="786" left="120" width="123" height="15" font="0">on five machines.</text>
+<text top="786" left="259" width="169" height="15" font="0">Each machine has a tab</text>
+<text top="804" left="120" width="309" height="15" font="0">with logfiles marked by the name of the node,</text>
+<text top="822" left="120" width="309" height="15" font="0">e.g. knecht4. For each process, it’s process</text>
+<text top="840" left="120" width="309" height="15" font="0">identification number (PID), the node it is run-</text>
+<text top="858" left="120" width="309" height="15" font="0">ning on, its memory usage and state (like run-</text>
+<text top="876" left="120" width="309" height="15" font="0">ning, sleeping, dead etc.) is shown at the top.</text>
+<text top="894" left="120" width="309" height="15" font="0">The System tab contains system messages from</text>
+<text top="912" left="120" width="309" height="15" font="0">sfCluster; the R output on the master is shown</text>
+<text top="930" left="120" width="106" height="15" font="0">in tab R-Master.</text>
+<text top="973" left="105" width="324" height="15" font="0">Besides the parallel execution modes, the sequen-</text>
+<text top="991" left="82" width="346" height="15" font="0">tial mode can be chosen, which works in all cases,</text>
+<text top="1009" left="82" width="346" height="15" font="0">even without an installed or running cluster environ-</text>
+<text top="1027" left="82" width="346" height="15" font="0">ment, i.e. also on Windows systems or as part of a</text>
+<text top="1045" left="82" width="346" height="15" font="0">package build on <b>snowfall</b>. On execution in sequen-</text>
+<text top="1063" left="82" width="346" height="15" font="0">tial mode, <b>snowfall </b>is forced to run in non-parallel</text>
+<text top="1081" left="82" width="41" height="15" font="0">mode.</text>
+<text top="1101" left="105" width="324" height="15" font="0">Besides choosing the amount of required CPUs,</text>
+<text top="1119" left="82" width="346" height="15" font="0">users can specify several options on starting</text>
+<text top="1137" left="82" width="346" height="15" font="0">sfCluster. These contain for example the R version,</text>
+<text top="1155" left="82" width="346" height="15" font="0">the nice level of the slaves, activating the sending of</text>
+<text top="1173" left="82" width="294" height="15" font="0">emails after finish or failure and many more.</text>
+<text top="486" left="459" width="152" height="21" font="5"><b>Administration</b></text>
+<text top="543" left="459" width="346" height="15" font="0">sfCluster includes features to get information about</text>
+<text top="561" left="459" width="346" height="15" font="0">current running clusters and free resources on the</text>
+<text top="579" left="459" width="184" height="15" font="0">cluster universe (see Figure</text>
+<text top="579" left="648" width="7" height="15" font="3"><a href="2009-1-RJournal_2009-1_Knaus+et+al.html#6">5</a></text>
+<text top="579" left="660" width="146" height="15" font="0">for an example). This</text>
+<text top="597" left="459" width="346" height="15" font="0">can help users to get an overview of what is cur-</text>
+<text top="615" left="459" width="346" height="15" font="0">rently happening on the cluster machines and of the</text>
+<text top="633" left="459" width="346" height="15" font="0">resources available for starting their own programs.</text>
+<text top="651" left="459" width="346" height="15" font="0">Also detailed information about clusters, with all</text>
+<text top="668" left="459" width="346" height="15" font="0">process PIDs, memory use and runtime of single pro-</text>
+<text top="686" left="459" width="346" height="15" font="0">cesses can be printed, which is useful for administra-</text>
+<text top="704" left="459" width="346" height="15" font="0">tors to determine which R process belongs to which</text>
+<text top="722" left="459" width="47" height="15" font="0">cluster.</text>
+<text top="750" left="481" width="324" height="15" font="0">All these administration options are directly us-</text>
+<text top="768" left="459" width="346" height="15" font="0">able by (administrative) root account, as well, so ad-</text>
+<text top="786" left="459" width="346" height="15" font="0">ministrators can safely kill clusters without wiping</text>
+<text top="804" left="459" width="239" height="15" font="0">out all the slave processes manually.</text>
+<text top="831" left="481" width="324" height="15" font="0">The configuration of sfCluster itself is done via</text>
+<text top="849" left="459" width="346" height="15" font="0">common Unix-style configuration files. Configura-</text>
+<text top="867" left="459" width="346" height="15" font="0">tion includes system variables (like definition of trig-</text>
+<text top="885" left="459" width="346" height="15" font="0">gers for stopping events on observation), the user</text>
+<text top="903" left="459" width="346" height="15" font="0">groups, R versions and of course the cluster universe</text>
+<text top="921" left="459" width="135" height="15" font="0">with resource limits.</text>
+<text top="948" left="481" width="324" height="15" font="0">The installation is available through tar.gz or as a</text>
+<text top="966" left="459" width="346" height="15" font="0">Debian package; both are instantly usable for a sin-</text>
+<text top="984" left="459" width="346" height="15" font="0">gle (probably multicore) machine and only need to</text>
+<text top="1002" left="459" width="346" height="15" font="0">be configured for “real” clusters. In normal cases the</text>
+<text top="1020" left="459" width="346" height="15" font="0">default installation should work out of the box. It</text>
+<text top="1038" left="459" width="346" height="15" font="0">needs some minor tweaking if R is not installed in the</text>
+<text top="1056" left="459" width="346" height="15" font="0">default way, e.g. if multiple R installations are avail-</text>
+<text top="1074" left="459" width="346" height="15" font="0">able on the machines. All needed CRAN and CPAN</text>
+<text top="1092" left="459" width="328" height="15" font="0">packages are also installable through the installer.</text>
+<text top="1119" left="481" width="324" height="15" font="0">Future additions will be a port to OpenMPI, inte-</text>
+<text top="1137" left="459" width="346" height="15" font="0">gration to common batch and resource management</text>
+<text top="1155" left="459" width="346" height="15" font="0">systems (e.g. the Sun Grid Engine or slurp) and basic</text>
+<text top="1173" left="459" width="210" height="15" font="0">reports about cluster behaviour.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="11" family="Times" color="#00004c"/>
+<text top="67" left="82" width="15" height="15" font="0">58</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="532" left="223" width="441" height="15" font="0">Figure 4: Monitoring mode (9 slaves on five machines and master).</text>
+<text top="577" left="82" width="96" height="21" font="5"><b>Summary</b></text>
+<text top="615" left="82" width="346" height="15" font="0">Although many well-working solutions for parallel</text>
+<text top="633" left="82" width="346" height="15" font="0">computing in R are available, they have their down-</text>
+<text top="651" left="82" width="346" height="15" font="0">sides on forcing the user to manage the underly-</text>
+<text top="669" left="82" width="346" height="15" font="0">ing clusters manually. sfCluster/<b>snowfall </b>solves this</text>
+<text top="687" left="82" width="346" height="15" font="0">problem in a very flexible and comfortable way, en-</text>
+<text top="705" left="82" width="346" height="15" font="0">abling even inexperienced computer users to ben-</text>
+<text top="723" left="82" width="346" height="15" font="0">efit from parallel programming (without having to</text>
+<text top="741" left="82" width="346" height="15" font="0">learn cluster management, usage and falling into pit-</text>
+<text top="759" left="82" width="346" height="15" font="0">falls affecting other people’s processes). <b>snowfall</b></text>
+<text top="777" left="82" width="346" height="15" font="0">makes sure the resulting R programs are runable ev-</text>
+<text top="795" left="82" width="219" height="15" font="0">erywhere, even without a cluster.</text>
+<text top="813" left="105" width="324" height="15" font="0">The combination <b>snowfall</b>/sfCluster has been</text>
+<text top="831" left="82" width="346" height="15" font="0">used daily in our institute for several months and</text>
+<text top="849" left="82" width="346" height="15" font="0">has evolved with user’s demands and wishes. There</text>
+<text top="866" left="82" width="346" height="15" font="0">are packages that have been built integrating <b>snow-</b></text>
+<text top="884" left="82" width="23" height="15" font="4"><b>fall</b></text>
+<text top="884" left="109" width="320" height="15" font="0">with optionally usable parallelisation techniques</text>
+<text top="902" left="82" width="169" height="15" font="0">(e.g. the package <b>peperr</b>).</text>
+<text top="941" left="105" width="324" height="15" font="0">The software and further information are avail-</text>
+<text top="958" left="82" width="43" height="15" font="0">able at</text>
+<text top="960" left="130" width="275" height="10" font="11"><a href="http://www.imbi.uni-freiburg.de/parallel">http://www.imbi.uni-freiburg.de/parallel</a></text>
+<text top="959" left="405" width="3" height="13" font="6"><a href="http://www.imbi.uni-freiburg.de/parallel">.</a></text>
+<text top="1022" left="82" width="185" height="21" font="5"><b>Acknowledgments</b></text>
+<text top="1058" left="82" width="346" height="13" font="6">This research was supported by the Deutsche Forschungs-</text>
+<text top="1075" left="82" width="79" height="13" font="6">gemeinschaft</text>
+<text top="1075" left="177" width="53" height="13" font="6">(German</text>
+<text top="1075" left="245" width="53" height="13" font="6">Research</text>
+<text top="1075" left="313" width="74" height="13" font="6">Foundation)</text>
+<text top="1075" left="402" width="27" height="13" font="6">with</text>
+<text top="582" left="459" width="54" height="13" font="6">FOR 534.</text>
+<text top="602" left="481" width="324" height="13" font="6">Thanks to Arthur Allignol for his little bootstrapping</text>
+<text top="618" left="459" width="54" height="13" font="6">example.</text>
+<text top="676" left="459" width="130" height="21" font="5"><b>Bibliography</b></text>
+<text top="715" left="459" width="346" height="13" font="6">A. Grama, G. Karypis, V. Kumar, A. Gupta. Introduction</text>
+<text top="732" left="474" width="332" height="14" font="6">to Parallel Computing. Pearson Eduction, second edition,</text>
+<text top="748" left="474" width="30" height="13" font="6">2003.</text>
+<text top="788" left="459" width="64" height="13" font="6">G. Burns,</text>
+<text top="788" left="537" width="68" height="13" font="6">R. Daoud,</text>
+<text top="788" left="620" width="88" height="13" font="6">and J. Vaigl.</text>
+<text top="788" left="740" width="65" height="13" font="6">LAM: An</text>
+<text top="805" left="474" width="232" height="13" font="6">Open Cluster Environment for MPI.</text>
+<text top="805" left="726" width="80" height="13" font="6">Technical re-</text>
+<text top="821" left="474" width="63" height="13" font="6">port, 1994.</text>
+<text top="822" left="544" width="261" height="10" font="11"><a href="http://www.lam-mpi.org/download/files/lam-papers.tar.gz">http://www.lam-mpi.org/download/files/</a></text>
+<text top="839" left="474" width="117" height="10" font="11"><a href="http://www.lam-mpi.org/download/files/lam-papers.tar.gz">lam-papers.tar.gz</a></text>
+<text top="837" left="591" width="3" height="13" font="6"><a href="http://www.lam-mpi.org/download/files/lam-papers.tar.gz">.</a></text>
+<text top="877" left="459" width="346" height="13" font="6">A. Rossini, L. Tierney, and N. Li. Simple parallel statistical</text>
+<text top="894" left="474" width="332" height="13" font="6">computing in R. Journal of Computational and Graphical</text>
+<text top="910" left="474" width="174" height="14" font="6">Statistics, 16(2):399–420, 2007.</text>
+<text top="993" left="459" width="346" height="13" font="6">Jochen Knaus, Christine Porzelius, Harald Binder and Guido</text>
+<text top="1009" left="459" width="57" height="13" font="6">Schwarzer</text>
+<text top="1025" left="459" width="256" height="13" font="6">Department of Medical Biometry and Statistics</text>
+<text top="1042" left="459" width="122" height="13" font="6">University of Freiburg</text>
+<text top="1058" left="459" width="51" height="13" font="6">Germany</text>
+<text top="1076" left="459" width="158" height="10" font="11"><a href="mailto:jo@imbi.uni-freiburg.de">jo@imbi.uni-freiburg.de</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">59</text>
+<text top="342" left="108" width="165" height="10" font="6">jo@biom9:~$ sfCluster -o</text>
+<text top="358" left="108" width="48" height="10" font="6">SESSION</text>
+<text top="358" left="224" width="62" height="10" font="6">| STATE |</text>
+<text top="358" left="300" width="69" height="10" font="6">M | MASTER</text>
+<text top="358" left="416" width="14" height="10" font="6">#N</text>
+<text top="358" left="451" width="151" height="10" font="6">RUNTIME R-FILE / R-OUT</text>
+<text top="375" left="108" width="562" height="10" font="6">-----------------+-------+----+---------------------------------------------------</text>
+<text top="391" left="108" width="151" height="10" font="6">LrtpdV7T_R-2.8.1 | run</text>
+<text top="391" left="279" width="117" height="10" font="6">| MO | biom9.imbi</text>
+<text top="391" left="423" width="7" height="10" font="6">9</text>
+<text top="391" left="451" width="288" height="10" font="6">2:46:51 coxBst081223.R / coxBst081223.Rout</text>
+<text top="407" left="108" width="151" height="10" font="6">baYwQ0GB_R-2.5.1 | run</text>
+<text top="407" left="279" width="117" height="10" font="6">| IN | biom9.imbi</text>
+<text top="407" left="423" width="7" height="10" font="6">2</text>
+<text top="407" left="451" width="171" height="10" font="6">0:00:18 -undef- / -undef-</text>
+<text top="440" left="108" width="206" height="10" font="6">jo@biom9:~$ sfCluster -o --all</text>
+<text top="457" left="108" width="48" height="10" font="6">SESSION</text>
+<text top="457" left="224" width="103" height="10" font="6">| STATE | USR |</text>
+<text top="457" left="341" width="69" height="10" font="6">M | MASTER</text>
+<text top="457" left="458" width="14" height="10" font="6">#N</text>
+<text top="457" left="492" width="151" height="10" font="6">RUNTIME R-FILE / R-OUT</text>
+<text top="473" left="108" width="562" height="10" font="6">-----------------+-------+-----+----+---------------------------------------------</text>
+<text top="490" left="108" width="151" height="10" font="6">LrtpdV7T_R-2.8.1 | run</text>
+<text top="490" left="279" width="27" height="10" font="6">| jo</text>
+<text top="490" left="320" width="117" height="10" font="6">| MO | biom9.imbi</text>
+<text top="490" left="464" width="7" height="10" font="6">9</text>
+<text top="490" left="492" width="288" height="10" font="6">3:16:09 coxBst081223.R / coxBst081223.Rout</text>
+<text top="506" left="108" width="151" height="10" font="6">jlXUhxtP_R-2.5.1 | run</text>
+<text top="506" left="279" width="27" height="10" font="6">| jo</text>
+<text top="506" left="320" width="117" height="10" font="6">| IN | biom9.imbi</text>
+<text top="506" left="464" width="7" height="10" font="6">2</text>
+<text top="506" left="492" width="171" height="10" font="6">0:00:22 -undef- / -undef-</text>
+<text top="523" left="108" width="151" height="10" font="6">bSpNLNhd_R-2.7.2 | run</text>
+<text top="523" left="279" width="27" height="10" font="6">| cp</text>
+<text top="523" left="320" width="117" height="10" font="6">| BA | biom9.imbi</text>
+<text top="523" left="464" width="7" height="10" font="6">8</text>
+<text top="523" left="492" width="274" height="10" font="6">0:32:57 getPoints11.R / getPoints11.Rout</text>
+<text top="539" left="108" width="151" height="10" font="6">NPS5QHkK_R-2.7.2 | run</text>
+<text top="539" left="279" width="27" height="10" font="6">| cp</text>
+<text top="539" left="320" width="117" height="10" font="6">| MO | biom9.imbi</text>
+<text top="539" left="458" width="14" height="10" font="6">10</text>
+<text top="539" left="492" width="178" height="10" font="6">3:50:42 box2.R / box2.Rout</text>
+<text top="572" left="108" width="281" height="10" font="6">jo@biom9:~$ sfCluster --universe --mem=1G</text>
+<text top="588" left="108" width="318" height="10" font="6">Assumed memuse: 1024M (use '--mem' to change).</text>
+<text top="621" left="108" width="27" height="10" font="6">Node</text>
+<text top="621" left="320" width="158" height="10" font="6">| Max-Load | CPUs | RAM</text>
+<text top="621" left="506" width="240" height="10" font="6">| Free-Load | Free-RAM | FREE-TOTAL</text>
+<text top="638" left="108" width="645" height="10" font="6">-------------------------------+----------+------+--------+-----------+----------+------------</text>
+<text top="654" left="108" width="178" height="10" font="6">biom8.imbi.uni-freiburg.de</text>
+<text top="654" left="320" width="7" height="10" font="6">|</text>
+<text top="654" left="382" width="21" height="10" font="6">8 |</text>
+<text top="654" left="430" width="21" height="10" font="6">8 |</text>
+<text top="654" left="464" width="48" height="10" font="6">15.9G |</text>
+<text top="654" left="547" width="7" height="10" font="6">0</text>
+<text top="654" left="588" width="7" height="10" font="6">|</text>
+<text top="654" left="629" width="41" height="10" font="6">9.3G |</text>
+<text top="654" left="705" width="7" height="10" font="6">0</text>
+<text top="671" left="108" width="178" height="10" font="6">biom9.imbi.uni-freiburg.de</text>
+<text top="671" left="320" width="7" height="10" font="6">|</text>
+<text top="671" left="382" width="21" height="10" font="6">8 |</text>
+<text top="671" left="430" width="21" height="10" font="6">8 |</text>
+<text top="671" left="464" width="48" height="10" font="6">15.9G |</text>
+<text top="671" left="547" width="7" height="10" font="6">0</text>
+<text top="671" left="588" width="7" height="10" font="6">|</text>
+<text top="671" left="622" width="48" height="10" font="6">12.6G |</text>
+<text top="671" left="705" width="7" height="10" font="6">0</text>
+<text top="687" left="108" width="185" height="10" font="6">biom10.imbi.uni-freiburg.de</text>
+<text top="687" left="320" width="7" height="10" font="6">|</text>
+<text top="687" left="382" width="21" height="10" font="6">8 |</text>
+<text top="687" left="430" width="21" height="10" font="6">8 |</text>
+<text top="687" left="464" width="48" height="10" font="6">15.9G |</text>
+<text top="687" left="547" width="7" height="10" font="6">0</text>
+<text top="687" left="588" width="7" height="10" font="6">|</text>
+<text top="687" left="622" width="48" height="10" font="6">14.0G |</text>
+<text top="687" left="705" width="7" height="10" font="6">0</text>
+<text top="703" left="108" width="185" height="10" font="6">biom12.imbi.uni-freiburg.de</text>
+<text top="703" left="320" width="7" height="10" font="6">|</text>
+<text top="703" left="382" width="21" height="10" font="6">2 |</text>
+<text top="703" left="430" width="21" height="10" font="6">4 |</text>
+<text top="703" left="471" width="41" height="10" font="6">7.9G |</text>
+<text top="703" left="547" width="7" height="10" font="6">0</text>
+<text top="703" left="588" width="7" height="10" font="6">|</text>
+<text top="703" left="629" width="41" height="10" font="6">5.8G |</text>
+<text top="703" left="705" width="7" height="10" font="6">0</text>
+<text top="720" left="108" width="185" height="10" font="6">knecht5.fdm.uni-freiburg.de</text>
+<text top="720" left="320" width="7" height="10" font="6">|</text>
+<text top="720" left="382" width="21" height="10" font="6">8 |</text>
+<text top="720" left="430" width="21" height="10" font="6">8 |</text>
+<text top="720" left="464" width="48" height="10" font="6">15.7G |</text>
+<text top="720" left="547" width="7" height="10" font="6">1</text>
+<text top="720" left="588" width="7" height="10" font="6">|</text>
+<text top="720" left="629" width="41" height="10" font="6">1.2G |</text>
+<text top="720" left="705" width="7" height="10" font="6">1</text>
+<text top="736" left="108" width="185" height="10" font="6">knecht4.fdm.uni-freiburg.de</text>
+<text top="736" left="320" width="7" height="10" font="6">|</text>
+<text top="736" left="382" width="21" height="10" font="6">8 |</text>
+<text top="736" left="430" width="21" height="10" font="6">8 |</text>
+<text top="736" left="464" width="48" height="10" font="6">15.7G |</text>
+<text top="736" left="547" width="7" height="10" font="6">1</text>
+<text top="736" left="588" width="7" height="10" font="6">|</text>
+<text top="736" left="629" width="41" height="10" font="6">4.3G |</text>
+<text top="736" left="705" width="7" height="10" font="6">1</text>
+<text top="753" left="108" width="185" height="10" font="6">knecht3.fdm.uni-freiburg.de</text>
+<text top="753" left="320" width="7" height="10" font="6">|</text>
+<text top="753" left="382" width="21" height="10" font="6">5 |</text>
+<text top="753" left="430" width="21" height="10" font="6">8 |</text>
+<text top="753" left="464" width="48" height="10" font="6">15.7G |</text>
+<text top="753" left="547" width="7" height="10" font="6">3</text>
+<text top="753" left="588" width="7" height="10" font="6">|</text>
+<text top="753" left="622" width="48" height="10" font="6">11.1G |</text>
+<text top="753" left="705" width="7" height="10" font="6">3</text>
+<text top="769" left="108" width="178" height="10" font="6">biom6.imbi.uni-freiburg.de</text>
+<text top="769" left="320" width="82" height="10" font="6">| no-sched |</text>
+<text top="769" left="430" width="21" height="10" font="6">4 |</text>
+<text top="769" left="471" width="41" height="10" font="6">7.9G |</text>
+<text top="769" left="547" width="7" height="10" font="6">-</text>
+<text top="769" left="588" width="7" height="10" font="6">|</text>
+<text top="769" left="650" width="21" height="10" font="6">- |</text>
+<text top="769" left="705" width="7" height="10" font="6">-</text>
+<text top="786" left="108" width="178" height="10" font="6">biom7.imbi.uni-freiburg.de</text>
+<text top="786" left="320" width="7" height="10" font="6">|</text>
+<text top="786" left="382" width="21" height="10" font="6">2 |</text>
+<text top="786" left="430" width="21" height="10" font="6">4 |</text>
+<text top="786" left="471" width="41" height="10" font="6">7.9G |</text>
+<text top="786" left="547" width="7" height="10" font="6">1</text>
+<text top="786" left="588" width="7" height="10" font="6">|</text>
+<text top="786" left="629" width="41" height="10" font="6">2.1G |</text>
+<text top="786" left="705" width="7" height="10" font="6">1</text>
+<text top="818" left="108" width="165" height="10" font="6">Potential usable CPUs: 6</text>
+<text top="864" left="82" width="723" height="15" font="0">Figure 5: Overview of running clusters from the user (first call) and from all users (second call). The session</text>
+<text top="882" left="82" width="723" height="15" font="0">column states a unique identifier as well as the used R version. “state” describes whether the cluster is cur-</text>
+<text top="900" left="82" width="723" height="15" font="0">rently running or dead. “USR” contains the user who started the cluster. Column “M” includes the sfCluster</text>
+<text top="918" left="82" width="723" height="15" font="0">running mode: MO/BA/IN for monitoring, batch and interative. Column “#N” contains the amount of CPUs</text>
+<text top="936" left="82" width="723" height="15" font="0">used in this cluster. The third call gives an overview of the current usage of the whole universe, with free</text>
+<text top="954" left="82" width="445" height="15" font="0">calculation time (“Free-Load”) and useable memory (“Free-RAM”).</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 1/1, May 2009</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

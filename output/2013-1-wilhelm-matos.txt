@@ -1,0 +1,145 @@
+page	left	top	code
+3	186	1004	> library(Matrix)
+3	186	1020	> I_n_dense <- diag(10000)
+3	186	1037	> print(object.size(I_n_dense), units = "Mb")
+3	186	1063	762.9 Mb
+3	186	1089	> rm(I_n_dense)
+3	186	1105	> I_n_sparse <- sparseMatrix(i = 1:10000, j = 1:10000, x = 1)
+3	186	1121	> print(object.size(I_n_sparse), units = "Mb")
+3	186	1147	0.2 Mb
+5	149	1075	> library(spatialprobit)
+5	149	1091	> set.seed(2)
+5	149	1108	> n <- 400
+5	149	1124	> beta <- c(0, 1, -1)
+5	149	1141	> rho <- 0.75
+6	149	104	> X <- cbind(intercept = 1, x = rnorm(n), y = rnorm(n))
+6	149	120	> I_n <- sparseMatrix(i = 1:n, j = 1:n, x = 1)
+6	149	137	> nb <- knn2nb(knearneigh(cbind(x = rnorm(n), y = rnorm(n)), k = 6))
+6	149	153	> listw <- nb2listw(nb, style = "W")
+6	149	169	> W <- as(as_dgRMatrix_listw(listw), "CsparseMatrix")
+6	149	186	> eps <- rnorm(n = n, mean = 0, sd = 1)
+6	149	202	> z <- solve(qr(I_n - rho * W), X %*% beta + eps)
+6	149	219	> y <- as.double(z >= 0)
+6	149	271	> sarprobit.fit1 <- sarprobit(y ~ X - 1, W, ndraw = 1000, burn.in = 200,
+6	149	288	+ thinning = 1, m = 10)
+6	149	304	> summary(sarprobit.fit1)
+6	149	320	> plot(sarprobit.fit1)
+6	149	422	> set.seed(2)
+6	149	439	> res1 <- LeSagePaceExperiment(n = 400, beta = c(0, 1, -1), rho = 0.75,
+6	149	455	+ ndraw = 1000, burn.in = 200, thinning = 1, m = 10)
+6	149	472	> summary(res1)
+6	149	488	> set.seed(2)
+6	149	504	> res2 <- LeSagePaceExperiment(n = 1000, beta = c(0, 1, -1), rho = 0.75,
+6	149	521	+ ndraw = 1000, burn.in = 200, thinning = 1, m = 1)
+6	149	537	> summary(res2)
+6	149	606	> library(McSpatial)
+6	149	623	> wmat <- as.matrix(W)
+6	149	639	> mle.fit1 <- spprobitml(y ~ X[, "x"] + X[, "y"], wmat = wmat)
+6	149	655	> gmm.fit1 <- spprobit(y ~ X[, "x"] + X[, "y"], wmat = wmat)
+6	149	1000	> library(igraph)
+6	149	1016	> library(spatialprobit)
+6	149	1032	> set.seed(1)
+6	149	1049	> n <- 200
+6	149	1065	> branch <- 3
+6	149	1082	> probability <- branch/n
+6	149	1098	> grandom <- igraph::erdos.renyi.game(n = n, p.or.m = probability,
+6	149	1115	+ type = "gnp", directed = F, loops = F)
+6	149	1131	> V(grandom)$name <- 1:n
+6	149	1147	> A <- igraph::get.adjacency(grandom, type = "both", sparse = TRUE)
+7	149	104	> W <- A/ifelse(rowSums(A) == 0, 1, rowSums(A))
+7	149	120	> plot(grandom, layout = layout.fruchterman.reingold, vertex.label.family = "sans",
+7	149	137	+ vertex.size = 2, vertex.label = "")
+7	149	593	> set.seed(1.2345)
+7	149	609	> x <- rnorm(n)
+7	149	626	> X <- cbind(const = rep(1, n), x = x)
+7	149	642	> p <- 0.3
+7	149	658	> beta <- c(-1, 2)
+7	149	675	> I_n <- sparseMatrix(i = 1:n, j = 1:n, x = 1)
+7	149	691	> z <- solve(qr(I_n - p * W), X %*% beta + rnorm(n))
+7	149	708	> y <- as.numeric(z >= 0)
+7	149	724	> sarprobit.fit <- sarprobit(y ~ X - 1, W, ndraw = 3000, burn.in = 200,
+7	149	741	+ thinning = 1)
+7	149	794	> summary(sarprobit.fit)
+7	149	824	--------MCMC spatial autoregressive probit--------
+7	149	841	Execution time = 25.350 secs
+7	149	874	N draws = 3000, N omit (burn-in)=
+7	471	874	200
+7	149	890	N observations = 200, K covariates
+7	437	890	= 2
+7	149	906	# of 0 Y values = 151, # of 1 Y values =
+7	478	906	49
+7	149	923	Min rho = -1.000, Max rho
+7	437	923	= 1.000
+7	149	939	--------------------------------------------------
+7	197	972	Estimate Std. Dev p-level t-value Pr(>|z|)
+7	149	989	Xconst -1.25361 0.20035 0.00000
+7	396	989	-6.26 2.3e-09 ***
+7	149	1005	Xx 2.05238 0.28529 0.00000
+7	403	1005	7.19 1.2e-11 ***
+7	149	1022	rho 0.24796 0.10571 0.00967
+7	403	1022	2.35 0.02 *
+7	149	1038	---
+7	149	1054	Signif. codes: 0 ’***’ 0.001 ’**’ 0.01 ’*’ 0.05 ’.’ 0.1 ’ ’ 1
+8	149	131	> impacts(sarprobit.fit)
+8	149	161	--------Marginal Effects--------
+8	149	193	(a) Direct effects
+8	169	210	lower_005 posterior_mean upper_095
+8	149	226	Xx 0.231 0.268
+8	382	226	0.3
+8	149	259	(b) Indirect effects
+8	169	276	lower_005 posterior_mean upper_095
+8	149	292	Xx -0.299 -0.266 -0.23
+8	149	325	(c) Total effects
+8	169	341	lower_005 posterior_mean upper_095
+8	149	358	Xx 0.00149 0.00179
+8	396	358	0
+8	149	415	> glm1 <- glm(y ~ x, family = binomial("probit"))
+8	149	431	> summary(glm1, digits = 4)
+8	149	461	Call:
+8	149	477	glm(formula = y ~ x, family = binomial("probit"))
+8	149	510	Deviance Residuals:
+8	176	527	Min 1Q Median 3Q
+8	423	527	Max
+8	149	543	-2.2337 -0.3488 -0.0870 -0.0002
+8	403	543	2.4107
+8	149	576	Coefficients:
+8	231	592	Estimate Std. Error z value Pr(>|z|)
+8	149	609	(Intercept) -1.491 0.208
+8	382	609	-7.18 7.2e-13 ***
+8	149	625	x 1.966 0.281
+8	389	625	6.99 2.7e-12 ***
+8	149	642	---
+8	149	658	Signif. codes: 0 ’***’ 0.001 ’**’ 0.01 ’*’ 0.05 ’.’ 0.1 ’ ’ 1
+8	149	691	(Dispersion parameter for binomial family taken to be 1)
+8	176	724	Null deviance: 222.71 on 199
+8	389	724	degrees of freedom
+8	149	740	Residual deviance: 103.48 on 198
+8	389	740	degrees of freedom
+8	149	757	AIC: 107.5
+8	149	790	Number of Fisher Scoring iterations: 7
+11	149	659	> set.seed(12345)
+11	149	676	> # load data set "CKM" and spatial weight matrices "W1","W2","W3"
+11	149	692	> data(CKM)
+11	149	709	> # 0/1 variable for early adopter
+11	149	725	> y <- as.numeric(CKM$adoption.date <= "February, 1955")
+11	149	741	> # create social influence variable
+11	149	758	> influence <- as.double(W1 %*% as.numeric(y))
+11	149	774	> # Estimate Standard probit model
+11	149	791	> glm.W1 <- glm(y ~ influence + city + med_sch_yr + meetings + jours + free_time +
+11	149	807	+ discuss + clubs + friends + community + patients + proximity + specialty,
+11	149	824	+ data = CKM, family = binomial("probit"))
+11	149	840	> summary(glm.W1, digits = 3)
+11	149	856	> # Estimate SAR probit model without influence variable
+11	149	873	> sarprobit.fit.W1 <- sarprobit(y ~ 1 + city + med_sch_yr + meetings + jours +
+11	149	889	+ free_time + discuss + clubs + friends + community + patients + proximity +
+11	149	906	+ specialty, data = CKM, W = W1)
+11	149	922	> summary(sarprobit.fit.W1, digits = 3)
+12	149	131	> library(parallel)
+12	149	147	> mc <- 2
+12	149	163	> run1 <- function(...) sarprobit(y ~ X - 1, W, ndraw = 500, burn.in = 200,
+12	149	180	+ thinning = 1)
+12	149	196	> system.time({
+12	149	213	+ set.seed(123, "L’Ecuyer")
+12	149	229	+ sarprobit.res <- do.call(c, mclapply(seq_len(mc), run1))
+12	149	246	+ })
+12	149	262	> summary(sarprobit.res)

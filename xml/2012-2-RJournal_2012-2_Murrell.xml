@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="11" family="Times" color="#000000"/>
+	<fontspec id="7" size="41" family="Helvetica" color="#000000"/>
+	<fontspec id="8" size="12" family="Helvetica" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">5</text>
+<text top="121" left="82" width="315" height="36" font="2"><b>What’s in a Name?</b></text>
+<text top="173" left="82" width="264" height="15" font="3"><b>The Importance of Naming grid Grobs</b></text>
+<text top="191" left="82" width="175" height="15" font="3"><b>When Drawing Plots in R</b></text>
+<text top="227" left="82" width="98" height="15" font="0">by Paul Murrell</text>
+<text top="261" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="261" left="172" width="243" height="15" font="0">Any shape that is drawn using the</text>
+<text top="279" left="96" width="28" height="15" font="3"><b>grid</b></text>
+<text top="279" left="130" width="285" height="15" font="0">graphics package can have a name associ-</text>
+<text top="297" left="96" width="319" height="15" font="0">ated with it. If a name is provided, it is possi-</text>
+<text top="315" left="96" width="319" height="15" font="0">ble to access, query, and modify the shape after</text>
+<text top="333" left="96" width="319" height="15" font="0">it has been drawn. These facilities allow for very</text>
+<text top="351" left="96" width="319" height="15" font="0">detailed customisations of plots and also for very</text>
+<text top="369" left="96" width="319" height="15" font="0">general transformations of plots that are drawn</text>
+<text top="387" left="96" width="179" height="15" font="0">by packages based on <b>grid</b>.</text>
+<text top="431" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="470" left="82" width="346" height="15" font="0">When a scene is drawn using the <b>grid </b>graphics pack-</text>
+<text top="488" left="82" width="346" height="15" font="0">age in R, a record is kept of each shape that was used</text>
+<text top="506" left="82" width="346" height="15" font="0">to draw the scene. This record is called a display list</text>
+<text top="524" left="82" width="346" height="15" font="0">and it consists of a list of R objects, one for each shape</text>
+<text top="542" left="82" width="346" height="15" font="0">in the scene. For example, the following code draws</text>
+<text top="560" left="82" width="346" height="15" font="0">several simple shapes: some text, a circle, and a rect-</text>
+<text top="578" left="82" width="112" height="15" font="0">angle (see Figure</text>
+<text top="578" left="198" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="578" left="206" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#1">).</a></text>
+<text top="612" left="82" width="103" height="10" font="6">&gt; library(grid)</text>
+<text top="644" left="82" width="274" height="10" font="6">&gt; grid.text(c(&#34;text&#34;, &#34;circle&#34;, &#34;rect&#34;),</text>
+<text top="660" left="82" width="7" height="10" font="6">+</text>
+<text top="660" left="165" width="226" height="10" font="6">x=1:3/4, gp=gpar(cex=c(3, 1, 1)))</text>
+<text top="677" left="82" width="137" height="10" font="6">&gt; grid.circle(r=.25)</text>
+<text top="693" left="82" width="268" height="10" font="6">&gt; grid.rect(x=3/4, width=.2, height=.5)</text>
+<text top="770" left="135" width="69" height="40" font="7">text</text>
+<text top="780" left="239" width="34" height="13" font="8">circle</text>
+<text top="780" left="330" width="24" height="13" font="8">rect</text>
+<text top="846" left="99" width="313" height="15" font="0">Figure 1: Some simple shapes drawn with <b>grid</b>.</text>
+<text top="882" left="105" width="324" height="15" font="0">The following code uses the grid.ls() function</text>
+<text top="899" left="82" width="346" height="15" font="0">to show the contents of the display list for this scene.</text>
+<text top="917" left="82" width="346" height="15" font="0">There is an object, called a grob (short for “graphical</text>
+<text top="935" left="82" width="346" height="15" font="0">object”), for each shape that we drew. The output be-</text>
+<text top="953" left="82" width="346" height="15" font="0">low shows what sort of shape each grob represents</text>
+<text top="971" left="82" width="346" height="15" font="0">and it shows a name for each grob (within square</text>
+<text top="989" left="82" width="346" height="15" font="0">brackets). In the example above, we did not specify</text>
+<text top="1007" left="82" width="230" height="15" font="0">any names, so <b>grid </b>made some up.</text>
+<text top="1041" left="82" width="171" height="10" font="6">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="1073" left="82" width="117" height="10" font="6">text[GRID.text.5]</text>
+<text top="1090" left="82" width="144" height="10" font="6">circle[GRID.circle.6]</text>
+<text top="1106" left="82" width="117" height="10" font="6">rect[GRID.rect.7]</text>
+<text top="1137" left="105" width="324" height="15" font="0">It is also possible to explicitly name each shape</text>
+<text top="1155" left="82" width="346" height="15" font="0">that we draw. The following code does this by spec-</text>
+<text top="1173" left="82" width="346" height="15" font="0">ifying the name argument in each function call (the</text>
+<text top="173" left="459" width="269" height="15" font="0">resulting scene is the same as in Figure</text>
+<text top="173" left="734" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="173" left="741" width="64" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#1">) </a>and call</text>
+<text top="192" left="459" width="69" height="12" font="0">grid.ls()</text>
+<text top="191" left="533" width="273" height="15" font="0">again to show that the grobs on the dis-</text>
+<text top="209" left="459" width="312" height="15" font="0">play list now have the names that we specified.</text>
+<text top="240" left="459" width="274" height="10" font="6">&gt; grid.text(c(&#34;text&#34;, &#34;circle&#34;, &#34;rect&#34;),</text>
+<text top="256" left="459" width="7" height="10" font="6">+</text>
+<text top="256" left="541" width="226" height="10" font="6">x=1:3/4, gp=gpar(cex=c(3, 1, 1)),</text>
+<text top="273" left="459" width="7" height="10" font="6">+</text>
+<text top="273" left="541" width="110" height="10" font="6">name=&#34;leftText&#34;)</text>
+<text top="289" left="459" width="281" height="10" font="6">&gt; grid.circle(r=.25, name=&#34;middleCircle&#34;)</text>
+<text top="306" left="459" width="268" height="10" font="6">&gt; grid.rect(x=3/4, width=.2, height=.5,</text>
+<text top="322" left="459" width="7" height="10" font="6">+</text>
+<text top="322" left="541" width="117" height="10" font="6">name=&#34;rightRect&#34;)</text>
+<text top="351" left="459" width="171" height="10" font="6">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="380" left="459" width="96" height="10" font="6">text[leftText]</text>
+<text top="397" left="459" width="137" height="10" font="6">circle[middleCircle]</text>
+<text top="413" left="459" width="103" height="10" font="6">rect[rightRect]</text>
+<text top="441" left="481" width="324" height="15" font="0">The <b>grid </b>package also provides functions that al-</text>
+<text top="459" left="459" width="346" height="15" font="0">low us to access and modify the grobs on the display</text>
+<text top="477" left="459" width="346" height="15" font="0">list. For example, the following code modifies the cir-</text>
+<text top="495" left="459" width="179" height="15" font="0">cle in the middle of Figure</text>
+<text top="495" left="643" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="495" left="655" width="150" height="15" font="0">so that its background</text>
+<text top="513" left="459" width="171" height="15" font="0">becomes grey (see Figure</text>
+<text top="513" left="636" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">2</a></text>
+<text top="513" left="643" width="162" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#1">). </a>We select the grob to</text>
+<text top="531" left="459" width="346" height="15" font="0">modify by specifying its name as the first argument.</text>
+<text top="549" left="459" width="346" height="15" font="0">The second argument describes a new value for the</text>
+<text top="568" left="459" width="15" height="12" font="0">gp</text>
+<text top="567" left="478" width="327" height="15" font="0">component of the circle (in this case we are modi-</text>
+<text top="585" left="459" width="240" height="15" font="0">fying the fill graphical parameter).</text>
+<text top="616" left="459" width="336" height="10" font="6">&gt; grid.edit(&#34;middleCircle&#34;, gp=gpar(fill=&#34;grey&#34;))</text>
+<text top="690" left="511" width="69" height="40" font="7">text</text>
+<text top="700" left="615" width="34" height="13" font="8">circle</text>
+<text top="700" left="707" width="24" height="13" font="8">rect</text>
+<text top="766" left="459" width="274" height="15" font="0">Figure 2: The simple shapes from Figure</text>
+<text top="766" left="737" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="766" left="749" width="56" height="15" font="0">with the</text>
+<text top="783" left="459" width="346" height="15" font="0">middle circle modified so that its background is grey.</text>
+<text top="819" left="481" width="324" height="15" font="0">The purpose of this article is to discuss why it is</text>
+<text top="837" left="459" width="346" height="15" font="0">useful to provide explicit names for the grobs on the</text>
+<text top="855" left="459" width="28" height="15" font="3"><b>grid</b></text>
+<text top="855" left="493" width="312" height="15" font="0">display list. We will see that several positive</text>
+<text top="873" left="459" width="346" height="15" font="0">consequences arise from being able to identify and</text>
+<text top="891" left="459" width="238" height="15" font="0">modify the grobs on the display list.</text>
+<text top="937" left="459" width="206" height="21" font="4"><b>Too many arguments</b></text>
+<text top="976" left="459" width="346" height="15" font="0">This section discusses how naming the individual</text>
+<text top="994" left="459" width="346" height="15" font="0">shapes within a plot can help to avoid the problem</text>
+<text top="1012" left="459" width="346" height="15" font="0">of having a huge number of arguments or parame-</text>
+<text top="1030" left="459" width="242" height="15" font="0">ters in a high-level plotting function.</text>
+<text top="1048" left="481" width="123" height="15" font="0">The plot in Figure</text>
+<text top="1048" left="610" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#2">3</a></text>
+<text top="1048" left="623" width="182" height="15" font="0">shows a forest plot , a type</text>
+<text top="1065" left="459" width="346" height="15" font="0">of plot that is commonly used to display the results</text>
+<text top="1083" left="459" width="346" height="15" font="0">of a meta-analysis. This plot was produced using the</text>
+<text top="1103" left="459" width="61" height="12" font="0">forest()</text>
+<text top="1101" left="523" width="236" height="15" font="0">function from the <b>metafor </b>package <a href="2012-2-RJournal_2012-2_Murrell.html#8">(</a></text>
+<text top="1101" left="759" width="47" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Viecht-</a></text>
+<text top="1119" left="459" width="38" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">bauer</a></text>
+<text top="1119" left="497" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="1119" left="504" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2010</a></text>
+<text top="1119" left="534" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">).</a></text>
+<text top="1137" left="481" width="324" height="15" font="0">This sort of plot provides a good example of how</text>
+<text top="1155" left="459" width="346" height="15" font="0">statistical plots can be composed of a very large num-</text>
+<text top="1173" left="459" width="263" height="15" font="0">ber of simple shapes. The plot in Figure</text>
+<text top="1173" left="725" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#2">3</a></text>
+<text top="1173" left="737" width="69" height="15" font="0">consists of</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="10" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="10" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="7" height="15" font="0">6</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="806" left="116" width="57" height="12" font="9">RE Model</text>
+<text top="868" left="493" width="25" height="12" font="9">0.05</text>
+<text top="868" left="543" width="25" height="12" font="9">0.25</text>
+<text top="868" left="585" width="25" height="12" font="9">1.00</text>
+<text top="868" left="628" width="25" height="12" font="9">4.00</text>
+<text top="899" left="504" width="138" height="12" font="9">Relative Risk (log scale)</text>
+<text top="758" left="116" width="121" height="12" font="9">Comstock et al, 1976</text>
+<text top="734" left="116" width="156" height="12" font="9">Comstock &amp; Webster, 1969</text>
+<text top="710" left="116" width="121" height="12" font="9">Comstock et al, 1974</text>
+<text top="686" left="116" width="122" height="12" font="9">Rosenthal et al, 1961</text>
+<text top="663" left="116" width="136" height="12" font="9">Coetzee &amp; Berjak, 1968</text>
+<text top="639" left="116" width="107" height="12" font="9">TPT Madras, 1980</text>
+<text top="615" left="116" width="124" height="12" font="9">Vandiviere et al, 1973</text>
+<text top="591" left="116" width="129" height="12" font="9">Stein &amp; Aronson, 1953</text>
+<text top="567" left="116" width="150" height="12" font="9">Frimodt−Moller et al, 1973</text>
+<text top="543" left="116" width="139" height="12" font="9">Hart &amp; Sutherland, 1977</text>
+<text top="520" left="116" width="122" height="12" font="9">Rosenthal et al, 1960</text>
+<text top="496" left="116" width="141" height="12" font="9">Ferguson &amp; Simes, 1949</text>
+<text top="472" left="116" width="84" height="12" font="9">Aronson, 1948</text>
+<text top="759" left="298" width="14" height="12" font="9">27</text>
+<text top="735" left="302" width="7" height="12" font="9">5</text>
+<text top="712" left="295" width="22" height="12" font="9">186</text>
+<text top="688" left="298" width="14" height="12" font="9">17</text>
+<text top="664" left="298" width="14" height="12" font="9">29</text>
+<text top="640" left="295" width="22" height="12" font="9">505</text>
+<text top="616" left="302" width="7" height="12" font="9">8</text>
+<text top="592" left="295" width="22" height="12" font="9">180</text>
+<text top="569" left="298" width="14" height="12" font="9">33</text>
+<text top="545" left="298" width="14" height="12" font="9">62</text>
+<text top="521" left="302" width="7" height="12" font="9">3</text>
+<text top="497" left="302" width="7" height="12" font="9">6</text>
+<text top="473" left="302" width="7" height="12" font="9">4</text>
+<text top="759" left="334" width="36" height="12" font="9">16886</text>
+<text top="735" left="337" width="29" height="12" font="9">2493</text>
+<text top="712" left="334" width="36" height="12" font="9">50448</text>
+<text top="688" left="337" width="29" height="12" font="9">1699</text>
+<text top="664" left="337" width="29" height="12" font="9">7470</text>
+<text top="640" left="334" width="36" height="12" font="9">87886</text>
+<text top="616" left="337" width="29" height="12" font="9">2537</text>
+<text top="592" left="337" width="29" height="12" font="9">1361</text>
+<text top="569" left="337" width="29" height="12" font="9">5036</text>
+<text top="545" left="334" width="36" height="12" font="9">13536</text>
+<text top="521" left="341" width="22" height="12" font="9">228</text>
+<text top="497" left="341" width="22" height="12" font="9">300</text>
+<text top="473" left="341" width="22" height="12" font="9">119</text>
+<text top="759" left="406" width="14" height="12" font="9">29</text>
+<text top="735" left="410" width="7" height="12" font="9">3</text>
+<text top="712" left="402" width="22" height="12" font="9">141</text>
+<text top="688" left="406" width="14" height="12" font="9">65</text>
+<text top="664" left="406" width="14" height="12" font="9">45</text>
+<text top="640" left="402" width="22" height="12" font="9">499</text>
+<text top="616" left="406" width="14" height="12" font="9">10</text>
+<text top="592" left="402" width="22" height="12" font="9">372</text>
+<text top="569" left="406" width="14" height="12" font="9">47</text>
+<text top="545" left="402" width="22" height="12" font="9">248</text>
+<text top="521" left="406" width="14" height="12" font="9">11</text>
+<text top="497" left="406" width="14" height="12" font="9">29</text>
+<text top="473" left="406" width="14" height="12" font="9">11</text>
+<text top="759" left="441" width="36" height="12" font="9">17825</text>
+<text top="735" left="445" width="29" height="12" font="9">2338</text>
+<text top="712" left="441" width="36" height="12" font="9">27197</text>
+<text top="688" left="445" width="29" height="12" font="9">1600</text>
+<text top="664" left="445" width="29" height="12" font="9">7232</text>
+<text top="640" left="441" width="36" height="12" font="9">87892</text>
+<text top="616" left="449" width="22" height="12" font="9">619</text>
+<text top="592" left="445" width="29" height="12" font="9">1079</text>
+<text top="569" left="445" width="29" height="12" font="9">5761</text>
+<text top="545" left="441" width="36" height="12" font="9">12619</text>
+<text top="521" left="449" width="22" height="12" font="9">209</text>
+<text top="497" left="449" width="22" height="12" font="9">274</text>
+<text top="473" left="449" width="22" height="12" font="9">128</text>
+<text top="758" left="668" width="104" height="12" font="9">0.98 [ 0.58 , 1.66 ]</text>
+<text top="734" left="668" width="104" height="12" font="9">1.56 [ 0.37 , 6.53 ]</text>
+<text top="710" left="668" width="104" height="12" font="9">0.71 [ 0.57 , 0.89 ]</text>
+<text top="686" left="668" width="104" height="12" font="9">0.25 [ 0.15 , 0.43 ]</text>
+<text top="663" left="668" width="104" height="12" font="9">0.63 [ 0.39 , 1.00 ]</text>
+<text top="639" left="668" width="104" height="12" font="9">1.01 [ 0.89 , 1.14 ]</text>
+<text top="615" left="668" width="104" height="12" font="9">0.20 [ 0.08 , 0.50 ]</text>
+<text top="591" left="668" width="104" height="12" font="9">0.46 [ 0.39 , 0.54 ]</text>
+<text top="567" left="668" width="104" height="12" font="9">0.80 [ 0.52 , 1.25 ]</text>
+<text top="543" left="668" width="104" height="12" font="9">0.24 [ 0.18 , 0.31 ]</text>
+<text top="520" left="668" width="104" height="12" font="9">0.26 [ 0.07 , 0.92 ]</text>
+<text top="496" left="668" width="104" height="12" font="9">0.20 [ 0.09 , 0.49 ]</text>
+<text top="472" left="668" width="104" height="12" font="9">0.41 [ 0.13 , 1.26 ]</text>
+<text top="806" left="668" width="104" height="12" font="9">0.49 [ 0.34 , 0.70 ]</text>
+<text top="426" left="293" width="25" height="12" font="10"><b>TB+</b></text>
+<text top="426" left="339" width="25" height="12" font="10"><b>TB−</b></text>
+<text top="426" left="401" width="25" height="12" font="10"><b>TB+</b></text>
+<text top="426" left="447" width="25" height="12" font="10"><b>TB−</b></text>
+<text top="402" left="295" width="67" height="12" font="10"><b>Vaccinated</b></text>
+<text top="402" left="413" width="46" height="12" font="10"><b>Control</b></text>
+<text top="424" left="116" width="115" height="12" font="10"><b>Author(s) and Year</b></text>
+<text top="424" left="637" width="135" height="12" font="10"><b>Relative Risk [95% CI]</b></text>
+<text top="962" left="164" width="560" height="15" font="0">Figure 3: A forest plot produced by the forest() function from the <b>metafor </b>package.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="6" family="Times" color="#000000"/>
+	<fontspec id="13" size="12" family="Helvetica" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">7</text>
+<text top="125" left="82" width="346" height="15" font="0">many different pieces of text, rectangles, lines, and</text>
+<text top="143" left="82" width="65" height="15" font="0">polygons.</text>
+<text top="161" left="105" width="324" height="15" font="0">High-level functions like forest() are extremely</text>
+<text top="179" left="82" width="346" height="15" font="0">useful because, from a single function call, we can</text>
+<text top="197" left="82" width="346" height="15" font="0">produce many individual shapes and arrange them</text>
+<text top="215" left="82" width="346" height="15" font="0">in a meaningful fashion to produce an overall plot.</text>
+<text top="233" left="82" width="346" height="15" font="0">However, a problem often arises when we want to</text>
+<text top="251" left="82" width="286" height="15" font="0">customise individual shapes within the plot.</text>
+<text top="269" left="105" width="324" height="15" font="0">For example, a post to the R-help mailing list in</text>
+<text top="287" left="82" width="346" height="15" font="0">August 2011 asked for a way to change the colour</text>
+<text top="305" left="82" width="346" height="15" font="0">of the squares in a forest plot because none of</text>
+<text top="323" left="82" width="346" height="15" font="0">the (thirty-three) existing arguments to forest() al-</text>
+<text top="341" left="82" width="346" height="15" font="0">lowed this sort of control. The reply from Wolfgang</text>
+<text top="358" left="82" width="346" height="15" font="0">Viechtbauer (author of <b>metafor</b>) states the problem</text>
+<text top="376" left="82" width="70" height="15" font="0">succinctly:</text>
+<text top="410" left="120" width="272" height="15" font="0">“The thing is, there are so many different</text>
+<text top="428" left="120" width="272" height="15" font="0">elements to a forest plot (squares, lines,</text>
+<text top="446" left="120" width="272" height="15" font="0">polygons, text, axes, axis labels, etc.), if I</text>
+<text top="464" left="120" width="272" height="15" font="0">would add arguments to set the color of</text>
+<text top="482" left="120" width="272" height="15" font="0">each element, things would really get out</text>
+<text top="499" left="120" width="66" height="15" font="0">of hand ...</text>
+<text top="534" left="120" width="272" height="15" font="0">... what if somebody wants to have a dif-</text>
+<text top="552" left="120" width="272" height="15" font="0">ferent color for *one* of the squares and a</text>
+<text top="570" left="120" width="248" height="15" font="0">different color for the other squares?”</text>
+<text top="604" left="105" width="324" height="15" font="0">The reality is that it is impossible to provide</text>
+<text top="622" left="82" width="346" height="15" font="0">enough arguments in a high-level plotting function</text>
+<text top="640" left="82" width="346" height="15" font="0">to allow for all possible modifications to the low-</text>
+<text top="658" left="82" width="252" height="15" font="0">level shapes that make up the plot.</text>
+<text top="658" left="350" width="79" height="15" font="0">Fortunately,</text>
+<text top="676" left="82" width="346" height="15" font="0">an alternative is possible through the simple mech-</text>
+<text top="693" left="82" width="346" height="15" font="0">anism of providing names for all of the low-level</text>
+<text top="711" left="82" width="49" height="15" font="0">shapes.</text>
+<text top="729" left="105" width="324" height="15" font="0">In order to demonstrate this idea, consider the</text>
+<text top="748" left="82" width="41" height="15" font="3"><b>lattice</b></text>
+<text top="747" left="128" width="35" height="15" font="0">plot <a href="2012-2-RJournal_2012-2_Murrell.html#8">(</a></text>
+<text top="747" left="162" width="43" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Sarkar</a></text>
+<text top="747" left="205" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="747" left="213" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2008</a></text>
+<text top="747" left="242" width="186" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">) </a>that is produced by the fol-</text>
+<text top="765" left="82" width="222" height="15" font="0">lowing code and shown in Figure</text>
+<text top="765" left="308" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="765" left="315" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#3">.</a></text>
+<text top="800" left="82" width="123" height="10" font="6">&gt; library(lattice)</text>
+<text top="831" left="82" width="192" height="10" font="6">&gt; xyplot(mpg ~ disp, mtcars)</text>
+<text top="863" left="105" width="324" height="15" font="0">This plot is simpler than the forest plot in Figure</text>
+<text top="881" left="82" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#2">3</a></text>
+<text top="881" left="90" width="339" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#2">, </a>but it still contains numerous individual shapes.</text>
+<text top="898" left="82" width="346" height="15" font="0">Anyone familiar with the <b>lattice </b>package will also</text>
+<text top="916" left="82" width="346" height="15" font="0">know that it can produce plots of much greater com-</text>
+<text top="934" left="82" width="346" height="15" font="0">plexity; in general, the <b>lattice </b>package faces a very</text>
+<text top="952" left="82" width="346" height="15" font="0">difficult problem if it wants to provide an argument</text>
+<text top="970" left="82" width="346" height="15" font="0">in its high-level functions to control every single</text>
+<text top="988" left="82" width="190" height="15" font="0">shape within any of its plots.</text>
+<text top="1006" left="105" width="324" height="15" font="0">However, the <b>lattice </b>package also provides</text>
+<text top="1024" left="82" width="346" height="15" font="0">names for everything that it draws. The following</text>
+<text top="1042" left="82" width="346" height="15" font="0">code shows the contents of the <b>grid </b>display list after</text>
+<text top="1060" left="82" width="174" height="15" font="0">drawing the plot in Figure</text>
+<text top="1060" left="260" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="1060" left="268" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#3">.</a></text>
+<text top="1094" left="82" width="171" height="10" font="6">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="1126" left="82" width="165" height="10" font="6">rect[plot_01.background]</text>
+<text top="1142" left="82" width="123" height="10" font="6">text[plot_01.xlab]</text>
+<text top="1159" left="82" width="123" height="10" font="6">text[plot_01.ylab]</text>
+<text top="1175" left="82" width="254" height="10" font="6">segments[plot_01.ticks.top.panel.1.1]</text>
+<text top="127" left="459" width="261" height="10" font="6">segments[plot_01.ticks.left.panel.1.1]</text>
+<text top="144" left="459" width="268" height="10" font="6">text[plot_01.ticklabels.left.panel.1.1]</text>
+<text top="160" left="459" width="274" height="10" font="6">segments[plot_01.ticks.bottom.panel.1.1]</text>
+<text top="177" left="459" width="281" height="10" font="6">text[plot_01.ticklabels.bottom.panel.1.1]</text>
+<text top="193" left="459" width="268" height="10" font="6">segments[plot_01.ticks.right.panel.1.1]</text>
+<text top="210" left="459" width="268" height="10" font="6">points[plot_01.xyplot.points.panel.1.1]</text>
+<text top="226" left="459" width="206" height="10" font="6">rect[plot_01.border.panel.1.1]</text>
+<text top="572" left="631" width="26" height="13" font="8">disp</text>
+<text top="417" left="476" width="0" height="13" font="11">mpg</text>
+<text top="520" left="490" width="13" height="11" font="9">10</text>
+<text top="474" left="490" width="13" height="11" font="9">15</text>
+<text top="429" left="490" width="13" height="11" font="9">20</text>
+<text top="383" left="490" width="13" height="11" font="9">25</text>
+<text top="338" left="490" width="13" height="11" font="9">30</text>
+<text top="293" left="490" width="13" height="11" font="9">35</text>
+<text top="549" left="539" width="20" height="11" font="9">100</text>
+<text top="549" left="594" width="20" height="11" font="9">200</text>
+<text top="549" left="650" width="20" height="11" font="9">300</text>
+<text top="549" left="705" width="20" height="11" font="9">400</text>
+<text top="420" left="579" width="6" height="8" font="12">●</text>
+<text top="420" left="579" width="6" height="8" font="12">●</text>
+<text top="404" left="550" width="6" height="8" font="12">●</text>
+<text top="417" left="633" width="6" height="8" font="12">●</text>
+<text top="441" left="690" width="6" height="8" font="12">●</text>
+<text top="447" left="615" width="6" height="8" font="12">●</text>
+<text top="481" left="690" width="6" height="8" font="12">●</text>
+<text top="389" left="572" width="6" height="8" font="12">●</text>
+<text top="404" left="568" width="6" height="8" font="12">●</text>
+<text top="437" left="583" width="6" height="8" font="12">●</text>
+<text top="449" left="583" width="6" height="8" font="12">●</text>
+<text top="462" left="643" width="6" height="8" font="12">●</text>
+<text top="454" left="643" width="6" height="8" font="12">●</text>
+<text top="473" left="643" width="6" height="8" font="12">●</text>
+<text top="517" left="752" width="6" height="8" font="12">●</text>
+<text top="517" left="745" width="6" height="8" font="12">●</text>
+<text top="477" left="734" width="6" height="8" font="12">●</text>
+<text top="317" left="534" width="6" height="8" font="12">●</text>
+<text top="335" left="532" width="6" height="8" font="12">●</text>
+<text top="303" left="530" width="6" height="8" font="12">●</text>
+<text top="416" left="557" width="6" height="8" font="12">●</text>
+<text top="470" left="666" width="6" height="8" font="12">●</text>
+<text top="473" left="659" width="6" height="8" font="12">●</text>
+<text top="490" left="684" width="6" height="8" font="12">●</text>
+<text top="437" left="712" width="6" height="8" font="12">●</text>
+<text top="363" left="534" width="6" height="8" font="12">●</text>
+<text top="375" left="557" width="6" height="8" font="12">●</text>
+<text top="335" left="543" width="6" height="8" font="12">●</text>
+<text top="467" left="685" width="6" height="8" font="12">●</text>
+<text top="432" left="571" width="6" height="8" font="12">●</text>
+<text top="475" left="657" width="6" height="8" font="12">●</text>
+<text top="417" left="557" width="6" height="8" font="12">●</text>
+<text top="613" left="510" width="244" height="15" font="0">Figure 4: A simple <b>lattice </b>scatterplot.</text>
+<text top="970" left="597" width="94" height="13" font="13"><i><b>Displacement</b></i></text>
+<text top="816" left="476" width="0" height="13" font="11">mpg</text>
+<text top="918" left="490" width="13" height="11" font="9">10</text>
+<text top="873" left="490" width="13" height="11" font="9">15</text>
+<text top="828" left="490" width="13" height="11" font="9">20</text>
+<text top="782" left="490" width="13" height="11" font="9">25</text>
+<text top="737" left="490" width="13" height="11" font="9">30</text>
+<text top="691" left="490" width="13" height="11" font="9">35</text>
+<text top="948" left="539" width="20" height="11" font="9">100</text>
+<text top="948" left="594" width="20" height="11" font="9">200</text>
+<text top="948" left="650" width="20" height="11" font="9">300</text>
+<text top="948" left="705" width="20" height="11" font="9">400</text>
+<text top="819" left="579" width="6" height="8" font="12">●</text>
+<text top="819" left="579" width="6" height="8" font="12">●</text>
+<text top="803" left="550" width="6" height="8" font="12">●</text>
+<text top="815" left="633" width="6" height="8" font="12">●</text>
+<text top="840" left="690" width="6" height="8" font="12">●</text>
+<text top="845" left="615" width="6" height="8" font="12">●</text>
+<text top="880" left="690" width="6" height="8" font="12">●</text>
+<text top="788" left="572" width="6" height="8" font="12">●</text>
+<text top="803" left="568" width="6" height="8" font="12">●</text>
+<text top="835" left="583" width="6" height="8" font="12">●</text>
+<text top="848" left="583" width="6" height="8" font="12">●</text>
+<text top="861" left="643" width="6" height="8" font="12">●</text>
+<text top="853" left="643" width="6" height="8" font="12">●</text>
+<text top="872" left="643" width="6" height="8" font="12">●</text>
+<text top="915" left="752" width="6" height="8" font="12">●</text>
+<text top="915" left="745" width="6" height="8" font="12">●</text>
+<text top="876" left="734" width="6" height="8" font="12">●</text>
+<text top="716" left="534" width="6" height="8" font="12">●</text>
+<text top="734" left="532" width="6" height="8" font="12">●</text>
+<text top="702" left="530" width="6" height="8" font="12">●</text>
+<text top="814" left="557" width="6" height="8" font="12">●</text>
+<text top="869" left="666" width="6" height="8" font="12">●</text>
+<text top="872" left="659" width="6" height="8" font="12">●</text>
+<text top="889" left="684" width="6" height="8" font="12">●</text>
+<text top="835" left="712" width="6" height="8" font="12">●</text>
+<text top="762" left="534" width="6" height="8" font="12">●</text>
+<text top="774" left="557" width="6" height="8" font="12">●</text>
+<text top="734" left="543" width="6" height="8" font="12">●</text>
+<text top="866" left="685" width="6" height="8" font="12">●</text>
+<text top="831" left="571" width="6" height="8" font="12">●</text>
+<text top="874" left="657" width="6" height="8" font="12">●</text>
+<text top="815" left="557" width="6" height="8" font="12">●</text>
+<text top="1012" left="459" width="255" height="15" font="0">Figure 5: The <b>lattice </b>plot from Figure</text>
+<text top="1012" left="719" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="1012" left="731" width="74" height="15" font="0">with the x-</text>
+<text top="1030" left="459" width="297" height="15" font="0">axis modified using low-level <b>grid </b>functions.</text>
+<text top="1065" left="481" width="324" height="15" font="0">Because everything is named, it is possible to ac-</text>
+<text top="1083" left="459" width="346" height="15" font="0">cess any component of the plot using the low-level</text>
+<text top="1101" left="459" width="28" height="15" font="3"><b>grid</b></text>
+<text top="1101" left="495" width="65" height="15" font="0">functions.</text>
+<text top="1101" left="576" width="229" height="15" font="0">For example, the following code</text>
+<text top="1119" left="459" width="324" height="15" font="0">modifies the x-axis label of the plot (see Figure</text>
+<text top="1119" left="789" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">5</a></text>
+<text top="1119" left="797" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#3">).</a></text>
+<text top="1137" left="459" width="346" height="15" font="0">We specify the component of the scene that we want</text>
+<text top="1155" left="459" width="346" height="15" font="0">to modify by giving its name as the first argument</text>
+<text top="1173" left="459" width="346" height="15" font="0">to grid.edit(). The other arguments describe the</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="15" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="16" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="17" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="18" size="7" family="Helvetica" color="#000000"/>
+<text top="67" left="82" width="7" height="15" font="0">8</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">changes that we want to make (a new label and a</text>
+<text top="143" left="82" width="261" height="15" font="0">new gp setting to change the fontface).</text>
+<text top="207" left="82" width="185" height="10" font="6">&gt; grid.edit(&#34;plot_01.xlab&#34;,</text>
+<text top="223" left="82" width="7" height="10" font="6">+</text>
+<text top="223" left="165" width="144" height="10" font="6">label=&#34;Displacement&#34;,</text>
+<text top="240" left="82" width="7" height="10" font="6">+</text>
+<text top="240" left="165" width="219" height="10" font="6">gp=gpar(fontface=&#34;bold.italic&#34;))</text>
+<text top="300" left="105" width="324" height="15" font="0">That particular modification of a <b>lattice </b>plot</text>
+<text top="318" left="82" width="346" height="15" font="0">could easily be achieved using arguments to the</text>
+<text top="336" left="82" width="346" height="15" font="0">high-level xyplot() function, but the direct access to</text>
+<text top="354" left="82" width="346" height="15" font="0">low-level shapes allows for a much wider range of</text>
+<text top="372" left="82" width="235" height="15" font="0">modifications. For example, figure</text>
+<text top="372" left="322" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#4">6</a></text>
+<text top="372" left="335" width="94" height="15" font="0">shows a more</text>
+<text top="390" left="82" width="240" height="15" font="0">complex multipanel <b>lattice </b>barchart.</text>
+<text top="619" left="94" width="0" height="9" font="14">Bar</text>
+<text top="604" left="94" width="0" height="9" font="14">le</text>
+<text top="597" left="94" width="0" height="9" font="14">y Y</text>
+<text top="583" left="94" width="0" height="9" font="14">ield (b</text>
+<text top="557" left="94" width="0" height="9" font="14">ushels/acre)</text>
+<text top="684" left="112" width="4" height="7" font="15">0</text>
+<text top="675" left="108" width="9" height="7" font="15">40</text>
+<text top="666" left="108" width="9" height="7" font="15">80</text>
+<text top="657" left="104" width="13" height="7" font="15">120</text>
+<text top="713" left="120" width="7" height="7" font="16">Sv</text>
+<text top="707" left="127" width="31" height="10" font="16">ansota No</text>
+<text top="702" left="157" width="13" height="7" font="16">. 462</text>
+<text top="716" left="169" width="22" height="7" font="16">Manchur</text>
+<text top="694" left="192" width="4" height="7" font="16">ia</text>
+<text top="709" left="202" width="7" height="7" font="16">No</text>
+<text top="702" left="209" width="13" height="7" font="16">. 475</text>
+<text top="705" left="233" width="11" height="7" font="16">Velv</text>
+<text top="694" left="243" width="5" height="7" font="16">et</text>
+<text top="712" left="252" width="62" height="7" font="16">Peatland Glabron No</text>
+<text top="702" left="314" width="13" height="7" font="16">. 457</text>
+<text top="733" left="309" width="35" height="7" font="16">Wisconsin No</text>
+<text top="699" left="343" width="9" height="7" font="16">. 38</text>
+<text top="702" left="366" width="12" height="7" font="16">Trebi</text>
+<text top="649" left="230" width="59" height="9" font="17">Grand Rapids</text>
+<text top="642" left="401" width="4" height="7" font="15">0</text>
+<text top="633" left="401" width="9" height="7" font="15">40</text>
+<text top="624" left="401" width="9" height="7" font="15">80</text>
+<text top="615" left="401" width="13" height="7" font="15">120</text>
+<text top="607" left="245" width="28" height="9" font="17">Duluth</text>
+<text top="600" left="112" width="4" height="7" font="15">0</text>
+<text top="591" left="108" width="9" height="7" font="15">40</text>
+<text top="582" left="108" width="9" height="7" font="15">80</text>
+<text top="573" left="104" width="13" height="7" font="15">120</text>
+<text top="565" left="226" width="67" height="9" font="17">University Farm</text>
+<text top="558" left="401" width="4" height="7" font="15">0</text>
+<text top="549" left="401" width="9" height="7" font="15">40</text>
+<text top="540" left="401" width="9" height="7" font="15">80</text>
+<text top="531" left="401" width="13" height="7" font="15">120</text>
+<text top="523" left="246" width="27" height="9" font="17">Morris</text>
+<text top="516" left="112" width="4" height="7" font="15">0</text>
+<text top="507" left="108" width="9" height="7" font="15">40</text>
+<text top="498" left="108" width="9" height="7" font="15">80</text>
+<text top="489" left="104" width="13" height="7" font="15">120</text>
+<text top="481" left="237" width="44" height="9" font="17">Crookston</text>
+<text top="474" left="401" width="4" height="7" font="15">0</text>
+<text top="465" left="401" width="9" height="7" font="15">40</text>
+<text top="456" left="401" width="9" height="7" font="15">80</text>
+<text top="447" left="401" width="13" height="7" font="15">120</text>
+<text top="440" left="242" width="34" height="9" font="17">Waseca</text>
+<text top="777" left="97" width="318" height="15" font="0">Figure 6: A complex multipanel <b>lattice </b>barchart.</text>
+<text top="820" left="105" width="260" height="15" font="0">This is generated by the following code</text>
+<text top="873" left="82" width="336" height="10" font="6">&gt; barchart(yield ~ variety | site, data = barley,</text>
+<text top="890" left="82" width="7" height="10" font="6">+</text>
+<text top="890" left="158" width="213" height="10" font="6">groups = year, layout = c(1,6),</text>
+<text top="906" left="82" width="7" height="10" font="6">+</text>
+<text top="906" left="158" width="89" height="10" font="6">stack = TRUE,</text>
+<text top="923" left="82" width="7" height="10" font="6">+</text>
+<text top="923" left="158" width="254" height="10" font="6">ylab = &#34;Barley Yield (bushels/acre)&#34;,</text>
+<text top="939" left="82" width="7" height="10" font="6">+</text>
+<text top="939" left="158" width="233" height="10" font="6">scales = list(x = list(rot = 45)))</text>
+<text top="989" left="82" width="346" height="15" font="0">There are too many individual shapes in this plot to</text>
+<text top="1007" left="82" width="346" height="15" font="0">show the full display list here, but all of the shapes</text>
+<text top="1025" left="82" width="346" height="15" font="0">have names and the following code makes use of</text>
+<text top="1043" left="82" width="346" height="15" font="0">those names to perform a more sophisticated plot</text>
+<text top="1061" left="82" width="346" height="15" font="0">modification: highlighting the sixth set of bars in</text>
+<text top="1079" left="82" width="246" height="15" font="0">each panel of the barchart (see Figure</text>
+<text top="1079" left="332" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#4">7</a></text>
+<text top="1079" left="340" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#4">).</a></text>
+<text top="1142" left="82" width="233" height="10" font="6">&gt; grid.edit(&#34;barchart.pos.6.rect&#34;,</text>
+<text top="1159" left="82" width="7" height="10" font="6">+</text>
+<text top="1159" left="165" width="158" height="10" font="6">grep=TRUE, global=TRUE,</text>
+<text top="1175" left="82" width="7" height="10" font="6">+</text>
+<text top="1175" left="165" width="103" height="10" font="6">gp=gpar(lwd=3))</text>
+<text top="326" left="471" width="0" height="9" font="14">Bar</text>
+<text top="311" left="471" width="0" height="9" font="14">le</text>
+<text top="304" left="471" width="0" height="9" font="14">y Y</text>
+<text top="290" left="471" width="0" height="9" font="14">ield (b</text>
+<text top="264" left="471" width="0" height="9" font="14">ushels/acre)</text>
+<text top="391" left="489" width="4" height="7" font="15">0</text>
+<text top="382" left="484" width="9" height="7" font="15">40</text>
+<text top="373" left="484" width="9" height="7" font="15">80</text>
+<text top="364" left="480" width="13" height="7" font="15">120</text>
+<text top="420" left="497" width="7" height="7" font="16">Sv</text>
+<text top="414" left="503" width="31" height="10" font="16">ansota No</text>
+<text top="409" left="534" width="13" height="7" font="16">. 462</text>
+<text top="423" left="546" width="22" height="7" font="16">Manchur</text>
+<text top="401" left="568" width="4" height="7" font="16">ia</text>
+<text top="416" left="579" width="7" height="7" font="16">No</text>
+<text top="409" left="586" width="13" height="7" font="16">. 475</text>
+<text top="412" left="609" width="11" height="7" font="16">Velv</text>
+<text top="401" left="620" width="5" height="7" font="16">et</text>
+<text top="424" left="623" width="28" height="9" font="18"><b>Peatland</b></text>
+<text top="417" left="657" width="34" height="7" font="16">Glabron No</text>
+<text top="409" left="690" width="13" height="7" font="16">. 457</text>
+<text top="440" left="685" width="35" height="7" font="16">Wisconsin No</text>
+<text top="406" left="719" width="9" height="7" font="16">. 38</text>
+<text top="409" left="743" width="12" height="7" font="16">Trebi</text>
+<text top="356" left="606" width="59" height="9" font="17">Grand Rapids</text>
+<text top="349" left="778" width="4" height="7" font="15">0</text>
+<text top="340" left="778" width="9" height="7" font="15">40</text>
+<text top="331" left="778" width="9" height="7" font="15">80</text>
+<text top="322" left="778" width="13" height="7" font="15">120</text>
+<text top="314" left="622" width="28" height="9" font="17">Duluth</text>
+<text top="307" left="489" width="4" height="7" font="15">0</text>
+<text top="298" left="484" width="9" height="7" font="15">40</text>
+<text top="289" left="484" width="9" height="7" font="15">80</text>
+<text top="280" left="480" width="13" height="7" font="15">120</text>
+<text top="272" left="602" width="67" height="9" font="17">University Farm</text>
+<text top="265" left="778" width="4" height="7" font="15">0</text>
+<text top="256" left="778" width="9" height="7" font="15">40</text>
+<text top="247" left="778" width="9" height="7" font="15">80</text>
+<text top="238" left="778" width="13" height="7" font="15">120</text>
+<text top="230" left="622" width="27" height="9" font="17">Morris</text>
+<text top="223" left="489" width="4" height="7" font="15">0</text>
+<text top="214" left="484" width="9" height="7" font="15">40</text>
+<text top="205" left="484" width="9" height="7" font="15">80</text>
+<text top="196" left="480" width="13" height="7" font="15">120</text>
+<text top="189" left="614" width="44" height="9" font="17">Crookston</text>
+<text top="181" left="778" width="4" height="7" font="15">0</text>
+<text top="172" left="778" width="9" height="7" font="15">40</text>
+<text top="163" left="778" width="9" height="7" font="15">80</text>
+<text top="154" left="778" width="13" height="7" font="15">120</text>
+<text top="147" left="618" width="34" height="9" font="17">Waseca</text>
+<text top="484" left="459" width="236" height="15" font="0">Figure 7: The barchart from Figure</text>
+<text top="484" left="700" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#4">6</a></text>
+<text top="484" left="712" width="93" height="15" font="0">with the sixth</text>
+<text top="502" left="459" width="242" height="15" font="0">set of bars in each panel highlighted.</text>
+<text top="539" left="481" width="324" height="15" font="0">The first argument to grid.edit() this time is</text>
+<text top="556" left="459" width="346" height="15" font="0">not the name of a specific grob. This time we have</text>
+<text top="575" left="459" width="346" height="15" font="0">given a name pattern. This is indicated by the use of</text>
+<text top="592" left="459" width="346" height="15" font="0">the grep argument; grep=TRUE means that the change</text>
+<text top="610" left="459" width="346" height="15" font="0">will be made to a component that matches the name</text>
+<text top="628" left="459" width="346" height="15" font="0">pattern (that was given as the first argument). The</text>
+<text top="648" left="459" width="46" height="12" font="0">global</text>
+<text top="646" left="511" width="294" height="15" font="0">argument is also set to TRUE, which means</text>
+<text top="664" left="459" width="346" height="15" font="0">that this change will be made to not just the first com-</text>
+<text top="682" left="459" width="346" height="15" font="0">ponent that matches the name pattern, but to all com-</text>
+<text top="700" left="459" width="346" height="15" font="0">ponents that match. The gp argument specifies the</text>
+<text top="718" left="459" width="346" height="15" font="0">change that we want to make (make the lines nice</text>
+<text top="736" left="459" width="71" height="15" font="0">and thick).</text>
+<text top="755" left="481" width="324" height="15" font="0">It would not be reasonable to expect the high-</text>
+<text top="773" left="459" width="346" height="15" font="0">level barchart() function to provide an argument</text>
+<text top="791" left="459" width="346" height="15" font="0">that allows for this sort of customisation, but, be-</text>
+<text top="809" left="459" width="346" height="15" font="0">cause <b>lattice </b>has named everything that it draws,</text>
+<text top="828" left="459" width="76" height="12" font="0">barchart()</text>
+<text top="827" left="539" width="266" height="15" font="0">does not need to cater for every possible</text>
+<text top="845" left="459" width="346" height="15" font="0">customisation. Low-level access to individual shapes</text>
+<text top="862" left="459" width="346" height="15" font="0">can be used instead bceause individual shapes can be</text>
+<text top="880" left="459" width="128" height="15" font="0">identified by name.</text>
+<text top="933" left="459" width="243" height="21" font="4"><b>Post-processing graphics</b></text>
+<text top="974" left="459" width="346" height="15" font="0">This section discusses how naming the individual</text>
+<text top="992" left="459" width="346" height="15" font="0">shapes within a plot allows not just minor customi-</text>
+<text top="1010" left="459" width="346" height="15" font="0">sations, but general transformations to be applied to</text>
+<text top="1028" left="459" width="41" height="15" font="0">a plot.</text>
+<text top="1047" left="481" width="324" height="15" font="0">The R graphics system has always encouraged</text>
+<text top="1064" left="459" width="346" height="15" font="0">the philosophy that a high-level plotting function is</text>
+<text top="1082" left="459" width="346" height="15" font="0">only a starting point. Low-level functions have al-</text>
+<text top="1100" left="459" width="346" height="15" font="0">ways been provided so that a plot can be customised</text>
+<text top="1118" left="459" width="258" height="15" font="0">by adding some new drawing to the plot.</text>
+<text top="1137" left="481" width="324" height="15" font="0">The previous section demonstrated that, if every</text>
+<text top="1155" left="459" width="346" height="15" font="0">shape within a plot has a label, it is also possible</text>
+<text top="1173" left="459" width="346" height="15" font="0">to customise a plot by modifying the existing shapes</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="19" size="9" family="Times" color="#00004c"/>
+	<fontspec id="20" size="9" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="798" width="7" height="15" font="0">9</text>
+<text top="125" left="82" width="88" height="15" font="0">within a plot.</text>
+<text top="148" left="105" width="324" height="15" font="0">However, we can go even further than just mod-</text>
+<text top="166" left="82" width="346" height="15" font="0">ifying the existing parameters of a shape. In theory,</text>
+<text top="184" left="82" width="346" height="15" font="0">we can think of the existing shapes within a picture</text>
+<text top="202" left="82" width="346" height="15" font="0">as a basis for more general post-processing of the im-</text>
+<text top="220" left="82" width="27" height="15" font="0">age.</text>
+<text top="243" left="105" width="324" height="15" font="0">As an example, one thing that we can do is to</text>
+<text top="261" left="82" width="346" height="15" font="0">query the existing components of a plot to determine</text>
+<text top="279" left="82" width="346" height="15" font="0">the position or size of an existing component. This</text>
+<text top="297" left="82" width="346" height="15" font="0">means that we can position or size new drawing in</text>
+<text top="315" left="82" width="346" height="15" font="0">relation to the existing plot. The following code uses</text>
+<text top="333" left="82" width="346" height="15" font="0">this idea to add a rectangle around the x-axis label of</text>
+<text top="351" left="82" width="116" height="15" font="0">the plot in Figure</text>
+<text top="351" left="203" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="351" left="215" width="73" height="15" font="0">(see Figure</text>
+<text top="351" left="293" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#5">8</a></text>
+<text top="351" left="300" width="129" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#5">). </a>The grobWidth()</text>
+<text top="369" left="82" width="346" height="15" font="0">function is used to calculate the width of the rectan-</text>
+<text top="387" left="82" width="346" height="15" font="0">gle from the width of the x-axis label. The first argu-</text>
+<text top="405" left="82" width="346" height="15" font="0">ment to grobWidth() is the name of the x-axis label</text>
+<text top="423" left="82" width="346" height="15" font="0">grob. The downViewport() function is used to make</text>
+<text top="440" left="82" width="346" height="15" font="0">sure that we draw the rectangle in the right area on</text>
+<text top="458" left="82" width="60" height="15" font="0">the <a href="2012-2-RJournal_2012-2_Murrell.html#5">page.</a></text>
+<text top="456" left="143" width="6" height="11" font="19"><a href="2012-2-RJournal_2012-2_Murrell.html#5">1</a></text>
+<text top="513" left="82" width="192" height="10" font="6">&gt; xyplot(mpg ~ disp, mtcars)</text>
+<text top="560" left="82" width="274" height="10" font="6">&gt; rectWidth &lt;- grobWidth(&#34;plot_01.xlab&#34;)</text>
+<text top="608" left="82" width="226" height="10" font="6">&gt; downViewport(&#34;plot_01.xlab.vp&#34;)</text>
+<text top="624" left="82" width="302" height="10" font="6">&gt; grid.rect(width=rectWidth + unit(2, &#34;mm&#34;),</text>
+<text top="640" left="82" width="7" height="10" font="6">+</text>
+<text top="640" left="165" width="165" height="10" font="6">height=unit(1, &#34;lines&#34;),</text>
+<text top="657" left="82" width="7" height="10" font="6">+</text>
+<text top="657" left="165" width="103" height="10" font="6">gp=gpar(lwd=2),</text>
+<text top="673" left="82" width="7" height="10" font="6">+</text>
+<text top="673" left="165" width="110" height="10" font="6">name=&#34;xlabRect&#34;)</text>
+<text top="725" left="105" width="324" height="15" font="0">The display list now contains an new rectangle</text>
+<text top="743" left="82" width="146" height="15" font="0">grob, as shown below.</text>
+<text top="798" left="82" width="171" height="10" font="6">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="845" left="82" width="165" height="10" font="6">rect[plot_01.background]</text>
+<text top="861" left="82" width="123" height="10" font="6">text[plot_01.xlab]</text>
+<text top="878" left="82" width="123" height="10" font="6">text[plot_01.ylab]</text>
+<text top="894" left="82" width="254" height="10" font="6">segments[plot_01.ticks.top.panel.1.1]</text>
+<text top="911" left="82" width="261" height="10" font="6">segments[plot_01.ticks.left.panel.1.1]</text>
+<text top="927" left="82" width="268" height="10" font="6">text[plot_01.ticklabels.left.panel.1.1]</text>
+<text top="943" left="82" width="274" height="10" font="6">segments[plot_01.ticks.bottom.panel.1.1]</text>
+<text top="960" left="82" width="281" height="10" font="6">text[plot_01.ticklabels.bottom.panel.1.1]</text>
+<text top="976" left="82" width="268" height="10" font="6">segments[plot_01.ticks.right.panel.1.1]</text>
+<text top="993" left="82" width="268" height="10" font="6">points[plot_01.xyplot.points.panel.1.1]</text>
+<text top="1009" left="82" width="206" height="10" font="6">rect[plot_01.border.panel.1.1]</text>
+<text top="1026" left="82" width="96" height="10" font="6">rect[xlabRect]</text>
+<text top="442" left="631" width="26" height="13" font="8">disp</text>
+<text top="288" left="476" width="0" height="13" font="11">mpg</text>
+<text top="391" left="490" width="13" height="11" font="9">10</text>
+<text top="345" left="490" width="13" height="11" font="9">15</text>
+<text top="300" left="490" width="13" height="11" font="9">20</text>
+<text top="254" left="490" width="13" height="11" font="9">25</text>
+<text top="209" left="490" width="13" height="11" font="9">30</text>
+<text top="164" left="490" width="13" height="11" font="9">35</text>
+<text top="420" left="539" width="20" height="11" font="9">100</text>
+<text top="420" left="594" width="20" height="11" font="9">200</text>
+<text top="420" left="650" width="20" height="11" font="9">300</text>
+<text top="420" left="705" width="20" height="11" font="9">400</text>
+<text top="291" left="579" width="6" height="8" font="12">●</text>
+<text top="291" left="579" width="6" height="8" font="12">●</text>
+<text top="275" left="550" width="6" height="8" font="12">●</text>
+<text top="288" left="633" width="6" height="8" font="12">●</text>
+<text top="312" left="690" width="6" height="8" font="12">●</text>
+<text top="317" left="615" width="6" height="8" font="12">●</text>
+<text top="352" left="690" width="6" height="8" font="12">●</text>
+<text top="260" left="572" width="6" height="8" font="12">●</text>
+<text top="275" left="568" width="6" height="8" font="12">●</text>
+<text top="308" left="583" width="6" height="8" font="12">●</text>
+<text top="320" left="583" width="6" height="8" font="12">●</text>
+<text top="333" left="643" width="6" height="8" font="12">●</text>
+<text top="325" left="643" width="6" height="8" font="12">●</text>
+<text top="344" left="643" width="6" height="8" font="12">●</text>
+<text top="387" left="752" width="6" height="8" font="12">●</text>
+<text top="387" left="745" width="6" height="8" font="12">●</text>
+<text top="348" left="734" width="6" height="8" font="12">●</text>
+<text top="188" left="534" width="6" height="8" font="12">●</text>
+<text top="206" left="532" width="6" height="8" font="12">●</text>
+<text top="174" left="530" width="6" height="8" font="12">●</text>
+<text top="287" left="557" width="6" height="8" font="12">●</text>
+<text top="341" left="666" width="6" height="8" font="12">●</text>
+<text top="344" left="659" width="6" height="8" font="12">●</text>
+<text top="361" left="684" width="6" height="8" font="12">●</text>
+<text top="308" left="712" width="6" height="8" font="12">●</text>
+<text top="234" left="534" width="6" height="8" font="12">●</text>
+<text top="246" left="557" width="6" height="8" font="12">●</text>
+<text top="206" left="543" width="6" height="8" font="12">●</text>
+<text top="338" left="685" width="6" height="8" font="12">●</text>
+<text top="303" left="571" width="6" height="8" font="12">●</text>
+<text top="346" left="657" width="6" height="8" font="12">●</text>
+<text top="288" left="557" width="6" height="8" font="12">●</text>
+<text top="484" left="459" width="242" height="15" font="0">Figure 8: The <b>lattice </b>plot from Figure</text>
+<text top="484" left="705" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="484" left="715" width="90" height="15" font="0">with a rectan-</text>
+<text top="502" left="459" width="223" height="15" font="0">gle added around the x-axis label.</text>
+<text top="538" left="481" width="324" height="15" font="0">Importantly, the new grob depends on the size of</text>
+<text top="556" left="459" width="346" height="15" font="0">the existing x-axis label grob within the scene. For</text>
+<text top="573" left="459" width="346" height="15" font="0">example, if we edit the x-axis label again, as below,</text>
+<text top="591" left="459" width="346" height="15" font="0">the rectangle will grow to accommodate the new la-</text>
+<text top="609" left="459" width="96" height="15" font="0">bel (see Figure</text>
+<text top="609" left="558" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#5">9</a></text>
+<text top="609" left="566" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#5">).</a></text>
+<text top="640" left="459" width="185" height="10" font="6">&gt; grid.edit(&#34;plot_01.xlab&#34;,</text>
+<text top="656" left="459" width="7" height="10" font="6">+</text>
+<text top="656" left="541" width="144" height="10" font="6">label=&#34;Displacement&#34;,</text>
+<text top="673" left="459" width="7" height="10" font="6">+</text>
+<text top="673" left="541" width="219" height="10" font="6">gp=gpar(fontface=&#34;bold.italic&#34;))</text>
+<text top="1018" left="597" width="94" height="13" font="13"><i><b>Displacement</b></i></text>
+<text top="864" left="476" width="0" height="13" font="11">mpg</text>
+<text top="966" left="490" width="13" height="11" font="9">10</text>
+<text top="921" left="490" width="13" height="11" font="9">15</text>
+<text top="875" left="490" width="13" height="11" font="9">20</text>
+<text top="830" left="490" width="13" height="11" font="9">25</text>
+<text top="785" left="490" width="13" height="11" font="9">30</text>
+<text top="739" left="490" width="13" height="11" font="9">35</text>
+<text top="995" left="539" width="20" height="11" font="9">100</text>
+<text top="995" left="594" width="20" height="11" font="9">200</text>
+<text top="995" left="650" width="20" height="11" font="9">300</text>
+<text top="995" left="705" width="20" height="11" font="9">400</text>
+<text top="867" left="579" width="6" height="8" font="12">●</text>
+<text top="867" left="579" width="6" height="8" font="12">●</text>
+<text top="850" left="550" width="6" height="8" font="12">●</text>
+<text top="863" left="633" width="6" height="8" font="12">●</text>
+<text top="888" left="690" width="6" height="8" font="12">●</text>
+<text top="893" left="615" width="6" height="8" font="12">●</text>
+<text top="928" left="690" width="6" height="8" font="12">●</text>
+<text top="836" left="572" width="6" height="8" font="12">●</text>
+<text top="850" left="568" width="6" height="8" font="12">●</text>
+<text top="883" left="583" width="6" height="8" font="12">●</text>
+<text top="896" left="583" width="6" height="8" font="12">●</text>
+<text top="909" left="643" width="6" height="8" font="12">●</text>
+<text top="900" left="643" width="6" height="8" font="12">●</text>
+<text top="919" left="643" width="6" height="8" font="12">●</text>
+<text top="963" left="752" width="6" height="8" font="12">●</text>
+<text top="963" left="745" width="6" height="8" font="12">●</text>
+<text top="924" left="734" width="6" height="8" font="12">●</text>
+<text top="763" left="534" width="6" height="8" font="12">●</text>
+<text top="781" left="532" width="6" height="8" font="12">●</text>
+<text top="750" left="530" width="6" height="8" font="12">●</text>
+<text top="862" left="557" width="6" height="8" font="12">●</text>
+<text top="917" left="666" width="6" height="8" font="12">●</text>
+<text top="919" left="659" width="6" height="8" font="12">●</text>
+<text top="937" left="684" width="6" height="8" font="12">●</text>
+<text top="883" left="712" width="6" height="8" font="12">●</text>
+<text top="810" left="534" width="6" height="8" font="12">●</text>
+<text top="821" left="557" width="6" height="8" font="12">●</text>
+<text top="781" left="543" width="6" height="8" font="12">●</text>
+<text top="914" left="685" width="6" height="8" font="12">●</text>
+<text top="879" left="571" width="6" height="8" font="12">●</text>
+<text top="921" left="657" width="6" height="8" font="12">●</text>
+<text top="863" left="557" width="6" height="8" font="12">●</text>
+<text top="1060" left="459" width="242" height="15" font="0">Figure 9: The <b>lattice </b>plot from Figure</text>
+<text top="1060" left="705" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="1060" left="715" width="90" height="15" font="0">with a rectan-</text>
+<text top="1078" left="459" width="278" height="15" font="0">gle added around the modified x-axis label.</text>
+<text top="1113" left="481" width="324" height="15" font="0">A more extreme example of post-processing is</text>
+<text top="1131" left="459" width="346" height="15" font="0">demonstrated in the code below. In this case, we</text>
+<text top="1149" left="459" width="346" height="15" font="0">again query the existing x-axis label to determine its</text>
+<text top="1173" left="99" width="4" height="9" font="12">1</text>
+<text top="1175" left="104" width="586" height="12" font="1">This downViewport() works because the <b>grid </b>viewports that <b>lattice </b>creates to draw its plots all have names too!</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="21" size="8" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">10</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">width, but this time, rather than adding a rectangle,</text>
+<text top="143" left="82" width="346" height="15" font="0">we replace the label with a rectangle (in effect, we</text>
+<text top="161" left="82" width="233" height="15" font="0">“redact” the x-axis label; see Figure</text>
+<text top="161" left="319" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#6">10</a></text>
+<text top="161" left="334" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#6">).</a></text>
+<text top="195" left="82" width="192" height="10" font="6">&gt; xyplot(mpg ~ disp, mtcars)</text>
+<text top="226" left="82" width="274" height="10" font="6">&gt; xaxisLabel &lt;- grid.get(&#34;plot_01.xlab&#34;)</text>
+<text top="243" left="82" width="178" height="10" font="6">&gt; grid.set(&#34;plot_01.xlab&#34;,</text>
+<text top="259" left="82" width="7" height="10" font="6">+</text>
+<text top="259" left="158" width="261" height="10" font="6">rectGrob(width=grobWidth(xaxisLabel) +</text>
+<text top="276" left="82" width="7" height="10" font="6">+</text>
+<text top="276" left="261" width="96" height="10" font="6">unit(2, &#34;mm&#34;),</text>
+<text top="292" left="82" width="7" height="10" font="6">+</text>
+<text top="292" left="220" width="165" height="10" font="6">height=unit(1, &#34;lines&#34;),</text>
+<text top="309" left="82" width="7" height="10" font="6">+</text>
+<text top="309" left="220" width="151" height="10" font="6">gp=gpar(fill=&#34;black&#34;),</text>
+<text top="325" left="82" width="7" height="10" font="6">+</text>
+<text top="325" left="220" width="144" height="10" font="6">name=&#34;plot_01.xlab&#34;))</text>
+<text top="519" left="100" width="0" height="13" font="11">mpg</text>
+<text top="622" left="114" width="13" height="11" font="9">10</text>
+<text top="576" left="114" width="13" height="11" font="9">15</text>
+<text top="531" left="114" width="13" height="11" font="9">20</text>
+<text top="486" left="114" width="13" height="11" font="9">25</text>
+<text top="440" left="114" width="13" height="11" font="9">30</text>
+<text top="395" left="114" width="13" height="11" font="9">35</text>
+<text top="651" left="163" width="20" height="11" font="9">100</text>
+<text top="651" left="218" width="20" height="11" font="9">200</text>
+<text top="651" left="273" width="20" height="11" font="9">300</text>
+<text top="651" left="329" width="20" height="11" font="9">400</text>
+<text top="522" left="203" width="6" height="8" font="12">●</text>
+<text top="522" left="203" width="6" height="8" font="12">●</text>
+<text top="506" left="174" width="6" height="8" font="12">●</text>
+<text top="519" left="257" width="6" height="8" font="12">●</text>
+<text top="543" left="313" width="6" height="8" font="12">●</text>
+<text top="549" left="239" width="6" height="8" font="12">●</text>
+<text top="583" left="313" width="6" height="8" font="12">●</text>
+<text top="492" left="195" width="6" height="8" font="12">●</text>
+<text top="506" left="192" width="6" height="8" font="12">●</text>
+<text top="539" left="207" width="6" height="8" font="12">●</text>
+<text top="551" left="207" width="6" height="8" font="12">●</text>
+<text top="564" left="267" width="6" height="8" font="12">●</text>
+<text top="556" left="267" width="6" height="8" font="12">●</text>
+<text top="575" left="267" width="6" height="8" font="12">●</text>
+<text top="619" left="375" width="6" height="8" font="12">●</text>
+<text top="619" left="369" width="6" height="8" font="12">●</text>
+<text top="580" left="358" width="6" height="8" font="12">●</text>
+<text top="419" left="158" width="6" height="8" font="12">●</text>
+<text top="437" left="156" width="6" height="8" font="12">●</text>
+<text top="405" left="153" width="6" height="8" font="12">●</text>
+<text top="518" left="181" width="6" height="8" font="12">●</text>
+<text top="572" left="290" width="6" height="8" font="12">●</text>
+<text top="575" left="282" width="6" height="8" font="12">●</text>
+<text top="592" left="308" width="6" height="8" font="12">●</text>
+<text top="539" left="336" width="6" height="8" font="12">●</text>
+<text top="465" left="158" width="6" height="8" font="12">●</text>
+<text top="477" left="181" width="6" height="8" font="12">●</text>
+<text top="437" left="167" width="6" height="8" font="12">●</text>
+<text top="570" left="308" width="6" height="8" font="12">●</text>
+<text top="534" left="194" width="6" height="8" font="12">●</text>
+<text top="577" left="281" width="6" height="8" font="12">●</text>
+<text top="519" left="181" width="6" height="8" font="12">●</text>
+<text top="715" left="82" width="257" height="15" font="0">Figure 10: The <b>lattice </b>plot from Figure</text>
+<text top="715" left="344" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="715" left="356" width="73" height="15" font="0">with the x-</text>
+<text top="733" left="82" width="344" height="15" font="0">axis label redacted (replaced with a black rectangle).</text>
+<text top="769" left="105" width="324" height="15" font="0">The display list now consists of the same num-</text>
+<text top="787" left="82" width="346" height="15" font="0">ber of grobs as in the original plot, but now the grob</text>
+<text top="805" left="82" width="346" height="15" font="0">named &#34;plot_01.xlab&#34; is a rectangle instead of text</text>
+<text top="823" left="82" width="271" height="15" font="0">(see the second line of the output below).</text>
+<text top="857" left="82" width="171" height="10" font="6">&gt; grid.ls(fullNames=TRUE)</text>
+<text top="888" left="82" width="165" height="10" font="6">rect[plot_01.background]</text>
+<text top="905" left="82" width="123" height="10" font="6">rect[plot_01.xlab]</text>
+<text top="921" left="82" width="123" height="10" font="6">text[plot_01.ylab]</text>
+<text top="938" left="82" width="254" height="10" font="6">segments[plot_01.ticks.top.panel.1.1]</text>
+<text top="954" left="82" width="261" height="10" font="6">segments[plot_01.ticks.left.panel.1.1]</text>
+<text top="970" left="82" width="268" height="10" font="6">text[plot_01.ticklabels.left.panel.1.1]</text>
+<text top="987" left="82" width="274" height="10" font="6">segments[plot_01.ticks.bottom.panel.1.1]</text>
+<text top="1003" left="82" width="281" height="10" font="6">text[plot_01.ticklabels.bottom.panel.1.1]</text>
+<text top="1020" left="82" width="268" height="10" font="6">segments[plot_01.ticks.right.panel.1.1]</text>
+<text top="1036" left="82" width="268" height="10" font="6">points[plot_01.xyplot.points.panel.1.1]</text>
+<text top="1053" left="82" width="206" height="10" font="6">rect[plot_01.border.panel.1.1]</text>
+<text top="1083" left="105" width="324" height="15" font="0">The artificial examples shown in this section so</text>
+<text top="1101" left="82" width="346" height="15" font="0">far have been deliberately simple in an attempt to</text>
+<text top="1119" left="82" width="346" height="15" font="0">make the basic concepts clear, but the ideas can be</text>
+<text top="1137" left="82" width="346" height="15" font="0">applied on a much larger scale and to greater effect.</text>
+<text top="1155" left="82" width="252" height="15" font="0">For example, the <b>gridSVG </b>package <a href="2012-2-RJournal_2012-2_Murrell.html#8">(</a></text>
+<text top="1155" left="334" width="51" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Murrell</a></text>
+<text top="1155" left="385" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="1155" left="394" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2011</a></text>
+<text top="1155" left="424" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">)</a></text>
+<text top="1173" left="82" width="346" height="15" font="0">uses these techniques to transform static R plots into</text>
+<text top="125" left="459" width="346" height="15" font="0">dynamic and interactive plots for use in web pages.</text>
+<text top="143" left="459" width="346" height="15" font="0">It has functions that modify existing grobs on the</text>
+<text top="161" left="459" width="28" height="15" font="3"><b>grid</b></text>
+<text top="161" left="490" width="315" height="15" font="0">display list to add extra information, like hyper-</text>
+<text top="179" left="459" width="346" height="15" font="0">links and animation, and it has functions that trans-</text>
+<text top="197" left="459" width="346" height="15" font="0">form each grob on the <b>grid </b>display list to SVG code.</text>
+<text top="215" left="459" width="346" height="15" font="0">The following code shows a simple demonstration</text>
+<text top="233" left="459" width="346" height="15" font="0">where the original <b>lattice </b>plot is converted to an SVG</text>
+<text top="251" left="459" width="346" height="15" font="0">document with a hyperlink on the x-axis label. Fig-</text>
+<text top="268" left="459" width="22" height="15" font="0">ure</text>
+<text top="268" left="484" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#6">11</a></text>
+<text top="268" left="503" width="291" height="15" font="0">shows the SVG document in a web browser.</text>
+<text top="299" left="459" width="192" height="10" font="6">&gt; xyplot(mpg ~ disp, mtcars)</text>
+<text top="327" left="459" width="123" height="10" font="6">&gt; library(gridSVG)</text>
+<text top="353" left="459" width="43" height="8" font="21">&gt; url &lt;-</text>
+<text top="365" left="459" width="5" height="8" font="21">+</text>
+<text top="365" left="480" width="304" height="8" font="21">&#34;http://www.mortality.org/INdb/2008/02/12/8/document.pdf&#34;</text>
+<text top="391" left="459" width="288" height="10" font="6">&gt; grid.hyperlink(&#34;plot_01.xlab&#34;, href=url)</text>
+<text top="407" left="459" width="171" height="10" font="6">&gt; gridToSVG(&#34;xyplot.svg&#34;)</text>
+<text top="922" left="459" width="250" height="15" font="0">Figure 11: The <b>lattice </b>plot from Figure</text>
+<text top="922" left="713" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">4</a></text>
+<text top="922" left="724" width="82" height="15" font="0">transformed</text>
+<text top="940" left="459" width="346" height="15" font="0">into an SVG document with a hyperlink on the x-axis</text>
+<text top="958" left="459" width="35" height="15" font="0">label.</text>
+<text top="994" left="481" width="324" height="15" font="0">The significant part of that code is the first argu-</text>
+<text top="1012" left="459" width="346" height="15" font="0">ment in the call to the grid.hyperlink() function,</text>
+<text top="1030" left="459" width="346" height="15" font="0">which demonstrates the ability to specify a plot com-</text>
+<text top="1048" left="459" width="111" height="15" font="0">ponent by name.</text>
+<text top="1065" left="481" width="324" height="15" font="0">More sophisticated embellishments are also pos-</text>
+<text top="1083" left="459" width="346" height="15" font="0">sible with <b>gridSVG </b>because the names of plot com-</text>
+<text top="1101" left="459" width="346" height="15" font="0">ponents are exported to SVG code as id attributes of</text>
+<text top="1119" left="459" width="346" height="15" font="0">the corresponding SVG elements. This facilitates the</text>
+<text top="1137" left="459" width="346" height="15" font="0">development of javascript code to allow user interac-</text>
+<text top="1155" left="459" width="346" height="15" font="0">tion with the SVG plot and allows for the possibility</text>
+<text top="1173" left="459" width="201" height="15" font="0">of CSS styling of the SVG plot.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="22" size="26" family="Helvetica" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">11</text>
+<text top="121" left="82" width="168" height="21" font="4"><b>Naming schemes</b></text>
+<text top="160" left="82" width="346" height="15" font="0">The basic message of this article is straightforward:</text>
+<text top="178" left="82" width="346" height="15" font="0">name everything that you draw with <b>grid</b>. However,</text>
+<text top="196" left="82" width="346" height="15" font="0">deciding what names to use—deciding on a naming</text>
+<text top="214" left="82" width="231" height="15" font="0">scheme—is not necessarily so easy.</text>
+<text top="232" left="105" width="324" height="15" font="0">The approach taken in the <b>lattice </b>package is to</text>
+<text top="250" left="82" width="346" height="15" font="0">attempt to reflect the structure of the plot in the nam-</text>
+<text top="268" left="82" width="346" height="15" font="0">ing scheme. For example, everything that is drawn</text>
+<text top="286" left="82" width="346" height="15" font="0">within a panel region has the word &#34;panel&#34; in its</text>
+<text top="304" left="82" width="346" height="15" font="0">name, along with a suffix of the form i.j to identify</text>
+<text top="322" left="82" width="178" height="15" font="0">the panel row and column.</text>
+<text top="340" left="105" width="324" height="15" font="0">The decision may be made a lot easier if a plot</text>
+<text top="358" left="82" width="346" height="15" font="0">is drawn from gTrees rather than simple grobs, be-</text>
+<text top="375" left="82" width="346" height="15" font="0">cause the gTrees reflect the plot structure already and</text>
+<text top="393" left="82" width="346" height="15" font="0">names for individual components can be chosen to</text>
+<text top="411" left="82" width="346" height="15" font="0">reflect just the “local” role of each plot component.</text>
+<text top="429" left="82" width="308" height="15" font="0">The naming scheme in the <b>ggplot2 </b>package <a href="2012-2-RJournal_2012-2_Murrell.html#8">(</a></text>
+<text top="429" left="391" width="38" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Wick-</a></text>
+<text top="447" left="82" width="29" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">ham</a></text>
+<text top="447" left="112" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="447" left="119" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2009</a></text>
+<text top="447" left="149" width="213" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">) </a>is an example of this approach.</text>
+<text top="465" left="105" width="324" height="15" font="0">In addition to the code developer deciding on a</text>
+<text top="483" left="82" width="346" height="15" font="0">naming scheme, the code user also faces the problem</text>
+<text top="501" left="82" width="346" height="15" font="0">of how to “discover” the names of the components</text>
+<text top="519" left="82" width="58" height="15" font="0">of a plot.</text>
+<text top="537" left="105" width="324" height="15" font="0">From the developer side, there is a responsi-</text>
+<text top="555" left="82" width="346" height="15" font="0">bility to document the naming scheme (for exam-</text>
+<text top="573" left="82" width="346" height="15" font="0">ple, the <b>lattice </b>naming scheme is described on the</text>
+<text top="591" left="82" width="191" height="15" font="0">packages’s R-Forge web <a href="2012-2-RJournal_2012-2_Murrell.html#7">site</a></text>
+<text top="588" left="273" width="6" height="11" font="19"><a href="2012-2-RJournal_2012-2_Murrell.html#7">2</a></text>
+<text top="591" left="280" width="149" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">). </a>It may also be pos-</text>
+<text top="609" left="82" width="346" height="15" font="0">sible to provide a function interface to assist in</text>
+<text top="627" left="82" width="346" height="15" font="0">constructing the names of grobs (for example, the</text>
+<text top="646" left="82" width="137" height="12" font="0">trellis.grobname()</text>
+<text top="645" left="223" width="126" height="15" font="0">function in <b>lattice</b>).</text>
+<text top="663" left="105" width="324" height="15" font="0">From the user side, there are tools that help to dis-</text>
+<text top="681" left="82" width="346" height="15" font="0">play the names of grobs in the current scene. This</text>
+<text top="699" left="82" width="346" height="15" font="0">article has demonstrated the grid.ls() function, but</text>
+<text top="717" left="82" width="346" height="15" font="0">there is also a showGrob() function, and the <b>gridDe-</b></text>
+<text top="735" left="82" width="27" height="15" font="3"><b>bug</b></text>
+<text top="735" left="114" width="64" height="15" font="0">package <a href="2012-2-RJournal_2012-2_Murrell.html#8">(</a></text>
+<text top="735" left="178" width="104" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Murrell and Ly.</a></text>
+<text top="735" left="283" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="735" left="291" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2011</a></text>
+<text top="735" left="321" width="108" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">) </a>provides some</text>
+<text top="753" left="82" width="73" height="15" font="0">more tools.</text>
+<text top="800" left="82" width="77" height="21" font="4"><b>Caveats</b></text>
+<text top="839" left="82" width="346" height="15" font="0">The examples used for demonstrations in this arti-</text>
+<text top="857" left="82" width="346" height="15" font="0">cle are deliberately simplified to make explanations</text>
+<text top="875" left="82" width="346" height="15" font="0">clearer. This section addresses two complications</text>
+<text top="893" left="82" width="243" height="15" font="0">that have not been raised previously.</text>
+<text top="911" left="105" width="324" height="15" font="0">One issue is that, while each call to a <b>grid </b>draw-</text>
+<text top="929" left="82" width="346" height="15" font="0">ing function produces exactly one grob, a single call</text>
+<text top="947" left="82" width="346" height="15" font="0">to a drawing function may produce more than one</text>
+<text top="965" left="82" width="346" height="15" font="0">shape in the scene. In the very first example in this</text>
+<text top="983" left="82" width="94" height="15" font="0">article (Figure</text>
+<text top="983" left="183" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="983" left="190" width="239" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#1">), </a>the call to grid.circle() creates</text>
+<text top="1001" left="82" width="241" height="15" font="0">one circle grob and draws one circle.</text>
+<text top="1035" left="82" width="281" height="10" font="6">&gt; grid.circle(r=.25, name=&#34;middleCircle&#34;)</text>
+<text top="1066" left="105" width="324" height="15" font="0">The call to grid.text() also creates only one text</text>
+<text top="1084" left="82" width="245" height="15" font="0">grob, but it draws three pieces of text.</text>
+<text top="1118" left="82" width="274" height="10" font="6">&gt; grid.text(c(&#34;text&#34;, &#34;circle&#34;, &#34;rect&#34;),</text>
+<text top="1135" left="82" width="7" height="10" font="6">+</text>
+<text top="1135" left="165" width="226" height="10" font="6">x=1:3/4, gp=gpar(cex=c(3, 1, 1)),</text>
+<text top="1151" left="82" width="7" height="10" font="6">+</text>
+<text top="1151" left="165" width="110" height="10" font="6">name=&#34;leftText&#34;)</text>
+<text top="125" left="481" width="324" height="15" font="0">Modifying this text grob is slightly more complex</text>
+<text top="143" left="459" width="346" height="15" font="0">because there are three locations and three sets of</text>
+<text top="161" left="459" width="346" height="15" font="0">graphical parameter settings for this single grob. For</text>
+<text top="179" left="459" width="346" height="15" font="0">example, if we modify the text grob and supply a sin-</text>
+<text top="197" left="459" width="346" height="15" font="0">gle cex setting, that is applied to all pieces of text (see</text>
+<text top="215" left="459" width="43" height="15" font="0">Figure</text>
+<text top="215" left="505" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#7">12</a></text>
+<text top="215" left="520" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">).</a></text>
+<text top="247" left="459" width="268" height="10" font="6">&gt; grid.edit(&#34;leftText&#34;, gp=gpar(cex=2))</text>
+<text top="327" left="523" width="46" height="27" font="22">text</text>
+<text top="327" left="598" width="67" height="27" font="22">circle</text>
+<text top="327" left="695" width="48" height="27" font="22">rect</text>
+<text top="397" left="459" width="276" height="15" font="0">Figure 12: The simple shapes from Figure</text>
+<text top="397" left="739" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="397" left="750" width="55" height="15" font="0">with the</text>
+<text top="415" left="459" width="288" height="15" font="0">text grob modified using a single cex value.</text>
+<text top="451" left="481" width="324" height="15" font="0">If we want to control the cex for each piece of text</text>
+<text top="469" left="459" width="346" height="15" font="0">separately, we must provide three new settings (see</text>
+<text top="487" left="459" width="43" height="15" font="0">Figure</text>
+<text top="487" left="505" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#7">13</a></text>
+<text top="487" left="520" width="9" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">).</a></text>
+<text top="519" left="459" width="329" height="10" font="6">&gt; grid.edit(&#34;leftText&#34;, gp=gpar(cex=c(1, 2, 3)))</text>
+<text top="604" left="534" width="23" height="13" font="8">text</text>
+<text top="599" left="598" width="67" height="27" font="22">circle</text>
+<text top="594" left="683" width="72" height="40" font="7">rect</text>
+<text top="670" left="459" width="276" height="15" font="0">Figure 13: The simple shapes from Figure</text>
+<text top="670" left="739" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">1</a></text>
+<text top="670" left="750" width="55" height="15" font="0">with the</text>
+<text top="688" left="459" width="330" height="15" font="0">text grob modified using three distinct cex values.</text>
+<text top="723" left="481" width="324" height="15" font="0">Another topic that has not been mentioned is <b>grid</b></text>
+<text top="741" left="459" width="346" height="15" font="0">viewports. This is because, although <b>grid </b>viewports</text>
+<text top="759" left="459" width="346" height="15" font="0">can also be named, they cannot be edited in the same</text>
+<text top="777" left="459" width="346" height="15" font="0">way as grobs (the names are only used for navigation</text>
+<text top="795" left="459" width="346" height="15" font="0">between viewports). Furthermore, <b>grid </b>does not al-</text>
+<text top="813" left="459" width="346" height="15" font="0">low the vp slot on a grob to be modified and the name</text>
+<text top="831" left="459" width="346" height="15" font="0">slot on grobs is also out of bounds. These limitations</text>
+<text top="849" left="459" width="346" height="15" font="0">are imposed because the consequences of allowing</text>
+<text top="867" left="459" width="346" height="15" font="0">modifications are either nonsensical or too complex</text>
+<text top="885" left="459" width="211" height="15" font="0">to currently be handled by <b>grid</b>.</text>
+<text top="931" left="459" width="109" height="21" font="4"><b>Discussion</b></text>
+<text top="970" left="459" width="346" height="15" font="0">In summary, if we specify an explicit name for every</text>
+<text top="988" left="459" width="346" height="15" font="0">shape that we draw using <b>grid</b>, we allow low-level</text>
+<text top="1006" left="459" width="346" height="15" font="0">access to every grob within a scene. This allows us</text>
+<text top="1024" left="459" width="346" height="15" font="0">to make very detailed customisations to the scene,</text>
+<text top="1041" left="459" width="346" height="15" font="0">without the need for long lists of arguments in high-</text>
+<text top="1059" left="459" width="346" height="15" font="0">level plotting functions, and it allows us to query and</text>
+<text top="1077" left="459" width="304" height="15" font="0">transform the scene in a wide variety of ways.</text>
+<text top="1095" left="481" width="324" height="15" font="0">An alternative way to provide access to individ-</text>
+<text top="1113" left="459" width="346" height="15" font="0">ual shapes within a plot is to allow the user to simply</text>
+<text top="1131" left="459" width="346" height="15" font="0">select shapes on screen via a mouse. How does this</text>
+<text top="1149" left="459" width="199" height="15" font="0">compare to a naming scheme?</text>
+<text top="1173" left="99" width="4" height="9" font="12"><a href="http://lattice.r-forge.r-project.org/documentation.php">2</a></text>
+<text top="1176" left="104" width="331" height="9" font="19"><a href="http://lattice.r-forge.r-project.org/documentation.php">http://lattice.r-forge.r-project.org/documentation.php</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">12</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="105" width="324" height="15" font="0">Selection using a mouse works well for some</text>
+<text top="143" left="82" width="346" height="15" font="0">sorts of modifications (see, for example, the <b>play-</b></text>
+<text top="161" left="82" width="32" height="15" font="3"><b>with</b></text>
+<text top="161" left="118" width="58" height="15" font="0">package;</text>
+<text top="161" left="180" width="61" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">Andrews</a></text>
+<text top="161" left="241" width="4" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">,</a></text>
+<text top="161" left="249" width="30" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">2010</a></text>
+<text top="161" left="279" width="150" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">), </a>but providing access</text>
+<text top="179" left="82" width="346" height="15" font="0">to individual shapes by name is more efficient, more</text>
+<text top="197" left="82" width="346" height="15" font="0">general, and more powerful. For example, if we</text>
+<text top="215" left="82" width="346" height="15" font="0">write code to make modifications, referencing grobs</text>
+<text top="233" left="82" width="346" height="15" font="0">by name, we have a record of what we have done, we</text>
+<text top="251" left="82" width="346" height="15" font="0">can easily automate large numbers of modifications,</text>
+<text top="268" left="82" width="346" height="15" font="0">we can share our modification techniques, and we</text>
+<text top="286" left="82" width="346" height="15" font="0">can express more complex modifications (like “high-</text>
+<text top="304" left="82" width="150" height="15" font="0">light every sixth bar”).</text>
+<text top="322" left="105" width="324" height="15" font="0">Another alternative way to provide detailed con-</text>
+<text top="340" left="82" width="346" height="15" font="0">trol over a scene is simply to modify the original R</text>
+<text top="358" left="82" width="346" height="15" font="0">code that drew the scene. Why go to the bother of</text>
+<text top="376" left="82" width="346" height="15" font="0">naming grobs when we can just modify the original</text>
+<text top="394" left="82" width="51" height="15" font="0">R code?</text>
+<text top="412" left="105" width="324" height="15" font="0">If we have written the original code, then mod-</text>
+<text top="430" left="82" width="346" height="15" font="0">ifying the original code may be the right approach.</text>
+<text top="448" left="82" width="346" height="15" font="0">However, if we draw a plot using someone else’s</text>
+<text top="466" left="82" width="346" height="15" font="0">code (for example, if we call a <b>lattice </b>function), we do</text>
+<text top="484" left="82" width="346" height="15" font="0">not have easy access to the code that did the draw-</text>
+<text top="502" left="82" width="346" height="15" font="0">ing. Even though it is possible to see the code that</text>
+<text top="520" left="82" width="346" height="15" font="0">did the drawing, understanding it and then modi-</text>
+<text top="537" left="82" width="346" height="15" font="0">fying it may require a considerable effort, especially</text>
+<text top="555" left="82" width="346" height="15" font="0">when that code is of the size and complexity of the</text>
+<text top="573" left="82" width="179" height="15" font="0">code in the <b>lattice </b>package.</text>
+<text top="591" left="105" width="324" height="15" font="0">A parallel may be drawn between this idea of</text>
+<text top="609" left="82" width="346" height="15" font="0">naming every shape within a scene and the general</text>
+<text top="627" left="82" width="346" height="15" font="0">idea of markup. In a sense, what we are aiming to do</text>
+<text top="645" left="82" width="346" height="15" font="0">is to provide a useful label for each meaningful com-</text>
+<text top="663" left="82" width="346" height="15" font="0">ponent of a scene. Given tools that can select parts</text>
+<text top="681" left="82" width="346" height="15" font="0">of the scene based on the labels, the scene becomes a</text>
+<text top="699" left="82" width="346" height="15" font="0">“source” that can be transformed in many different</text>
+<text top="717" left="82" width="346" height="15" font="0">ways. When we draw a scene in this way, it is not</text>
+<text top="735" left="82" width="346" height="15" font="0">just an end point that satisfies our own goals. It also</text>
+<text top="753" left="82" width="346" height="15" font="0">creates a resource that others can make use of to pro-</text>
+<text top="771" left="82" width="346" height="15" font="0">duce new resources. When we write code to draw a</text>
+<text top="789" left="82" width="346" height="15" font="0">scene, we are not only concerned with producing an</text>
+<text top="806" left="82" width="346" height="15" font="0">image on screen or ink on a page; we also allow for</text>
+<text top="824" left="82" width="346" height="15" font="0">other possible uses of the scene in ways that we may</text>
+<text top="842" left="82" width="139" height="15" font="0">not have anticipated.</text>
+<text top="121" left="459" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="160" left="459" width="346" height="15" font="0">Thanks to Wolfgang Viechtbauer for useful com-</text>
+<text top="178" left="459" width="346" height="15" font="0">ments on an early draft of this article and to the</text>
+<text top="196" left="459" width="346" height="15" font="0">anonymous referees for numerous useful sugges-</text>
+<text top="214" left="459" width="159" height="15" font="0">tions for improvements.</text>
+<text top="261" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="300" left="459" width="346" height="15" font="0">F. Andrews. playwith: A GUI for interactive plots using</text>
+<text top="317" left="474" width="127" height="15" font="0">GTK+, 2010. URL</text>
+<text top="319" left="606" width="199" height="12" font="5"><a href="http://CRAN.R-project.org/package=playwith">http://CRAN.R-project.org/</a></text>
+<text top="337" left="474" width="122" height="12" font="5"><a href="http://CRAN.R-project.org/package=playwith">package=playwith</a></text>
+<text top="335" left="596" width="190" height="15" font="0"><a href="http://CRAN.R-project.org/package=playwith">. </a>R package version 0.9-53. <a href="2012-2-RJournal_2012-2_Murrell.html#8">[p</a></text>
+<text top="335" left="785" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#8">12</a></text>
+<text top="335" left="800" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#8">]</a></text>
+<text top="366" left="459" width="72" height="15" font="0">P. Murrell.</text>
+<text top="366" left="548" width="258" height="15" font="0">gridSVG: Export grid graphics as SVG,</text>
+<text top="384" left="474" width="69" height="15" font="0">2011. URL</text>
+<text top="385" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=gridSVG">http://CRAN.R-project.org/package=</a></text>
+<text top="403" left="474" width="53" height="12" font="5"><a href="http://CRAN.R-project.org/package=gridSVG">gridSVG</a></text>
+<text top="402" left="527" width="188" height="15" font="0"><a href="http://CRAN.R-project.org/package=gridSVG">. </a>R package version 0.7-0. <a href="2012-2-RJournal_2012-2_Murrell.html#6">[p</a></text>
+<text top="402" left="715" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#6">10</a></text>
+<text top="402" left="730" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#6">]</a></text>
+<text top="432" left="459" width="147" height="15" font="0">P. Murrell and V. Ly.</text>
+<text top="432" left="622" width="183" height="15" font="0">gridDebug: Debugging Grid</text>
+<text top="450" left="474" width="135" height="15" font="0">Graphics, 2011. URL</text>
+<text top="451" left="613" width="192" height="12" font="5"><a href="http://r-forge.r-project.org/projects/griddebug/">http://r-forge.r-project.</a></text>
+<text top="469" left="474" width="175" height="12" font="5"><a href="http://r-forge.r-project.org/projects/griddebug/">org/projects/griddebug/</a></text>
+<text top="468" left="649" width="156" height="15" font="0"><a href="http://r-forge.r-project.org/projects/griddebug/">. </a>R package version 0.2.</text>
+<text top="485" left="474" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">[p</a></text>
+<text top="485" left="488" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#7">11</a></text>
+<text top="485" left="503" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">]</a></text>
+<text top="516" left="459" width="346" height="15" font="0">D. Sarkar. Lattice: Multivariate Data Visualization with</text>
+<text top="534" left="474" width="229" height="15" font="0">R. Springer, New York, 2008. URL</text>
+<text top="535" left="706" width="99" height="12" font="5"><a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.</a></text>
+<text top="553" left="474" width="162" height="12" font="5"><a href="http://lmdvr.r-forge.r-project.org">r-forge.r-project.org</a></text>
+<text top="552" left="635" width="170" height="15" font="0"><a href="http://lmdvr.r-forge.r-project.org">. </a>ISBN 978-0-387-75968-5.</text>
+<text top="569" left="474" width="14" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#3">[p</a></text>
+<text top="569" left="488" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#3">7</a></text>
+<text top="569" left="495" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#3">]</a></text>
+<text top="600" left="459" width="346" height="15" font="0">W. Viechtbauer. Conducting meta-analyses in R with</text>
+<text top="618" left="474" width="332" height="15" font="0">the metafor package. Journal of Statistical Software,</text>
+<text top="636" left="474" width="113" height="15" font="0">36(3):1–48, 2010.</text>
+<text top="636" left="606" width="31" height="15" font="0">URL</text>
+<text top="637" left="645" width="160" height="12" font="5"><a href="http://www.jstatsoft.org/v36/i03/">http://www.jstatsoft.</a></text>
+<text top="655" left="474" width="91" height="12" font="5"><a href="http://www.jstatsoft.org/v36/i03/">org/v36/i03/</a></text>
+<text top="653" left="565" width="23" height="15" font="0"><a href="http://www.jstatsoft.org/v36/i03/">. </a><a href="2012-2-RJournal_2012-2_Murrell.html#1">[p</a></text>
+<text top="653" left="588" width="7" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#1">5</a></text>
+<text top="653" left="596" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#1">]</a></text>
+<text top="684" left="459" width="346" height="15" font="0">H. Wickham. ggplot2: elegant graphics for data analysis.</text>
+<text top="702" left="474" width="332" height="15" font="0">Springer New York, 2009. ISBN 978-0-387-98140-6.</text>
+<text top="720" left="474" width="31" height="15" font="0">URL</text>
+<text top="721" left="508" width="221" height="12" font="5"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="720" left="729" width="23" height="15" font="0"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2012-2-RJournal_2012-2_Murrell.html#7">[p</a></text>
+<text top="720" left="752" width="15" height="15" font="5"><a href="2012-2-RJournal_2012-2_Murrell.html#7">11</a></text>
+<text top="720" left="767" width="5" height="15" font="0"><a href="2012-2-RJournal_2012-2_Murrell.html#7">]</a></text>
+<text top="771" left="459" width="80" height="15" font="0">Paul Murrell</text>
+<text top="788" left="459" width="147" height="15" font="0">Department of Statistics</text>
+<text top="806" left="459" width="168" height="15" font="0">The University of Auckland</text>
+<text top="824" left="459" width="81" height="15" font="0">New Zealand</text>
+<text top="844" left="459" width="183" height="12" font="5"><a href="mailto:paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 4/2, December 2012</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

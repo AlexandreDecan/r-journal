@@ -1,0 +1,67 @@
+page	left	top	code
+2	149	401	r2bugs.distributions <- function(priors, direction = ’r2bugs’) {
+2	163	417	priors$distn <- as.character(priors$distn)
+2	163	434	priors$parama <- as.numeric(priors$parama)
+2	163	450	priors$paramb <- as.numeric(priors$paramb)
+2	163	467	## index dataframe according to distribution
+2	163	483	norm <- priors$distn %in% c(’norm’, ’lnorm’)
+2	506	483	# these have same transform
+2	163	500	weib <- grepl("weib", priors$distn)
+2	506	500	# matches r and bugs version
+2	163	516	gamma <- priors$distn == ’gamma’
+2	163	532	chsq <- grepl("chisq", priors$distn)
+2	506	532	# matches r and bugs version
+2	163	549	bin <- priors$distn %in% c(’binom’, ’bin’)
+2	506	549	# matches r and bugs version
+2	163	565	nbin <- priors$distn %in% c(’nbinom’, ’negbin’) # matches r and bugs version
+2	163	598	## Normal, log-Normal: Convert sd to precision
+2	163	615	exponent <- ifelse(direction == "r2bugs", -2, -0.5)
+2	163	631	priors$paramb[norm] <- priors$paramb[norm] ^ exponent
+2	163	664	## Weibull
+2	163	680	if(direction == ’r2bugs’){
+2	176	697	## Convert R parameter b to BUGS parameter lambda by l = (1/b)^a
+2	176	713	priors$paramb[weib] <- (1 / priors$paramb[weib]) ^ priors$parama[weib]
+2	163	730	} else if (direction == ’bugs2r’) {
+2	176	746	## Convert BUGS parameter lambda to BUGS parameter b by b = l^(-1/a)
+2	176	763	priors$paramb[weib] <- priors$paramb[weib] ^ (- 1 / priors$parama[weib] )
+2	163	779	}
+2	163	812	## Reverse parameter order for binomial and negative binomial
+2	163	828	priors[bin | nbin, c(’parama’, ’paramb’)] <-
+2	176	845	priors[bin | nbin, c(’paramb’, ’parama’)]
+2	163	878	## Translate distribution names
+2	163	894	if(direction == "r2bugs"){
+2	176	910	priors$distn[weib] <- "weib"
+2	176	927	priors$distn[chsq] <- "chisqr"
+2	176	943	priors$distn[bin] <- "bin"
+2	176	960	priors$distn[nbin] <- "negbin"
+2	163	976	} else if(direction == "bugs2r"){
+2	176	993	priors$distn[weib] <- "weibull"
+2	176	1009	priors$distn[chsq] <- "chisq"
+2	176	1026	priors$distn[bin] <- "binom"
+2	176	1042	priors$distn[nbin] <- "nbinom"
+2	163	1058	}
+2	163	1075	return(priors)
+2	149	1091	}
+3	149	253	r.distn <- data.frame(distn = "norm", parama = 10, paramb = 2)
+3	149	270	bugs.distn <- r2bugs.distributions(r.distn)
+3	149	303	sample.bugs.distn <- function(prior = data.frame(distn = "norm", parama = 0,
+3	368	319	paramb = 1), n = 10000) {
+3	163	336	require(rjags)
+3	163	352	model.string <- paste0(
+3	176	368	"model{Y ~ d", prior$distn,
+3	176	385	"(", prior$parama,
+3	176	401	## chisqr has only one parameter
+3	176	418	ifelse(prior$distn == "chisqr", "", paste0(", ", prior$paramb)), ");",
+3	176	434	"a <- x}"
+3	163	451	)
+3	163	467	## trick JAGS into running without data
+3	163	483	writeLines(model.string, con = "test.bug")
+3	163	500	j.model <- jags.model(file = "test.bug", data = list(x = 1))
+3	163	516	mcmc.object <- window(
+3	176	533	coda.samples(
+3	190	549	model = j.model, variable.names = c(’Y’),
+3	190	566	n.iter = n * 4, thin = 2),
+3	176	582	start = n)
+3	163	599	Y <- sample(as.matrix(mcmc.object)[,"Y"], n)
+3	149	615	}
+3	149	631	X <- sample.bugs.distn(bugs.distn)

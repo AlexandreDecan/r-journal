@@ -1,0 +1,47 @@
+page	left	top	code
+3	464	128	and estimate the model:
+3	464	142	<<Estimate>>=
+3	464	157	result <- lm(log(subs)~log(citeprice),data=Journals)
+3	464	171	@
+3	464	185	%</techdoc>
+3	464	199	%<*article|techdoc>
+3	464	213	The result with OLS standard errors is in
+3	464	228	Table~\ref{ta:est}.
+3	464	242	<<Result,results=tex,echo=FALSE>>=
+3	464	256	library(xtable)
+3	464	270	xtable(summary(result),label="ta:est",
+3	464	284	caption="Estimation results")
+3	464	299	@
+3	464	313	<<echo=FALSE>>=
+3	464	327	write(round(coef(result)[[2]],2),file="coef.txt")
+3	464	341	@
+3	464	355	\bibliographystyle{abbrvnat}
+3	464	370	\bibliography{example}
+3	464	384	\end{document}
+3	464	398	%</article|techdoc>
+3	464	412	%<*bib>
+3	470	426	@Book{ Kleiber08,
+3	464	441	author = {Christian Kleiber and Achim Zeileis},
+3	464	455	publisher = {Springer},
+3	464	469	year = {2008},
+3	464	483	title = {Applied Econometrics with {R}}}
+3	464	497	%</bib>
+3	464	512	%<*dump>
+3	464	526	<<Write DOCSTRIP installation file>>=
+3	464	540	writeLines(
+3	464	554	"\\input docstrip.tex
+3	464	568	\\keepsilent
+3	464	583	\\askforoverwritefalse
+3	464	597	\\nopreamble
+3	464	611	\\nopostamble
+3	464	625	\\generate{
+3	464	639	\\file{example_article.tex}%
+3	464	654	{\\from{example_source.tex}{article}}
+3	464	668	\\file{example_techdoc.tex}%
+3	464	682	{\\from{example_source.tex}{techdoc}}
+3	464	696	\\file{example.bib}%
+3	464	710	{\\from{example_source.tex}{bib}}}
+3	464	725	\\endbatchfile
+3	464	739	",con="example.ins")
+3	464	753	@
+3	464	767	%</dump>

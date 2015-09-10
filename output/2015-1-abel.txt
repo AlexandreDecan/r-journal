@@ -1,0 +1,82 @@
+page	left	top	code
+1	149	583	fanchart function for forecasts of confidence regions. It is based solely on “varpred” class objects,
+2	717	661	fan0
+2	149	704	library("fanplot")
+2	149	721	fan0(data = th.mcmc)
+2	149	781	heat.colours colour palette, providing darker shadings for the more probable percentiles. The axis
+2	149	964	library("zoo")
+2	149	981	library("tsbugs")
+2	149	1014	# create irregular multiple time series object
+2	149	1030	th.mcmc2 <- zoo(th.mcmc, order.by = svpdx$date)
+2	951	1030	#$
+2	149	1063	# plot
+2	149	1079	fan0(data = th.mcmc2, type = "interval", ln = c(0.5, 0.8, 0.95),
+2	183	1096	llab = TRUE, rcex = 0.6)
+3	149	872	# transparent fan with visible lines
+3	149	888	fan0(th.mcmc2, ln = c(5, 20, 50, 80, 95), alpha = 0, ln.col = "darkorange", llab = TRUE)
+3	149	921	# spaghetti lines
+3	149	937	fan(th.mcmc2, style = "spaghetti", n.spag = 20, alpha = 0.3)
+4	149	917	> head(boe)
+4	163	933	time0 time mode uncertainty skew
+4	149	950	1 2004 2004.00 1.34 0.2249 0
+4	149	966	2 2004 2004.25 1.60 0.3149 0
+4	149	983	3 2004 2004.50 1.60 0.3824 0
+4	149	999	4 2004 2004.75 1.71 0.4274 0
+4	149	1016	5 2004 2005.00 1.77 0.4499 0
+4	149	1032	6 2004 2005.25 1.68 0.4761 0
+5	149	248	qsplitnorm function calculates the values for which the time-specific (i) split-normal distribution will
+5	149	291	# select relevant data
+5	149	307	y0 <- 2013
+5	149	324	boe0 <- subset(boe, time0 == y0)
+5	149	340	k <- nrow(boe0)
+5	149	373	# guess work to set percentiles the boe are plotting
+5	149	390	p <- seq(0.05, 0.95, 0.05)
+5	149	406	p <- c(0.01, p, 0.99)
+5	149	439	# quantiles of split-normal distribution for each probability (row) at each future
+5	149	455	# time point (column)
+5	149	472	cpival <- matrix(NA, nrow = length(p), ncol = k)
+5	149	488	for (i in 1:k)
+5	169	505	cpival[, i] <- qsplitnorm(p, mode = boe0$mode[i],
+5	348	521	sd = boe0$uncertainty[i],
+5	348	538	skew = boe0$skew[i])
+5	883	538	#$
+5	722	635	cpi.
+5	149	744	# past data
+5	149	760	plot(cpi, type = "l", col = "tomato", lwd = 2,
+5	183	777	xlim = c(y0 - 5, y0 + 3), ylim = c(-2, 7),
+5	183	793	xaxt = "n", yaxt = "n", ylab = "")
+5	149	826	# background shading during forecast period
+5	149	842	rect(y0 - 0.25, par("usr")[3] - 1, y0 + 3, par("usr")[4] + 1,
+5	183	859	border = "gray90", col = "gray90")
+5	149	892	# add fan
+5	149	908	fan(data = cpival, data.type = "values", probs = p,
+5	176	925	start = y0, frequency = 4, anchor = cpi[time(cpi) == y0 - 0.25],
+5	176	941	fan.col = colorRampPalette(c("tomato", "gray90")), ln = NULL, rlab = NULL)
+5	149	974	# boe aesthetics
+5	149	990	axis(2, at = -2:7, las = 2, tcl = 0.5, labels = FALSE)
+5	149	1007	axis(4, at = -2:7, las = 2, tcl = 0.5)
+5	149	1023	axis(1, at = 2008:2016, tcl = 0.5)
+5	149	1040	axis(1, at = seq(2008, 2016, 0.25), labels = FALSE, tcl = 0.2)
+5	149	1056	abline(h = 2) # boe cpi target
+5	149	1073	abline(v = y0 + 1.75, lty = 2) # 2 year line
+6	149	607	fan function called in the above code, provide the cpival data to be plotted, indicate that the data
+6	149	852	# simulate future values
+6	149	869	cpisim <- matrix(NA, nrow = 10000, ncol = k)
+6	149	885	for (i in 1:k)
+6	163	902	cpisim[, i] <- rsplitnorm(n = 10000, mode = boe0$mode[i],
+6	341	918	sd = boe0$uncertainty[i],
+6	341	934	skew = boe0$skew[i])
+6	149	988	# truncate cpi series and plot
+6	149	1005	cpi0 <- ts(cpi[time(cpi) < 2013], start = start(cpi), frequency = frequency(cpi))
+6	149	1021	plot(cpi0, type = "l", lwd = 2, las = 1, ylab = "",
+6	183	1038	xlim = c(y0 - 5, y0 + 3.5), ylim = c(-2, 7))
+6	149	1070	# add fan
+6	149	1087	library("RColorBrewer")
+6	149	1103	fan(data = cpisim, type = "interval", probs = seq(0.01,0.99,0.01),
+6	176	1120	start = y0, frequency = 4, ln = c(50,80,95), med.ln = FALSE,
+6	176	1136	fan.col = colorRampPalette(colors = rev(brewer.pal(9, "Oranges"))))
+7	149	766	# plot past data
+7	149	782	plot(cpi0, type = "l", xlim = c(y0-5, y0+3), ylim = c(-2, 7), lwd = 2)
+7	149	815	# box plots
+7	149	832	fan(cpisim, style = "boxplot", start = y0, frequency = 4, outline = FALSE)
+7	149	890	boxplot. For example from the code above, outliers are suppressed by setting outline = FALSE.

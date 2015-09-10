@@ -1,0 +1,180 @@
+page	left	top	code
+4	149	130	# Normalize the log2 transformed data
+4	149	146	> library("beadarrayFilter")
+4	149	163	> data("exampleSummaryData", package = "beadarrayExampleData")
+4	149	179	> exampleSummaryDataNorm <- normaliseIllumina(channel(exampleSummaryData, "G"),
+4	149	195	+ method = "quantile", transform = "none")
+4	149	212	# Filter the ExpressionSetIllumina
+4	149	228	> iccResults <- beadtypeFilter(exampleSummaryDataNorm, Quantile = 1,
+4	149	245	+ keepData = TRUE, delta = 0.5)
+4	149	315	> head(iccResults$InformProbeNames)
+4	149	332	[1] "ILMN_1802380" "ILMN_1736104" "ILMN_1792389" "ILMN_1705423" "ILMN_1697642"
+4	149	348	[6] "ILMN_1788184"
+4	149	365	> exprs(iccResults$informData)[1:6, 1:5]
+4	238	381	4613710017_B 4613710052_B 4613710054_B 4616443079_B 4616443093_B
+4	149	398	ILMN_1802380 8.216547 8.229713 8.097047 8.343822 8.249190
+4	149	414	ILMN_1736104 5.317065 5.470957 5.054653 5.100678 5.446530
+4	149	431	ILMN_1792389 6.725049 7.003632 6.783809 7.214921 7.257032
+4	149	447	ILMN_1705423 5.496207 4.845898 5.394206 5.422772 5.479191
+4	149	463	ILMN_1697642 7.977234 7.912246 7.668253 7.850134 7.758535
+4	149	480	ILMN_1788184 5.291988 5.614500 5.565426 5.473346 5.573395
+4	149	496	> head(fData(iccResults$informData))
+4	224	513	ArrayAddressID IlluminaID Status
+4	149	529	ILMN_1802380 10008 ILMN_1802380 regular
+4	149	546	ILMN_1736104 10017 ILMN_1736104 regular
+4	149	562	ILMN_1792389 10019 ILMN_1792389 regular
+4	149	579	ILMN_1705423 10039 ILMN_1705423 regular
+4	149	595	ILMN_1697642 10044 ILMN_1697642 regular
+4	149	611	ILMN_1788184 10048 ILMN_1788184 regular
+4	149	628	> dim(exampleSummaryDataNorm)
+4	149	644	Features Samples Channels
+4	169	661	49576 12 1
+4	149	677	> dim(iccResults$informData)
+4	149	694	Features Samples Channels
+4	169	710	23419 12 1
+4	149	851	> require(lumi)
+4	149	879	# Set the working directory to the directory where the unzipped data file was saved.
+4	149	896	> setwd("C:/Multi_level_Illumina_feb2011/RPackageFinal/beadstudiooutputData")
+4	149	912	# Read in the data using lumiR to obtain a LumiBatch object
+4	149	929	> x.lumi <- lumiR("AsuragenMAQC-probe-raw.txt")
+4	149	945	# Normalize the data without any further transformation step
+4	149	962	> lumi.N <- lumiN(x.lumi, "rsn")
+4	149	978	# Filter the LumiBatch
+4	149	995	> iccResult <- beadtypeFilter(lumi.N, Quantile = 1, keepData = TRUE, delta = 0.5)
+4	149	1065	> dim(lumi.N)
+4	149	1082	Features Samples
+4	169	1098	48701 6
+4	149	1115	> dim(iccResult$informData)
+4	149	1131	Features Samples
+4	176	1147	1195 6
+5	149	198	> filepath <- "C:/Multi_level_Illumina_feb2011/log2scale.normalized.txt"
+5	149	215	> dt <- read.delim(filepath, header = TRUE, as.is = TRUE, row.names = NULL)[,-1]
+5	149	231	> dt[1:6,1:5]
+5	163	248	ProbeID X1377192001_A.AVG_Signal X1377192001_A.Detection.Pval
+5	149	264	1 50014 6.150486 0.579207900
+5	149	281	2 50017 6.616132 0.074257430
+5	149	297	3 50019 8.164317 0.000000000
+5	149	314	4 50020 7.414991 0.001856436
+5	149	330	5 50022 5.804593 0.974628700
+5	149	346	6 50025 6.412067 0.173267300
+5	163	363	X1377192001_A.Avg_NBEADS X1377192001_A.BEAD_STDERR
+5	149	379	1 27 0.09889349
+5	149	396	2 40 0.05644992
+5	149	412	3 25 0.06384269
+5	149	429	4 27 0.07853792
+5	149	445	5 38 0.08098911
+5	149	462	6 28 0.08153830
+5	149	626	> iccResults <- beadtypeFilter(dt, Quantile = 0.5, keepData = TRUE, delta = 0.5)
+5	149	675	> head(iccResults$InformProbeNames)
+5	149	691	[1] 50280 50440 70594 110138 110685 130402
+5	149	708	> dim(dt)
+5	149	724	[1] 34687 193
+5	149	740	> dim(iccResults$informData)
+5	149	757	[1] 238 193
+5	186	1016	> filepath <- "C:/Multi_level_Illumina_feb2011/log2scale.normalized.txt"
+5	186	1032	> dt <- read.delim(filepath, header = TRUE, as.is = TRUE, row.names = NULL)[,-1]
+5	186	1049	> eSet <- dt[, grep("Signal", names(dt))]
+5	186	1065	> seSet <- dt[, grep("STDERR", names(dt))]
+5	186	1082	> nSet <- dt[, grep("NBEADS", names(dt))]
+5	186	1098	> ProbeID <- dt[, 2]
+5	186	1115	> iccResults <- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,
+5	344	1131	iccQuant = c(0, 0.25, 0.5, 0.75, 0.8, 1),
+5	344	1147	diffIcc = TRUE, keepData = TRUE)
+6	186	128	> setwd("C:/Multi_level_Illumina_feb2011/RPackageFinal/beadstudiooutputData")
+6	186	145	# Read in the data using \code{lumiR} to obtain a LumiBatch object
+6	186	161	> x.lumi <- lumiR("AsuragenMAQC-probe-raw.txt")
+6	186	177	> lumi.N <- lumiN(x.lumi, "rsn")
+6	186	194	> eSet <- exprs(lumi.N)
+6	186	210	> seSet <- se.exprs(lumi.N)
+6	186	227	> nSet <- beadNum(lumi.N)
+6	186	243	> group <- c(1:dim(eSet)[2])
+6	186	260	> ProbeID = fData(lumi.N)$ProbeID
+6	186	276	> iccResults <- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,
+6	186	292	+ iccQuant = c(0, 0.25, 0.5, 1),
+6	186	309	+ diffIcc = TRUE, keepData = TRUE)
+6	186	358	> exampleSummaryDataNorm <-
+6	186	374	+ normaliseIllumina(channel(exampleSummaryData, "G"),
+6	186	391	+ method = "quantile", transform = "none")
+6	186	407	> aaa <-
+6	186	423	+ na.omit(data.frame(I(rownames(exprs(exampleSummaryDataNorm))),
+6	186	440	+ exprs(exampleSummaryDataNorm)))
+6	186	456	> ProbeID <- aaa[, 1]
+6	186	473	> eSet <- na.omit(exprs(exampleSummaryDataNorm))
+6	186	489	> stddev <- na.omit(se.exprs(exampleSummaryDataNorm))
+6	186	506	> nSet <- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)
+6	186	522	> seSet <- stddev/sqrt(nSet)
+6	186	539	> iccResults <- iccFun(eSet, seSet, nSet, ProbeID = ProbeID,
+6	186	555	+ iccQuant = c(0, 0.25, 0.5, 1))
+6	149	687	> head(iccResults$betweenvar)
+6	190	704	ProbeID fit1.tau2
+6	149	720	1 ILMN_1802380 1.3154886475
+6	149	737	2 ILMN_1893287 0.0202718744
+6	149	753	3 ILMN_1736104 0.7883136626
+6	149	769	4 ILMN_1792389 0.5374776179
+6	149	786	5 ILMN_1854015 0.0000000000
+6	149	802	6 ILMN_1904757 0.0004272419
+6	149	835	> iccResults$withinvar[1:6, 1:6]
+6	238	852	ProbeID sigma2.4613710017_B sigma2.4613710052_B sigma2.4613710054_B
+6	149	868	ILMN_1802380 ILMN_1802380 0.08024396 0.1133679 0.07562057
+6	149	884	ILMN_1893287 ILMN_1893287 0.15510050 0.1495736 0.31645854
+6	149	901	ILMN_1736104 ILMN_1736104 0.22109680 0.2449570 0.16237022
+6	149	917	ILMN_1792389 ILMN_1792389 0.16305881 0.2232660 0.25316536
+6	149	934	ILMN_1854015 ILMN_1854015 0.31302729 0.1367953 0.29684239
+6	149	950	ILMN_1904757 ILMN_1904757 0.11065525 0.2427457 0.35319329
+6	238	967	sigma2.4616443079_B sigma2.4616443093_B
+6	149	983	ILMN_1802380 0.1715118 0.1282700
+6	149	1000	ILMN_1893287 0.4629203 0.1956166
+6	149	1016	ILMN_1736104 0.2781976 0.2364219
+6	149	1032	ILMN_1792389 0.1187983 0.1560972
+6	149	1049	ILMN_1854015 0.2776505 0.4338320
+6	149	1065	ILMN_1904757 0.2621982 0.4215812
+6	149	1098	> head(iccResults$iccAll)
+6	231	1115	[,1] [,2] [,3] [,4] [,5] [,6]
+6	149	1131	[1,] 0.942507641 0.920658321 0.945640089 0.884659197 0.911155532 0.945550561
+6	149	1147	[2,] 0.115593318 0.119354803 0.060202088 0.041954058 0.093899753 0.076838800
+7	149	104	[3,] 0.780964425 0.762930437 0.829206926 0.739151757 0.769284994 0.672257600
+7	149	120	[4,] 0.767237213 0.706516107 0.679798133 0.818981163 0.774938161 0.794058983
+7	149	137	[5,] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000
+7	149	153	[6,] 0.003846168 0.001756947 0.001208193 0.001626811 0.001012401 0.003354805
+7	231	169	[,7] [,8] [,9] [,10] [,11] [,12]
+7	149	186	[1,] 0.813348960 0.2851197747 0.924933768 0.921820518 0.953747680 0.9672588084
+7	149	202	[2,] 0.146496212 0.0086476707 0.079882094 0.046679979 0.083112294 0.0577318494
+7	149	219	[3,] 0.862368982 0.4039671466 0.788168517 0.745235220 0.651296881 0.5468796285
+7	149	235	[4,] 0.795226413 0.2446849630 0.818919242 0.889560842 0.859993713 0.7440351650
+7	149	252	[5,] 0.000000000 0.0000000000 0.000000000 0.000000000 0.000000000 0.0000000000
+7	149	268	[6,] 0.002726754 0.0005326228 0.001815729 0.005423024 0.002744552 0.0009235276
+7	149	285	> head(iccResults$icc)
+7	156	301	ProbeID q0 q0.25 q0.5 q1
+7	149	317	1 ILMN_1802380 0.2851197747 0.904531448 0.923377143 0.967258808
+7	149	334	2 ILMN_1893287 0.0086476707 0.054968882 0.078360447 0.146496212
+7	149	350	3 ILMN_1736104 0.4039671466 0.667017420 0.754082829 0.862368982
+7	149	367	4 ILMN_1792389 0.2446849630 0.734655400 0.784498572 0.889560842
+7	149	383	5 ILMN_1854015 0.0000000000 0.000000000 0.000000000 0.000000000
+7	149	400	6 ILMN_1904757 0.0005326228 0.001159245 0.001786338 0.005423024
+7	149	473	# Obtaining the number of informative bead types at each of the specified ICC quantiles
+7	149	489	> apply(iccResults$icc[, -1], 2, function(x, thres) sum(x >= thres), thres = 0.5)
+7	149	506	q0 q0.25 q0.5 q1
+7	156	522	4699 15784 17757 23419
+7	149	539	# Obtaining the informative bead types using the minimum ICC
+7	149	555	> filterDataNorm <- exampleSummaryDataNorm[subset(iccResults$icc,
+7	149	571	+ iccResults$icc[, 2] >= 0.5)[, 1], ]
+7	149	588	> dim(filterDataNorm)
+7	149	604	Features Samples Channels
+7	176	621	4699 12 1
+7	149	722	> emCDF(iccResults, iccQuant = c(0, 0.25, 0.5, 1))
+7	149	792	> varianceplot(iccResults, q = 1, delta = 0.8)
+7	149	988	> iccResults <- beadtypeFilter(dt, Quantile = 1, keepData = TRUE, delta = 0.5)
+7	149	1005	> dim(iccResults$informData)
+7	149	1021	> dat <- iccResults$informData
+7	149	1038	> eSet <- dat[, grep("Signal", names(dat))]
+7	149	1054	> seSet <- dat[, grep("STDERR", names(dat))]
+7	149	1070	> nSet <- dat[, grep("NBEADS", names(dat))]
+8	149	669	> group1 <- c(26, 32, 38, 44)
+8	149	685	> group2 <- c(27, 33, 39, 45)
+8	149	702	> fit1 <- MLM.beadarray(eSet, seSet, nSet, list(group1, group2),
+8	149	718	+ var.equal = TRUE, max.iteration = 20, method = "ML")
+8	149	792	> df <- length(group1) + length(group2) - 2
+8	149	808	> fit1$pvalue <- 2 * (1-pt(abs(fit1$t.statistics), df))
+8	149	824	> fit1$pvalAdjust <- p.adjust(fit1$pvalue, method = "fdr", n = length(fit1$pvalue))
+8	149	841	> length(which(fit1$pvalAdjust < 0.05))
+8	149	857	[1] 29

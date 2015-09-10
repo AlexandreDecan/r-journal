@@ -1,0 +1,1168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">20</text>
+<text top="98" left="149" width="566" height="30" font="2"><b>A Multiscale Test of Spatial Stationarity</b></text>
+<text top="137" left="149" width="350" height="30" font="2"><b>for Textured Images in R</b></text>
+<text top="173" left="149" width="354" height="15" font="0">by Matthew A. Nunes, Sarah L. Taylor and Idris A. Eckley</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="203" width="541" height="13" font="4">The ability to automatically identify areas of homogeneous texture present within a greyscale</text>
+<text top="231" left="149" width="595" height="13" font="4">image is an important feature of image processing algorithms. This article describes the R package</text>
+<text top="247" left="149" width="58" height="13" font="3"><b>LS2Wstat</b></text>
+<text top="247" left="210" width="534" height="13" font="4">which employs a recent wavelet-based test of stationarity for locally stationary random fields</text>
+<text top="264" left="149" width="595" height="13" font="4">to assess such spatial homogeneity. By embedding this test within a quadtree image segmentation</text>
+<text top="280" left="148" width="419" height="13" font="4">procedure we are also able to identify texture regions within an image.</text>
+<text top="325" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="364" left="148" width="256" height="13" font="4">This paper provides an introduction to the</text>
+<text top="364" left="408" width="58" height="13" font="6"><a href="http://CRAN.R-project.org/package=LS2Wstat"><b>LS2Wstat</b></a></text>
+<text top="364" left="469" width="58" height="13" font="4">package <a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="364" left="527" width="108" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor and Nunes</a></text>
+<text top="364" left="635" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="364" left="642" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2014</a></text>
+<text top="364" left="669" width="75" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">), </a>developed</text>
+<text top="380" left="149" width="595" height="13" font="4">to implement recent statistical methodology for the analysis of (greyscale) textured images. Texture</text>
+<text top="397" left="149" width="597" height="13" font="4">analysis is a branch of image processing concerned with studying the variation in an image surface;</text>
+<text top="413" left="149" width="595" height="13" font="4">this variation describes the physical properties of an object of interest. The key applications in this</text>
+<text top="430" left="149" width="595" height="13" font="4">field, namely discrimination, classification and segmentation, are often dependent on assumptions</text>
+<text top="446" left="149" width="595" height="13" font="4">relating to the second-order structure (variance properties) of an image. In particular many techniques</text>
+<text top="462" left="149" width="463" height="13" font="4">commonly assume that images possess the property of spatial stationarity <a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="462" left="612" width="130" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Gonzalez and Woods</a></text>
+<text top="462" left="742" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="479" left="149" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2001</a></text>
+<text top="479" left="176" width="568" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>However, for images arising in practice this assumption is often not realistic, i.e. typically the</text>
+<text top="495" left="149" width="595" height="13" font="4">second-order structure of an image varies across location. It is thus important to test this assumption</text>
+<text top="512" left="149" width="394" height="13" font="4">of stationarity before performing further image analysis. See Figure</text>
+<text top="512" left="546" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">1</a></text>
+<text top="512" left="556" width="191" height="13" font="4">for examples of textured images.</text>
+<text top="528" left="149" width="337" height="13" font="4">For a comprehensive introduction to texture analysis, see</text>
+<text top="528" left="489" width="132" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Bishop and Nasrabadi</a></text>
+<text top="528" left="624" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="528" left="628" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2006</a></text>
+<text top="528" left="655" width="20" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">) </a>or</text>
+<text top="528" left="679" width="65" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Petrou and</a></text>
+<text top="545" left="149" width="40" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Sevilla</a></text>
+<text top="545" left="192" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="545" left="196" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2006</a></text>
+<text top="545" left="223" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">).</a></text>
+<text top="759" left="149" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="758" left="208" width="536" height="13" font="4">Examples of textured images: fabric, creased material and hair (available from the R package</text>
+<text top="775" left="149" width="37" height="13" font="6"><a href="http://CRAN.R-project.org/package=LS2W"><b>LS2W</b></a></text>
+<text top="775" left="185" width="3" height="13" font="4"><a href="http://CRAN.R-project.org/package=LS2W">;</a></text>
+<text top="775" left="192" width="108" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley and Nason</a></text>
+<text top="775" left="300" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="775" left="307" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2013</a></text>
+<text top="775" left="334" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">).</a></text>
+<text top="811" left="171" width="54" height="13" font="4">Recently,</text>
+<text top="811" left="231" width="73" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="811" left="309" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="811" left="314" width="48" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="811" left="362" width="382" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>proposed a test of spatial stationarity founded on the locally</text>
+<text top="828" left="149" width="397" height="14" font="4">stationary two-dimensional wavelet (LS2W) modelling approach of</text>
+<text top="828" left="551" width="76" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="828" left="632" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="828" left="636" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="828" left="664" width="81" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>The LS2W</text>
+<text top="844" left="149" width="598" height="13" font="4">modelling approach provides a location-based decomposition of the spectral structure of an image.</text>
+<text top="861" left="148" width="75" height="13" font="4">The Bootstat</text>
+<text top="865" left="224" width="28" height="10" font="8">LS2W</text>
+<text top="861" left="255" width="100" height="13" font="4">test proposed by</text>
+<text top="861" left="359" width="70" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="861" left="433" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="861" left="437" width="47" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="861" left="484" width="260" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>uses a statistic based on an estimate of the</text>
+<text top="877" left="148" width="596" height="13" font="4">process variance within a hypothesis testing framework, employing bootstrap resampling under the</text>
+<text top="894" left="149" width="400" height="13" font="4">null hypothesis assumption of stationarity to assess its significance.</text>
+<text top="915" left="171" width="573" height="13" font="4">Given a test of spatial stationarity for random fields, it is natural to consider how this might</text>
+<text top="931" left="149" width="598" height="13" font="4">be usefully applied within a problem such as texture segmentation. The ability to determine non-</text>
+<text top="947" left="149" width="595" height="13" font="4">stationarity and the presence of localised textured regions within images is important in a broad range</text>
+<text top="964" left="149" width="598" height="13" font="4">of scientific and industrial applications, including product evaluation or quality control purposes.</text>
+<text top="980" left="149" width="595" height="13" font="4">Possible areas of use for the methods described in this article include identifying uneven wear in</text>
+<text top="997" left="149" width="48" height="13" font="4">fabrics <a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="997" left="196" width="92" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Chan and Pang</a></text>
+<text top="997" left="288" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="997" left="295" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2000</a></text>
+<text top="997" left="322" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">;</a></text>
+<text top="997" left="329" width="70" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="997" left="398" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="997" left="405" width="46" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="997" left="451" width="293" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>and defect detection on the surface of industrial</text>
+<text top="1013" left="149" width="83" height="13" font="4">components <a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="1013" left="231" width="82" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Wiltschi et al.</a></text>
+<text top="1013" left="313" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="1013" left="320" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2000</a></text>
+<text top="1013" left="348" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">;</a></text>
+<text top="1013" left="355" width="113" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Bradley and Wong</a></text>
+<text top="1013" left="468" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1013" left="476" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2001</a></text>
+<text top="1013" left="503" width="135" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">) </a>or natural products <a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="1013" left="638" width="70" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Funck et al.</a></text>
+<text top="1013" left="708" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1013" left="715" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2003</a></text>
+<text top="1013" left="742" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">;</a></text>
+<text top="1030" left="149" width="64" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Pölzleitner</a></text>
+<text top="1030" left="213" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="1030" left="220" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2003</a></text>
+<text top="1030" left="247" width="256" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">). </a>For a review of texture segmentation, see</text>
+<text top="1030" left="506" width="67" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Pal and Pal</a></text>
+<text top="1030" left="576" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="1030" left="581" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1993</a></text>
+<text top="1030" left="608" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">).</a></text>
+<text top="1050" left="171" width="573" height="13" font="4">Readily available implementations for stationarity assessment have, up until now, been restricted</text>
+<text top="1067" left="149" width="595" height="13" font="4">to the time series setting; examples of such software in this context include the R add-on packages</text>
+<text top="1083" left="149" width="26" height="13" font="6"><a href="http://CRAN.R-project.org/package=urca"><b>urca</b></a></text>
+<text top="1083" left="178" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="1083" left="183" width="28" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Pfaff</a></text>
+<text top="1083" left="211" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="1083" left="218" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2008</a></text>
+<text top="1083" left="244" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">;</a></text>
+<text top="1083" left="251" width="96" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Pfaff and Stigler</a></text>
+<text top="1083" left="347" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="1083" left="354" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">2013</a></text>
+<text top="1083" left="381" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">),</a></text>
+<text top="1083" left="392" width="61" height="13" font="6"><a href="http://CRAN.R-project.org/package=CADFtest"><b>CADFtest</b></a></text>
+<text top="1083" left="456" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="1083" left="460" width="28" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Lupi</a></text>
+<text top="1083" left="489" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1083" left="495" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2009</a></text>
+<text top="1083" left="522" width="31" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">) </a>and</text>
+<text top="1083" left="556" width="33" height="13" font="6"><a href="http://CRAN.R-project.org/package=locits"><b>locits</b></a></text>
+<text top="1083" left="593" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="1083" left="597" width="39" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Nason</a></text>
+<text top="1083" left="636" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1083" left="643" width="34" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2013a</a></text>
+<text top="1083" left="676" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1083" left="680" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">b</a></text>
+<text top="1083" left="687" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">).</a></text>
+<text top="1104" left="171" width="575" height="13" font="4">Below we describe the package <b>LS2Wstat </b>which implements the spatial test of stationarity pro-</text>
+<text top="1121" left="148" width="56" height="13" font="4">posed by</text>
+<text top="1121" left="209" width="72" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="1121" left="285" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="1121" left="290" width="48" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="1121" left="338" width="407" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">). </a>The package has been developed in R and makes use of several</text>
+<text top="1137" left="149" width="230" height="13" font="4">functions within the <b>LS2W </b>package <a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="1137" left="379" width="113" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley and Nason</a></text>
+<text top="1137" left="492" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1137" left="500" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2011</a></text>
+<text top="1137" left="527" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="1137" left="536" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2013</a></text>
+<text top="1137" left="563" width="181" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>The article is structured as</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="12" family="Times" color="#000000"/>
+	<fontspec id="10" size="8" family="Times" color="#000000"/>
+	<fontspec id="11" size="16" family="Times" color="#000000"/>
+	<fontspec id="12" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">21</text>
+<text top="103" left="149" width="595" height="13" font="4">follows. We begin by describing details of simulation of LS2W and other processes. An overview of</text>
+<text top="120" left="149" width="72" height="13" font="4">the Bootstat</text>
+<text top="124" left="221" width="28" height="10" font="8">LS2W</text>
+<text top="120" left="252" width="428" height="13" font="4">test of stationarity is then given, focussing in particular on the function</text>
+<text top="116" left="684" width="60" height="18" font="4">TOS2D. We</text>
+<text top="136" left="149" width="595" height="13" font="4">then illustrate the application of the test on both simulated and real texture images. Finally, the article</text>
+<text top="152" left="149" width="595" height="13" font="4">concludes by describing how the algorithm might be embedded within a quadtree image splitting</text>
+<text top="169" left="148" width="501" height="13" font="4">procedure to identify regions of texture homogeneity within a multi-textured image.</text>
+<text top="211" left="149" width="292" height="15" font="9"><b>Simulating textured images with LS2Wstat</b></text>
+<text top="243" left="149" width="367" height="13" font="4">Before describing the implementation of the work proposed in</text>
+<text top="243" left="520" width="69" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="243" left="592" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="243" left="596" width="46" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="243" left="642" width="102" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">), </a>we first explain</text>
+<text top="259" left="149" width="596" height="13" font="4">how to generate candidate textured images using the <b>LS2Wstat </b>package. Several different spatially</text>
+<text top="276" left="149" width="420" height="13" font="4">stationary and non-stationary random fields can be generated with the</text>
+<text top="272" left="573" width="172" height="18" font="4">simTexture function. See the</text>
+<text top="292" left="148" width="344" height="13" font="4">package help file for full details of the processes available.</text>
+<text top="313" left="171" width="573" height="13" font="4">To demonstrate the <b>LS2Wstat </b>implementation, throughout this article we consider a realisation</text>
+<text top="329" left="149" width="595" height="13" font="4">of a white noise process with a subregion of random Normal deviates in its centre with a standard</text>
+<text top="346" left="149" width="312" height="13" font="4">deviation of 1.6. This simulated texture type is called</text>
+<text top="342" left="465" width="280" height="18" font="4">NS5, and is one of several textures which can be</text>
+<text top="362" left="149" width="477" height="13" font="4">simulated from the package. In particular, we consider an image of dimension 512</text>
+<text top="361" left="628" width="11" height="13" font="0">×</text>
+<text top="362" left="642" width="102" height="13" font="4">512 with a central</text>
+<text top="379" left="149" width="369" height="13" font="4">region that is a quarter of the image, i.e. a dimension size of 128</text>
+<text top="378" left="520" width="11" height="13" font="0">×</text>
+<text top="379" left="534" width="212" height="13" font="4">128. This can be obtained as follows:</text>
+<text top="402" left="149" width="144" height="18" font="4">&gt; library(&#34;LS2Wstat&#34;)</text>
+<text top="419" left="149" width="89" height="18" font="4">&gt; set.seed(1)</text>
+<text top="435" left="149" width="528" height="18" font="4">&gt; X &lt;- simTexture(n = 512, K = 1, imtype = &#34;NS5&#34;, sd = 1.6, prop = 0.25)[[1]]</text>
+<text top="452" left="149" width="288" height="18" font="4">&gt; image(plotmtx(X), col = grey(255:0/256))</text>
+<text top="482" left="148" width="23" height="13" font="4">The</text>
+<text top="478" left="174" width="570" height="18" font="4">simTexture function returns a list of length K with each list entry being a matrix representing an</text>
+<text top="498" left="149" width="118" height="13" font="4">image of dimension</text>
+<text top="495" left="270" width="7" height="18" font="4">n</text>
+<text top="497" left="281" width="11" height="13" font="0">×</text>
+<text top="495" left="295" width="449" height="18" font="4">n with the chosen spectral structure. In this case, since K = 1, a list of length</text>
+<text top="515" left="148" width="212" height="13" font="4">1 is returned. The simulated image</text>
+<text top="511" left="364" width="123" height="18" font="4">X is shown in Figure</text>
+<text top="515" left="490" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">2</a></text>
+<text top="515" left="497" width="247" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">. </a>Note in particular that visually, one can</text>
+<text top="531" left="149" width="595" height="13" font="4">discern that the image consists of two subtly different texture types. Firstly, the centre of the image</text>
+<text top="548" left="149" width="595" height="13" font="4">has one particular form of second order structure. The second texture structure can be seen in the</text>
+<text top="564" left="149" width="526" height="13" font="4">remainder of the image. Throughout the rest of this article we shall apply the approach of</text>
+<text top="564" left="678" width="69" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="581" left="148" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="581" left="153" width="46" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="581" left="199" width="88" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>to this image.</text>
+<text top="863" left="183" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="863" left="243" width="198" height="13" font="4">An example of a textured image (</text>
+<text top="860" left="441" width="269" height="18" font="4">NS5) simulated with the simTexture function.</text>
+<text top="923" left="149" width="331" height="17" font="5"><b>Testing the spatial stationarity of images</b></text>
+<text top="961" left="148" width="358" height="13" font="4">We now briefly introduce the LS2W random field model of</text>
+<text top="961" left="510" width="73" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="961" left="586" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="961" left="591" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="961" left="618" width="126" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">) </a>together with some</text>
+<text top="978" left="149" width="555" height="13" font="4">associated notation, before describing the implementation of the test of stationarity proposed in</text>
+<text top="978" left="707" width="37" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor</a></text>
+<text top="994" left="149" width="30" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">et al.</a></text>
+<text top="994" left="183" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="994" left="187" width="48" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="994" left="235" width="342" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">). </a>For an accessible introduction to wavelets, please see</text>
+<text top="994" left="581" width="120" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Prasad and Iyengar</a></text>
+<text top="994" left="706" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="994" left="710" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1997</a></text>
+<text top="994" left="738" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">),</a></text>
+<text top="1011" left="148" width="60" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Vidakovic</a></text>
+<text top="1011" left="212" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="1011" left="216" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1999</a></text>
+<text top="1011" left="243" width="20" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>or</text>
+<text top="1011" left="267" width="39" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Nason</a></text>
+<text top="1011" left="309" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="1011" left="314" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2008</a></text>
+<text top="1011" left="341" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">).</a></text>
+<text top="1032" left="171" width="230" height="13" font="4">The LS2W process model is defined by</text>
+<text top="1070" left="359" width="10" height="13" font="4">X</text>
+<text top="1074" left="369" width="4" height="10" font="10"><b>r</b></text>
+<text top="1069" left="378" width="11" height="14" font="0">=</text>
+<text top="1065" left="393" width="14" height="24" font="11">∑</text>
+<text top="1087" left="399" width="3" height="10" font="8">l</text>
+<text top="1056" left="414" width="9" height="14" font="8">∞</text>
+<text top="1065" left="411" width="14" height="24" font="11">∑</text>
+<text top="1087" left="410" width="17" height="11" font="8">j=1</text>
+<text top="1065" left="430" width="14" height="24" font="11">∑</text>
+<text top="1086" left="434" width="6" height="10" font="10"><b>u</b></text>
+<text top="1070" left="447" width="10" height="13" font="4">w</text>
+<text top="1067" left="457" width="3" height="10" font="8">l</text>
+<text top="1077" left="457" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1073" left="470" width="9" height="10" font="12"><i>ψ</i></text>
+<text top="1067" left="479" width="3" height="10" font="8">l</text>
+<text top="1077" left="479" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1069" left="492" width="5" height="14" font="0">(</text>
+<text top="1070" left="497" width="5" height="13" font="3"><b>r</b></text>
+<text top="1069" left="503" width="5" height="14" font="0">)</text>
+<text top="1073" left="509" width="6" height="10" font="12"><i>ξ</i></text>
+<text top="1067" left="516" width="3" height="10" font="8">l</text>
+<text top="1077" left="516" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1070" left="531" width="3" height="13" font="4">,</text>
+<text top="1070" left="728" width="16" height="13" font="4">(1)</text>
+<text top="1116" left="149" width="88" height="13" font="4">for directions l</text>
+<text top="1115" left="241" width="11" height="14" font="0">=</text>
+<text top="1116" left="256" width="227" height="14" font="4">h, v or d and spatial locations <b>r</b>, where</text>
+<text top="1115" left="487" width="7" height="13" font="0">{</text>
+<text top="1119" left="495" width="6" height="10" font="12"><i>ξ</i></text>
+<text top="1113" left="502" width="3" height="10" font="8">l</text>
+<text top="1123" left="502" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1115" left="514" width="7" height="13" font="0">}</text>
+<text top="1116" left="525" width="219" height="13" font="4">is a zero-mean random orthonormal</text>
+<text top="1138" left="149" width="124" height="13" font="4">increment sequence;</text>
+<text top="1137" left="277" width="7" height="13" font="0">{</text>
+<text top="1141" left="284" width="9" height="10" font="12"><i>ψ</i></text>
+<text top="1135" left="293" width="3" height="10" font="8">l</text>
+<text top="1145" left="293" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1137" left="306" width="7" height="13" font="0">}</text>
+<text top="1138" left="317" width="283" height="13" font="4">is a set of discrete nondecimated wavelets and</text>
+<text top="1137" left="604" width="7" height="13" font="0">{</text>
+<text top="1138" left="612" width="10" height="13" font="4">w</text>
+<text top="1135" left="622" width="3" height="10" font="8">l</text>
+<text top="1145" left="622" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="1137" left="635" width="7" height="13" font="0">}</text>
+<text top="1138" left="646" width="98" height="13" font="4">is a collection of</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">22</text>
+<text top="103" left="149" width="403" height="13" font="4">amplitudes, constrained to vary slowly over locations of an image <a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="103" left="552" width="72" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="103" left="624" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="103" left="631" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="103" left="658" width="86" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>In the above</text>
+<text top="120" left="149" width="417" height="13" font="4">definition, we assume the image is of dyadic dimension, i.e. we have <b>r</b></text>
+<text top="119" left="570" width="20" height="14" font="0">= (</text>
+<text top="119" left="591" width="17" height="14" font="4">r, s</text>
+<text top="119" left="608" width="5" height="14" font="0">)</text>
+<text top="120" left="617" width="47" height="13" font="4">with r, s</text>
+<text top="119" left="668" width="20" height="13" font="0">∈ {</text>
+<text top="120" left="689" width="43" height="13" font="4">1, . . . , 2</text>
+<text top="117" left="732" width="3" height="10" font="8">J</text>
+<text top="119" left="737" width="7" height="13" font="0">}</text>
+<text top="136" left="149" width="252" height="13" font="4">and where J is the coarsest observed scale.</text>
+<text top="157" left="171" width="72" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="157" left="246" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="157" left="251" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="157" left="278" width="468" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">) </a>also define the local wavelet spectrum (LWS) associated with an LS2W process.</text>
+<text top="178" left="148" width="191" height="13" font="4">The LWS for a given location <b>z</b></text>
+<text top="177" left="345" width="11" height="14" font="0">=</text>
+<text top="172" left="362" width="8" height="6" font="4"></text>
+<text top="174" left="374" width="4" height="10" font="8">r</text>
+<text top="185" left="372" width="5" height="10" font="8">2</text>
+<text top="185" left="378" width="2" height="7" font="13">J</text>
+<text top="178" left="383" width="3" height="13" font="4">,</text>
+<text top="174" left="393" width="4" height="10" font="8">s</text>
+<text top="185" left="390" width="5" height="10" font="8">2</text>
+<text top="185" left="396" width="2" height="7" font="13">J</text>
+<text top="172" left="402" width="8" height="6" font="4"></text>
+<text top="177" left="416" width="21" height="14" font="0">∈ (</text>
+<text top="178" left="436" width="19" height="13" font="4">0, 1</text>
+<text top="177" left="456" width="5" height="14" font="0">)</text>
+<text top="175" left="462" width="5" height="10" font="8">2</text>
+<text top="178" left="468" width="172" height="13" font="4">, at scale j in direction l is S</text>
+<text top="175" left="640" width="3" height="10" font="8">l</text>
+<text top="185" left="640" width="3" height="10" font="8">j</text>
+<text top="177" left="644" width="5" height="14" font="0">(</text>
+<text top="178" left="650" width="7" height="13" font="3"><b>z</b></text>
+<text top="177" left="657" width="22" height="14" font="0">) ≈</text>
+<text top="178" left="685" width="10" height="13" font="4">w</text>
+<text top="175" left="695" width="3" height="10" font="8">l</text>
+<text top="185" left="695" width="3" height="10" font="8">j</text>
+<text top="177" left="699" width="5" height="14" font="0">(</text>
+<text top="178" left="705" width="26" height="14" font="3"><b>u</b>/<b>R</b></text>
+<text top="177" left="731" width="5" height="14" font="0">)</text>
+<text top="175" left="737" width="5" height="10" font="8">2</text>
+<text top="178" left="743" width="3" height="13" font="4">.</text>
+<text top="198" left="148" width="597" height="13" font="4">The LWS provides a decomposition of the process variance at (rescaled) locations <b>z</b>, directions l,</text>
+<text top="214" left="149" width="595" height="13" font="4">and wavelet scales j. In practice the LWS is usually unknown and so needs to be estimated (see</text>
+<text top="231" left="149" width="71" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="231" left="220" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="231" left="227" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="231" left="253" width="491" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">, </a>for details). Spectral estimation using the LS2W model is implemented in R in the</text>
+<text top="247" left="149" width="141" height="13" font="4">add-on package <b>LS2W </b><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="247" left="290" width="106" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley and Nason</a></text>
+<text top="247" left="395" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="247" left="402" width="26" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2013</a></text>
+<text top="247" left="428" width="316" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>The <b>LS2Wstat </b>routines described below thus have a</text>
+<text top="263" left="149" width="334" height="13" font="4">dependence on some functions from the <b>LS2W </b>package.</text>
+<text top="306" left="149" width="276" height="15" font="9"><b>A test of stationarity for LS2W processes</b></text>
+<text top="337" left="149" width="598" height="13" font="4">Next we turn to describe the implementation of a test of stationarity within the <b>LS2Wstat </b>package.</text>
+<text top="354" left="148" width="213" height="13" font="4">We focus on describing the Bootstat</text>
+<text top="359" left="361" width="28" height="10" font="8">LS2W</text>
+<text top="354" left="393" width="351" height="13" font="4">approach implemented in the <b>LS2Wstat </b>package, referring</text>
+<text top="370" left="149" width="142" height="13" font="4">the interested reader to</text>
+<text top="370" left="295" width="72" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="370" left="372" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="370" left="376" width="48" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="370" left="424" width="323" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>for details of other tests which might be employed.</text>
+<text top="387" left="148" width="380" height="13" font="4">Throughout this section let us assume that we have some image X</text>
+<text top="391" left="528" width="4" height="10" font="10"><b>r</b></text>
+<text top="387" left="536" width="71" height="13" font="4">(as in Figure</text>
+<text top="387" left="610" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">2</a></text>
+<text top="387" left="616" width="128" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">), </a>whose second-order</text>
+<text top="403" left="149" width="595" height="13" font="4">structure we wish to test for spatial stationarity. We assume that X is an LS2W process with associated</text>
+<text top="420" left="149" width="128" height="13" font="4">unknown spectrum, S</text>
+<text top="416" left="277" width="5" height="11" font="8">`</text>
+<text top="426" left="277" width="3" height="10" font="8">j</text>
+<text top="420" left="286" width="24" height="13" font="4">for j</text>
+<text top="419" left="314" width="11" height="14" font="0">=</text>
+<text top="420" left="329" width="67" height="13" font="4">1, . . . , J and</text>
+<text top="419" left="399" width="21" height="14" font="0">` =</text>
+<text top="419" left="423" width="167" height="14" font="4">v, h or d. Since the model in <a href="2014-1-nunes-taylor-eckley.html#2">(</a></text>
+<text top="420" left="590" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">1</a></text>
+<text top="420" left="597" width="147" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">) </a>assumes the process has</text>
+<text top="438" left="149" width="595" height="13" font="4">zero mean, if necessary the image can be detrended. This can be done in R, for example, by using the</text>
+<text top="455" left="149" width="163" height="13" font="4">core <b>stats </b>package function</text>
+<text top="451" left="315" width="390" height="18" font="4">medpolish, which implements Tukey’s median polish technique <a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="455" left="705" width="37" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Tukey</a></text>
+<text top="455" left="742" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="471" left="148" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1977</a></text>
+<text top="471" left="175" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">).</a></text>
+<text top="492" left="171" width="573" height="13" font="4">Under the null hypothesis of stationarity, the wavelet spectrum will be constant across location for</text>
+<text top="509" left="149" width="279" height="13" font="4">each scale and direction. Motivated by this fact</text>
+<text top="509" left="432" width="69" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="509" left="504" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="509" left="509" width="46" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="509" left="555" width="189" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>formulate a hypothesis test for</text>
+<text top="525" left="149" width="181" height="13" font="4">the stationarity of the image X</text>
+<text top="529" left="329" width="4" height="10" font="10"><b>r</b></text>
+<text top="525" left="338" width="27" height="13" font="4">with</text>
+<text top="556" left="303" width="10" height="13" font="4">H</text>
+<text top="561" left="314" width="5" height="10" font="8">0</text>
+<text top="556" left="323" width="15" height="13" font="4">: S</text>
+<text top="552" left="338" width="5" height="11" font="8">`</text>
+<text top="562" left="339" width="3" height="10" font="8">j</text>
+<text top="555" left="344" width="5" height="14" font="0">(</text>
+<text top="556" left="349" width="7" height="13" font="3"><b>z</b></text>
+<text top="555" left="356" width="5" height="14" font="0">)</text>
+<text top="556" left="365" width="186" height="13" font="4">is constant across <b>z </b>for all j and</text>
+<text top="555" left="554" width="6" height="14" font="0">`</text>
+<text top="556" left="560" width="3" height="13" font="4">,</text>
+<text top="582" left="300" width="10" height="13" font="4">H</text>
+<text top="587" left="311" width="8" height="10" font="8">A</text>
+<text top="582" left="323" width="15" height="13" font="4">: S</text>
+<text top="578" left="338" width="5" height="11" font="8">`</text>
+<text top="588" left="339" width="3" height="10" font="8">j</text>
+<text top="581" left="344" width="5" height="14" font="0">(</text>
+<text top="582" left="349" width="7" height="13" font="3"><b>z</b></text>
+<text top="581" left="356" width="5" height="14" font="0">)</text>
+<text top="582" left="365" width="215" height="13" font="4">is not constant across <b>z </b>for some j or</text>
+<text top="581" left="584" width="6" height="14" font="0">`</text>
+<text top="582" left="590" width="3" height="13" font="4">.</text>
+<text top="613" left="149" width="595" height="13" font="4">Hence, a test statistic for the hypothesis should measure how much the wavelet spectrum for an</text>
+<text top="630" left="149" width="227" height="13" font="4">observed image differs from constancy.</text>
+<text top="630" left="380" width="67" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="630" left="450" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="630" left="454" width="45" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="630" left="499" width="245" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>suggest using the average scale-direction</text>
+<text top="646" left="149" width="595" height="13" font="4">spectral variance as a test statistic to measure the degree of non-stationary within an image, where the</text>
+<text top="662" left="148" width="265" height="13" font="4">variance is taken over pixel locations, that is:</text>
+<text top="704" left="343" width="8" height="13" font="4">T</text>
+<text top="699" left="354" width="17" height="19" font="4">n ˆS</text>
+<text top="700" left="371" width="5" height="11" font="8">`</text>
+<text top="711" left="371" width="3" height="10" font="8">j</text>
+<text top="704" left="377" width="5" height="14" font="0">(</text>
+<text top="705" left="382" width="7" height="13" font="3"><b>z</b></text>
+<text top="704" left="389" width="5" height="14" font="0">)</text>
+<text top="699" left="395" width="9" height="6" font="4">o</text>
+<text top="704" left="408" width="11" height="14" font="0">=</text>
+<text top="695" left="428" width="7" height="13" font="4">1</text>
+<text top="714" left="424" width="12" height="13" font="4">3J</text>
+<text top="699" left="442" width="14" height="24" font="11">∑</text>
+<text top="721" left="446" width="5" height="11" font="8">`</text>
+<text top="691" left="465" width="3" height="10" font="8">J</text>
+<text top="699" left="460" width="14" height="24" font="11">∑</text>
+<text top="721" left="459" width="17" height="11" font="8">j=1</text>
+<text top="705" left="478" width="20" height="13" font="4">var</text>
+<text top="709" left="498" width="6" height="10" font="10"><b>u</b></text>
+<text top="699" left="507" width="16" height="19" font="4"> ˆS</text>
+<text top="700" left="523" width="5" height="11" font="8">`</text>
+<text top="711" left="524" width="12" height="11" font="8">j,<b>u</b></text>
+<text top="699" left="537" width="8" height="6" font="4"></text>
+<text top="705" left="547" width="3" height="13" font="4">.</text>
+<text top="705" left="728" width="16" height="13" font="4">(2)</text>
+<text top="747" left="149" width="597" height="13" font="4">In practice this statistic is computed based on an (unbiased) estimate of the local wavelet spectrum,</text>
+<text top="764" left="148" width="200" height="13" font="4">produced by the <b>LS2W </b>function</text>
+<text top="761" left="353" width="391" height="18" font="4">cddews (see the documentation in <b>LS2W </b>for details on optional</text>
+<text top="780" left="149" width="301" height="13" font="4">arguments to this function). For the (square) image</text>
+<text top="777" left="453" width="291" height="18" font="4">X, the test statistic is calculated using the function</text>
+<text top="793" left="149" width="135" height="18" font="4">avespecvar as follows:</text>
+<text top="820" left="149" width="343" height="18" font="4">&gt; TSvalue &lt;- avespecvar(cddews(X, smooth = FALSE))</text>
+<text top="837" left="149" width="62" height="18" font="4">&gt; TSvalue</text>
+<text top="853" left="149" width="89" height="18" font="4">[1] 0.2044345</text>
+<text top="883" left="149" width="595" height="13" font="4">Since the spectrum characterises the second-order structure of the observed random field (and hence</text>
+<text top="900" left="149" width="159" height="13" font="4">its stationarity properties),</text>
+<text top="900" left="311" width="70" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="900" left="384" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="900" left="389" width="47" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="900" left="435" width="309" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>suggest determining the p-value of the hypothesis</text>
+<text top="916" left="149" width="595" height="13" font="4">test by performing parametric bootstrapping. This corresponds to sampling LS2W processes assuming</text>
+<text top="933" left="149" width="595" height="13" font="4">stationarity under the null hypothesis, and comparing the observed test statistic to that of the simulated</text>
+<text top="949" left="149" width="546" height="13" font="4">LS2W processes under stationarity. For pseudo-code of this algorithm, please see Algorithm</text>
+<text top="949" left="698" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#4">1</a></text>
+<text top="949" left="705" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#4">.</a></text>
+<text top="970" left="171" width="396" height="13" font="4">This bootstrap algorithm is performed with the <b>LS2Wstat </b>function</text>
+<text top="967" left="570" width="176" height="18" font="4">TOS2D. The function has argu-</text>
+<text top="987" left="149" width="40" height="13" font="4">ments:</text>
+<text top="1010" left="149" width="234" height="18" font="4">image: The image you want to analyse.</text>
+<text top="1032" left="149" width="595" height="18" font="4">detrend: A binary value indicating whether the image should be detrended before applying the</text>
+<text top="1052" left="186" width="133" height="13" font="4">bootstrap test. If set to</text>
+<text top="1049" left="322" width="397" height="18" font="4">TRUE, the image is detrended using Tukey’s median polish method.</text>
+<text top="1071" left="149" width="595" height="18" font="4">nsamples: The number of bootstrap simulations to carry out. This is the value B in the pseudocode</text>
+<text top="1091" left="186" width="285" height="13" font="4">given above. By default this takes the value 100.</text>
+<text top="1110" left="149" width="595" height="18" font="4">theTS: This specifies the test statistic function to be used within the testing procedure to measure</text>
+<text top="1130" left="186" width="558" height="13" font="4">non-stationarity. The test statistic should be based on the local wavelet spectrum and by default</text>
+<text top="1146" left="186" width="85" height="13" font="4">is the function</text>
+<text top="1143" left="274" width="225" height="18" font="4">avespecvar representing the statistic <a href="2014-1-nunes-taylor-eckley.html#3">(</a></text>
+<text top="1146" left="499" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#3">2</a></text>
+<text top="1146" left="506" width="8" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#3">).</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="10" family="Times" color="#000000"/>
+	<fontspec id="15" size="6" family="Times" color="#000000"/>
+	<fontspec id="16" size="9" family="Times" color="#000000"/>
+	<fontspec id="17" size="9" family="Times" color="#7282aa"/>
+	<fontspec id="18" size="7" family="Times" color="#000000"/>
+	<fontspec id="19" size="6" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">23</text>
+<text top="123" left="149" width="49" height="16" font="14">Bootstat</text>
+<text top="127" left="198" width="21" height="14" font="8">LS2W</text>
+<text top="123" left="220" width="6" height="16" font="14">:</text>
+<text top="144" left="170" width="331" height="12" font="1">1. Compute the estimate of the LWS for the observed image, ˆ</text>
+<text top="144" left="494" width="7" height="12" font="1">S</text>
+<text top="142" left="501" width="2" height="9" font="15">l</text>
+<text top="150" left="501" width="2" height="9" font="15">j</text>
+<text top="144" left="505" width="5" height="12" font="14">(</text>
+<text top="144" left="510" width="6" height="12" font="16"><b>z</b></text>
+<text top="144" left="516" width="5" height="12" font="14">)</text>
+<text top="144" left="521" width="3" height="12" font="1">.</text>
+<text top="169" left="170" width="135" height="12" font="1">2. Evaluate T (Equation <a href="2014-1-nunes-taylor-eckley.html#3">(</a></text>
+<text top="169" left="305" width="6" height="12" font="17"><a href="2014-1-nunes-taylor-eckley.html#3">2</a></text>
+<text top="169" left="311" width="220" height="12" font="1"><a href="2014-1-nunes-taylor-eckley.html#3">)) </a>on the observed image, call this value T</text>
+<text top="167" left="532" width="12" height="9" font="15">obs</text>
+<text top="169" left="544" width="3" height="12" font="1">.</text>
+<text top="192" left="170" width="278" height="12" font="1">3. Compute the pixel average stationary spectrum e</text>
+<text top="191" left="440" width="7" height="12" font="1">S</text>
+<text top="189" left="447" width="2" height="9" font="15">l</text>
+<text top="198" left="447" width="2" height="9" font="15">j</text>
+<text top="192" left="454" width="290" height="12" font="1">by taking the average of spectrum values for each scale</text>
+<text top="208" left="186" width="73" height="12" font="1">and direction.</text>
+<text top="228" left="170" width="185" height="12" font="1">4. <b>Iterate </b>for i in 1 to B bootstraps:</text>
+<text top="256" left="198" width="80" height="12" font="1">(a) Simulate X</text>
+<text top="251" left="278" width="4" height="9" font="18">(</text>
+<text top="251" left="282" width="2" height="9" font="15">i</text>
+<text top="251" left="285" width="4" height="9" font="18">)</text>
+<text top="260" left="278" width="3" height="9" font="19"><b>r</b></text>
+<text top="256" left="292" width="374" height="12" font="1">from the stationary LS2W model using squared amplitudes given by e</text>
+<text top="256" left="658" width="7" height="12" font="1">S</text>
+<text top="253" left="665" width="2" height="9" font="15">l</text>
+<text top="262" left="665" width="2" height="9" font="15">j</text>
+<text top="256" left="672" width="72" height="12" font="1">and Gaussian</text>
+<text top="272" left="219" width="108" height="12" font="1">process innovations.</text>
+<text top="294" left="197" width="406" height="12" font="1">(b) Compute the test statistic T on the simulated realisation, call this value T</text>
+<text top="291" left="603" width="4" height="9" font="18">(</text>
+<text top="292" left="607" width="2" height="9" font="15">i</text>
+<text top="291" left="610" width="4" height="9" font="18">)</text>
+<text top="294" left="614" width="3" height="12" font="1">.</text>
+<text top="325" left="170" width="212" height="12" font="1">5. Compute the p-value for the test as p</text>
+<text top="324" left="385" width="10" height="12" font="14">=</text>
+<text top="319" left="400" width="4" height="9" font="15">1</text>
+<text top="319" left="405" width="7" height="9" font="18">+</text>
+<text top="319" left="412" width="4" height="9" font="15">#</text>
+<text top="317" left="417" width="6" height="12" font="14">{</text>
+<text top="319" left="425" width="5" height="9" font="15">T</text>
+<text top="317" left="431" width="10" height="7" font="13">obs</text>
+<text top="319" left="443" width="7" height="9" font="18">≤</text>
+<text top="319" left="452" width="5" height="9" font="15">T</text>
+<text top="317" left="458" width="8" height="8" font="13">(i)</text>
+<text top="317" left="469" width="6" height="12" font="14">}</text>
+<text top="331" left="429" width="5" height="9" font="15">B</text>
+<text top="330" left="435" width="7" height="9" font="18">+</text>
+<text top="331" left="442" width="4" height="9" font="15">1</text>
+<text top="325" left="477" width="3" height="12" font="1">.</text>
+<text top="391" left="167" width="78" height="13" font="3"><b>Algorithm 1:</b></text>
+<text top="390" left="249" width="472" height="13" font="4">The bootstrap algorithm for testing the stationarity of locally stationary images.</text>
+<text top="434" left="149" width="509" height="18" font="4">verbose: A binary value indicating whether informative messages should be printed.</text>
+<text top="455" left="149" width="596" height="18" font="4">...: Any optional arguments to be passed to the <b>LS2W </b>function cddews. See the documentation for</text>
+<text top="475" left="186" width="19" height="13" font="4">the</text>
+<text top="472" left="208" width="195" height="18" font="4">cddews function for more details.</text>
+<text top="501" left="149" width="58" height="13" font="4">Note that</text>
+<text top="497" left="211" width="534" height="18" font="4">TOS2D uses the <b>LS2W </b>process simulation function LS2Wsim from the <b>LS2W </b>R package to</text>
+<text top="517" left="149" width="429" height="13" font="4">simulate bootstrap realizations under the null hypothesis. The output of</text>
+<text top="514" left="581" width="163" height="18" font="4">TOS2D is a list object of class</text>
+<text top="530" left="149" width="595" height="18" font="4">&#34;TOS2D&#34;, which describes pertinent quantities associated with the bootstrap test of stationarity. The</text>
+<text top="550" left="149" width="250" height="13" font="4">object contains the following components:</text>
+<text top="572" left="149" width="341" height="18" font="4">data.name: The name of the image tested for stationarity.</text>
+<text top="593" left="149" width="595" height="18" font="4">samples: A vector of length nsamples + 1 containing each of the test statistics calculated in the</text>
+<text top="613" left="186" width="558" height="13" font="4">bootstrap test. The first element of the vector is the value of the test statistic calculated for the</text>
+<text top="630" left="186" width="122" height="13" font="4">original image itself.</text>
+<text top="647" left="149" width="240" height="18" font="4">statistic: The statistic used in the test.</text>
+<text top="669" left="149" width="335" height="18" font="4">p.value: The bootstrap p-value associated with the test.</text>
+<text top="698" left="149" width="472" height="13" font="4">In particular, the object returns the measure of spectral constancy in the entry</text>
+<text top="694" left="625" width="120" height="18" font="4">statistic, together</text>
+<text top="714" left="148" width="353" height="13" font="4">with the p-value associated with the stationarity test (in the</text>
+<text top="711" left="504" width="126" height="18" font="4">p.value component).</text>
+<text top="735" left="171" width="199" height="13" font="4">An example of the function call is</text>
+<text top="757" left="149" width="254" height="18" font="4">&gt; Xbstest &lt;- TOS2D(X, nsamples = 100)</text>
+<text top="786" left="149" width="260" height="13" font="4">Note that the p-value returned within the</text>
+<text top="783" left="414" width="330" height="18" font="4">&#34;TOS2D&#34; object is computed using the utility function</text>
+<text top="799" left="149" width="595" height="18" font="4">getpval, which returns the parametric bootstrap p-value for the test from the bootstrap test statistics</text>
+<text top="819" left="148" width="337" height="13" font="4">provided by counting those test statistic values less than T</text>
+<text top="816" left="486" width="14" height="10" font="8">obs</text>
+<text top="819" left="504" width="23" height="13" font="4">(see</text>
+<text top="819" left="529" width="79" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Davison et al.</a></text>
+<text top="819" left="608" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">,</a></text>
+<text top="819" left="614" width="26" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">1999</a></text>
+<text top="819" left="641" width="106" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">, </a>for more details).</text>
+<text top="835" left="149" width="113" height="13" font="4">In other words, the</text>
+<text top="832" left="266" width="315" height="18" font="4">p.value component is obtained by the following call:</text>
+<text top="858" left="149" width="233" height="18" font="4">&gt; pval &lt;- getpval(Xbstest$samples)</text>
+<text top="874" left="149" width="192" height="18" font="4">Observed bootstrap is 0.204</text>
+<text top="891" left="149" width="151" height="18" font="4">p-value is 0.00990099</text>
+<text top="920" left="148" width="488" height="13" font="4">This p-value can then be used to assess the stationarity of a textured image region.</text>
+<text top="940" left="171" width="114" height="13" font="4">Information on the</text>
+<text top="937" left="289" width="455" height="18" font="4">&#34;TOS2D&#34; class object can be obtained using the print or summary S3 methods</text>
+<text top="957" left="149" width="438" height="13" font="4">for this class. For example, using the summary method, one would obtain</text>
+<text top="979" left="149" width="123" height="18" font="4">&gt; summary(Xbstest)</text>
+<text top="1012" left="149" width="226" height="18" font="4">2D bootstrap test of stationarity</text>
+<text top="1028" left="190" width="144" height="18" font="4">object of class TOS2D</text>
+<text top="1045" left="149" width="233" height="18" font="4">----------------------------------</text>
+<text top="1078" left="149" width="48" height="18" font="4">summary</text>
+<text top="1094" left="149" width="48" height="18" font="4">=======</text>
+<text top="1111" left="149" width="48" height="18" font="4">data: X</text>
+<text top="1127" left="149" width="206" height="18" font="4">Observed test statistic: 0.204</text>
+<text top="1144" left="149" width="158" height="18" font="4">bootstrap p-value: 0.01</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">24</text>
+<text top="103" left="148" width="106" height="13" font="4">Alternatively, the</text>
+<text top="100" left="259" width="485" height="18" font="4">print method for the &#34;TOS2D&#34; class prints more information about the Xbstest</text>
+<text top="120" left="149" width="286" height="13" font="4">object. Note that the function internally calls the</text>
+<text top="116" left="438" width="216" height="18" font="4">summary method for &#34;TOS2D&#34; objects:</text>
+<text top="142" left="149" width="226" height="18" font="4">2D bootstrap test of stationarity</text>
+<text top="158" left="190" width="144" height="18" font="4">object of class TOS2D</text>
+<text top="175" left="149" width="233" height="18" font="4">----------------------------------</text>
+<text top="208" left="149" width="48" height="18" font="4">summary</text>
+<text top="224" left="149" width="48" height="18" font="4">=======</text>
+<text top="241" left="149" width="48" height="18" font="4">data: X</text>
+<text top="257" left="149" width="206" height="18" font="4">Observed test statistic: 0.204</text>
+<text top="273" left="149" width="158" height="18" font="4">bootstrap p-value: 0.01</text>
+<text top="306" left="149" width="254" height="18" font="4">Number of bootstrap realizations: 100</text>
+<text top="323" left="149" width="240" height="18" font="4">spectral statistic used: avespecvar</text>
+<text top="368" left="149" width="152" height="15" font="9"><b>Other textured images</b></text>
+<text top="400" left="148" width="598" height="13" font="4">To demonstrate the test of stationarity further, we now provide some other textured image examples.</text>
+<text top="416" left="149" width="595" height="13" font="4">Firstly, we consider a Haar wavelet random field with a diagonal texture, an example of a LS2W process</text>
+<text top="432" left="149" width="91" height="13" font="4">as described in</text>
+<text top="432" left="244" width="73" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">Eckley et al.</a></text>
+<text top="432" left="320" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">(</a></text>
+<text top="432" left="325" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">2010</a></text>
+<text top="432" left="352" width="299" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">). </a>The realisation of the process (shown in Figure</text>
+<text top="432" left="655" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#5">2</a></text>
+<text top="432" left="662" width="82" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#5">) </a>is simulated</text>
+<text top="449" left="149" width="55" height="13" font="4">using the</text>
+<text top="445" left="207" width="241" height="18" font="4">simTexture function with the command:</text>
+<text top="471" left="149" width="391" height="18" font="4">&gt; Haarimage &lt;- simTexture(512, K = 1, imtype = &#34;S5&#34;)[[1]]</text>
+<text top="780" left="182" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="780" left="243" width="254" height="13" font="4">A realisation of a stationary LS2W process,</text>
+<text top="777" left="501" width="210" height="18" font="4">Haarimage, with a diagonal texture.</text>
+<text top="816" left="171" width="156" height="13" font="4">The test of stationarity of</text>
+<text top="816" left="332" width="73" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="816" left="410" width="5" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="816" left="414" width="48" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="816" left="462" width="159" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>performed on the image</text>
+<text top="813" left="626" width="118" height="18" font="4">Haarimage with the</text>
+<text top="832" left="149" width="49" height="13" font="4">function</text>
+<text top="829" left="201" width="543" height="18" font="4">TOS2D reveals that the image is spatially stationary as expected, with a high p-value associated</text>
+<text top="849" left="149" width="61" height="13" font="4">to the test.</text>
+<text top="871" left="149" width="439" height="18" font="4">&gt; Haarimtest &lt;- TOS2D(Haarimage, smooth = FALSE, nsamples = 100)</text>
+<text top="888" left="149" width="144" height="18" font="4">&gt; summary(Haarimtest)</text>
+<text top="921" left="149" width="226" height="18" font="4">2D bootstrap test of stationarity</text>
+<text top="937" left="190" width="144" height="18" font="4">object of class TOS2D</text>
+<text top="953" left="149" width="233" height="18" font="4">----------------------------------</text>
+<text top="986" left="149" width="48" height="18" font="4">summary</text>
+<text top="1003" left="149" width="48" height="18" font="4">=======</text>
+<text top="1019" left="149" width="103" height="18" font="4">data: Haarimage</text>
+<text top="1036" left="149" width="206" height="18" font="4">Observed test statistic: 0.631</text>
+<text top="1052" left="149" width="165" height="18" font="4">bootstrap p-value: 0.673</text>
+<text top="1085" left="149" width="254" height="18" font="4">Number of bootstrap realizations: 100</text>
+<text top="1101" left="149" width="240" height="18" font="4">spectral statistic used: avespecvar</text>
+<text top="1130" left="171" width="573" height="13" font="4">As another example of a textured image, we construct an image montage using two of the textures</text>
+<text top="1147" left="149" width="97" height="13" font="4">shown in Figure</text>
+<text top="1147" left="249" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">1</a></text>
+<text top="1147" left="259" width="231" height="13" font="4">from the package <b>LS2W</b>. The montage,</text>
+<text top="1144" left="494" width="171" height="18" font="4">montage1, is shown in Figure</text>
+<text top="1147" left="668" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#6">3</a></text>
+<text top="1147" left="675" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#6">.</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">25</text>
+<text top="370" left="164" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="370" left="225" width="204" height="13" font="4">An example of an image montage,</text>
+<text top="366" left="432" width="283" height="18" font="4">montage1, using two of the textures from Figure</text>
+<text top="370" left="718" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">1</a></text>
+<text top="370" left="725" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">.</a></text>
+<text top="420" left="171" width="489" height="13" font="4">Note that since this image may not have zero mean as assumed by the LS2W model <a href="2014-1-nunes-taylor-eckley.html#2">(</a></text>
+<text top="420" left="661" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">1</a></text>
+<text top="420" left="667" width="77" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">)</a>, we detrend</text>
+<text top="436" left="149" width="159" height="13" font="4">the montage first using the</text>
+<text top="433" left="312" width="239" height="18" font="4">medpolish function in the <b>stats </b>package.</text>
+<text top="460" left="149" width="110" height="18" font="4">&gt; data(textures)</text>
+<text top="476" left="149" width="329" height="18" font="4">&gt; montage1 &lt;- cbind(A[1:512, 1:256], B[, 1:256])</text>
+<text top="492" left="149" width="309" height="18" font="4">&gt; montage1zm &lt;- medpolish(montage1)$residuals</text>
+<text top="523" left="171" width="23" height="13" font="4">The</text>
+<text top="519" left="197" width="371" height="18" font="4">TOS2D test indicates that the texture montage is non-stationary:</text>
+<text top="546" left="149" width="473" height="18" font="4">&gt; montage1zmtest &lt;- TOS2D(montage1zm, smooth = FALSE, nsamples = 100)</text>
+<text top="563" left="149" width="171" height="18" font="4">&gt; summary(montage1zmtest)</text>
+<text top="596" left="149" width="226" height="18" font="4">2D bootstrap test of stationarity</text>
+<text top="612" left="190" width="144" height="18" font="4">object of class TOS2D</text>
+<text top="628" left="149" width="233" height="18" font="4">----------------------------------</text>
+<text top="661" left="149" width="48" height="18" font="4">summary</text>
+<text top="678" left="149" width="48" height="18" font="4">=======</text>
+<text top="694" left="149" width="110" height="18" font="4">data: montage1zm</text>
+<text top="711" left="149" width="178" height="18" font="4">Observed test statistic: 0</text>
+<text top="727" left="149" width="158" height="18" font="4">bootstrap p-value: 0.01</text>
+<text top="760" left="149" width="254" height="18" font="4">Number of bootstrap realizations: 100</text>
+<text top="776" left="149" width="240" height="18" font="4">spectral statistic used: avespecvar</text>
+<text top="825" left="149" width="598" height="17" font="5"><b>Identifying areas of homogeneous texture using the bootstrap test of sta-</b></text>
+<text top="846" left="149" width="71" height="17" font="5"><b>tionarity</b></text>
+<text top="884" left="149" width="596" height="13" font="4">In this section we describe embedding a test of stationarity into a quadtree algorithm to identify</text>
+<text top="901" left="149" width="595" height="13" font="4">regions of spatial homogeneity within a textured image. This segmentation approach is similar in</text>
+<text top="917" left="149" width="76" height="13" font="4">spirit to, e.g.,</text>
+<text top="917" left="229" width="107" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Spann and Wilson</a></text>
+<text top="917" left="339" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="917" left="344" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1985</a></text>
+<text top="917" left="370" width="20" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>or</text>
+<text top="917" left="394" width="66" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Pal and Pal</a></text>
+<text top="917" left="464" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="917" left="468" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1987</a></text>
+<text top="917" left="495" width="249" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">) </a>which use homogeneity measures within</text>
+<text top="934" left="149" width="595" height="13" font="4">a quadtree structure. We first give details of the quadtree implementation, and subsequently describe</text>
+<text top="950" left="149" width="334" height="13" font="4">functions to aid illustration of quadtree decompositions.</text>
+<text top="992" left="149" width="260" height="15" font="9"><b>A quadtree algorithm implementation</b></text>
+<text top="1024" left="149" width="597" height="13" font="4">In essence, a region splitting algorithm recursively subdivides an input image into smaller regions,</text>
+<text top="1040" left="148" width="596" height="13" font="4">with the subdivision decisions being based on some statistical criterion. More specifically, in a quadtree</text>
+<text top="1057" left="149" width="595" height="14" font="4">representation, at each stage a (sub)image is divided into its four subquadrants if the criterion is not</text>
+<text top="1073" left="149" width="104" height="13" font="4">satisfied (see e.g.,</text>
+<text top="1073" left="256" width="68" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Sonka et al.</a></text>
+<text top="1073" left="324" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="1073" left="331" width="27" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">1999</a></text>
+<text top="1073" left="358" width="386" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">). </a>The statistical criterion we use is spatial homogeneity, that is, a</text>
+<text top="1090" left="148" width="470" height="13" font="4">quadrant is further divided if it is considered as non-stationary by the Bootstat</text>
+<text top="1095" left="619" width="28" height="10" font="8">LS2W</text>
+<text top="1090" left="651" width="95" height="13" font="4">test. In practice,</text>
+<text top="1106" left="149" width="597" height="13" font="4">the quadtree implementation in <b>LS2Wstat </b>continues until all subregions are considered as stationary,</text>
+<text top="1123" left="149" width="595" height="13" font="4">or until the subregions reach a particular minimal dimension. The motivation for this is to ensure that</text>
+<text top="1139" left="148" width="596" height="13" font="4">we obtain statistically meaningful decisions using the stationarity test by not allowing too small a</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">26</text>
+<text top="123" left="149" width="140" height="16" font="14">Quadtree decomposition:</text>
+<text top="144" left="156" width="116" height="12" font="1">For an input image X:</text>
+<text top="162" left="149" width="86" height="12" font="1">Use the Bootstat</text>
+<text top="166" left="235" width="28" height="10" font="8">LS2W</text>
+<text top="162" left="266" width="402" height="12" font="1">test to assess whether X is second-order stationary. If stationary, stop. If not,</text>
+<text top="185" left="165" width="216" height="12" font="1">1. Divide the image into four quadrants.</text>
+<text top="205" left="165" width="323" height="12" font="1">2. For each quadrant, assess its stationarity with the Bootstat</text>
+<text top="209" left="488" width="28" height="10" font="8">LS2W</text>
+<text top="205" left="519" width="22" height="12" font="1">test.</text>
+<text top="225" left="165" width="579" height="12" font="1">3. For each quadrant assessed as non-stationary, recursively repeat steps 1–2, until the minimum testing region</text>
+<text top="239" left="182" width="320" height="12" font="1">is reached or until all sub-images are judged to be stationary.</text>
+<text top="310" left="155" width="78" height="13" font="3"><b>Algorithm 2:</b></text>
+<text top="309" left="236" width="497" height="13" font="4">The quadtree algorithm for segmenting an image into regions of spatial stationarity.</text>
+<text top="359" left="149" width="595" height="13" font="4">testing sub-image. This procedure segments an image into regions of spatial stationarity. The quadtree</text>
+<text top="375" left="149" width="230" height="13" font="4">algorithm is summarised in Algorithm</text>
+<text top="375" left="382" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#7">2</a></text>
+<text top="375" left="389" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#7">.</a></text>
+<text top="396" left="171" width="573" height="13" font="4">Each image is further split if deemed non-stationary, which is determined by a test of stationarity</text>
+<text top="412" left="149" width="44" height="13" font="4">such as</text>
+<text top="409" left="196" width="446" height="18" font="4">TOS2D. After the first subdivison of an image, each sub-image is of size n/2</text>
+<text top="412" left="645" width="11" height="13" font="0">×</text>
+<text top="412" left="659" width="85" height="14" font="4">n/2. The sizes</text>
+<text top="429" left="149" width="595" height="13" font="4">of the regions halve in size at each progressive division but increase in number. The R function in</text>
+<text top="445" left="149" width="58" height="13" font="3"><b>LS2Wstat</b></text>
+<text top="445" left="210" width="354" height="13" font="4">which creates the quadtree structure described in Algorithm</text>
+<text top="445" left="568" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#7">2</a></text>
+<text top="445" left="578" width="10" height="13" font="4">is</text>
+<text top="442" left="591" width="153" height="18" font="4">imageQT. The function has</text>
+<text top="462" left="149" width="41" height="13" font="4">inputs:</text>
+<text top="485" left="149" width="393" height="18" font="4">image: The image to be decomposed with the quadtree algorithm.</text>
+<text top="507" left="149" width="485" height="18" font="4">test: A function for assessing regions of spatial homogeneity, for example TOS2D.</text>
+<text top="529" left="149" width="553" height="18" font="4">minsize: The testing size of sub-images below which we should not apply the function test.</text>
+<text top="551" left="149" width="271" height="18" font="4">alpha: The significance level of the Bootstat</text>
+<text top="559" left="420" width="28" height="10" font="8">LS2W</text>
+<text top="555" left="452" width="292" height="13" font="4">test, with which to assess spatial stationarity of</text>
+<text top="571" left="186" width="100" height="13" font="4">textured regions.</text>
+<text top="590" left="149" width="261" height="18" font="4">...: Any other optional arguments to test.</text>
+<text top="620" left="148" width="184" height="13" font="4">As an illustration of using the</text>
+<text top="616" left="337" width="410" height="18" font="4">imageQT function, consider the code below to decompose the (non-</text>
+<text top="636" left="149" width="144" height="13" font="4">stationary) input image</text>
+<text top="633" left="297" width="448" height="18" font="4">X. We use the function TOS2D to assess the regions of spatial homogeneity</text>
+<text top="653" left="149" width="76" height="13" font="4">although the</text>
+<text top="649" left="228" width="329" height="18" font="4">imageQT function allows other functions to be supplied.</text>
+<text top="676" left="149" width="357" height="18" font="4">&gt; QTdecX &lt;- imageQT(X, test = TOS2D, nsamples = 100)</text>
+<text top="706" left="148" width="103" height="13" font="4">The output of the</text>
+<text top="703" left="255" width="406" height="18" font="4">imageQT function is a list object of class &#34;imageQT&#34; with components:</text>
+<text top="729" left="149" width="548" height="18" font="4">indl: The index representation of the non-stationary images in the quadtree decomposition.</text>
+<text top="751" left="149" width="598" height="18" font="4">resl: The results of the stationarity testing (from the test argument) during the quadtree decomposi-</text>
+<text top="771" left="186" width="138" height="13" font="4">tion. The results giving</text>
+<text top="768" left="328" width="417" height="18" font="4">FALSE correspond to those non-stationary sub-images contained in the</text>
+<text top="784" left="186" width="558" height="18" font="4">indl component and the results giving TRUE correspond to the stationary sub-images, i.e. those</text>
+<text top="804" left="186" width="96" height="13" font="4">contained in the</text>
+<text top="801" left="285" width="101" height="18" font="4">indS component.</text>
+<text top="823" left="149" width="521" height="18" font="4">indS: The index representation of the stationary images in the quadtree decomposition.</text>
+<text top="853" left="171" width="573" height="13" font="4">This particular way of splitting an image has a convenient indexing representation to identify</text>
+<text top="869" left="149" width="595" height="13" font="4">the position of subregions within an image. If a (sub)image is subdivided into quadrants, we assign</text>
+<text top="886" left="149" width="597" height="13" font="4">it a base 4 label as follows: 0 – top-left quadrant; 1 – bottom-left quadrant; 2 – top-right quadrant;</text>
+<text top="902" left="149" width="595" height="13" font="4">3 – bottom-right quadrant. By continuing in this manner, we can assign an index to each tested</text>
+<text top="919" left="149" width="595" height="13" font="4">subregion, with the number of digits in the index indicating how many times its parent images have</text>
+<text top="935" left="149" width="595" height="13" font="4">been subdivided from the “root” of the tree (the original image). This indexing is illustrated for the</text>
+<text top="951" left="148" width="329" height="13" font="4">quadtree decomposition given in the example in Figure</text>
+<text top="951" left="481" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#8">3</a></text>
+<text top="951" left="488" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#8">.</a></text>
+<text top="972" left="171" width="302" height="13" font="4">Examining the quadtree decomposition of the image</text>
+<text top="969" left="476" width="269" height="18" font="4">X using the print S3 method for the &#34;imageQT&#34;</text>
+<text top="989" left="149" width="84" height="13" font="4">class, we have</text>
+<text top="1012" left="149" width="103" height="18" font="4">&gt; print(QTdecX)</text>
+<text top="1045" left="149" width="171" height="18" font="4">2D quadtree decomposition</text>
+<text top="1061" left="156" width="158" height="18" font="4">object of class imageQT</text>
+<text top="1078" left="149" width="171" height="18" font="4">-------------------------</text>
+<text top="1111" left="149" width="48" height="18" font="4">summary</text>
+<text top="1127" left="149" width="48" height="18" font="4">=======</text>
+<text top="1144" left="149" width="48" height="18" font="4">data: X</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">27</text>
+<text top="348" left="149" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="348" left="209" width="537" height="13" font="4">An example of a quadtree decomposition. The location of the sub-images in the decomposi-</text>
+<text top="364" left="149" width="374" height="13" font="4">tion are described by the indexing system described in the text.</text>
+<text top="407" left="149" width="254" height="18" font="4">Indices of non-stationary sub-images:</text>
+<text top="423" left="149" width="240" height="18" font="4">&#34;0&#34; &#34;1&#34; &#34;2&#34; &#34;3&#34; &#34;03&#34; &#34;12&#34; &#34;21&#34; &#34;30&#34;</text>
+<text top="456" left="149" width="226" height="18" font="4">Indices of stationary sub-images:</text>
+<text top="473" left="149" width="569" height="18" font="4">&#34;00&#34; &#34;01&#34; &#34;02&#34; &#34;10&#34; &#34;11&#34; &#34;13&#34; &#34;20&#34; &#34;22&#34; &#34;23&#34; &#34;31&#34; &#34;32&#34; &#34;33&#34; &#34;030&#34; &#34;031&#34; &#34;032&#34; &#34;033&#34;</text>
+<text top="489" left="149" width="487" height="18" font="4">&#34;120&#34; &#34;121&#34; &#34;122&#34; &#34;123&#34; &#34;210&#34; &#34;211&#34; &#34;212&#34; &#34;213&#34; &#34;300&#34; &#34;301&#34; &#34;302&#34; &#34;303&#34;</text>
+<text top="522" left="149" width="178" height="18" font="4">minimum testing region: 64</text>
+<text top="550" left="148" width="23" height="13" font="4">The</text>
+<text top="547" left="175" width="569" height="18" font="4">resl component gives the results of the test of stationarity for all sub-images tested during the</text>
+<text top="567" left="148" width="184" height="13" font="4">quadtree procedure, reporting</text>
+<text top="563" left="335" width="409" height="18" font="4">FALSE for the non-stationary sub-images and TRUE for the stationary</text>
+<text top="583" left="149" width="31" height="13" font="4">ones:</text>
+<text top="605" left="149" width="89" height="18" font="4">&gt; QTdecX$resl</text>
+<text top="621" left="149" width="62" height="18" font="4">[1] FALSE</text>
+<text top="638" left="149" width="34" height="18" font="4">[[2]]</text>
+<text top="654" left="149" width="185" height="18" font="4">[1] FALSE FALSE FALSE FALSE</text>
+<text top="671" left="149" width="34" height="18" font="4">[[3]]</text>
+<text top="687" left="156" width="508" height="18" font="4">[1] TRUE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE FALSE TRUE TRUE</text>
+<text top="704" left="149" width="192" height="18" font="4">[13] FALSE TRUE TRUE TRUE</text>
+<text top="720" left="149" width="34" height="18" font="4">[[4]]</text>
+<text top="736" left="156" width="535" height="18" font="4">[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</text>
+<text top="753" left="149" width="62" height="18" font="4">[16] TRUE</text>
+<text top="798" left="149" width="235" height="15" font="9"><b>Plotting a quadtree decomposition</b></text>
+<text top="829" left="149" width="346" height="13" font="4">By performing the quadtree algorithm given in Algorithm</text>
+<text top="829" left="498" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#7">2</a></text>
+<text top="829" left="505" width="239" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#7">, </a>it is possible to decompose images into</text>
+<text top="846" left="149" width="595" height="13" font="4">regions indicating regional stationarity. Note that if a texture discrimination procedure is used to</text>
+<text top="862" left="149" width="595" height="13" font="4">classify the output from the stationarity quadtree algorithm, the image segmentation method can be</text>
+<text top="879" left="149" width="204" height="13" font="4">seen as a split and merge technique.</text>
+<text top="900" left="171" width="573" height="13" font="4">Suppose we have performed the quadtree decomposition. The <b>LS2Wstat </b>package includes an</text>
+<text top="916" left="149" width="14" height="13" font="4">S3</text>
+<text top="913" left="167" width="577" height="18" font="4">plot method for &#34;imageQT&#34; objects to plot the output for the &#34;imageQT&#34; class and optionally a</text>
+<text top="933" left="149" width="471" height="13" font="4">classification of those textured regions. If the classification output is plotted (</text>
+<text top="929" left="620" width="124" height="18" font="4">class = TRUE), each</text>
+<text top="949" left="149" width="573" height="13" font="4">textured region is uniquely coloured according to its texture group. The function has arguments:</text>
+<text top="971" left="149" width="395" height="18" font="4">x: A quadtree decomposition object, such as output from imageQT.</text>
+<text top="991" left="149" width="588" height="18" font="4">cires: Vector of class labels associated to the subimages produced by the quadtree decomposition.</text>
+<text top="1012" left="149" width="464" height="18" font="4">unclassval: A value for any unclassified values in a quadtree decomposition.</text>
+<text top="1032" left="149" width="567" height="18" font="4">class: A Boolean value indicating whether to plot the classification of the quadtree subimages.</text>
+<text top="1053" left="149" width="454" height="18" font="4">QT: A Boolean value indicating whether to plot the quadtree decomposition.</text>
+<text top="1081" left="148" width="450" height="13" font="4">We now illustrate the use of this function with the example given in Figure</text>
+<text top="1081" left="602" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">2</a></text>
+<text top="1081" left="608" width="136" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">. </a>Suppose the textured</text>
+<text top="1098" left="149" width="316" height="13" font="4">regions identified by the quadtree algorithm in the</text>
+<text top="1094" left="470" width="274" height="18" font="4">QTdecX object have been classified according</text>
+<text top="1114" left="149" width="595" height="13" font="4">to some texture discrimination procedure. For the purposes of this example, we suppose that the</text>
+<text top="1130" left="149" width="167" height="13" font="4">28 regions of stationarity in</text>
+<text top="1127" left="320" width="112" height="18" font="4">QTdecX (see Figure</text>
+<text top="1130" left="435" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#8">3</a></text>
+<text top="1130" left="442" width="302" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#8">) </a>have been classified as coming from two groups</text>
+<text top="1147" left="149" width="133" height="13" font="4">according to the labels</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">28</text>
+<text top="100" left="149" width="453" height="18" font="4">&gt; texclass &lt;- c(rep(1, times = 15), rep(c(2, 1, 1), times = 4), 1)</text>
+<text top="116" left="149" width="69" height="18" font="4">&gt; texclass</text>
+<text top="133" left="156" width="405" height="18" font="4">[1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 2 1 1 2 1 1 1</text>
+<text top="165" left="171" width="300" height="13" font="4">Using the output from the quadtree technique (</text>
+<text top="162" left="472" width="273" height="18" font="4">QTdecX) and the texture classification vector</text>
+<text top="178" left="149" width="505" height="18" font="4">texclass, we can use the quadtree plotting function for &#34;imageQT&#34; objects as follows:</text>
+<text top="205" left="149" width="336" height="18" font="4">&gt; plot(QTdecX, texclass, class = TRUE, QT = TRUE)</text>
+<text top="221" left="149" width="343" height="18" font="4">&gt; plot(QTdecX, texclass, class = TRUE, QT = FALSE)</text>
+<text top="251" left="148" width="408" height="13" font="4">The quadtree decomposition from this example is shown in Figure</text>
+<text top="251" left="560" width="14" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#9">4a</a></text>
+<text top="251" left="574" width="170" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#9">; </a>the same decomposition is</text>
+<text top="267" left="149" width="327" height="13" font="4">shown together with the texture classification in Figure</text>
+<text top="267" left="479" width="14" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#9">4b</a></text>
+<text top="267" left="494" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#9">.</a></text>
+<text top="517" left="316" width="16" height="13" font="3"><b>(a)</b></text>
+<text top="517" left="557" width="17" height="13" font="3"><b>(b)</b></text>
+<text top="549" left="149" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="549" left="207" width="293" height="13" font="4">An example of a quad-tree decomposition using</text>
+<text top="545" left="503" width="243" height="18" font="4">imageQT, together with an assumed sub-</text>
+<text top="565" left="149" width="165" height="13" font="4">image texture classification.</text>
+<text top="600" left="171" width="550" height="13" font="4">We also consider an image montage using the textures from the package <b>LS2W</b>. The montage</text>
+<text top="597" left="724" width="20" height="18" font="4">Y is</text>
+<text top="617" left="149" width="97" height="13" font="4">shown in Figure</text>
+<text top="617" left="249" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#9">5</a></text>
+<text top="617" left="256" width="434" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#9">. </a>Prior to performing the quadtree decomposition, we detrend the image.</text>
+<text top="640" left="149" width="110" height="18" font="4">&gt; data(textures)</text>
+<text top="656" left="149" width="480" height="18" font="4">&gt; Y &lt;- cbind(A[1:512, 1:256], rbind(B[1:256, 1:256], C[1:256, 1:256]))</text>
+<text top="672" left="149" width="213" height="18" font="4">&gt; Yzm &lt;- medpolish(Y)$residuals</text>
+<text top="983" left="209" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="983" left="270" width="204" height="13" font="4">An example of an image montage,</text>
+<text top="979" left="477" width="193" height="18" font="4">Y, using the textures from Figure</text>
+<text top="983" left="674" width="7" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">1</a></text>
+<text top="983" left="680" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">.</a></text>
+<text top="1019" left="171" width="473" height="13" font="4">Similarly to above, we can now perform a quadtree decomposition of the image</text>
+<text top="1016" left="648" width="10" height="18" font="4">Y:</text>
+<text top="1045" left="149" width="384" height="18" font="4">&gt; QTdecYzm &lt;- imageQT(Yzm, test = TOS2D, nsamples = 100)</text>
+<text top="1061" left="149" width="117" height="18" font="4">&gt; print(QTdecYzm)</text>
+<text top="1094" left="149" width="171" height="18" font="4">2D quadtree decomposition</text>
+<text top="1111" left="156" width="158" height="18" font="4">object of class imageQT</text>
+<text top="1127" left="149" width="171" height="18" font="4">-------------------------</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">29</text>
+<text top="100" left="149" width="48" height="18" font="4">summary</text>
+<text top="116" left="149" width="48" height="18" font="4">=======</text>
+<text top="133" left="149" width="62" height="18" font="4">data: Yzm</text>
+<text top="149" left="149" width="254" height="18" font="4">Indices of non-stationary sub-images:</text>
+<text top="182" left="149" width="226" height="18" font="4">Indices of stationary sub-images:</text>
+<text top="198" left="149" width="103" height="18" font="4">&#34;0&#34; &#34;1&#34; &#34;2&#34; &#34;3&#34;</text>
+<text top="231" left="149" width="178" height="18" font="4">minimum testing region: 64</text>
+<text top="263" left="171" width="75" height="13" font="4">The function</text>
+<text top="260" left="249" width="495" height="18" font="4">imageQT initially assesses that the image is indeed non-stationary, and then proceeds</text>
+<text top="280" left="149" width="595" height="13" font="4">to analyse sub-images of the montage. The algorithm stops the quadtree decomposition after the</text>
+<text top="296" left="149" width="595" height="13" font="4">first decomposition level, since it judges all quadrants of the image to be stationary, described by the</text>
+<text top="313" left="149" width="162" height="13" font="4">indices &#34;0&#34;, &#34;1&#34;, &#34;2&#34;, and &#34;3&#34;.</text>
+<text top="357" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="396" left="149" width="596" height="13" font="4">In this article we have described the <b>LS2Wstat </b>package, which implements some recent methodology</text>
+<text top="413" left="149" width="190" height="13" font="4">for image stationarity testing <a href="2014-1-nunes-taylor-eckley.html#11">(</a></text>
+<text top="413" left="339" width="74" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">Taylor et al.</a></text>
+<text top="413" left="413" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">,</a></text>
+<text top="413" left="422" width="49" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#11">in press</a></text>
+<text top="413" left="471" width="273" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#11">). </a>Our algorithm is most useful as a test of</text>
+<text top="429" left="149" width="595" height="13" font="4">homogeneity in textures which are visually difficult to assess. We have also extended its potential use</text>
+<text top="445" left="149" width="595" height="13" font="4">by embedding it within a quadtree implementation, allowing assessment of potentially multi-textured</text>
+<text top="462" left="149" width="598" height="13" font="4">images. The implementation is demonstrated using simulated and real textures throughout the paper.</text>
+<text top="506" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="545" left="148" width="596" height="13" font="4">We thank Aimée Gott for suggestions on an early version of the package. We would also like to thank</text>
+<text top="562" left="149" width="595" height="13" font="4">Heather Turner, two anonymous referees and the Editor for helpful comments which have resulted in</text>
+<text top="578" left="149" width="229" height="13" font="4">an improved manuscript and package.</text>
+<text top="623" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="661" left="149" width="597" height="13" font="4">C. M. Bishop and N. M. Nasrabadi. Pattern Recognition and Machine Learning, volume 1. Springer-Verlag,</text>
+<text top="678" left="164" width="114" height="13" font="4">New York, 2006. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="678" left="278" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="678" left="292" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="706" left="149" width="595" height="13" font="4">C. Bradley and Y. S. Wong. Surface texture indicators of tool wear – a machine vision approach. The</text>
+<text top="722" left="164" width="478" height="14" font="4">International Journal of Advanced Manufacturing Technology, 17(6):435–443, 2001. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="722" left="642" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="722" left="655" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="750" left="149" width="595" height="13" font="4">C. Chan and G. K. H. Pang. Fabric defect detection by Fourier analysis. IEEE Transactions on Industry</text>
+<text top="766" left="163" width="223" height="14" font="4">Applications, 36(5):1267–1276, 2000. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="766" left="386" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="766" left="400" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="794" left="149" width="596" height="13" font="4">A. Davison, D. Hinkley, and A. J. Canty. Bootstrap Methods and their Application. Cambridge University</text>
+<text top="810" left="164" width="85" height="13" font="4">Press, 1999. <a href="2014-1-nunes-taylor-eckley.html#4">[p</a></text>
+<text top="810" left="249" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#4">23</a></text>
+<text top="810" left="263" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#4">]</a></text>
+<text top="838" left="149" width="597" height="13" font="4">I. A. Eckley and G. P. Nason. LS2W: Locally stationary wavelet fields in R. Journal of Statistical Software,</text>
+<text top="854" left="164" width="129" height="13" font="4">43(3):1–23, 2011. URL</text>
+<text top="851" left="296" width="219" height="18" font="7"><a href="http://www.jstatsoft.org/v43/i03">http://www.jstatsoft.org/v43/i03</a></text>
+<text top="854" left="516" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v43/i03">. </a><a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="854" left="536" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="854" left="550" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="882" left="149" width="595" height="13" font="4">I. A. Eckley and G. P. Nason. LS2W: Locally Stationary Two-Dimensional Wavelet Process Estimation</text>
+<text top="898" left="163" width="110" height="14" font="4">Scheme, 2013. URL</text>
+<text top="895" left="276" width="261" height="18" font="7"><a href="http://CRAN.R-project.org/package=LS2W">http://CRAN.R-project.org/package=LS2W</a></text>
+<text top="899" left="538" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=LS2W">. </a>R package version 1.3-3. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="899" left="706" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="899" left="719" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">,</a></text>
+<text top="899" left="726" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#3">22</a></text>
+<text top="899" left="740" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#3">]</a></text>
+<text top="926" left="149" width="595" height="13" font="4">I. A. Eckley, G. P. Nason, and R. L. Treloar. Locally stationary wavelet fields with application to the</text>
+<text top="943" left="164" width="583" height="13" font="4">modelling and analysis of image texture. Journal of the Royal Statistical Society C, 59(4):595–616, 2010.</text>
+<text top="959" left="164" width="13" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="959" left="176" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="959" left="190" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">,</a></text>
+<text top="959" left="196" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">21</a></text>
+<text top="959" left="210" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">,</a></text>
+<text top="959" left="217" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#3">22</a></text>
+<text top="959" left="230" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#3">,</a></text>
+<text top="959" left="237" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#5">24</a></text>
+<text top="959" left="250" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#5">]</a></text>
+<text top="987" left="149" width="595" height="13" font="4">J. W. Funck, Y. Zhong, D. A. Butler, C. C. Brunner, and J. B. Forrer. Image segmentation algorithms</text>
+<text top="1003" left="164" width="563" height="13" font="4">applied to wood defect detection. Computers and Electronics in Agriculture, 41(1):157–179, 2003. [<a href="2014-1-nunes-taylor-eckley.html#1">p</a></text>
+<text top="1003" left="726" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="1003" left="740" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="1031" left="149" width="549" height="13" font="4">R. C. Gonzalez and R. E. Woods. Digital Image Processing. Prentice Hall, 2nd edition, 2001. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="1031" left="697" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="1031" left="711" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="1059" left="149" width="561" height="13" font="4">C. Lupi. Unit root CADF testing with R. Journal of Statistical Software, 32(2):1–19, 2009. URL</text>
+<text top="1055" left="713" width="34" height="18" font="7"><a href="http://www.jstatsoft.org/v32/i02">http:</a></text>
+<text top="1072" left="163" width="185" height="18" font="7"><a href="http://www.jstatsoft.org/v32/i02">//www.jstatsoft.org/v32/i02</a></text>
+<text top="1075" left="348" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v32/i02">. </a><a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="1075" left="369" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="1075" left="382" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="1103" left="149" width="436" height="13" font="4">G. P. Nason. Wavelet Methods in Statistics with R. Springer-Verlag, 2008. <a href="2014-1-nunes-taylor-eckley.html#2">[p</a></text>
+<text top="1103" left="585" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">21</a></text>
+<text top="1103" left="599" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">]</a></text>
+<text top="1130" left="149" width="497" height="13" font="4">G. P. Nason. locits: Test of Stationarity and Localized Autocovariance, 2013a. URL</text>
+<text top="1127" left="651" width="96" height="18" font="7"><a href="http://CRAN.R-project.org/package=locits">http://CRAN.R-</a></text>
+<text top="1144" left="164" width="178" height="18" font="7"><a href="http://CRAN.R-project.org/package=locits">project.org/package=locits</a></text>
+<text top="1147" left="342" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=locits">. </a>R package version 1.4. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="1147" left="500" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="1147" left="513" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">30</text>
+<text top="103" left="149" width="595" height="13" font="4">G. P. Nason. A test for second-order stationarity and approximate confidence intervals for localized</text>
+<text top="120" left="164" width="582" height="13" font="4">autocovariances for locally stationary time series. Journal of the Royal Statistical Society B, 75(5):</text>
+<text top="136" left="164" width="109" height="13" font="4">879–904, 2013b. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="136" left="273" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="136" left="286" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="164" left="149" width="597" height="13" font="4">N. R. Pal and S. K. Pal. A review on image segmentation techniques. Pattern Recognition, 26(9):</text>
+<text top="181" left="163" width="115" height="13" font="4">1277–1294, 1993. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="181" left="278" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="181" left="291" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="209" left="149" width="595" height="13" font="4">S. K. Pal and N. R. Pal. Segmentation using contrast and homogeneity measures. Pattern Recognition, 5</text>
+<text top="226" left="163" width="121" height="13" font="4">(4):293–304, 1987. <a href="2014-1-nunes-taylor-eckley.html#6">[p</a></text>
+<text top="226" left="284" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#6">25</a></text>
+<text top="226" left="297" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#6">]</a></text>
+<text top="254" left="149" width="557" height="13" font="4">M. Petrou and P. G. Sevilla. Image Processing: Dealing with Texture. John Wiley &amp; Sons, 2006. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="254" left="706" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="254" left="719" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="282" left="149" width="595" height="13" font="4">B. Pfaff. Analysis of Integrated and Cointegrated Time Series with R. Springer-Verlag, New York, 2nd</text>
+<text top="299" left="164" width="96" height="13" font="4">edition, 2008. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="299" left="260" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="299" left="274" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="327" left="149" width="561" height="13" font="4">B. Pfaff and M. Stigler. urca: Unit Root and Cointegration Tests for Time Series Data, 2013. URL</text>
+<text top="324" left="713" width="34" height="18" font="7"><a href="http://CRAN.R-project.org/package=urca">http:</a></text>
+<text top="340" left="163" width="227" height="18" font="7"><a href="http://CRAN.R-project.org/package=urca">//CRAN.R-project.org/package=urca</a></text>
+<text top="344" left="390" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=urca">. </a>R package version 1.2-8. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="344" left="559" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="344" left="573" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="372" left="149" width="595" height="13" font="4">W. Pölzleitner. Quality classification of wooden surfaces using Gabor filters and genetic feature</text>
+<text top="389" left="164" width="582" height="13" font="4">optimisation. In Machine Vision for the Inspection of Natural Products, pages 259–277. Springer-Verlag,</text>
+<text top="405" left="164" width="48" height="13" font="4">2003. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="405" left="211" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="405" left="225" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="433" left="149" width="598" height="13" font="4">L. Prasad and S. S. Iyengar. Wavelet Analysis with Applications to Image Processing. CRC Press, 1997.</text>
+<text top="450" left="164" width="13" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">[p</a></text>
+<text top="450" left="176" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">21</a></text>
+<text top="450" left="190" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">]</a></text>
+<text top="478" left="149" width="595" height="13" font="4">M. Sonka, R. Boyle, and V. Hlavac. Image Processing, Analysis, and Machine Vision. PWS Publishing, 2nd</text>
+<text top="495" left="164" width="96" height="13" font="4">edition, 1999. <a href="2014-1-nunes-taylor-eckley.html#6">[p</a></text>
+<text top="495" left="260" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#6">25</a></text>
+<text top="495" left="274" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#6">]</a></text>
+<text top="523" left="149" width="595" height="13" font="4">M. Spann and R. Wilson. A quad-tree approach to image segmentation which combines statistical and</text>
+<text top="540" left="164" width="387" height="13" font="4">spatial information. Pattern Recognition, 18(3/4):257–269, 1985. <a href="2014-1-nunes-taylor-eckley.html#6">[p</a></text>
+<text top="540" left="551" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#6">25</a></text>
+<text top="540" left="564" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#6">]</a></text>
+<text top="568" left="149" width="598" height="13" font="4">S. Taylor and M. A. Nunes. LS2Wstat: A Multiscale Test of Spatial Stationarity for LS2W Processes, 2014.</text>
+<text top="584" left="164" width="28" height="13" font="4">URL</text>
+<text top="581" left="195" width="289" height="18" font="7"><a href="http://CRAN.R-project.org/package=LS2Wstat">http://CRAN.R-project.org/package=LS2Wstat</a></text>
+<text top="584" left="484" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=LS2Wstat">. </a>R package version 2.0-3. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="584" left="653" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="584" left="666" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="613" left="149" width="595" height="13" font="4">S. L. Taylor, I. A. Eckley, and M. A. Nunes. A test of stationarity for textured images. Technometrics, in</text>
+<text top="629" left="163" width="267" height="13" font="4">press. doi: 10.1080/00401706.2013.823890. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="629" left="430" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="629" left="443" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">,</a></text>
+<text top="629" left="450" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">21</a></text>
+<text top="629" left="464" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">,</a></text>
+<text top="629" left="470" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#3">22</a></text>
+<text top="629" left="484" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#3">,</a></text>
+<text top="629" left="490" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#5">24</a></text>
+<text top="629" left="504" width="3" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#5">,</a></text>
+<text top="629" left="511" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#10">29</a></text>
+<text top="629" left="524" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#10">]</a></text>
+<text top="658" left="149" width="360" height="13" font="4">J. Tukey. Exploratory Data Analysis. Addison-Wesley, 1977. <a href="2014-1-nunes-taylor-eckley.html#3">[p</a></text>
+<text top="658" left="509" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#3">22</a></text>
+<text top="658" left="523" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#3">]</a></text>
+<text top="686" left="149" width="506" height="13" font="4">B. Vidakovic. Statistical Modelling by Wavelets. John Wiley &amp; Sons, New York, 1999. <a href="2014-1-nunes-taylor-eckley.html#2">[p</a></text>
+<text top="686" left="655" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#2">21</a></text>
+<text top="686" left="668" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#2">]</a></text>
+<text top="714" left="149" width="598" height="13" font="4">K. Wiltschi, A. Pinz, and T. Lindeberg. An automatic assessment scheme for steel quality inspection.</text>
+<text top="731" left="164" width="322" height="14" font="4">Machine Vision and Applications, 12(3):113–128, 2000. <a href="2014-1-nunes-taylor-eckley.html#1">[p</a></text>
+<text top="731" left="486" width="13" height="13" font="7"><a href="2014-1-nunes-taylor-eckley.html#1">20</a></text>
+<text top="731" left="499" width="4" height="13" font="4"><a href="2014-1-nunes-taylor-eckley.html#1">]</a></text>
+<text top="777" left="149" width="105" height="13" font="4">Matthew A. Nunes</text>
+<text top="793" left="148" width="115" height="13" font="4">Lancaster University</text>
+<text top="810" left="148" width="53" height="13" font="4">Lancaster</text>
+<text top="826" left="148" width="19" height="13" font="4">UK</text>
+<text top="839" left="149" width="158" height="18" font="7"><a href="mailto:m.nunes@lancaster.ac.uk">m.nunes@lancaster.ac.uk</a></text>
+<text top="880" left="148" width="83" height="13" font="4">Sarah L. Taylor</text>
+<text top="897" left="148" width="115" height="13" font="4">Lancaster University</text>
+<text top="913" left="148" width="53" height="13" font="4">Lancaster</text>
+<text top="929" left="148" width="19" height="13" font="4">UK</text>
+<text top="943" left="149" width="151" height="18" font="7"><a href="mailto:tsarah8624@yahoo.co.uk">tsarah8624@yahoo.co.uk</a></text>
+<text top="983" left="149" width="81" height="13" font="4">Idris A. Eckley</text>
+<text top="1000" left="148" width="115" height="13" font="4">Lancaster University</text>
+<text top="1016" left="148" width="53" height="13" font="4">Lancaster</text>
+<text top="1033" left="148" width="19" height="13" font="4">UK</text>
+<text top="1046" left="149" width="165" height="18" font="7"><a href="mailto:i.eckley@lancaster.ac.uk">i.eckley@lancaster.ac.uk</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

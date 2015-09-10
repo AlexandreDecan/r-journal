@@ -1,0 +1,142 @@
+page	left	top	code
+1	459	993	> library(grid)
+1	459	1033	> grid.roundrect(width=.25)
+1	459	1051	> grid.text("ISBN")
+2	82	639	> pushViewport(viewport(width=.25))
+2	82	657	> grid.roundrect()
+2	82	675	> grid.text("ISBN",
+2	174	693	x=unit(2, "mm"),
+2	174	711	y=unit(1.5, "lines"),
+2	174	729	just="left")
+2	82	747	> grid.text("title",
+2	174	765	x=unit(2, "mm"),
+2	174	783	y=unit(0.5, "lines"),
+2	174	801	just="left")
+2	82	818	> popViewport()
+2	459	215	> labels <- c("ISBN", "title")
+2	459	233	> vp <-
+2	489	251	viewport(width=max(stringWidth(labels))+
+2	604	269	unit(4, "mm"),
+2	558	287	height=unit(length(labels),
+2	649	305	"lines"))
+2	459	323	> pushViewport(vp)
+2	459	341	> grid.roundrect()
+2	459	359	> grid.text(labels,
+2	550	377	x=unit(2, "mm"),
+2	550	395	y=unit(2:1 - 0.5, "lines"),
+2	550	412	just="left")
+2	459	430	> popViewport()
+3	82	179	> pushViewport(viewport(width=.25))
+3	82	196	> grid.roundrect(gp=gpar(fill="grey"))
+3	82	214	> grid.clip(y=unit(1, "lines"),
+3	174	232	just="bottom")
+3	82	250	> grid.roundrect(gp=gpar(fill="white"))
+3	82	268	> popViewport()
+3	82	809	> x1 <- c(0.1, 0.2, 0.2)
+3	82	827	> y1 <- c(0.2, 0.2, 0.8)
+3	82	845	> grid.xspline(x1, y1)
+3	82	863	> x2 <- c(0.4, 0.5, 0.5)
+3	82	881	> y2 <- c(0.2, 0.2, 0.8)
+3	82	899	> grid.xspline(x2, y2, shape=-1)
+3	82	917	> x3 <- c(0.7, 0.8, 0.8)
+3	82	935	> y3 <- c(0.2, 0.2, 0.8)
+3	82	953	> grid.xspline(x3, y3, shape=1)
+3	459	319	> x1a <- 0.1; x1b <- 0.2
+3	459	337	> y1a <- 0.2; y1b <- 0.8
+3	459	355	> grid.curve(x1a, y1a, x1b, y1b)
+3	459	373	> x2a <- 0.4; x2b <- 0.5
+3	459	391	> y2a <- 0.2; y2b <- 0.8
+3	459	409	> grid.curve(x2a, y2a, x2b, y2b,
+3	558	427	inflect=TRUE)
+3	459	445	> x3a <- 0.7; x3b <- 0.8
+3	459	463	> y3a <- 0.2; y3b <- 0.8
+3	459	481	> grid.curve(x3a, y3a, x3b, y3b,
+3	558	499	ncp=8, angle=135,
+3	558	517	square=FALSE,
+3	558	534	curvature=2,
+3	558	552	arrow=arrow(angle=15))
+3	459	852	> labels <- c("ISBN", "title", "pub")
+3	459	870	> vp <-
+3	489	888	viewport(width=max(stringWidth(
+3	680	905	labels))+
+3	604	923	unit(4, "mm"),
+3	558	941	height=unit(length(labels),
+3	649	959	"lines"))
+3	459	977	> pushViewport(vp)
+3	459	995	> grid.roundrect()
+3	459	1013	> grid.clip(y=unit(1, "lines"),
+3	550	1031	just="bottom")
+3	459	1049	> grid.roundrect(gp=gpar(fill="grey"))
+3	459	1067	> grid.clip(y=unit(2, "lines"),
+3	550	1085	just="bottom")
+3	459	1103	> grid.roundrect(gp=gpar(fill="white"))
+3	459	1121	> grid.clip()
+3	459	1139	> grid.text(labels,
+3	550	1156	x=unit(rep(2, 3), "mm"),
+3	550	1174	y=unit(3:1 - .5, "lines"),
+4	174	126	just="left")
+4	82	144	> popViewport()
+4	82	381	> tableBox(c("ISBN", "title", "pub"),
+4	166	399	x=0.3)
+4	82	417	> tableBox(c("ID", "name", "country"),
+4	166	435	x=0.7)
+4	459	126	> box1 <- boxGrob(c("ISBN", "title",
+4	550	144	"pub"), x=0.3)
+4	459	162	> box2 <- boxGrob(c("ID", "name",
+4	550	180	"country"), x=0.7)
+4	459	592	> grid.draw(box1)
+4	459	610	> grid.draw(box2)
+5	88	174	> tableBox <- function(labels, x=.5, y=.5) {
+5	133	192	nlabel <- length(labels)
+5	133	210	tablevp <-
+5	164	228	viewport(x=x, y=y,
+5	232	246	width=max(stringWidth(labels)) +
+5	278	264	unit(4, "mm"),
+5	232	282	height=unit(nlabel, "lines"))
+5	133	300	pushViewport(tablevp)
+5	133	318	grid.roundrect()
+5	133	335	if (nlabel > 1) {
+5	164	353	for (i in 1:(nlabel - 1)) {
+5	194	371	fill <- c("white", "grey")[i %% 2 + 1]
+5	194	389	grid.clip(y=unit(i, "lines"), just="bottom")
+5	194	407	grid.roundrect(gp=gpar(fill=fill))
+5	164	425	}
+5	133	443	}
+5	133	461	grid.clip()
+5	133	479	grid.text(labels,
+5	210	497	x=unit(2, "mm"), y=unit(nlabel:1 - .5, "lines"),
+5	210	515	just="left")
+5	133	533	popViewport()
+5	103	551	}
+5	88	712	> boxGrob <- function(labels, x=.5, y=.5) {
+5	133	729	grob(labels=labels, x=x, y=y, cl="box")
+5	103	747	}
+5	88	765	> drawDetails.box <- function(x, ...) {
+5	133	783	tableBox(x$labels, x$x, x$y)
+5	103	801	}
+5	88	819	> xDetails.box <- function(x, theta) {
+5	133	837	nlines <- length(x$labels)
+5	133	855	height <- unit(nlines, "lines")
+5	133	873	width <- unit(4, "mm") + max(stringWidth(x$labels))
+5	133	891	grobX(roundrectGrob(x=x$x, y=x$y, width=width, height=height),
+5	179	909	theta)
+5	103	927	}
+5	88	945	> yDetails.box <- function(x, theta) {
+5	133	963	nlines <- length(x$labels)
+5	133	981	height <- unit(nlines, "lines")
+5	133	998	width <- unit(4, "mm") + max(stringWidth(x$labels))
+5	133	1016	grobY(rectGrob(x=x$x, y=x$y, width=width, height=height),
+5	179	1034	theta)
+5	103	1052	}
+6	82	486	> grid.curve(grobX(box1, "east"),
+6	182	504	grobY(box1, "south") +
+6	197	521	unit(0.5, "lines"),
+6	182	539	grobX(box2, "west"),
+6	182	557	grobY(box2, "north") -
+6	197	575	unit(0.5, "lines"),
+6	182	593	inflect=TRUE,
+6	182	611	arrow=
+6	197	629	arrow(type="closed",
+6	220	647	angle=15,
+6	220	665	length=unit(2, "mm")),
+6	182	683	gp=gpar(fill="black"))

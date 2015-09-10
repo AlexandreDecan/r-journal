@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+	<fontspec id="9" size="9" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">24</text>
+<text top="98" left="149" width="582" height="30" font="2"><b>sparkTable: Generating Graphical Tables</b></text>
+<text top="137" left="149" width="510" height="30" font="2"><b>for Websites and Documents with R</b></text>
+<text top="173" left="149" width="371" height="15" font="0">by Alexander Kowarik, Bernhard Meindl and Matthias Templ</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="235" left="171" width="573" height="13" font="4">Visual analysis of data is important to understand the main characteristics, main trends and</text>
+<text top="252" left="149" width="597" height="13" font="4">relationships in data sets and it can be used to assess the data quality. Using the R package <b>sparkTable</b>,</text>
+<text top="268" left="149" width="595" height="13" font="4">statistical tables holding quantitative information can be enhanced by including spark-type graphs</text>
+<text top="285" left="149" width="108" height="13" font="4">such as sparklines</text>
+<text top="285" left="314" width="85" height="13" font="4">and sparkbars</text>
+<text top="285" left="453" width="3" height="13" font="4">.</text>
+<text top="306" left="171" width="573" height="13" font="4">These kind of graphics are well-known in literature and are considered as simple, intense and</text>
+<text top="322" left="149" width="595" height="13" font="4">illustrative graphs that are small enough to fit in a single line. Thus, they can easily enrich tables and</text>
+<text top="338" left="149" width="386" height="13" font="4">texts with additional information in a comprehensive visual way.</text>
+<text top="359" left="171" width="573" height="13" font="4">The R package <b>sparkTable </b>uses a clean S4 class design and provides methods to create different</text>
+<text top="376" left="149" width="595" height="13" font="4">types of sparkgraphs that can be used in websites, presentations and documents. We also implemented</text>
+<text top="392" left="149" width="595" height="13" font="4">an easy way for non-experts to create highly complex tables. In this case, graphical parameters can be</text>
+<text top="409" left="149" width="595" height="13" font="4">interactively changed, variables can be sorted, graphs can be added and removed in an interactive</text>
+<text top="425" left="149" width="595" height="13" font="4">manner. Thereby it is possible to produce custom-tailored graphical tables – standard tables that are</text>
+<text top="442" left="149" width="543" height="13" font="4">enriched with graphs – that can be displayed in a browser and exported to various formats.</text>
+<text top="486" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="525" left="148" width="596" height="13" font="4">Without doubt, visualization of data becomes more and more important for data analysis and for</text>
+<text top="542" left="148" width="596" height="13" font="4">presenting aggregated information for end-users and policy needs. For surveys on the history and</text>
+<text top="558" left="149" width="246" height="13" font="4">developments in visualization we refer to</text>
+<text top="558" left="398" width="50" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Friendly</a></text>
+<text top="558" left="452" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="558" left="457" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2008</a></text>
+<text top="558" left="484" width="31" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>and</text>
+<text top="558" left="518" width="56" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Wickham</a></text>
+<text top="558" left="577" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="558" left="582" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2013</a></text>
+<text top="558" left="609" width="135" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">)</a>. The reason for this is</text>
+<text top="574" left="149" width="595" height="13" font="4">that the human eye is a very powerful pattern recognition tool. Readers can easily understand simple</text>
+<text top="591" left="148" width="596" height="13" font="4">visual presentations of data like charts published every day in newspapers, the internet, television and</text>
+<text top="607" left="149" width="596" height="13" font="4">scientific articles. The visual presentation of data should illustrate trends and relationships quickly</text>
+<text top="624" left="149" width="595" height="13" font="4">and easily and should display key figures about data. For readers it is often much easier to understand</text>
+<text top="640" left="149" width="597" height="13" font="4">statistics when seeing a chart or a map rather than being confronted with a long list of numbers (see,</text>
+<text top="657" left="149" width="24" height="13" font="4">e.g.,</text>
+<text top="657" left="176" width="325" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">The United Nations Economic Commission for Europe</a></text>
+<text top="657" left="501" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="657" left="508" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2009</a></text>
+<text top="657" left="535" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">).</a></text>
+<text top="678" left="171" width="132" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Cleveland and McGill</a></text>
+<text top="678" left="307" width="5" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="678" left="311" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">1987</a></text>
+<text top="678" left="338" width="406" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>state that information encoded in a graph depends on a number of</text>
+<text top="694" left="149" width="596" height="13" font="4">aspects such as plotting symbols, length, slopes or colors. Changing any aspect of a graph possibly</text>
+<text top="710" left="149" width="595" height="13" font="4">leads to a different perception and decoding of the information. Thus it is required to research aspects</text>
+<text top="727" left="149" width="598" height="13" font="4">of graphical representation of data and finally come up with recommendations or best practices.</text>
+<text top="743" left="148" width="379" height="13" font="4">This task has been been tackled by various authors (see, e.g.,</text>
+<text top="743" left="532" width="136" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Cleveland and McGill</a></text>
+<text top="743" left="668" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="743" left="676" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">1987</a></text>
+<text top="743" left="703" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">;</a></text>
+<text top="743" left="711" width="31" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Tufte</a></text>
+<text top="743" left="742" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="760" left="148" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">1986</a></text>
+<text top="760" left="175" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">).</a></text>
+<text top="760" left="187" width="130" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Cleveland and McGill</a></text>
+<text top="760" left="321" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="760" left="325" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">1987</a></text>
+<text top="760" left="352" width="392" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>suggest, for example, an optimum mid-angle of 45 degrees when</text>
+<text top="776" left="149" width="238" height="13" font="4">comparing the slopes of different <a href="2015-1-templ-kowarik-meindl.html#0">lines.</a></text>
+<text top="773" left="387" width="5" height="10" font="7"><a href="2015-1-templ-kowarik-meindl.html#0">1</a></text>
+<text top="776" left="399" width="345" height="13" font="4">Other suggestions on how to scale the data exist and are</text>
+<text top="793" left="149" width="89" height="13" font="4">summarized in</text>
+<text top="793" left="241" width="116" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Heer and Agrawala</a></text>
+<text top="793" left="361" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="793" left="365" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2006</a></text>
+<text top="793" left="392" width="281" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">). </a>Details on the choice of colors can be found in</text>
+<text top="793" left="676" width="70" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Zeileis et al.</a></text>
+<text top="809" left="148" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="809" left="153" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2009</a></text>
+<text top="809" left="180" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">).</a></text>
+<text top="851" left="149" width="43" height="13" font="3"><b>Tables:</b></text>
+<text top="851" left="207" width="540" height="13" font="4">Tables are a comprehensive way to summarize the most important facts about complex data.</text>
+<text top="867" left="148" width="319" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">The United Nations Economic Commission for Europe</a></text>
+<text top="867" left="471" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="867" left="475" width="26" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2009</a></text>
+<text top="867" left="502" width="242" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>claims that a small, well-formatted table</text>
+<text top="884" left="149" width="516" height="13" font="4">can provide a great deal of information that readers can quickly absorb, and it, as well as</text>
+<text top="884" left="669" width="35" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Miller</a></text>
+<text top="884" left="707" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="884" left="712" width="26" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2004</a></text>
+<text top="884" left="738" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">),</a></text>
+<text top="900" left="148" width="596" height="13" font="4">provide guidelines on how to design tables. However, the possibility of including graphics in tables</text>
+<text top="917" left="148" width="147" height="13" font="4">(and text) is not covered.</text>
+<text top="959" left="149" width="130" height="13" font="3"><b>Tufte’s pioneer work:</b></text>
+<text top="959" left="294" width="452" height="13" font="4">In our contribution, several examples show how to improve tables by includ-</text>
+<text top="975" left="149" width="595" height="13" font="4">ing small graphics in the tables. It is pointed out that an improved table can contain various visual</text>
+<text top="991" left="149" width="252" height="13" font="4">elements. This was originally proposed by</text>
+<text top="991" left="404" width="30" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Tufte</a></text>
+<text top="991" left="438" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="991" left="442" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2001</a></text>
+<text top="991" left="469" width="275" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">). </a>He introduced the concept of sparklines and</text>
+<text top="1008" left="149" width="595" height="13" font="4">their application that is not limited to tables. These intense, simple and word-sized graphics sparklines can</text>
+<text top="1024" left="149" width="597" height="13" font="4">be embedded in continuous text and also match with other propositions he has made. For example,</text>
+<text top="1041" left="149" width="407" height="13" font="4">they can easily be used together with the small multiples approach <a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="1041" left="556" width="31" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Tufte</a></text>
+<text top="1041" left="586" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="1041" left="593" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">1990</a></text>
+<text top="1041" left="620" width="124" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">). </a>According to Tufte</text>
+<text top="1057" left="149" width="595" height="13" font="4">it is always important to answer the question compared to what? when looking at graphs. Thus, the</text>
+<text top="1074" left="149" width="595" height="13" font="4">concept of small multiples is simply to put multiple graphs next to each other to allow direct visual</text>
+<text top="1090" left="149" width="595" height="13" font="4">comparisons between different (graphical) objects. He also states that small multiples are the best</text>
+<text top="1106" left="149" width="312" height="13" font="4">design solution to present a wide range of problems.</text>
+<text top="1133" left="165" width="4" height="9" font="8">1</text>
+<text top="1135" left="170" width="382" height="12" font="1">For example, this is also considered in the sparklines embedded in Table</text>
+<text top="1135" left="555" width="6" height="12" font="9"><a href="2015-1-templ-kowarik-meindl.html#6">2</a></text>
+<text top="1135" left="561" width="3" height="12" font="1"><a href="2015-1-templ-kowarik-meindl.html#6">.</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="8" family="Times" color="#000000"/>
+	<fontspec id="11" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="12" size="9" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">25</text>
+<text top="103" left="171" width="573" height="13" font="4">Another proposition Tufte makes is to show the data above all. In order to do so he introduces the</text>
+<text top="120" left="149" width="595" height="13" font="4">term of data-ink ratio. This ratio can be seen as the ink in a graph used to actually show data by the total</text>
+<text top="136" left="149" width="595" height="13" font="4">ink used to print a graph. While the additional ink used for labels, axes, ticks and grids among others</text>
+<text top="152" left="149" width="595" height="13" font="4">may help to improve graphs, it distracts attention from the most important part of the graph – the data</text>
+<text top="169" left="148" width="596" height="13" font="4">values itself. Thus, in his view the data-ink ratio should be increased whenever possible and sparklines</text>
+<text top="185" left="149" width="595" height="13" font="4">are a way to do so, since it is possible to show a high amount of data, trends and variations in small</text>
+<text top="202" left="149" width="263" height="13" font="4">space. This concept has also been criticized.</text>
+<text top="202" left="416" width="64" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Inbar et al.</a></text>
+<text top="202" left="484" width="5" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="202" left="489" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2007</a></text>
+<text top="202" left="516" width="228" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>evaluated people’s acceptance of the</text>
+<text top="218" left="149" width="595" height="13" font="4">minimalist approach (by increasing the data-ink ratio) to visualize information; a standard bar-graph</text>
+<text top="235" left="149" width="199" height="13" font="4">and a minimalist version (both in</text>
+<text top="235" left="351" width="31" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Tufte</a></text>
+<text top="235" left="382" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="235" left="389" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2001</a></text>
+<text top="235" left="416" width="328" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>were compared. The majority of evaluators was more</text>
+<text top="251" left="149" width="595" height="13" font="4">attracted by the standard graph. However, they didn’t evaluate the case of placing sparklines in text</text>
+<text top="268" left="149" width="479" height="13" font="4">or tables. Traditionally, the output in many areas of statistics is focused on tables <a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="268" left="628" width="116" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">The United Nations</a></text>
+<text top="284" left="149" width="202" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Economic Commission for Europe</a></text>
+<text top="284" left="351" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="284" left="357" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2009</a></text>
+<text top="284" left="384" width="360" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">), </a>this is especially true for official statistics. Large tables with</text>
+<text top="300" left="149" width="595" height="13" font="4">lots of number provide a lot of information, but make it hard to grasp it. Visualization can provide</text>
+<text top="317" left="149" width="595" height="13" font="4">tools to make effects in the data visible at first sight and can provide the possibility to show more of</text>
+<text top="333" left="149" width="257" height="13" font="4">the data than by just showing the numbers.</text>
+<text top="375" left="149" width="195" height="13" font="3"><b>Software to produce sparklines:</b></text>
+<text top="375" left="359" width="385" height="13" font="4">To make visualization methods applicable, software tools, which</text>
+<text top="392" left="148" width="524" height="13" font="4">provide interactions with the data and provide reproducibility of any result, are needed.</text>
+<text top="412" left="171" width="573" height="13" font="4">To publish sparklines in newspapers has a long history. For example, the Huntsville Times reports</text>
+<text top="429" left="149" width="595" height="13" font="4">the use of sparklines in their sports section on March 21, 2005. To produce this kind of sparklines</text>
+<text top="445" left="149" width="595" height="13" font="4">and graphical tables, various software products are available. For example, SAS© and JMP© include</text>
+<text top="462" left="149" width="84" height="13" font="4">such <a href="2015-1-templ-kowarik-meindl.html#0">facilities.</a></text>
+<text top="459" left="233" width="5" height="10" font="7"><a href="2015-1-templ-kowarik-meindl.html#0">2</a></text>
+<text top="462" left="243" width="501" height="13" font="4">Also Microsoft Excel allows to produce sparklines and there are implementations to</text>
+<text top="478" left="148" width="596" height="13" font="4">produce simple sparklines for Photoshop, Prism, DeltaMaster and matplotlib. Most of these solutions</text>
+<text top="495" left="149" width="204" height="13" font="4">are closed-source and commercial.</text>
+<text top="539" left="149" width="198" height="17" font="5"><b>The sparkTable package</b></text>
+<text top="578" left="149" width="598" height="13" font="4">Our contribution goes a step beyond the before mentioned available tools. It is not just a re-</text>
+<text top="595" left="149" width="595" height="13" font="4">implementation of sparklines in another software. Various improvements have been made and</text>
+<text top="611" left="149" width="223" height="13" font="4">new features are available to the user.</text>
+<text top="632" left="171" width="575" height="13" font="4">The presented software is free and open-source, its features are designed in a well-specified,</text>
+<text top="649" left="149" width="595" height="13" font="4">object-oriented manner with defined classes and methods. The presented software allows to save</text>
+<text top="665" left="149" width="381" height="13" font="4">the sparklines in different output formats for easy inclusion in L</text>
+<text top="665" left="525" width="8" height="10" font="10">A</text>
+<text top="665" left="531" width="213" height="17" font="4">TEX or websites with many optional</text>
+<text top="681" left="149" width="598" height="13" font="4">graphical features, i.e., the sparklines are highly customizable. The software features the simple gener-</text>
+<text top="698" left="149" width="598" height="13" font="4">ation of graphical tables with any statistical content that is automatically calculated from microdata.</text>
+<text top="714" left="149" width="595" height="13" font="4">Finally, interactive features to create sparklines and sparktables are available and clickable in the</text>
+<text top="731" left="149" width="51" height="13" font="4">browser.</text>
+<text top="752" left="171" width="327" height="13" font="4">In the following, a short introduction into the R package</text>
+<text top="752" left="501" width="68" height="13" font="11"><a href="http://CRAN.R-project.org/package=sparkTable"><b>sparkTable</b></a></text>
+<text top="752" left="572" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="752" left="577" width="82" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Kowarik et al.</a></text>
+<text top="752" left="658" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="752" left="665" width="26" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2015</a></text>
+<text top="752" left="691" width="53" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>is given</text>
+<text top="768" left="148" width="596" height="13" font="4">with the help of an example. The first version of the package was uploaded to the Comprehensive R</text>
+<text top="785" left="148" width="525" height="13" font="4">Archive Network (CRAN) in May 2010 and has been improved various times since then.</text>
+<text top="805" left="171" width="573" height="13" font="4">The initial task was to find ways how common and frequent output such as tables and reports of</text>
+<text top="822" left="149" width="595" height="13" font="4">statistical organizations could be improved using spark-type graphs and to find a technical solution</text>
+<text top="838" left="149" width="596" height="13" font="4">to create these visualizations. Since R is gaining momentum in national statistical institutes all over</text>
+<text top="855" left="149" width="598" height="13" font="4">the world, it was a natural choice to create an add-on package for R containing such functionality.</text>
+<text top="871" left="148" width="596" height="13" font="4">There are a variety of reasons for this: one of them is the possibility to easily share and distribute the</text>
+<text top="888" left="148" width="294" height="13" font="4">package and to instantly get feedback from users.</text>
+<text top="909" left="171" width="573" height="13" font="4">The goal was to create a free and open source software tool that allows the quick creation of</text>
+<text top="925" left="149" width="598" height="13" font="4">spark-type graphics that could easily be included in various documents such as reports or web pages.</text>
+<text top="941" left="149" width="595" height="13" font="4">Many examples for graphical tables have been produced and – based on the feedback from both</text>
+<text top="958" left="149" width="597" height="13" font="4">colleagues and users – it seems as if graphical tables are an helpful tool to improve traditional, existing,</text>
+<text top="974" left="149" width="598" height="13" font="4">tabular-based outputs of national statistical offices. Some of these graphical tables are presented below.</text>
+<text top="995" left="171" width="68" height="13" font="3"><b>sparkTable</b></text>
+<text top="995" left="243" width="502" height="13" font="4">can also be used by non experts in R. Interactive clickable features have been added to</text>
+<text top="1012" left="149" width="595" height="13" font="4">the package. Especially for graphical tables, some steps of abstraction are still required. However, it</text>
+<text top="1028" left="149" width="598" height="13" font="4">has been made easier to customize and change graphical tables by using interactive web applications.</text>
+<text top="1045" left="149" width="597" height="13" font="4">Instead of a formal description of classes and methods and internal implementation of the package,</text>
+<text top="1061" left="149" width="359" height="13" font="4">the functionality of the package is illustrated with examples.</text>
+<text top="1088" left="165" width="4" height="9" font="8">2</text>
+<text top="1090" left="170" width="332" height="12" font="1">They offer also the link (batch call) to the <b>sparkTable </b>package <a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="1090" left="503" width="20" height="12" font="9"><a href="2015-1-templ-kowarik-meindl.html#13">Hill</a></text>
+<text top="1090" left="523" width="3" height="12" font="1"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="1090" left="529" width="24" height="12" font="9"><a href="2015-1-templ-kowarik-meindl.html#13">2011</a></text>
+<text top="1090" left="553" width="7" height="12" font="1"><a href="2015-1-templ-kowarik-meindl.html#13">).</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="12" family="Times" color="#000000"/>
+	<fontspec id="14" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">26</text>
+<text top="105" left="195" width="61" height="15" font="13"><b>Function</b></text>
+<text top="105" left="340" width="81" height="15" font="13"><b>Description</b></text>
+<text top="105" left="528" width="67" height="15" font="13"><b>Comment</b></text>
+<text top="127" left="195" width="107" height="20" font="14">newSparkLine()</text>
+<text top="145" left="195" width="99" height="20" font="14">newSparkBar()</text>
+<text top="163" left="195" width="99" height="20" font="14">newSparkBox()</text>
+<text top="180" left="195" width="107" height="20" font="14">newSparkHist()</text>
+<text top="130" left="340" width="54" height="15" font="0">creation</text>
+<text top="130" left="410" width="13" height="15" font="0">of</text>
+<text top="130" left="439" width="73" height="15" font="0">sparklines,</text>
+<text top="148" left="340" width="170" height="15" font="0">sparkbars, sparkboxplots</text>
+<text top="166" left="340" width="170" height="15" font="0">and sparkhistograms that</text>
+<text top="184" left="340" width="170" height="15" font="0">may serve as the base for</text>
+<text top="202" left="340" width="161" height="15" font="0">creating graphical tables</text>
+<text top="130" left="528" width="46" height="15" font="0">creates</text>
+<text top="130" left="607" width="46" height="15" font="0">objects</text>
+<text top="130" left="685" width="13" height="15" font="0">of</text>
+<text top="148" left="528" width="32" height="15" font="0">class</text>
+<text top="148" left="619" width="4" height="15" font="0">‘</text>
+<text top="145" left="623" width="69" height="20" font="14">sparkline</text>
+<text top="148" left="692" width="8" height="15" font="0">’,</text>
+<text top="166" left="526" width="4" height="15" font="0">‘</text>
+<text top="163" left="530" width="61" height="20" font="14">sparkbar</text>
+<text top="166" left="591" width="8" height="15" font="0">’,</text>
+<text top="166" left="632" width="4" height="15" font="0">‘</text>
+<text top="163" left="636" width="61" height="20" font="14">sparkbox</text>
+<text top="166" left="697" width="4" height="15" font="0">’</text>
+<text top="184" left="528" width="33" height="15" font="0">and ‘</text>
+<text top="180" left="561" width="69" height="20" font="14">sparkhist</text>
+<text top="184" left="630" width="4" height="15" font="0">’</text>
+<text top="224" left="195" width="46" height="20" font="14">plot()</text>
+<text top="228" left="340" width="33" height="15" font="0">plots</text>
+<text top="228" left="389" width="46" height="15" font="0">objects</text>
+<text top="228" left="450" width="13" height="15" font="0">of</text>
+<text top="228" left="478" width="32" height="15" font="0">class</text>
+<text top="246" left="338" width="4" height="15" font="0">‘</text>
+<text top="242" left="342" width="69" height="20" font="14">sparkline</text>
+<text top="246" left="411" width="8" height="15" font="0">’,</text>
+<text top="246" left="439" width="4" height="15" font="0">‘</text>
+<text top="242" left="443" width="61" height="20" font="14">sparkbar</text>
+<text top="246" left="504" width="8" height="15" font="0">’,</text>
+<text top="264" left="338" width="4" height="15" font="0">‘</text>
+<text top="260" left="342" width="69" height="20" font="14">sparkhist</text>
+<text top="264" left="411" width="30" height="15" font="0">’ or ‘</text>
+<text top="260" left="441" width="61" height="20" font="14">sparkbox</text>
+<text top="264" left="502" width="4" height="15" font="0">’</text>
+<text top="285" left="195" width="61" height="20" font="14">export()</text>
+<text top="289" left="340" width="170" height="15" font="0">saves objects of class</text>
+<text top="307" left="338" width="4" height="15" font="0">‘</text>
+<text top="303" left="342" width="69" height="20" font="14">sparkline</text>
+<text top="307" left="411" width="8" height="15" font="0">’,</text>
+<text top="307" left="439" width="4" height="15" font="0">‘</text>
+<text top="303" left="443" width="61" height="20" font="14">sparkbar</text>
+<text top="307" left="504" width="8" height="15" font="0">’,</text>
+<text top="325" left="338" width="4" height="15" font="0">‘</text>
+<text top="321" left="342" width="69" height="20" font="14">sparkhist</text>
+<text top="325" left="411" width="16" height="15" font="0">’, ‘</text>
+<text top="321" left="427" width="61" height="20" font="14">sparkbox</text>
+<text top="325" left="488" width="22" height="15" font="0">’ or</text>
+<text top="343" left="338" width="4" height="15" font="0">‘</text>
+<text top="339" left="342" width="76" height="20" font="14">sparkTable</text>
+<text top="343" left="418" width="4" height="15" font="0">’</text>
+<text top="364" left="195" width="84" height="20" font="14">summaryST()</text>
+<text top="368" left="340" width="170" height="15" font="0">summary for a data frame</text>
+<text top="386" left="340" width="126" height="15" font="0">in a graphical table</text>
+<text top="368" left="528" width="46" height="15" font="0">creates</text>
+<text top="368" left="593" width="16" height="15" font="0">an</text>
+<text top="368" left="627" width="39" height="15" font="0">object</text>
+<text top="368" left="685" width="13" height="15" font="0">of</text>
+<text top="386" left="528" width="43" height="15" font="0">class ‘</text>
+<text top="382" left="571" width="76" height="20" font="14">sparkTable</text>
+<text top="386" left="647" width="54" height="15" font="0">’. Cus-</text>
+<text top="404" left="528" width="170" height="15" font="0">tomize the output with</text>
+<text top="418" left="528" width="107" height="20" font="14">setParameter()</text>
+<text top="444" left="195" width="114" height="20" font="14">newSparkTable()</text>
+<text top="447" left="340" width="173" height="15" font="0">function to create an ob-</text>
+<text top="465" left="340" width="82" height="15" font="0">ject of class ‘</text>
+<text top="462" left="422" width="76" height="20" font="14">sparkTable</text>
+<text top="465" left="498" width="4" height="15" font="0">’</text>
+<text top="487" left="195" width="107" height="20" font="14">getParameter()</text>
+<text top="491" left="301" width="4" height="15" font="0">,</text>
+<text top="505" left="195" width="107" height="20" font="14">setParameter()</text>
+<text top="491" left="340" width="170" height="15" font="0">basic functions to set</text>
+<text top="509" left="340" width="171" height="15" font="0">parameters for objects</text>
+<text top="527" left="340" width="13" height="15" font="0">of</text>
+<text top="527" left="377" width="32" height="15" font="0">class</text>
+<text top="527" left="431" width="4" height="15" font="0">‘</text>
+<text top="523" left="435" width="69" height="20" font="14">sparkline</text>
+<text top="527" left="504" width="8" height="15" font="0">’,</text>
+<text top="545" left="338" width="4" height="15" font="0">‘</text>
+<text top="541" left="342" width="61" height="20" font="14">sparkbar</text>
+<text top="545" left="403" width="8" height="15" font="0">’,</text>
+<text top="545" left="439" width="4" height="15" font="0">‘</text>
+<text top="541" left="443" width="61" height="20" font="14">sparkbox</text>
+<text top="545" left="504" width="8" height="15" font="0">’,</text>
+<text top="563" left="338" width="4" height="15" font="0">‘</text>
+<text top="559" left="342" width="76" height="20" font="14">sparkTable</text>
+<text top="563" left="419" width="4" height="15" font="0">’</text>
+<text top="563" left="491" width="19" height="15" font="0">(or</text>
+<text top="580" left="338" width="4" height="15" font="0">‘</text>
+<text top="577" left="342" width="61" height="20" font="14">geoTable</text>
+<text top="580" left="403" width="9" height="15" font="0">’)</text>
+<text top="617" left="273" width="47" height="13" font="3"><b>Table 1:</b></text>
+<text top="617" left="325" width="294" height="13" font="4">Most important functions of package <b>sparkTable</b>.</text>
+<text top="664" left="149" width="389" height="17" font="5"><b>Command line usage of sparkTable by example</b></text>
+<text top="703" left="148" width="596" height="13" font="4">The first step is to install and load the package. We assume that R has already been started. Then the</text>
+<text top="719" left="148" width="332" height="13" font="4">package can be simply installed from any CRAN server.</text>
+<text top="740" left="171" width="270" height="13" font="4">Help files can be accessed from R by typing</text>
+<text top="737" left="446" width="301" height="18" font="4">help(package = &#34;sparkTable&#34;) into the console.</text>
+<text top="756" left="148" width="596" height="13" font="4">This results in a browse-able, linked help archive. Each method, function and data set that comes</text>
+<text top="773" left="148" width="596" height="13" font="4">with the package is documented and also some example code is provided which allows users to</text>
+<text top="789" left="149" width="595" height="13" font="4">become familiar with the package. So as to demonstrate the facilities of <b>sparkTable</b>, example data sets</text>
+<text top="806" left="149" width="200" height="13" font="4">available in the package are used.</text>
+<text top="827" left="171" width="31" height="13" font="4">Table</text>
+<text top="827" left="205" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#3">1</a></text>
+<text top="827" left="215" width="529" height="13" font="4">shows the most important functions and classes of the <b>sparkTable </b>package. Basic functions</text>
+<text top="843" left="149" width="245" height="13" font="4">are available to produce sparklines, e.g.,</text>
+<text top="840" left="398" width="346" height="18" font="4">newSparkLine to create an object of class ‘sparkline’ that</text>
+<text top="860" left="149" width="263" height="13" font="4">can be used as input for the plotting method</text>
+<text top="856" left="415" width="329" height="18" font="4">plot() which dispatches based on the class of the input</text>
+<text top="876" left="149" width="144" height="13" font="4">method. Using method</text>
+<text top="873" left="298" width="447" height="18" font="4">export() it is possible to save mini-plots as files (pdf, png or eps) on the</text>
+<text top="892" left="149" width="596" height="13" font="4">hard-disk. In addition, functions are available to produce graphical tables and calculate summary</text>
+<text top="909" left="149" width="131" height="13" font="4">statistics for tables, see</text>
+<text top="909" left="283" width="71" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#3">Basic sparks</a></text>
+<text top="909" left="357" width="22" height="13" font="4">and</text>
+<text top="909" left="382" width="94" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">Graphical tables</a></text>
+<text top="909" left="480" width="267" height="13" font="4">for practical examples and more explanations.</text>
+<text top="930" left="171" width="365" height="13" font="4">In the following we show how to create basic spark graphics in</text>
+<text top="930" left="539" width="71" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#3">Basic sparks</a></text>
+<text top="930" left="610" width="134" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#3">. </a>Then we demonstrate</text>
+<text top="946" left="149" width="348" height="13" font="4">how to produce graphical tables that include some sparks in</text>
+<text top="946" left="499" width="94" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">Graphical tables</a></text>
+<text top="946" left="594" width="150" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">. </a>We finish by introducing</text>
+<text top="963" left="149" width="595" height="13" font="4">the new interactive ways that can be used to change, modify and adjust objects generated with package</text>
+<text top="979" left="149" width="68" height="13" font="3"><b>sparkTable</b></text>
+<text top="979" left="220" width="12" height="13" font="4">in</text>
+<text top="979" left="235" width="114" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#8">Interactive features</a></text>
+<text top="979" left="350" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#8">.</a></text>
+<text top="1021" left="149" width="84" height="15" font="13"><b>Basic sparks</b></text>
+<text top="1053" left="148" width="76" height="13" font="4">The data set</text>
+<text top="1050" left="229" width="515" height="18" font="4">pop, which is included in the package, is used. This data set contains the Austrian</text>
+<text top="1069" left="148" width="596" height="13" font="4">population size for different age groups from 1981 to 2009. We start by loading the data set into the</text>
+<text top="1086" left="149" width="105" height="13" font="4">current R session.</text>
+<text top="1109" left="149" width="240" height="18" font="4">&gt; data(pop, package = &#34;sparkTable&#34;)</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">27</text>
+<text top="103" left="171" width="482" height="13" font="4">This data set – available in long-format – contains three variables. The variable</text>
+<text top="100" left="657" width="87" height="18" font="4">time describes</text>
+<text top="120" left="149" width="100" height="13" font="4">the year, variable</text>
+<text top="116" left="253" width="491" height="18" font="4">variable the different age groups and variable value the corresponding population</text>
+<text top="136" left="149" width="595" height="13" font="4">numbers. Next, an object, which contains all the information required to plot a first sparkline, is</text>
+<text top="152" left="149" width="274" height="13" font="4">generated. This can be achieved using function</text>
+<text top="149" left="427" width="317" height="18" font="4">newSparkLine(). Calling the function and only setting</text>
+<text top="169" left="149" width="57" height="13" font="4">argument</text>
+<text top="165" left="210" width="535" height="18" font="4">values to use the population data of Austria stored in vector pop_ges as shown in the code</text>
+<text top="185" left="149" width="210" height="13" font="4">listing below, we obtain a new object</text>
+<text top="182" left="362" width="382" height="18" font="4">sline (respectively slineIQR, where also the Inter-Quartile-Range</text>
+<text top="202" left="148" width="360" height="13" font="4">(IQR) is visualized) with default settings for a sparkline plot.</text>
+<text top="228" left="149" width="350" height="18" font="4">&gt; pop_ges &lt;- pop$value[pop$variable == &#34;Insgesamt&#34;]</text>
+<text top="245" left="149" width="281" height="18" font="4">&gt; sline &lt;- newSparkLine(values = pop_ges)</text>
+<text top="261" left="149" width="412" height="18" font="4">&gt; slineIQR &lt;- newSparkLine(values = pop_ges, showIQR = TRUE)</text>
+<text top="294" left="171" width="115" height="13" font="4">The resulting object</text>
+<text top="291" left="289" width="455" height="18" font="4">sline is of class ‘sparkline’ and has the default parameter settings. Later it is</text>
+<text top="311" left="149" width="459" height="13" font="4">shown how to change specific settings of the graph using the generic function</text>
+<text top="307" left="611" width="133" height="18" font="4">setParameter(). Note</text>
+<text top="327" left="149" width="337" height="13" font="4">that it is also possible to directly change parameters using</text>
+<text top="324" left="489" width="255" height="18" font="4">newSparkLine() directly. The help-files that</text>
+<text top="344" left="149" width="128" height="13" font="4">can be accessed using</text>
+<text top="340" left="281" width="466" height="18" font="4">?newSparkLine give an overview on the parameters that can be set or changed.</text>
+<text top="365" left="171" width="466" height="13" font="4">After creating a sparkline object it is possible to create a plot using function</text>
+<text top="361" left="641" width="103" height="18" font="4">plot() or saving</text>
+<text top="381" left="149" width="193" height="13" font="4">the graphic by applying method</text>
+<text top="378" left="345" width="399" height="18" font="4">export(). Using these methods it is possible to plot and export not</text>
+<text top="398" left="149" width="125" height="13" font="4">only objects of class ‘</text>
+<text top="394" left="274" width="472" height="18" font="4">sparkline’ but also objects of class ‘sparkBar’ (generated with newSparkBar()),</text>
+<text top="414" left="147" width="4" height="13" font="4">‘</text>
+<text top="411" left="151" width="593" height="18" font="4">sparkBox’ (generated with newSparkBox()) and ‘sparkHist’ (generated with newSparkHist()). The</text>
+<text top="430" left="149" width="50" height="13" font="4">function</text>
+<text top="427" left="202" width="545" height="18" font="4">export() requires a ‘spark*’ object as input and allows to specify the desired output format.</text>
+<text top="447" left="149" width="595" height="13" font="4">Currently, one of the following output formats can be selected by changing the function argument</text>
+<text top="460" left="149" width="72" height="18" font="4">outputType:</text>
+<text top="490" left="171" width="8" height="13" font="4">•</text>
+<text top="487" left="186" width="285" height="18" font="4">&#34;pdf&#34;: the spark-graphic is saved in pdf-format;</text>
+<text top="513" left="171" width="8" height="13" font="4">•</text>
+<text top="509" left="186" width="353" height="18" font="4">&#34;eps&#34;: the graph is saved as an encapsulated postscript file;</text>
+<text top="535" left="171" width="8" height="13" font="4">•</text>
+<text top="532" left="186" width="387" height="18" font="4">&#34;png&#34;: the graphic is written to disk as a portable network graph.</text>
+<text top="562" left="148" width="142" height="13" font="4">The function argument</text>
+<text top="559" left="295" width="449" height="18" font="4">outputType is serialized so that it is possible to create the graphics in all</text>
+<text top="578" left="148" width="315" height="13" font="4">possible formats in one step. By the help of argument</text>
+<text top="575" left="467" width="277" height="18" font="4">filename, users can specify an output filename</text>
+<text top="595" left="149" width="595" height="13" font="4">for the resulting graphic. The code listing below shows how to save the sparkline represented in obj</text>
+<text top="608" left="149" width="309" height="18" font="4">sline as a pdf-graphic with filename first-sl.pdf.</text>
+<text top="638" left="149" width="302" height="18" font="4">&gt; export(object = sline, outputType = &#34;pdf&#34;,</text>
+<text top="654" left="149" width="7" height="18" font="4">+</text>
+<text top="654" left="176" width="302" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;first-sl&#34;))</text>
+<text top="671" left="149" width="322" height="18" font="4">&gt; export(object = slineIQR, outputType = &#34;pdf&#34;,</text>
+<text top="687" left="149" width="7" height="18" font="4">+</text>
+<text top="687" left="176" width="329" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;first-sl-IQR&#34;))</text>
+<text top="720" left="171" width="503" height="13" font="4">This graph can now easily be included in the current text showing the development</text>
+<text top="720" left="732" width="12" height="13" font="4">of</text>
+<text top="737" left="149" width="456" height="13" font="4">the Austrian population from 1981 to 2009, alternatively with integrated IQR</text>
+<text top="737" left="662" width="3" height="13" font="4">.</text>
+<text top="758" left="171" width="573" height="13" font="4">Similarly, other types of graphics can be produced. The next code listing highlights how to create</text>
+<text top="774" left="149" width="567" height="13" font="4">other supported kind of word-graphs. In addition, some of the default parameters are changed.</text>
+<text top="801" left="149" width="384" height="18" font="4">&gt; v1 &lt;- as.numeric(table(rpois(50, 2))); v2 &lt;- rnorm(50)</text>
+<text top="817" left="149" width="370" height="18" font="4">&gt; sbar &lt;- newSparkBar(values = v1, barSpacingPerc = 5)</text>
+<text top="833" left="149" width="460" height="18" font="4">&gt; sbox &lt;- newSparkBox(values = v2, boxCol = c(&#34;black&#34;, &#34;darkblue&#34;))</text>
+<text top="850" left="149" width="542" height="18" font="4">&gt; shist &lt;- newSparkHist(values = v2, barCol = c(&#34;black&#34;, &#34;darkgreen&#34;, &#34;black&#34;))</text>
+<text top="866" left="149" width="295" height="18" font="4">&gt; export(object = sbar, outputType = &#34;pdf&#34;,</text>
+<text top="883" left="149" width="7" height="18" font="4">+</text>
+<text top="883" left="176" width="309" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;first-bar&#34;))</text>
+<text top="899" left="149" width="295" height="18" font="4">&gt; export(object = sbox, outputType = &#34;pdf&#34;,</text>
+<text top="916" left="149" width="7" height="18" font="4">+</text>
+<text top="916" left="176" width="309" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;first-box&#34;))</text>
+<text top="932" left="149" width="302" height="18" font="4">&gt; export(object = shist, outputType = &#34;pdf&#34;,</text>
+<text top="949" left="149" width="7" height="18" font="4">+</text>
+<text top="949" left="176" width="316" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;first-hist&#34;))</text>
+<text top="982" left="171" width="301" height="13" font="4">Since they were exported as pdf-files, the produced</text>
+<text top="982" left="530" width="76" height="13" font="4">sparkbar, the</text>
+<text top="982" left="664" width="80" height="13" font="4">sparkbox and</text>
+<text top="998" left="149" width="19" height="13" font="4">the</text>
+<text top="998" left="225" width="247" height="13" font="4">sparkhist can be easily integrated into a L</text>
+<text top="998" left="467" width="8" height="10" font="10">A</text>
+<text top="998" left="473" width="178" height="17" font="4">TEX-document as shown here.</text>
+<text top="1019" left="171" width="454" height="13" font="4">Changing parameters of spark objects can also be achieved by using function</text>
+<text top="1016" left="628" width="116" height="18" font="4">setParameter(). In</text>
+<text top="1036" left="149" width="157" height="13" font="4">the help file (accessible via</text>
+<text top="1032" left="309" width="435" height="18" font="4">?setParameter) all possible values that can be changed are explained and</text>
+<text top="1052" left="149" width="425" height="13" font="4">listed. Some of the options that might be changed are now listed below:</text>
+<text top="1079" left="171" width="8" height="13" font="4">•</text>
+<text top="1076" left="186" width="258" height="18" font="4">width: available vertical space of the graph;</text>
+<text top="1101" left="171" width="8" height="13" font="4">•</text>
+<text top="1098" left="186" width="282" height="18" font="4">height: available horizontal space of the graph;</text>
+<text top="1124" left="171" width="8" height="13" font="4">•</text>
+<text top="1120" left="186" width="253" height="18" font="4">values: data points that should be plotted;</text>
+<text top="1146" left="171" width="8" height="13" font="4">•</text>
+<text top="1143" left="186" width="325" height="18" font="4">lineWidth: the thickness of the line in a sparkline-plot;</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">28</text>
+<text top="103" left="171" width="8" height="13" font="4">•</text>
+<text top="100" left="186" width="559" height="18" font="4">pointWidth: the radius of special points (minimum, maximum, last observation) of a sparkline;</text>
+<text top="126" left="171" width="8" height="13" font="4">•</text>
+<text top="122" left="186" width="340" height="18" font="4">showIQR: whether the IQR is plotted in a sparkline-graph;</text>
+<text top="148" left="171" width="8" height="13" font="4">•</text>
+<text top="145" left="186" width="354" height="18" font="4">outCol: color of outlying observations in a sparkbox-graph;</text>
+<text top="170" left="171" width="8" height="13" font="4">•</text>
+<text top="167" left="186" width="560" height="18" font="4">barSpacingPerc: percent of the total horizontal space used between the bars in a sparkbar-</text>
+<text top="187" left="186" width="39" height="13" font="4">graph.</text>
+<text top="214" left="148" width="598" height="13" font="4">We now show how to change some graphical parameters of the spark graphics we have just produced.</text>
+<text top="240" left="149" width="425" height="18" font="4">&gt; sline2 &lt;- setParameter(sline, type = &#34;lineWidth&#34;, value = 2)</text>
+<text top="257" left="149" width="439" height="18" font="4">&gt; sline2 &lt;- setParameter(sline2, type = &#34;pointWidth&#34;, value = 5)</text>
+<text top="273" left="149" width="309" height="18" font="4">&gt; export(object = sline2, outputType = &#34;pdf&#34;,</text>
+<text top="290" left="149" width="7" height="18" font="4">+</text>
+<text top="290" left="176" width="309" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;second-sl&#34;))</text>
+<text top="323" left="171" width="429" height="13" font="4">For example the thickness of the line was changed in the sparkline object</text>
+<text top="319" left="604" width="140" height="18" font="4">sline2 from the default</text>
+<text top="339" left="148" width="598" height="13" font="4">value of 1 to 2. Additionally, we changed the size of the points for special values in the sparkline to 5.</text>
+<text top="356" left="149" width="439" height="13" font="4">If this line is plotted, the sparkline showing Austrian population numbers</text>
+<text top="356" left="645" width="90" height="13" font="4">looks different.</text>
+<text top="377" left="171" width="439" height="13" font="4">It is worth noting that the current settings can be queried using function</text>
+<text top="373" left="614" width="130" height="18" font="4">getParameter() in an</text>
+<text top="393" left="149" width="416" height="13" font="4">analogue way as setting parameters by just leaving out the argument</text>
+<text top="390" left="568" width="176" height="18" font="4">values. Detailed information</text>
+<text top="409" left="149" width="595" height="13" font="4">about the kind of information that can be extracted using this function is available from the help page</text>
+<text top="426" left="149" width="119" height="13" font="4">that is accessible via</text>
+<text top="423" left="272" width="93" height="18" font="4">?getParameter.</text>
+<text top="447" left="171" width="573" height="13" font="4">Further, it is worth noting that these mini-graphs can also be directly included in fully automated</text>
+<text top="463" left="149" width="595" height="13" font="4">reports. In the following example we show how to include a sparkline into a HTML-document that is</text>
+<text top="480" left="149" width="74" height="13" font="4">created with</text>
+<text top="480" left="226" width="31" height="13" font="11"><a href="http://CRAN.R-project.org/package=knitr"><b>knitr</b></a></text>
+<text top="480" left="260" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="480" left="265" width="19" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Xie</a></text>
+<text top="480" left="284" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="480" left="291" width="34" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2014b</a></text>
+<text top="480" left="325" width="187" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>and the R markdown language.</text>
+<text top="502" left="150" width="138" height="18" font="4">```{r, echo=TRUE}</text>
+<text top="518" left="150" width="155" height="18" font="4">require ( sparkTable )</text>
+<text top="535" left="150" width="591" height="18" font="4">sl &lt;- newSparkLine ( values = rnorm (25) , lineWidth = .18 , pointWidth = .4,</text>
+<text top="551" left="166" width="204" height="18" font="4">width = .4, height = .08)</text>
+<text top="567" left="150" width="442" height="18" font="4">export (sl , outputType = &#34;png&#34;, filename = &#34; sparkLine &#34;)</text>
+<text top="584" left="150" width="23" height="18" font="4">```</text>
+<text top="600" left="150" width="558" height="18" font="4">This is a sparkline included in the ![ firstSparkLine ]( sparkLine .png)</text>
+<text top="617" left="150" width="55" height="18" font="4">text ...</text>
+<text top="643" left="236" width="57" height="13" font="3"><b>Listing 1:</b></text>
+<text top="643" left="297" width="360" height="13" font="4">Content of minimal markdown file that contains a sparkline.</text>
+<text top="677" left="171" width="233" height="13" font="4">A minimal example is shown in Listing</text>
+<text top="677" left="408" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">1</a></text>
+<text top="677" left="414" width="330" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">. </a>In the first part, a sparkline graph with random values</text>
+<text top="693" left="149" width="595" height="13" font="4">is generated and saved as an image in png-format. We made sure that the height of the image equals</text>
+<text top="710" left="149" width="595" height="13" font="4">approximately the height of a single line. Using markdown code, this image is finally included in the</text>
+<text top="726" left="149" width="147" height="13" font="4">text. The integration in L</text>
+<text top="726" left="291" width="8" height="10" font="10">A</text>
+<text top="726" left="297" width="162" height="17" font="4">TEX , using Sweave, <b>knitr </b>or</text>
+<text top="726" left="462" width="31" height="13" font="11"><a href="http://CRAN.R-project.org/package=brew"><b>brew</b></a></text>
+<text top="726" left="497" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="726" left="501" width="43" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Horner</a></text>
+<text top="726" left="544" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="726" left="551" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2011</a></text>
+<text top="726" left="578" width="166" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">), </a>is straightforward, i.e., the</text>
+<text top="743" left="149" width="168" height="13" font="4">code environment in Listing</text>
+<text top="743" left="320" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">1</a></text>
+<text top="743" left="330" width="136" height="13" font="4">needs to be changed to</text>
+<text top="739" left="469" width="164" height="18" font="4">Sweave, <b>knitr </b>or <b>brew </b>style.</text>
+<text top="785" left="149" width="112" height="15" font="13"><b>Graphical tables</b></text>
+<text top="817" left="149" width="12" height="13" font="4">In</text>
+<text top="817" left="165" width="73" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#3">Basic sparks</a></text>
+<text top="817" left="238" width="508" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#3">, </a>the basic usage of the package <b>sparkTable </b>to produce sparklines was demonstrated.</text>
+<text top="833" left="149" width="598" height="13" font="4">Now we show how to enrich tables by including sparkgraphs. In addition, it is shown how spark-</text>
+<text top="850" left="149" width="461" height="13" font="4">graphs can be used to visualize regional indicators in so-called checkerplots <a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="850" left="610" width="69" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Templ et al.</a></text>
+<text top="850" left="679" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="850" left="686" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2013</a></text>
+<text top="850" left="713" width="31" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">). </a>We</text>
+<text top="866" left="148" width="243" height="13" font="4">point out that existing tools – specifically</text>
+<text top="866" left="395" width="37" height="13" font="11"><a href="http://CRAN.R-project.org/package=xtable"><b>xtable</b></a></text>
+<text top="866" left="436" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="866" left="440" width="29" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Dahl</a></text>
+<text top="866" left="469" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="866" left="476" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2014</a></text>
+<text top="866" left="503" width="237" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>– are used to generate the final output.</text>
+<text top="887" left="171" width="573" height="13" font="4">In order to plot a graphical table, the first step is to create a suitable input object - in this case an</text>
+<text top="903" left="149" width="87" height="13" font="4">object of class ‘</text>
+<text top="900" left="236" width="508" height="18" font="4">sparkTable’. Objects of this kind hold the data itself in a suitable format. Further, such</text>
+<text top="920" left="149" width="595" height="13" font="4">objects contain a list with information about the type of graphs or functions on the data values that</text>
+<text top="936" left="149" width="596" height="13" font="4">should be shown in the resulting table. Moreover, a vector of variable names must be listed to specify</text>
+<text top="953" left="149" width="595" height="13" font="4">for which variables in the data input graphs should be produced. These steps can be achieved using</text>
+<text top="969" left="149" width="51" height="13" font="4">function</text>
+<text top="966" left="203" width="541" height="18" font="4">newSparkTable(). To illustrate this procedure, we give an example using results from the</text>
+<text top="986" left="149" width="212" height="13" font="4">2013/2014 soccer season in Austria.</text>
+<text top="1012" left="149" width="206" height="18" font="4">&gt; # load data (in long format)</text>
+<text top="1028" left="149" width="281" height="18" font="4">&gt; data(AT_Soccer, package = &#34;sparkTable&#34;)</text>
+<text top="1045" left="149" width="418" height="18" font="4">&gt; # first three observations to see the structure of the data</text>
+<text top="1061" left="149" width="137" height="18" font="4">&gt; head(AT_Soccer, 3)</text>
+<text top="1091" left="169" width="309" height="18" font="4">team time points wl goaldiff shotgoal getgoal</text>
+<text top="1108" left="149" width="48" height="18" font="4">1 Rapid</text>
+<text top="1108" left="224" width="7" height="18" font="4">1</text>
+<text top="1108" left="272" width="27" height="18" font="4">1 0</text>
+<text top="1108" left="355" width="7" height="18" font="4">0</text>
+<text top="1108" left="416" width="7" height="18" font="4">2</text>
+<text top="1108" left="471" width="7" height="18" font="4">2</text>
+<text top="1124" left="149" width="48" height="18" font="4">2 Rapid</text>
+<text top="1124" left="224" width="7" height="18" font="4">2</text>
+<text top="1124" left="272" width="27" height="18" font="4">3 1</text>
+<text top="1124" left="355" width="7" height="18" font="4">4</text>
+<text top="1124" left="416" width="7" height="18" font="4">4</text>
+<text top="1124" left="471" width="7" height="18" font="4">0</text>
+<text top="1140" left="149" width="48" height="18" font="4">3 Rapid</text>
+<text top="1140" left="224" width="7" height="18" font="4">3</text>
+<text top="1140" left="272" width="27" height="18" font="4">3 1</text>
+<text top="1140" left="355" width="7" height="18" font="4">2</text>
+<text top="1140" left="416" width="7" height="18" font="4">4</text>
+<text top="1140" left="471" width="7" height="18" font="4">2</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">29</text>
+<text top="100" left="149" width="130" height="18" font="4">&gt; # prepare content</text>
+<text top="116" left="149" width="123" height="18" font="4">&gt; content &lt;- list(</text>
+<text top="133" left="149" width="7" height="18" font="4">+</text>
+<text top="133" left="190" width="158" height="18" font="4">function(x) { sum(x) },</text>
+<text top="149" left="149" width="7" height="18" font="4">+</text>
+<text top="149" left="190" width="226" height="18" font="4">function(x) { round(sum(x), 2) },</text>
+<text top="165" left="149" width="7" height="18" font="4">+</text>
+<text top="165" left="190" width="226" height="18" font="4">function(x) { round(sum(x), 2) },</text>
+<text top="182" left="149" width="7" height="18" font="4">+</text>
+<text top="182" left="190" width="398" height="18" font="4">newSparkLine(lineWidth = 2, pointWidth = 6), newSparkBar()</text>
+<text top="198" left="149" width="21" height="18" font="4">+ )</text>
+<text top="215" left="149" width="528" height="18" font="4">&gt; names(content) &lt;- c(&#34;Points&#34;, &#34;ShotGoal&#34;, &#34;GetGoal&#34;, &#34;GoalDiff&#34;, &#34;WinLose&#34;)</text>
+<text top="231" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="248" left="149" width="117" height="18" font="4">&gt; # set variables</text>
+<text top="264" left="149" width="425" height="18" font="4">&gt; vars &lt;- c(&#34;points&#34;, &#34;shotgoal&#34;, &#34;getgoal&#34;, &#34;goaldiff&#34;, &#34;wl&#34;)</text>
+<text top="281" left="149" width="7" height="18" font="4">&gt;</text>
+<text top="297" left="149" width="219" height="18" font="4">&gt; # create the sparkTable object</text>
+<text top="313" left="149" width="576" height="18" font="4">&gt; stab &lt;- newSparkTable(dataObj = AT_Soccer, tableContent = content, varType = vars)</text>
+<text top="347" left="171" width="175" height="13" font="4">The required code to create a ‘</text>
+<text top="343" left="346" width="400" height="18" font="4">sparkTable’ object as shown above can be splitted into four sections.</text>
+<text top="363" left="149" width="410" height="13" font="4">In the first line the input data set (in suitable long format for function</text>
+<text top="360" left="563" width="168" height="18" font="4">newSparkTable()) is loaded.</text>
+<text top="384" left="171" width="573" height="13" font="4">The next step is to prepare a list specifying the content of each column of the required table. In</text>
+<text top="401" left="149" width="595" height="13" font="4">this case the table is specified by five columns. In the first three columns very simple user-defined</text>
+<text top="417" left="149" width="595" height="13" font="4">functions are used to aggregate three different variables. Note that the provided function can be</text>
+<text top="433" left="149" width="118" height="13" font="4">arbitrarily complex.</text>
+<text top="454" left="171" width="573" height="13" font="4">For the last two columns of the table, sparklines and sparkbars are created. In this case we</text>
+<text top="471" left="149" width="595" height="13" font="4">show that it is also possible to change parameters directly when creating such objects. We used this</text>
+<text top="487" left="148" width="596" height="13" font="4">possibility to change the thickness of the line and the size of points for sparklines as it was already</text>
+<text top="504" left="149" width="75" height="13" font="4">described in</text>
+<text top="504" left="228" width="75" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#3">Basic sparks</a></text>
+<text top="504" left="304" width="440" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#3">. </a>It should also be noted that the names of this input list correspond to</text>
+<text top="520" left="149" width="595" height="13" font="4">column names in the resulting final table, therefore we set the names of this list to the desired column</text>
+<text top="537" left="149" width="513" height="13" font="4">headers. For example, the first column in the final table will have column name Points.</text>
+<text top="557" left="171" width="90" height="13" font="4">After the object</text>
+<text top="554" left="265" width="480" height="18" font="4">stab has been established, the graphical table can be created. The required code is</text>
+<text top="574" left="149" width="83" height="13" font="4">shown below:</text>
+<text top="597" left="149" width="556" height="18" font="4">&gt; export(stab, outputType = &#34;tex&#34;, filename = file.path(&#34;figures&#34;, &#34;first-stab&#34;),</text>
+<text top="614" left="149" width="7" height="18" font="4">+</text>
+<text top="614" left="176" width="329" height="18" font="4">graphNames = file.path(&#34;figures&#34;, &#34;first-stab&#34;))</text>
+<text top="644" left="171" width="77" height="13" font="4">The function</text>
+<text top="641" left="251" width="493" height="18" font="4">export() is applied on the object stab, which has just been created in the previous</text>
+<text top="661" left="149" width="464" height="13" font="4">example. The format of the output can be specified. By setting argument</text>
+<text top="657" left="617" width="128" height="18" font="4">outputType to 'tex',</text>
+<text top="677" left="149" width="130" height="13" font="4">the functions write L</text>
+<text top="677" left="274" width="8" height="10" font="10">A</text>
+<text top="677" left="281" width="464" height="17" font="4">TEX-code in the file specified with argument filename. Additionally, some</text>
+<text top="693" left="149" width="595" height="13" font="4">instructions on how to include the table into a document are printed in the R session. It is worth to</text>
+<text top="710" left="149" width="595" height="13" font="4">note that the code used to generate the table is also returned to R, which makes it easy to include it into</text>
+<text top="726" left="149" width="412" height="13" font="4">reproducible reports. The final result of this example is shown in Table</text>
+<text top="726" left="564" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#6">2</a></text>
+<text top="726" left="571" width="173" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#6">. </a>The embedded sparklines in</text>
+<text top="743" left="149" width="188" height="13" font="4">the second last column of Table</text>
+<text top="743" left="340" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#6">2</a></text>
+<text top="743" left="350" width="394" height="13" font="4">present an optimum mid-angle of 45 degrees of the slopes of each</text>
+<text top="759" left="149" width="67" height="13" font="4">time series.</text>
+<text top="789" left="319" width="41" height="15" font="0">Points</text>
+<text top="789" left="379" width="61" height="15" font="0">ShotGoal</text>
+<text top="789" left="458" width="55" height="15" font="0">GetGoal</text>
+<text top="789" left="530" width="57" height="15" font="0">GoalDiff</text>
+<text top="789" left="605" width="58" height="15" font="0">WinLose</text>
+<text top="808" left="261" width="40" height="15" font="0">Rapid</text>
+<text top="808" left="319" width="15" height="15" font="0">62</text>
+<text top="808" left="379" width="15" height="15" font="0">63</text>
+<text top="808" left="458" width="15" height="15" font="0">40</text>
+<text top="826" left="243" width="58" height="15" font="0">Salzburg</text>
+<text top="826" left="319" width="15" height="15" font="0">80</text>
+<text top="826" left="379" width="22" height="15" font="0">110</text>
+<text top="826" left="458" width="15" height="15" font="0">35</text>
+<text top="844" left="252" width="50" height="15" font="0">Austria</text>
+<text top="844" left="319" width="15" height="15" font="0">53</text>
+<text top="844" left="379" width="15" height="15" font="0">58</text>
+<text top="844" left="458" width="15" height="15" font="0">44</text>
+<text top="862" left="261" width="41" height="15" font="0">Sturm</text>
+<text top="862" left="319" width="15" height="15" font="0">48</text>
+<text top="862" left="379" width="15" height="15" font="0">55</text>
+<text top="862" left="458" width="15" height="15" font="0">56</text>
+<text top="880" left="247" width="54" height="15" font="0">Groedig</text>
+<text top="880" left="319" width="15" height="15" font="0">54</text>
+<text top="880" left="379" width="15" height="15" font="0">68</text>
+<text top="880" left="458" width="15" height="15" font="0">71</text>
+<text top="898" left="240" width="61" height="15" font="0">Neustadt</text>
+<text top="898" left="319" width="15" height="15" font="0">39</text>
+<text top="898" left="379" width="15" height="15" font="0">43</text>
+<text top="898" left="458" width="15" height="15" font="0">84</text>
+<text top="916" left="230" width="72" height="15" font="0">FC Wacker</text>
+<text top="916" left="319" width="15" height="15" font="0">29</text>
+<text top="916" left="379" width="15" height="15" font="0">42</text>
+<text top="916" left="458" width="15" height="15" font="0">70</text>
+<text top="934" left="235" width="67" height="15" font="0">Wolfsberg</text>
+<text top="934" left="319" width="15" height="15" font="0">41</text>
+<text top="934" left="379" width="15" height="15" font="0">51</text>
+<text top="934" left="458" width="15" height="15" font="0">63</text>
+<text top="951" left="271" width="31" height="15" font="0">Ried</text>
+<text top="951" left="319" width="15" height="15" font="0">43</text>
+<text top="951" left="379" width="15" height="15" font="0">55</text>
+<text top="951" left="458" width="15" height="15" font="0">66</text>
+<text top="969" left="250" width="52" height="15" font="0">Admira</text>
+<text top="969" left="319" width="15" height="15" font="0">42</text>
+<text top="969" left="379" width="15" height="15" font="0">51</text>
+<text top="969" left="458" width="15" height="15" font="0">67</text>
+<text top="1003" left="148" width="47" height="13" font="3"><b>Table 2:</b></text>
+<text top="1003" left="200" width="545" height="13" font="4">A graphical table featuring data values and sparkgraphs applied to Austrian soccer data. For</text>
+<text top="1019" left="149" width="598" height="13" font="4">each game in the entire season, wins are maked blue, defeats in read and no bars are plotted for draws.</text>
+<text top="1036" left="149" width="595" height="13" font="4">In addition we present differences in goals throughout the season an well as overall points and goals</text>
+<text top="1052" left="149" width="84" height="13" font="4">for each team.</text>
+<text top="1091" left="171" width="256" height="13" font="4">In case a user wants to include a table in L</text>
+<text top="1091" left="422" width="8" height="10" font="10">A</text>
+<text top="1091" left="428" width="316" height="17" font="4">TEX, a short tex-macro (\graph), which also has to be</text>
+<text top="1108" left="149" width="101" height="13" font="4">included in the L</text>
+<text top="1108" left="245" width="8" height="10" font="10">A</text>
+<text top="1108" left="251" width="493" height="17" font="4">TEX source, is printed by default in the R console. This information can be switched</text>
+<text top="1124" left="149" width="192" height="13" font="4">off by setting function argument</text>
+<text top="1121" left="345" width="111" height="18" font="4">infonote to FALSE.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">30</text>
+<text top="102" left="149" width="137" height="15" font="13"><b>Geographical tables</b></text>
+<text top="134" left="148" width="558" height="13" font="4">The concept to create geographical tables is based on the concept of the so called checkerplot <a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="134" left="707" width="37" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Templ</a></text>
+<text top="150" left="149" width="28" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">et al.</a></text>
+<text top="150" left="177" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="150" left="183" width="26" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2013</a></text>
+<text top="150" left="210" width="416" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">), </a>which is also implemented in the package <b>sparkTable </b>in the function</text>
+<text top="147" left="629" width="115" height="18" font="4">checkerplot(). We</text>
+<text top="167" left="149" width="475" height="13" font="4">now show how to generate a geographical table for the EU using the function</text>
+<text top="163" left="628" width="116" height="18" font="4">newGeoTable() and</text>
+<text top="180" left="149" width="305" height="18" font="4">plotGeoTable(). The final result is shown in Table</text>
+<text top="183" left="457" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#8">3</a></text>
+<text top="183" left="464" width="280" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#8">. </a>Let us first load some data and print the first</text>
+<text top="199" left="149" width="133" height="13" font="4">three rows of the data:</text>
+<text top="224" left="149" width="254" height="18" font="4">&gt; data(popEU, package = &#34;sparkTable&#34;)</text>
+<text top="241" left="149" width="261" height="18" font="4">&gt; data(debtEU, package = &#34;sparkTable&#34;)</text>
+<text top="257" left="149" width="274" height="18" font="4">&gt; data(coordsEU, package = &#34;sparkTable&#34;)</text>
+<text top="274" left="149" width="377" height="18" font="4">&gt; popEU &lt;- popEU[popEU$country %in% coordsEU$country, ]</text>
+<text top="290" left="149" width="398" height="18" font="4">&gt; debtEU &lt;- debtEU[debtEU$country %in% coordsEU$country, ]</text>
+<text top="307" left="149" width="233" height="18" font="4">&gt; EU &lt;- cbind(popEU, debtEU[, -1])</text>
+<text top="323" left="149" width="89" height="18" font="4">&gt; head(EU, 3)</text>
+<text top="351" left="163" width="48" height="18" font="4">country</text>
+<text top="351" left="238" width="34" height="18" font="4">B1999</text>
+<text top="351" left="300" width="34" height="18" font="4">B2000</text>
+<text top="351" left="361" width="34" height="18" font="4">B2001</text>
+<text top="351" left="423" width="34" height="18" font="4">B2002</text>
+<text top="351" left="485" width="34" height="18" font="4">B2003</text>
+<text top="351" left="547" width="34" height="18" font="4">B2004</text>
+<text top="351" left="608" width="34" height="18" font="4">B2005</text>
+<text top="368" left="149" width="7" height="18" font="4">1</text>
+<text top="368" left="197" width="446" height="18" font="4">BE 10213752 10239085 10263414 10309725 10355844 10396421 10445852</text>
+<text top="384" left="149" width="7" height="18" font="4">2</text>
+<text top="384" left="197" width="446" height="18" font="4">BG 8230371 8190876 8149468 7891095 7845841 7801273 7761049</text>
+<text top="401" left="149" width="7" height="18" font="4">3</text>
+<text top="401" left="197" width="446" height="18" font="4">CZ 10289621 10278098 10266546 10206436 10203269 10211455 10220577</text>
+<text top="417" left="183" width="34" height="18" font="4">B2006</text>
+<text top="417" left="245" width="34" height="18" font="4">B2007</text>
+<text top="417" left="307" width="34" height="18" font="4">B2008</text>
+<text top="417" left="368" width="34" height="18" font="4">B2009</text>
+<text top="417" left="430" width="199" height="18" font="4">B2010 X1999 X2000 X2001 X2002</text>
+<text top="434" left="149" width="480" height="18" font="4">1 10511382 10584534 10666866 10753080 10839905 113.7 107.9 106.6 103.5</text>
+<text top="450" left="149" width="480" height="18" font="4">2 7718750 7679290 7640238 7606551 7563710 77.6 72.5 66.0 52.4</text>
+<text top="467" left="149" width="480" height="18" font="4">3 10251079 10287189 10381130 10467542 10506813 16.4 18.5 24.9 28.2</text>
+<text top="483" left="163" width="322" height="18" font="4">X2003 X2004 X2005 X2006 X2007 X2008 X2009 X2010</text>
+<text top="499" left="149" width="336" height="18" font="4">1 98.5 94.2 92.1 88.1 84.2 89.6 96.2 96.8</text>
+<text top="516" left="149" width="336" height="18" font="4">2 44.4 37.0 27.5 21.6 17.2 13.7 14.6 16.2</text>
+<text top="532" left="149" width="336" height="18" font="4">3 29.8 30.1 29.7 29.4 29.0 30.0 35.3 38.5</text>
+<text top="564" left="171" width="462" height="13" font="4">Before we generate sparklines, the data has to be transformed to long format.</text>
+<text top="561" left="638" width="106" height="18" font="4">reshapeExt() can</text>
+<text top="581" left="149" width="267" height="13" font="4">be used to bring the data to the form so that</text>
+<text top="577" left="419" width="325" height="18" font="4">newSparkTable() or newGeoTable() can be applied. In</text>
+<text top="594" left="149" width="595" height="18" font="4">reshapeExt(), parameter idvar defines variables in long format that identify multiple records from</text>
+<text top="613" left="149" width="193" height="13" font="4">the same group/individual and</text>
+<text top="610" left="345" width="399" height="18" font="4">v.names corresponds to names of variables in the long format that</text>
+<text top="630" left="149" width="339" height="13" font="4">correspond to multiple variables in the wide format, see</text>
+<text top="626" left="491" width="253" height="18" font="4">?reshapeExt for details. We show the first</text>
+<text top="646" left="149" width="232" height="13" font="4">two list elements of the reordered data:</text>
+<text top="671" left="149" width="501" height="18" font="4">&gt; EUlong &lt;- reshapeExt(EU, idvar = &#34;country&#34;, v.names = c(&#34;pop&#34;, &#34;debt&#34;),</text>
+<text top="688" left="149" width="7" height="18" font="4">+</text>
+<text top="688" left="176" width="542" height="18" font="4">varying = list(2:13, 14:25), geographicVar = &#34;country&#34;, timeValues = 1999:2010)</text>
+<text top="704" left="149" width="117" height="18" font="4">&gt; head(EUlong, 2)</text>
+<text top="733" left="149" width="21" height="18" font="4">$BE</text>
+<text top="749" left="190" width="82" height="18" font="4">country time</text>
+<text top="749" left="313" width="62" height="18" font="4">pop debt</text>
+<text top="765" left="149" width="27" height="18" font="4">BE.1</text>
+<text top="765" left="224" width="151" height="18" font="4">BE 1999 10213752 113.7</text>
+<text top="782" left="149" width="27" height="18" font="4">BE.2</text>
+<text top="782" left="224" width="151" height="18" font="4">BE 2000 10239085 107.9</text>
+<text top="798" left="149" width="27" height="18" font="4">BE.3</text>
+<text top="798" left="224" width="151" height="18" font="4">BE 2001 10263414 106.6</text>
+<text top="815" left="149" width="27" height="18" font="4">BE.4</text>
+<text top="815" left="224" width="151" height="18" font="4">BE 2002 10309725 103.5</text>
+<text top="831" left="149" width="27" height="18" font="4">BE.5</text>
+<text top="831" left="224" width="151" height="18" font="4">BE 2003 10355844 98.5</text>
+<text top="848" left="149" width="27" height="18" font="4">BE.6</text>
+<text top="848" left="224" width="151" height="18" font="4">BE 2004 10396421 94.2</text>
+<text top="864" left="149" width="27" height="18" font="4">BE.7</text>
+<text top="864" left="224" width="151" height="18" font="4">BE 2005 10445852 92.1</text>
+<text top="880" left="149" width="27" height="18" font="4">BE.8</text>
+<text top="880" left="224" width="151" height="18" font="4">BE 2006 10511382 88.1</text>
+<text top="897" left="149" width="27" height="18" font="4">BE.9</text>
+<text top="897" left="224" width="151" height="18" font="4">BE 2007 10584534 84.2</text>
+<text top="913" left="149" width="34" height="18" font="4">BE.10</text>
+<text top="913" left="224" width="151" height="18" font="4">BE 2008 10666866 89.6</text>
+<text top="930" left="149" width="34" height="18" font="4">BE.11</text>
+<text top="930" left="224" width="151" height="18" font="4">BE 2009 10753080 96.2</text>
+<text top="946" left="149" width="34" height="18" font="4">BE.12</text>
+<text top="946" left="224" width="151" height="18" font="4">BE 2010 10839905 96.8</text>
+<text top="979" left="149" width="21" height="18" font="4">$BG</text>
+<text top="996" left="190" width="82" height="18" font="4">country time</text>
+<text top="996" left="307" width="55" height="18" font="4">pop debt</text>
+<text top="1012" left="149" width="27" height="18" font="4">BG.1</text>
+<text top="1012" left="224" width="137" height="18" font="4">BG 1999 8230371 77.6</text>
+<text top="1028" left="149" width="27" height="18" font="4">BG.2</text>
+<text top="1028" left="224" width="137" height="18" font="4">BG 2000 8190876 72.5</text>
+<text top="1045" left="149" width="27" height="18" font="4">BG.3</text>
+<text top="1045" left="224" width="137" height="18" font="4">BG 2001 8149468 66.0</text>
+<text top="1061" left="149" width="27" height="18" font="4">BG.4</text>
+<text top="1061" left="224" width="137" height="18" font="4">BG 2002 7891095 52.4</text>
+<text top="1078" left="149" width="27" height="18" font="4">BG.5</text>
+<text top="1078" left="224" width="137" height="18" font="4">BG 2003 7845841 44.4</text>
+<text top="1094" left="149" width="27" height="18" font="4">BG.6</text>
+<text top="1094" left="224" width="137" height="18" font="4">BG 2004 7801273 37.0</text>
+<text top="1111" left="149" width="27" height="18" font="4">BG.7</text>
+<text top="1111" left="224" width="137" height="18" font="4">BG 2005 7761049 27.5</text>
+<text top="1127" left="149" width="27" height="18" font="4">BG.8</text>
+<text top="1127" left="224" width="137" height="18" font="4">BG 2006 7718750 21.6</text>
+<text top="1144" left="149" width="27" height="18" font="4">BG.9</text>
+<text top="1144" left="224" width="137" height="18" font="4">BG 2007 7679290 17.2</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">31</text>
+<text top="100" left="215" width="13" height="13" font="3"><b>IS</b></text>
+<text top="100" left="389" width="22" height="13" font="3"><b>NO</b></text>
+<text top="100" left="481" width="16" height="13" font="3"><b>SE</b></text>
+<text top="100" left="572" width="13" height="13" font="3"><b>FI</b></text>
+<text top="100" left="660" width="16" height="13" font="3"><b>EE</b></text>
+<text top="117" left="207" width="30" height="14" font="4">Pop :</text>
+<text top="117" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="117" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="117" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="117" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="154" left="205" width="35" height="14" font="4">Debt :</text>
+<text top="154" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="154" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="154" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="154" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="192" left="302" width="19" height="13" font="3"><b>NL</b></text>
+<text top="192" left="391" width="19" height="13" font="3"><b>DE</b></text>
+<text top="192" left="479" width="22" height="13" font="3"><b>DK</b></text>
+<text top="192" left="571" width="16" height="13" font="3"><b>LT</b></text>
+<text top="192" left="659" width="17" height="13" font="3"><b>LV</b></text>
+<text top="208" left="296" width="30" height="14" font="4">Pop :</text>
+<text top="208" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="208" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="208" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="208" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="246" left="294" width="35" height="14" font="4">Debt :</text>
+<text top="246" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="246" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="246" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="246" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="284" left="211" width="21" height="13" font="3"><b>UK</b></text>
+<text top="284" left="305" width="13" height="13" font="3"><b>IE</b></text>
+<text top="284" left="392" width="17" height="13" font="3"><b>BE</b></text>
+<text top="284" left="480" width="19" height="13" font="3"><b>CZ</b></text>
+<text top="284" left="571" width="16" height="13" font="3"><b>PL</b></text>
+<text top="284" left="659" width="19" height="13" font="3"><b>SK</b></text>
+<text top="300" left="207" width="30" height="14" font="4">Pop :</text>
+<text top="300" left="296" width="30" height="14" font="4">Pop :</text>
+<text top="300" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="300" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="300" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="300" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="337" left="205" width="35" height="14" font="4">Debt :</text>
+<text top="337" left="294" width="35" height="14" font="4">Debt :</text>
+<text top="337" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="337" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="337" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="337" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="375" left="213" width="19" height="13" font="3"><b>LU</b></text>
+<text top="375" left="301" width="21" height="13" font="3"><b>CH</b></text>
+<text top="375" left="394" width="13" height="13" font="3"><b>LI</b></text>
+<text top="375" left="481" width="18" height="13" font="3"><b>AT</b></text>
+<text top="375" left="568" width="22" height="13" font="3"><b>HU</b></text>
+<text top="375" left="657" width="21" height="13" font="3"><b>RO</b></text>
+<text top="392" left="207" width="30" height="14" font="4">Pop :</text>
+<text top="392" left="296" width="30" height="14" font="4">Pop :</text>
+<text top="392" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="392" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="392" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="392" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="429" left="205" width="35" height="14" font="4">Debt :</text>
+<text top="429" left="294" width="35" height="14" font="4">Debt :</text>
+<text top="429" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="429" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="429" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="429" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="467" left="213" width="17" height="13" font="3"><b>PT</b></text>
+<text top="467" left="303" width="17" height="13" font="3"><b>FR</b></text>
+<text top="467" left="394" width="13" height="13" font="3"><b>SI</b></text>
+<text top="467" left="479" width="21" height="13" font="3"><b>HR</b></text>
+<text top="467" left="569" width="20" height="13" font="3"><b>BG</b></text>
+<text top="467" left="659" width="19" height="13" font="3"><b>TR</b></text>
+<text top="483" left="207" width="30" height="14" font="4">Pop :</text>
+<text top="483" left="296" width="30" height="14" font="4">Pop :</text>
+<text top="483" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="483" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="483" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="483" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="520" left="205" width="35" height="14" font="4">Debt :</text>
+<text top="520" left="294" width="35" height="14" font="4">Debt :</text>
+<text top="520" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="520" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="520" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="520" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="558" left="303" width="16" height="13" font="3"><b>ES</b></text>
+<text top="558" left="393" width="14" height="13" font="3"><b>IT</b></text>
+<text top="558" left="478" width="22" height="13" font="3"><b>MT</b></text>
+<text top="558" left="568" width="21" height="13" font="3"><b>GR</b></text>
+<text top="558" left="659" width="19" height="13" font="3"><b>CY</b></text>
+<text top="575" left="296" width="30" height="14" font="4">Pop :</text>
+<text top="575" left="385" width="30" height="14" font="4">Pop :</text>
+<text top="575" left="475" width="30" height="14" font="4">Pop :</text>
+<text top="575" left="564" width="30" height="14" font="4">Pop :</text>
+<text top="575" left="653" width="30" height="14" font="4">Pop :</text>
+<text top="612" left="294" width="35" height="14" font="4">Debt :</text>
+<text top="612" left="383" width="35" height="14" font="4">Debt :</text>
+<text top="612" left="472" width="35" height="14" font="4">Debt :</text>
+<text top="612" left="561" width="35" height="14" font="4">Debt :</text>
+<text top="612" left="650" width="35" height="14" font="4">Debt :</text>
+<text top="665" left="230" width="47" height="13" font="3"><b>Table 3:</b></text>
+<text top="665" left="281" width="381" height="13" font="4">A geographical table featuring sparkgraphs for all EU countries.</text>
+<text top="711" left="149" width="34" height="18" font="4">BG.10</text>
+<text top="711" left="224" width="137" height="18" font="4">BG 2008 7640238 13.7</text>
+<text top="728" left="149" width="34" height="18" font="4">BG.11</text>
+<text top="728" left="224" width="137" height="18" font="4">BG 2009 7606551 14.6</text>
+<text top="744" left="149" width="34" height="18" font="4">BG.12</text>
+<text top="744" left="224" width="137" height="18" font="4">BG 2010 7563710 16.2</text>
+<text top="777" left="171" width="394" height="13" font="4">The data is now ready and we can produce the geographical table:</text>
+<text top="804" left="149" width="350" height="18" font="4">&gt; l &lt;- newSparkLine(lineWidth = 3, pointWidth = 10)</text>
+<text top="820" left="149" width="535" height="18" font="4">&gt; content &lt;- list(function(x) { &#34;Population:&#34; }, l, function(x) {&#34;Debt:&#34; }, l)</text>
+<text top="837" left="149" width="309" height="18" font="4">&gt; varType &lt;- c(rep(&#34;pop&#34;, 2), rep(&#34;debt&#34;, 2))</text>
+<text top="853" left="149" width="521" height="18" font="4">&gt; xGeoEU &lt;- newGeoTable(EUlong, content, varType, geographicVar = &#34;country&#34;,</text>
+<text top="870" left="149" width="7" height="18" font="4">+</text>
+<text top="870" left="176" width="178" height="18" font="4">geographicInfo = coordsEU)</text>
+<text top="886" left="149" width="542" height="18" font="4">&gt; export(xGeoEU, outputType = &#34;tex&#34;, graphNames = file.path(&#34;figures&#34;, &#34;out1&#34;),</text>
+<text top="903" left="149" width="7" height="18" font="4">+</text>
+<text top="903" left="176" width="425" height="18" font="4">filename = file.path(&#34;figures&#34;, &#34;testEUT&#34;), transpose = TRUE)</text>
+<text top="936" left="171" width="575" height="13" font="4">For the geographical representation in a grid, geographical coordinates have to be provided.</text>
+<text top="952" left="149" width="595" height="13" font="4">Internally, an allocation problem is solved by linear programming to find the nearest free grid cell</text>
+<text top="969" left="149" width="483" height="13" font="4">from the provided coordinates under several constraints. For this task, we refer to</text>
+<text top="969" left="635" width="68" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Templ et al.</a></text>
+<text top="969" left="707" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="969" left="711" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2013</a></text>
+<text top="969" left="738" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">),</a></text>
+<text top="985" left="149" width="595" height="13" font="4">resulting in, for example, Scandinavian countries placed in the north, south Mediterranean countries</text>
+<text top="1002" left="149" width="472" height="13" font="4">in the south, etc. Again, the sparklines in each grid can be modified by function</text>
+<text top="998" left="624" width="99" height="18" font="4">setParameter().</text>
+<text top="1046" left="149" width="158" height="17" font="5"><b>Interactive features</b></text>
+<text top="1085" left="149" width="598" height="13" font="4">Until recently <b>sparkTable </b>only provided rigid views of graphical tables in documents and on home-</text>
+<text top="1102" left="148" width="596" height="13" font="4">pages. However, when including a graphical table on a homepage some interactivity is beneficial. Two</text>
+<text top="1118" left="149" width="223" height="13" font="4">functions using the functionality from</text>
+<text top="1118" left="375" width="34" height="13" font="11"><a href="http://CRAN.R-project.org/package=shiny"><b>shiny</b></a></text>
+<text top="1118" left="413" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="1118" left="417" width="70" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Chang et al.</a></text>
+<text top="1118" left="487" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">,</a></text>
+<text top="1118" left="494" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2015</a></text>
+<text top="1118" left="521" width="226" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">) </a>allow for interactive graphical tables.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">32</text>
+<text top="103" left="149" width="253" height="13" font="3"><b>View your graphical table in a shiny app:</b></text>
+<text top="100" left="416" width="328" height="18" font="4">showSparkTable() is a function to generate a shiny app</text>
+<text top="120" left="149" width="595" height="13" font="4">to view your graphical table directly in a browser with some basic interactive functions like sorting</text>
+<text top="136" left="149" width="348" height="13" font="4">and filtering. At the moment, methods for objects of class ‘</text>
+<text top="133" left="497" width="248" height="18" font="4">sparkTable’ and ‘data.frame’ already are</text>
+<text top="152" left="149" width="125" height="13" font="4">implemented. Figure</text>
+<text top="152" left="278" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#9">1</a></text>
+<text top="152" left="288" width="275" height="13" font="4">shows the output of the function applied to a ‘</text>
+<text top="149" left="563" width="114" height="18" font="4">sparkTable’ object.</text>
+<text top="515" left="304" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="515" left="365" width="110" height="13" font="4">Shiny output of a ‘</text>
+<text top="512" left="475" width="114" height="18" font="4">sparkTable’ object.</text>
+<text top="549" left="171" width="211" height="13" font="4">In the following, the key features of</text>
+<text top="546" left="386" width="230" height="18" font="4">customizeSparkTable() are discussed.</text>
+<text top="591" left="149" width="223" height="15" font="13"><b>Tab 1: Import sparkTable objects</b></text>
+<text top="622" left="148" width="586" height="13" font="4">The provided app is organized in tabs. In each of the five tabs, specific changes can be made. Figure</text>
+<text top="622" left="737" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#10">2</a></text>
+<text top="639" left="149" width="595" height="13" font="4">shows the first tab – importData – that is available to the user when the function is called for the first</text>
+<text top="655" left="149" width="356" height="13" font="4">time. We point out that this function has to be started with a ‘</text>
+<text top="652" left="505" width="239" height="18" font="4">sparkTable’ object as input. In the upper</text>
+<text top="672" left="148" width="596" height="13" font="4">part of this page, all possible groups that are available in the input data object are listed. In the lower</text>
+<text top="688" left="148" width="596" height="13" font="4">part of the page an interactive table is shown. By using the mouse to toggle check-boxes it is possible</text>
+<text top="705" left="149" width="381" height="13" font="4">to choose the groups that should be included in the final output.</text>
+<text top="746" left="149" width="205" height="15" font="13"><b>Tab 2: Preparation of the table</b></text>
+<text top="778" left="148" width="313" height="13" font="4">The second tab – modify table – that is shown in Figure</text>
+<text top="778" left="465" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#10">3</a></text>
+<text top="778" left="475" width="269" height="13" font="4">is also partitioned into two parts. In the upper</text>
+<text top="794" left="148" width="596" height="13" font="4">part, all the columns that are currently present in the output table are listed. It is then possible to select</text>
+<text top="811" left="149" width="596" height="13" font="4">columns that should be deleted. After selecting the corresponding columns by toggling the check</text>
+<text top="827" left="149" width="598" height="13" font="4">boxes and clicking on the remove selected columns-button, these columns are dropped from the table.</text>
+<text top="844" left="149" width="596" height="13" font="4">However, in this tab it is also possible to add an additional column to the table. In this case the user</text>
+<text top="860" left="149" width="595" height="13" font="4">needs to provide a column name and can select both the type of the column and the variable, which</text>
+<text top="876" left="149" width="597" height="13" font="4">should be used, by selecting values from a drop-down menu. All supported types of graphs (sparkline,</text>
+<text top="893" left="149" width="595" height="14" font="4">sparkbar, sparkhist and sparkbox) are available as well as the special type function, which can be used to</text>
+<text top="909" left="149" width="595" height="13" font="4">calculate some statistics of the selected variable. An example is the determination of the maximal data</text>
+<text top="926" left="148" width="36" height="13" font="4">value.</text>
+<text top="967" left="149" width="147" height="15" font="13"><b>Tab 3: Global options</b></text>
+<text top="999" left="149" width="208" height="13" font="4">In the global options-tab (see Figure</text>
+<text top="999" left="360" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#11">4</a></text>
+<text top="999" left="367" width="378" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#11">) </a>it is possible to change the specifics of the current output. For</text>
+<text top="1015" left="149" width="596" height="13" font="4">each column, a block of options is listed. The user has the option to change the column name by</text>
+<text top="1032" left="149" width="596" height="13" font="4">modifying the current heading in a text box. It is also possible to change the type of a column by</text>
+<text top="1048" left="149" width="596" height="13" font="4">selecting a new type from a drop-down box or to adjust graphical parameters (such as point sizes or</text>
+<text top="1065" left="149" width="595" height="13" font="4">line width or colors) for some plots. For columns that are of type function, the function definition can</text>
+<text top="1081" left="149" width="595" height="13" font="4">be altered. For the adjustment of graphical parameters, suitable inputs such as sliders or drop-down</text>
+<text top="1098" left="149" width="595" height="13" font="4">boxes are used. After the desired modification has been applied, the user is required to press the</text>
+<text top="1114" left="149" width="595" height="13" font="4">modify-button for the currently changed column. The page will refresh and additional changes can</text>
+<text top="1130" left="149" width="596" height="13" font="4">be made. We note, however, that for the time being it is only possible to change one variable after</text>
+<text top="1147" left="149" width="48" height="13" font="4">another.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">33</text>
+<text top="598" left="270" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="597" left="331" width="178" height="13" font="4">Data options applicable for a ‘</text>
+<text top="594" left="509" width="114" height="18" font="4">sparkTable’ object.</text>
+<text top="1097" left="227" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="1096" left="288" width="264" height="13" font="4">Possibilities for modifications of the loaded ‘</text>
+<text top="1093" left="552" width="114" height="18" font="4">sparkTable’ object.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">34</text>
+<text top="463" left="371" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="463" left="431" width="91" height="13" font="4">Global options.</text>
+<text top="947" left="286" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="947" left="346" width="261" height="13" font="4">Sort variables and groups in the sparkTable.</text>
+<text top="996" left="149" width="187" height="15" font="13"><b>Tab 4: Ordering of columns</b></text>
+<text top="1027" left="149" width="299" height="13" font="4">In the fourth tab (sortable), which is shown in Figure</text>
+<text top="1027" left="451" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#11">5</a></text>
+<text top="1027" left="457" width="287" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#11">, </a>it is possible to interactively change the ordering</text>
+<text top="1044" left="149" width="595" height="13" font="4">of columns (in the first part of the page) and rows (in the second part of the page) by using the mouse</text>
+<text top="1060" left="149" width="596" height="13" font="4">to drag boxes around until the desired ordering has been reached. The current result is automatically</text>
+<text top="1077" left="149" width="90" height="13" font="4">applied to the ‘</text>
+<text top="1073" left="238" width="341" height="18" font="4">sparkTable’ object, which is always visible in the last tab.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">35</text>
+<text top="605" left="315" width="53" height="13" font="3"><b>Figure 6:</b></text>
+<text top="605" left="376" width="201" height="13" font="4">Preview of the output sparkTable.</text>
+<text top="653" left="149" width="176" height="15" font="13"><b>Tab 5: The graphical table</b></text>
+<text top="685" left="149" width="221" height="13" font="4">In the tab sparkTable-Plot (see Figure</text>
+<text top="685" left="374" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#12">6</a></text>
+<text top="685" left="381" width="363" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#12">), </a>the current graphical table with all the current options is</text>
+<text top="701" left="149" width="595" height="13" font="4">displayed. At the bottom of the page the user is offered two buttons. Using Export to html, the</text>
+<text top="718" left="149" width="595" height="13" font="4">graphical table can be exported as an HTML-file, whereas pressing the Export to latex-button exports</text>
+<text top="734" left="149" width="595" height="13" font="4">the final output into tex-format. Furthermore, the required R code to create the current graphical table</text>
+<text top="751" left="149" width="595" height="13" font="4">is also printed to the current R session. Thus, users may adjust, copy or reuse a suitable plot-layout</text>
+<text top="767" left="149" width="283" height="13" font="4">that was created with the interactive procedure.</text>
+<text top="812" left="149" width="102" height="17" font="5"><b>Conclusions</b></text>
+<text top="851" left="149" width="595" height="13" font="4">Eduard R. Tufte’s quote “Graphical excellence is that which gives to the viewer the greatest number of</text>
+<text top="867" left="149" width="595" height="13" font="4">ideas in the shortest time with the least ink in the smallest space” holds especially true for graphical</text>
+<text top="884" left="149" width="595" height="13" font="4">tables embedding sparkgraphs, since a lot of information can be put into a table with small but</text>
+<text top="900" left="149" width="184" height="13" font="4">comprehensive (spark) graphs.</text>
+<text top="921" left="171" width="573" height="13" font="4">We gave a few examples of sparklines and graphical tables, for example, on sparkbars and</text>
+<text top="937" left="149" width="580" height="13" font="4">sparklines in graphical tables to visualize trends and performances in sport results (compare Figure</text>
+<text top="937" left="732" width="7" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#6">2</a></text>
+<text top="937" left="739" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#6">).</a></text>
+<text top="954" left="149" width="595" height="13" font="4">Further obvious applications for sparklines are, e.g., economic and financial data. With the help of</text>
+<text top="970" left="149" width="595" height="13" font="4">such sparklines, it is possible to present graphs, which allow to track and compare trends on changes</text>
+<text top="987" left="149" width="470" height="13" font="4">in time series. Statistical tables can also be enhanced with such types of graphs.</text>
+<text top="1008" left="171" width="573" height="13" font="4">Histograms and box-plots presented in graphical tables can be used to show the distribution of</text>
+<text top="1024" left="149" width="595" height="13" font="4">data together with some basic statistics in any publication that present empirical results or analyses in</text>
+<text top="1041" left="149" width="598" height="13" font="4">general. Sparkbars can thereby also be used to visualize frequency counts on categories of a variable.</text>
+<text top="1057" left="149" width="489" height="13" font="4">For specific summaries of data using sparkboxplots and sparkbars, see for example</text>
+<text top="1057" left="642" width="63" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">Hron et al.</a></text>
+<text top="1057" left="708" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">(</a></text>
+<text top="1057" left="712" width="27" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#13">2013</a></text>
+<text top="1057" left="739" width="8" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#13">).</a></text>
+<text top="1073" left="148" width="484" height="13" font="4">Also tabulated information for policy needs can be embedded in graphical tables.</text>
+<text top="1094" left="171" width="573" height="13" font="4">The package <b>sparkTable </b>provides a flexible and interactive way to produce graphical tables for</text>
+<text top="1111" left="148" width="596" height="13" font="4">printed or web publication. Graphical tables have the key advantage to provide more information and</text>
+<text top="1127" left="149" width="595" height="13" font="4">insight in the same amount of space. A strict class oriented implementation using S4 classes organizes</text>
+<text top="1144" left="149" width="595" height="13" font="4">the internal production of graphical tables and sparklines in a pre-defined manner. The users are</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="13" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">36</text>
+<text top="103" left="148" width="596" height="13" font="4">provided with highly customizable functions to create sparklines and tables in a flexible manner. The</text>
+<text top="120" left="149" width="595" height="13" font="4">sparklines can be modified easily and the tables can also contain arbitrarily comples statistics based</text>
+<text top="136" left="149" width="140" height="13" font="4">on the underlying data.</text>
+<text top="157" left="171" width="573" height="13" font="4">Additionally, interactivity is added with the help of the package <b>shiny</b>. Especially these interactive</text>
+<text top="173" left="149" width="595" height="13" font="4">features allow non-experts in R to create graphical tables enriched by all kind of sparklines. Tables can</text>
+<text top="190" left="149" width="183" height="13" font="4">then be exported to HTML or L</text>
+<text top="190" left="327" width="8" height="10" font="10">A</text>
+<text top="190" left="333" width="411" height="17" font="4">TEX and additionally the code required for various plots is shown both</text>
+<text top="206" left="148" width="499" height="13" font="4">when the interactive shiny-app is used and when graphical tables are exported with</text>
+<text top="203" left="650" width="58" height="18" font="4">export().</text>
+<text top="251" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="290" left="149" width="595" height="13" font="4">W. Cleveland and R. McGill. Graphical perception: The visual decoding of quantitative information</text>
+<text top="306" left="164" width="582" height="13" font="4">on graphical displays of data. Journal of the Royal Statistical Society. Series A (General), 150(3):192–229,</text>
+<text top="323" left="163" width="48" height="13" font="4">1987. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="323" left="211" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="323" left="224" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="351" left="149" width="208" height="13" font="4">D. B. Dahl. xtable: Export Tables to L</text>
+<text top="351" left="352" width="8" height="10" font="10">A</text>
+<text top="351" left="358" width="149" height="16" font="4">TEX or HTML, 2014. URL</text>
+<text top="348" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=xtable">http://CRAN.R-project.org/package=</a></text>
+<text top="364" left="163" width="41" height="18" font="6"><a href="http://CRAN.R-project.org/package=xtable">xtable</a></text>
+<text top="368" left="205" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=xtable">. </a>R package version 1.7-3. <a href="2015-1-templ-kowarik-meindl.html#5">[p</a></text>
+<text top="368" left="374" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">28</a></text>
+<text top="368" left="387" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">]</a></text>
+<text top="396" left="149" width="597" height="13" font="4">M. Friendly. A brief history of data visualization. In C. Chen, W. Härdle, and A. Unwin, editors,</text>
+<text top="412" left="163" width="480" height="14" font="4">Handbook of Data Visualization, pages 15–56. Springer-Verlag, Heidelberg, 2008. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="412" left="643" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="412" left="657" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="441" left="149" width="595" height="13" font="4">J. Heer and M. Agrawala. Multi-scale banking to 45 degrees. IEEE Transactions on Visualization and</text>
+<text top="457" left="163" width="280" height="14" font="4">Computer Graphics, 12(5):701–708, Sept. 2006. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="457" left="443" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="457" left="457" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="486" left="149" width="597" height="13" font="4">E. Hill. JMP© 9 add-ins: Taking visualization of SAS© data to new heights. In SAS Global Forum 2011,</text>
+<text top="502" left="164" width="48" height="13" font="4">2011. <a href="2015-1-templ-kowarik-meindl.html#2">[p</a></text>
+<text top="502" left="211" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#2">25</a></text>
+<text top="502" left="225" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#2">]</a></text>
+<text top="530" left="149" width="414" height="13" font="4">J. Horner. brew: Templating Framework for Report Generation, 2011. URL</text>
+<text top="527" left="566" width="179" height="18" font="6"><a href="http://CRAN.R-project.org/package=brew">http://CRAN.R-project.org/</a></text>
+<text top="544" left="164" width="82" height="18" font="6"><a href="http://CRAN.R-project.org/package=brew">package=brew</a></text>
+<text top="547" left="246" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=brew">. </a>R package version 1.0-6. <a href="2015-1-templ-kowarik-meindl.html#5">[p</a></text>
+<text top="547" left="415" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">28</a></text>
+<text top="547" left="429" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">]</a></text>
+<text top="575" left="149" width="595" height="13" font="4">K. Hron, M. Templ, and P. Filzmoser. Estimation of a proportion in survey sampling using the logratio</text>
+<text top="592" left="164" width="248" height="13" font="4">approach. Metrika, 76(6):799–818, 2013. <a href="2015-1-templ-kowarik-meindl.html#12">[p</a></text>
+<text top="592" left="412" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#12">35</a></text>
+<text top="592" left="425" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#12">]</a></text>
+<text top="620" left="149" width="595" height="13" font="4">O. Inbar, N. Tractinsky, and J. Meyer. Minimalism in information visualization: Attitudes towards</text>
+<text top="637" left="164" width="581" height="13" font="4">maximizing the data-ink ratio. In Proceedings of the 14th European Conference on Cognitive Ergonomics:</text>
+<text top="653" left="164" width="426" height="14" font="4">Invent! Explore!, ECCE ’07, pages 185–188, New York, NY, USA, 2007. <a href="2015-1-templ-kowarik-meindl.html#2">[p</a></text>
+<text top="653" left="590" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#2">25</a></text>
+<text top="653" left="603" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#2">]</a></text>
+<text top="681" left="149" width="597" height="16" font="4">A. Kowarik, B. Meindl, and M. Templ. sparkTable: Sparklines and Graphical Tables for TEX and HTML,</text>
+<text top="698" left="164" width="63" height="13" font="4">2015. URL</text>
+<text top="694" left="230" width="303" height="18" font="6"><a href="http://CRAN.R-project.org/package=sparkTable">http://CRAN.R-project.org/package=sparkTable</a></text>
+<text top="698" left="532" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=sparkTable">. </a>R package version 1.0.0. <a href="2015-1-templ-kowarik-meindl.html#2">[p</a></text>
+<text top="698" left="700" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#2">25</a></text>
+<text top="698" left="714" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#2">]</a></text>
+<text top="726" left="149" width="598" height="13" font="4">J. Miller. The Chicago Guide to Writing about Numbers. Chicago Guides to Writing, Editing, and.</text>
+<text top="743" left="164" width="219" height="13" font="4">University of Chicago Press, 2004. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="743" left="383" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="743" left="396" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="771" left="149" width="414" height="13" font="4">RStudio and Inc. shiny: Web Application Framework for R, 2014. URL</text>
+<text top="768" left="566" width="179" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">http://CRAN.R-project.org/</a></text>
+<text top="784" left="164" width="89" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">package=shiny</a></text>
+<text top="788" left="253" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=shiny">. </a>R package version 0.9.1. <a href="2015-1-templ-kowarik-meindl.html#8">[p</a></text>
+<text top="788" left="421" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#8">31</a></text>
+<text top="788" left="434" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#8">,</a></text>
+<text top="788" left="441" width="20" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#0">140</a></text>
+<text top="788" left="461" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#0">]</a></text>
+<text top="816" left="149" width="595" height="13" font="4">M. Templ, B. Hulliger, A. Kowarik, and K. Fürst. Combining geographical information and traditional</text>
+<text top="832" left="163" width="583" height="13" font="4">plots: The checkerplot. International Journal of Geographical Information Science, 27(4):685–698, 2013.</text>
+<text top="849" left="164" width="13" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">[p</a></text>
+<text top="849" left="176" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">28</a></text>
+<text top="849" left="190" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">,</a></text>
+<text top="849" left="196" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#7">30</a></text>
+<text top="849" left="210" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#7">,</a></text>
+<text top="849" left="217" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#8">31</a></text>
+<text top="849" left="230" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#8">]</a></text>
+<text top="877" left="149" width="595" height="13" font="4">The United Nations Economic Commission for Europe. Making Data Meaningful. Part 2: A Guide to</text>
+<text top="894" left="163" width="373" height="14" font="4">Presenting Statistics, 2009. ECE/CES/STAT/NONE/2009/3. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="894" left="537" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="894" left="550" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">,</a></text>
+<text top="894" left="557" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#2">25</a></text>
+<text top="894" left="570" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#2">]</a></text>
+<text top="922" left="149" width="339" height="13" font="4">E. Tufte. Envisioning Information. Graphics Press, 1990. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="922" left="488" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="922" left="502" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="950" left="149" width="598" height="13" font="4">E. R. Tufte. The Visual Display of Quantitative Information. Graphics Press, Cheshire, CT, USA, 1986.</text>
+<text top="967" left="164" width="13" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="967" left="176" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="967" left="190" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="995" left="149" width="520" height="13" font="4">E. R. Tufte. The Visual Display of Quantitative Information. Bertrams, 2nd edition, 2001. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="995" left="669" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="995" left="682" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">,</a></text>
+<text top="995" left="689" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#2">25</a></text>
+<text top="995" left="703" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#2">]</a></text>
+<text top="1024" left="149" width="561" height="13" font="4">H. Wickham. Statistical graphics. Encyclopedia of Environmetrics, 2013. Pre-print available at</text>
+<text top="1020" left="713" width="34" height="18" font="6"><a href="http://vita.had.co.nz/papers/stat-graphics.html">http:</a></text>
+<text top="1037" left="163" width="289" height="18" font="6"><a href="http://vita.had.co.nz/papers/stat-graphics.html">//vita.had.co.nz/papers/stat-graphics.html</a></text>
+<text top="1040" left="452" width="21" height="13" font="4"><a href="http://vita.had.co.nz/papers/stat-graphics.html">. </a><a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="1040" left="473" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="1040" left="486" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="1068" left="149" width="499" height="13" font="4">Y. Xie. knitr: A General-Purpose Package for Dynamic Report Generation in R, 2014. URL</text>
+<text top="1065" left="651" width="96" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">http://CRAN.R-</a></text>
+<text top="1081" left="164" width="171" height="18" font="6"><a href="http://CRAN.R-project.org/package=knitr">project.org/package=knitr</a></text>
+<text top="1085" left="335" width="158" height="13" font="4"><a href="http://CRAN.R-project.org/package=knitr">. </a>R package version 1.6. <a href="2015-1-templ-kowarik-meindl.html#5">[p</a></text>
+<text top="1085" left="493" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#5">28</a></text>
+<text top="1085" left="507" width="3" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#5">,</a></text>
+<text top="1085" left="513" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#0">99</a></text>
+<text top="1085" left="527" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#0">]</a></text>
+<text top="1113" left="149" width="598" height="13" font="4">A. Zeileis, K. Hornik, and P. Murrell. Escaping RGBland: Selecting colors for statistical graphics.</text>
+<text top="1130" left="163" width="384" height="14" font="4">Computational Statistics &amp; Data Analysis, 53(9):3259–3270, 2009. <a href="2015-1-templ-kowarik-meindl.html#1">[p</a></text>
+<text top="1130" left="548" width="13" height="13" font="6"><a href="2015-1-templ-kowarik-meindl.html#1">24</a></text>
+<text top="1130" left="561" width="4" height="13" font="4"><a href="2015-1-templ-kowarik-meindl.html#1">]</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="14" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">37</text>
+<text top="103" left="148" width="105" height="13" font="4">Alexander Kowarik</text>
+<text top="119" left="148" width="96" height="13" font="4">Statistics Austria</text>
+<text top="136" left="148" width="148" height="13" font="4">Guglgasse 13; 1110 Vienna</text>
+<text top="152" left="148" width="42" height="13" font="4">Austria</text>
+<text top="165" left="149" width="226" height="18" font="6"><a href="mailto:alexander.kowarik@statistik.gv.at">alexander.kowarik@statistik.gv.at</a></text>
+<text top="206" left="148" width="94" height="13" font="4">Bernhard Meindl</text>
+<text top="223" left="148" width="96" height="13" font="4">Statistics Austria</text>
+<text top="239" left="148" width="148" height="13" font="4">Guglgasse 13; 1110 Vienna</text>
+<text top="255" left="148" width="42" height="13" font="4">Austria</text>
+<text top="269" left="149" width="213" height="18" font="6"><a href="mailto:bernhard.meindl@statistik.gv.at">bernhard.meindl@statistik.gv.at</a></text>
+<text top="309" left="149" width="86" height="13" font="4">Matthias Templ</text>
+<text top="326" left="148" width="187" height="13" font="4">CSTAT - Computational Statistics</text>
+<text top="342" left="149" width="332" height="13" font="4">Institute of Statistics &amp; Mathematical Methods in Economics</text>
+<text top="359" left="148" width="291" height="13" font="4">Vienna University of Technology &amp; Statistics Austria</text>
+<text top="375" left="148" width="188" height="13" font="4">Wiedner Hauptstr. 7; 1040 Vienna</text>
+<text top="391" left="148" width="42" height="13" font="4">Austria</text>
+<text top="405" left="149" width="185" height="18" font="6"><a href="mailto:matthias.templ@tuwien.ac.at">matthias.templ@tuwien.ac.at</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 7/1, June 2015</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

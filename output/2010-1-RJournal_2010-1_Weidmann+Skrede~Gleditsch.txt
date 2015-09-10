@@ -1,0 +1,75 @@
+page	left	top	code
+3	82	528	# load country border as of 2002
+3	82	544	> cmap.2002 <- cshp(date=as.Date("2002-1-1"))
+3	82	896	# download dataset, filter scores for 2002
+3	82	912	> polity.file <- paste(tempdir(),
+3	82	929	+ "p4v2008.sav", sep="/")
+3	82	945	> download.file("http://www.systemicpeace.org/
+3	82	962	+ inscr/p4v2008.sav", polity.file)
+3	82	978	> polity <- read.spss(polity.file, to.data.frame=T)
+3	82	995	> polity.2002 <- polity[polity$year==2002,]
+3	82	1011	> polity.2002 <- subset(polity.2002,
+3	82	1027	+ !is.na(polity2), select=c(ccode, polity2))
+3	82	1060	# match country identifiers from both datasets
+3	82	1077	> o <- match(cmap.2002$COWCODE, polity.2002$ccode)
+3	82	1110	# order polity dataset accordingly
+3	82	1126	polity.2002 <- polity.2002[o,]
+3	82	1159	# set row names, required for spCbind function
+3	82	1175	row.names(polity.2002) <- cmap.2002$FEATUREID
+3	459	144	# append using spCbind
+3	459	160	cmap.2002.m <- spCbind(cmap.2002, polity.2002)
+3	459	531	# generate a color palette
+3	459	547	> pal <- grey.colors(3, 0.25, 0.95)
+3	459	580	# find the class intervals and colors
+3	459	597	> breaks <- classIntervals(cmap.2002.m$polity2,
+3	459	613	+ n=3, style="fixed", fixedBreaks=c(-10, -6, 7, 10))
+3	459	629	> colors <- findColours(breaks, pal)
+3	459	662	# create plot and add legend
+3	459	679	> plot(cmap.2002.m, bty="n", col=colors)
+3	459	695	> legend(x="bottomleft",
+3	459	712	+ legend=c("Autocracy", "Anocracy", "Democracy"),
+3	459	728	+ fill = attr(colors, "palette"),
+3	459	745	+ bty = "n", title="Regime type")
+4	82	1003	> cmap <- cshp()
+4	82	1020	> centroids <- coordinates(cmap)
+4	82	1036	> distance <- function(from.x, from.y, to.x, to.y)
+4	82	1053	+ from <- matrix(c(from.x, from.y), ncol=2, nrow=1)
+4	82	1069	+ spDistsN1(from, c(to.x, to.y), longlat = TRUE)
+4	82	1086	+
+4	82	1102	> cmap$capcentdist <- mapply(distance, centroids[,1],
+4	82	1118	+ centroids[,2], cmap$CAPLONG, cmap$CAPLAT)
+5	82	1118	> system.time(dmat.simple <- distmatrix(
+5	82	1135	+ as.Date("2002-1-1"), type="mindist"))
+5	103	1151	user system elapsed
+5	459	127	223.286 0.842 224.523
+5	459	160	> system.time(dmat.full <- distmatrix(
+5	459	177	+ as.Date("2002-1-1"), type="mindist",
+5	459	193	+ tolerance=0))
+5	486	210	user system elapsed
+5	459	226	12452.40 48.67 12686.44
+5	459	259	> cor(as.vector(dmat.simple),
+5	459	275	+ as.vector(dmat.full))
+5	459	292	[1] 0.9999999
+5	459	812	> dmat <- distmatrix(as.Date("2002-1-1"),
+5	459	829	+ type="mindist")
+5	459	861	# adjacency matrix, 900 km threshold
+5	459	878	> adjmat <- ifelse(dmat > 900, 0, 1)
+5	459	894	> diag(adjmat) <- 0
+5	459	927	# inverse distance
+5	459	944	> invdmat <- 1/dmat
+5	459	960	> diag(invdmat) <- 0
+5	459	993	# save matrix for later use
+5	459	1009	> write.table(adjmat, "adjmat2002.txt",
+5	459	1026	+ row.names=T, col.names=T)
+5	459	1059	# load matrix
+5	459	1075	> adjmat <- read.table("adjmat2002.txt",
+5	459	1092	+ header=T, check.names=F)
+6	82	267	# neighbor list from adjacency matrix:
+6	82	284	# create a weights list first...
+6	82	300	> adjmat.lw <- mat2listw(adjmat,
+6	82	317	+ row.names=row.names(dmat))
+6	82	350	# ... and retrieve neighbor list
+6	82	366	> adjmat.nb <- adjmat.lw$neighbours
+6	82	399	# weights list from weights matrix
+6	82	415	> invdmat.lw <- mat2listw(invdmat,
+6	82	432	+ row.names=row.names(invdmat))

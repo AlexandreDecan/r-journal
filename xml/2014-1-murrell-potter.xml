@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="8" size="8" family="Times" color="#7282aa"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+	<fontspec id="10" size="10" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">133</text>
+<text top="98" left="149" width="313" height="30" font="2"><b>The gridSVG Package</b></text>
+<text top="134" left="149" width="208" height="15" font="0">by Paul Murrell and Simon Potter</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="207" width="538" height="13" font="4">The <b>gridSVG </b>package can be used to generate a <b>grid</b>-based R plot in an SVG format, with</text>
+<text top="192" left="149" width="595" height="13" font="4">the ability to add special effects to the plot. The special effects include animation, interactivity, and</text>
+<text top="208" left="149" width="595" height="13" font="4">advanced graphical features, such as masks and filters. This article provides a basic introduction</text>
+<text top="224" left="149" width="595" height="13" font="4">to important functions in the <b>gridSVG </b>package and discusses the advantages and disadvantages of</text>
+<text top="241" left="149" width="55" height="13" font="3"><b>gridSVG</b></text>
+<text top="241" left="207" width="193" height="13" font="4">compared to similar R packages.</text>
+<text top="286" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="325" left="148" width="165" height="13" font="4">The SVG graphics format <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="325" left="313" width="82" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Dengler et al.</a></text>
+<text top="325" left="396" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="325" left="403" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2011</a></text>
+<text top="325" left="431" width="313" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>is a good format for including plots in web pages</text>
+<text top="341" left="149" width="595" height="13" font="4">because it is a vector format (so it scales well) and because it offers features for animation and</text>
+<text top="357" left="149" width="595" height="13" font="4">interactivity. SVG also integrates well with other important web technologies such as HTML and</text>
+<text top="374" left="149" width="64" height="13" font="4">JavaScript.</text>
+<text top="395" left="171" width="425" height="13" font="4">It is possible to produce a static R plot in an SVG format with the built-in</text>
+<text top="391" left="600" width="144" height="18" font="4">svg() function (from the</text>
+<text top="411" left="149" width="61" height="13" font="3"><b>grDevices</b></text>
+<text top="411" left="214" width="104" height="13" font="4">package), but the</text>
+<text top="411" left="321" width="55" height="13" font="7"><a href="http://CRAN.R-project.org/package=gridSVG"><b>gridSVG</b></a></text>
+<text top="411" left="380" width="58" height="13" font="4">package <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="411" left="438" width="113" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Murrell and Potter</a></text>
+<text top="411" left="551" width="193" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>provides an alternative way to</text>
+<text top="428" left="149" width="477" height="13" font="4">generate an SVG plot that allows for creating animated and interactive graphics.</text>
+<text top="449" left="171" width="573" height="13" font="4">There are two types of graphics functions in R: functions based on the default <b>graphics </b>package</text>
+<text top="465" left="149" width="595" height="13" font="4">and functions based on the <b>grid </b>graphics package. As the package name suggests, the <b>gridSVG</b></text>
+<text top="481" left="148" width="596" height="13" font="4">package only works with a plot that is drawn using the <b>grid </b>graphics package. This includes plots</text>
+<text top="498" left="149" width="328" height="13" font="4">from several important graphics packages in R, such as</text>
+<text top="498" left="480" width="37" height="13" font="7"><a href="http://CRAN.R-project.org/package=lattice"><b>lattice</b></a></text>
+<text top="498" left="521" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="498" left="525" width="39" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Sarkar</a></text>
+<text top="498" left="564" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="498" left="571" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2008</a></text>
+<text top="498" left="598" width="31" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>and</text>
+<text top="498" left="632" width="46" height="13" font="7"><a href="http://CRAN.R-project.org/package=ggplot2"><b>ggplot2</b></a></text>
+<text top="498" left="681" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="498" left="686" width="57" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Wickham</a></text>
+<text top="498" left="742" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="514" left="149" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2009</a></text>
+<text top="514" left="176" width="419" height="13" font="4"><a href="2014-1-murrell-potter.html#11">), </a>but <b>gridSVG </b>does not work with all plots that can be produced in R.</text>
+<text top="535" left="171" width="573" height="13" font="4">This article demonstrates basic usage of the <b>gridSVG </b>package and outlines some of the ways that</text>
+<text top="552" left="149" width="55" height="13" font="3"><b>gridSVG</b></text>
+<text top="552" left="207" width="537" height="13" font="4">can be used to produce graphical results that are not possible in standard R graphics. There</text>
+<text top="568" left="149" width="595" height="13" font="4">is also a discussion of other packages that provide ways to generate dynamic and interactive graphics</text>
+<text top="585" left="149" width="522" height="13" font="4">for the web and the strengths and weaknesses of <b>gridSVG </b>compared to those packages.</text>
+<text top="629" left="149" width="94" height="17" font="5"><b>Basic usage</b></text>
+<text top="668" left="148" width="374" height="13" font="4">The following code draws a <b>lattice </b>multi-panel plot (see Figure</text>
+<text top="668" left="526" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#2">1</a></text>
+<text top="668" left="533" width="8" height="13" font="4"><a href="2014-1-murrell-potter.html#2">).</a></text>
+<text top="695" left="149" width="123" height="18" font="4">&gt; library(lattice)</text>
+<text top="725" left="149" width="432" height="18" font="4">&gt; dotplot(variety ~ yield | site, data = barley, groups = year,</text>
+<text top="741" left="217" width="370" height="18" font="4">key = simpleKey(levels(barley$year), space = &#34;right&#34;),</text>
+<text top="757" left="217" width="329" height="18" font="4">subset = as.numeric(site) &lt; 4, layout = c(1, 3))</text>
+<text top="791" left="171" width="23" height="13" font="4">The</text>
+<text top="787" left="197" width="547" height="18" font="4">grid.export() function in <b>gridSVG </b>converts the current (<b>grid</b>) scene on the active graphics</text>
+<text top="807" left="149" width="255" height="13" font="4">device to an SVG format in an external file.</text>
+<text top="834" left="149" width="123" height="18" font="4">&gt; library(gridSVG)</text>
+<text top="864" left="149" width="192" height="18" font="4">&gt; grid.export(&#34;lattice.svg&#34;)</text>
+<text top="897" left="171" width="369" height="13" font="4">This SVG file can be viewed directly in a browser (see Figure</text>
+<text top="897" left="544" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#2">2</a></text>
+<text top="897" left="551" width="194" height="13" font="4"><a href="2014-1-murrell-potter.html#2">) </a>or embedded within HTML as</text>
+<text top="913" left="148" width="152" height="13" font="4">part of a larger web page.</text>
+<text top="934" left="171" width="573" height="13" font="4">This usage of <b>gridSVG</b>, to produce a static SVG version of an R plot for use on the web, offers</text>
+<text top="951" left="149" width="260" height="13" font="4">no obvious benefit compared to the built-in</text>
+<text top="947" left="413" width="332" height="18" font="4">svg() graphics device. However, the <b>gridSVG </b>package</text>
+<text top="967" left="148" width="534" height="13" font="4">provides several other functions that can be used to enhance the SVG version of an R plot.</text>
+<text top="1012" left="149" width="147" height="17" font="5"><b>A simple example</b></text>
+<text top="1051" left="149" width="595" height="13" font="4">In order to demonstrate, with code, some of the distinctive features of <b>gridSVG</b>, we introduce a simple</text>
+<text top="1067" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="1067" left="178" width="294" height="13" font="4">scene that is inspired by the Monty Hall pr<a href="2014-1-murrell-potter.html#0">oblem.</a></text>
+<text top="1064" left="472" width="5" height="10" font="8"><a href="2014-1-murrell-potter.html#0">1</a></text>
+<text top="1094" left="149" width="103" height="18" font="4">&gt; library(grid)</text>
+<text top="1122" left="165" width="4" height="9" font="9"><a href="http://en.wikipedia.org/wiki/Monty_Hall_problem">1</a></text>
+<text top="1121" left="170" width="287" height="16" font="10"><a href="http://en.wikipedia.org/wiki/Monty_Hall_problem">http://en.wikipedia.org/wiki/Monty_Hall_problem</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="11" size="7" family="Helvetica" color="#000000"/>
+	<fontspec id="12" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="13" size="3" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">134</text>
+<text top="485" left="444" width="20" height="9" font="11">yield</text>
+<text top="452" left="312" width="34" height="8" font="12">Svansota</text>
+<text top="444" left="318" width="29" height="8" font="12">No. 462</text>
+<text top="435" left="308" width="39" height="8" font="12">Manchuria</text>
+<text top="427" left="318" width="29" height="8" font="12">No. 475</text>
+<text top="419" left="324" width="22" height="8" font="12">Velvet</text>
+<text top="411" left="314" width="32" height="8" font="12">Peatland</text>
+<text top="403" left="317" width="29" height="8" font="12">Glabron</text>
+<text top="394" left="318" width="29" height="8" font="12">No. 457</text>
+<text top="386" left="282" width="64" height="8" font="12">Wisconsin No. 38</text>
+<text top="378" left="329" width="18" height="8" font="12">Trebi</text>
+<text top="469" left="363" width="9" height="8" font="12">15</text>
+<text top="469" left="394" width="9" height="8" font="12">20</text>
+<text top="469" left="425" width="9" height="8" font="12">25</text>
+<text top="469" left="457" width="9" height="8" font="12">30</text>
+<text top="469" left="488" width="9" height="8" font="12">35</text>
+<text top="469" left="519" width="9" height="8" font="12">40</text>
+<text top="436" left="410" width="4" height="5" font="13">●</text>
+<text top="403" left="362" width="4" height="5" font="13">●</text>
+<text top="452" left="375" width="4" height="5" font="13">●</text>
+<text top="419" left="473" width="4" height="5" font="13">●</text>
+<text top="378" left="400" width="4" height="5" font="13">●</text>
+<text top="395" left="393" width="4" height="5" font="13">●</text>
+<text top="444" left="396" width="4" height="5" font="13">●</text>
+<text top="411" left="439" width="4" height="5" font="13">●</text>
+<text top="428" left="367" width="4" height="5" font="13">●</text>
+<text top="387" left="401" width="4" height="5" font="13">●</text>
+<text top="436" left="478" width="4" height="5" font="13">●</text>
+<text top="403" left="454" width="4" height="5" font="13">●</text>
+<text top="452" left="457" width="4" height="5" font="13">●</text>
+<text top="419" left="416" width="4" height="5" font="13">●</text>
+<text top="378" left="458" width="4" height="5" font="13">●</text>
+<text top="395" left="473" width="4" height="5" font="13">●</text>
+<text top="444" left="427" width="4" height="5" font="13">●</text>
+<text top="411" left="489" width="4" height="5" font="13">●</text>
+<text top="428" left="395" width="4" height="5" font="13">●</text>
+<text top="387" left="487" width="4" height="5" font="13">●</text>
+<text top="367" left="424" width="61" height="9" font="11">Grand Rapids</text>
+<text top="356" left="312" width="34" height="8" font="12">Svansota</text>
+<text top="348" left="318" width="29" height="8" font="12">No. 462</text>
+<text top="340" left="308" width="39" height="8" font="12">Manchuria</text>
+<text top="332" left="318" width="29" height="8" font="12">No. 475</text>
+<text top="324" left="324" width="22" height="8" font="12">Velvet</text>
+<text top="315" left="314" width="32" height="8" font="12">Peatland</text>
+<text top="307" left="317" width="29" height="8" font="12">Glabron</text>
+<text top="299" left="318" width="29" height="8" font="12">No. 457</text>
+<text top="291" left="282" width="64" height="8" font="12">Wisconsin No. 38</text>
+<text top="283" left="329" width="18" height="8" font="12">Trebi</text>
+<text top="340" left="413" width="4" height="5" font="13">●</text>
+<text top="308" left="433" width="4" height="5" font="13">●</text>
+<text top="357" left="411" width="4" height="5" font="13">●</text>
+<text top="324" left="412" width="4" height="5" font="13">●</text>
+<text top="283" left="463" width="4" height="5" font="13">●</text>
+<text top="299" left="413" width="4" height="5" font="13">●</text>
+<text top="348" left="412" width="4" height="5" font="13">●</text>
+<text top="316" left="468" width="4" height="5" font="13">●</text>
+<text top="332" left="443" width="4" height="5" font="13">●</text>
+<text top="291" left="455" width="4" height="5" font="13">●</text>
+<text top="340" left="453" width="4" height="5" font="13">●</text>
+<text top="308" left="457" width="4" height="5" font="13">●</text>
+<text top="357" left="432" width="4" height="5" font="13">●</text>
+<text top="324" left="436" width="4" height="5" font="13">●</text>
+<text top="283" left="484" width="4" height="5" font="13">●</text>
+<text top="299" left="482" width="4" height="5" font="13">●</text>
+<text top="348" left="447" width="4" height="5" font="13">●</text>
+<text top="316" left="472" width="4" height="5" font="13">●</text>
+<text top="332" left="478" width="4" height="5" font="13">●</text>
+<text top="291" left="469" width="4" height="5" font="13">●</text>
+<text top="271" left="440" width="29" height="9" font="11">Duluth</text>
+<text top="261" left="312" width="34" height="8" font="12">Svansota</text>
+<text top="253" left="318" width="29" height="8" font="12">No. 462</text>
+<text top="245" left="308" width="39" height="8" font="12">Manchuria</text>
+<text top="236" left="318" width="29" height="8" font="12">No. 475</text>
+<text top="228" left="324" width="22" height="8" font="12">Velvet</text>
+<text top="220" left="314" width="32" height="8" font="12">Peatland</text>
+<text top="212" left="317" width="29" height="8" font="12">Glabron</text>
+<text top="204" left="318" width="29" height="8" font="12">No. 457</text>
+<text top="195" left="282" width="64" height="8" font="12">Wisconsin No. 38</text>
+<text top="187" left="329" width="18" height="8" font="12">Trebi</text>
+<text top="245" left="440" width="4" height="5" font="13">●</text>
+<text top="212" left="502" width="4" height="5" font="13">●</text>
+<text top="261" left="443" width="4" height="5" font="13">●</text>
+<text top="229" left="439" width="4" height="5" font="13">●</text>
+<text top="188" left="453" width="4" height="5" font="13">●</text>
+<text top="204" left="437" width="4" height="5" font="13">●</text>
+<text top="253" left="431" width="4" height="5" font="13">●</text>
+<text top="220" left="447" width="4" height="5" font="13">●</text>
+<text top="237" left="459" width="4" height="5" font="13">●</text>
+<text top="196" left="509" width="4" height="5" font="13">●</text>
+<text top="245" left="440" width="4" height="5" font="13">●</text>
+<text top="212" left="541" width="4" height="5" font="13">●</text>
+<text top="261" left="491" width="4" height="5" font="13">●</text>
+<text top="229" left="521" width="4" height="5" font="13">●</text>
+<text top="188" left="500" width="4" height="5" font="13">●</text>
+<text top="204" left="542" width="4" height="5" font="13">●</text>
+<text top="253" left="501" width="4" height="5" font="13">●</text>
+<text top="220" left="477" width="4" height="5" font="13">●</text>
+<text top="237" left="426" width="4" height="5" font="13">●</text>
+<text top="196" left="518" width="4" height="5" font="13">●</text>
+<text top="176" left="420" width="69" height="9" font="11">University Farm</text>
+<text top="308" left="577" width="22" height="9" font="11">1932</text>
+<text top="318" left="577" width="22" height="9" font="11">1931</text>
+<text top="309" left="610" width="4" height="5" font="13">●</text>
+<text top="319" left="610" width="4" height="5" font="13">●</text>
+<text top="539" left="204" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="538" left="261" width="291" height="13" font="4">A <b>lattice </b>multi-panel plot drawn on the standard</text>
+<text top="535" left="555" width="134" height="18" font="4">pdf() graphics device.</text>
+<text top="1068" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="1068" left="206" width="167" height="13" font="4">The <b>lattice </b>plot from Figure</text>
+<text top="1068" left="377" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#2">1</a></text>
+<text top="1068" left="388" width="359" height="13" font="4">exported to an SVG file by <b>gridSVG </b>and viewed in Firefox.</text>
+<text top="1084" left="148" width="596" height="13" font="4">This demonstrates that a static R plot can be converted to an SVG format with <b>gridSVG </b>for use on the</text>
+<text top="1100" left="148" width="28" height="13" font="4">web.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="12" family="Helvetica" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">135</text>
+<text top="159" left="369" width="21" height="14" font="14">car</text>
+<text top="159" left="432" width="29" height="14" font="14">goat</text>
+<text top="159" left="499" width="29" height="14" font="14">goat</text>
+<text top="264" left="149" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="264" left="206" width="538" height="13" font="4">A diagram of the Monty Hall problem, drawn using <b>grid</b>. Hidden behind each rectangle is</text>
+<text top="280" left="149" width="251" height="13" font="4">either the word “goat” or the word “car”).</text>
+<text top="329" left="171" width="573" height="13" font="4">The scene consists of three words, “goat”, “goat”, and “car”, drawn in random order across the</text>
+<text top="345" left="148" width="354" height="13" font="4">page, with an opaque rectangle drawn on top of each word.</text>
+<text top="366" left="171" width="573" height="13" font="4">In relation to the Monty Hall problem, the three rectangles represent three “doors”, behind which</text>
+<text top="383" left="149" width="598" height="13" font="4">are hidden two goats and a car. A “contestant” must choose a door and then he or she gets the “prize”</text>
+<text top="399" left="149" width="595" height="13" font="4">behind that door. However, after the contestant has chosen a door, a “game show host” opens one of</text>
+<text top="415" left="149" width="595" height="13" font="4">the other doors to reveal a “goat” and the contestant gets the opportunity to change to the remaining</text>
+<text top="432" left="149" width="514" height="13" font="4">unopened door or stick with the original choice. Should the contestant stick or <a href="2014-1-murrell-potter.html#0">switch?</a></text>
+<text top="429" left="662" width="5" height="10" font="8"><a href="2014-1-murrell-potter.html#0">2</a></text>
+<text top="453" left="171" width="441" height="13" font="4">The following code produces the scene and the result is shown in Figure</text>
+<text top="453" left="616" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#3">3</a></text>
+<text top="453" left="623" width="122" height="13" font="4"><a href="2014-1-murrell-potter.html#3">. </a>The main drawing</text>
+<text top="469" left="149" width="383" height="13" font="4">code is wrapped up in a function so that we can reuse it later on.</text>
+<text top="495" left="149" width="288" height="18" font="4">&gt; text &lt;- sample(c(&#34;goat&#34;, &#34;goat&#34;, &#34;car&#34;))</text>
+<text top="511" left="149" width="254" height="18" font="4">&gt; cols &lt;- hcl(c(0, 120, 240), 80, 80)</text>
+<text top="541" left="149" width="185" height="18" font="4">&gt; MontyHall &lt;- function() {</text>
+<text top="557" left="190" width="96" height="18" font="4">grid.newpage()</text>
+<text top="573" left="190" width="405" height="18" font="4">grid.text(text, 1:3/4, gp = gpar(cex = 2), name = &#34;prizes&#34;)</text>
+<text top="590" left="190" width="110" height="18" font="4">for (i in 1:3) {</text>
+<text top="606" left="217" width="377" height="18" font="4">grid.rect(i/4 - .1, width=.2, height=.8, just = &#34;left&#34;,</text>
+<text top="623" left="286" width="357" height="18" font="4">gp = gpar(fill = cols[i]), name = paste0(&#34;door&#34;, i))</text>
+<text top="639" left="190" width="7" height="18" font="4">}</text>
+<text top="656" left="163" width="7" height="18" font="4">}</text>
+<text top="685" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="717" left="171" width="90" height="13" font="4">The code in the</text>
+<text top="714" left="265" width="479" height="18" font="4">MontyHall() function makes use of the fact that <b>grid </b>functions allow names to be</text>
+<text top="734" left="149" width="595" height="13" font="4">associated with the objects in a scene. In this case, the three rectangles in this scene have been given</text>
+<text top="750" left="149" width="52" height="13" font="4">names—</text>
+<text top="747" left="201" width="479" height="18" font="4">&#34;door1&#34;, &#34;door2&#34;, and &#34;door3&#34;—and the text has been given the name &#34;prizes&#34;.</text>
+<text top="771" left="171" width="105" height="13" font="4">The <b>grid </b>function</text>
+<text top="768" left="279" width="402" height="18" font="4">grid.ls() can be used to display the names of all objects in a scene.</text>
+<text top="797" left="149" width="185" height="18" font="4">&gt; grid.ls(fullNames = TRUE)</text>
+<text top="826" left="149" width="82" height="18" font="4">text[prizes]</text>
+<text top="842" left="149" width="75" height="18" font="4">rect[door1]</text>
+<text top="859" left="149" width="75" height="18" font="4">rect[door2]</text>
+<text top="875" left="149" width="75" height="18" font="4">rect[door3]</text>
+<text top="908" left="171" width="573" height="13" font="4">These names will be used later to identify the rectangles so that we can modify them to generate</text>
+<text top="924" left="149" width="85" height="13" font="4">special effects.</text>
+<text top="969" left="149" width="94" height="17" font="5"><b>Hyperlinks</b></text>
+<text top="1008" left="148" width="23" height="13" font="4">The</text>
+<text top="1004" left="175" width="569" height="18" font="4">grid.hyperlink() function from the <b>gridSVG </b>package can be used to add hyperlinks to parts</text>
+<text top="1024" left="149" width="596" height="13" font="4">of a <b>grid </b>scene. For example, the following code adds a link to each door so that clicking on a door</text>
+<text top="1041" left="148" width="596" height="13" font="4">(while viewing the SVG version of the scene in a browser) leads to a Google Image Search on either</text>
+<text top="1057" left="147" width="450" height="13" font="4">“car” or “goat” depending on what is behind the door. The first argument to</text>
+<text top="1054" left="600" width="144" height="18" font="4">grid.hyperlink() is the</text>
+<text top="1074" left="149" width="388" height="13" font="4">name of the <b>grid </b>object with which to associate the hyperlink. The</text>
+<text top="1070" left="541" width="203" height="18" font="4">href argument provides the actual</text>
+<text top="1090" left="149" width="71" height="13" font="4">link and the</text>
+<text top="1087" left="223" width="521" height="18" font="4">show argument specifies how to show the target of the link (&#34;new&#34; means open a new tab</text>
+<text top="1106" left="149" width="74" height="13" font="4">or window).</text>
+<text top="1132" left="165" width="4" height="9" font="9">2</text>
+<text top="1134" left="170" width="574" height="12" font="1">An exercise for the reader is to determine which door conceals the car based on the R code and figures presented</text>
+<text top="1148" left="149" width="71" height="12" font="1">in this article.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">136</text>
+<text top="293" left="149" width="54" height="13" font="3"><b>Figure 4:</b></text>
+<text top="293" left="208" width="536" height="13" font="4">The Monty Hall image, with a hyperlink on each door. The mouse is hovering over the</text>
+<text top="309" left="149" width="595" height="13" font="4">middle door and the browser is showing the hyperlink target in the bottom-left of its window. If we</text>
+<text top="325" left="149" width="475" height="13" font="4">click the mouse, we will navigate to a Google Image Search for the word “goat”.</text>
+<text top="369" left="149" width="123" height="18" font="4">&gt; library(gridSVG)</text>
+<text top="396" left="149" width="405" height="18" font="4">&gt; links &lt;- c(&#34;http://www.google.com/search?q=car&amp;tbm=isch&#34;,</text>
+<text top="413" left="238" width="322" height="18" font="4">&#34;http://www.google.com/search?q=goat&amp;tbm=isch&#34;)</text>
+<text top="429" left="149" width="123" height="18" font="4">&gt; for (i in 1:3) {</text>
+<text top="446" left="190" width="226" height="18" font="4">grid.hyperlink(paste0(&#34;door&#34;, i),</text>
+<text top="462" left="293" width="322" height="18" font="4">href = links[match(text[i], c(&#34;car&#34;, &#34;goat&#34;))],</text>
+<text top="479" left="293" width="89" height="18" font="4">show = &#34;new&#34;)</text>
+<text top="495" left="163" width="7" height="18" font="4">}</text>
+<text top="526" left="171" width="573" height="13" font="4">After running this code, the scene is completely unchanged on a normal graphics device, but if we</text>
+<text top="542" left="149" width="21" height="13" font="4">use</text>
+<text top="539" left="173" width="574" height="18" font="4">grid.export() to convert the scene to SVG, we end up with an image that contains hyperlinks.</text>
+<text top="559" left="149" width="39" height="13" font="4">Figure</text>
+<text top="559" left="192" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#4">4</a></text>
+<text top="559" left="202" width="542" height="13" font="4">shows the result, with the mouse hovering over the middle door; at the bottom-left of the</text>
+<text top="575" left="149" width="503" height="13" font="4">browser window, we can see from the hyperlink that there is a goat behind this door.</text>
+<text top="600" left="149" width="247" height="18" font="4">&gt; grid.export(&#34;montyhall-hyper.svg&#34;)</text>
+<text top="654" left="149" width="89" height="17" font="5"><b>Animation</b></text>
+<text top="693" left="148" width="78" height="13" font="4">The function</text>
+<text top="689" left="230" width="514" height="18" font="4">grid.animate() from <b>gridSVG </b>allows us to animate the features of shapes in a <b>grid</b></text>
+<text top="709" left="149" width="595" height="13" font="4">scene. For example, the following code draws the Monty Hall scene again and then animates the</text>
+<text top="726" left="148" width="596" height="13" font="4">width of the middle door so that it slides open (to reveal the word “goat”). The first argument to</text>
+<text top="739" left="149" width="595" height="18" font="4">grid.animate() is the name of the object to animate. Subsequent arguments specify which feature of</text>
+<text top="758" left="149" width="199" height="13" font="4">the object to animate, in this case</text>
+<text top="755" left="351" width="393" height="18" font="4">width, plus the values for the animation. The duration argument</text>
+<text top="775" left="149" width="247" height="13" font="4">controls how long the animation will last.</text>
+<text top="799" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="815" left="149" width="240" height="18" font="4">&gt; goatDoor &lt;- grep(&#34;goat&#34;, text)[1]</text>
+<text top="832" left="149" width="494" height="18" font="4">&gt; grid.animate(paste0(&#34;door&#34;, goatDoor), width = c(.2, 0), duration = 2)</text>
+<text top="860" left="149" width="240" height="18" font="4">&gt; grid.export(&#34;montyhall-anim.svg&#34;)</text>
+<text top="891" left="171" width="573" height="13" font="4">Again, no change is visible on a normal R graphics device, but if we export to SVG and view the</text>
+<text top="907" left="149" width="310" height="13" font="4">result in a browser, we see the animation (see Figure</text>
+<text top="907" left="462" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#5">5</a></text>
+<text top="907" left="469" width="8" height="13" font="4"><a href="2014-1-murrell-potter.html#5">).</a></text>
+<text top="951" left="149" width="227" height="17" font="5"><b>Advanced graphics features</b></text>
+<text top="990" left="148" width="596" height="13" font="4">The <b>gridSVG </b>package offers several graphics features that are not available in standard R graphics</text>
+<text top="1006" left="149" width="595" height="13" font="4">devices. These include non-rectangular clipping paths, masks, fill patterns and fill gradients, and</text>
+<text top="1023" left="149" width="41" height="13" font="4">filters <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="1023" left="190" width="109" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Murrell and Potter</a></text>
+<text top="1023" left="298" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="1023" left="305" width="26" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="1023" left="331" width="415" height="13" font="4"><a href="2014-1-murrell-potter.html#11">). </a>This section demonstrates the use of a mask on the Monty Hall scene.</text>
+<text top="1044" left="171" width="573" height="13" font="4">A mask is a greyscale image that is used to affect the transparency (or alpha-channel) of another</text>
+<text top="1060" left="149" width="595" height="13" font="4">image: anywhere the mask is white, the masked image is fully visible; anywhere the mask is black, the</text>
+<text top="1077" left="149" width="575" height="13" font="4">masked image is invisible; and anywhere the mask is grey, the masked image is semitransparent.</text>
+<text top="1098" left="171" width="573" height="13" font="4">The following code uses standard <b>grid </b>functions to define a simple scene consisting of a white</text>
+<text top="1114" left="149" width="548" height="13" font="4">cross on top of a grey circle on a white background, which we will use as a mask (see Figure</text>
+<text top="1114" left="700" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#5">6</a></text>
+<text top="1114" left="707" width="38" height="13" font="4"><a href="2014-1-murrell-potter.html#5">). </a>Any</text>
+<text top="1131" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="1130" left="178" width="340" height="13" font="4">scene can be used to create a mask; in this case, we use the</text>
+<text top="1127" left="521" width="223" height="18" font="4">gTree() function from <b>grid </b>to create a</text>
+<text top="1147" left="149" width="406" height="13" font="4">graphical object that is a collection of several other graphical objects.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">137</text>
+<text top="293" left="149" width="53" height="13" font="3"><b>Figure 5:</b></text>
+<text top="293" left="206" width="538" height="13" font="4">The Monty Hall image, with the middle “door” animated so that it slides open (to reveal the</text>
+<text top="309" left="148" width="82" height="13" font="4">word “goat”).</text>
+<text top="538" left="149" width="53" height="13" font="3"><b>Figure 6:</b></text>
+<text top="538" left="206" width="538" height="13" font="4">Using a mask on an image. The picture on the left shows a white cross on top of a grey circle</text>
+<text top="554" left="149" width="598" height="13" font="4">on a white background. This is used as a mask on the rectangles in the Monty Hall image on the right.</text>
+<text top="571" left="148" width="596" height="13" font="4">The effect is to create a semitransparent window in the middle door (through which we can glimpse</text>
+<text top="587" left="149" width="104" height="13" font="4">the word “goat”).</text>
+<text top="633" left="149" width="583" height="18" font="4">&gt; circleMask &lt;- gTree(children = gList(rectGrob(gp = gpar(col = NA, fill = &#34;white&#34;)),</text>
+<text top="650" left="327" width="226" height="18" font="4">circleGrob(x = goatDoor/4, r=.15,</text>
+<text top="666" left="403" width="247" height="18" font="4">gp = gpar(col = NA, fill = &#34;grey&#34;)),</text>
+<text top="683" left="327" width="199" height="18" font="4">polylineGrob(c(0, 1, .5, .5),</text>
+<text top="699" left="416" width="110" height="18" font="4">c(.5, .5, 0, 1),</text>
+<text top="715" left="416" width="165" height="18" font="4">id = rep(1:2, each = 2),</text>
+<text top="732" left="416" width="254" height="18" font="4">gp = gpar(lwd = 10, col = &#34;white&#34;))))</text>
+<text top="765" left="171" width="573" height="13" font="4">The next code shows how this crossed circle on a white background can be used as a mask to</text>
+<text top="782" left="149" width="524" height="13" font="4">affect the transparency of one of the rectangles in the Monty Hall scene. The functions</text>
+<text top="778" left="676" width="68" height="18" font="4">mask() and</text>
+<text top="795" left="149" width="595" height="18" font="4">grid.mask() are from <b>gridSVG</b>. The mask() function takes a <b>grid </b>object (as generated above) and</text>
+<text top="815" left="149" width="180" height="13" font="4">turns it into a mask object. The</text>
+<text top="811" left="332" width="412" height="18" font="4">grid.mask() function takes the name of a <b>grid </b>object to mask, plus the</text>
+<text top="831" left="149" width="149" height="13" font="4">mask object produced by</text>
+<text top="828" left="301" width="45" height="18" font="4">mask().</text>
+<text top="857" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="874" left="149" width="377" height="18" font="4">&gt; grid.mask(paste0(&#34;door&#34;, goatDoor), mask(circleMask))</text>
+<text top="904" left="149" width="254" height="18" font="4">&gt; grid.export(&#34;montyhall-masked.svg&#34;)</text>
+<text top="937" left="171" width="243" height="13" font="4">The effect of the mask is shown in Figure</text>
+<text top="937" left="418" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#5">6</a></text>
+<text top="937" left="425" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#5">.</a></text>
+<text top="982" left="149" width="101" height="17" font="5"><b>Interactivity</b></text>
+<text top="1021" left="148" width="23" height="13" font="4">The</text>
+<text top="1017" left="176" width="569" height="18" font="4">grid.garnish() function in the <b>gridSVG </b>package opens up a broad range of possibilities for</text>
+<text top="1037" left="149" width="431" height="13" font="4">enhancing a <b>grid </b>scene, particularly for adding interactivity to the scene.</text>
+<text top="1058" left="171" width="573" height="13" font="4">A simple example is shown in the code below. Here we are adding tooltips to each of the doors</text>
+<text top="1075" left="149" width="595" height="13" font="4">in the Monty Hall scene so that hovering the mouse over a door produces a label that shows what</text>
+<text top="1091" left="149" width="180" height="13" font="4">is behind the door (see Figure</text>
+<text top="1091" left="332" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#6">7</a></text>
+<text top="1091" left="339" width="141" height="13" font="4"><a href="2014-1-murrell-potter.html#6">). </a>The first argument to</text>
+<text top="1088" left="483" width="261" height="18" font="4">grid.garnish() is the name of the object to</text>
+<text top="1107" left="149" width="558" height="13" font="4">modify. Subsequent arguments specify SVG attributes to add to the object; in this case, we add a</text>
+<text top="1104" left="710" width="34" height="18" font="4">title</text>
+<text top="1124" left="149" width="325" height="13" font="4">attribute, which results in a tooltip (in some browsers).</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">138</text>
+<text top="293" left="149" width="53" height="13" font="3"><b>Figure 7:</b></text>
+<text top="293" left="206" width="538" height="13" font="4">The Monty Hall image with tooltips added to each door. The mouse is hovering over the</text>
+<text top="309" left="149" width="595" height="13" font="4">middle door, which results in a tooltip being displayed to show that there is a “goat” behind this door.</text>
+<text top="536" left="149" width="53" height="13" font="3"><b>Figure 8:</b></text>
+<text top="536" left="207" width="537" height="13" font="4">The Monty Hall image with interactivity. The mouse has just been clicked on the middle</text>
+<text top="553" left="149" width="578" height="13" font="4">door, which has resulted in an alert box popping up to show that this door has a “goat” behind it.</text>
+<text top="599" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="615" left="149" width="123" height="18" font="4">&gt; for (i in 1:3) {</text>
+<text top="632" left="190" width="329" height="18" font="4">grid.garnish(paste0(&#34;door&#34;, i), title = text[i])</text>
+<text top="648" left="163" width="7" height="18" font="4">}</text>
+<text top="678" left="149" width="261" height="18" font="4">&gt; grid.export(&#34;montyhall-tooltip.svg&#34;)</text>
+<text top="711" left="171" width="23" height="13" font="4">The</text>
+<text top="708" left="198" width="547" height="18" font="4">grid.garnish() function can also be used to associate JavaScript code with an object in the</text>
+<text top="728" left="149" width="595" height="13" font="4">scene. The following code shows a simple example where clicking on one of the rectangles pops up an</text>
+<text top="744" left="149" width="331" height="13" font="4">alert box showing what is behind that door (see Figure</text>
+<text top="744" left="484" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#6">8</a></text>
+<text top="744" left="491" width="200" height="13" font="4"><a href="2014-1-murrell-potter.html#6">). </a>The attribute in this example is</text>
+<text top="741" left="694" width="51" height="18" font="4">onclick,</text>
+<text top="761" left="148" width="598" height="13" font="4">which is used to define an action that occurs when the object is clicked with the mouse (in a browser).</text>
+<text top="787" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="804" left="149" width="123" height="18" font="4">&gt; for (i in 1:3) {</text>
+<text top="820" left="190" width="213" height="18" font="4">grid.garnish(paste0(&#34;door&#34;, i),</text>
+<text top="837" left="279" width="295" height="18" font="4">onclick = paste0(&#34;alert('&#34;, text[i], &#34;')&#34;))</text>
+<text top="853" left="163" width="7" height="18" font="4">}</text>
+<text top="883" left="149" width="247" height="18" font="4">&gt; grid.export(&#34;montyhall-alert.svg&#34;)</text>
+<text top="916" left="171" width="573" height="13" font="4">For more complex interactions, it is possible to include JavaScript code within the scene, using</text>
+<text top="933" left="149" width="19" height="13" font="4">the</text>
+<text top="929" left="172" width="572" height="18" font="4">grid.script() function, so that an event on an object within the scene can be associated with</text>
+<text top="949" left="149" width="595" height="13" font="4">a JavaScript function call to perform a more sophisticated action. The code below shows a simple</text>
+<text top="965" left="149" width="595" height="13" font="4">example where clicking on one of the rectangles in the Monty Hall scene will call the JavaScript</text>
+<text top="982" left="149" width="51" height="13" font="4">function</text>
+<text top="978" left="204" width="447" height="18" font="4">open() to “open” the door (by making the rectangle invisible; see Figure</text>
+<text top="982" left="655" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#7">9</a></text>
+<text top="982" left="662" width="38" height="13" font="4"><a href="2014-1-murrell-potter.html#7">). </a>The</text>
+<text top="978" left="704" width="41" height="18" font="4">open()</text>
+<text top="998" left="149" width="250" height="13" font="4">function is defined in a separate file called</text>
+<text top="995" left="402" width="201" height="18" font="4">&#34;MontyHall.js&#34; (shown in Figure</text>
+<text top="998" left="607" width="13" height="13" font="6"><a href="2014-1-murrell-potter.html#7">10</a></text>
+<text top="998" left="620" width="8" height="13" font="4"><a href="2014-1-murrell-potter.html#7">).</a></text>
+<text top="1025" left="149" width="89" height="18" font="4">&gt; MontyHall()</text>
+<text top="1041" left="149" width="123" height="18" font="4">&gt; for (i in 1:3) {</text>
+<text top="1058" left="190" width="370" height="18" font="4">grid.garnish(paste0(&#34;door&#34;, i), onclick = &#34;open(evt)&#34;)</text>
+<text top="1074" left="163" width="7" height="18" font="4">}</text>
+<text top="1091" left="149" width="247" height="18" font="4">&gt; grid.script(file = &#34;MontyHall.js&#34;)</text>
+<text top="1120" left="149" width="226" height="18" font="4">&gt; grid.export(&#34;montyhall-js.svg&#34;)</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="15" size="13" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">139</text>
+<text top="293" left="149" width="54" height="13" font="3"><b>Figure 9:</b></text>
+<text top="293" left="209" width="535" height="13" font="4">The Monty Hall image with more interactivity. The mouse has just been clicked on the</text>
+<text top="309" left="149" width="598" height="13" font="4">middle door, which has resulted in the middle door becoming invisible, thereby revealing a “goat”</text>
+<text top="325" left="149" width="98" height="13" font="4">behind the door.</text>
+<text top="358" left="154" width="152" height="20" font="15">open = function(e) {</text>
+<text top="376" left="184" width="404" height="20" font="15">e.currentTarget.setAttribute(&#34;visibility&#34;, &#34;hidden&#34;);</text>
+<text top="394" left="154" width="8" height="20" font="15">}</text>
+<text top="433" left="149" width="60" height="13" font="3"><b>Figure 10:</b></text>
+<text top="433" left="213" width="207" height="13" font="4">The JavaScript code used in Figure</text>
+<text top="433" left="423" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#7">9</a></text>
+<text top="433" left="433" width="92" height="13" font="4">that defines the</text>
+<text top="429" left="528" width="216" height="18" font="4">open() function to “open” a door by</text>
+<text top="449" left="149" width="182" height="13" font="4">making the rectangle invisible.</text>
+<text top="495" left="149" width="258" height="17" font="5"><b>A more complex demonstration</b></text>
+<text top="533" left="148" width="596" height="13" font="4">The previous section kept things very simple in order to explain the main features of <b>gridSVG</b>. In</text>
+<text top="550" left="149" width="595" height="13" font="4">this section, we present a more complex example which involves adding interactivity to a <b>lattice</b></text>
+<text top="566" left="149" width="443" height="13" font="4">multi-panel plot. The following code generates the <b>lattice </b>plot from Figure</text>
+<text top="566" left="595" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#2">1</a></text>
+<text top="566" left="602" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#2">.</a></text>
+<text top="592" left="149" width="432" height="18" font="4">&gt; dotplot(variety ~ yield | site, data = barley, groups = year,</text>
+<text top="608" left="217" width="370" height="18" font="4">key = simpleKey(levels(barley$year), space = &#34;right&#34;),</text>
+<text top="625" left="217" width="329" height="18" font="4">subset = as.numeric(site) &lt; 4, layout = c(1, 3))</text>
+<text top="657" left="171" width="573" height="13" font="4">Because the <b>lattice </b>package is built on <b>grid</b>, and because the <b>lattice </b>package names all of the</text>
+<text top="673" left="149" width="121" height="13" font="4">objects that it <a href="2014-1-murrell-potter.html#0">draws,</a></text>
+<text top="671" left="270" width="5" height="10" font="8"><a href="2014-1-murrell-potter.html#0">3</a></text>
+<text top="673" left="279" width="465" height="13" font="4">there are names for every object drawn in this plot. The following code uses the</text>
+<text top="690" left="149" width="25" height="13" font="3"><b>grid</b></text>
+<text top="690" left="177" width="49" height="13" font="4">function</text>
+<text top="686" left="230" width="75" height="18" font="4"><a href="2014-1-murrell-potter.html#0">grid.grep()</a></text>
+<text top="687" left="305" width="5" height="10" font="8"><a href="2014-1-murrell-potter.html#0">4</a></text>
+<text top="690" left="314" width="430" height="13" font="4">to show some of the named objects in this plot (in this case, all objects that</text>
+<text top="706" left="149" width="158" height="13" font="4">have a name that contains</text>
+<text top="703" left="310" width="434" height="18" font="4">&#34;xyplot.points&#34;). These are the objects that represent the data symbols</text>
+<text top="723" left="148" width="132" height="13" font="4">within the <b>lattice </b>plot.</text>
+<text top="748" left="149" width="384" height="18" font="4">&gt; grid.grep(&#34;xyplot.points&#34;, grep = TRUE, global = TRUE)</text>
+<text top="777" left="149" width="34" height="18" font="4">[[1]]</text>
+<text top="793" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.1.panel.1.1</text>
+<text top="826" left="149" width="34" height="18" font="4">[[2]]</text>
+<text top="843" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.2.panel.1.1</text>
+<text top="875" left="149" width="34" height="18" font="4">[[3]]</text>
+<text top="892" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.1.panel.1.2</text>
+<text top="925" left="149" width="34" height="18" font="4">[[4]]</text>
+<text top="941" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.2.panel.1.2</text>
+<text top="974" left="149" width="34" height="18" font="4">[[5]]</text>
+<text top="991" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.1.panel.1.3</text>
+<text top="1023" left="149" width="34" height="18" font="4">[[6]]</text>
+<text top="1040" left="149" width="268" height="18" font="4">plot_01.xyplot.points.group.2.panel.1.3</text>
+<text top="1072" left="171" width="147" height="13" font="4">The following code uses</text>
+<text top="1069" left="321" width="423" height="18" font="4">grid.garnish() to add event handlers to the objects that represent the</text>
+<text top="1089" left="148" width="596" height="13" font="4">points in the plot, so that JavaScript functions are called whenever the mouse moves over a point and</text>
+<text top="1105" left="148" width="282" height="13" font="4">whenever the mouse moves off the point again.</text>
+<text top="1131" left="165" width="4" height="9" font="9"><a href="http://lattice.r-forge.r-project.org/Vignettes/src/naming-scheme/namingScheme.pdf">3</a></text>
+<text top="1130" left="170" width="496" height="16" font="10"><a href="http://lattice.r-forge.r-project.org/Vignettes/src/naming-scheme/namingScheme.pdf">http://lattice.r-forge.r-project.org/Vignettes/src/naming-scheme/namingScheme.pdf</a></text>
+<text top="1146" left="165" width="4" height="9" font="9">4</text>
+<text top="1148" left="170" width="155" height="12" font="1">Introduced in R version 3.1.0.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">140</text>
+<text top="99" left="154" width="191" height="20" font="15">function highlight(evt) {</text>
+<text top="117" left="169" width="244" height="20" font="15">var element = evt.currentTarget;</text>
+<text top="135" left="169" width="152" height="20" font="15">var id = element.id;</text>
+<text top="153" left="169" width="495" height="20" font="15">var index = id.substring(id.search(/[.][0-9]+$/) + 1, id.length);</text>
+<text top="171" left="169" width="267" height="20" font="15">for (var panel=1;panel&lt;4;panel++) {</text>
+<text top="188" left="184" width="267" height="20" font="15">for (var group=1;group&lt;3;group++) {</text>
+<text top="206" left="200" width="84" height="20" font="15">var selid =</text>
+<text top="224" left="215" width="511" height="20" font="15">'plot_01.xyplot.points.group.'+group+'.panel.1.'+panel+'.1.'+index;</text>
+<text top="242" left="200" width="312" height="20" font="15">var dot = document.getElementById(selid);</text>
+<text top="260" left="200" width="290" height="20" font="15">dot.setAttribute(&#34;stroke-width&#34;, &#34;6&#34;);</text>
+<text top="278" left="184" width="8" height="20" font="15">}</text>
+<text top="296" left="169" width="8" height="20" font="15">}</text>
+<text top="314" left="154" width="8" height="20" font="15">}</text>
+<text top="350" left="154" width="206" height="20" font="15">function unhighlight(evt) {</text>
+<text top="368" left="169" width="244" height="20" font="15">var element = evt.currentTarget;</text>
+<text top="386" left="169" width="152" height="20" font="15">var id = element.id;</text>
+<text top="404" left="169" width="495" height="20" font="15">var index = id.substring(id.search(/[.][0-9]+$/) + 1, id.length);</text>
+<text top="422" left="169" width="267" height="20" font="15">for (var panel=1;panel&lt;4;panel++) {</text>
+<text top="440" left="184" width="267" height="20" font="15">for (var group=1;group&lt;3;group++) {</text>
+<text top="457" left="200" width="84" height="20" font="15">var selid =</text>
+<text top="475" left="215" width="511" height="20" font="15">'plot_01.xyplot.points.group.'+group+'.panel.1.'+panel+'.1.'+index;</text>
+<text top="493" left="200" width="312" height="20" font="15">var dot = document.getElementById(selid);</text>
+<text top="511" left="200" width="290" height="20" font="15">dot.setAttribute(&#34;stroke-width&#34;, &#34;1&#34;);</text>
+<text top="529" left="184" width="8" height="20" font="15">}</text>
+<text top="547" left="169" width="8" height="20" font="15">}</text>
+<text top="565" left="154" width="8" height="20" font="15">}</text>
+<text top="604" left="149" width="60" height="13" font="3"><b>Figure 11:</b></text>
+<text top="604" left="213" width="217" height="13" font="4">The JavaScript code that defines the</text>
+<text top="600" left="433" width="313" height="18" font="4">highlight() and unhighlight() functions to imple-</text>
+<text top="620" left="149" width="350" height="13" font="4">ment linked selection of points for the <b>lattice </b>plot in Figure</text>
+<text top="620" left="502" width="13" height="13" font="6"><a href="2014-1-murrell-potter.html#9">12</a></text>
+<text top="620" left="516" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#9">.</a></text>
+<text top="667" left="149" width="309" height="18" font="4">&gt; numPoints &lt;- length(levels(barley$variety))</text>
+<text top="683" left="149" width="508" height="18" font="4">&gt; grid.garnish(&#34;xyplot.points&#34;, grep = TRUE, global = TRUE, group = FALSE,</text>
+<text top="700" left="252" width="322" height="18" font="4">onmouseover = rep(&#34;highlight(evt)&#34;, numPoints),</text>
+<text top="716" left="252" width="329" height="18" font="4">onmouseout = rep(&#34;unhighlight(evt)&#34;, numPoints),</text>
+<text top="732" left="252" width="281" height="18" font="4">&#34;pointer-events&#34; = rep(&#34;all&#34;, numPoints))</text>
+<text top="766" left="171" width="67" height="13" font="4">This use of</text>
+<text top="762" left="242" width="502" height="18" font="4">grid.garnish() differs from the previous simple examples because it has an effect</text>
+<text top="782" left="149" width="291" height="13" font="4">on several <b>grid </b>objects, rather than just one. The</text>
+<text top="779" left="443" width="303" height="18" font="4">grep and global arguments specify that the name,</text>
+<text top="795" left="149" width="595" height="18" font="4">&#34;xyplot.points&#34;, should be treated as a regular expression and the garnish will affect all objects in the</text>
+<text top="815" left="149" width="595" height="13" font="4">scene with a name that matches that pattern. Furthermore, each <b>grid </b>object that matches represents</text>
+<text top="831" left="149" width="171" height="13" font="4">several data symbols, so the</text>
+<text top="828" left="324" width="420" height="18" font="4">group argument is used to specify that the garnish should be applied</text>
+<text top="848" left="149" width="595" height="13" font="4">to each individual data symbol. Because, for each object, the garnish is being applied to multiple</text>
+<text top="864" left="149" width="435" height="13" font="4">data symbols, we must provide multiple values, which explains the use of</text>
+<text top="861" left="587" width="159" height="18" font="4">rep() for the onmouseover,</text>
+<text top="877" left="149" width="268" height="18" font="4">onmouseout, and pointer-events arguments.</text>
+<text top="902" left="171" width="299" height="13" font="4">The JavaScript code that defines the event handlers</text>
+<text top="898" left="473" width="271" height="18" font="4">hightlight() and unhighlight() is shown in</text>
+<text top="918" left="149" width="38" height="13" font="4">Figure</text>
+<text top="918" left="190" width="13" height="13" font="6"><a href="2014-1-murrell-potter.html#8">11</a></text>
+<text top="918" left="203" width="541" height="13" font="4"><a href="2014-1-murrell-potter.html#8">. </a>A detailed explanation of this code is beyond the scope of this article, but it should be clear</text>
+<text top="935" left="149" width="595" height="13" font="4">that these functions are relatively simple, just looping over the two groups in each panel, and over the</text>
+<text top="951" left="149" width="464" height="13" font="4">three panels, to highlight (or unhighlight) all points that share the same index.</text>
+<text top="972" left="171" width="291" height="13" font="4">This JavaScript code is added to the plot using</text>
+<text top="969" left="467" width="277" height="18" font="4">grid.garnish(), and then the whole scene is</text>
+<text top="988" left="149" width="129" height="13" font="4">exported to SVG with</text>
+<text top="985" left="282" width="93" height="18" font="4">grid.export().</text>
+<text top="1015" left="149" width="274" height="18" font="4">&gt; grid.script(file = &#34;lattice-brush.js&#34;)</text>
+<text top="1031" left="149" width="233" height="18" font="4">&gt; grid.export(&#34;lattice-brush.svg&#34;)</text>
+<text top="1065" left="171" width="282" height="13" font="4">A snapshot of the final result is shown in Figure</text>
+<text top="1065" left="456" width="13" height="13" font="6"><a href="2014-1-murrell-potter.html#9">12</a></text>
+<text top="1065" left="470" width="274" height="13" font="4"><a href="2014-1-murrell-potter.html#9">, </a>with the mouse over one point and all related</text>
+<text top="1081" left="148" width="113" height="13" font="4">points highlighted.</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">141</text>
+<text top="523" left="149" width="61" height="13" font="3"><b>Figure 12:</b></text>
+<text top="523" left="215" width="170" height="13" font="4">The <b>lattice </b>plot from Figure</text>
+<text top="523" left="389" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#2">1</a></text>
+<text top="523" left="400" width="344" height="13" font="4">with interaction added. Moving the mouse over a point</text>
+<text top="540" left="149" width="514" height="13" font="4">highlights the point and highlights every other “related” point in all panels of the plot.</text>
+<text top="586" left="149" width="95" height="17" font="5"><b>Limitations</b></text>
+<text top="625" left="148" width="596" height="13" font="4">The <b>gridSVG </b>package provides an opportunity to produce more sophisticated, more dynamic, and</text>
+<text top="642" left="149" width="595" height="13" font="4">more interactive R plots compared to the standard R graphics devices. However, there are some strict</text>
+<text top="658" left="149" width="325" height="13" font="4">limitations on what can be achieved with this package.</text>
+<text top="679" left="171" width="573" height="13" font="4">First of all, the package only works for plots that are based on the <b>grid </b>graphics system. This</text>
+<text top="695" left="149" width="595" height="13" font="4">includes some major graphics packages, such as <b>lattice </b>and <b>ggplot2</b>, but excludes a large amount of</text>
+<text top="712" left="149" width="595" height="13" font="4">graphics functionality that is only available in the default <b>graphics </b>package or packages that build</text>
+<text top="728" left="149" width="596" height="13" font="4">on <b>graphics</b>. Given a plot from a function that is not based on <b>grid</b>, the <b>gridSVG </b>package will only</text>
+<text top="745" left="148" width="152" height="13" font="4">produce a blank SVG file.</text>
+<text top="766" left="171" width="573" height="13" font="4">Another limitation is that <b>gridSVG </b>does not generate any JavaScript code itself. This means that</text>
+<text top="782" left="149" width="595" height="13" font="4">anything beyond the most basic interactivity will require the user to write JavaScript code, which</text>
+<text top="799" left="149" width="402" height="13" font="4">imposes a burden on the user in terms of both time and knowledge.</text>
+<text top="820" left="171" width="573" height="13" font="4">Another point that has only briefly been acknowledged in the example R code so far is that the</text>
+<text top="836" left="149" width="55" height="13" font="3"><b>gridSVG</b></text>
+<text top="836" left="207" width="537" height="13" font="4">functions that add special features to a <b>grid </b>scene (such as hyperlinks and animation) rely</text>
+<text top="852" left="149" width="596" height="13" font="4">heavily on the ability to identify specific components of a <b>grid </b>scene. The Monty Hall examples all rely</text>
+<text top="869" left="149" width="491" height="13" font="4">on the fact that the rectangles that are drawn to represent doors each have a name—</text>
+<text top="865" left="640" width="106" height="18" font="4">&#34;door1&#34;, &#34;door2&#34;,</text>
+<text top="885" left="149" width="22" height="13" font="4">and</text>
+<text top="882" left="175" width="569" height="18" font="4">&#34;door3&#34;—and the code that adds hyperlinks or animation identifies the rectangles by using these</text>
+<text top="902" left="149" width="596" height="13" font="4">names. This means that <b>gridSVG </b>is dependent upon an appropriate naming scheme being used for</text>
+<text top="918" left="149" width="110" height="13" font="4">any <b>grid </b>drawing <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="918" left="259" width="45" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Murrell</a></text>
+<text top="918" left="304" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="918" left="310" width="26" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2012</a></text>
+<text top="918" left="336" width="408" height="13" font="4"><a href="2014-1-murrell-potter.html#11">). </a>This requirement is met by the <b>lattice </b>package and, to a lesser extent</text>
+<text top="935" left="149" width="348" height="13" font="4">by the <b>ggplot2 </b>package, but cannot be relied on in general.</text>
+<text top="979" left="149" width="190" height="17" font="5"><b>Alternative approaches</b></text>
+<text top="1018" left="148" width="596" height="13" font="4">The <b>gridSVG </b>package provides one way to produce dynamic and interactive versions of R plots</text>
+<text top="1035" left="149" width="595" height="13" font="4">for use on the web, but there are several other packages that provide alternative routes to the same</text>
+<text top="1051" left="149" width="595" height="13" font="4">destination. This section discusses the differences between <b>gridSVG </b>and several other packages that</text>
+<text top="1068" left="149" width="111" height="13" font="4">have similar goals.</text>
+<text top="1088" left="171" width="23" height="13" font="4">The</text>
+<text top="1089" left="197" width="63" height="13" font="7"><a href="http://CRAN.R-project.org/package=animation"><b>animation</b></a></text>
+<text top="1088" left="263" width="57" height="13" font="4">package <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="1088" left="320" width="19" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Xie</a></text>
+<text top="1088" left="340" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="1088" left="346" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="1088" left="373" width="371" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>provides a convenient front-end for producing animations in</text>
+<text top="1105" left="148" width="596" height="13" font="4">various formats (some of which are appropriate for use on the web), but the approach is frame-based</text>
+<text top="1121" left="148" width="596" height="13" font="4">(draw lots of separate images and then stitch them together to make an animation). The advantage</text>
+<text top="1138" left="149" width="595" height="13" font="4">of an SVG-based approach to animation is that the animation is declarative, which means that the</text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">142</text>
+<text top="103" left="149" width="595" height="13" font="4">animation can be described more succinctly and efficiently and the resulting animation will often</text>
+<text top="120" left="149" width="595" height="13" font="4">appear smoother. On the other hand, the <b>animation </b>package will work with any R graphics output; it</text>
+<text top="136" left="149" width="246" height="13" font="4">is not restricted to just <b>grid</b>-based output.</text>
+<text top="157" left="171" width="190" height="13" font="4">The <b>SVGAnnotation </b>package <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="157" left="362" width="149" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Nolan and Temple Lang</a></text>
+<text top="157" left="511" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="157" left="519" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2012</a></text>
+<text top="157" left="546" width="198" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>performs a very similar role to</text>
+<text top="173" left="149" width="55" height="13" font="3"><b>gridSVG</b></text>
+<text top="173" left="204" width="540" height="13" font="4">, by providing functions to export R plots to an SVG format with the possiblity of adding</text>
+<text top="190" left="149" width="595" height="13" font="4">dynamic and interactive features. One major advantage of <b>SVGAnnotation </b>is that it will export R plots</text>
+<text top="206" left="149" width="595" height="13" font="4">that are based the standard <b>graphics </b>package (as well as plots that are based on <b>grid</b>). <b>SVGAnnotation</b></text>
+<text top="223" left="149" width="595" height="13" font="4">also provides some higher-level functions that automatically generate JavaScript code to implement</text>
+<text top="239" left="149" width="381" height="13" font="4">specific sorts of more complex interactivity. For example, the</text>
+<text top="236" left="535" width="209" height="18" font="4">linkPlots() function can be used</text>
+<text top="256" left="149" width="596" height="13" font="4">to generate linked plots, where moving the mouse over a data symbol in one plot automatically</text>
+<text top="272" left="149" width="595" height="13" font="4">highlights a corresponding point in another plot. The main disadvantage of <b>SVGAnnotation </b>is that it</text>
+<text top="288" left="148" width="305" height="13" font="4">works with the SVG that is produced by the built-in</text>
+<text top="285" left="457" width="287" height="18" font="4">svg() device, which is much less structured than</text>
+<text top="305" left="149" width="595" height="13" font="4">the SVG that is generated by <b>gridSVG</b>. That is not a problem if the functions that <b>SVGAnnotation</b></text>
+<text top="321" left="148" width="597" height="13" font="4">provides do everything that we need, but it makes for much more work if we need to, for example,</text>
+<text top="338" left="148" width="533" height="13" font="4">write our own JavaScript code to work with the SVG that <b>SVGAnnotation </b>has generated.</text>
+<text top="359" left="171" width="405" height="13" font="4">Another package that can export R graphics output to SVG is the</text>
+<text top="359" left="581" width="109" height="13" font="7"><a href="http://CRAN.R-project.org/package=RSVGTipsDevice"><b>RSVGTipsDevice</b></a></text>
+<text top="359" left="694" width="50" height="13" font="4">package</text>
+<text top="375" left="148" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="375" left="153" width="29" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Plate</a></text>
+<text top="375" left="182" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="375" left="188" width="26" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2011</a></text>
+<text top="375" left="214" width="531" height="13" font="4"><a href="2014-1-murrell-potter.html#11">). </a>This package creates a standard R graphics device, so it can export any R graphics output,</text>
+<text top="392" left="149" width="595" height="13" font="4">but it is limited to adding tooltips and hyperlinks. This package also requires the tooltips or hyperlinks</text>
+<text top="408" left="149" width="595" height="13" font="4">to be added at the time that the R graphics output is produced, rather than after-the-fact using names</text>
+<text top="424" left="149" width="595" height="13" font="4">to refer to previously-drawn output. This makes it harder to associate tooltips or hyperlinks with</text>
+<text top="441" left="149" width="467" height="13" font="4">output that is produced by someone else’s code, such as a complex <b>lattice </b>plot.</text>
+<text top="462" left="171" width="284" height="13" font="4">A number of packages, including <b>rCharts </b>and</text>
+<text top="462" left="460" width="61" height="13" font="7"><a href="http://CRAN.R-project.org/package=googleVis"><b>googleVis</b></a></text>
+<text top="462" left="526" width="5" height="13" font="4"><a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="462" left="531" width="85" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Vaidyanathan</a></text>
+<text top="462" left="615" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="462" left="623" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="462" left="651" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">;</a></text>
+<text top="462" left="659" width="86" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Gesmann and</a></text>
+<text top="478" left="149" width="64" height="13" font="6"><a href="2014-1-murrell-potter.html#11">de Castillo</a></text>
+<text top="478" left="212" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="478" left="219" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2011</a></text>
+<text top="478" left="246" width="498" height="13" font="4"><a href="2014-1-murrell-potter.html#11">), </a>provide a quite different approach to producing dynamic and interactive plots for</text>
+<text top="495" left="149" width="597" height="13" font="4">the web. These packages outsource the plot drawing to JavaScript libraries such as NVD3, highcharts,</text>
+<text top="511" left="149" width="213" height="13" font="4">and the Google Visualisation API <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="511" left="362" width="41" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Novus</a></text>
+<text top="511" left="403" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="511" left="411" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2012</a></text>
+<text top="511" left="438" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">;</a></text>
+<text top="511" left="446" width="75" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Highsoft AS</a></text>
+<text top="511" left="521" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="511" left="529" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="511" left="556" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">;</a></text>
+<text top="511" left="564" width="44" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Google</a></text>
+<text top="511" left="607" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="511" left="615" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="511" left="642" width="102" height="13" font="4"><a href="2014-1-murrell-potter.html#11">). </a>The difference</text>
+<text top="528" left="149" width="595" height="13" font="4">here is that the plots produced are not R plots. The advantage is that very little R code is required</text>
+<text top="544" left="149" width="595" height="13" font="4">to produce a nice result, provided the JavaScript library can produce the style of plot and the sort of</text>
+<text top="560" left="149" width="157" height="13" font="4">interactivity that we want.</text>
+<text top="581" left="171" width="481" height="13" font="4">Another approach to interactivity that is implemented in several packages, notably</text>
+<text top="581" left="655" width="34" height="13" font="7"><a href="http://CRAN.R-project.org/package=shiny"><b>shiny</b></a></text>
+<text top="581" left="693" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="581" left="697" width="47" height="13" font="6"><a href="2014-1-murrell-potter.html#11">RStudio</a></text>
+<text top="598" left="149" width="22" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Inc.</a></text>
+<text top="598" left="171" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="598" left="178" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2013</a></text>
+<text top="598" left="206" width="539" height="13" font="4"><a href="2014-1-murrell-potter.html#11">), </a>involves running R as a web server and producing new R graphics in response to user</text>
+<text top="614" left="149" width="595" height="13" font="4">events in the browser. The difference here is that the user typically interacts with GUI widgets (buttons</text>
+<text top="631" left="149" width="595" height="13" font="4">and menus) outside the graphic and each user event generates a completely new R graphic. With</text>
+<text top="647" left="149" width="55" height="13" font="3"><b>gridSVG</b></text>
+<text top="647" left="204" width="540" height="13" font="4">, the user can interact directly with elements of the graphic itself and all of the changes to the</text>
+<text top="664" left="149" width="328" height="13" font="4">graphic occur in the browser with no further need of R.</text>
+<text top="684" left="171" width="573" height="13" font="4">In summary, using the <b>gridSVG </b>package is appropriate if we want to add advanced graphics</text>
+<text top="701" left="149" width="595" height="13" font="4">features to a <b>grid</b>-based R plot, or if we want to add dynamic or interactive elements to a <b>grid</b>-based R</text>
+<text top="717" left="148" width="596" height="13" font="4">plot, particularly if we want to produce a result that is not already provided by a high-level function</text>
+<text top="734" left="149" width="595" height="13" font="4">in the <b>SVGAnnotation </b>package. An approach that holds some promise is to generate SVG content</text>
+<text top="750" left="149" width="595" height="13" font="4">using <b>gridSVG </b>and then manipulate that content by adding JavaScript code based on a sophisticated</text>
+<text top="767" left="149" width="177" height="13" font="4">JavaScript library such as d3 <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="767" left="325" width="78" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Bostock et al.</a></text>
+<text top="767" left="403" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="767" left="410" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2011</a></text>
+<text top="767" left="437" width="96" height="13" font="4"><a href="2014-1-murrell-potter.html#11">) </a>and Snap.svg <a href="2014-1-murrell-potter.html#11">(</a></text>
+<text top="767" left="532" width="74" height="13" font="6"><a href="2014-1-murrell-potter.html#11">Baranovskiy</a></text>
+<text top="767" left="607" width="3" height="13" font="4"><a href="2014-1-murrell-potter.html#11">,</a></text>
+<text top="767" left="614" width="27" height="13" font="6"><a href="2014-1-murrell-potter.html#11">2014</a></text>
+<text top="767" left="640" width="8" height="13" font="4"><a href="2014-1-murrell-potter.html#11">).</a></text>
+<text top="811" left="149" width="97" height="17" font="5"><b>Availability</b></text>
+<text top="850" left="148" width="596" height="13" font="4">The <b>gridSVG </b>package is available from CRAN. The code examples in this article are known to work</text>
+<text top="867" left="149" width="409" height="13" font="4">for <b>gridSVG </b>versions 1.3 and 1.4 using Firefox 28.0 on Ubuntu 12.04.</text>
+<text top="888" left="171" width="573" height="13" font="4">Support for SVG varies between browsers, for example Chrome 34.0 on Ubuntu 12.04 does not</text>
+<text top="904" left="148" width="171" height="13" font="4">produce the tooltips in Figure</text>
+<text top="904" left="322" width="7" height="13" font="6"><a href="2014-1-murrell-potter.html#6">7</a></text>
+<text top="904" left="329" width="409" height="13" font="4"><a href="2014-1-murrell-potter.html#6">. </a>Several web sites provide summary tables of supported SVG featur<a href="2014-1-murrell-potter.html#0">es.</a></text>
+<text top="901" left="738" width="5" height="10" font="8"><a href="2014-1-murrell-potter.html#0">5</a></text>
+<text top="921" left="149" width="597" height="13" font="4">Differences between browser JavaScript engines is another potential source of variation. Nevertheless,</text>
+<text top="937" left="149" width="595" height="13" font="4">all major browsers now provide native support of at least basic SVG features, several mature and stable</text>
+<text top="953" left="149" width="596" height="13" font="4">JavaScript libraries are available to abstract away browser differences, and the situation is constantly</text>
+<text top="970" left="149" width="66" height="13" font="4">improving.</text>
+<text top="991" left="171" width="358" height="13" font="4">Online versions of the figures in this article are available from</text>
+<text top="987" left="533" width="213" height="18" font="6"><a href="http://www.stat.auckland.ac.nz/~paul/Reports/gridSVGrjV2/">http://www.stat.auckland.ac.nz/</a></text>
+<text top="1004" left="148" width="178" height="18" font="6"><a href="http://www.stat.auckland.ac.nz/~paul/Reports/gridSVGrjV2/">~paul/Reports/gridSVGrjV2/</a></text>
+<text top="1007" left="326" width="418" height="13" font="4"><a href="http://www.stat.auckland.ac.nz/~paul/Reports/gridSVGrjV2/">. </a>Further documentation and examples for <b>gridSVG </b>are available from</text>
+<text top="1020" left="149" width="329" height="18" font="6"><a href="https://www.stat.auckland.ac.nz/~paul/R/gridSVG/">https://www.stat.auckland.ac.nz/~paul/R/gridSVG/</a></text>
+<text top="1024" left="478" width="3" height="13" font="4"><a href="https://www.stat.auckland.ac.nz/~paul/R/gridSVG/">.</a></text>
+<text top="1049" left="165" width="4" height="9" font="9"><a href="http://caniuse.com/svg">5</a></text>
+<text top="1048" left="170" width="134" height="16" font="10"><a href="http://caniuse.com/svg">http://caniuse.com/svg</a></text>
+<text top="1062" left="149" width="537" height="16" font="10"><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28Scalable_Vector_Graphics%29">http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28Scalable_Vector_Graphics%29</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">143</text>
+<text top="100" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="139" left="148" width="598" height="13" font="4">We would like to thank the anonymous reviewers for many helpful comments that lead to improve-</text>
+<text top="155" left="149" width="120" height="13" font="4">ments in this article.</text>
+<text top="200" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="239" left="149" width="222" height="13" font="4">D. Baranovskiy. Snap.svg, 2014. URL</text>
+<text top="236" left="374" width="123" height="18" font="6"><a href="http://snapsvg.io/">http://snapsvg.io/</a></text>
+<text top="239" left="497" width="21" height="13" font="4"><a href="http://snapsvg.io/">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="239" left="518" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="239" left="538" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="267" left="149" width="597" height="13" font="4">M. Bostock, V. Ogievetsky, and J. Heer. D3: Data-Driven Documents. IEEE Trans. Visualization &amp; Comp.</text>
+<text top="284" left="163" width="201" height="14" font="4">Graphics (Proc. InfoVis), 2011. URL</text>
+<text top="280" left="368" width="226" height="18" font="6"><a href="http://vis.stanford.edu/papers/d3">http://vis.stanford.edu/papers/d3</a></text>
+<text top="284" left="594" width="21" height="13" font="4"><a href="http://vis.stanford.edu/papers/d3">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="284" left="615" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="284" left="635" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="312" left="149" width="597" height="13" font="4">P. Dengler, D. Jackson, C. Lilley, J. Fujisawa, C. McCormack, E. Dahlström, A. Grasso, J. Ferraiolo,</text>
+<text top="329" left="164" width="582" height="13" font="4">D. Schepers, and J. Watt. Scalable vector graphics (SVG) 1.1 (second edition). W3C recommendation,</text>
+<text top="345" left="163" width="453" height="13" font="4">W3C, Aug. 2011. http://www.w3.org/TR/2011/REC-SVG11-20110816/. <a href="2014-1-murrell-potter.html#1">[p</a></text>
+<text top="345" left="616" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#1">133</a></text>
+<text top="345" left="636" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#1">]</a></text>
+<text top="373" left="149" width="598" height="13" font="4">M. Gesmann and D. de Castillo. googleVis: Interface between R and the Google Visualisation API.</text>
+<text top="390" left="163" width="289" height="14" font="4">The R Journal, 3(2):40–44, December 2011. URL</text>
+<text top="386" left="457" width="289" height="18" font="6"><a href="http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf">http://journal.r-project.org/archive/2011-</a></text>
+<text top="403" left="164" width="282" height="18" font="6"><a href="http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf">2/RJournal_2011-2_Gesmann+de~Castillo.pdf</a></text>
+<text top="406" left="446" width="21" height="13" font="4"><a href="http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="406" left="467" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="406" left="487" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="435" left="149" width="264" height="13" font="4">Google. Google Visualization API, 2013. URL</text>
+<text top="431" left="416" width="329" height="18" font="6"><a href="https://developers.google.com/chart/interactive/docs/reference">https://developers.google.com/chart/interactive/</a></text>
+<text top="448" left="164" width="96" height="18" font="6"><a href="https://developers.google.com/chart/interactive/docs/reference">docs/reference</a></text>
+<text top="451" left="260" width="21" height="13" font="4"><a href="https://developers.google.com/chart/interactive/docs/reference">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="451" left="281" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="451" left="301" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="480" left="149" width="232" height="13" font="4">Highsoft AS. Highcharts JS, 2013. URL</text>
+<text top="476" left="384" width="178" height="18" font="6"><a href="http://www.highcharts.com/">http://www.highcharts.com/</a></text>
+<text top="480" left="563" width="21" height="13" font="4"><a href="http://www.highcharts.com/">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="480" left="583" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="480" left="604" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="508" left="149" width="423" height="13" font="4">P. Murrell. What’s in a Name? The R Journal, 4(2):5–12, dec 2012. URL</text>
+<text top="505" left="575" width="172" height="18" font="6"><a href="http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Murrell.pdf">http://journal.r-project.</a></text>
+<text top="521" left="164" width="317" height="18" font="6"><a href="http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Murrell.pdf">org/archive/2012-2/RJournal_2012-2_Murrell.pdf</a></text>
+<text top="524" left="481" width="21" height="13" font="4"><a href="http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Murrell.pdf">. </a><a href="2014-1-murrell-potter.html#9">[p</a></text>
+<text top="524" left="502" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#9">141</a></text>
+<text top="524" left="522" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#9">]</a></text>
+<text top="553" left="149" width="527" height="13" font="4">P. Murrell and S. Potter. gridSVG: Export grid graphics as SVG. R package version 1.4-0. <a href="2014-1-murrell-potter.html#1">[p</a></text>
+<text top="553" left="676" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#1">133</a></text>
+<text top="553" left="696" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#1">]</a></text>
+<text top="581" left="149" width="595" height="13" font="4">P. Murrell and S. Potter. Advanced SVG Graphics from R. Technical Report 2013-7, Department of</text>
+<text top="598" left="164" width="292" height="13" font="4">Statistics, The University of Auckland, 2013. URL</text>
+<text top="594" left="459" width="288" height="18" font="6"><a href="http://stattech.wordpress.fos.auckland.ac.nz/2013-7-advanced-svg-graphics-from-r/">http://stattech.wordpress.fos.auckland.ac.</a></text>
+<text top="611" left="164" width="272" height="18" font="6"><a href="http://stattech.wordpress.fos.auckland.ac.nz/2013-7-advanced-svg-graphics-from-r/">nz/2013-7-advanced-svg-graphics-from-r/</a></text>
+<text top="614" left="436" width="21" height="13" font="4"><a href="http://stattech.wordpress.fos.auckland.ac.nz/2013-7-advanced-svg-graphics-from-r/">. </a><a href="2014-1-murrell-potter.html#4">[p</a></text>
+<text top="614" left="457" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#4">136</a></text>
+<text top="614" left="477" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#4">]</a></text>
+<text top="642" left="149" width="598" height="13" font="4">D. Nolan and D. Temple Lang. Interactive and animated scalable vector graphics and R data displays.</text>
+<text top="659" left="164" width="407" height="14" font="4">Journal of Statistical Software, 46(1):1–88, 1 2012. ISSN 1548-7660. URL</text>
+<text top="655" left="574" width="171" height="18" font="6"><a href="http://www.jstatsoft.org/v46/i01">http://www.jstatsoft.org/</a></text>
+<text top="672" left="163" width="48" height="18" font="6"><a href="http://www.jstatsoft.org/v46/i01">v46/i01</a></text>
+<text top="675" left="211" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v46/i01">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="675" left="232" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="675" left="252" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="704" left="149" width="327" height="13" font="4">Novus. NVD3.js : Re-usable charts for d3.js, 2012. URL</text>
+<text top="700" left="479" width="110" height="18" font="6"><a href="http://nvd3.org/">http://nvd3.org/</a></text>
+<text top="704" left="589" width="21" height="13" font="4"><a href="http://nvd3.org/">. </a><a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="704" left="610" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="704" left="630" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="732" left="149" width="596" height="13" font="4">T. Plate. RSVGTipsDevice: An R SVG graphics device with dynamic tips and hyperlinks, 2011. URL</text>
+<text top="745" left="164" width="330" height="18" font="6"><a href="http://CRAN.R-project.org/package=RSVGTipsDevice">http://CRAN.R-project.org/package=RSVGTipsDevice</a></text>
+<text top="749" left="494" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=RSVGTipsDevice">. </a>R package version 1.0-4. <a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="749" left="663" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="749" left="683" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="777" left="149" width="358" height="13" font="4">RStudio Inc. shiny: Web Application Framework for R, 2013. URL</text>
+<text top="773" left="510" width="234" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">http://CRAN.R-project.org/package=</a></text>
+<text top="790" left="164" width="34" height="18" font="6"><a href="http://CRAN.R-project.org/package=shiny">shiny</a></text>
+<text top="793" left="198" width="168" height="13" font="4"><a href="http://CRAN.R-project.org/package=shiny">. </a>R package version 0.3.0. <a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="793" left="366" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="793" left="386" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="822" left="149" width="596" height="13" font="4">D. Sarkar. Lattice: Multivariate Data Visualization with R. Springer-Verlag, New York, 2008. URL</text>
+<text top="835" left="164" width="235" height="18" font="6"><a href="http://lmdvr.r-forge.r-project.org">http://lmdvr.r-forge.r-project.org</a></text>
+<text top="838" left="398" width="169" height="13" font="4"><a href="http://lmdvr.r-forge.r-project.org">. </a>ISBN 978-0-387-75968-5. <a href="2014-1-murrell-potter.html#1">[p</a></text>
+<text top="838" left="567" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#1">133</a></text>
+<text top="838" left="587" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#1">]</a></text>
+<text top="867" left="149" width="564" height="13" font="4">R. Vaidyanathan. rCharts: Interactive Charts using Polycharts.js, 2013. R package version 0.4.2. <a href="2014-1-murrell-potter.html#10">[p</a></text>
+<text top="867" left="713" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#10">142</a></text>
+<text top="867" left="733" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#10">]</a></text>
+<text top="895" left="149" width="595" height="13" font="4">H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag, New York, 2009. ISBN</text>
+<text top="911" left="164" width="141" height="13" font="4">978-0-387-98140-6. URL</text>
+<text top="908" left="308" width="199" height="18" font="6"><a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a></text>
+<text top="911" left="507" width="21" height="13" font="4"><a href="http://had.co.nz/ggplot2/book">. </a><a href="2014-1-murrell-potter.html#1">[p</a></text>
+<text top="911" left="528" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#1">133</a></text>
+<text top="911" left="548" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#1">]</a></text>
+<text top="940" left="149" width="595" height="13" font="4">Y. Xie. animation: An R package for creating animations and demonstrating statistical methods. Journal</text>
+<text top="956" left="164" width="239" height="14" font="4">of Statistical Software, 53:1–27, 2013. URL</text>
+<text top="953" left="406" width="226" height="18" font="6"><a href="http://www.jstatsoft.org/v53/i01/">http://www.jstatsoft.org/v53/i01/</a></text>
+<text top="956" left="632" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v53/i01/">. </a><a href="2014-1-murrell-potter.html#9">[p</a></text>
+<text top="956" left="653" width="20" height="13" font="6"><a href="2014-1-murrell-potter.html#9">141</a></text>
+<text top="956" left="673" width="4" height="13" font="4"><a href="2014-1-murrell-potter.html#9">]</a></text>
+<text top="1002" left="148" width="72" height="13" font="4">Paul Murrell</text>
+<text top="1019" left="148" width="152" height="13" font="4">The University of Auckland</text>
+<text top="1035" left="148" width="53" height="13" font="4">Auckland</text>
+<text top="1052" left="149" width="73" height="13" font="4">New Zealand</text>
+<text top="1048" left="225" width="165" height="18" font="6"><a href="mailto:paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></text>
+<text top="1089" left="148" width="72" height="13" font="4">Simon Potter</text>
+<text top="1106" left="148" width="152" height="13" font="4">The University of Auckland</text>
+<text top="1122" left="148" width="53" height="13" font="4">Auckland</text>
+<text top="1138" left="149" width="73" height="13" font="4">New Zealand</text>
+<text top="1135" left="225" width="103" height="18" font="6"><a href="mailto:simon@sjp.co.nz">simon@sjp.co.nz</a></text>
+<text top="1210" left="148" width="220" height="15" font="0">The R Journal Vol. 6/1, June 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

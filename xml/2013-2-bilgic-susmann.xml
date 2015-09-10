@@ -1,0 +1,1600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="8" family="Times" color="#000000"/>
+	<fontspec id="7" size="8" family="Times" color="#000000"/>
+	<fontspec id="8" size="16" family="Times" color="#000000"/>
+	<fontspec id="9" size="11" family="Times" color="#000000"/>
+	<fontspec id="10" size="10" family="Times" color="#000000"/>
+	<fontspec id="11" size="5" family="Times" color="#000000"/>
+	<fontspec id="12" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="13" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">71</text>
+<text top="98" left="149" width="506" height="30" font="2"><b>rlme: An R Package for Rank-Based</b></text>
+<text top="137" left="149" width="534" height="30" font="2"><b>Estimation and Prediction in Random</b></text>
+<text top="177" left="149" width="318" height="30" font="2"><b>Effects Nested Models</b></text>
+<text top="213" left="149" width="247" height="15" font="0">by Yusuf K. Bilgic and Herbert Susmann</text>
+<text top="254" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="254" left="204" width="542" height="13" font="4">There is a lack of robust statistical analyses for random effects linear models. In practice,</text>
+<text top="270" left="149" width="595" height="13" font="4">statistical analyses, including estimation, prediction and inference, are not reliable when data are</text>
+<text top="286" left="149" width="595" height="13" font="4">unbalanced, of small size, contain outliers, or not normally distributed. It is fortunate that rank-based</text>
+<text top="303" left="149" width="595" height="13" font="4">regression analysis is a robust nonparametric alternative to likelihood and least squares analysis. We</text>
+<text top="319" left="148" width="596" height="13" font="4">propose an R package that calculates rank-based statistical analyses for two- and three-level random</text>
+<text top="336" left="149" width="595" height="13" font="4">effects nested designs. In this package, a new algorithm which recursively obtains robust predictions</text>
+<text top="352" left="149" width="514" height="13" font="4">for both scale and random effects is used, along with three rank-based fitting methods.</text>
+<text top="397" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="436" left="149" width="595" height="13" font="4">Rank-based procedures retain distribution-free estimation and testing properties. These procedures</text>
+<text top="452" left="149" width="596" height="13" font="4">are much less sensitive to outliers than the traditional analyses when random errors are not normally</text>
+<text top="469" left="149" width="595" height="13" font="4">distributed. Alternative robust score functions can be accommodated with the rank-based methods</text>
+<text top="485" left="149" width="595" height="13" font="4">to protect analyses from influential observations in factor and response spaces. Also, the choice of</text>
+<text top="502" left="149" width="595" height="13" font="4">these score functions could depend on the prior knowledge on error distributions. The Wilcoxon score</text>
+<text top="518" left="149" width="595" height="13" font="4">function is fairly efficient for moderate to heavy-tailed error distributions. For example, rank-based</text>
+<text top="534" left="148" width="596" height="13" font="4">procedures with Wilcoxon scores achieve up to 95% efficiency relative to least squares methods when</text>
+<text top="551" left="149" width="596" height="13" font="4">the data are normal and are much more efficient than least squares methods for heavy tailed error</text>
+<text top="567" left="149" width="597" height="13" font="4">distributions. These properties make the rank-based methods appealing. However, to our knowledge,</text>
+<text top="584" left="149" width="595" height="13" font="4">statistical analyses for random effects models using the rank-based methodology have not yet been</text>
+<text top="600" left="149" width="595" height="13" font="4">considered in any statistical package. This article proposes an R package with three rank-based fitting</text>
+<text top="617" left="149" width="595" height="13" font="4">methods that estimate fixed effects and predict random effects in two- and three-level random effects</text>
+<text top="633" left="149" width="89" height="13" font="4">nested models.</text>
+<text top="654" left="171" width="471" height="13" font="4">The rank-based norm, analogous to the least squares norm, is briefly defined as</text>
+<text top="697" left="356" width="7" height="13" font="0">k</text>
+<text top="697" left="363" width="10" height="13" font="4">w</text>
+<text top="697" left="373" width="7" height="13" font="0">k</text>
+<text top="706" left="381" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="697" left="392" width="11" height="12" font="0">=</text>
+<text top="685" left="411" width="6" height="10" font="7">n</text>
+<text top="692" left="407" width="14" height="24" font="8">∑</text>
+<text top="714" left="413" width="3" height="10" font="7">i</text>
+<text top="697" left="424" width="6" height="13" font="4">a</text>
+<text top="697" left="433" width="4" height="12" font="0">[</text>
+<text top="697" left="437" width="9" height="13" font="4">R</text>
+<text top="697" left="446" width="5" height="12" font="0">(</text>
+<text top="697" left="452" width="10" height="13" font="4">w</text>
+<text top="702" left="462" width="3" height="10" font="7">i</text>
+<text top="697" left="466" width="10" height="13" font="0">)]</text>
+<text top="697" left="478" width="10" height="13" font="4">w</text>
+<text top="702" left="488" width="3" height="10" font="7">i</text>
+<text top="697" left="492" width="35" height="13" font="4">, w<i>e</i>R</text>
+<text top="694" left="527" width="6" height="10" font="7">n</text>
+<text top="697" left="534" width="3" height="13" font="4">,</text>
+<text top="697" left="728" width="16" height="13" font="4">(1)</text>
+<text top="732" left="148" width="216" height="13" font="4">where the scores are generated as a</text>
+<text top="732" left="364" width="5" height="12" font="0">(</text>
+<text top="732" left="370" width="4" height="13" font="4">i</text>
+<text top="732" left="374" width="22" height="12" font="0">) =</text>
+<text top="735" left="402" width="8" height="10" font="9"><i>ϕ</i></text>
+<text top="732" left="410" width="4" height="12" font="0">[</text>
+<text top="732" left="414" width="12" height="14" font="4">i/</text>
+<text top="732" left="427" width="5" height="12" font="0">(</text>
+<text top="732" left="432" width="7" height="13" font="4">n</text>
+<text top="732" left="443" width="11" height="12" font="0">+</text>
+<text top="732" left="457" width="7" height="13" font="4">1</text>
+<text top="732" left="464" width="10" height="12" font="0">)]</text>
+<text top="732" left="478" width="193" height="13" font="4">for a non-decreasing function <i>ϕ</i></text>
+<text top="732" left="671" width="5" height="12" font="0">(</text>
+<text top="732" left="677" width="7" height="13" font="4">u</text>
+<text top="732" left="685" width="5" height="12" font="0">)</text>
+<text top="732" left="690" width="54" height="13" font="4">, defined</text>
+<text top="748" left="149" width="89" height="13" font="4">on the interval</text>
+<text top="748" left="242" width="5" height="12" font="0">(</text>
+<text top="748" left="248" width="19" height="13" font="4">0, 1</text>
+<text top="748" left="268" width="5" height="12" font="0">)</text>
+<text top="748" left="273" width="44" height="13" font="4">, and R</text>
+<text top="748" left="318" width="5" height="12" font="0">(</text>
+<text top="748" left="323" width="10" height="13" font="4">w</text>
+<text top="753" left="333" width="3" height="10" font="7">i</text>
+<text top="748" left="337" width="5" height="12" font="0">)</text>
+<text top="748" left="347" width="94" height="13" font="4">is the rank of w</text>
+<text top="753" left="441" width="3" height="10" font="7">i</text>
+<text top="748" left="449" width="56" height="13" font="4">among w</text>
+<text top="753" left="505" width="5" height="10" font="7">1</text>
+<text top="748" left="511" width="16" height="13" font="4">, w</text>
+<text top="753" left="527" width="5" height="10" font="7">2</text>
+<text top="748" left="533" width="32" height="13" font="4">, ..., w</text>
+<text top="752" left="564" width="6" height="10" font="7">n</text>
+<text top="748" left="571" width="173" height="13" font="4">. We assume without loss of</text>
+<text top="765" left="149" width="595" height="13" font="4">generality that the scores sum to zero. Two of the most commonly used score functions are the</text>
+<text top="783" left="148" width="68" height="13" font="4">Wilcoxon <i>ϕ</i></text>
+<text top="783" left="217" width="5" height="12" font="0">(</text>
+<text top="783" left="222" width="7" height="13" font="4">u</text>
+<text top="783" left="230" width="20" height="12" font="0">) =</text>
+<text top="770" left="255" width="12" height="13" font="0">√</text>
+<text top="783" left="266" width="13" height="13" font="4">12</text>
+<text top="782" left="283" width="12" height="13" font="0">· (</text>
+<text top="783" left="295" width="7" height="13" font="4">u</text>
+<text top="782" left="306" width="11" height="13" font="0">−</text>
+<text top="779" left="321" width="5" height="10" font="7">1</text>
+<text top="789" left="321" width="5" height="10" font="7">2</text>
+<text top="783" left="328" width="5" height="12" font="0">)</text>
+<text top="783" left="337" width="85" height="13" font="4">and the sign <i>ϕ</i></text>
+<text top="783" left="423" width="5" height="12" font="0">(</text>
+<text top="783" left="429" width="7" height="13" font="4">u</text>
+<text top="783" left="436" width="20" height="12" font="0">) =</text>
+<text top="783" left="461" width="20" height="13" font="4">sgn</text>
+<text top="783" left="482" width="4" height="12" font="0">[</text>
+<text top="783" left="486" width="34" height="14" font="4">u-1/2</text>
+<text top="783" left="520" width="4" height="12" font="0">]</text>
+<text top="783" left="524" width="3" height="13" font="4">.</text>
+<text top="804" left="171" width="380" height="13" font="4">The rank-based estimate of <i>β </i>for the independent error model Y</text>
+<text top="803" left="555" width="11" height="12" font="0">=</text>
+<text top="803" left="570" width="18" height="13" font="4">X<i>β</i></text>
+<text top="803" left="591" width="11" height="12" font="0">+</text>
+<text top="803" left="605" width="73" height="14" font="4">e is given by</text>
+<text top="838" left="371" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="847" left="377" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="841" left="388" width="11" height="12" font="0">=</text>
+<text top="841" left="403" width="47" height="13" font="4">Argmin</text>
+<text top="840" left="452" width="7" height="13" font="0">k</text>
+<text top="841" left="459" width="9" height="13" font="4">Y</text>
+<text top="840" left="471" width="11" height="13" font="0">−</text>
+<text top="841" left="486" width="18" height="13" font="4">X<i>β</i></text>
+<text top="840" left="504" width="7" height="13" font="0">k</text>
+<text top="850" left="512" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="841" left="521" width="3" height="13" font="4">.</text>
+<text top="841" left="728" width="16" height="13" font="4">(2)</text>
+<text top="865" left="148" width="596" height="13" font="4">Assume that the errors are independent and identically distributed with a continuous density function</text>
+<text top="882" left="151" width="4" height="13" font="4">f</text>
+<text top="882" left="157" width="5" height="12" font="0">(</text>
+<text top="882" left="163" width="7" height="13" font="4">x</text>
+<text top="882" left="170" width="5" height="12" font="0">)</text>
+<text top="882" left="175" width="281" height="13" font="4">. Under regularity conditions, <i>β </i>is estimated by</text>
+<text top="916" left="384" width="13" height="17" font="4">ˆ<i>β </i>˙</text>
+<text top="918" left="389" width="11" height="13" font="0">∼</text>
+<text top="919" left="401" width="10" height="13" font="4">N</text>
+<text top="919" left="412" width="5" height="12" font="0">(</text>
+<text top="922" left="418" width="7" height="10" font="9"><i>β</i></text>
+<text top="919" left="426" width="15" height="13" font="4">, <i>τ</i></text>
+<text top="916" left="441" width="5" height="10" font="7">2</text>
+<text top="927" left="441" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="919" left="448" width="5" height="12" font="0">(</text>
+<text top="919" left="454" width="10" height="13" font="4">X</text>
+<text top="916" left="464" width="6" height="10" font="7">T</text>
+<text top="919" left="472" width="10" height="13" font="4">X</text>
+<text top="919" left="483" width="5" height="12" font="0">)</text>
+<text top="915" left="488" width="14" height="11" font="7">−1</text>
+<text top="919" left="503" width="5" height="12" font="0">)</text>
+<text top="919" left="509" width="3" height="13" font="4">,</text>
+<text top="919" left="728" width="16" height="13" font="4">(3)</text>
+<text top="969" left="366" width="7" height="10" font="9"><i>τ</i></text>
+<text top="972" left="373" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="966" left="384" width="11" height="12" font="0">=</text>
+<text top="956" left="399" width="7" height="6" font="4"></text>
+<text top="958" left="406" width="7" height="5" font="10">Z</text>
+<text top="969" left="422" width="8" height="10" font="9"><i>ϕ</i></text>
+<text top="966" left="430" width="5" height="12" font="0">(</text>
+<text top="966" left="436" width="7" height="13" font="4">u</text>
+<text top="966" left="444" width="5" height="12" font="0">)</text>
+<text top="969" left="450" width="8" height="10" font="9"><i>ϕ</i></text>
+<text top="971" left="460" width="3" height="10" font="7">f</text>
+<text top="966" left="465" width="5" height="12" font="0">(</text>
+<text top="966" left="471" width="7" height="13" font="4">u</text>
+<text top="966" left="479" width="5" height="12" font="0">)</text>
+<text top="966" left="484" width="15" height="13" font="4">du</text>
+<text top="956" left="499" width="7" height="6" font="4"></text>
+<text top="952" left="507" width="14" height="11" font="7">−1</text>
+<text top="966" left="523" width="3" height="13" font="4">,</text>
+<text top="966" left="728" width="16" height="13" font="4">(4)</text>
+<text top="1002" left="148" width="39" height="13" font="4">with <i>ϕ</i></text>
+<text top="1007" left="189" width="3" height="10" font="7">f</text>
+<text top="1002" left="194" width="5" height="12" font="0">(</text>
+<text top="1002" left="200" width="7" height="13" font="4">u</text>
+<text top="1002" left="208" width="35" height="12" font="0">) = −</text>
+<text top="997" left="247" width="3" height="10" font="7">f</text>
+<text top="995" left="251" width="2" height="7" font="11">0</text>
+<text top="997" left="254" width="11" height="10" font="7">(F</text>
+<text top="995" left="265" width="10" height="8" font="11">−1</text>
+<text top="997" left="276" width="19" height="10" font="7">(u))</text>
+<text top="1010" left="251" width="15" height="10" font="7">f (F</text>
+<text top="1008" left="266" width="10" height="8" font="11">−1</text>
+<text top="1010" left="277" width="15" height="10" font="7">(u)</text>
+<text top="1002" left="297" width="104" height="13" font="4">. The parameter <i>τ</i></text>
+<text top="1009" left="401" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="1002" left="411" width="333" height="13" font="4">is a scale parameter for the error terms e. The rank-based</text>
+<text top="1022" left="149" width="595" height="13" font="4">estimator of the fixed effects for independent linear models is asymptotically normal, shown in the</text>
+<text top="1038" left="148" width="341" height="13" font="4">work of Jaeckel and Jureckova in the 1970’s. See Chapter 3,</text>
+<text top="1038" left="492" width="172" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Hettmansperger and McKean</a></text>
+<text top="1038" left="668" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="1038" left="672" width="26" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2011</a></text>
+<text top="1038" left="698" width="46" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for the</text>
+<text top="1055" left="149" width="228" height="13" font="4">relevant theory in detail. Recently, the</text>
+<text top="1055" left="380" width="22" height="13" font="13"><a href="http://CRAN.R-project.org/package=Rfit"><b>Rfit</b></a></text>
+<text top="1055" left="406" width="338" height="13" font="4">package was released for rank-based regression analysis</text>
+<text top="1071" left="149" width="480" height="13" font="4">that uses rank-based norm and robust estimators for independent linear models <a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="1071" left="629" width="113" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke and McKean</a></text>
+<text top="1071" left="742" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">,</a></text>
+<text top="1088" left="149" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2012</a></text>
+<text top="1088" left="176" width="561" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">). </a>We extend the rank-based regression methodology to include random effects nested models.</text>
+<text top="1108" left="171" width="575" height="13" font="4">Random effects nested models are frequently utilized in many research areas such as: education,</text>
+<text top="1125" left="149" width="595" height="13" font="4">survey sampling, meta-analysis, agriculture, and health. Survey sampling might happen within</text>
+<text top="1141" left="149" width="595" height="13" font="4">organizational units, communities, clusters, or hospitals. The experimental design of interest is</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">72</text>
+<text top="103" left="149" width="595" height="13" font="4">expressed in terms of fixed effects but, for these designs, nested factors are a natural part of the</text>
+<text top="120" left="149" width="595" height="13" font="4">experiment. These nested effects are generally considered random and must be taken into account in</text>
+<text top="136" left="149" width="596" height="13" font="4">the statistical analysis. For example, repeated measures design, randomized block design, and cluster</text>
+<text top="152" left="149" width="595" height="13" font="4">correlated data consider each subject as a cluster having a correlated structure so the observations</text>
+<text top="169" left="149" width="598" height="13" font="4">are nested within the subject. This subject would be a block, a cluster, an institution or a region.</text>
+<text top="185" left="148" width="596" height="13" font="4">These designs are examples of two-level nested structures. Compound symmetric error structure is a</text>
+<text top="202" left="149" width="595" height="13" font="4">natural variance-covariance form of these designs. It implies that all distinct members of a cluster or a</text>
+<text top="218" left="149" width="597" height="13" font="4">subcluster are equally correlated with each other. When there is one more correlated level (subclusters)</text>
+<text top="235" left="148" width="596" height="13" font="4">within clusters, this design could be called a three-level nested structure. Hierarchical linear models</text>
+<text top="251" left="149" width="235" height="13" font="4">can also deal with these nested designs.</text>
+<text top="272" left="171" width="573" height="13" font="4">To illustrate the issues involved in data analysis, consider a simple example of a two-level nested</text>
+<text top="288" left="149" width="352" height="13" font="4">design where students are nested within schools (see Model</text>
+<text top="288" left="504" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">5</a></text>
+<text top="288" left="511" width="233" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">), </a>and a three-level nested design where</text>
+<text top="305" left="149" width="339" height="13" font="4">students are nested within sections in schools (see Model</text>
+<text top="305" left="491" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">6</a></text>
+<text top="305" left="498" width="246" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">). </a>Students are measured on a continuous</text>
+<text top="321" left="149" width="597" height="13" font="4">univariate response variable of interest, y. The p-variate design data, including covariates, treatment,</text>
+<text top="338" left="149" width="479" height="13" font="4">etc., are stored in the x vector. The problem is summarized in the linear model as</text>
+<text top="375" left="376" width="7" height="13" font="4">y</text>
+<text top="380" left="383" width="7" height="10" font="7">ij</text>
+<text top="375" left="394" width="11" height="12" font="0">=</text>
+<text top="378" left="409" width="7" height="10" font="9"><i>α</i></text>
+<text top="375" left="419" width="11" height="12" font="0">+</text>
+<text top="375" left="434" width="7" height="13" font="4">x</text>
+<text top="372" left="441" width="6" height="10" font="7">T</text>
+<text top="381" left="440" width="7" height="10" font="7">ij</text>
+<text top="378" left="449" width="7" height="10" font="9"><i>β</i></text>
+<text top="375" left="459" width="11" height="12" font="0">+</text>
+<text top="375" left="473" width="6" height="13" font="4">a</text>
+<text top="380" left="479" width="3" height="10" font="7">i</text>
+<text top="375" left="486" width="11" height="12" font="0">+</text>
+<text top="378" left="500" width="6" height="10" font="9"><i>e</i></text>
+<text top="380" left="506" width="7" height="10" font="7">ij</text>
+<text top="375" left="514" width="3" height="13" font="4">,</text>
+<text top="375" left="728" width="16" height="13" font="4">(5)</text>
+<text top="399" left="148" width="36" height="13" font="4">with i</text>
+<text top="399" left="190" width="11" height="12" font="0">=</text>
+<text top="399" left="206" width="70" height="13" font="4">1, ..., I and j</text>
+<text top="399" left="282" width="11" height="12" font="0">=</text>
+<text top="399" left="298" width="36" height="13" font="4">1, ..., n</text>
+<text top="404" left="334" width="3" height="10" font="7">i</text>
+<text top="399" left="338" width="56" height="13" font="4">, where a</text>
+<text top="404" left="394" width="3" height="10" font="7">i</text>
+<text top="399" left="402" width="342" height="13" font="4">is the random effect for school i (cluster effects), I is the</text>
+<text top="416" left="149" width="124" height="13" font="4">number of schools, n</text>
+<text top="421" left="273" width="3" height="10" font="7">i</text>
+<text top="416" left="280" width="102" height="13" font="4">is the size of the i</text>
+<text top="413" left="383" width="9" height="10" font="7">th</text>
+<text top="416" left="396" width="68" height="13" font="4">school, and</text>
+<text top="445" left="348" width="7" height="13" font="4">y</text>
+<text top="450" left="354" width="11" height="10" font="7">ijk</text>
+<text top="445" left="371" width="11" height="12" font="0">=</text>
+<text top="448" left="386" width="7" height="10" font="9"><i>α</i></text>
+<text top="445" left="396" width="11" height="12" font="0">+</text>
+<text top="445" left="410" width="7" height="13" font="4">x</text>
+<text top="441" left="417" width="6" height="10" font="7">T</text>
+<text top="451" left="417" width="11" height="10" font="7">ijk</text>
+<text top="448" left="430" width="7" height="10" font="9"><i>β</i></text>
+<text top="445" left="440" width="11" height="12" font="0">+</text>
+<text top="445" left="454" width="6" height="13" font="4">a</text>
+<text top="450" left="460" width="3" height="10" font="7">i</text>
+<text top="445" left="467" width="11" height="12" font="0">+</text>
+<text top="445" left="481" width="10" height="13" font="4">w</text>
+<text top="450" left="491" width="15" height="10" font="7">j(i)</text>
+<text top="445" left="510" width="11" height="12" font="0">+</text>
+<text top="448" left="523" width="6" height="10" font="9"><i>e</i></text>
+<text top="450" left="530" width="11" height="10" font="7">ijk</text>
+<text top="445" left="542" width="3" height="13" font="4">,</text>
+<text top="445" left="728" width="16" height="13" font="4">(6)</text>
+<text top="476" left="148" width="35" height="13" font="4">with i</text>
+<text top="476" left="187" width="11" height="12" font="0">=</text>
+<text top="476" left="202" width="45" height="13" font="4">1, ..., I, j</text>
+<text top="476" left="251" width="11" height="12" font="0">=</text>
+<text top="476" left="266" width="33" height="13" font="4">1, ..., J</text>
+<text top="481" left="299" width="3" height="10" font="7">i</text>
+<text top="476" left="306" width="32" height="13" font="4">and k</text>
+<text top="476" left="343" width="11" height="12" font="0">=</text>
+<text top="476" left="358" width="36" height="13" font="4">1, ..., n</text>
+<text top="481" left="394" width="7" height="10" font="7">ij</text>
+<text top="476" left="401" width="53" height="13" font="4">, where a</text>
+<text top="481" left="455" width="3" height="10" font="7">i</text>
+<text top="476" left="462" width="284" height="13" font="4">is the random effect for school i (cluster effects),</text>
+<text top="496" left="149" width="10" height="13" font="4">w</text>
+<text top="501" left="159" width="15" height="10" font="7">j(i)</text>
+<text top="496" left="179" width="167" height="13" font="4">is the random effect for the j</text>
+<text top="493" left="346" width="9" height="10" font="7">th</text>
+<text top="496" left="359" width="231" height="13" font="4">section of school i (subcluster effects), J</text>
+<text top="501" left="590" width="3" height="10" font="7">i</text>
+<text top="496" left="597" width="147" height="13" font="4">is the number of sections</text>
+<text top="516" left="149" width="75" height="13" font="4">in school i, n</text>
+<text top="521" left="224" width="7" height="10" font="7">ij</text>
+<text top="516" left="235" width="81" height="13" font="4">is the size of j</text>
+<text top="513" left="316" width="9" height="10" font="7">th</text>
+<text top="516" left="329" width="412" height="13" font="4">section in school i. Random errors are uncorrelated and independent.</text>
+<text top="537" left="171" width="573" height="13" font="4">The main interest with these models would be to estimate the regression parameters <i>β </i>as fixed</text>
+<text top="554" left="149" width="110" height="13" font="4">effects, to predict a</text>
+<text top="558" left="260" width="3" height="10" font="7">i</text>
+<text top="554" left="267" width="36" height="13" font="4">and w</text>
+<text top="559" left="303" width="15" height="10" font="7">j(i)</text>
+<text top="554" left="322" width="424" height="13" font="4">as random effects, and scale parameters of the error and random effects.</text>
+<text top="570" left="148" width="596" height="13" font="4">The intra-class correlation coefficient (ICC) for each nested level would be also estimated using the scale</text>
+<text top="586" left="148" width="596" height="13" font="4">parameter estimates. ICC provides information on the degree of dependencies of the observations</text>
+<text top="603" left="148" width="596" height="13" font="4">within the same cluster. It is a useful and contextual parameter associated with the random effects</text>
+<text top="619" left="149" width="595" height="13" font="4">of clusters that measures the proportion of the variability of the response to the total variability. It</text>
+<text top="636" left="149" width="595" height="13" font="4">is sometimes called cluster effect and applied only to random models. For example, independent</text>
+<text top="652" left="149" width="372" height="13" font="4">observations within- and between-cluster yield an ICC of zero.</text>
+<text top="673" left="171" width="573" height="13" font="4">This nested analog could be adopted for other organizational studies and hierarchical data. These</text>
+<text top="690" left="149" width="249" height="13" font="4">designs often address questions related to</text>
+<text top="716" left="171" width="575" height="13" font="4">• the examination of differences within and across clusters or contexts such as classrooms, schools,</text>
+<text top="733" left="186" width="302" height="13" font="4">neighborhoods, or groups on individual outcomes;</text>
+<text top="755" left="171" width="574" height="13" font="4">• the investigation of the degree to which individuals within a group or cluster are similar as</text>
+<text top="772" left="186" width="162" height="13" font="4">measured through the ICC;</text>
+<text top="794" left="171" width="421" height="13" font="4">• the study of the factors that explain institutional/cluster differences;</text>
+<text top="817" left="171" width="574" height="13" font="4">• the effects of clusters and treatment on individual scores, e.g., student’s academic achievement</text>
+<text top="833" left="183" width="386" height="13" font="4">— both random and fixed effects are addressed in these interests.</text>
+<text top="860" left="171" width="575" height="13" font="4">In this article, three rank-based fitting methods and a new prediction algorithm are briefly intro-</text>
+<text top="876" left="149" width="306" height="13" font="4">duced. A data analysis example using our package,</text>
+<text top="876" left="458" width="28" height="13" font="13"><a href="http://CRAN.R-project.org/package=rlme"><b>rlme</b></a></text>
+<text top="876" left="486" width="109" height="13" font="4"><a href="http://CRAN.R-project.org/package=rlme">, </a>is also presented.</text>
+<text top="921" left="149" width="219" height="17" font="5"><b>Three rank-based methods</b></text>
+<text top="960" left="148" width="598" height="13" font="4">This section introduces three rank-based fitting methods to obtain fixed effects estimations: Joint Rank-</text>
+<text top="976" left="149" width="595" height="13" font="4">ing (JR), Generalized Rank Estimate (GR) and Generalized Estimating Equation (GEER). The algorithm</text>
+<text top="993" left="149" width="595" height="13" font="4">for robust variance estimates and random effects predictions in random effects nested models, called</text>
+<text top="1009" left="149" width="595" height="13" font="4">Rank Prediction Procedure (RPP), is then introduced. To sketch the calculation algorithms in these</text>
+<text top="1026" left="149" width="110" height="13" font="4">methods, Models <a href="2013-2-bilgic-susmann.html#2">(</a></text>
+<text top="1026" left="258" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">5</a></text>
+<text top="1026" left="265" width="38" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">) </a>and <a href="2013-2-bilgic-susmann.html#2">(</a></text>
+<text top="1026" left="303" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">6</a></text>
+<text top="1026" left="310" width="434" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">) </a>can be rewritten in the general mixed model matrix and vector notations</text>
+<text top="1042" left="149" width="63" height="13" font="4">as follows:</text>
+<text top="1079" left="364" width="9" height="13" font="4">Y</text>
+<text top="1079" left="377" width="11" height="12" font="0">=</text>
+<text top="1079" left="392" width="18" height="13" font="4">X<i>β</i></text>
+<text top="1079" left="413" width="11" height="12" font="0">+</text>
+<text top="1079" left="427" width="5" height="13" font="4">e</text>
+<text top="1079" left="436" width="11" height="12" font="0">=</text>
+<text top="1079" left="452" width="18" height="13" font="4">X<i>β</i></text>
+<text top="1079" left="473" width="11" height="12" font="0">+</text>
+<text top="1079" left="487" width="16" height="13" font="4">Zb</text>
+<text top="1079" left="505" width="11" height="12" font="0">+</text>
+<text top="1083" left="519" width="6" height="10" font="9"><i>e</i></text>
+<text top="1079" left="526" width="3" height="13" font="4">,</text>
+<text top="1079" left="728" width="16" height="13" font="4">(7)</text>
+<text top="1102" left="148" width="119" height="13" font="4">where Y denotes a n</text>
+<text top="1101" left="270" width="11" height="13" font="0">×</text>
+<text top="1102" left="284" width="173" height="13" font="4">1 vector of responses, X is a n</text>
+<text top="1101" left="459" width="19" height="13" font="0">× (</text>
+<text top="1102" left="480" width="7" height="13" font="4">p</text>
+<text top="1102" left="490" width="11" height="12" font="0">+</text>
+<text top="1102" left="503" width="7" height="13" font="4">1</text>
+<text top="1102" left="510" width="5" height="12" font="0">)</text>
+<text top="1102" left="519" width="225" height="13" font="4">known fixed effects design matrix, <i>β </i>is</text>
+<text top="1118" left="149" width="7" height="13" font="4">a</text>
+<text top="1118" left="159" width="5" height="12" font="0">(</text>
+<text top="1118" left="166" width="7" height="13" font="4">p</text>
+<text top="1118" left="175" width="11" height="12" font="0">+</text>
+<text top="1118" left="189" width="7" height="13" font="4">1</text>
+<text top="1118" left="196" width="19" height="12" font="0">) ×</text>
+<text top="1118" left="218" width="239" height="13" font="4">1 fixed effects parameter vector, Z is a n</text>
+<text top="1117" left="461" width="11" height="13" font="0">×</text>
+<text top="1118" left="475" width="270" height="14" font="4">k known random effects design matrix, b is a</text>
+<text top="1135" left="149" width="6" height="13" font="4">k</text>
+<text top="1134" left="158" width="11" height="13" font="0">×</text>
+<text top="1135" left="172" width="228" height="13" font="4">1 vector of random effects, and <i>e </i>is a n</text>
+<text top="1134" left="402" width="11" height="13" font="0">×</text>
+<text top="1135" left="416" width="155" height="13" font="4">1 vector of random errors.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">73</text>
+<text top="103" left="171" width="573" height="13" font="4">Alternatively, the model can be written in vectors of the observations obtained from independent</text>
+<text top="119" left="150" width="193" height="14" font="4">I clusters. Within cluster k, let Y</text>
+<text top="125" left="341" width="5" height="10" font="7">k</text>
+<text top="120" left="347" width="17" height="13" font="4">, X</text>
+<text top="125" left="364" width="5" height="10" font="7">k</text>
+<text top="120" left="370" width="39" height="13" font="4">, and e</text>
+<text top="125" left="409" width="5" height="10" font="7">k</text>
+<text top="120" left="418" width="151" height="13" font="4">denote respectively the n</text>
+<text top="125" left="570" width="5" height="10" font="7">k</text>
+<text top="119" left="578" width="11" height="13" font="0">×</text>
+<text top="120" left="592" width="152" height="13" font="4">1 vector of responses, the</text>
+<text top="136" left="149" width="7" height="13" font="4">n</text>
+<text top="141" left="157" width="5" height="10" font="7">k</text>
+<text top="135" left="165" width="11" height="13" font="0">×</text>
+<text top="136" left="180" width="155" height="14" font="4">p design matrix, and the n</text>
+<text top="141" left="335" width="5" height="10" font="7">k</text>
+<text top="135" left="343" width="11" height="13" font="0">×</text>
+<text top="136" left="357" width="323" height="13" font="4">1 vector of errors. Then the general mixed model for Y</text>
+<text top="141" left="679" width="5" height="10" font="7">k</text>
+<text top="136" left="688" width="10" height="13" font="4">is</text>
+<text top="165" left="351" width="9" height="13" font="4">Y</text>
+<text top="170" left="359" width="5" height="10" font="7">k</text>
+<text top="165" left="368" width="11" height="12" font="0">=</text>
+<text top="168" left="383" width="7" height="10" font="9"><i>α</i></text>
+<text top="165" left="390" width="7" height="13" font="4">1</text>
+<text top="169" left="397" width="6" height="10" font="7">n</text>
+<text top="173" left="403" width="3" height="7" font="11">k</text>
+<text top="165" left="411" width="11" height="12" font="0">+</text>
+<text top="165" left="425" width="10" height="13" font="4">X</text>
+<text top="170" left="435" width="5" height="10" font="7">k</text>
+<text top="168" left="441" width="7" height="10" font="9"><i>β</i></text>
+<text top="165" left="451" width="11" height="12" font="0">+</text>
+<text top="165" left="465" width="5" height="13" font="4">e</text>
+<text top="170" left="471" width="5" height="10" font="7">k</text>
+<text top="165" left="476" width="15" height="13" font="4">, k</text>
+<text top="165" left="495" width="11" height="12" font="0">=</text>
+<text top="165" left="510" width="32" height="13" font="4">1, ...I,</text>
+<text top="165" left="728" width="16" height="13" font="4">(8)</text>
+<text top="194" left="148" width="305" height="13" font="4">where the components of the random error vector e</text>
+<text top="199" left="454" width="5" height="10" font="7">k</text>
+<text top="194" left="462" width="204" height="13" font="4">contain random effects and errors.</text>
+<text top="236" left="149" width="172" height="15" font="14"><b>Joint ranking method: JR</b></text>
+<text top="267" left="148" width="596" height="13" font="4">This rank-based method for nested random effects models uses asymptotic results of the study by</text>
+<text top="284" left="149" width="68" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="284" left="220" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="284" left="225" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="284" left="252" width="290" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>in estimating fixed effects and standard errors.</text>
+<text top="284" left="546" width="68" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="284" left="618" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="284" left="622" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="284" left="650" width="94" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>developed the</text>
+<text top="300" left="149" width="595" height="13" font="4">asymptotic theory for the rank-based estimates of fixed effects in the general mixed model using the</text>
+<text top="316" left="149" width="134" height="13" font="4">general rank theory of</text>
+<text top="316" left="287" width="124" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Brunner and Denker</a></text>
+<text top="316" left="414" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="316" left="419" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">1994</a></text>
+<text top="316" left="446" width="298" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">). </a>The estimation of fixed effects in the JR method</text>
+<text top="333" left="149" width="595" height="13" font="4">uses the dispersion function as in the independent linear model. However, the asymptotic distribution</text>
+<text top="349" left="149" width="24" height="13" font="4">of ˆ<i>β</i></text>
+<text top="354" left="174" width="11" height="10" font="7">JR</text>
+<text top="349" left="190" width="554" height="13" font="4">has a different covariance matrix formula due to the correlated errors in the model. This is</text>
+<text top="366" left="149" width="75" height="13" font="4">expressed as</text>
+<text top="403" left="337" width="20" height="13" font="4">var</text>
+<text top="403" left="356" width="5" height="12" font="0">(</text>
+<text top="400" left="365" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="408" left="371" width="11" height="10" font="7">JR</text>
+<text top="403" left="383" width="5" height="12" font="0">)</text>
+<text top="395" left="397" width="3" height="13" font="4">.</text>
+<text top="403" left="393" width="11" height="12" font="0">=</text>
+<text top="406" left="408" width="7" height="10" font="9"><i>τ</i></text>
+<text top="400" left="415" width="5" height="10" font="7">2</text>
+<text top="411" left="415" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="403" left="422" width="5" height="12" font="0">(</text>
+<text top="403" left="428" width="10" height="13" font="4">X</text>
+<text top="399" left="438" width="3" height="10" font="7">0</text>
+<text top="403" left="442" width="10" height="13" font="4">X</text>
+<text top="403" left="453" width="5" height="12" font="0">)</text>
+<text top="399" left="458" width="14" height="11" font="7">−1</text>
+<text top="403" left="473" width="5" height="12" font="0">(</text>
+<text top="400" left="479" width="9" height="17" font="4">Σ</text>
+<text top="410" left="489" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="403" left="496" width="11" height="12" font="0">)(</text>
+<text top="403" left="508" width="10" height="13" font="4">X</text>
+<text top="399" left="518" width="3" height="10" font="7">0</text>
+<text top="403" left="522" width="10" height="13" font="4">X</text>
+<text top="403" left="533" width="5" height="12" font="0">)</text>
+<text top="399" left="538" width="14" height="11" font="7">−1</text>
+<text top="403" left="553" width="3" height="13" font="4">,</text>
+<text top="403" left="728" width="16" height="13" font="4">(9)</text>
+<text top="430" left="148" width="38" height="13" font="4">where</text>
+<text top="427" left="190" width="9" height="17" font="4">Σ</text>
+<text top="436" left="200" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="430" left="212" width="11" height="12" font="0">=</text>
+<text top="430" left="227" width="20" height="13" font="4">lim</text>
+<text top="435" left="248" width="15" height="10" font="7">I→</text>
+<text top="432" left="263" width="9" height="14" font="7">∞</text>
+<text top="428" left="275" width="10" height="17" font="4">∑</text>
+<text top="427" left="286" width="3" height="10" font="7">I</text>
+<text top="436" left="286" width="17" height="11" font="7">i=1</text>
+<text top="430" left="306" width="10" height="13" font="4">X</text>
+<text top="425" left="316" width="2" height="7" font="11">0</text>
+<text top="437" left="316" width="3" height="10" font="7">i</text>
+<text top="427" left="320" width="9" height="17" font="4">Σ</text>
+<text top="437" left="330" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="435" left="336" width="6" height="10" font="7">,i</text>
+<text top="430" left="343" width="10" height="13" font="4">X</text>
+<text top="435" left="353" width="3" height="10" font="7">i</text>
+<text top="422" left="366" width="3" height="13" font="4">.</text>
+<text top="430" left="362" width="11" height="12" font="0">=</text>
+<text top="428" left="378" width="10" height="17" font="4">∑</text>
+<text top="427" left="389" width="3" height="10" font="7">I</text>
+<text top="436" left="388" width="17" height="11" font="7">i=1</text>
+<text top="430" left="409" width="10" height="13" font="4">X</text>
+<text top="425" left="419" width="2" height="7" font="11">0</text>
+<text top="437" left="418" width="3" height="10" font="7">i</text>
+<text top="427" left="423" width="9" height="17" font="4">Σ</text>
+<text top="437" left="433" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="435" left="439" width="6" height="10" font="7">,i</text>
+<text top="430" left="446" width="10" height="13" font="4">X</text>
+<text top="435" left="456" width="3" height="10" font="7">i</text>
+<text top="430" left="459" width="3" height="13" font="4">,</text>
+<text top="427" left="467" width="9" height="17" font="4">Σ</text>
+<text top="437" left="477" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="435" left="483" width="6" height="10" font="7">,i</text>
+<text top="430" left="493" width="67" height="13" font="4">is given by</text>
+<text top="427" left="564" width="9" height="17" font="4">Σ</text>
+<text top="437" left="574" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="435" left="580" width="6" height="10" font="7">,i</text>
+<text top="430" left="591" width="11" height="12" font="0">=</text>
+<text top="430" left="607" width="21" height="13" font="4">cov</text>
+<text top="430" left="628" width="5" height="12" font="0">(</text>
+<text top="433" left="635" width="8" height="10" font="9"><i>ϕ</i></text>
+<text top="430" left="643" width="5" height="12" font="0">(</text>
+<text top="430" left="649" width="7" height="13" font="4">F</text>
+<text top="430" left="657" width="5" height="12" font="0">(</text>
+<text top="430" left="663" width="5" height="13" font="4">e</text>
+<text top="435" left="668" width="3" height="10" font="7">i</text>
+<text top="430" left="672" width="11" height="12" font="0">))</text>
+<text top="430" left="684" width="42" height="13" font="4">, and F</text>
+<text top="430" left="726" width="5" height="12" font="0">(</text>
+<text top="430" left="732" width="7" height="13" font="4">x</text>
+<text top="430" left="740" width="5" height="12" font="0">)</text>
+<text top="446" left="149" width="253" height="13" font="4">denotes the distribution function of errors.</text>
+<text top="467" left="171" width="257" height="13" font="4">After estimating the fixed effects in Model <a href="2013-2-bilgic-susmann.html#2">(</a></text>
+<text top="467" left="429" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">7</a></text>
+<text top="467" left="435" width="309" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">), </a>we predict the nested random effects and estimate</text>
+<text top="484" left="149" width="595" height="13" font="4">the variance components using the random prediction procedure explained in the next section. In this</text>
+<text top="500" left="149" width="206" height="13" font="4">method, for each cluster in Model <a href="2013-2-bilgic-susmann.html#3">(</a></text>
+<text top="500" left="355" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">8</a></text>
+<text top="500" left="362" width="183" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">), </a>simple moment estimators of</text>
+<text top="497" left="548" width="9" height="17" font="4">Σ</text>
+<text top="507" left="558" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="505" left="564" width="6" height="10" font="7">,i</text>
+<text top="500" left="574" width="103" height="13" font="4">is calculated as in</text>
+<text top="500" left="681" width="66" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="517" left="148" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="517" left="153" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="517" left="180" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">).</a></text>
+<text top="558" left="149" width="358" height="15" font="14"><b>Iteratively reweighted generalized rank method: GR</b></text>
+<text top="589" left="148" width="596" height="13" font="4">The generalized rank-based fitting for the general mixed model is an iteratively reweighted rank</text>
+<text top="606" left="149" width="306" height="13" font="4">method based on the Newton-type approximation.</text>
+<text top="606" left="459" width="179" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Hettmansperger and McKean</a></text>
+<text top="606" left="641" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="606" left="645" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2011</a></text>
+<text top="606" left="673" width="71" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>developed</text>
+<text top="622" left="149" width="596" height="13" font="4">the asymptotic properties of linearized rank estimators for use in the linear model with the k-step</text>
+<text top="639" left="149" width="292" height="13" font="4">Gauss-Newton approximation without weights.</text>
+<text top="639" left="446" width="34" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Bilgic</a></text>
+<text top="639" left="484" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="639" left="488" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2012</a></text>
+<text top="639" left="516" width="32" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>and</text>
+<text top="639" left="551" width="67" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Bilgic et al.</a></text>
+<text top="639" left="622" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="639" left="626" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="639" left="654" width="90" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>extended this</text>
+<text top="655" left="149" width="595" height="13" font="4">theory to the k-step GR method in the general mixed models. After the first fitting, the estimates</text>
+<text top="672" left="149" width="595" height="13" font="4">are asymptotically equivalent to the independent case because residuals are no longer dependent</text>
+<text top="688" left="149" width="595" height="13" font="4">because of the reweighting with covariance weights. This algorithm could work for any type of</text>
+<text top="704" left="148" width="384" height="13" font="4">variance-covariance error structure in the general mixed models.</text>
+<text top="725" left="171" width="104" height="13" font="4">Consider Model <a href="2013-2-bilgic-susmann.html#2">(</a></text>
+<text top="725" left="276" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">7</a></text>
+<text top="725" left="282" width="45" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">) </a>where</text>
+<text top="722" left="331" width="9" height="17" font="4">Σ</text>
+<text top="730" left="340" width="7" height="10" font="7">Y</text>
+<text top="725" left="351" width="393" height="13" font="4">is the variance-covariance matrix of the response vector Y and <i>θ </i>is</text>
+<text top="742" left="149" width="595" height="13" font="4">the vector of variance components of the model. The proposed iteratively reweighted generalized</text>
+<text top="758" left="149" width="208" height="13" font="4">rank-based algorithm is as follows:</text>
+<text top="785" left="163" width="48" height="13" font="4">(0) Set l</text>
+<text top="784" left="216" width="11" height="12" font="0">=</text>
+<text top="785" left="231" width="242" height="13" font="4">0. The JR estimate serves as the initial fit.</text>
+<text top="805" left="163" width="75" height="13" font="4">(1) Obtain ˆ<i>β</i></text>
+<text top="802" left="238" width="12" height="10" font="7">(l)</text>
+<text top="805" left="255" width="202" height="13" font="4">as the rank-based fit of the model.</text>
+<text top="834" left="419" width="9" height="13" font="4">Y</text>
+<text top="830" left="429" width="5" height="10" font="7">∗</text>
+<text top="834" left="439" width="11" height="12" font="0">=</text>
+<text top="834" left="454" width="10" height="13" font="4">X</text>
+<text top="830" left="465" width="5" height="10" font="7">∗</text>
+<text top="837" left="471" width="7" height="10" font="9"><i>β</i></text>
+<text top="834" left="482" width="11" height="12" font="0">+</text>
+<text top="834" left="496" width="5" height="13" font="4">e</text>
+<text top="830" left="501" width="5" height="10" font="7">∗</text>
+<text top="834" left="507" width="3" height="13" font="4">,</text>
+<text top="834" left="722" width="22" height="13" font="4">(10)</text>
+<text top="865" left="186" width="51" height="13" font="4">where Y</text>
+<text top="862" left="237" width="5" height="10" font="7">∗</text>
+<text top="865" left="249" width="11" height="12" font="0">=</text>
+<text top="862" left="268" width="4" height="13" font="4">ˆ</text>
+<text top="862" left="265" width="9" height="17" font="4">Σ</text>
+<text top="861" left="275" width="26" height="11" font="7">−1/2</text>
+<text top="872" left="274" width="7" height="10" font="7">Y</text>
+<text top="865" left="301" width="27" height="14" font="4">Y, X</text>
+<text top="862" left="329" width="5" height="10" font="7">∗</text>
+<text top="865" left="341" width="11" height="12" font="0">=</text>
+<text top="862" left="360" width="4" height="13" font="4">ˆ</text>
+<text top="862" left="357" width="9" height="17" font="4">Σ</text>
+<text top="861" left="367" width="26" height="11" font="7">−1/2</text>
+<text top="872" left="366" width="7" height="10" font="7">Y</text>
+<text top="865" left="393" width="51" height="14" font="4">X, and e</text>
+<text top="862" left="445" width="5" height="10" font="7">∗</text>
+<text top="865" left="456" width="11" height="12" font="0">=</text>
+<text top="862" left="475" width="4" height="13" font="4">ˆ</text>
+<text top="862" left="473" width="9" height="17" font="4">Σ</text>
+<text top="861" left="482" width="26" height="11" font="7">−1/2</text>
+<text top="872" left="482" width="7" height="10" font="7">Y</text>
+<text top="865" left="509" width="62" height="14" font="4">e. Thus, ˆ<i>β</i></text>
+<text top="862" left="571" width="12" height="10" font="7">(l)</text>
+<text top="865" left="588" width="156" height="13" font="4">minimizes the rank norm</text>
+<text top="883" left="186" width="170" height="13" font="4">with Y and X replaced by Y</text>
+<text top="880" left="356" width="5" height="10" font="7">∗</text>
+<text top="883" left="366" width="37" height="13" font="4">and X</text>
+<text top="880" left="404" width="5" height="10" font="7">∗</text>
+<text top="883" left="410" width="105" height="13" font="4">, respectively. If l</text>
+<text top="883" left="521" width="11" height="12" font="0">=</text>
+<text top="883" left="536" width="73" height="13" font="4">0 then use ˆ</text>
+<text top="880" left="603" width="9" height="17" font="4">Σ</text>
+<text top="888" left="612" width="7" height="10" font="7">Y</text>
+<text top="883" left="625" width="11" height="12" font="0">=</text>
+<text top="883" left="641" width="4" height="13" font="4">I</text>
+<text top="888" left="646" width="6" height="10" font="7">n</text>
+<text top="883" left="652" width="92" height="13" font="4">; otherwise use</text>
+<text top="899" left="189" width="4" height="13" font="4">ˆ</text>
+<text top="899" left="186" width="9" height="17" font="4">Σ</text>
+<text top="907" left="195" width="7" height="10" font="7">Y</text>
+<text top="902" left="207" width="11" height="12" font="0">=</text>
+<text top="899" left="222" width="9" height="17" font="4">Σ</text>
+<text top="907" left="231" width="7" height="10" font="7">Y</text>
+<text top="902" left="240" width="5" height="12" font="0">(</text>
+<text top="899" left="247" width="4" height="17" font="4">ˆ<i>θ</i></text>
+<text top="899" left="252" width="26" height="11" font="7">(l−1)</text>
+<text top="902" left="279" width="5" height="12" font="0">)</text>
+<text top="902" left="285" width="3" height="13" font="4">.</text>
+<text top="923" left="163" width="57" height="13" font="4">(2) Use ˆ<i>β</i></text>
+<text top="921" left="220" width="12" height="10" font="7">(l)</text>
+<text top="923" left="237" width="159" height="13" font="4">to calculate the residuals, ˆe</text>
+<text top="921" left="396" width="12" height="10" font="7">(l)</text>
+<text top="923" left="413" width="11" height="12" font="0">=</text>
+<text top="923" left="427" width="9" height="13" font="4">Y</text>
+<text top="923" left="439" width="11" height="13" font="0">−</text>
+<text top="923" left="453" width="17" height="13" font="4">X ˆ</text>
+<text top="927" left="464" width="7" height="10" font="9"><i>β</i></text>
+<text top="921" left="472" width="12" height="10" font="7">(l)</text>
+<text top="923" left="485" width="3" height="13" font="4">.</text>
+<text top="945" left="163" width="55" height="13" font="4">(3) Use ˆe</text>
+<text top="943" left="218" width="12" height="10" font="7">(l)</text>
+<text top="945" left="234" width="62" height="13" font="4">to obtain ˆb</text>
+<text top="943" left="297" width="12" height="10" font="7">(l)</text>
+<text top="945" left="310" width="246" height="13" font="4">, the predictor of b via the RPP algorithm.</text>
+<text top="967" left="163" width="56" height="13" font="4">(4) Use ˆb</text>
+<text top="964" left="219" width="12" height="10" font="7">(l)</text>
+<text top="967" left="235" width="230" height="13" font="4">to estimate the variance components, ˆ<i>θ</i></text>
+<text top="964" left="466" width="12" height="10" font="7">(l)</text>
+<text top="967" left="482" width="134" height="13" font="4">via the RPP algorithm.</text>
+<text top="992" left="163" width="32" height="13" font="4">(5) If</text>
+<text top="985" left="200" width="7" height="6" font="4"></text>
+<text top="993" left="200" width="7" height="6" font="4"></text>
+<text top="1001" left="200" width="7" height="6" font="4"></text>
+<text top="988" left="211" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="989" left="216" width="12" height="10" font="7">(l)</text>
+<text top="991" left="232" width="11" height="13" font="0">−</text>
+<text top="988" left="248" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="989" left="254" width="26" height="11" font="7">(l−1)</text>
+<text top="985" left="281" width="7" height="6" font="4"></text>
+<text top="993" left="281" width="7" height="6" font="4"></text>
+<text top="1001" left="281" width="7" height="6" font="4"></text>
+<text top="991" left="295" width="11" height="12" font="0">&lt;</text>
+<text top="992" left="312" width="27" height="13" font="4">TOL</text>
+<text top="996" left="339" width="5" height="10" font="7">1</text>
+<text top="985" left="348" width="7" height="6" font="4"></text>
+<text top="993" left="348" width="7" height="6" font="4"></text>
+<text top="1001" left="348" width="7" height="6" font="4"></text>
+<text top="988" left="358" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="989" left="364" width="26" height="11" font="7">(l−1)</text>
+<text top="985" left="391" width="7" height="6" font="4"></text>
+<text top="993" left="391" width="7" height="6" font="4"></text>
+<text top="1001" left="391" width="36" height="6" font="4"> and</text>
+<text top="985" left="431" width="7" height="6" font="4"></text>
+<text top="993" left="431" width="7" height="6" font="4"></text>
+<text top="1001" left="431" width="7" height="6" font="4"></text>
+<text top="988" left="441" width="4" height="17" font="4">ˆ<i>θ</i></text>
+<text top="989" left="446" width="12" height="10" font="7">(l)</text>
+<text top="991" left="462" width="11" height="13" font="0">−</text>
+<text top="988" left="477" width="4" height="17" font="4">ˆ<i>θ</i></text>
+<text top="989" left="482" width="26" height="11" font="7">(l−1)</text>
+<text top="985" left="509" width="7" height="6" font="4"></text>
+<text top="993" left="509" width="7" height="6" font="4"></text>
+<text top="1001" left="509" width="7" height="6" font="4"></text>
+<text top="991" left="523" width="11" height="12" font="0">&lt;</text>
+<text top="992" left="541" width="27" height="13" font="4">TOL</text>
+<text top="996" left="568" width="5" height="10" font="7">2</text>
+<text top="985" left="576" width="7" height="6" font="4"></text>
+<text top="993" left="576" width="7" height="6" font="4"></text>
+<text top="1001" left="576" width="7" height="6" font="4"></text>
+<text top="988" left="586" width="4" height="17" font="4">ˆ<i>θ</i></text>
+<text top="989" left="591" width="26" height="11" font="7">(l−1)</text>
+<text top="985" left="618" width="7" height="6" font="4"></text>
+<text top="993" left="618" width="7" height="6" font="4"></text>
+<text top="1001" left="618" width="73" height="6" font="4"> then stop.</text>
+<text top="992" left="700" width="44" height="13" font="4">Else let</text>
+<text top="1012" left="189" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="1015" left="198" width="11" height="12" font="0">=</text>
+<text top="1012" left="216" width="5" height="17" font="4">ˆ<i>β</i></text>
+<text top="1012" left="221" width="12" height="10" font="7">(l)</text>
+<text top="1015" left="234" width="12" height="13" font="4">, ˆ<i>θ</i></text>
+<text top="1015" left="250" width="11" height="12" font="0">=</text>
+<text top="1012" left="267" width="4" height="17" font="4">ˆ<i>θ</i></text>
+<text top="1012" left="272" width="12" height="10" font="7">(l)</text>
+<text top="1015" left="288" width="33" height="13" font="4">and ˆb</text>
+<text top="1015" left="325" width="11" height="12" font="0">=</text>
+<text top="1011" left="341" width="5" height="17" font="4">ˆb</text>
+<text top="1012" left="346" width="12" height="10" font="7">(l)</text>
+<text top="1015" left="359" width="33" height="13" font="4">. Set l</text>
+<text top="1015" left="397" width="11" height="12" font="0">=</text>
+<text top="1015" left="412" width="4" height="13" font="4">l</text>
+<text top="1015" left="419" width="11" height="12" font="0">+</text>
+<text top="1015" left="432" width="139" height="13" font="4">1 and return to step (1).</text>
+<text top="1041" left="171" width="384" height="13" font="4">The estimators of the asymptotic variance-covariance matrix of ˆ<i>β</i></text>
+<text top="1046" left="556" width="15" height="10" font="7">GR</text>
+<text top="1041" left="575" width="116" height="13" font="4">require consistent <i>τ</i></text>
+<text top="1048" left="690" width="6" height="8" font="6"><i>ϕ</i></text>
+<text top="1041" left="701" width="23" height="13" font="4">and</text>
+<text top="1038" left="727" width="9" height="17" font="4">Σ</text>
+<text top="1046" left="736" width="7" height="10" font="7">Y</text>
+<text top="1058" left="148" width="384" height="13" font="4">which are obtained from the current estimate of weighted errors.</text>
+<text top="1099" left="149" width="418" height="15" font="14"><b>Rank-based generalized estimating equations method: GEER</b></text>
+<text top="1130" left="149" width="597" height="13" font="4">Considering an alternative representation of generalized linear models for correlated data in estimates,</text>
+<text top="1147" left="148" width="73" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Abebe et al.</a></text>
+<text top="1147" left="226" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="1147" left="231" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="1147" left="258" width="379" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>extended the general estimating equations (GEE) method of</text>
+<text top="1147" left="642" width="102" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Liang and Zeger</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">74</text>
+<text top="103" left="148" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="103" left="153" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">1986</a></text>
+<text top="103" left="180" width="564" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for the general mixed models in the rank-based norm, and derived the asymptotic normality</text>
+<text top="120" left="149" width="196" height="13" font="4">of the rank estimators. Briefly, as</text>
+<text top="120" left="349" width="70" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Abebe et al.</a></text>
+<text top="120" left="422" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="120" left="427" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="120" left="454" width="290" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>describe, we can rewrite the general estimating</text>
+<text top="136" left="149" width="549" height="13" font="4">equations expression proposed by Liang and Zeger in terms of the Euclidean norm in Model <a href="2013-2-bilgic-susmann.html#4">(</a></text>
+<text top="136" left="697" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">11</a></text>
+<text top="136" left="711" width="33" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">), </a>and</text>
+<text top="152" left="149" width="222" height="13" font="4">thus, the rank-based norm in Model <a href="2013-2-bilgic-susmann.html#4">(</a></text>
+<text top="152" left="371" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">12</a></text>
+<text top="152" left="384" width="71" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">) </a>as follows:</text>
+<text top="198" left="361" width="10" height="13" font="4">D</text>
+<text top="203" left="371" width="21" height="10" font="7">GEE</text>
+<text top="198" left="394" width="5" height="12" font="0">(</text>
+<text top="201" left="400" width="7" height="10" font="9"><i>β</i></text>
+<text top="198" left="407" width="20" height="12" font="0">) =</text>
+<text top="186" left="438" width="3" height="10" font="7">I</text>
+<text top="193" left="433" width="14" height="24" font="8">∑</text>
+<text top="215" left="432" width="17" height="11" font="7">i=1</text>
+<text top="198" left="449" width="5" height="12" font="0">(</text>
+<text top="198" left="454" width="9" height="13" font="4">Y</text>
+<text top="194" left="464" width="5" height="10" font="7">∗</text>
+<text top="204" left="462" width="3" height="10" font="7">i</text>
+<text top="197" left="473" width="11" height="13" font="0">−</text>
+<text top="198" left="487" width="10" height="13" font="4">D</text>
+<text top="203" left="498" width="3" height="10" font="7">i</text>
+<text top="198" left="502" width="5" height="12" font="0">(</text>
+<text top="201" left="508" width="7" height="10" font="9"><i>β</i></text>
+<text top="198" left="515" width="11" height="12" font="0">))</text>
+<text top="195" left="527" width="5" height="10" font="7">2</text>
+<text top="198" left="722" width="22" height="13" font="4">(11)</text>
+<text top="231" left="149" width="23" height="13" font="4">and</text>
+<text top="256" left="294" width="10" height="13" font="4">D</text>
+<text top="261" left="305" width="29" height="10" font="7">GEER</text>
+<text top="256" left="335" width="5" height="12" font="0">(</text>
+<text top="259" left="341" width="7" height="10" font="9"><i>β</i></text>
+<text top="256" left="348" width="20" height="12" font="0">) =</text>
+<text top="244" left="379" width="3" height="10" font="7">I</text>
+<text top="251" left="374" width="14" height="24" font="8">∑</text>
+<text top="273" left="373" width="17" height="11" font="7">i=1</text>
+<text top="259" left="393" width="8" height="10" font="9"><i>ϕ</i></text>
+<text top="246" left="403" width="7" height="6" font="4"></text>
+<text top="246" left="413" width="9" height="13" font="4">R</text>
+<text top="246" left="422" width="5" height="12" font="0">(</text>
+<text top="246" left="428" width="9" height="13" font="4">Y</text>
+<text top="243" left="437" width="5" height="10" font="7">∗</text>
+<text top="253" left="436" width="3" height="10" font="7">i</text>
+<text top="245" left="446" width="11" height="13" font="0">−</text>
+<text top="246" left="460" width="10" height="13" font="4">D</text>
+<text top="251" left="471" width="3" height="10" font="7">i</text>
+<text top="246" left="475" width="5" height="12" font="0">(</text>
+<text top="249" left="481" width="7" height="10" font="9"><i>β</i></text>
+<text top="246" left="489" width="11" height="12" font="0">))</text>
+<text top="265" left="441" width="7" height="13" font="4">n</text>
+<text top="265" left="451" width="11" height="12" font="0">+</text>
+<text top="265" left="465" width="7" height="13" font="4">1</text>
+<text top="246" left="502" width="7" height="6" font="4"></text>
+<text top="255" left="512" width="11" height="13" font="0">· [</text>
+<text top="256" left="523" width="9" height="13" font="4">Y</text>
+<text top="252" left="532" width="5" height="10" font="7">∗</text>
+<text top="262" left="531" width="3" height="10" font="7">i</text>
+<text top="255" left="541" width="11" height="13" font="0">−</text>
+<text top="256" left="556" width="10" height="13" font="4">D</text>
+<text top="261" left="566" width="3" height="10" font="7">i</text>
+<text top="256" left="570" width="5" height="12" font="0">(</text>
+<text top="259" left="576" width="7" height="10" font="9"><i>β</i></text>
+<text top="256" left="584" width="10" height="13" font="0">)]</text>
+<text top="256" left="596" width="3" height="13" font="4">,</text>
+<text top="256" left="722" width="22" height="13" font="4">(12)</text>
+<text top="295" left="148" width="39" height="13" font="4">with n</text>
+<text top="300" left="188" width="3" height="10" font="7">i</text>
+<text top="294" left="195" width="11" height="13" font="0">×</text>
+<text top="295" left="209" width="67" height="13" font="4">1 vectors Y</text>
+<text top="292" left="276" width="5" height="10" font="7">∗</text>
+<text top="302" left="275" width="3" height="10" font="7">i</text>
+<text top="295" left="288" width="11" height="12" font="0">=</text>
+<text top="292" left="308" width="4" height="13" font="4">ˆ</text>
+<text top="295" left="304" width="10" height="13" font="4">V</text>
+<text top="300" left="312" width="3" height="10" font="7">i</text>
+<text top="289" left="316" width="26" height="11" font="7">−1/2</text>
+<text top="294" left="345" width="4" height="13" font="0">·</text>
+<text top="295" left="352" width="9" height="13" font="4">Y</text>
+<text top="300" left="360" width="3" height="10" font="7">i</text>
+<text top="295" left="364" width="262" height="13" font="4">, the estimate of the covariance matrix of Y</text>
+<text top="300" left="625" width="3" height="10" font="7">i</text>
+<text top="295" left="633" width="22" height="13" font="4">is ˆ</text>
+<text top="295" left="647" width="10" height="13" font="4">V</text>
+<text top="300" left="655" width="3" height="10" font="7">i</text>
+<text top="295" left="659" width="46" height="13" font="4">, and D</text>
+<text top="300" left="705" width="3" height="10" font="7">i</text>
+<text top="295" left="709" width="5" height="12" font="0">(</text>
+<text top="299" left="715" width="7" height="10" font="9"><i>β</i></text>
+<text top="295" left="722" width="21" height="12" font="0">) =</text>
+<text top="314" left="153" width="4" height="13" font="4">ˆ</text>
+<text top="317" left="149" width="10" height="13" font="4">V</text>
+<text top="322" left="157" width="3" height="10" font="7">i</text>
+<text top="311" left="161" width="26" height="11" font="7">−1/2</text>
+<text top="316" left="190" width="4" height="13" font="0">·</text>
+<text top="317" left="197" width="8" height="13" font="4">E</text>
+<text top="317" left="206" width="4" height="12" font="0">[</text>
+<text top="317" left="210" width="9" height="13" font="4">Y</text>
+<text top="322" left="218" width="3" height="10" font="7">i</text>
+<text top="317" left="222" width="4" height="12" font="0">]</text>
+<text top="317" left="226" width="3" height="13" font="4">.</text>
+<text top="338" left="171" width="71" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Abebe et al.</a></text>
+<text top="338" left="246" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="338" left="250" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="338" left="278" width="467" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>developed a class of nonlinear robust estimators minimizing the rank-based</text>
+<text top="355" left="149" width="598" height="13" font="4">norm of the residuals defined in the rank-based general estimating equations utilizing a ’working’</text>
+<text top="371" left="149" width="565" height="13" font="4">covariance structure in the rank-based fitting as an analogue of the GEE. Thus, the estimate of <i>β</i></text>
+<text top="376" left="714" width="29" height="10" font="7">GEER</text>
+<text top="388" left="149" width="595" height="13" font="4">is obtained by the usual iterated reweighted least squares algorithm applied to the rank-based fitting</text>
+<text top="404" left="149" width="77" height="13" font="4">in Equation <a href="2013-2-bilgic-susmann.html#4">(</a></text>
+<text top="404" left="226" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">12</a></text>
+<text top="404" left="239" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">).</a></text>
+<text top="446" left="149" width="235" height="15" font="14"><b>Theory references and comparison</b></text>
+<text top="478" left="148" width="527" height="13" font="4">The asymptotic derivations for the proposed estimators are discussed in several papers;</text>
+<text top="478" left="679" width="67" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="494" left="148" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="494" left="153" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="494" left="180" width="117" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for the JR method;</text>
+<text top="494" left="300" width="65" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Bilgic et al.</a></text>
+<text top="494" left="369" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="494" left="373" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="494" left="400" width="149" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for the GR method; and</text>
+<text top="494" left="553" width="70" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Abebe et al.</a></text>
+<text top="494" left="626" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="494" left="631" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="494" left="658" width="86" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for the GEER</text>
+<text top="511" left="149" width="595" height="13" font="4">method. In these studies, the rank-based estimators are competitive with the traditional methods such</text>
+<text top="527" left="149" width="595" height="13" font="4">as maximum likelihood (ML), restricted maximum likelihood (REML) and least squares in the normal</text>
+<text top="544" left="149" width="595" height="13" font="4">case and outperform when random errors are contaminated and exhibit better efficiency properties</text>
+<text top="560" left="149" width="595" height="13" font="4">of the estimates when outliers exist. Among the three methods, the JR method is unweighted so</text>
+<text top="576" left="149" width="595" height="13" font="4">its empirical validity and efficiency for the fixed effects is reported to be poorer than the other two</text>
+<text top="593" left="149" width="285" height="13" font="4">methods in the Monte Carlo study performed by</text>
+<text top="593" left="437" width="33" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Bilgic</a></text>
+<text top="593" left="473" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="593" left="477" width="26" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2012</a></text>
+<text top="593" left="504" width="240" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">). </a>The empirical validity and efficiency of</text>
+<text top="609" left="149" width="595" height="13" font="4">GR and GEER methods are reported to be very similar. The GR estimates and their standard errors are</text>
+<text top="626" left="149" width="595" height="13" font="4">obtained from the rank-based norm properties, whereas the GEER combines the rank-based norm and</text>
+<text top="642" left="149" width="576" height="13" font="4">least squares properties. For highly correlated data, the GR or GEER method would be preferred.</text>
+<text top="663" left="171" width="378" height="13" font="4">The <b>rlme </b>package uses the suite of R functions ww developed by</text>
+<text top="663" left="553" width="126" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Terpstra and McKean</a></text>
+<text top="663" left="682" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="663" left="687" width="26" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2005</a></text>
+<text top="663" left="713" width="31" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>that</text>
+<text top="680" left="149" width="595" height="13" font="4">computes fixed estimates for the rank analysis based on Wilcoxon scores when needed for independent</text>
+<text top="696" left="149" width="595" height="13" font="4">linear models and initial fits. We plan to use the subroutines of the <b>Rfit </b>package for the next version of</text>
+<text top="712" left="149" width="548" height="13" font="4">our package because it allows the user to choose the estimation algorithm for general scores.</text>
+<text top="757" left="149" width="319" height="17" font="5"><b>Rank-based prediction procedure: RPP</b></text>
+<text top="796" left="149" width="595" height="13" font="4">So far, fixed effects estimations are calculated with the JR, GR and GEER methods described in</text>
+<text top="813" left="149" width="595" height="13" font="4">the previous section. This section introduces robust predictions for random effects and variance</text>
+<text top="829" left="149" width="595" height="13" font="4">components for two- and three-level nested designs. Robust predictions of random effects have been</text>
+<text top="845" left="149" width="233" height="13" font="4">discussed in several papers, including</text>
+<text top="845" left="386" width="49" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Groggel</a></text>
+<text top="845" left="439" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="845" left="444" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">1983</a></text>
+<text top="845" left="471" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">),</a></text>
+<text top="845" left="483" width="82" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Groggel et al.</a></text>
+<text top="845" left="569" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="845" left="574" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">1988</a></text>
+<text top="845" left="601" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">),</a></text>
+<text top="845" left="614" width="59" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Dubnicka</a></text>
+<text top="845" left="677" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="845" left="681" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2004</a></text>
+<text top="845" left="709" width="35" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">), </a>and</text>
+<text top="862" left="149" width="68" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="862" left="220" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="862" left="224" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="862" left="252" width="492" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">). </a>These predictions based on clusters use robust scale estimators. However, these</text>
+<text top="878" left="148" width="319" height="13" font="4">papers only handle two-level random nested designs.</text>
+<text top="899" left="171" width="573" height="13" font="4">To illustrate how our recursive algorithm works, let us consider a two-level nested structure. The</text>
+<text top="916" left="149" width="207" height="13" font="4">random effects model is defined as</text>
+<text top="945" left="352" width="7" height="13" font="4">y</text>
+<text top="950" left="359" width="7" height="10" font="7">ij</text>
+<text top="945" left="371" width="11" height="12" font="0">=</text>
+<text top="945" left="386" width="7" height="13" font="4">x</text>
+<text top="941" left="393" width="6" height="10" font="7">T</text>
+<text top="951" left="393" width="7" height="10" font="7">ij</text>
+<text top="948" left="401" width="7" height="10" font="9"><i>β</i></text>
+<text top="945" left="411" width="11" height="12" font="0">+</text>
+<text top="945" left="426" width="6" height="13" font="4">a</text>
+<text top="950" left="432" width="3" height="10" font="7">i</text>
+<text top="945" left="438" width="11" height="12" font="0">+</text>
+<text top="948" left="452" width="6" height="10" font="9"><i>e</i></text>
+<text top="950" left="459" width="7" height="10" font="7">ij</text>
+<text top="945" left="470" width="11" height="12" font="0">=</text>
+<text top="945" left="485" width="7" height="13" font="4">x</text>
+<text top="941" left="492" width="6" height="10" font="7">T</text>
+<text top="951" left="492" width="7" height="10" font="7">ij</text>
+<text top="948" left="500" width="7" height="10" font="9"><i>β</i></text>
+<text top="945" left="511" width="11" height="12" font="0">+</text>
+<text top="945" left="524" width="5" height="13" font="4">e</text>
+<text top="950" left="530" width="7" height="10" font="7">ij</text>
+<text top="945" left="537" width="3" height="13" font="4">,</text>
+<text top="945" left="722" width="22" height="13" font="4">(13)</text>
+<text top="976" left="149" width="25" height="13" font="4">for i</text>
+<text top="976" left="178" width="11" height="12" font="0">=</text>
+<text top="976" left="194" width="82" height="13" font="4">1, 2, ..., I and j</text>
+<text top="976" left="280" width="11" height="12" font="0">=</text>
+<text top="976" left="296" width="49" height="13" font="4">1, 2, ..., n</text>
+<text top="981" left="345" width="3" height="10" font="7">i</text>
+<text top="976" left="352" width="100" height="13" font="4">(say, I schools, n</text>
+<text top="981" left="452" width="3" height="10" font="7">i</text>
+<text top="976" left="459" width="118" height="13" font="4">students in each). a</text>
+<text top="981" left="578" width="3" height="10" font="7">i</text>
+<text top="976" left="585" width="33" height="13" font="4">and <i>e</i></text>
+<text top="981" left="619" width="7" height="10" font="7">ij</text>
+<text top="976" left="630" width="115" height="13" font="4">are random cluster</text>
+<text top="992" left="149" width="381" height="13" font="4">effects and error effects, respectively. We observe the values of y</text>
+<text top="997" left="530" width="7" height="10" font="7">ij</text>
+<text top="992" left="541" width="33" height="13" font="4">and x</text>
+<text top="997" left="575" width="7" height="10" font="7">ij</text>
+<text top="992" left="582" width="93" height="13" font="4">, the variables a</text>
+<text top="997" left="675" width="3" height="10" font="7">i</text>
+<text top="992" left="682" width="33" height="13" font="4">and <i>e</i></text>
+<text top="997" left="715" width="7" height="10" font="7">ij</text>
+<text top="992" left="726" width="18" height="13" font="4">are</text>
+<text top="1011" left="149" width="235" height="13" font="4">not observable. In cluster i, we rewrite <a href="2013-2-bilgic-susmann.html#4">(</a></text>
+<text top="1011" left="384" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">13</a></text>
+<text top="1011" left="398" width="30" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">) </a>as y</text>
+<text top="1016" left="428" width="7" height="10" font="7">ij</text>
+<text top="1011" left="438" width="11" height="13" font="0">−</text>
+<text top="1011" left="452" width="7" height="13" font="4">x</text>
+<text top="1009" left="460" width="6" height="10" font="7">T</text>
+<text top="1018" left="459" width="7" height="10" font="7">ij</text>
+<text top="1015" left="468" width="7" height="10" font="9"><i>β</i></text>
+<text top="1011" left="479" width="11" height="12" font="0">=</text>
+<text top="1011" left="494" width="5" height="13" font="4">e</text>
+<text top="1016" left="500" width="7" height="10" font="7">ij</text>
+<text top="1011" left="511" width="11" height="12" font="0">=</text>
+<text top="1011" left="526" width="6" height="13" font="4">a</text>
+<text top="1016" left="532" width="3" height="10" font="7">i</text>
+<text top="1011" left="539" width="11" height="12" font="0">+</text>
+<text top="1015" left="553" width="6" height="10" font="9"><i>e</i></text>
+<text top="1016" left="559" width="7" height="10" font="7">ij</text>
+<text top="1011" left="566" width="178" height="13" font="4">. This is a location model. The</text>
+<text top="1030" left="149" width="62" height="13" font="4">residuals ˆe</text>
+<text top="1035" left="211" width="7" height="10" font="7">ij</text>
+<text top="1030" left="221" width="394" height="13" font="4">obtained from one of rank-based fittings predict the cluster effects a</text>
+<text top="1035" left="616" width="3" height="10" font="7">i</text>
+<text top="1030" left="619" width="125" height="13" font="4">. Let ˆa be a consistent</text>
+<text top="1047" left="149" width="310" height="14" font="4">location estimator. The next step is that the residuals ˆ<i>e</i></text>
+<text top="1052" left="459" width="7" height="10" font="7">ij</text>
+<text top="1047" left="470" width="207" height="13" font="4">are obtained from the subtraction ˆ<i>e</i></text>
+<text top="1052" left="677" width="7" height="10" font="7">ij</text>
+<text top="1047" left="688" width="11" height="12" font="0">=</text>
+<text top="1047" left="705" width="4" height="13" font="4">ˆe</text>
+<text top="1052" left="709" width="7" height="10" font="7">ij</text>
+<text top="1046" left="719" width="11" height="13" font="0">−</text>
+<text top="1047" left="734" width="5" height="13" font="4">ˆa</text>
+<text top="1052" left="739" width="3" height="10" font="7">i</text>
+<text top="1047" left="743" width="3" height="13" font="4">.</text>
+<text top="1063" left="149" width="595" height="13" font="4">Hence, we are ready to estimate the scale parameters of the errors with a robust scale estimator. In the</text>
+<text top="1080" left="148" width="596" height="13" font="4">package, RPP has two options for location and scale estimates. The options are the median (med) and</text>
+<text top="1096" left="149" width="322" height="13" font="4">Hodges-Lehman (HL) location estimators in Equation <a href="2013-2-bilgic-susmann.html#5">(</a></text>
+<text top="1096" left="471" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">14</a></text>
+<text top="1096" left="484" width="261" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">), </a>and the median absolute deviation (MAD)</text>
+<text top="1113" left="149" width="336" height="13" font="4">and the dispersion scale estimator (Disp) in Equations <a href="2013-2-bilgic-susmann.html#5">(</a></text>
+<text top="1113" left="485" width="14" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">15</a></text>
+<text top="1113" left="499" width="39" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">) </a>and <a href="2013-2-bilgic-susmann.html#5">(</a></text>
+<text top="1113" left="538" width="14" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">16</a></text>
+<text top="1113" left="552" width="192" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">), </a>respectively. In the prediction</text>
+<text top="1129" left="149" width="522" height="13" font="4">algorithm, one estimator from each is needed. Natural pairs are med-MAD and HL-Disp.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">75</text>
+<text top="103" left="171" width="140" height="13" font="4">For a vector e of errors e</text>
+<text top="108" left="311" width="3" height="10" font="7">i</text>
+<text top="103" left="319" width="23" height="13" font="4">in n</text>
+<text top="102" left="344" width="11" height="13" font="0">×</text>
+<text top="103" left="358" width="386" height="13" font="4">1, the robust location estimate associated with the Wilcoxon scores</text>
+<text top="120" left="149" width="193" height="13" font="4">is the HL estimator expressed as</text>
+<text top="149" left="356" width="19" height="13" font="4">HL</text>
+<text top="149" left="376" width="5" height="12" font="0">(</text>
+<text top="149" left="381" width="5" height="13" font="4">e</text>
+<text top="149" left="387" width="20" height="12" font="0">) =</text>
+<text top="149" left="411" width="27" height="13" font="4">med</text>
+<text top="153" left="438" width="17" height="10" font="7">s≤t</text>
+<text top="148" left="456" width="13" height="13" font="0">{(</text>
+<text top="149" left="469" width="5" height="13" font="4">e</text>
+<text top="153" left="474" width="4" height="10" font="7">s</text>
+<text top="149" left="482" width="11" height="12" font="0">+</text>
+<text top="149" left="496" width="5" height="13" font="4">e</text>
+<text top="153" left="501" width="3" height="10" font="7">t</text>
+<text top="149" left="506" width="5" height="12" font="0">)</text>
+<text top="149" left="512" width="15" height="13" font="4">/2</text>
+<text top="148" left="527" width="7" height="13" font="0">}</text>
+<text top="149" left="534" width="3" height="13" font="4">.</text>
+<text top="149" left="722" width="22" height="13" font="4">(14)</text>
+<text top="178" left="149" width="394" height="13" font="4">Our scale estimators in the package are MAD and Disp defined as</text>
+<text top="207" left="336" width="35" height="13" font="4">MAD</text>
+<text top="207" left="371" width="5" height="12" font="0">(</text>
+<text top="207" left="377" width="5" height="13" font="4">e</text>
+<text top="207" left="383" width="20" height="12" font="0">) =</text>
+<text top="207" left="407" width="57" height="13" font="4">1.483med</text>
+<text top="212" left="464" width="3" height="10" font="7">i</text>
+<text top="206" left="468" width="4" height="13" font="0">|</text>
+<text top="207" left="472" width="5" height="13" font="4">e</text>
+<text top="212" left="478" width="3" height="10" font="7">i</text>
+<text top="206" left="484" width="11" height="13" font="0">−</text>
+<text top="207" left="498" width="27" height="13" font="4">med</text>
+<text top="212" left="525" width="3" height="10" font="7">j</text>
+<text top="206" left="529" width="7" height="13" font="0">{</text>
+<text top="207" left="536" width="5" height="13" font="4">e</text>
+<text top="212" left="542" width="3" height="10" font="7">j</text>
+<text top="206" left="546" width="11" height="13" font="0">}|</text>
+<text top="207" left="722" width="22" height="13" font="4">(15)</text>
+<text top="236" left="149" width="23" height="13" font="4">and</text>
+<text top="259" left="336" width="28" height="13" font="4">Disp</text>
+<text top="258" left="364" width="5" height="12" font="0">(</text>
+<text top="259" left="370" width="5" height="13" font="4">e</text>
+<text top="258" left="375" width="20" height="12" font="0">) =</text>
+<text top="249" left="402" width="7" height="13" font="4">2</text>
+<text top="238" left="408" width="12" height="13" font="0">√</text>
+<text top="253" left="420" width="9" height="10" font="9"><i>π</i></text>
+<text top="268" left="412" width="7" height="13" font="4">n</text>
+<text top="246" left="440" width="6" height="10" font="7">n</text>
+<text top="253" left="435" width="14" height="24" font="8">∑</text>
+<text top="275" left="434" width="17" height="11" font="7">i=1</text>
+<text top="249" left="454" width="22" height="14" font="4"> R</text>
+<text top="249" left="476" width="5" height="12" font="0">(</text>
+<text top="249" left="481" width="5" height="13" font="4">e</text>
+<text top="254" left="487" width="3" height="10" font="7">i</text>
+<text top="249" left="491" width="5" height="12" font="0">)</text>
+<text top="268" left="466" width="7" height="13" font="4">n</text>
+<text top="268" left="476" width="11" height="12" font="0">+</text>
+<text top="268" left="490" width="7" height="13" font="4">1</text>
+<text top="258" left="501" width="11" height="13" font="0">−</text>
+<text top="249" left="517" width="7" height="13" font="4">1</text>
+<text top="268" left="517" width="7" height="13" font="4">2</text>
+<text top="249" left="525" width="10" height="6" font="4"></text>
+<text top="258" left="538" width="4" height="13" font="0">·</text>
+<text top="259" left="545" width="5" height="13" font="4">e</text>
+<text top="263" left="550" width="3" height="10" font="7">i</text>
+<text top="259" left="554" width="3" height="13" font="4">.</text>
+<text top="259" left="722" width="22" height="13" font="4">(16)</text>
+<text top="297" left="171" width="161" height="13" font="4">The estimator in Equation <a href="2013-2-bilgic-susmann.html#5">(</a></text>
+<text top="297" left="332" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">16</a></text>
+<text top="297" left="346" width="398" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">) </a>is a consistent estimator of a scale parameter when the errors have</text>
+<text top="313" left="149" width="134" height="13" font="4">a normal distribution <a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="313" left="283" width="175" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Hettmansperger and McKean</a></text>
+<text top="313" left="458" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">,</a></text>
+<text top="313" left="465" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2011</a></text>
+<text top="313" left="491" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">).</a></text>
+<text top="313" left="503" width="66" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Kloke et al.</a></text>
+<text top="313" left="573" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="313" left="577" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2009</a></text>
+<text top="313" left="604" width="140" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>suggest that the MAD</text>
+<text top="329" left="149" width="515" height="13" font="4">is a robust and consistent estimator for scale parameter in clustered correlated designs.</text>
+<text top="350" left="171" width="315" height="13" font="4">For a three-level nested structure, consider Model <a href="2013-2-bilgic-susmann.html#2">(</a></text>
+<text top="350" left="486" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#2">6</a></text>
+<text top="350" left="493" width="107" height="13" font="4"><a href="2013-2-bilgic-susmann.html#2">). </a>The residuals ˆe</text>
+<text top="355" left="600" width="11" height="10" font="7">ijk</text>
+<text top="350" left="617" width="127" height="13" font="4">obtained from the fit</text>
+<text top="367" left="148" width="52" height="13" font="4">predict a</text>
+<text top="372" left="200" width="3" height="10" font="7">i</text>
+<text top="367" left="207" width="11" height="12" font="0">+</text>
+<text top="367" left="221" width="10" height="13" font="4">w</text>
+<text top="372" left="231" width="7" height="10" font="7">ij</text>
+<text top="367" left="242" width="147" height="13" font="4">using the location model</text>
+<text top="399" left="346" width="7" height="13" font="4">y</text>
+<text top="405" left="353" width="11" height="10" font="7">ijk</text>
+<text top="399" left="368" width="11" height="13" font="0">−</text>
+<text top="399" left="382" width="7" height="13" font="4">x</text>
+<text top="396" left="389" width="6" height="10" font="7">T</text>
+<text top="406" left="389" width="11" height="10" font="7">ijk</text>
+<text top="403" left="402" width="7" height="10" font="9"><i>β</i></text>
+<text top="399" left="413" width="11" height="12" font="0">=</text>
+<text top="399" left="428" width="5" height="13" font="4">e</text>
+<text top="405" left="433" width="11" height="10" font="7">ijk</text>
+<text top="399" left="450" width="11" height="12" font="0">=</text>
+<text top="399" left="465" width="6" height="13" font="4">a</text>
+<text top="404" left="471" width="3" height="10" font="7">i</text>
+<text top="399" left="478" width="11" height="12" font="0">+</text>
+<text top="399" left="491" width="10" height="13" font="4">w</text>
+<text top="404" left="501" width="7" height="10" font="7">ij</text>
+<text top="399" left="512" width="11" height="12" font="0">+</text>
+<text top="403" left="525" width="6" height="10" font="9"><i>e</i></text>
+<text top="405" left="532" width="11" height="10" font="7">ijk</text>
+<text top="399" left="544" width="3" height="13" font="4">.</text>
+<text top="399" left="722" width="22" height="13" font="4">(17)</text>
+<text top="431" left="148" width="189" height="13" font="4">To separate the cluster effects a</text>
+<text top="435" left="337" width="3" height="10" font="7">i</text>
+<text top="431" left="345" width="168" height="13" font="4">and the subcluster effects w</text>
+<text top="435" left="513" width="7" height="10" font="7">ij</text>
+<text top="431" left="520" width="224" height="13" font="4">, we need location estimates for each</text>
+<text top="447" left="149" width="74" height="13" font="4">subcluster w</text>
+<text top="452" left="223" width="7" height="10" font="7">ij</text>
+<text top="447" left="231" width="216" height="13" font="4">, which is nested within the cluster a</text>
+<text top="452" left="447" width="3" height="10" font="7">i</text>
+<text top="447" left="451" width="293" height="13" font="4">. Proceeding over all subclusters using one of our</text>
+<text top="463" left="149" width="262" height="13" font="4">robust location estimators, the estimates of w</text>
+<text top="468" left="411" width="7" height="10" font="7">ij</text>
+<text top="463" left="422" width="322" height="13" font="4">are obtained. After subtracting these from the residuals</text>
+<text top="480" left="150" width="4" height="13" font="4">ˆe</text>
+<text top="485" left="154" width="11" height="10" font="7">ijk</text>
+<text top="480" left="167" width="270" height="13" font="4">, it yields the estimates of the cluster effects a</text>
+<text top="485" left="437" width="3" height="10" font="7">i</text>
+<text top="480" left="444" width="158" height="13" font="4">using the location model e</text>
+<text top="485" left="603" width="11" height="10" font="7">ijk</text>
+<text top="479" left="618" width="11" height="13" font="0">−</text>
+<text top="480" left="632" width="10" height="13" font="4">w</text>
+<text top="485" left="642" width="7" height="10" font="7">ij</text>
+<text top="480" left="653" width="11" height="12" font="0">=</text>
+<text top="480" left="668" width="6" height="13" font="4">a</text>
+<text top="485" left="674" width="3" height="10" font="7">i</text>
+<text top="480" left="681" width="11" height="12" font="0">+</text>
+<text top="483" left="695" width="6" height="10" font="9"><i>e</i></text>
+<text top="485" left="701" width="11" height="10" font="7">ijk</text>
+<text top="480" left="714" width="31" height="13" font="4">. The</text>
+<text top="496" left="149" width="279" height="13" font="4">scale parameters of the errors of each type, i.e. a</text>
+<text top="501" left="428" width="3" height="10" font="7">i</text>
+<text top="496" left="432" width="17" height="13" font="4">, w</text>
+<text top="501" left="449" width="7" height="10" font="7">ij</text>
+<text top="496" left="460" width="32" height="13" font="4">and <i>e</i></text>
+<text top="501" left="492" width="11" height="10" font="7">ijk</text>
+<text top="496" left="504" width="240" height="13" font="4">, are then estimated with our robust scale</text>
+<text top="513" left="149" width="65" height="13" font="4">estimators.</text>
+<text top="534" left="171" width="573" height="13" font="4">The RPP algorithm can handle k-level nestings in a hierarchical structure in the same manner. The</text>
+<text top="550" left="149" width="595" height="13" font="4">algorithm needs only residuals from the model fitting for predictions of the random effects. In k-level</text>
+<text top="567" left="149" width="598" height="13" font="4">random effects nested models, these residuals contain the estimates of errors and random effects.</text>
+<text top="583" left="149" width="48" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Groggel</a></text>
+<text top="583" left="200" width="5" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="583" left="205" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">1983</a></text>
+<text top="583" left="232" width="512" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>calls these random effects pseudo-samples, which are formed using consistent location</text>
+<text top="599" left="149" width="595" height="13" font="4">estimators in this recursive way. Pseudo-samples are asymptotically equivalent to the true random</text>
+<text top="616" left="149" width="143" height="13" font="4">effects in the model. See</text>
+<text top="616" left="296" width="33" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Bilgic</a></text>
+<text top="616" left="332" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="616" left="337" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2012</a></text>
+<text top="616" left="364" width="71" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">) </a>for details.</text>
+<text top="661" left="149" width="112" height="17" font="5"><b>Data example</b></text>
+<text top="699" left="148" width="296" height="13" font="4">The <b>rlme </b>package uses linear model syntax in the</text>
+<text top="700" left="448" width="30" height="13" font="13"><a href="http://CRAN.R-project.org/package=lme4"><b>lme4</b></a></text>
+<text top="699" left="481" width="263" height="13" font="4">package for two- and three-level models. To</text>
+<text top="716" left="149" width="595" height="13" font="4">illustrate how our package does nested structured data analysis, a data set was obtained from the</text>
+<text top="732" left="149" width="595" height="13" font="4">OECD Programme for International Student Assessment (PISA) conducted in 2009 (OECD, 2010). The</text>
+<text top="749" left="149" width="595" height="13" font="4">data set includes 334 observations of metacognitive scores in 11 private schools in four geographic</text>
+<text top="765" left="149" width="595" height="13" font="4">regions in USA. Metacognitive score is an index measure of the metacognitive aspect of learning. The</text>
+<text top="782" left="149" width="595" height="13" font="4">research questions to be answered are how metacognitive scores depend on gender and age, and</text>
+<text top="798" left="149" width="595" height="13" font="4">how the variability of the scores are explained by regional differences and school differences. Student</text>
+<text top="815" left="149" width="595" height="13" font="4">scores are nested in the private schools which are nested within the regions. Data are correlated within</text>
+<text top="831" left="149" width="595" height="13" font="4">region and school, hence, regions and schools are random effects on observations. This design would</text>
+<text top="847" left="149" width="595" height="13" font="4">be considered hierarchical with two- or three- levels, such as students nested in regions, or students in</text>
+<text top="864" left="149" width="454" height="13" font="4">schools nested within regions. In the package, this data set is called schools.</text>
+<text top="885" left="171" width="522" height="13" font="4">In our package, a 3-level nested design data analysis is done using the following syntax:</text>
+<text top="915" left="149" width="103" height="11" font="4">&gt; library(rlme)</text>
+<text top="932" left="149" width="103" height="11" font="4">&gt; data(schools)</text>
+<text top="948" left="149" width="439" height="11" font="4">&gt; model = y ~ 1 + sex + age + (1 | region) + (1 | region:school)</text>
+<text top="965" left="149" width="316" height="11" font="4">&gt; rlme.fit = rlme(model, schools, method=&#34;gr&#34;)</text>
+<text top="997" left="149" width="350" height="11" font="4"># For robust predictions, include rprpair=&#34;med-mad&#34;</text>
+<text top="1027" left="171" width="573" height="13" font="4">The formula syntax, the same as in the lmer function, expects the random effect terms to be</text>
+<text top="1043" left="149" width="595" height="13" font="4">enclosed with parenthesis, with nesting of variables denoted by a colon. In this example, region</text>
+<text top="1060" left="149" width="598" height="13" font="4">and school are two random effects, with school nested within region. The method is set to the rank-</text>
+<text top="1076" left="149" width="598" height="13" font="4">based method gr along with the prediction method hl-disp and Wilcoxon scores wil (the default).</text>
+<text top="1093" left="148" width="597" height="13" font="4">Alternatively the other rank-based fitting methods, jr or geer, and the maximum likelihood methods,</text>
+<text top="1110" left="149" width="27" height="11" font="4">reml</text>
+<text top="1109" left="180" width="198" height="13" font="4">or ml, may be called from method.</text>
+<text top="1130" left="171" width="371" height="13" font="4">The calculated fit can be examined using the summary function:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">76</text>
+<text top="439" left="302" width="53" height="13" font="3"><b>Figure 1:</b></text>
+<text top="439" left="363" width="227" height="13" font="4">Standardized Residuals and QQ Plots.</text>
+<text top="486" left="149" width="130" height="11" font="4">&gt; summary(rlme.fit)</text>
+<text top="503" left="149" width="171" height="11" font="4">Linear mixed model fit by</text>
+<text top="503" left="334" width="14" height="11" font="4">GR</text>
+<text top="519" left="149" width="55" height="11" font="4">Formula:</text>
+<text top="519" left="217" width="370" height="11" font="4">y ~ 1 + sex + age + (1 | region) + (1 | region:school)</text>
+<text top="536" left="149" width="103" height="11" font="4">Random effects:</text>
+<text top="552" left="156" width="41" height="11" font="4">Groups</text>
+<text top="552" left="259" width="27" height="11" font="4">Name</text>
+<text top="552" left="341" width="55" height="11" font="4">Variance</text>
+<text top="569" left="156" width="89" height="11" font="4">region:school</text>
+<text top="569" left="259" width="151" height="11" font="4">(Intercept) 0.14703510</text>
+<text top="585" left="156" width="41" height="11" font="4">region</text>
+<text top="585" left="259" width="151" height="11" font="4">(Intercept) 0.01497416</text>
+<text top="601" left="156" width="55" height="11" font="4">Residual</text>
+<text top="601" left="341" width="69" height="11" font="4">0.81229310</text>
+<text top="634" left="149" width="96" height="11" font="4">Number of obs:</text>
+<text top="651" left="149" width="302" height="11" font="4">334 observations, 4 clusters, 11 subclusters</text>
+<text top="684" left="149" width="96" height="11" font="4">Fixed effects:</text>
+<text top="700" left="238" width="55" height="11" font="4">Estimate</text>
+<text top="700" left="313" width="69" height="11" font="4">Std. Error</text>
+<text top="700" left="396" width="14" height="11" font="4">..</text>
+<text top="700" left="423" width="48" height="11" font="4">p value</text>
+<text top="716" left="156" width="75" height="11" font="4">(Intercept)</text>
+<text top="716" left="245" width="130" height="11" font="4">0.1586624 0.2686822</text>
+<text top="716" left="396" width="14" height="11" font="4">..</text>
+<text top="716" left="423" width="75" height="11" font="4">0.554841676</text>
+<text top="733" left="156" width="21" height="11" font="4">sex</text>
+<text top="733" left="238" width="137" height="11" font="4">-0.2953611 0.1071201</text>
+<text top="733" left="396" width="14" height="11" font="4">..</text>
+<text top="733" left="423" width="75" height="11" font="4">0.005828259</text>
+<text top="749" left="156" width="21" height="11" font="4">age</text>
+<text top="749" left="245" width="130" height="11" font="4">0.2260327 0.1621609</text>
+<text top="749" left="396" width="14" height="11" font="4">..</text>
+<text top="749" left="423" width="75" height="11" font="4">0.163354085</text>
+<text top="782" left="149" width="247" height="11" font="4">Intra-class correlation coefficients</text>
+<text top="799" left="272" width="62" height="11" font="4">Estimates</text>
+<text top="815" left="156" width="89" height="11" font="4">intra-cluster</text>
+<text top="815" left="272" width="62" height="11" font="4">0.1509132</text>
+<text top="832" left="156" width="178" height="11" font="4">intra-subcluster 0.1662823</text>
+<text top="864" left="149" width="158" height="11" font="4">cov-var (fixed effects)</text>
+<text top="881" left="341" width="21" height="11" font="4">sex</text>
+<text top="881" left="437" width="21" height="11" font="4">age</text>
+<text top="897" left="183" width="274" height="11" font="4">7.219013e-02 -0.0002000644 -1.672882e-05</text>
+<text top="914" left="149" width="117" height="11" font="4">sex -2.000644e-04</text>
+<text top="914" left="279" width="82" height="11" font="4">0.0114747092</text>
+<text top="914" left="375" width="82" height="11" font="4">9.802962e-04</text>
+<text top="930" left="149" width="117" height="11" font="4">age -1.672882e-05</text>
+<text top="930" left="279" width="82" height="11" font="4">0.0009802962</text>
+<text top="930" left="375" width="82" height="11" font="4">2.629616e-02</text>
+<text top="972" left="171" width="117" height="13" font="4">Here, intra-cluster, <i>ρ</i></text>
+<text top="976" left="289" width="28" height="10" font="7">region</text>
+<text top="972" left="318" width="426" height="13" font="4">, is the robust estimate of the intra-class correlation coefficient for region</text>
+<text top="988" left="149" width="129" height="13" font="4">and intra-subcluster, <i>ρ</i></text>
+<text top="994" left="278" width="65" height="10" font="7">school(region)</text>
+<text top="988" left="344" width="403" height="13" font="4">, is for school nested within region. We can say that regional differ-</text>
+<text top="1004" left="149" width="495" height="13" font="4">ences explain only 15.1% of the total variability in the model. The difference, 16.6%</text>
+<text top="1004" left="647" width="11" height="13" font="0">−</text>
+<text top="1004" left="660" width="35" height="13" font="4">15.1%</text>
+<text top="1004" left="699" width="11" height="12" font="0">=</text>
+<text top="1004" left="714" width="32" height="13" font="4">1.5%,</text>
+<text top="1021" left="149" width="595" height="13" font="4">shows that the contribution of the school variability to the total variability could be ignored. Using the</text>
+<text top="1038" left="149" width="27" height="11" font="4">reml</text>
+<text top="1037" left="180" width="511" height="13" font="4">method, this result is calculated around 2.1%, similar to the result of the rank analysis.</text>
+<text top="1058" left="171" width="573" height="13" font="4">The plot function can be used to generate the standardized residuals vs. the fitted response and a</text>
+<text top="1075" left="149" width="215" height="13" font="4">normal Q-Q plot as shown in Figure</text>
+<text top="1075" left="367" width="7" height="13" font="12"><a href="2013-2-bilgic-susmann.html#6">1</a></text>
+<text top="1075" left="374" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#6">:</a></text>
+<text top="1103" left="149" width="110" height="11" font="4">&gt; plot(rlme.fit)</text>
+<text top="1130" left="171" width="573" height="13" font="4">The residuals and random effects can be extracted from the fit. For example, we can extract the</text>
+<text top="1147" left="149" width="260" height="13" font="4">raw residuals through the list element ehat:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">77</text>
+<text top="120" left="149" width="103" height="11" font="4"># Raw residuals</text>
+<text top="137" left="149" width="103" height="11" font="4">&gt; rlme.fit$ehat</text>
+<text top="153" left="149" width="27" height="11" font="4">[,1]</text>
+<text top="169" left="149" width="7" height="11" font="4">1</text>
+<text top="169" left="176" width="82" height="11" font="4">-1.186129739</text>
+<text top="186" left="149" width="7" height="11" font="4">2</text>
+<text top="186" left="176" width="82" height="11" font="4">-1.641494973</text>
+<text top="202" left="149" width="7" height="11" font="4">3</text>
+<text top="202" left="176" width="82" height="11" font="4">-1.147704177</text>
+<text top="219" left="149" width="21" height="11" font="4">...</text>
+<text top="235" left="149" width="110" height="11" font="4">334 -0.327186795</text>
+<text top="278" left="171" width="575" height="13" font="4">Several other elements of interest would include the effects estimates/predictions of the fixed ef-</text>
+<text top="294" left="149" width="613" height="13" font="4">fects, errors, clusters, and subclusters, which are obtained from rlme.fit$fixed.effects, ..$effect.err,</text>
+<text top="311" left="149" width="117" height="11" font="4">..$effect.cluster</text>
+<text top="310" left="265" width="485" height="13" font="4">, and ..$effect.subcluster, respectively. A full list can be found in the help(rlme)</text>
+<text top="327" left="149" width="597" height="13" font="4">command or the str command. The same model can be also evaluated with the likelihood methods,</text>
+<text top="344" left="149" width="27" height="11" font="4">reml</text>
+<text top="343" left="180" width="33" height="13" font="4">or ml:</text>
+<text top="373" left="149" width="329" height="11" font="4">&gt; rlme.fit = rlme(model, schools, method=&#34;reml&#34;)</text>
+<text top="390" left="149" width="130" height="11" font="4">&gt; summary(rlme.fit)</text>
+<text top="406" left="149" width="171" height="11" font="4">Linear mixed model fit by</text>
+<text top="406" left="334" width="27" height="11" font="4">REML</text>
+<text top="422" left="149" width="21" height="11" font="4">...</text>
+<text top="439" left="149" width="96" height="11" font="4">Fixed effects:</text>
+<text top="455" left="238" width="55" height="11" font="4">Estimate</text>
+<text top="455" left="320" width="144" height="11" font="4">Std. Error .. p value</text>
+<text top="472" left="156" width="226" height="11" font="4">(Intercept) -0.08756901 0.2681410</text>
+<text top="472" left="396" width="82" height="11" font="4">.. 0.7439869</text>
+<text top="488" left="156" width="21" height="11" font="4">sex</text>
+<text top="488" left="238" width="144" height="11" font="4">-0.26286182 0.1092493</text>
+<text top="488" left="396" width="82" height="11" font="4">.. 0.0161250</text>
+<text top="505" left="156" width="21" height="11" font="4">age</text>
+<text top="505" left="245" width="137" height="11" font="4">0.24712016 0.1720753</text>
+<text top="505" left="396" width="82" height="11" font="4">.. 0.1509693</text>
+<text top="537" left="149" width="247" height="11" font="4">Intra-class correlation coefficients</text>
+<text top="554" left="272" width="62" height="11" font="4">Estimates</text>
+<text top="570" left="156" width="89" height="11" font="4">intra-cluster</text>
+<text top="570" left="272" width="62" height="11" font="4">0.2433171</text>
+<text top="587" left="156" width="178" height="11" font="4">intra-subcluster 0.2443941</text>
+<text top="603" left="149" width="21" height="11" font="4">...</text>
+<text top="632" left="148" width="596" height="13" font="4">The REML and GR results are slightly different, but do coincide in the inference at the 5% level. A</text>
+<text top="648" left="149" width="595" height="13" font="4">2-level random effects nested data analysis that students are nested within regions can be done in a</text>
+<text top="665" left="149" width="87" height="13" font="4">similar syntax:</text>
+<text top="695" left="149" width="103" height="11" font="4">&gt; data(schools)</text>
+<text top="711" left="149" width="288" height="11" font="4">&gt; model = y ~ 1 + sex + age + (1 | region)</text>
+<text top="727" left="149" width="377" height="11" font="4">&gt; rlme.fit = rlme(model, data = schools, method = &#34;gr&#34;)</text>
+<text top="744" left="149" width="130" height="11" font="4">&gt; summary(rlme.fit)</text>
+<text top="760" left="149" width="171" height="11" font="4">Linear mixed model fit by</text>
+<text top="760" left="334" width="14" height="11" font="4">GR</text>
+<text top="777" left="149" width="55" height="11" font="4">Formula:</text>
+<text top="777" left="217" width="219" height="11" font="4">y ~ 1 + sex + age + (1 | region)</text>
+<text top="793" left="149" width="21" height="11" font="4">...</text>
+<text top="810" left="149" width="96" height="11" font="4">Fixed effects:</text>
+<text top="826" left="238" width="55" height="11" font="4">Estimate</text>
+<text top="826" left="320" width="69" height="11" font="4">Std. Error</text>
+<text top="826" left="403" width="69" height="11" font="4">.. p value</text>
+<text top="842" left="156" width="233" height="11" font="4">(Intercept) -0.09298845 0.22061464</text>
+<text top="842" left="403" width="103" height="11" font="4">.. 6.733921e-01</text>
+<text top="859" left="156" width="21" height="11" font="4">sex</text>
+<text top="859" left="238" width="151" height="11" font="4">-0.35939453 0.08977332</text>
+<text top="859" left="403" width="103" height="11" font="4">.. 6.245027e-05</text>
+<text top="875" left="156" width="21" height="11" font="4">age</text>
+<text top="875" left="245" width="144" height="11" font="4">0.11882249 0.13665390</text>
+<text top="875" left="403" width="103" height="11" font="4">.. 3.845660e-01</text>
+<text top="908" left="149" width="247" height="11" font="4">Intra-class correlation coefficients</text>
+<text top="925" left="272" width="62" height="11" font="4">Estimates</text>
+<text top="941" left="156" width="89" height="11" font="4">intra-cluster</text>
+<text top="941" left="272" width="62" height="11" font="4">0.1452482</text>
+<text top="958" left="156" width="178" height="11" font="4">intra-subcluster 1.0000000</text>
+<text top="974" left="149" width="21" height="11" font="4">...</text>
+<text top="1019" left="171" width="573" height="13" font="4">Diagnostics, TDBETAS and CFITS, to detect differences in fits for various methods can be obtained</text>
+<text top="1036" left="148" width="596" height="13" font="4">with the function fitdvcov. To compare the fixed effects estimates from any two fits, the covariance</text>
+<text top="1052" left="149" width="595" height="13" font="4">matrix from one rank-based method is required. Here we compare the REML and GR methods for the</text>
+<text top="1068" left="149" width="41" height="13" font="4">model:</text>
+<text top="1115" left="149" width="103" height="11" font="4">&gt; data(schools)</text>
+<text top="1131" left="149" width="439" height="11" font="4">&gt; model = y ~ 1 + sex + age + (1 | region) + (1 | region:school)</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">78</text>
+<text top="104" left="149" width="219" height="11" font="4"># Extract covariates into matrix</text>
+<text top="120" left="149" width="405" height="11" font="4">&gt; cov = as.matrix(data.frame(rep(1, length(schools[,&#34;y&#34;])),</text>
+<text top="137" left="149" width="233" height="11" font="4">schools[,&#34;sex&#34;], schools[,&#34;age&#34;]))</text>
+<text top="169" left="149" width="233" height="11" font="4"># Fit the models using each method</text>
+<text top="186" left="149" width="329" height="11" font="4">&gt; reml.fit = rlme(model, schools, method=&#34;reml&#34;)</text>
+<text top="202" left="149" width="302" height="11" font="4">&gt; gr.fit = rlme(model, schools, method=&#34;gr&#34;)</text>
+<text top="235" left="149" width="226" height="11" font="4"># Extract fixed effects estimates</text>
+<text top="252" left="149" width="309" height="11" font="4">&gt; reml.beta = reml.fit$fixed.effects$Estimate</text>
+<text top="268" left="149" width="281" height="11" font="4">&gt; gr.beta = gr.fit$fixed.effects$Estimate</text>
+<text top="301" left="149" width="425" height="11" font="4"># Extract the covariance matrix of the fixed effects estimates</text>
+<text top="317" left="149" width="165" height="11" font="4">&gt; var.b = reml.fit$var.b</text>
+<text top="350" left="149" width="336" height="11" font="4">&gt; fitdvcov(cov, reml.beta, gr.beta, var.b)$tdbeta</text>
+<text top="367" left="149" width="89" height="11" font="4">[1] 0.9406339</text>
+<text top="400" left="149" width="432" height="11" font="4"># The following gets CFITS. For more info about diagnostics and</text>
+<text top="416" left="149" width="377" height="11" font="4"># benchmarks, see help(fitdvcov) and help(compare.fits)</text>
+<text top="432" left="149" width="329" height="11" font="4">&gt; fitdvcov(cov, reml.beta, gr.beta, var.b)$cfits</text>
+<text top="465" left="149" width="322" height="11" font="4"># Graphing alone and getting standard residuals</text>
+<text top="482" left="149" width="144" height="11" font="4">&gt; getgrstplot(gr.fit)</text>
+<text top="498" left="149" width="192" height="11" font="4">&gt; getgrstplot(gr.fit)$sresid</text>
+<text top="531" left="149" width="165" height="11" font="4">&gt; getlmestplot(reml.fit)</text>
+<text top="548" left="149" width="213" height="11" font="4">&gt; getlmestplot(reml.fit)$sresid</text>
+<text top="593" left="171" width="575" height="13" font="4">In our package, in case of potential outliers in factor space, high breakdown weights (hbr),</text>
+<text top="610" left="148" width="82" height="11" font="4">weight=&#34;hbr&#34;</text>
+<text top="610" left="231" width="514" height="13" font="4">, are specified along with method=&#34;geer&#34;. We use the routines of the ww R codes for</text>
+<text top="626" left="149" width="126" height="13" font="4">independent models:</text>
+<text top="657" left="149" width="103" height="11" font="4">&gt; data(schools)</text>
+<text top="673" left="149" width="357" height="11" font="4">&gt; rlme.fit = rlme(y ~ 1 + sex + age, data = schools)</text>
+<text top="706" left="149" width="309" height="11" font="4">You have entered an independent linear model.</text>
+<text top="722" left="149" width="219" height="11" font="4">Continuing using the ww package.</text>
+<text top="755" left="149" width="206" height="11" font="4">Wald Test of H0: BETA1=BETA2=0</text>
+<text top="772" left="149" width="130" height="11" font="4">TS: 38.4414 PVAL: 0</text>
+<text top="805" left="149" width="206" height="11" font="4">Drop Test of H0: BETA1=BETA2=0</text>
+<text top="821" left="149" width="144" height="11" font="4">TS: 7.819 PVAL: 5e-04</text>
+<text top="854" left="217" width="21" height="11" font="4">EST</text>
+<text top="854" left="272" width="14" height="11" font="4">SE</text>
+<text top="854" left="327" width="62" height="11" font="4">TVAL PVAL</text>
+<text top="870" left="149" width="34" height="11" font="4">BETA0</text>
+<text top="870" left="197" width="158" height="11" font="4">0.2333 0.0000 9105.8041</text>
+<text top="870" left="382" width="7" height="11" font="4">0</text>
+<text top="887" left="149" width="137" height="11" font="4">BETA1 -0.4192 0.0478</text>
+<text top="887" left="307" width="48" height="11" font="4">-8.7664</text>
+<text top="887" left="382" width="7" height="11" font="4">0</text>
+<text top="903" left="149" width="34" height="11" font="4">BETA2</text>
+<text top="903" left="197" width="89" height="11" font="4">0.0000 0.0772</text>
+<text top="903" left="313" width="41" height="11" font="4">0.0000</text>
+<text top="903" left="382" width="7" height="11" font="4">1</text>
+<text top="947" left="149" width="263" height="17" font="5"><b>Summary and further directions</b></text>
+<text top="986" left="148" width="596" height="13" font="4">The <b>rlme </b>package analyzes random effects nested models with respect to estimation, inference and</text>
+<text top="1003" left="148" width="596" height="13" font="4">prediction for two- and three-level designs. These designs are a class of mixed models. Hierarchical</text>
+<text top="1019" left="149" width="472" height="13" font="4">linear model users may be interested in our package for robust analysis as well.</text>
+<text top="1040" left="171" width="573" height="13" font="4">In the <b>rlme </b>package, estimations and inferences are obtained from three different rank-based</text>
+<text top="1057" left="149" width="472" height="13" font="4">methods along with the likelihood methods obtained from the <b>nlme </b>package <a href="2013-2-bilgic-susmann.html#9">(</a></text>
+<text top="1057" left="621" width="83" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">Pinheiro et al.</a></text>
+<text top="1057" left="704" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">,</a></text>
+<text top="1057" left="711" width="27" height="13" font="12"><a href="2013-2-bilgic-susmann.html#9">2013</a></text>
+<text top="1057" left="738" width="8" height="13" font="4"><a href="2013-2-bilgic-susmann.html#9">).</a></text>
+<text top="1073" left="148" width="597" height="13" font="4">These three methods include the joint ranking (JR), iteratively reweighted generalized rank (GR)</text>
+<text top="1089" left="149" width="595" height="13" font="4">and rank-based generalized estimating equations (GEER). Variance estimates and random effects</text>
+<text top="1106" left="148" width="596" height="13" font="4">predictions are obtained along with a robust algorithm, called Rank Prediction Procedure (RPP). New</text>
+<text top="1122" left="149" width="596" height="13" font="4">rank-based estimators are employed in these algorithm and methods. Diagnostics are included in our</text>
+<text top="1139" left="148" width="97" height="13" font="4">package as well.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">79</text>
+<text top="103" left="171" width="573" height="13" font="4">We are planning to extend statistical analysis of iteratively generalized rank-based methods using</text>
+<text top="120" left="149" width="595" height="13" font="4">rank-norm properties to the general mixed models with various error structures. We would welcome</text>
+<text top="136" left="149" width="216" height="13" font="4">any feedback and/or collaborations.</text>
+<text top="181" left="149" width="155" height="17" font="5"><b>Acknowledgement</b></text>
+<text top="220" left="148" width="596" height="13" font="4">We would like to thank J. W. McKean for his invaluable guidance in theory and C. Leary for reviewing</text>
+<text top="236" left="149" width="212" height="13" font="4">a preliminary version of this article.</text>
+<text top="281" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="320" left="149" width="596" height="13" font="4">A. Abebe, J. W. McKean, J. D. Kloke, and Y. K. Bilgic. Iterated reweighted rank-based estimates for</text>
+<text top="336" left="164" width="226" height="13" font="4">GEE models. Under revision, 2013. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="336" left="389" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="336" left="403" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">,</a></text>
+<text top="336" left="410" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="336" left="423" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">]</a></text>
+<text top="365" left="149" width="597" height="13" font="4">Y. K. Bilgic. Rank-based estimation and prediction for mixed effects models in nested designs. PhD dissertation,</text>
+<text top="381" left="163" width="377" height="13" font="4">Western Michigan University, Department of Statistics, 2012. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="381" left="540" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="381" left="553" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">,</a></text>
+<text top="381" left="560" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="381" left="573" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">,</a></text>
+<text top="381" left="580" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">75</a></text>
+<text top="381" left="594" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">]</a></text>
+<text top="409" left="149" width="595" height="13" font="4">Y. K. Bilgic, J. W. McKean, J. D. Kloke, and A. Abebe. Iteratively reweighted generalized rank-based</text>
+<text top="426" left="164" width="280" height="13" font="4">method in mixed models. Manuscript, 2013. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="426" left="444" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="426" left="457" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">,</a></text>
+<text top="426" left="464" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="426" left="478" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">]</a></text>
+<text top="454" left="149" width="595" height="13" font="4">E. Brunner and M. Denker. Rank statistics under dependent observations and applications to factorial</text>
+<text top="471" left="164" width="279" height="13" font="4">designs. Statist. Plan. Infer, 42:353–378, 1994. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="471" left="443" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="471" left="457" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">]</a></text>
+<text top="499" left="149" width="595" height="13" font="4">S. R. Dubnicka. A rank-based estimation procedure for linear models with clustered data. Journal of</text>
+<text top="515" left="164" width="338" height="14" font="4">Modern Applied Statistical Methods, 3(1):39–48, 2004. URL</text>
+<text top="516" left="505" width="240" height="11" font="12"><a href="http://www.amstat.org/publications/jcgs/">http://www.amstat.org/publications/</a></text>
+<text top="533" left="164" width="34" height="11" font="12"><a href="http://www.amstat.org/publications/jcgs/">jcgs/</a></text>
+<text top="532" left="198" width="21" height="13" font="4"><a href="http://www.amstat.org/publications/jcgs/">. </a><a href="2013-2-bilgic-susmann.html#4">[p</a></text>
+<text top="532" left="219" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="532" left="232" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">]</a></text>
+<text top="560" left="149" width="595" height="13" font="4">D. J. Groggel. Asymptotic nonparametric confidence intervals for the ratio of scale parameters in balanced</text>
+<text top="577" left="164" width="583" height="14" font="4">one-way random effects models. PhD dissertation, University of Florida, Department of Statistics, 1983.</text>
+<text top="593" left="164" width="13" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">[p</a></text>
+<text top="593" left="176" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="593" left="190" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">,</a></text>
+<text top="593" left="196" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">75</a></text>
+<text top="593" left="210" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">]</a></text>
+<text top="622" left="149" width="598" height="13" font="4">D. J. Groggel, D. Wackerly, and P. Rao. Nonparametric estimation in one-way random effects models.</text>
+<text top="638" left="163" width="453" height="14" font="4">Communications in Statistics: Simulation and Computation, 17:887–903, 1988. <a href="2013-2-bilgic-susmann.html#4">[p</a></text>
+<text top="638" left="616" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="638" left="630" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">]</a></text>
+<text top="666" left="149" width="597" height="13" font="4">T. P. Hettmansperger and J. W. McKean. Robust Nonparametric Statistical Methods. Chapman &amp; Hall,</text>
+<text top="683" left="164" width="48" height="13" font="4">2011. <a href="2013-2-bilgic-susmann.html#1">[p</a></text>
+<text top="683" left="211" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#1">71</a></text>
+<text top="683" left="225" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#1">,</a></text>
+<text top="683" left="232" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="683" left="245" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">,</a></text>
+<text top="683" left="252" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">75</a></text>
+<text top="683" left="265" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">]</a></text>
+<text top="711" left="149" width="445" height="13" font="4">J. Kloke and J. McKean. Rfit: Rank Estimation for Linear Models, 2012. URL</text>
+<text top="712" left="597" width="152" height="11" font="12"><a href="http://CRAN.R-project.org/package=Rfit">http://CRAN.R-project.</a></text>
+<text top="728" left="164" width="110" height="11" font="12"><a href="http://CRAN.R-project.org/package=Rfit">org/package=Rfit</a></text>
+<text top="728" left="274" width="165" height="13" font="4"><a href="http://CRAN.R-project.org/package=Rfit">. </a>R package version 0.14. <a href="2013-2-bilgic-susmann.html#1">[p</a></text>
+<text top="728" left="438" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#1">71</a></text>
+<text top="728" left="452" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#1">]</a></text>
+<text top="756" left="149" width="596" height="13" font="4">J. Kloke, J. W. McKean, and M. Rashid. Rank-based estimation and associated inferences for linear</text>
+<text top="773" left="164" width="582" height="13" font="4">models with cluster correlated errors. Journal of the American Statistical Association, 104(485):384–390,</text>
+<text top="789" left="164" width="48" height="13" font="4">2009. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="789" left="211" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="789" left="225" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">,</a></text>
+<text top="789" left="232" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="789" left="245" width="3" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">,</a></text>
+<text top="789" left="252" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#5">75</a></text>
+<text top="789" left="265" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#5">]</a></text>
+<text top="817" left="149" width="597" height="13" font="4">K. Y. Liang and S. L. Zeger. Longitudinal data analysis using generalized linear models. Biometrika, 73:</text>
+<text top="834" left="163" width="88" height="13" font="4">13–22, 1986. <a href="2013-2-bilgic-susmann.html#3">[p</a></text>
+<text top="834" left="251" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#3">73</a></text>
+<text top="834" left="265" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#3">]</a></text>
+<text top="862" left="149" width="595" height="13" font="4">J. Pinheiro, D. Bates, S. DebRoy, D. Sarkar, and R Core Team. nlme: Linear and Nonlinear Mixed Effects</text>
+<text top="879" left="164" width="256" height="14" font="4">Models, 2013. R package version 3.1-109. <a href="2013-2-bilgic-susmann.html#8">[p</a></text>
+<text top="879" left="420" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#8">78</a></text>
+<text top="879" left="433" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#8">]</a></text>
+<text top="907" left="149" width="595" height="13" font="4">J. T. Terpstra and J. W. McKean. Rank-based analysis of linear models using R. Journal of Statistical</text>
+<text top="923" left="163" width="293" height="14" font="4">Software, 14(7):1–26, 7 2005. ISSN 1548-7660. URL</text>
+<text top="924" left="460" width="219" height="11" font="12"><a href="http://www.jstatsoft.org/v14/i07">http://www.jstatsoft.org/v14/i07</a></text>
+<text top="923" left="679" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v14/i07">. </a><a href="2013-2-bilgic-susmann.html#4">[p</a></text>
+<text top="923" left="700" width="13" height="13" font="12"><a href="2013-2-bilgic-susmann.html#4">74</a></text>
+<text top="923" left="713" width="4" height="13" font="4"><a href="2013-2-bilgic-susmann.html#4">]</a></text>
+<text top="970" left="148" width="82" height="13" font="4">Yusuf K. Bilgic</text>
+<text top="986" left="148" width="85" height="13" font="4">SUNY Geneseo</text>
+<text top="1003" left="148" width="290" height="13" font="4">1 College Circle, Geneseo, NY 14454, (585) 245-5384</text>
+<text top="1019" left="148" width="28" height="13" font="4">USA</text>
+<text top="1036" left="149" width="165" height="11" font="12"><a href="mailto:yusuf.k.bilgic@gmail.com">yusuf.k.bilgic@gmail.com</a></text>
+<text top="1073" left="148" width="97" height="13" font="4">Herbert Susmann</text>
+<text top="1089" left="148" width="85" height="13" font="4">SUNY Geneseo</text>
+<text top="1106" left="148" width="290" height="13" font="4">1 College Circle, Geneseo, NY 14454, (585) 245-5384</text>
+<text top="1122" left="148" width="28" height="13" font="4">USA</text>
+<text top="1139" left="149" width="123" height="11" font="12"><a href="mailto:herbps10@gmail.com">herbps10@gmail.com</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

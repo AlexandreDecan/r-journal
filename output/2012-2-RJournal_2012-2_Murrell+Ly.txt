@@ -1,0 +1,94 @@
+0	848	> library(grid)
+0	897	> stripVP <- viewport(y=1,
+0	913	+ height=unit(1, "lines"),
+0	930	+ just="top",
+0	946	+ name="stripvp")
+0	962	> panelVP <- viewport(y=0,
+0	979	+ height=unit(1, "npc") -
+0	995	+ unit(1, "lines"),
+0	1012	+ just="bottom",
+0	1028	+ name="panelvp")
+0	1077	> pushViewport(stripVP)
+0	1093	> grid.rect(gp=gpar(fill="grey80"),
+0	1110	+ name="striprect")
+0	1126	> upViewport()
+0	1142	> pushViewport(panelVP)
+0	1159	> grid.rect(name="panelrect")
+0	1175	> upViewport()
+0	501	> downViewport("stripvp")
+0	518	> grid.text("strip text", name="striptext")
+0	534	> upViewport()
+0	1110	> grid.edit("striptext",
+0	1126	+ label="modified text",
+0	1142	+ gp=gpar(col="darkgreen",
+0	1159	+ fontface="italic",
+0	1175	+ fontfamily="serif"))
+1	213	> grid.remove("striptext")
+1	363	> grid.ls()
+1	389	striprect
+1	405	panelrect
+1	638	> grid.ls(viewports=TRUE, fullNames=TRUE)
+1	664	viewport[ROOT]
+1	680	viewport[stripvp]
+1	697	rect[striprect]
+1	713	upViewport[1]
+1	730	viewport[panelvp]
+1	746	rect[panelrect]
+1	763	upViewport[1]
+1	1151	> showGrob()
+2	695	> showViewport()
+2	375	> library(gridDebug)
+2	408	> gridTree()
+2	1143	> library(lattice)
+2	1175	> histogram(faithful$eruptions)
+3	835	> grid.ls(viewports=TRUE, print=grobPathListing)
+3	986	> sceneListing <- grid.ls(viewports=TRUE,
+3	1002	+ print=FALSE)
+3	1032	> do.call("cbind", sceneListing)
+3	226	> showGrob(gp=gpar(fill=rgb(1, .85, .85)))
+3	871	> showGrob(gPath="plot_01.histogram.rect.panel.1.1")
+4	140	ROOT
+4	140	| plot_01.background
+4	157	ROOT::plot_01.toplevel.vp::plot_01.xlab.vp
+4	157	| plot_01.xlab
+4	173	ROOT::plot_01.toplevel.vp::plot_01.ylab.vp
+4	173	| plot_01.ylab
+4	189	ROOT::plot_01.toplevel.vp::plot_01.strip.1.1.off.vp
+4	189	| plot_01.ticks.top.panel.1.1
+4	206	ROOT::plot_01.toplevel.vp::plot_01.strip.left.1.1.off.vp | plot_01.ticks.left.panel.1.1
+4	222	ROOT::plot_01.toplevel.vp::plot_01.strip.left.1.1.off.vp | plot_01.ticklabels.left.panel.1.1
+4	239	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp
+4	239	| plot_01.ticks.bottom.panel.1.1
+4	255	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp
+4	255	| plot_01.ticklabels.bottom.panel.1.1
+4	272	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp
+4	272	| plot_01.ticks.right.panel.1.1
+4	288	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.vp
+4	288	| plot_01.histogram.baseline.lines.panel.1.1
+4	305	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.vp
+4	305	| plot_01.histogram.rect.panel.1.1
+4	321	ROOT::plot_01.toplevel.vp::plot_01.panel.1.1.off.vp
+4	321	| plot_01.border.panel.1.1
+4	450	name gDepth vpDepth gPath
+4	450	vpPath type
+4	467	1 ROOT 0 0
+4	467	vpListing
+4	483	2 plot_01.background 0 1
+4	483	ROOT grobListing
+4	500	3 plot_01.toplevel.vp 0 1
+4	500	ROOT vpListing
+4	516	4 plot_01.xlab.vp 0 2
+4	516	ROOT::plot_01.toplevel.vp vpListing
+4	532	5 plot_01.xlab 0 3 ROOT::plot_01.toplevel.vp::plot_01.xlab.vp grobListing
+4	549	6 1 0 3 ROOT::plot_01.toplevel.vp::plot_01.xlab.vp vpUpListing
+4	565	7 plot_01.ylab.vp 0 2
+4	565	ROOT::plot_01.toplevel.vp vpListing
+4	582	8 plot_01.ylab 0 3 ROOT::plot_01.toplevel.vp::plot_01.ylab.vp grobListing
+4	598	9 1 0 3 ROOT::plot_01.toplevel.vp::plot_01.ylab.vp vpUpListing
+4	615	10 plot_01.figure.vp 0 2
+4	615	ROOT::plot_01.toplevel.vp vpListing
+5	214	> showViewport(newpage=TRUE, leaves=TRUE,
+5	230	+ col="black")
+5	981	> gridTree()
+5	1173	> library(ggplot2)
+5	127	> qplot(faithful$eruptions, binwidth=.5)

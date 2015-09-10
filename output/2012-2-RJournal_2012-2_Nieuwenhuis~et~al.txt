@@ -1,0 +1,98 @@
+page	left	top	code
+5	82	696	library(influence.ME)
+5	82	714	data(school23)
+5	82	750	school23 <- within(school23,
+5	105	768	homework <- unclass(homework))
+5	82	804	m23 <- lmer(math ~ homework + structure
+5	105	822	+ (1 | school.ID),
+5	105	840	data=school23)
+5	82	875	print(m23, cor=FALSE)
+5	82	977	Linear mixed model fit by REML
+5	82	995	Formula: math ~ homework +
+5	105	1013	structure + (1 | school.ID)
+5	105	1031	Data: school23
+5	98	1049	AIC BIC logLik deviance REMLdev
+5	90	1067	3734 3756 -1862 3728 3724
+5	82	1085	Random effects:
+5	90	1103	Groups Name Variance Std.Dev.
+5	90	1121	school.ID (Intercept) 19.543 4.4208
+5	90	1139	Residual 71.311 8.4446
+5	82	1156	Number of obs: 519, groups: school.ID, 23
+5	459	126	Fixed effects:
+5	550	144	Estimate Std. Error t value
+5	459	162	(Intercept) 52.2356 5.3940 9.684
+5	459	180	homework 2.3938 0.2771 8.640
+5	459	198	structure -2.0950 1.3237 -1.583
+5	459	621	struct <- unique(subset(school23,
+5	489	639	select=c(school.ID, structure)))
+5	459	674	struct$mathAvg <- with(school23,
+5	489	692	tapply(math, school.ID, mean))
+5	459	728	dotplot(mathAvg ~ factor(structure),
+5	489	746	struct,
+5	489	764	type=c("p","a"),
+5	489	782	xlab="Class structure level",
+5	489	800	ylab="Average Math Test Score")
+6	82	713	estex.m23 <- influence(m23, "school.ID")
+6	82	881	dfbetas(estex.m23,
+6	113	899	parameters=c(2,3))
+6	151	1031	homework structure
+6	82	1049	6053 -0.13353732 -0.168139487
+6	82	1067	6327 -0.44770666 0.020481057
+6	82	1085	6467 0.21090081 0.015320965
+6	82	1103	7194 -0.44641247 0.036756281
+6	82	1121	7472 -0.55836772 1.254990963
+6	82	1139	...
+6	82	1156	72292 0.62278508 0.003905031
+6	82	1174	72991 0.52021424 0.021630219
+6	459	445	plot(estex.m23,
+6	489	463	which="dfbetas",
+6	489	481	parameters=c(2,3),
+6	489	499	xlab="DFbetaS",
+6	489	517	ylab="School ID")
+7	82	942	cooks.distance(estex.m23,
+7	113	960	parameter=3, sort=TRUE)
+7	82	995	plot(estex.m23, which="cook",
+7	113	1013	cutoff=.17, sort=TRUE,
+7	113	1031	xlab="Cook´s Distance",
+7	113	1049	ylab="School ID")
+7	573	641	[,1]
+7	459	659	24371 6.825871e-06
+7	459	677	72292 1.524927e-05
+7	459	695	...
+7	459	713	54344 2.256612e-01
+7	459	731	7829 3.081222e-01
+7	459	749	7472 1.575002e+00
+8	82	585	sigtest(estex.m23, test=-1.96)$structure[1:10,]
+8	505	126	Altered.Teststat Altered.Sig Changed.Sig
+8	459	144	6053 -1.326409 FALSE FALSE
+8	459	162	6327 -1.688663 FALSE FALSE
+8	459	180	6467 -1.589960 FALSE FALSE
+8	459	198	7194 -1.512686 FALSE FALSE
+8	459	216	7472 -2.715805 TRUE TRUE
+8	459	234	7474 -1.895138 FALSE FALSE
+8	459	252	7801 -1.534023 FALSE FALSE
+8	459	270	7829 -1.045866 FALSE FALSE
+8	459	288	7930 -1.566117 FALSE FALSE
+8	459	306	24371 -1.546838 FALSE FALSE
+8	459	1032	estex.obs <- influence(m23, obs=TRUE)
+8	459	1049	cks.d <- cooks.distance(estex.obs, parameter=3)
+8	459	1067	which(cks.d > 4/519)
+9	82	1121	m22 <- exclude.influence(m23,
+9	113	1139	"school.ID", "7472")
+9	82	1174	print(m22, cor=FALSE)
+9	459	247	Linear mixed model fit by REML
+9	459	265	Formula: math ~ homework + structure
+9	482	283	+ (1 | school.ID)
+9	482	301	Data: ..1
+9	474	319	AIC BIC logLik deviance REMLdev
+9	466	337	3560 3581 -1775 3554 3550
+9	459	355	Random effects:
+9	466	372	Groups Name Variance Std.Dev.
+9	466	390	school.ID (Intercept) 15.333 3.9157
+9	466	408	Residual 70.672 8.4067
+9	459	426	Number of obs: 496, groups: school.ID, 22
+9	459	462	Fixed effects:
+9	550	480	Estimate Std. Error t value
+9	459	498	(Intercept) 59.4146 5.9547 9.978
+9	459	516	homework 2.5499 0.2796 9.121
+9	459	534	structure -3.8949 1.4342 -2.716

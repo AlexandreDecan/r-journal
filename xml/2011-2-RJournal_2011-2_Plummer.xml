@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="12" family="Times" color="#00004c"/>
+	<fontspec id="5" size="9" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="19" family="Times" color="#000000"/>
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+	<fontspec id="9" size="6" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">60</text>
+<text top="67" left="646" width="9" height="15" font="0">P</text>
+<text top="69" left="656" width="88" height="12" font="1">ROGRAMMER</text>
+<text top="67" left="744" width="4" height="15" font="0">’</text>
+<text top="69" left="749" width="6" height="12" font="1">S</text>
+<text top="67" left="760" width="12" height="15" font="0">N</text>
+<text top="69" left="773" width="32" height="12" font="1">ICHE</text>
+<text top="121" left="82" width="483" height="36" font="2"><b>Portable C++ for R Packages</b></text>
+<text top="173" left="82" width="126" height="15" font="0">by Martyn Plummer</text>
+<text top="208" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="208" left="164" width="253" height="15" font="0">Package checking errors are more com-</text>
+<text top="226" left="96" width="319" height="15" font="0">mon on Solaris than Linux. In many cases, these</text>
+<text top="244" left="96" width="321" height="15" font="0">errors are due to non-portable C++ code. This ar-</text>
+<text top="262" left="96" width="319" height="15" font="0">ticle reviews some commonly recurring problems</text>
+<text top="280" left="96" width="319" height="15" font="0">in C++ code found in R packages and suggests</text>
+<text top="298" left="96" width="64" height="15" font="0">solutions.</text>
+<text top="340" left="82" width="347" height="15" font="0">CRAN packages are tested regularly on both Linux</text>
+<text top="358" left="82" width="346" height="15" font="0">and Solaris. The results of these tests can be found</text>
+<text top="376" left="82" width="13" height="15" font="0">at</text>
+<text top="377" left="101" width="328" height="12" font="4"><a href="http://cran.r-project.org/web/checks/check_summary.html">http://cran.r-project.org/web/checks/check_</a></text>
+<text top="395" left="82" width="91" height="12" font="4"><a href="http://cran.r-project.org/web/checks/check_summary.html">summary.html</a></text>
+<text top="394" left="174" width="257" height="15" font="0"><a href="http://cran.r-project.org/web/checks/check_summary.html">. </a>Currently, 24 packages generate er-</text>
+<text top="412" left="82" width="346" height="15" font="0">rors on Linux while 125 packages generate errors</text>
+<text top="429" left="82" width="71" height="15" font="0">on <a href="2011-2-RJournal_2011-2_Plummer.html#1">Solaris.</a></text>
+<text top="427" left="153" width="6" height="11" font="5"><a href="2011-2-RJournal_2011-2_Plummer.html#1">1</a></text>
+<text top="429" left="167" width="264" height="15" font="0">A major contribution to the higher fre-</text>
+<text top="447" left="82" width="347" height="15" font="0">quency of errors on Solaris is lack of portability of</text>
+<text top="465" left="82" width="346" height="15" font="0">C++ code. The CRAN Solaris checks use the Oracle</text>
+<text top="483" left="82" width="346" height="15" font="0">Solaris Studio 12.2 compiler, which has a much more</text>
+<text top="501" left="82" width="346" height="15" font="0">stringent interpretation of the C++ standard than the</text>
+<text top="519" left="82" width="348" height="15" font="0">GCC 4.6.1 compiler used for the checks on on Linux,</text>
+<text top="537" left="82" width="347" height="15" font="0">and will therefore reject code that compiles correctly</text>
+<text top="555" left="82" width="70" height="15" font="0">with GCC.</text>
+<text top="574" left="105" width="327" height="15" font="0">It seems plausible that most R package develop-</text>
+<text top="592" left="82" width="346" height="15" font="0">ers work with GCC and are therefore not aware of</text>
+<text top="610" left="82" width="347" height="15" font="0">portability issues in their C++ code until these are</text>
+<text top="628" left="82" width="347" height="15" font="0">shown by the CRAN checks on Solaris. In fact, many</text>
+<text top="646" left="82" width="349" height="15" font="0">of the testing errors are due to a few commonly re-</text>
+<text top="663" left="82" width="346" height="15" font="0">curring problems in C++. The aims of this article are</text>
+<text top="681" left="82" width="346" height="15" font="0">to describe these problems, to help package authors</text>
+<text top="699" left="82" width="346" height="15" font="0">diagnose them from the Solaris error message, and to</text>
+<text top="717" left="82" width="270" height="15" font="0">suggest good practice for avoiding them.</text>
+<text top="736" left="105" width="324" height="15" font="0">The scope of the article is limited to basic use of</text>
+<text top="754" left="82" width="247" height="15" font="0">C++. It does not cover the use of the</text>
+<text top="754" left="334" width="36" height="15" font="6"><a href="http://cran.r-project.org/package=Rcpp"><b>Rcpp</b></a></text>
+<text top="754" left="374" width="55" height="15" font="0">package</text>
+<text top="772" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">(</a></text>
+<text top="772" left="87" width="174" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">Eddelbuettel and Francois</a></text>
+<text top="772" left="261" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">,</a></text>
+<text top="772" left="268" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">2011</a></text>
+<text top="772" left="298" width="133" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">) </a>and the Scythe sta-</text>
+<text top="790" left="82" width="100" height="15" font="0">tistical library <a href="2011-2-RJournal_2011-2_Plummer.html#4">(</a></text>
+<text top="790" left="183" width="96" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">Pemstein et al.</a></text>
+<text top="790" left="279" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">,</a></text>
+<text top="790" left="286" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">2011</a></text>
+<text top="790" left="316" width="113" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">), </a>which are used</text>
+<text top="808" left="82" width="346" height="15" font="0">to support C++ code in some R packages, nor issues</text>
+<text top="826" left="82" width="268" height="15" font="0">involved in writing your own templates.</text>
+<text top="845" left="105" width="324" height="15" font="0">Before describing the portability issues in detail, it</text>
+<text top="863" left="82" width="346" height="15" font="0">is important to consider two general principles that</text>
+<text top="880" left="82" width="235" height="15" font="0">underlie most portability problems.</text>
+<text top="899" left="105" width="324" height="15" font="0">Firstly, C++ is not a superset of C. The current C</text>
+<text top="917" left="82" width="346" height="15" font="0">standard is ISO/IEC 9899:1999, usually referred to as</text>
+<text top="935" left="82" width="349" height="15" font="0">C99 after its year of publication. Most C++ compil-</text>
+<text top="953" left="82" width="346" height="15" font="0">ers support the ISO/IEC 14882:1998 (C++98 ), which</text>
+<text top="971" left="82" width="74" height="15" font="0">predates <a href="2011-2-RJournal_2011-2_Plummer.html#1">it.</a></text>
+<text top="968" left="156" width="6" height="11" font="5"><a href="2011-2-RJournal_2011-2_Plummer.html#1">2</a></text>
+<text top="971" left="167" width="264" height="15" font="0">Thus, the two languages have diverged,</text>
+<text top="989" left="82" width="346" height="15" font="0">and there are features in C99 that are not available in</text>
+<text top="1007" left="82" width="47" height="15" font="0">C++98.</text>
+<text top="1026" left="105" width="327" height="15" font="0">The g++ compiler allows C99 features in C++ code.</text>
+<text top="1044" left="82" width="347" height="15" font="0">These features will not be accepted by other compilers</text>
+<text top="1062" left="82" width="346" height="15" font="0">that adhere more closely to the C++98 standard. If</text>
+<text top="1080" left="82" width="337" height="15" font="0">your code uses C99 features, then it is not portable.</text>
+<text top="1098" left="105" width="326" height="15" font="0">The C++ standard is evolving. In August 2011,</text>
+<text top="1116" left="82" width="346" height="15" font="0">the ISO approved a new C++ standard which was</text>
+<text top="1134" left="82" width="350" height="15" font="0">published in September 2011 and is known as C++11 .</text>
+<text top="173" left="458" width="347" height="15" font="0">This should remove much of the divergence between</text>
+<text top="191" left="459" width="346" height="15" font="0">the two languages. However, it may take some time</text>
+<text top="209" left="459" width="349" height="15" font="0">for the new C++11 standard to be widely imple-</text>
+<text top="227" left="459" width="346" height="15" font="0">mented in C++ compilers and libraries. Therefore</text>
+<text top="245" left="459" width="292" height="15" font="0">this article was written with C++98 in mind.</text>
+<text top="264" left="481" width="327" height="15" font="0">The second general issue is that g++ has a per-</text>
+<text top="282" left="459" width="346" height="15" font="0">missive interpretation of the C++ standard, and will</text>
+<text top="300" left="459" width="347" height="15" font="0">typically interpret ambiguous code for you. Other</text>
+<text top="318" left="459" width="349" height="15" font="0">compilers require stricter conformance to the stan-</text>
+<text top="336" left="459" width="346" height="15" font="0">dard and will need hints for interpreting ambiguous</text>
+<text top="354" left="459" width="346" height="15" font="0">code. Unlike the first issue, this is unlikely to change</text>
+<text top="372" left="458" width="215" height="15" font="0">with the evolving C++ standard.</text>
+<text top="392" left="481" width="327" height="15" font="0">The following sections each describe a specific is-</text>
+<text top="409" left="459" width="347" height="15" font="0">sue that leads to C++ portability problems. By far</text>
+<text top="427" left="459" width="346" height="15" font="0">the most common error message produced on Solaris</text>
+<text top="445" left="459" width="346" height="15" font="0">is ‘The function foo must have a prototype’. In the</text>
+<text top="463" left="459" width="346" height="15" font="0">following, this is referred to as a missing prototype</text>
+<text top="481" left="459" width="346" height="15" font="0">error. Problems and solutions are illustrated using</text>
+<text top="499" left="459" width="346" height="15" font="0">C++ code snippets. In order to keep the examples</text>
+<text top="517" left="459" width="346" height="15" font="0">short, ellipses are used in place of code that is not</text>
+<text top="535" left="459" width="280" height="15" font="0">strictly necessary to illustrate the problem.</text>
+<text top="592" left="459" width="136" height="21" font="7"><b>C99 functions</b></text>
+<text top="634" left="458" width="347" height="15" font="0">Table 1 shows some C functions that were introduced</text>
+<text top="652" left="458" width="348" height="15" font="0">with the C99 standard and are not supported by</text>
+<text top="670" left="459" width="346" height="15" font="0">C++98. These functions are accepted by g++ and will</text>
+<text top="688" left="459" width="348" height="15" font="0">therefore pass R package checks using this compiler,</text>
+<text top="706" left="459" width="349" height="15" font="0">but will fail on Solaris with a missing prototype error.</text>
+<text top="764" left="532" width="88" height="15" font="0">C99 Function</text>
+<text top="764" left="638" width="95" height="15" font="0">R replacement</text>
+<text top="790" left="532" width="62" height="15" font="0">expm1(x)</text>
+<text top="790" left="638" width="62" height="15" font="0">expm1(x)</text>
+<text top="807" left="532" width="55" height="15" font="0">log1p(x)</text>
+<text top="807" left="638" width="55" height="15" font="0">log1p(x)</text>
+<text top="825" left="532" width="53" height="15" font="0">trunc(x)</text>
+<text top="825" left="638" width="58" height="15" font="0">ftrunc(x)</text>
+<text top="843" left="532" width="58" height="15" font="0">round(x)</text>
+<text top="843" left="638" width="66" height="15" font="0">fprec(x, 0)</text>
+<text top="861" left="532" width="72" height="15" font="0">lgamma(x)</text>
+<text top="861" left="638" width="85" height="15" font="0">lgammafn(x)</text>
+<text top="905" left="458" width="347" height="15" font="0">Table 1: Some expressions using C99 functions and</text>
+<text top="923" left="459" width="346" height="15" font="0">their portable replacements using functions declared</text>
+<text top="941" left="459" width="45" height="15" font="0">in the ‘</text>
+<text top="942" left="504" width="67" height="12" font="8">&lt;Rmath.h&gt;</text>
+<text top="941" left="571" width="4" height="15" font="0">’</text>
+<text top="971" left="481" width="325" height="15" font="0">R packages have access to C functions exposed by</text>
+<text top="989" left="459" width="347" height="15" font="0">the R API, which provides a simple workaround for</text>
+<text top="1007" left="459" width="346" height="15" font="0">these functions. All of the expressions in the left hand</text>
+<text top="1025" left="459" width="349" height="15" font="0">column of Table 1 can be replaced by portable expres-</text>
+<text top="1043" left="459" width="278" height="15" font="0">sions on the right hand side if the header ‘</text>
+<text top="1044" left="737" width="67" height="12" font="8">&lt;Rmath.h&gt;</text>
+<text top="1043" left="804" width="4" height="15" font="0">’</text>
+<text top="1061" left="459" width="77" height="15" font="0">is included.</text>
+<text top="1080" left="481" width="324" height="15" font="0">A less frequently used C99 function is the cube</text>
+<text top="1098" left="459" width="349" height="15" font="0">root function cbrt. The expression cbrt(x) can be re-</text>
+<text top="1116" left="458" width="349" height="15" font="0">placed by std::pow(x, (1./3.)) using the pow func-</text>
+<text top="1134" left="459" width="179" height="15" font="0">tion defined in the header ‘</text>
+<text top="1135" left="637" width="52" height="12" font="8">&lt;cmath&gt;</text>
+<text top="1134" left="690" width="8" height="15" font="0">’.</text>
+<text top="1158" left="99" width="4" height="9" font="9">1</text>
+<text top="1160" left="104" width="336" height="12" font="1">Patched version of R 2.14.0, on 10 December 2011, x86 platform.</text>
+<text top="1173" left="99" width="4" height="9" font="9">2</text>
+<text top="1175" left="104" width="567" height="12" font="1">Although a technical corrigendum of the C++ standard was published in 2003, it provided no new features.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="9" height="15" font="0">P</text>
+<text top="69" left="93" width="88" height="12" font="1">ROGRAMMER</text>
+<text top="67" left="181" width="4" height="15" font="0">’</text>
+<text top="69" left="186" width="6" height="12" font="1">S</text>
+<text top="67" left="197" width="12" height="15" font="0">N</text>
+<text top="69" left="210" width="32" height="12" font="1">ICHE</text>
+<text top="67" left="790" width="15" height="15" font="0">61</text>
+<text top="121" left="82" width="288" height="21" font="7"><b>C99 macros for special values</b></text>
+<text top="162" left="82" width="347" height="15" font="0">The C99 standard also introduced the constants NAN</text>
+<text top="180" left="82" width="348" height="15" font="0">and INFINITY as well as the macros isfinite, isinf,</text>
+<text top="199" left="82" width="38" height="12" font="0">isnan</text>
+<text top="198" left="124" width="305" height="15" font="0">and fpclassify to test for them. None of these</text>
+<text top="216" left="82" width="346" height="15" font="0">are part of the C++98 standard. Attempts to use the</text>
+<text top="234" left="82" width="349" height="15" font="0">macros on Solaris will result in a missing prototype er-</text>
+<text top="252" left="82" width="346" height="15" font="0">ror, and the constants will result in the error message</text>
+<text top="270" left="80" width="211" height="15" font="0">“NAN/INFINITY not defined”.</text>
+<text top="289" left="105" width="327" height="15" font="0">As with the C99 functions above, the R API pro-</text>
+<text top="307" left="82" width="349" height="15" font="0">vides some facilities to replace this missing function-</text>
+<text top="324" left="82" width="346" height="15" font="0">ality. The R macros R_FINITE and ISNAN and the R</text>
+<text top="342" left="82" width="349" height="15" font="0">function R_IsNan are described in the R manual “Writ-</text>
+<text top="360" left="82" width="346" height="15" font="0">ing R Extensions” and are accessed by including the</text>
+<text top="378" left="82" width="77" height="15" font="0">header file ‘</text>
+<text top="379" left="159" width="36" height="12" font="8">&lt;R.h&gt;</text>
+<text top="378" left="196" width="233" height="15" font="0">’. They are not exactly equivalent to</text>
+<text top="396" left="82" width="346" height="15" font="0">the C99 macros because they are adapted to deal with</text>
+<text top="414" left="82" width="177" height="15" font="0">R’s missing value NA_REAL.</text>
+<text top="433" left="105" width="324" height="15" font="0">If you need access to a non-finite value then</text>
+<text top="451" left="80" width="4" height="15" font="0">‘</text>
+<text top="452" left="85" width="95" height="12" font="8">&lt;R_ext/Arith.h&gt;</text>
+<text top="451" left="180" width="249" height="15" font="0">’ provides R_PosInf, R_NegInf and</text>
+<text top="470" left="82" width="61" height="12" font="0">R_NaReal</text>
+<text top="469" left="147" width="232" height="15" font="0">(more commonly used as NA_REAL).</text>
+<text top="523" left="82" width="218" height="21" font="7"><b>Variable-length arrays</b></text>
+<text top="563" left="82" width="347" height="15" font="0">A variable-length array is created when the size of</text>
+<text top="581" left="82" width="349" height="15" font="0">the array is determined at runtime, not compile time.</text>
+<text top="599" left="82" width="134" height="15" font="0">A simple example is</text>
+<text top="635" left="82" width="130" height="12" font="0">void fun(int n) {</text>
+<text top="653" left="105" width="91" height="12" font="0">double A[n];</text>
+<text top="671" left="105" width="23" height="12" font="0">...</text>
+<text top="689" left="81" width="8" height="12" font="0">}</text>
+<text top="721" left="82" width="349" height="15" font="0">Variable length arrays are not part of the C++98 stan-</text>
+<text top="739" left="82" width="346" height="15" font="0">dard. On Solaris, they produce the error message</text>
+<text top="757" left="80" width="349" height="15" font="0">“An integer constant expression is required within the</text>
+<text top="775" left="82" width="172" height="15" font="0">array subscript operator”.</text>
+<text top="794" left="105" width="327" height="15" font="0">Variable-length arrays can be replaced by an in-</text>
+<text top="812" left="82" width="346" height="15" font="0">stantiation of the vector template from the Standard</text>
+<text top="830" left="82" width="347" height="15" font="0">Template Library (STL). Elements of an STL vector</text>
+<text top="848" left="82" width="346" height="15" font="0">are accessed using square bracket notation just like</text>
+<text top="866" left="82" width="346" height="15" font="0">arrays, so it suffices to replace the definition of the</text>
+<text top="884" left="82" width="69" height="15" font="0">array with</text>
+<text top="919" left="82" width="191" height="12" font="0">std::vector&lt;double&gt; A(n);</text>
+<text top="951" left="82" width="347" height="15" font="0">The STL vector template includes a destructor that</text>
+<text top="969" left="82" width="311" height="15" font="0">will free the memory when A goes out of scope.</text>
+<text top="988" left="105" width="324" height="15" font="0">A function that accepts a pointer to the beginning</text>
+<text top="1006" left="82" width="346" height="15" font="0">of an array can be modified to accept a reference to</text>
+<text top="1024" left="82" width="212" height="15" font="0">an STL vector. For example, this</text>
+<text top="1060" left="82" width="329" height="10" font="8">void fun(double *A, unsigned int length) { ... }</text>
+<text top="1091" left="82" width="143" height="15" font="0">may be replaced with</text>
+<text top="1126" left="82" width="233" height="10" font="8">void fun(std::vector&lt;double&gt; &amp;A) {</text>
+<text top="1142" left="103" width="213" height="10" font="8">unsigned int length = A.size();</text>
+<text top="1159" left="103" width="21" height="10" font="8">...</text>
+<text top="1175" left="81" width="7" height="10" font="8">}</text>
+<text top="125" left="459" width="346" height="15" font="0">Note that an STL vector can be queried to determine</text>
+<text top="143" left="459" width="346" height="15" font="0">its size. Hence the size does not need to be passed as</text>
+<text top="161" left="459" width="160" height="15" font="0">an additional argument.</text>
+<text top="179" left="481" width="324" height="15" font="0">External library functions that expect a pointer to</text>
+<text top="197" left="459" width="347" height="15" font="0">a C array, such as BLAS or LAPACK routines, may</text>
+<text top="215" left="459" width="346" height="15" font="0">also be used with STL vectors. The C++ standard</text>
+<text top="233" left="459" width="346" height="15" font="0">guarantees that the elements of a vector are stored</text>
+<text top="251" left="459" width="348" height="15" font="0">contiguously. The address of the first element (e.g.</text>
+<text top="270" left="459" width="38" height="12" font="0">&amp;a[0]</text>
+<text top="268" left="497" width="308" height="15" font="0">) is thus a pointer to the start of an underlying</text>
+<text top="286" left="459" width="347" height="15" font="0">C array that can be passed to external functions. For</text>
+<text top="304" left="459" width="60" height="15" font="0">example:</text>
+<text top="332" left="459" width="84" height="12" font="0">int n = 20;</text>
+<text top="350" left="459" width="191" height="12" font="0">std::vector&lt;double&gt; a(n);</text>
+<text top="368" left="459" width="23" height="12" font="0">...</text>
+<text top="368" left="505" width="91" height="12" font="0">// fill in a</text>
+<text top="386" left="459" width="297" height="12" font="0">double nrm2 = cblas_dnrm2(n, &amp;a[0], 1);</text>
+<text top="411" left="459" width="346" height="15" font="0">Note however that boolean vectors are an exception</text>
+<text top="428" left="459" width="346" height="15" font="0">to this rule. They may be packed to save memory, so</text>
+<text top="446" left="459" width="346" height="15" font="0">it is not safe to assume a one-to-one correspondence</text>
+<text top="464" left="459" width="347" height="15" font="0">between the underlying storage of a boolean vector</text>
+<text top="482" left="459" width="133" height="15" font="0">and a boolean array.</text>
+<text top="528" left="459" width="211" height="21" font="7"><b>Function overloading</b></text>
+<text top="567" left="458" width="349" height="15" font="0">The C++ standard library provides overloaded ver-</text>
+<text top="585" left="459" width="346" height="15" font="0">sions of most mathematical functions, with versions</text>
+<text top="603" left="459" width="346" height="15" font="0">that accept (and return) a float, double or long</text>
+<text top="622" left="459" width="46" height="12" font="0">double</text>
+<text top="621" left="505" width="4" height="15" font="0">.</text>
+<text top="639" left="481" width="326" height="15" font="0">If an integer constant is passed to these functions,</text>
+<text top="657" left="459" width="346" height="15" font="0">then g++ will decide for you which of the overloaded</text>
+<text top="674" left="459" width="349" height="15" font="0">functions to use. For example, this expression is ac-</text>
+<text top="692" left="459" width="98" height="15" font="0">cepted by g++.</text>
+<text top="720" left="459" width="122" height="12" font="0">#include &lt;cmath&gt;</text>
+<text top="738" left="459" width="122" height="12" font="0">using std::sqrt;</text>
+<text top="774" left="459" width="145" height="12" font="0">double z = sqrt(2);</text>
+<text top="799" left="458" width="347" height="15" font="0">The Oracle Solaris Studio compiler will produce</text>
+<text top="817" left="459" width="346" height="15" font="0">the error message ’Overloading ambiguity between</text>
+<text top="836" left="459" width="130" height="12" font="0">std::sqrt(double)</text>
+<text top="834" left="595" width="212" height="15" font="0">and std::sqrt(float)’. It re-</text>
+<text top="852" left="458" width="347" height="15" font="0">quires a hint about which version to use. This hint</text>
+<text top="870" left="459" width="349" height="15" font="0">can be supplied by ensuring that the constant is inter-</text>
+<text top="888" left="458" width="121" height="15" font="0">preted as a double</text>
+<text top="916" left="459" width="152" height="12" font="0">double z = sqrt(2.);</text>
+<text top="941" left="459" width="346" height="15" font="0">In this case ‘2.’ is a double constant, rather than an</text>
+<text top="959" left="459" width="346" height="15" font="0">integer, because it includes a decimal point. To use a</text>
+<text top="978" left="459" width="38" height="12" font="0">float</text>
+<text top="977" left="501" width="305" height="15" font="0">or long double, add the qualifying suffix F or</text>
+<text top="996" left="459" width="8" height="12" font="0">L</text>
+<text top="994" left="470" width="81" height="15" font="0">respectively.</text>
+<text top="1012" left="481" width="324" height="15" font="0">The same error message arises when an integer</text>
+<text top="1030" left="458" width="347" height="15" font="0">variable is passed to an overloaded function inside an</text>
+<text top="1048" left="459" width="346" height="15" font="0">expression that does not evaluate to a floating point</text>
+<text top="1066" left="459" width="55" height="15" font="0">number.</text>
+<text top="1093" left="459" width="110" height="10" font="8">#include &lt;cmath&gt;</text>
+<text top="1110" left="459" width="110" height="10" font="8">using std::sqrt;</text>
+<text top="1142" left="459" width="165" height="10" font="8">bool fun(int n, int m) {</text>
+<text top="1159" left="479" width="158" height="10" font="8">return n &gt; m * sqrt(m);</text>
+<text top="1175" left="457" width="7" height="10" font="8">}</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">62</text>
+<text top="67" left="646" width="9" height="15" font="0">P</text>
+<text top="69" left="656" width="88" height="12" font="1">ROGRAMMER</text>
+<text top="67" left="744" width="4" height="15" font="0">’</text>
+<text top="69" left="749" width="6" height="12" font="1">S</text>
+<text top="67" left="760" width="12" height="15" font="0">N</text>
+<text top="69" left="773" width="32" height="12" font="1">ICHE</text>
+<text top="125" left="82" width="346" height="15" font="0">In this example, the compiler does not know if m</text>
+<text top="143" left="82" width="346" height="15" font="0">should be considered a float, double or long double</text>
+<text top="161" left="82" width="346" height="15" font="0">inside the sqrt function because the return type is</text>
+<text top="180" left="82" width="30" height="12" font="0">bool</text>
+<text top="179" left="113" width="256" height="15" font="0">. The hint can be supplied using a cast:</text>
+<text top="214" left="103" width="302" height="10" font="8">return n &gt; m * sqrt(static_cast&lt;double&gt;(m));</text>
+<text top="264" left="82" width="276" height="21" font="7"><b>Namespaces for C functions</b></text>
+<text top="305" left="82" width="347" height="15" font="0">As noted above, C99 functions are not part of the</text>
+<text top="323" left="82" width="346" height="15" font="0">C++98 standard. C functions from the previous C90</text>
+<text top="341" left="82" width="346" height="15" font="0">standard are allowed in C++98 code, but their use</text>
+<text top="359" left="82" width="346" height="15" font="0">is complicated by the issue of namespaces. This is a</text>
+<text top="377" left="82" width="349" height="15" font="0">common cause of missing prototype errors on Solaris.</text>
+<text top="396" left="105" width="324" height="15" font="0">The C++ standard library offers two distinct sets</text>
+<text top="414" left="82" width="346" height="15" font="0">of header files for C90 functions. One set is called</text>
+<text top="432" left="80" width="4" height="15" font="0">‘</text>
+<text top="433" left="85" width="57" height="12" font="8">&lt;cname&gt;</text>
+<text top="432" left="142" width="174" height="15" font="0">’ and the other is called ‘</text>
+<text top="433" left="316" width="62" height="12" font="8">&lt;name.h&gt;</text>
+<text top="432" left="377" width="52" height="15" font="0">’ where</text>
+<text top="450" left="80" width="312" height="15" font="0">“name” is the base name of the header (e.g. ‘</text>
+<text top="451" left="392" width="30" height="12" font="8">math</text>
+<text top="450" left="423" width="8" height="15" font="0">’,</text>
+<text top="468" left="80" width="4" height="15" font="0">‘</text>
+<text top="469" left="85" width="29" height="12" font="8">stdio</text>
+<text top="468" left="114" width="252" height="15" font="0">’, . . . ). It should be noted that the ‘</text>
+<text top="469" left="366" width="62" height="12" font="8">&lt;name.h&gt;</text>
+<text top="468" left="428" width="4" height="15" font="0">’</text>
+<text top="485" left="82" width="346" height="15" font="0">headers in the C++ standard library are not the same</text>
+<text top="503" left="82" width="346" height="15" font="0">files as their namesakes provided by the C standard</text>
+<text top="521" left="82" width="47" height="15" font="0">library.</text>
+<text top="540" left="105" width="327" height="15" font="0">Both sets of header files in the C++ standard li-</text>
+<text top="558" left="82" width="348" height="15" font="0">brary provide the same declarations and definitions,</text>
+<text top="576" left="82" width="346" height="15" font="0">but differ according to whether they provide them</text>
+<text top="594" left="82" width="349" height="15" font="0">in the standard namespace or the global namespace.</text>
+<text top="612" left="82" width="349" height="15" font="0">The namespace determines the function calling con-</text>
+<text top="630" left="82" width="175" height="15" font="0">vention that must be used:</text>
+<text top="663" left="103" width="326" height="15" font="0">• Functions in the standard namespace need to</text>
+<text top="681" left="120" width="312" height="15" font="0">be referred to by prefixing std:: to the func-</text>
+<text top="699" left="120" width="309" height="15" font="0">tion name. Alternatively, in source files (but</text>
+<text top="717" left="120" width="311" height="15" font="0">not header files) the directive using std::foo;</text>
+<text top="735" left="120" width="312" height="15" font="0">may be used at the beginning of the file to in-</text>
+<text top="753" left="120" width="309" height="15" font="0">struct the compiler that foo always refers to a</text>
+<text top="771" left="120" width="240" height="15" font="0">function in the standard namespace.</text>
+<text top="805" left="103" width="328" height="15" font="0">• Functions in the global namespace can be re-</text>
+<text top="823" left="120" width="309" height="15" font="0">ferred to without any prefix, except when the</text>
+<text top="841" left="120" width="312" height="15" font="0">function is overloaded in another namespace.</text>
+<text top="859" left="120" width="309" height="15" font="0">In this case the scope resolution prefix ‘::’ must</text>
+<text top="877" left="120" width="145" height="15" font="0">be used. For example:</text>
+<text top="916" left="82" width="123" height="10" font="8">using std::vector;</text>
+<text top="948" left="82" width="117" height="10" font="8">namespace mypkg {</text>
+<text top="965" left="103" width="171" height="10" font="8">//Declare overloaded sqrt</text>
+<text top="981" left="103" width="302" height="10" font="8">vector&lt;double&gt; sqrt(vector&lt;double&gt; const &amp;);</text>
+<text top="998" left="103" width="206" height="10" font="8">//Use sqrt in global namespace</text>
+<text top="1014" left="103" width="158" height="10" font="8">double y = ::sqrt(2.0);</text>
+<text top="1031" left="81" width="7" height="10" font="8">}</text>
+<text top="1065" left="105" width="324" height="15" font="0">Although the C++98 standard specifies which</text>
+<text top="1083" left="82" width="179" height="15" font="0">namespaces the headers ‘</text>
+<text top="1085" left="261" width="57" height="12" font="8">&lt;cname&gt;</text>
+<text top="1083" left="319" width="47" height="15" font="0">’ and ‘</text>
+<text top="1085" left="366" width="62" height="12" font="8">&lt;name.h&gt;</text>
+<text top="1083" left="428" width="4" height="15" font="0">’</text>
+<text top="1101" left="82" width="346" height="15" font="0">should use, it has not been widely followed. In</text>
+<text top="1119" left="82" width="349" height="15" font="0">fact, the C++11 standard has been modified to con-</text>
+<text top="1137" left="82" width="346" height="15" font="0">form to the current behaviour of C++ compilers</text>
+<text top="1155" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">(</a></text>
+<text top="1155" left="87" width="340" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">JTC1/SC22/WG21 - The C++ Standards Committee</a></text>
+<text top="1155" left="427" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">,</a></text>
+<text top="1173" left="82" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Plummer.html#4">2011</a></text>
+<text top="1173" left="112" width="166" height="15" font="0"><a href="2011-2-RJournal_2011-2_Plummer.html#4">, </a>Appendix D.5), namely:</text>
+<text top="125" left="480" width="77" height="15" font="0">• Header ‘</text>
+<text top="126" left="557" width="57" height="12" font="8">&lt;cname&gt;</text>
+<text top="125" left="614" width="191" height="15" font="0">’ provides declarations and</text>
+<text top="143" left="496" width="310" height="15" font="0">definitions in the namespace std. It may or may</text>
+<text top="161" left="496" width="281" height="15" font="0">not provide them in the global namespace.</text>
+<text top="190" left="480" width="76" height="15" font="0">• Header ‘</text>
+<text top="191" left="556" width="62" height="12" font="8">&lt;name.h&gt;</text>
+<text top="190" left="618" width="188" height="15" font="0">’ provides declarations and</text>
+<text top="208" left="496" width="309" height="15" font="0">definitions in the global namespace. It may or</text>
+<text top="226" left="496" width="296" height="15" font="0">may not provide them in the namespace std.</text>
+<text top="253" left="458" width="347" height="15" font="0">The permissiveness of this standard makes it difficult</text>
+<text top="271" left="459" width="288" height="15" font="0">to test code for portability. If you use the ‘</text>
+<text top="272" left="747" width="57" height="12" font="8">&lt;cname&gt;</text>
+<text top="271" left="804" width="4" height="15" font="0">’</text>
+<text top="289" left="459" width="346" height="15" font="0">headers, then g++ puts functions in both the standard</text>
+<text top="307" left="459" width="346" height="15" font="0">and global namespaces, so you may freely mix the</text>
+<text top="325" left="459" width="346" height="15" font="0">two calling conventions. However, the Oracle Solaris</text>
+<text top="343" left="459" width="346" height="15" font="0">Studio compiler will reject C function calls that are</text>
+<text top="361" left="459" width="266" height="15" font="0">not resolved to the standard namespace.</text>
+<text top="379" left="481" width="324" height="15" font="0">The key to portability of C functions in C++ code is</text>
+<text top="397" left="459" width="346" height="15" font="0">to use one set of C headers consistently and check the</text>
+<text top="415" left="459" width="346" height="15" font="0">code on a platform that does not use both namespaces</text>
+<text top="433" left="459" width="346" height="15" font="0">at the same time. This rules out g++ for testing code</text>
+<text top="451" left="458" width="67" height="15" font="0">with the ‘</text>
+<text top="452" left="525" width="57" height="12" font="8">&lt;cname&gt;</text>
+<text top="451" left="582" width="223" height="15" font="0">’ headers. Conversely, the GNU</text>
+<text top="469" left="459" width="196" height="15" font="0">C++ standard library header ‘</text>
+<text top="470" left="655" width="60" height="12" font="8">&lt;name.h&gt;</text>
+<text top="469" left="715" width="90" height="15" font="0">’ does not put</text>
+<text top="486" left="459" width="346" height="15" font="0">functions in the std namespace, so g++ may be used</text>
+<text top="504" left="459" width="121" height="15" font="0">to test code using ‘</text>
+<text top="506" left="580" width="59" height="12" font="8">&lt;name.h&gt;</text>
+<text top="504" left="639" width="166" height="15" font="0">’ headers. This is far from</text>
+<text top="522" left="459" width="349" height="15" font="0">an ideal solution. These headers were meant to sim-</text>
+<text top="540" left="458" width="347" height="15" font="0">plify porting of C code to C++ and are not supposed</text>
+<text top="558" left="459" width="346" height="15" font="0">to be used for new C++ code. However, the fact that</text>
+<text top="576" left="459" width="346" height="15" font="0">the C++11 standard still includes these deprecated</text>
+<text top="594" left="459" width="346" height="15" font="0">headers suggests a tacit acceptance that their use is</text>
+<text top="612" left="459" width="110" height="15" font="0">still widespread.</text>
+<text top="658" left="459" width="193" height="21" font="7"><b>Some g++ shortcuts</b></text>
+<text top="697" left="458" width="347" height="15" font="0">The g++ compiler provides two further shortcuts for</text>
+<text top="715" left="459" width="347" height="15" font="0">the programmer which may occasionally throw up</text>
+<text top="733" left="459" width="236" height="15" font="0">missing prototype errors on Solaris.</text>
+<text top="751" left="481" width="324" height="15" font="0">Headers in the GNU C++ standard library may be</text>
+<text top="769" left="459" width="346" height="15" font="0">implicitly included in other headers. For example, in</text>
+<text top="787" left="458" width="123" height="15" font="0">version 4.5.1, the ‘</text>
+<text top="788" left="582" width="62" height="12" font="8">&lt;fstream&gt;</text>
+<text top="787" left="643" width="43" height="15" font="0">’ and ‘</text>
+<text top="788" left="687" width="74" height="12" font="8">&lt;stdexcept&gt;</text>
+<text top="787" left="761" width="47" height="15" font="0">’ head-</text>
+<text top="805" left="459" width="141" height="15" font="0">ers both include the ‘</text>
+<text top="806" left="600" width="50" height="12" font="8">&lt;string&gt;</text>
+<text top="805" left="650" width="156" height="15" font="0">’ header. If your source</text>
+<text top="823" left="459" width="346" height="15" font="0">file includes either of these two headers, then you</text>
+<text top="840" left="459" width="349" height="15" font="0">may may use strings without an #include &lt;string&gt;;</text>
+<text top="858" left="459" width="347" height="15" font="0">statement, relying on this implicit inclusion. Other</text>
+<text top="876" left="459" width="346" height="15" font="0">implementations of the C++ standard library may not</text>
+<text top="894" left="459" width="168" height="15" font="0">do this implicit inclusion.</text>
+<text top="912" left="481" width="327" height="15" font="0">When faced with a missing prototype error on So-</text>
+<text top="930" left="459" width="346" height="15" font="0">laris, it is worth checking a suitable reference (such</text>
+<text top="948" left="459" width="14" height="15" font="0">as</text>
+<text top="949" left="481" width="183" height="12" font="4"><a href="http://www.cplusplus.com">http://www.cplusplus.com</a></text>
+<text top="948" left="664" width="142" height="15" font="0"><a href="http://www.cplusplus.com">) </a>to find out which</text>
+<text top="966" left="459" width="349" height="15" font="0">header declares the function according to the C++</text>
+<text top="984" left="459" width="349" height="15" font="0">standard, and then ensure that this header is explic-</text>
+<text top="1002" left="459" width="175" height="15" font="0">itly included in your code.</text>
+<text top="1020" left="481" width="327" height="15" font="0">A second shortcut provided by g++ is argument-</text>
+<text top="1038" left="459" width="346" height="15" font="0">dependent name lookup (also known as Koenig</text>
+<text top="1056" left="459" width="349" height="15" font="0">lookup), which may allow you to omit scope reso-</text>
+<text top="1074" left="459" width="347" height="15" font="0">lution of functions in the standard namespace. For</text>
+<text top="1092" left="459" width="60" height="15" font="0">example,</text>
+<text top="1121" left="459" width="152" height="12" font="0">#include &lt;algorithm&gt;</text>
+<text top="1139" left="459" width="130" height="12" font="0">#include &lt;vector&gt;</text>
+<text top="1156" left="459" width="137" height="12" font="0">using std::vector;</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="9" height="15" font="0">P</text>
+<text top="69" left="93" width="88" height="12" font="1">ROGRAMMER</text>
+<text top="67" left="181" width="4" height="15" font="0">’</text>
+<text top="69" left="186" width="6" height="12" font="1">S</text>
+<text top="67" left="197" width="12" height="15" font="0">N</text>
+<text top="69" left="210" width="32" height="12" font="1">ICHE</text>
+<text top="67" left="790" width="15" height="15" font="0">63</text>
+<text top="126" left="82" width="213" height="12" font="0">void fun (vector&lt;double&gt; &amp;y)</text>
+<text top="144" left="79" width="8" height="12" font="0">{</text>
+<text top="162" left="105" width="191" height="12" font="0">sort(y.begin(), y.end());</text>
+<text top="180" left="81" width="8" height="12" font="0">}</text>
+<text top="215" left="82" width="346" height="15" font="0">Since the arguments to the sort algorithm are in the</text>
+<text top="234" left="82" width="23" height="12" font="0">std</text>
+<text top="233" left="109" width="320" height="15" font="0">namespace, gcc looks in the same namespace for</text>
+<text top="251" left="82" width="349" height="15" font="0">a definition of sort. This code therefore compiles cor-</text>
+<text top="269" left="82" width="346" height="15" font="0">rectly with gcc. Compilers that do not support Koenig</text>
+<text top="287" left="82" width="346" height="15" font="0">lookup require the sort function to be resolved as</text>
+<text top="306" left="82" width="69" height="12" font="0">std::sort</text>
+<text top="305" left="151" width="4" height="15" font="0">.</text>
+<text top="363" left="82" width="122" height="21" font="7"><b>Conclusions</b></text>
+<text top="406" left="82" width="347" height="15" font="0">The best way to check for portability of C++ code</text>
+<text top="424" left="82" width="346" height="15" font="0">is simply to test it with as many compilers on as</text>
+<text top="442" left="82" width="199" height="15" font="0">many platforms as possible.</text>
+<text top="442" left="298" width="131" height="15" font="0">On Linux, various</text>
+<text top="460" left="82" width="346" height="15" font="0">third-party commercial compilers are available at</text>
+<text top="477" left="82" width="346" height="15" font="0">zero cost. The Intel C++ Composer XE compiler is</text>
+<text top="495" left="82" width="346" height="15" font="0">free for non-commercial software development (Note</text>
+<text top="513" left="82" width="349" height="15" font="0">that you must comply with Intel’s definition of non-</text>
+<text top="531" left="82" width="349" height="15" font="0">commercial); the PathScale EkoPath 4 compiler re-</text>
+<text top="549" left="82" width="346" height="15" font="0">cently became open source; the Oracle Solaris Studio</text>
+<text top="567" left="82" width="349" height="15" font="0">compilers may be downloaded for free from the Ora-</text>
+<text top="585" left="82" width="346" height="15" font="0">cle web site (subject to license terms). The use of these</text>
+<text top="603" left="82" width="346" height="15" font="0">alternative compilers should help to detect problems</text>
+<text top="621" left="82" width="347" height="15" font="0">not detected by GCC, although it may not uncover</text>
+<text top="639" left="82" width="346" height="15" font="0">all portability issues since they also rely on the GNU</text>
+<text top="657" left="82" width="346" height="15" font="0">implementation of the C++ standard library. It is also</text>
+<text top="675" left="82" width="347" height="15" font="0">possible to set up alternate testing platforms inside</text>
+<text top="693" left="82" width="349" height="15" font="0">a virtual machine, although the details of this are be-</text>
+<text top="711" left="82" width="193" height="15" font="0">yond the scope of this article.</text>
+<text top="731" left="105" width="324" height="15" font="0">Recognizing that most R package authors do not</text>
+<text top="748" left="82" width="348" height="15" font="0">have the time to set up their own testing platforms,</text>
+<text top="766" left="82" width="347" height="15" font="0">this article should help them to interpret the feedback</text>
+<text top="784" left="82" width="349" height="15" font="0">from the CRAN tests on Solaris, which provide a rig-</text>
+<text top="802" left="82" width="349" height="15" font="0">orous test of conformity to the current C++ standard.</text>
+<text top="820" left="82" width="349" height="15" font="0">Much of the advice in this article also applies to a C++</text>
+<text top="838" left="82" width="346" height="15" font="0">front-end or an external library to which an R package</text>
+<text top="856" left="82" width="98" height="15" font="0">may be linked.</text>
+<text top="125" left="481" width="327" height="15" font="0">An important limitation of this article is the as-</text>
+<text top="143" left="459" width="347" height="15" font="0">sumption that package authors are free to modify</text>
+<text top="161" left="459" width="349" height="15" font="0">the source code. In fact, many R packages are wrap-</text>
+<text top="179" left="458" width="349" height="15" font="0">pers around code written by a third party. Of course,</text>
+<text top="197" left="459" width="346" height="15" font="0">all CRAN packages published under an open source</text>
+<text top="215" left="459" width="349" height="15" font="0">license may be modified according to the licence con-</text>
+<text top="233" left="459" width="346" height="15" font="0">ditions. However, some of the solutions proposed</text>
+<text top="251" left="459" width="346" height="15" font="0">here, such as using functions from the R API, may not</text>
+<text top="268" left="459" width="349" height="15" font="0">be suitable for third-party code as they require main-</text>
+<text top="286" left="459" width="346" height="15" font="0">taining a patched copy. Nevertheless, it may still be</text>
+<text top="304" left="459" width="342" height="15" font="0">useful to send feedback to the upstream maintainer.</text>
+<text top="351" left="459" width="186" height="21" font="7"><b>Acknowledgement</b></text>
+<text top="390" left="459" width="349" height="15" font="0">I would like to thank Douglas Bates and an anony-</text>
+<text top="408" left="459" width="270" height="15" font="0">mous referee for their helpful comments.</text>
+<text top="455" left="459" width="130" height="21" font="7"><b>Bibliography</b></text>
+<text top="494" left="459" width="346" height="15" font="0">D. Eddelbuettel and R. Francois. Rcpp: Seamless</text>
+<text top="512" left="474" width="334" height="15" font="0">R and C++ integration. Journal of Statistical Soft-</text>
+<text top="530" left="474" width="332" height="15" font="0">ware, 40(8):1–18, 4 2011. ISSN 1548-7660. URL</text>
+<text top="549" left="474" width="244" height="12" font="4"><a href="http://www.jstatsoft.org/v40/i08">http://www.jstatsoft.org/v40/i08</a></text>
+<text top="548" left="718" width="4" height="15" font="0"><a href="http://www.jstatsoft.org/v40/i08">.</a></text>
+<text top="578" left="459" width="349" height="15" font="0">JTC1/SC22/WG21 - The C++ Standards Committee.</text>
+<text top="596" left="473" width="332" height="15" font="0">Working draft, standard for programming language</text>
+<text top="614" left="474" width="334" height="15" font="0">C++. Technical report, ISO/IEC, February 2011.</text>
+<text top="632" left="474" width="31" height="15" font="0">URL</text>
+<text top="633" left="508" width="290" height="12" font="4"><a href="http://www.open-std.org/JTC1/SC22/WG21">http://www.open-std.org/JTC1/SC22/WG21</a></text>
+<text top="632" left="799" width="4" height="15" font="0"><a href="http://www.open-std.org/JTC1/SC22/WG21">.</a></text>
+<text top="662" left="459" width="346" height="15" font="0">D. Pemstein, K. M. Quinn, and A. D. Martin. The</text>
+<text top="680" left="474" width="334" height="15" font="0">scythe statistical library: An open source C++ li-</text>
+<text top="698" left="474" width="334" height="15" font="0">brary for statistical computation. Journal of Statis-</text>
+<text top="715" left="474" width="334" height="15" font="0">tical Software, 42(12):1–26, 6 2011. ISSN 1548-7660.</text>
+<text top="733" left="474" width="31" height="15" font="0">URL</text>
+<text top="735" left="508" width="244" height="12" font="4"><a href="http://www.jstatsoft.org/v42/i12">http://www.jstatsoft.org/v42/i12</a></text>
+<text top="733" left="752" width="4" height="15" font="0"><a href="http://www.jstatsoft.org/v42/i12">.</a></text>
+<text top="784" left="459" width="108" height="15" font="0">Martyn Plummer</text>
+<text top="802" left="459" width="272" height="15" font="0">International Agency for Research on Cancer</text>
+<text top="820" left="458" width="290" height="15" font="0">150 Cours Albert Thomas 69372 Lyon Cedex 08</text>
+<text top="838" left="458" width="41" height="15" font="0">France</text>
+<text top="857" left="459" width="122" height="12" font="4"><a href="mailto:plummerM@iarc.fr">plummerM@iarc.fr</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

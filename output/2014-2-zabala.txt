@@ -1,0 +1,113 @@
+page	left	top	code
+1	149	1081	plot() method to build a novel visualisation of the results, as well as import and export functionality.
+3	149	289	data(lipset). The array of scores for all the statements sorted by a single respondent (the column) is
+4	149	868	qmethod() is a wrapper that calls internally PCA to calculate loadings and the four other functions.
+5	149	100	distribution. This distribution vector is the array of values corresponding to the grid. By calling
+5	149	116	qmethod() with all the necessary arguments, the full analysis is performed and the outputs are put
+5	186	551	principal().
+6	186	187	Distinguishes f3”. This category may arise only in solutions of four or more factors.
+6	149	594	style: "R" and "PQMethod". "R" exports the results exactly as the function qmethod() returns them.
+6	149	611	"PQmethod" exports the results following the structure of the output in PQMethod (a .LIS file). Note
+6	149	822	data(lipset)
+6	149	839	lipset[[1]] # Shows the dataset, a matrix of 33x9
+6	149	855	lipset[[2]] # Shows the text of the 33 statements
+6	149	871	results <- qmethod(lipset[[1]], nfactors = 3, rotation = "varimax")
+6	149	1078	> summary(results)
+6	149	1094	Q-method analysis.
+6	149	1111	Finished on: Tue Oct 21 10:22:50 2014
+6	149	1127	Original data: 33 statements, 9 Q-sorts
+6	149	1144	Number of factors: 3
+7	149	100	Rotation: varimax
+7	149	116	Flagging: automatic
+7	149	133	Correlation coefficient: pearson
+7	149	165	Factor scores
+7	197	182	fsc_f1 fsc_f2 fsc_f3
+7	149	198	sta_1 4 -2 1
+7	149	215	sta_2 0 1 -3
+7	149	231	sta_3 -3 -1 -1
+7	149	248	sta_4 2 -3 2
+7	149	264	sta_5 -1 -1 3
+7	149	281	sta_6 0 3 3
+7	149	297	sta_7 -4 1 -2
+7	149	313	sta_8 -3 0 -1
+7	149	330	sta_9 2 -3 -1
+7	149	346	sta_10 -4 -1 -2
+7	149	363	sta_11 -2 2 2
+7	149	379	sta_12 1 0 -1
+7	149	396	sta_13 3 3 1
+7	149	412	sta_14 -2 0 0
+7	149	428	sta_15 -1 2 -4
+7	149	445	sta_16 -3 -4 4
+7	149	461	sta_17 0 -1 0
+7	149	478	sta_18 1 -2 1
+7	149	494	sta_19 3 -2 1
+7	149	511	sta_20 -1 -1 0
+7	149	527	sta_21 2 4 -3
+7	149	544	sta_22 -2 0 -2
+7	149	560	sta_23 0 2 -1
+7	149	576	sta_24 2 1 -4
+7	149	593	sta_25 1 1 2
+7	149	609	sta_26 3 1 1
+7	149	626	sta_27 -2 2 0
+7	149	642	sta_28 0 3 4
+7	149	659	sta_29 -1 0 -2
+7	149	675	sta_30 1 -4 2
+7	149	692	sta_31 -1 -2 0
+7	149	708	sta_32 4 -3 3
+7	149	724	sta_33 1 4 -3
+7	396	741	f1 f2 f3
+7	149	757	Average reliability coefficient 0.80 0.80 0.80
+7	149	774	Number of loading Q-sorts 3.00 3.00 3.00
+7	149	790	Eigenvalues 2.09 1.97 1.68
+7	149	807	Percentage of explained variance 23.17 21.93 18.68
+7	149	823	Composite reliability 0.92 0.92 0.92
+7	149	839	Standard error of factor scores 0.28 0.28 0.28
+7	149	998	# Merge the statements with their actual text:
+7	149	1014	scores <- cbind(results$zsc_n, lipset[[2]])
+7	149	1047	# Order the results by the scores of each factor:
+7	149	1064	for (i in 1:length(results$loa)) {
+7	176	1080	View(scores[order(scores[i], decreasing = TRUE), ],
+7	211	1096	title = paste0("Order for f", i))
+7	149	1113	}
+8	149	959	par(lwd = 1.5, mar = c(4, 4, 0, 0) + 0.1)
+8	149	976	plot(results)
+8	149	992	abline(h = seq(from = 2, to = 32, by = 3), col = grey(0.2), lty = 2)
+9	149	100	> # Data frame of distinguishing and consensus statements:
+9	149	116	> format(results$qdc, digits = 1, nsmall = 2)
+9	252	133	dist.and.cons f1_f2 sig_f1_f2 f1_f3 sig_f1_f3 f2_f3 sig_f2_f3
+9	149	149	sta_1 Distinguishes all 2.34 ** 1.19 ** 1.15 **
+9	149	165	sta_2 Distinguishes f3 only 0.24 1.06 ** 1.30 **
+9	149	182	sta_3 Distinguishes f1 only 0.82 * 1.18 ** 0.36
+9	149	198	sta_4 Distinguishes f2 only 1.92 ** 0.32 2.24 **
+9	149	215	sta_5 Distinguishes f3 only 0.22 1.75 ** 1.53 **
+9	149	231	sta_6 Distinguishes f1 only 1.19 ** 1.39 ** 0.20
+9	149	248	sta_7 Distinguishes all 2.28 ** 1.12 ** 1.17 **
+9	149	264	sta_8 Distinguishes f1 only 1.23 ** 0.77 * 0.46
+9	149	281	sta_9 Distinguishes f1 only 2.18 ** 1.61 ** 0.57
+9	149	297	sta_10 Distinguishes f1 only 1.87 ** 1.36 ** 0.51
+9	149	313	sta_11 Distinguishes f1 only 1.94 ** 1.60 ** 0.35
+9	149	330	sta_12 0.74 0.93 * 0.19
+9	149	346	sta_13 Distinguishes f3 only 0.31 0.78 * 1.09 **
+9	149	363	sta_14 Consensus 0.75 0.65 0.09
+9	149	379	sta_15 Distinguishes all 1.00 * 1.40 ** 2.40 **
+9	149	396	sta_16 Distinguishes f3 only 0.06 3.23 ** 3.17 **
+9	149	412	sta_17 0.77 * 0.24 0.53
+9	149	428	sta_18 Distinguishes f2 only 1.49 ** 0.22 1.27 **
+9	149	445	sta_19 Distinguishes all 2.26 ** 0.96 * 1.30 **
+9	149	461	sta_20 Consensus 0.32 0.19 0.51
+9	149	478	sta_21 Distinguishes f3 only 0.57 2.09 ** 2.66 **
+9	149	494	sta_22 0.72 0.38 1.10 **
+9	149	511	sta_23 Distinguishes f2 only 1.23 ** 0.55 1.77 **
+9	149	527	sta_24 Distinguishes f3 only 0.16 2.50 ** 2.35 **
+9	149	544	sta_25 0.08 0.77 * 0.69
+9	149	560	sta_26 Distinguishes f1 only 0.95 * 0.92 * 0.03
+9	149	576	sta_27 1.39 ** 0.65 0.74
+9	149	593	sta_28 Distinguishes f1 only 1.38 ** 1.97 ** 0.59
+9	149	609	sta_29 0.32 0.54 0.86 *
+9	149	626	sta_30 Distinguishes f2 only 2.36 ** 0.32 2.69 **
+9	149	642	sta_31 Distinguishes f2 only 0.88 * 0.31 1.19 **
+9	149	659	sta_32 Distinguishes f2 only 2.83 ** 0.32 2.51 **
+9	149	675	sta_33 Distinguishes all 1.62 ** 1.87 ** 3.49 **
+9	149	738	"Distinguishes all") distinguish both f 1 from the other two and also f 2 from f 3: all factors think
+9	149	836	"sig_f1_f3", but none of the other comparisons are significant).
+10	149	264	f*", "Distinguishes all", or "", depending on each case. The role of each statement can be fully

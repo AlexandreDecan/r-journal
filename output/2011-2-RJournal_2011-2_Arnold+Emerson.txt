@@ -1,0 +1,62 @@
+page	left	top	code
+4	82	796	> stats::ks.test(c(0, 1), ecdf(c(0, 1)))
+4	137	828	One-sample Kolmogorov-Smirnov test
+4	82	860	data: c(0, 1)
+4	82	1010	> library(dgof)
+4	82	1026	> dgof::ks.test(c(0, 1), ecdf(c(0, 1)))
+4	137	1058	One-sample Kolmogorov-Smirnov test
+4	82	1091	data: c(0, 1)
+4	82	1107	D = 0, p-value = 1
+4	82	1124	alternative hypothesis: two-sided
+4	459	208	> set.seed(1)
+4	459	225	> x <- sample(1:10, 25, replace = TRUE)
+4	459	241	> x
+4	466	271	[1] 3 4 6 10 3 9 10 7 7 1 3 2 7
+4	459	287	[14] 4 8 5 8 10 4 8 10 3 7 2 3
+4	459	317	> dgof::ks.test(x, ecdf(1:10))
+4	514	347	One-sample Kolmogorov-Smirnov test
+4	459	380	data: x
+4	459	396	D = 0.08, p-value = 0.9354
+4	459	413	alternative hypothesis: two-sided
+4	459	507	> dgof::ks.test(x, ecdf(1:10),
+4	459	523	+ alternative = "g")
+4	514	553	One-sample Kolmogorov-Smirnov test
+4	459	586	data: x
+4	459	602	D^+ = 0.04, p-value = 0.7731
+4	459	619	alternative hypothesis:
+4	459	635	the CDF of x lies above the null hypothesis
+4	459	730	> dgof::ks.test(x, ecdf(1:10),
+4	459	746	+ alternative = "g", exact = FALSE)
+4	514	776	One-sample Kolmogorov-Smirnov test
+4	459	809	data: x
+4	459	825	D^+ = 0.04, p-value = 0.9231
+4	459	842	alternative hypothesis:
+4	459	858	the CDF of x lies above the null hypothesis
+4	459	934	> dgof::ks.test(x, ecdf(1:10),
+4	459	951	+ alternative = "g",
+4	459	967	+ simulate.p.value = TRUE, B = 10000)
+4	514	997	One-sample Kolmogorov-Smirnov test
+4	459	1030	data: x
+4	459	1046	D^+ = 0.04, p-value = 0.7717
+4	459	1063	alternative hypothesis:
+4	459	1079	the CDF of x lies above the null hypothesis
+4	459	1173	> dgof::ks.test(rep(1, 3), ecdf(1:3))
+5	137	127	One-sample Kolmogorov-Smirnov test
+5	82	177	D = 0.6667, p-value = 0.07407
+5	82	193	alternative hypothesis: two-sided
+5	82	342	> cvm.test(x, ecdf(1:10))
+5	82	469	> cvm.test(x, ecdf(1:10), type = "A2")
+5	137	499	Cramer-von Mises - A2
+5	82	549	A2 = 0.3969, p-value = 0.75
+5	82	565	alternative hypothesis: Two.sided
+5	82	660	> set.seed(1)
+5	82	677	> y <- sample(1:4, 20, replace = TRUE)
+5	137	724	Cramer-von Mises - U2
+5	82	773	U2 = 0.0094, p-value = 0.945
+5	82	790	alternative hypothesis: Two.sided
+5	82	820	> z <- y%%4 + 1
+5	82	836	> cvm.test(z, ecdf(1:4), type = 'U2')
+5	137	867	Cramer-von Mises - U2
+5	82	900	data: z
+5	82	916	U2 = 0.0094, p-value = 0.945
+5	82	933	alternative hypothesis: Two.sided

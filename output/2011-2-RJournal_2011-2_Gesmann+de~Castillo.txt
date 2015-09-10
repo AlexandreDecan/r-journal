@@ -1,0 +1,75 @@
+page	left	top	code
+1	466	329	1 <html>
+1	466	346	2 <head>
+1	466	362	3 <script type="text/javascript"
+1	466	379	4 src="http://www.google.com/jsapi">
+1	466	395	5 </script>
+1	466	411	6 <script type="text/javascript">
+1	466	428	7 google.load('visualization', '1',
+1	466	444	8 {'packages':['motionchart']});
+1	466	461	9 google.setOnLoadCallback(drawChart);
+1	459	477	10 function drawChart() {
+1	459	494	11 var data=new google.visualization.DataTable();
+1	459	510	12 data.addColumn('string', 'Fruit');
+1	459	527	13 data.addColumn('date', 'Date');
+1	459	543	14 data.addColumn('number', 'Sales');
+1	459	559	15 data.addColumn('number', 'Expenses');
+1	459	576	16 data.addColumn('string', 'Location');
+1	459	592	17 data.addRows([
+1	459	609	18 ['Apples',new Date(1988,0,1),1000,300,'East'],
+1	459	625	19 ['Oranges',new Date(1988,0,1),1150,200,'West'],
+1	459	642	20 ['Bananas',new Date(1988,0,1),300,250,'West'],
+1	459	658	21 ['Apples',new Date(1989,6,1),1200,400,'East'],
+1	459	674	22 ['Oranges',new Date(1989,6,1),750,150,'West'],
+1	459	691	23 ['Bananas',new Date(1989,6,1),788,617,'West']
+1	459	707	24 ]);
+1	459	724	25 var chart=new google.visualization.MotionChart(
+1	459	740	26 document.getElementById('chart_div'));
+1	459	757	27 chart.draw(data, {width: 600, height:300});
+1	459	773	28 }
+1	459	790	29 </script>
+1	459	806	30 </head>
+1	459	822	31 <body>
+1	459	839	32 <div id="chart_div"
+1	459	855	33 style="width:600px; height:300px;">
+1	459	872	34 </div>
+1	459	888	35 </body>
+1	459	905	36 </html>
+3	110	1175	timevar = 'date', options = list())
+4	82	494	R> Fruits[, -7] # ignore column 7
+4	110	527	Fruit Year Location Sales Expenses Profit
+4	82	543	1 Apples 2008 West 98 78 20
+4	82	559	2 Apples 2009 West 111 79 32
+4	82	576	3 Apples 2010 West 89 76 13
+4	82	592	4 Oranges 2008 East 96 81 15
+4	82	609	5 Bananas 2008 East 85 76 9
+4	82	625	6 Oranges 2009 East 93 80 13
+4	82	642	7 Bananas 2009 East 94 78 16
+4	82	658	8 Oranges 2010 East 98 91 7
+4	82	675	9 Bananas 2010 East 81 71 10
+4	82	748	R> M <- gvisMotionChart(Fruits, idvar = "Fruit",
+4	254	765	timevar = "Year")
+4	82	871	List of 3
+4	89	920	$ html :List of 4
+4	96	936	..$ header : chr "<!DOCTYPE html PUBLIC ...
+4	96	953	..$ chart : Named chr [1:7] "<!-- Moti ...
+4	96	969	.. ..- attr(*, "names")= chr [1:7] "jsH ...
+4	96	986	..$ caption: chr "<div><span>Data: Fruit...
+4	96	1002	..$ footer : chr "\n<!-- htmlFooter -->\...
+4	89	1019	- attr(*, "class")= chr [1:2] "gvis" "list"
+4	459	127	R> print(M, 'header') # output not shown here
+4	459	243	R> print(M, 'chart') # output not shown here
+4	459	377	R> print(M, 'caption') # output not shown here
+4	459	393	R> print(M, 'footer') # output not shown here
+4	459	519	R> plot(M) # returns invisibly the file name
+4	459	1011	G <- gvisGeoChart(Exports, "Country", "Profit",
+4	521	1027	options = list(width = 200, height = 100))
+4	459	1044	T <- gvisTable(Exports,
+4	521	1060	options = list(width = 200, height = 270))
+4	459	1077	M <- gvisMotionChart(Fruits, "Fruit", "Year",
+4	521	1093	options = list(width = 400, height = 370))
+4	459	1110	GT <- gvisMerge(G, T, horizontal = FALSE)
+4	459	1126	GTM <- gvisMerge(GT, M, horizontal = TRUE,
+4	486	1142	tableOptions =
+4	486	1159	"bgcolor = \"#CCCCCC\" cellspacing = 10")
+4	459	1175	plot(GTM)

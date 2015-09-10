@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="19" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="12" family="Times" color="#00004c"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+	<fontspec id="9" size="15" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">27</text>
+<text top="121" left="82" width="630" height="36" font="2"><b>Differential Evolution with DEoptim</b></text>
+<text top="173" left="82" width="346" height="15" font="3"><b>An Application to Non-Convex Portfolio Optimiza-</b></text>
+<text top="191" left="82" width="27" height="15" font="3"><b>tion</b></text>
+<text top="227" left="82" width="346" height="15" font="0">by David Ardia, Kris Boudt, Peter Carl, Katharine M.</text>
+<text top="245" left="82" width="183" height="15" font="0">Mullen and Brian G. Peterson</text>
+<text top="276" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="276" left="164" width="251" height="15" font="0">The R package <b>DEoptim </b>implements</text>
+<text top="294" left="96" width="319" height="15" font="0">the Differential Evolution algorithm. This al-</text>
+<text top="312" left="96" width="319" height="15" font="0">gorithm is an evolutionary technique similar to</text>
+<text top="330" left="96" width="319" height="15" font="0">classic genetic algorithms that is useful for the</text>
+<text top="348" left="96" width="319" height="15" font="0">solution of global optimization problems. In this</text>
+<text top="366" left="96" width="319" height="15" font="0">note we provide an introduction to the package</text>
+<text top="384" left="96" width="319" height="15" font="0">and demonstrate its utility for financial appli-</text>
+<text top="402" left="96" width="319" height="15" font="0">cations by solving a non-convex portfolio opti-</text>
+<text top="420" left="96" width="122" height="15" font="0">mization problem.</text>
+<text top="468" left="82" width="124" height="21" font="4"><b>Introduction</b></text>
+<text top="508" left="82" width="346" height="15" font="0">Differential Evolution (DE) is a search heuristic intro-</text>
+<text top="526" left="82" width="62" height="15" font="0">duced by</text>
+<text top="526" left="148" width="102" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Storn and Price</a></text>
+<text top="526" left="254" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="526" left="259" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">1997</a></text>
+<text top="526" left="289" width="140" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">). </a>Its remarkable per-</text>
+<text top="544" left="82" width="346" height="15" font="0">formance as a global optimization algorithm on con-</text>
+<text top="561" left="82" width="346" height="15" font="0">tinuous numerical minimization problems has been</text>
+<text top="579" left="82" width="153" height="15" font="0">extensively explored <a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="579" left="236" width="76" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Price et al.</a></text>
+<text top="579" left="312" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="579" left="323" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2006</a></text>
+<text top="579" left="353" width="9" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">).</a></text>
+<text top="579" left="378" width="51" height="15" font="0">DE has</text>
+<text top="597" left="82" width="346" height="15" font="0">also become a powerful tool for solving optimiza-</text>
+<text top="615" left="82" width="346" height="15" font="0">tion problems that arise in financial applications: for</text>
+<text top="633" left="82" width="203" height="15" font="0">fitting sophisticated models <a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="633" left="286" width="139" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Gilli and Schumann</a></text>
+<text top="633" left="425" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="651" left="82" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2009</a></text>
+<text top="651" left="112" width="226" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">), </a>for performing model selection <a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="651" left="338" width="91" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Maringer and</a></text>
+<text top="669" left="82" width="43" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Meyer</a></text>
+<text top="669" left="125" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="669" left="135" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2008</a></text>
+<text top="669" left="165" width="264" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">), </a>and for optimizing portfolios under</text>
+<text top="687" left="82" width="143" height="15" font="0">non-convex settings <a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="687" left="225" width="129" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Krink and Paterlini</a></text>
+<text top="687" left="354" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="687" left="362" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2011</a></text>
+<text top="687" left="392" width="37" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">). </a>DE</text>
+<text top="705" left="82" width="221" height="15" font="0">is available in R with the package</text>
+<text top="705" left="307" width="62" height="15" font="6"><a href="http://cran.r-project.org/package=DEoptim"><b>DEoptim</b></a></text>
+<text top="705" left="369" width="4" height="15" font="0"><a href="http://cran.r-project.org/package=DEoptim">.</a></text>
+<text top="724" left="105" width="324" height="15" font="0">In what follows, we briefly sketch the DE algo-</text>
+<text top="741" left="82" width="346" height="15" font="0">rithm and discuss the content of the package <b>DEop-</b></text>
+<text top="759" left="82" width="23" height="15" font="3"><b>tim</b></text>
+<text top="759" left="106" width="323" height="15" font="0">. The utility of the package for financial applica-</text>
+<text top="777" left="82" width="346" height="15" font="0">tions is then explored by solving a non-convex port-</text>
+<text top="795" left="82" width="182" height="15" font="0">folio optimization problem.</text>
+<text top="846" left="82" width="219" height="21" font="4"><b>Differential Evolution</b></text>
+<text top="886" left="82" width="346" height="15" font="0">DE belongs to the class of genetic algorithms (GAs)</text>
+<text top="903" left="82" width="346" height="15" font="0">which use biology-inspired operations of crossover,</text>
+<text top="921" left="82" width="346" height="15" font="0">mutation, and selection on a population in order</text>
+<text top="939" left="82" width="346" height="15" font="0">to minimize an objective function over the course</text>
+<text top="957" left="82" width="180" height="15" font="0">of successive generations <a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="957" left="263" width="55" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Holland</a></text>
+<text top="957" left="317" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="957" left="327" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">1975</a></text>
+<text top="957" left="356" width="73" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">). </a>As with</text>
+<text top="975" left="82" width="346" height="15" font="0">other evolutionary algorithms, DE solves optimiza-</text>
+<text top="993" left="82" width="346" height="15" font="0">tion problems by evolving a population of candi-</text>
+<text top="1011" left="82" width="346" height="15" font="0">date solutions using alteration and selection opera-</text>
+<text top="1029" left="82" width="346" height="15" font="0">tors. DE uses floating-point instead of bit-string en-</text>
+<text top="1047" left="82" width="346" height="15" font="0">coding of population members, and arithmetic op-</text>
+<text top="1065" left="82" width="346" height="15" font="0">erations instead of logical operations in mutation, in</text>
+<text top="1083" left="82" width="152" height="15" font="0">contrast to classic GAs.</text>
+<text top="1101" left="105" width="324" height="15" font="0">Let NP denote the number of parameter vectors</text>
+<text top="1119" left="82" width="86" height="15" font="0">(members) <b>x</b></text>
+<text top="1118" left="173" width="10" height="15" font="7">∈</text>
+<text top="1116" left="189" width="12" height="19" font="3"><b>R</b></text>
+<text top="1116" left="201" width="6" height="11" font="1">d</text>
+<text top="1119" left="214" width="215" height="15" font="0">in the population, where d de-</text>
+<text top="1137" left="82" width="346" height="15" font="0">notes dimension. In order to create the initial genera-</text>
+<text top="1155" left="82" width="346" height="15" font="0">tion, NP guesses for the optimal value of the param-</text>
+<text top="1173" left="82" width="346" height="15" font="0">eter vector are made, either using random values be-</text>
+<text top="173" left="459" width="346" height="15" font="0">tween upper and lower bounds (defined by the user)</text>
+<text top="191" left="459" width="346" height="15" font="0">or using values given by the user. Each generation</text>
+<text top="209" left="459" width="346" height="15" font="0">involves creation of a new population from the cur-</text>
+<text top="227" left="459" width="172" height="15" font="0">rent population members</text>
+<text top="226" left="636" width="8" height="15" font="7">{</text>
+<text top="226" left="645" width="7" height="15" font="3"><b>x</b></text>
+<text top="232" left="652" width="3" height="11" font="1">i</text>
+<text top="226" left="658" width="4" height="15" font="7">|</text>
+<text top="227" left="665" width="4" height="15" font="0">i</text>
+<text top="226" left="673" width="12" height="14" font="7">=</text>
+<text top="227" left="690" width="56" height="15" font="0">1, . . . , NP</text>
+<text top="226" left="747" width="8" height="15" font="7">}</text>
+<text top="227" left="755" width="51" height="15" font="0">, where</text>
+<text top="244" left="459" width="346" height="15" font="0">i indexes the vectors that make up the population.</text>
+<text top="262" left="459" width="346" height="15" font="0">This is accomplished using differential mutation of</text>
+<text top="280" left="459" width="346" height="15" font="0">the population members. An initial mutant parame-</text>
+<text top="298" left="459" width="75" height="15" font="0">ter vector <b>v</b></text>
+<text top="304" left="533" width="3" height="11" font="1">i</text>
+<text top="298" left="541" width="264" height="15" font="0">is created by choosing three members of</text>
+<text top="316" left="459" width="113" height="15" font="0">the population, <b>x</b></text>
+<text top="322" left="572" width="3" height="11" font="1">i</text>
+<text top="326" left="575" width="4" height="9" font="8">1</text>
+<text top="316" left="581" width="15" height="15" font="0">, <b>x</b></text>
+<text top="322" left="597" width="3" height="11" font="1">i</text>
+<text top="326" left="600" width="4" height="9" font="8">2</text>
+<text top="316" left="610" width="37" height="15" font="0">and <b>x</b></text>
+<text top="322" left="647" width="3" height="11" font="1">i</text>
+<text top="326" left="651" width="4" height="9" font="8">3</text>
+<text top="316" left="656" width="131" height="15" font="0">, at random. Then <b>v</b></text>
+<text top="322" left="787" width="3" height="11" font="1">i</text>
+<text top="316" left="795" width="11" height="15" font="0">is</text>
+<text top="334" left="459" width="83" height="15" font="0">generated as</text>
+<text top="370" left="553" width="8" height="15" font="3"><b>v</b></text>
+<text top="376" left="561" width="3" height="11" font="1">i</text>
+<text top="361" left="573" width="4" height="15" font="0">.</text>
+<text top="370" left="569" width="12" height="14" font="7">=</text>
+<text top="370" left="585" width="7" height="15" font="3"><b>x</b></text>
+<text top="376" left="593" width="3" height="11" font="1">i</text>
+<text top="380" left="596" width="4" height="9" font="8">1</text>
+<text top="370" left="605" width="12" height="14" font="7">+</text>
+<text top="370" left="621" width="8" height="15" font="0">F</text>
+<text top="369" left="632" width="14" height="15" font="7">· (</text>
+<text top="370" left="647" width="7" height="15" font="3"><b>x</b></text>
+<text top="376" left="654" width="3" height="11" font="1">i</text>
+<text top="380" left="658" width="4" height="9" font="8">2</text>
+<text top="369" left="667" width="12" height="15" font="7">−</text>
+<text top="370" left="682" width="7" height="15" font="3"><b>x</b></text>
+<text top="376" left="690" width="3" height="11" font="1">i</text>
+<text top="380" left="693" width="4" height="9" font="8">3</text>
+<text top="370" left="700" width="6" height="14" font="7">)</text>
+<text top="370" left="707" width="4" height="15" font="0">,</text>
+<text top="396" left="459" width="346" height="15" font="0">where F is a positive scale factor, effective values for</text>
+<text top="414" left="459" width="346" height="15" font="0">which are typically less than one. After the first mu-</text>
+<text top="432" left="459" width="346" height="15" font="0">tation operation, mutation is continued until d mu-</text>
+<text top="450" left="459" width="346" height="15" font="0">tations have been made, with a crossover probability</text>
+<text top="467" left="459" width="20" height="15" font="0">CR</text>
+<text top="467" left="482" width="18" height="15" font="7">∈ [</text>
+<text top="468" left="500" width="20" height="15" font="0">0, 1</text>
+<text top="467" left="521" width="4" height="14" font="7">]</text>
+<text top="468" left="525" width="280" height="15" font="0">. The crossover probability CR controls the</text>
+<text top="485" left="459" width="346" height="15" font="0">fraction of the parameter values that are copied from</text>
+<text top="503" left="459" width="346" height="15" font="0">the mutant. Mutation is applied in this way to each</text>
+<text top="521" left="459" width="346" height="15" font="0">member of the population. If an element of the trial</text>
+<text top="539" left="459" width="346" height="15" font="0">parameter vector is found to violate the bounds after</text>
+<text top="557" left="459" width="346" height="15" font="0">mutation and crossover, it is reset in such a way that</text>
+<text top="575" left="459" width="346" height="15" font="0">the bounds are respected (with the specific protocol</text>
+<text top="593" left="459" width="346" height="15" font="0">depending on the implementation). Then, the ob-</text>
+<text top="611" left="459" width="346" height="15" font="0">jective function values associated with the children</text>
+<text top="629" left="459" width="346" height="15" font="0">are determined. If a trial vector has equal or lower</text>
+<text top="647" left="459" width="346" height="15" font="0">objective function value than the previous vector it</text>
+<text top="665" left="459" width="346" height="15" font="0">replaces the previous vector in the population; oth-</text>
+<text top="683" left="459" width="346" height="15" font="0">erwise the previous vector remains. Variations of</text>
+<text top="701" left="459" width="274" height="15" font="0">this scheme have also been proposed; see</text>
+<text top="701" left="737" width="69" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Price et al.</a></text>
+<text top="719" left="459" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="719" left="464" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2006</a></text>
+<text top="719" left="494" width="9" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">).</a></text>
+<text top="736" left="481" width="324" height="15" font="0">Intuitively, the effect of the scheme is that the</text>
+<text top="754" left="459" width="346" height="15" font="0">shape of the distribution of the population in the</text>
+<text top="772" left="459" width="346" height="15" font="0">search space is converging with respect to size and</text>
+<text top="790" left="459" width="346" height="15" font="0">direction towards areas with high fitness. The closer</text>
+<text top="808" left="459" width="346" height="15" font="0">the population gets to the global optimum, the more</text>
+<text top="826" left="459" width="346" height="15" font="0">the distribution will shrink and therefore reinforce</text>
+<text top="844" left="459" width="289" height="15" font="0">the generation of smaller difference vectors.</text>
+<text top="862" left="481" width="324" height="15" font="0">For more details on the DE strategy, we refer</text>
+<text top="880" left="459" width="86" height="15" font="0">the reader to</text>
+<text top="880" left="550" width="71" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Price et al.</a></text>
+<text top="880" left="626" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="880" left="631" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2006</a></text>
+<text top="880" left="661" width="35" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>and</text>
+<text top="880" left="701" width="104" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Storn and Price</a></text>
+<text top="898" left="459" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="898" left="464" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">1997</a></text>
+<text top="898" left="494" width="9" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">).</a></text>
+<text top="939" left="459" width="182" height="17" font="9"><b>The package DEoptim</b></text>
+<text top="970" left="459" width="62" height="15" font="3"><b>DEoptim</b></text>
+<text top="970" left="526" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">(</a></text>
+<text top="970" left="531" width="76" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">Ardia et al.</a></text>
+<text top="970" left="607" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">,</a></text>
+<text top="970" left="615" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">2011</a></text>
+<text top="970" left="645" width="160" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">) </a>was first published on</text>
+<text top="988" left="459" width="346" height="15" font="0">CRAN in 2005. Since becoming publicly available, it</text>
+<text top="1006" left="459" width="346" height="15" font="0">has been used by several authors to solve optimiza-</text>
+<text top="1023" left="459" width="346" height="15" font="0">tion problems arising in diverse domains. We refer</text>
+<text top="1041" left="459" width="87" height="15" font="0">the reader to</text>
+<text top="1041" left="551" width="86" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Mullen et al.</a></text>
+<text top="1041" left="643" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="1041" left="648" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2011</a></text>
+<text top="1041" left="677" width="128" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>for a detailed de-</text>
+<text top="1059" left="459" width="161" height="15" font="0">scription of the package.</text>
+<text top="1077" left="481" width="62" height="15" font="3"><b>DEoptim</b></text>
+<text top="1077" left="550" width="255" height="15" font="0">consists of the core function DEoptim</text>
+<text top="1095" left="459" width="145" height="15" font="0">whose arguments are:</text>
+<text top="1126" left="480" width="317" height="15" font="0">• fn: the function to be optimized (minimized).</text>
+<text top="1155" left="480" width="326" height="15" font="0">• lower, upper: two vectors specifying scalar real</text>
+<text top="1173" left="496" width="309" height="15" font="0">lower and upper bounds on each parameter to</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="11" family="Times" color="#000000"/>
+	<fontspec id="11" size="5" family="Times" color="#000000"/>
+	<fontspec id="12" size="5" family="Times" color="#000000"/>
+	<fontspec id="13" size="5" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">28</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="120" width="309" height="15" font="0">be optimized. The implementation searches be-</text>
+<text top="143" left="120" width="309" height="15" font="0">tween lower and upper for the global optimum</text>
+<text top="161" left="120" width="36" height="15" font="0">of fn.</text>
+<text top="189" left="103" width="326" height="15" font="0">• control: a list of tuning parameters, among</text>
+<text top="207" left="120" width="147" height="15" font="0">which: NP (default: 10</text>
+<text top="206" left="270" width="4" height="15" font="7">·</text>
+<text top="207" left="278" width="151" height="15" font="0">d), the number of pop-</text>
+<text top="225" left="120" width="309" height="15" font="0">ulation members and itermax (default: 200),</text>
+<text top="243" left="120" width="309" height="15" font="0">the maximum number of iterations (i.e., pop-</text>
+<text top="261" left="120" width="309" height="15" font="0">ulation generations) allowed. For details on</text>
+<text top="279" left="120" width="309" height="15" font="0">the other control parameters, the reader is re-</text>
+<text top="297" left="120" width="309" height="15" font="0">ferred to the documentation manual (by typ-</text>
+<text top="315" left="120" width="309" height="15" font="0">ing ?DEoptim). For convenience, the function</text>
+<text top="334" left="120" width="130" height="12" font="0">DEoptim.control()</text>
+<text top="333" left="255" width="174" height="15" font="0">returns a list with default</text>
+<text top="350" left="120" width="137" height="15" font="0">elements of control.</text>
+<text top="379" left="103" width="326" height="15" font="0">• ...: allows the user to pass additional argu-</text>
+<text top="397" left="120" width="163" height="15" font="0">ments to the function fn.</text>
+<text top="425" left="105" width="324" height="15" font="0">The output of the function DEoptim is a member</text>
+<text top="443" left="82" width="38" height="15" font="0">of the</text>
+<text top="444" left="124" width="16" height="12" font="10">S3</text>
+<text top="443" left="144" width="285" height="15" font="0">class DEoptim. Members of this class have a</text>
+<text top="462" left="82" width="30" height="12" font="0">plot</text>
+<text top="461" left="116" width="313" height="15" font="0">and a summary method that allow to analyze the</text>
+<text top="479" left="82" width="128" height="15" font="0">optimizer’s output.</text>
+<text top="497" left="105" width="324" height="15" font="0">Let us quickly illustrate the package’s usage with</text>
+<text top="515" left="82" width="317" height="15" font="0">the minimization of the Rastrigin function in</text>
+<text top="511" left="407" width="12" height="19" font="3"><b>R</b></text>
+<text top="512" left="419" width="6" height="11" font="1">2</text>
+<text top="515" left="425" width="4" height="15" font="0">,</text>
+<text top="533" left="82" width="315" height="15" font="0">which is a common test for global optimization:</text>
+<text top="562" left="82" width="192" height="10" font="10">&gt; Rastrigin &lt;- function(x) {</text>
+<text top="578" left="82" width="7" height="10" font="10">+</text>
+<text top="578" left="110" width="247" height="10" font="10">sum(x^2 - 10 * cos(2 * pi * x)) + 20</text>
+<text top="595" left="82" width="7" height="10" font="10">}</text>
+<text top="621" left="105" width="249" height="15" font="0">The global minimum is zero at point <b>x</b></text>
+<text top="621" left="357" width="21" height="14" font="7">= (</text>
+<text top="621" left="378" width="20" height="15" font="0">0, 0</text>
+<text top="621" left="399" width="6" height="14" font="7">)</text>
+<text top="617" left="405" width="3" height="11" font="1">0</text>
+<text top="621" left="409" width="20" height="15" font="0">. A</text>
+<text top="639" left="82" width="332" height="15" font="0">perspective plot of the function is shown in Figure</text>
+<text top="639" left="418" width="7" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#2">1</a></text>
+<text top="639" left="425" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#2">.</a></text>
+<text top="955" left="219" width="9" height="7" font="11">x_1</text>
+<text top="943" left="336" width="6" height="7" font="12">x_2</text>
+<text top="838" left="130" width="13" height="7" font="13">f(x_1,x_2)</text>
+<text top="1103" left="83" width="345" height="15" font="0">Figure 1: Perspective plot of the Rastrigin function.</text>
+<text top="1137" left="105" width="324" height="15" font="0">The function DEoptim searches for a minimum</text>
+<text top="1155" left="82" width="346" height="15" font="0">of the objective function between lower and upper</text>
+<text top="1173" left="82" width="330" height="15" font="0">bounds. A call to DEoptim can be made as follows:</text>
+<text top="127" left="459" width="110" height="10" font="10">&gt; set.seed(1234)</text>
+<text top="144" left="459" width="171" height="10" font="10">&gt; DEoptim(fn = Rastrigin,</text>
+<text top="160" left="459" width="7" height="10" font="10">+</text>
+<text top="160" left="486" width="123" height="10" font="10">lower = c(-5, -5),</text>
+<text top="177" left="459" width="7" height="10" font="10">+</text>
+<text top="177" left="486" width="110" height="10" font="10">upper = c(5, 5),</text>
+<text top="193" left="459" width="7" height="10" font="10">+</text>
+<text top="193" left="486" width="226" height="10" font="10">control = list(storepopfrom = 1))</text>
+<text top="225" left="481" width="324" height="15" font="0">The above call specifies the objective function to</text>
+<text top="243" left="459" width="346" height="15" font="0">minimize, Rastrigin, the lower and upper bounds</text>
+<text top="261" left="459" width="346" height="15" font="0">on the parameters, and, via the control argument,</text>
+<text top="278" left="459" width="346" height="15" font="0">that we want to store intermediate populations from</text>
+<text top="296" left="459" width="346" height="15" font="0">the first generation onwards (storepopfrom = 1).</text>
+<text top="314" left="459" width="346" height="15" font="0">Storing intermediate populations allows us to exam-</text>
+<text top="332" left="459" width="346" height="15" font="0">ine the progress of the optimization in detail. Upon</text>
+<text top="350" left="459" width="346" height="15" font="0">initialization, the population is comprised of 50 ran-</text>
+<text top="368" left="459" width="346" height="15" font="0">dom values drawn uniformly within the lower and</text>
+<text top="387" left="459" width="38" height="12" font="0">upper</text>
+<text top="386" left="501" width="304" height="15" font="0">bounds. The members of the population gen-</text>
+<text top="404" left="459" width="346" height="15" font="0">erated by the above call are plotted at the end of</text>
+<text top="422" left="459" width="210" height="15" font="0">different generations in Figure</text>
+<text top="422" left="675" width="7" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#3">2</a></text>
+<text top="422" left="683" width="123" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#3">. </a>DEoptim consis-</text>
+<text top="440" left="459" width="346" height="15" font="0">tently finds the minimum of the function (market</text>
+<text top="458" left="459" width="346" height="15" font="0">with an open white circle) within 200 generations us-</text>
+<text top="476" left="459" width="346" height="15" font="0">ing the default settings. We have observed that <b>DE-</b></text>
+<text top="494" left="459" width="41" height="15" font="3"><b>optim</b></text>
+<text top="494" left="504" width="301" height="15" font="0">solves the Rastrigin problem more efficiently</text>
+<text top="512" left="459" width="346" height="15" font="0">than the simulated annealing method available in the</text>
+<text top="530" left="459" width="346" height="15" font="0">R function optim (for all annealing schedules tried).</text>
+<text top="547" left="459" width="346" height="15" font="0">Note that users interested in exact reproduction of</text>
+<text top="565" left="459" width="346" height="15" font="0">results should set the seed of their random number</text>
+<text top="583" left="459" width="346" height="15" font="0">generator before calling DEoptim (using set.seed).</text>
+<text top="601" left="459" width="346" height="15" font="0">DE is a randomized algorithm, and the results may</text>
+<text top="619" left="459" width="127" height="15" font="0">vary between runs.</text>
+<text top="637" left="481" width="324" height="15" font="0">Finally, note that <b>DEoptim </b>relies on repeated</text>
+<text top="655" left="459" width="346" height="15" font="0">evaluation of the objective function in order to move</text>
+<text top="673" left="459" width="346" height="15" font="0">the population toward a global minimum. Therefore,</text>
+<text top="691" left="459" width="346" height="15" font="0">users interested in making <b>DEoptim </b>run as fast as</text>
+<text top="709" left="459" width="346" height="15" font="0">possible should ensure that evaluation of the objec-</text>
+<text top="727" left="459" width="346" height="15" font="0">tive function is as efficient as possible. Using pure R</text>
+<text top="745" left="459" width="346" height="15" font="0">code, this may often be accomplished using vector-</text>
+<text top="763" left="459" width="346" height="15" font="0">ization. Writing parts of the objective function in a</text>
+<text top="781" left="459" width="346" height="15" font="0">lower-level language like C or Fortran may also in-</text>
+<text top="799" left="459" width="87" height="15" font="0">crease speed.</text>
+<text top="847" left="459" width="250" height="21" font="4"><b>Risk allocation portfolios</b></text>
+<text top="886" left="459" width="346" height="15" font="0">Mean-risk models were developed in early fifties for</text>
+<text top="904" left="459" width="346" height="15" font="0">the portfolio selection problem. Initially, variance</text>
+<text top="922" left="459" width="346" height="15" font="0">was used as a risk measure. Since then, many al-</text>
+<text top="940" left="459" width="346" height="15" font="0">ternative risk measures have been proposed. The</text>
+<text top="958" left="459" width="346" height="15" font="0">question of which risk measure is most appropriate is</text>
+<text top="976" left="459" width="346" height="15" font="0">still the subject of much debate. Value-at-Risk (VaR)</text>
+<text top="994" left="459" width="346" height="15" font="0">and Conditional Value-at-Risk (CVaR) are the most</text>
+<text top="1012" left="459" width="346" height="15" font="0">popular measures of downside risk. VaR is the neg-</text>
+<text top="1030" left="459" width="346" height="15" font="0">ative value of the portfolio return such that lower</text>
+<text top="1048" left="459" width="346" height="15" font="0">returns will only occur with at most a preset prob-</text>
+<text top="1065" left="459" width="346" height="15" font="0">ability level, which typically is between one and five</text>
+<text top="1083" left="459" width="346" height="15" font="0">percent. CVaR is the negative value of the mean of</text>
+<text top="1101" left="459" width="346" height="15" font="0">all return realizations that are below the VaR. There</text>
+<text top="1119" left="459" width="346" height="15" font="0">is a voluminous literature on portfolio optimization</text>
+<text top="1137" left="459" width="346" height="15" font="0">problems with VaR and CVaR risk measures, see,</text>
+<text top="1155" left="459" width="27" height="15" font="0">e.g.,</text>
+<text top="1155" left="490" width="147" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Fábián and Veszprémi</a></text>
+<text top="1155" left="641" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="1155" left="646" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2008</a></text>
+<text top="1155" left="676" width="129" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>and the references</text>
+<text top="1173" left="459" width="50" height="15" font="0">therein.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="14" size="10" family="Times" color="#000000"/>
+	<fontspec id="15" size="10" family="Times" color="#000000"/>
+	<fontspec id="16" size="10" family="Times" color="#000000"/>
+	<fontspec id="17" size="6" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">29</text>
+<text top="283" left="263" width="74" height="9" font="14"><b>Generation 1</b></text>
+<text top="570" left="305" width="6" height="9" font="15">x</text>
+<text top="575" left="311" width="4" height="6" font="8">1</text>
+<text top="428" left="162" width="0" height="9" font="16">x</text>
+<text top="424" left="164" width="0" height="6" font="17">2</text>
+<text top="506" left="176" width="14" height="9" font="15">−4</text>
+<text top="466" left="176" width="14" height="9" font="15">−2</text>
+<text top="426" left="183" width="7" height="9" font="15">0</text>
+<text top="385" left="183" width="7" height="9" font="15">2</text>
+<text top="345" left="183" width="7" height="9" font="15">4</text>
+<text top="552" left="224" width="14" height="9" font="15">−4</text>
+<text top="552" left="264" width="14" height="9" font="15">−2</text>
+<text top="552" left="308" width="7" height="9" font="15">0</text>
+<text top="552" left="348" width="7" height="9" font="15">2</text>
+<text top="552" left="389" width="7" height="9" font="15">4</text>
+<text top="283" left="548" width="80" height="9" font="14"><b>Generation 20</b></text>
+<text top="570" left="594" width="6" height="9" font="15">x</text>
+<text top="575" left="600" width="4" height="6" font="8">1</text>
+<text top="428" left="451" width="0" height="9" font="16">x</text>
+<text top="424" left="453" width="0" height="6" font="17">2</text>
+<text top="506" left="465" width="14" height="9" font="15">−4</text>
+<text top="466" left="465" width="14" height="9" font="15">−2</text>
+<text top="426" left="472" width="7" height="9" font="15">0</text>
+<text top="385" left="472" width="7" height="9" font="15">2</text>
+<text top="345" left="472" width="7" height="9" font="15">4</text>
+<text top="552" left="513" width="14" height="9" font="15">−4</text>
+<text top="552" left="553" width="14" height="9" font="15">−2</text>
+<text top="552" left="597" width="7" height="9" font="15">0</text>
+<text top="552" left="638" width="7" height="9" font="15">2</text>
+<text top="552" left="678" width="7" height="9" font="15">4</text>
+<text top="644" left="259" width="80" height="9" font="14"><b>Generation 40</b></text>
+<text top="932" left="305" width="6" height="9" font="15">x</text>
+<text top="937" left="311" width="4" height="6" font="8">1</text>
+<text top="789" left="162" width="0" height="9" font="16">x</text>
+<text top="786" left="164" width="0" height="6" font="17">2</text>
+<text top="868" left="176" width="14" height="9" font="15">−4</text>
+<text top="827" left="176" width="14" height="9" font="15">−2</text>
+<text top="787" left="183" width="7" height="9" font="15">0</text>
+<text top="747" left="183" width="7" height="9" font="15">2</text>
+<text top="706" left="183" width="7" height="9" font="15">4</text>
+<text top="913" left="224" width="14" height="9" font="15">−4</text>
+<text top="913" left="264" width="14" height="9" font="15">−2</text>
+<text top="913" left="308" width="7" height="9" font="15">0</text>
+<text top="913" left="348" width="7" height="9" font="15">2</text>
+<text top="913" left="389" width="7" height="9" font="15">4</text>
+<text top="644" left="548" width="80" height="9" font="14"><b>Generation 80</b></text>
+<text top="932" left="594" width="6" height="9" font="15">x</text>
+<text top="937" left="600" width="4" height="6" font="8">1</text>
+<text top="789" left="451" width="0" height="9" font="16">x</text>
+<text top="786" left="453" width="0" height="6" font="17">2</text>
+<text top="868" left="465" width="14" height="9" font="15">−4</text>
+<text top="827" left="465" width="14" height="9" font="15">−2</text>
+<text top="787" left="472" width="7" height="9" font="15">0</text>
+<text top="747" left="472" width="7" height="9" font="15">2</text>
+<text top="706" left="472" width="7" height="9" font="15">4</text>
+<text top="913" left="513" width="14" height="9" font="15">−4</text>
+<text top="913" left="553" width="14" height="9" font="15">−2</text>
+<text top="913" left="597" width="7" height="9" font="15">0</text>
+<text top="913" left="638" width="7" height="9" font="15">2</text>
+<text top="913" left="678" width="7" height="9" font="15">4</text>
+<text top="999" left="82" width="723" height="15" font="0">Figure 2: The population (market with black dots) associated with various generations of a call to DEoptim as</text>
+<text top="1017" left="82" width="429" height="15" font="0">it searches for the minimum of the Rastrigin function at point <b>x</b></text>
+<text top="1017" left="515" width="22" height="14" font="7">= (</text>
+<text top="1017" left="537" width="20" height="15" font="0">0, 0</text>
+<text top="1017" left="558" width="6" height="14" font="7">)</text>
+<text top="1014" left="564" width="3" height="11" font="1">0</text>
+<text top="1017" left="572" width="233" height="15" font="0">(market with an open white circle).</text>
+<text top="1035" left="82" width="674" height="15" font="0">The minimum is consistently determined within 200 generations using the default settings of DEoptim.</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="18" size="12" family="Times" color="#000000"/>
+	<fontspec id="19" size="12" family="Times" color="#000000"/>
+	<fontspec id="20" size="9" family="Times" color="#000000"/>
+	<fontspec id="21" size="7" family="Times" color="#000000"/>
+	<fontspec id="22" size="9" family="Times" color="#000000"/>
+	<fontspec id="23" size="6" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">30</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="105" width="324" height="15" font="0">Modern portfolio selection considers additional</text>
+<text top="143" left="82" width="346" height="15" font="0">criteria such as to maximize upper-tail skewness and</text>
+<text top="161" left="82" width="346" height="15" font="0">liquidity or minimize the number of securities in the</text>
+<text top="179" left="82" width="346" height="15" font="0">portfolio. In the recent portfolio literature, it has</text>
+<text top="197" left="82" width="346" height="15" font="0">been advocated by various authors to incorporate</text>
+<text top="215" left="82" width="346" height="15" font="0">risk contributions in the portfolio allocation prob-</text>
+<text top="233" left="82" width="346" height="15" font="0">lem. Qian’s (2005) Risk Parity Portfolio allocates port-</text>
+<text top="251" left="82" width="346" height="15" font="0">folio variance equally across the portfolio compo-</text>
+<text top="268" left="82" width="39" height="15" font="0">nents.</text>
+<text top="268" left="136" width="98" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Maillard et al.</a></text>
+<text top="268" left="242" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="268" left="247" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2010</a></text>
+<text top="268" left="277" width="152" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>call this the Equally-</text>
+<text top="286" left="82" width="346" height="15" font="0">Weighted Risk Contribution (ERC) Portfolio. They de-</text>
+<text top="304" left="82" width="346" height="15" font="0">rive the theoretical properties of the ERC portfolio</text>
+<text top="322" left="82" width="346" height="15" font="0">and show that its volatility is located between those</text>
+<text top="340" left="82" width="346" height="15" font="0">of the minimum variance and equal-weight portfo-</text>
+<text top="358" left="82" width="21" height="15" font="0">lio.</text>
+<text top="358" left="113" width="67" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Zhu et al.</a></text>
+<text top="358" left="186" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="358" left="191" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2010</a></text>
+<text top="358" left="220" width="209" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>study optimal mean-variance</text>
+<text top="376" left="82" width="346" height="15" font="0">portfolio selection under a direct constraint on the</text>
+<text top="394" left="82" width="346" height="15" font="0">contributions to portfolio variance. Because the re-</text>
+<text top="412" left="82" width="346" height="15" font="0">sulting optimization model is a non-convex quadrat-</text>
+<text top="430" left="82" width="346" height="15" font="0">ically constrained quadratic programming problem,</text>
+<text top="448" left="82" width="346" height="15" font="0">they develop a branch-and-bound algorithm to solve</text>
+<text top="466" left="82" width="13" height="15" font="0">it.</text>
+<text top="484" left="105" width="77" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">Boudt et al.</a></text>
+<text top="484" left="187" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">(</a></text>
+<text top="484" left="192" width="37" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">2010a</a></text>
+<text top="484" left="230" width="199" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">) </a>propose to use the contribu-</text>
+<text top="502" left="82" width="346" height="15" font="0">tions to portfolio CVaR as an input in the portfolio</text>
+<text top="520" left="82" width="346" height="15" font="0">optimization problem to create portfolios whose per-</text>
+<text top="538" left="82" width="346" height="15" font="0">centage CVaR contributions are aligned with the de-</text>
+<text top="556" left="82" width="346" height="15" font="0">sired level of CVaR risk diversification. Under the</text>
+<text top="574" left="82" width="346" height="15" font="0">assumption of normality, the percentage CVaR con-</text>
+<text top="592" left="82" width="346" height="15" font="0">tribution of asset i is given by the following explicit</text>
+<text top="610" left="82" width="241" height="15" font="0">function of the vector of weights <b>w</b></text>
+<text top="601" left="332" width="4" height="15" font="0">.</text>
+<text top="609" left="328" width="23" height="14" font="7">= (</text>
+<text top="610" left="351" width="11" height="15" font="0">w</text>
+<text top="615" left="362" width="6" height="11" font="1">1</text>
+<text top="610" left="369" width="39" height="15" font="0">, . . . , w</text>
+<text top="615" left="408" width="6" height="11" font="1">d</text>
+<text top="609" left="415" width="6" height="14" font="7">)</text>
+<text top="606" left="421" width="3" height="11" font="1">0</text>
+<text top="610" left="425" width="4" height="15" font="0">,</text>
+<text top="628" left="82" width="96" height="15" font="0">mean vector <i><b>µ</b></i></text>
+<text top="619" left="187" width="4" height="15" font="0">.</text>
+<text top="627" left="182" width="22" height="14" font="7">= (</text>
+<text top="631" left="205" width="9" height="11" font="19"><i>µ</i></text>
+<text top="633" left="214" width="6" height="11" font="1">1</text>
+<text top="628" left="221" width="37" height="15" font="0">, . . . , <i>µ</i></text>
+<text top="633" left="258" width="6" height="11" font="1">d</text>
+<text top="627" left="265" width="6" height="14" font="7">)</text>
+<text top="624" left="271" width="3" height="11" font="1">0</text>
+<text top="628" left="280" width="149" height="15" font="0">and covariance matrix</text>
+<text top="642" left="83" width="14" height="19" font="3"><b>Σ</b>:</text>
+<text top="684" left="177" width="11" height="15" font="0">w</text>
+<text top="689" left="188" width="3" height="11" font="1">i</text>
+<text top="677" left="194" width="7" height="7" font="0">h</text>
+<text top="683" left="202" width="12" height="15" font="7">−</text>
+<text top="687" left="214" width="9" height="11" font="19"><i>µ</i></text>
+<text top="689" left="223" width="3" height="11" font="1">i</text>
+<text top="684" left="230" width="12" height="14" font="7">+</text>
+<text top="679" left="253" width="5" height="11" font="1">(</text>
+<text top="676" left="257" width="22" height="15" font="20"><b>Σw</b>)</text>
+<text top="683" left="280" width="2" height="9" font="8">i</text>
+<text top="684" left="247" width="10" height="11" font="1">√</text>
+<text top="694" left="258" width="9" height="11" font="20"><b>w</b></text>
+<text top="692" left="267" width="3" height="9" font="21">0</text>
+<text top="692" left="271" width="17" height="15" font="20"><b>Σw</b></text>
+<text top="681" left="292" width="17" height="9" font="22"><i>φ</i>(z</text>
+<text top="684" left="309" width="5" height="7" font="23"><i>α</i></text>
+<text top="678" left="315" width="5" height="11" font="1">)</text>
+<text top="694" left="303" width="6" height="9" font="22"><i>α</i></text>
+<text top="677" left="322" width="7" height="7" font="0">i</text>
+<text top="713" left="182" width="12" height="15" font="7">−</text>
+<text top="714" left="195" width="12" height="15" font="3"><b>w</b></text>
+<text top="712" left="208" width="3" height="11" font="1">0</text>
+<text top="718" left="212" width="8" height="11" font="18"><i><b>µ</b></i></text>
+<text top="714" left="224" width="12" height="14" font="7">+</text>
+<text top="700" left="239" width="13" height="15" font="7">√</text>
+<text top="714" left="252" width="12" height="15" font="3"><b>w</b></text>
+<text top="712" left="265" width="3" height="11" font="1">0</text>
+<text top="711" left="270" width="23" height="19" font="3"><b>Σw</b></text>
+<text top="712" left="294" width="17" height="9" font="22"><i>φ</i>(z</text>
+<text top="714" left="312" width="5" height="7" font="23"><i>α</i></text>
+<text top="709" left="317" width="5" height="11" font="1">)</text>
+<text top="725" left="305" width="6" height="9" font="22"><i>α</i></text>
+<text top="699" left="332" width="4" height="15" font="0">,</text>
+<text top="742" left="82" width="41" height="15" font="0">with z</text>
+<text top="749" left="124" width="6" height="9" font="22"><i>α</i></text>
+<text top="742" left="135" width="294" height="15" font="0">the <i>α</i>-quantile of the standard normal distri-</text>
+<text top="760" left="82" width="89" height="15" font="0">bution and <i>φ</i></text>
+<text top="760" left="172" width="17" height="14" font="7">(·)</text>
+<text top="760" left="195" width="234" height="15" font="0">the standard normal density func-</text>
+<text top="778" left="82" width="250" height="15" font="0">tion. Throughout the paper we set <i>α</i></text>
+<text top="778" left="337" width="12" height="14" font="7">=</text>
+<text top="778" left="353" width="76" height="15" font="0">5%. As we</text>
+<text top="796" left="82" width="346" height="15" font="0">show here, the package <b>DEoptim </b>is well suited to</text>
+<text top="814" left="82" width="346" height="15" font="0">solve these problems. Note that it is also the evo-</text>
+<text top="832" left="82" width="346" height="15" font="0">lutionary optimization strategy used in the package</text>
+<text top="850" left="82" width="125" height="15" font="6"><a href="http://cran.r-project.org/package=PortfolioAnalytics"><b>PortfolioAnalytics</b></a></text>
+<text top="850" left="212" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">(</a></text>
+<text top="850" left="217" width="75" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">Boudt et al.</a></text>
+<text top="850" left="292" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">,</a></text>
+<text top="850" left="299" width="38" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">2010b</a></text>
+<text top="850" left="338" width="9" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">).</a></text>
+<text top="868" left="105" width="324" height="15" font="0">To illustrate this, consider as a stylized example a</text>
+<text top="886" left="82" width="346" height="15" font="0">five-asset portfolio invested in the stocks with tickers</text>
+<text top="904" left="82" width="346" height="15" font="0">GE, IBM, JPM, MSFT and WMT. We keep the dimen-</text>
+<text top="922" left="82" width="346" height="15" font="0">sion of the problem low in order to allow interested</text>
+<text top="940" left="82" width="346" height="15" font="0">users to reproduce the results using a personal com-</text>
+<text top="957" left="82" width="346" height="15" font="0">puter. More realistic portfolio applications can be</text>
+<text top="975" left="82" width="346" height="15" font="0">obtained in a straightforward manner from the code</text>
+<text top="993" left="82" width="346" height="15" font="0">below, by expanding the number of parameters opti-</text>
+<text top="1011" left="82" width="346" height="15" font="0">mized. Interested readers can also see the <b>DEoptim</b></text>
+<text top="1029" left="82" width="346" height="15" font="0">package vignette for a 100-parameter portfolio opti-</text>
+<text top="1047" left="82" width="346" height="15" font="0">mization problem that is typical of those encountered</text>
+<text top="1065" left="82" width="73" height="15" font="0">in practice.</text>
+<text top="1083" left="105" width="324" height="15" font="0">We first download ten years of monthly data us-</text>
+<text top="1101" left="82" width="296" height="15" font="0">ing the function getSymbols of the package</text>
+<text top="1101" left="384" width="45" height="15" font="6"><a href="http://cran.r-project.org/package=quantmod"><b>quant-</b></a></text>
+<text top="1119" left="82" width="31" height="15" font="6"><a href="http://cran.r-project.org/package=quantmod"><b>mod</b></a></text>
+<text top="1119" left="118" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="1119" left="123" width="34" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Ryan</a></text>
+<text top="1119" left="157" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="1119" left="165" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2010</a></text>
+<text top="1119" left="195" width="234" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">). </a>Then we compute the log-return</text>
+<text top="1137" left="82" width="346" height="15" font="0">series and the mean and covariance matrix estima-</text>
+<text top="1155" left="82" width="346" height="15" font="0">tors. For on overview of alternative estimators of the</text>
+<text top="1173" left="82" width="346" height="15" font="0">covariance matrix, such as outlier robust or shrink-</text>
+<text top="125" left="459" width="346" height="15" font="0">age estimators, and their implementation in portfolio</text>
+<text top="143" left="459" width="219" height="15" font="0">allocation, we refer the reader to</text>
+<text top="143" left="683" width="79" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Würtz et al.</a></text>
+<text top="143" left="767" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="143" left="772" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2009</a></text>
+<text top="143" left="802" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">,</a></text>
+<text top="161" left="459" width="346" height="15" font="0">Chapter 4). These estimators might yield better per-</text>
+<text top="179" left="459" width="346" height="15" font="0">formance in the case of small samples, outliers or de-</text>
+<text top="197" left="459" width="162" height="15" font="0">partures from normality.</text>
+<text top="231" left="459" width="144" height="10" font="10">&gt; library(&#34;quantmod&#34;)</text>
+<text top="247" left="459" width="336" height="10" font="10">&gt; tickers &lt;- c(&#34;GE&#34;, &#34;IBM&#34;, &#34;JPM&#34;, &#34;MSFT&#34;, &#34;WMT&#34;)</text>
+<text top="263" left="459" width="144" height="10" font="10">&gt; getSymbols(tickers,</text>
+<text top="280" left="459" width="7" height="10" font="10">+</text>
+<text top="280" left="486" width="137" height="10" font="10">from = &#34;2000-12-01&#34;,</text>
+<text top="296" left="459" width="7" height="10" font="10">+</text>
+<text top="296" left="486" width="14" height="10" font="10">to</text>
+<text top="296" left="521" width="103" height="10" font="10">= &#34;2010-12-31&#34;)</text>
+<text top="313" left="459" width="75" height="10" font="10">&gt; P &lt;- NULL</text>
+<text top="329" left="459" width="178" height="10" font="10">&gt; for(ticker in tickers) {</text>
+<text top="346" left="459" width="7" height="10" font="10">+</text>
+<text top="346" left="486" width="336" height="10" font="10">tmp &lt;- Cl(to.monthly(eval(parse(text = ticker))))</text>
+<text top="362" left="459" width="7" height="10" font="10">+</text>
+<text top="362" left="486" width="123" height="10" font="10">P &lt;- cbind(P, tmp)</text>
+<text top="378" left="459" width="21" height="10" font="10">+ }</text>
+<text top="395" left="459" width="165" height="10" font="10">&gt; colnames(P) &lt;- tickers</text>
+<text top="411" left="459" width="130" height="10" font="10">&gt; R &lt;- diff(log(P))</text>
+<text top="428" left="459" width="89" height="10" font="10">&gt; R &lt;- R[-1,]</text>
+<text top="444" left="459" width="130" height="10" font="10">&gt; mu &lt;- colMeans(R)</text>
+<text top="461" left="459" width="117" height="10" font="10">&gt; sigma &lt;- cov(R)</text>
+<text top="491" left="481" width="324" height="15" font="0">We first compute the equal-weight portfolio. This</text>
+<text top="509" left="459" width="346" height="15" font="0">is the portfolio with the highest weight diversifica-</text>
+<text top="527" left="459" width="346" height="15" font="0">tion and often used as a benchmark. But is the risk</text>
+<text top="545" left="459" width="346" height="15" font="0">exposure of this portfolio effectively well diversified</text>
+<text top="563" left="459" width="346" height="15" font="0">across the different assets? This question can be an-</text>
+<text top="581" left="459" width="346" height="15" font="0">swered by computing the percentage CVaR contribu-</text>
+<text top="599" left="459" width="250" height="15" font="0">tions with function ES in the package</text>
+<text top="599" left="714" width="91" height="15" font="6"><a href="http://cran.r-project.org/package=PerformanceAnalytics"><b>Performance-</b></a></text>
+<text top="617" left="459" width="65" height="15" font="6"><a href="http://cran.r-project.org/package=PerformanceAnalytics"><b>Analytics</b></a></text>
+<text top="617" left="528" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">(</a></text>
+<text top="617" left="533" width="120" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">Carl and Peterson</a></text>
+<text top="617" left="654" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">,</a></text>
+<text top="617" left="662" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">2011</a></text>
+<text top="617" left="692" width="113" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">). </a>These percent-</text>
+<text top="635" left="459" width="346" height="15" font="0">age CVaR contributions indicate how much each as-</text>
+<text top="653" left="459" width="278" height="15" font="0">set contributes to the total portfolio CVaR.</text>
+<text top="686" left="459" width="226" height="10" font="10">&gt; library(&#34;PerformanceAnalytics&#34;)</text>
+<text top="703" left="459" width="295" height="10" font="10">&gt; pContribCVaR &lt;- ES(weights = rep(0.2, 5),</text>
+<text top="719" left="459" width="7" height="10" font="10">+</text>
+<text top="719" left="486" width="137" height="10" font="10">method = &#34;gaussian&#34;,</text>
+<text top="736" left="459" width="7" height="10" font="10">+</text>
+<text top="736" left="486" width="213" height="10" font="10">portfolio_method = &#34;component&#34;,</text>
+<text top="752" left="459" width="7" height="10" font="10">+</text>
+<text top="752" left="486" width="55" height="10" font="10">mu = mu,</text>
+<text top="769" left="459" width="7" height="10" font="10">+</text>
+<text top="769" left="486" width="199" height="10" font="10">sigma = sigma)$pct_contrib_ES</text>
+<text top="785" left="459" width="316" height="10" font="10">&gt; rbind(tickers, round(100 * pContribCVaR, 2))</text>
+<text top="802" left="514" width="27" height="10" font="10">[,1]</text>
+<text top="802" left="569" width="27" height="10" font="10">[,2]</text>
+<text top="802" left="623" width="27" height="10" font="10">[,3]</text>
+<text top="802" left="678" width="27" height="10" font="10">[,4]</text>
+<text top="802" left="733" width="27" height="10" font="10">[,5]</text>
+<text top="818" left="459" width="82" height="10" font="10">tickers &#34;GE&#34;</text>
+<text top="818" left="569" width="34" height="10" font="10">&#34;IBM&#34;</text>
+<text top="818" left="623" width="34" height="10" font="10">&#34;JPM&#34;</text>
+<text top="818" left="678" width="41" height="10" font="10">&#34;MSFT&#34;</text>
+<text top="818" left="733" width="34" height="10" font="10">&#34;WMT&#34;</text>
+<text top="834" left="514" width="240" height="10" font="10">&#34;21.61&#34; &#34;18.6&#34; &#34;25.1&#34; &#34;25.39&#34; &#34;9.3&#34;</text>
+<text top="865" left="481" width="324" height="15" font="0">We see that in the equal-weight portfolio, 25.39%</text>
+<text top="883" left="459" width="346" height="15" font="0">of the portfolio CVaR risk is caused by the 20%</text>
+<text top="901" left="459" width="346" height="15" font="0">investment in MSFT, while the 20% investment in</text>
+<text top="919" left="459" width="346" height="15" font="0">WMT only causes 9.3% of total portfolio CVaR. The</text>
+<text top="937" left="459" width="346" height="15" font="0">high risk contribution of MSFT is due to its high stan-</text>
+<text top="955" left="459" width="346" height="15" font="0">dard deviation and low average return (reported in</text>
+<text top="973" left="459" width="58" height="15" font="0">percent):</text>
+<text top="1006" left="459" width="144" height="10" font="10">&gt; round(100 * mu , 2)</text>
+<text top="1023" left="479" width="14" height="10" font="10">GE</text>
+<text top="1023" left="514" width="21" height="10" font="10">IBM</text>
+<text top="1023" left="555" width="21" height="10" font="10">JPM</text>
+<text top="1023" left="589" width="27" height="10" font="10">MSFT</text>
+<text top="1023" left="637" width="21" height="10" font="10">WMT</text>
+<text top="1039" left="459" width="34" height="10" font="10">-0.80</text>
+<text top="1039" left="507" width="110" height="10" font="10">0.46 -0.06 -0.37</text>
+<text top="1039" left="630" width="21" height="10" font="10">0.0</text>
+<text top="1056" left="459" width="240" height="10" font="10">&gt; round(100 * diag(sigma)^(1/2), 2)</text>
+<text top="1072" left="479" width="14" height="10" font="10">GE</text>
+<text top="1072" left="514" width="21" height="10" font="10">IBM</text>
+<text top="1072" left="555" width="21" height="10" font="10">JPM</text>
+<text top="1072" left="589" width="27" height="10" font="10">MSFT</text>
+<text top="1072" left="637" width="21" height="10" font="10">WMT</text>
+<text top="1089" left="459" width="27" height="10" font="10">8.90</text>
+<text top="1089" left="500" width="27" height="10" font="10">7.95</text>
+<text top="1089" left="541" width="69" height="10" font="10">9.65 10.47</text>
+<text top="1089" left="623" width="27" height="10" font="10">5.33</text>
+<text top="1119" left="481" width="324" height="15" font="0">We now use the function DEoptim of the package</text>
+<text top="1137" left="459" width="62" height="15" font="3"><b>DEoptim</b></text>
+<text top="1137" left="525" width="280" height="15" font="0">to find the portfolio weights for which the</text>
+<text top="1155" left="459" width="346" height="15" font="0">portfolio has the lowest CVaR and each investment</text>
+<text top="1173" left="459" width="346" height="15" font="0">can contribute at most 22.5% to total portfolio CVaR</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">31</text>
+<text top="125" left="82" width="346" height="15" font="0">risk. For this, we first define our objective function</text>
+<text top="143" left="82" width="346" height="15" font="0">to minimize. The current implementation of <b>DEop-</b></text>
+<text top="161" left="82" width="23" height="15" font="3"><b>tim</b></text>
+<text top="161" left="111" width="318" height="15" font="0">allows for constraints on the domain space. To</text>
+<text top="179" left="82" width="346" height="15" font="0">include the risk budget constraints, we add them to</text>
+<text top="197" left="82" width="346" height="15" font="0">the objective function through a penalty function. As</text>
+<text top="215" left="82" width="346" height="15" font="0">such, we allow the search algorithm to consider in-</text>
+<text top="233" left="82" width="346" height="15" font="0">feasible solutions. A portfolio which is unacceptable</text>
+<text top="251" left="82" width="346" height="15" font="0">for the investor must be penalized enough to be re-</text>
+<text top="268" left="82" width="346" height="15" font="0">jected by the minimization process and the larger the</text>
+<text top="286" left="82" width="346" height="15" font="0">violation of the constraint, the larger the increase in</text>
+<text top="304" left="82" width="346" height="15" font="0">the value of the objective function. A standard ex-</text>
+<text top="322" left="82" width="201" height="15" font="0">pression of these violations is <i>α</i></text>
+<text top="321" left="286" width="19" height="15" font="7">× |</text>
+<text top="322" left="305" width="59" height="15" font="0">violation</text>
+<text top="321" left="364" width="4" height="15" font="7">|</text>
+<text top="319" left="370" width="6" height="11" font="1">p</text>
+<text top="322" left="376" width="4" height="15" font="0">.</text>
+<text top="322" left="384" width="45" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Crama</a></text>
+<text top="340" left="82" width="76" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">and Schyns</a></text>
+<text top="340" left="163" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="340" left="168" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2003</a></text>
+<text top="340" left="197" width="232" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>describe several ways to calibrate</text>
+<text top="358" left="82" width="346" height="15" font="0">the scaling factors <i>α </i>and p. If these values are too</text>
+<text top="376" left="82" width="346" height="15" font="0">small, then the penalties do not play their expected</text>
+<text top="394" left="82" width="346" height="15" font="0">role and the final solution may be infeasible. On the</text>
+<text top="412" left="82" width="346" height="15" font="0">other hand, if <i>α </i>and p are too large, then the CVaR</text>
+<text top="430" left="82" width="346" height="15" font="0">term becomes negligible with respect to the penalty;</text>
+<text top="448" left="82" width="346" height="15" font="0">thus, small variations of <b>w </b>can lead to large varia-</text>
+<text top="466" left="82" width="346" height="15" font="0">tions of the penalty term, which mask the effect on</text>
+<text top="484" left="82" width="196" height="15" font="0">the portfolio CVaR. We set <i>α</i></text>
+<text top="484" left="284" width="12" height="14" font="7">=</text>
+<text top="484" left="301" width="15" height="15" font="0">10</text>
+<text top="481" left="316" width="6" height="11" font="1">3</text>
+<text top="484" left="328" width="40" height="15" font="0">and p</text>
+<text top="484" left="372" width="12" height="14" font="7">=</text>
+<text top="484" left="389" width="40" height="15" font="0">1, but</text>
+<text top="502" left="82" width="346" height="15" font="0">recognize that better choices may be possible and de-</text>
+<text top="520" left="82" width="196" height="15" font="0">pend on the problem at hand.</text>
+<text top="555" left="82" width="151" height="10" font="10">&gt; obj &lt;- function(w) {</text>
+<text top="571" left="82" width="7" height="10" font="10">+</text>
+<text top="571" left="110" width="233" height="10" font="10">if (sum(w) == 0) { w &lt;- w + 1e-2 }</text>
+<text top="587" left="82" width="7" height="10" font="10">+</text>
+<text top="587" left="110" width="103" height="10" font="10">w &lt;- w / sum(w)</text>
+<text top="604" left="82" width="7" height="10" font="10">+</text>
+<text top="604" left="110" width="158" height="10" font="10">CVaR &lt;- ES(weights = w,</text>
+<text top="620" left="82" width="7" height="10" font="10">+</text>
+<text top="620" left="124" width="137" height="10" font="10">method = &#34;gaussian&#34;,</text>
+<text top="637" left="82" width="7" height="10" font="10">+</text>
+<text top="637" left="124" width="213" height="10" font="10">portfolio_method = &#34;component&#34;,</text>
+<text top="653" left="82" width="7" height="10" font="10">+</text>
+<text top="653" left="124" width="55" height="10" font="10">mu = mu,</text>
+<text top="670" left="82" width="7" height="10" font="10">+</text>
+<text top="670" left="124" width="96" height="10" font="10">sigma = sigma)</text>
+<text top="686" left="82" width="7" height="10" font="10">+</text>
+<text top="686" left="110" width="103" height="10" font="10">tmp1 &lt;- CVaR$ES</text>
+<text top="703" left="82" width="7" height="10" font="10">+</text>
+<text top="703" left="110" width="295" height="10" font="10">tmp2 &lt;- max(CVaR$pct_contrib_ES - 0.225, 0)</text>
+<text top="719" left="82" width="7" height="10" font="10">+</text>
+<text top="719" left="110" width="165" height="10" font="10">out &lt;- tmp1 + 1e3 * tmp2</text>
+<text top="735" left="82" width="21" height="10" font="10">+ }</text>
+<text top="767" left="105" width="324" height="15" font="0">The penalty introduced in the objective func-</text>
+<text top="785" left="82" width="346" height="15" font="0">tion is non-differentiable and therefore standard</text>
+<text top="803" left="82" width="346" height="15" font="0">gradient-based optimization routines cannot be</text>
+<text top="821" left="82" width="346" height="15" font="0">used. In contrast, DEoptim is designed to consistently</text>
+<text top="839" left="82" width="346" height="15" font="0">find a good approximation to the global minimum of</text>
+<text top="857" left="82" width="173" height="15" font="0">the optimization problem:</text>
+<text top="892" left="82" width="110" height="10" font="10">&gt; set.seed(1234)</text>
+<text top="908" left="82" width="178" height="10" font="10">&gt; out &lt;- DEoptim(fn = obj,</text>
+<text top="925" left="82" width="7" height="10" font="10">+</text>
+<text top="925" left="110" width="123" height="10" font="10">lower = rep(0, 5),</text>
+<text top="941" left="82" width="7" height="10" font="10">+</text>
+<text top="941" left="110" width="123" height="10" font="10">upper = rep(1, 5))</text>
+<text top="958" left="82" width="130" height="10" font="10">&gt; out$optim$bestval</text>
+<text top="974" left="82" width="89" height="10" font="10">[1] 0.1143538</text>
+<text top="990" left="82" width="192" height="10" font="10">&gt; wstar &lt;- out$optim$bestmem</text>
+<text top="1007" left="82" width="199" height="10" font="10">&gt; wstar &lt;- wstar / sum(wstar)</text>
+<text top="1023" left="82" width="268" height="10" font="10">&gt; rbind(tickers, round(100 * wstar, 2))</text>
+<text top="1040" left="137" width="27" height="10" font="10">par1</text>
+<text top="1040" left="192" width="27" height="10" font="10">par2</text>
+<text top="1040" left="247" width="27" height="10" font="10">par3</text>
+<text top="1040" left="302" width="27" height="10" font="10">par4</text>
+<text top="1040" left="357" width="27" height="10" font="10">par5</text>
+<text top="1056" left="82" width="82" height="10" font="10">tickers &#34;GE&#34;</text>
+<text top="1056" left="192" width="34" height="10" font="10">&#34;IBM&#34;</text>
+<text top="1056" left="247" width="34" height="10" font="10">&#34;JPM&#34;</text>
+<text top="1056" left="302" width="41" height="10" font="10">&#34;MSFT&#34;</text>
+<text top="1056" left="357" width="34" height="10" font="10">&#34;WMT&#34;</text>
+<text top="1073" left="137" width="261" height="10" font="10">&#34;18.53&#34; &#34;21.19&#34; &#34;11.61&#34; &#34;13.37&#34; &#34;35.3&#34;</text>
+<text top="1089" left="82" width="247" height="10" font="10">&gt; 100 * (sum(wstar * mu) - mean(mu))</text>
+<text top="1106" left="82" width="96" height="10" font="10">[1] 0.04827935</text>
+<text top="1137" left="105" width="324" height="15" font="0">Note that the main differences with the equal-</text>
+<text top="1155" left="82" width="346" height="15" font="0">weight portfolio is the low weights given to JPM and</text>
+<text top="1173" left="82" width="346" height="15" font="0">MSFT and the high weight to WMT. As can be seen</text>
+<text top="125" left="459" width="346" height="15" font="0">from the last two lines, this minimum risk portfolio</text>
+<text top="143" left="459" width="346" height="15" font="0">has a higher expected return than the equal weight</text>
+<text top="161" left="459" width="346" height="15" font="0">portfolio. The following code illustrates that DEop-</text>
+<text top="179" left="459" width="346" height="15" font="0">tim yields superior results than the gradient-based</text>
+<text top="197" left="459" width="240" height="15" font="0">optimization routines available in R.</text>
+<text top="227" left="459" width="226" height="10" font="10">&gt; out &lt;- optim(par = rep(0.2, 5),</text>
+<text top="243" left="459" width="7" height="10" font="10">+</text>
+<text top="243" left="479" width="62" height="10" font="10">fn = obj,</text>
+<text top="260" left="459" width="7" height="10" font="10">+</text>
+<text top="260" left="479" width="137" height="10" font="10">method = &#34;L-BFGS-B&#34;,</text>
+<text top="276" left="459" width="7" height="10" font="10">+</text>
+<text top="276" left="479" width="123" height="10" font="10">lower = rep(0, 5),</text>
+<text top="293" left="459" width="7" height="10" font="10">+</text>
+<text top="293" left="479" width="123" height="10" font="10">upper = rep(1, 5))</text>
+<text top="309" left="459" width="75" height="10" font="10">&gt; out$value</text>
+<text top="325" left="459" width="89" height="10" font="10">[1] 0.1255093</text>
+<text top="342" left="459" width="247" height="10" font="10">&gt; out &lt;- nlminb(start = rep(0.2, 5),</text>
+<text top="358" left="459" width="7" height="10" font="10">+</text>
+<text top="358" left="486" width="110" height="10" font="10">objective = obj,</text>
+<text top="375" left="459" width="7" height="10" font="10">+</text>
+<text top="375" left="486" width="123" height="10" font="10">lower = rep(0, 5),</text>
+<text top="391" left="459" width="7" height="10" font="10">+</text>
+<text top="391" left="486" width="123" height="10" font="10">upper = rep(1, 5))</text>
+<text top="408" left="459" width="103" height="10" font="10">&gt; out$objective</text>
+<text top="424" left="459" width="89" height="10" font="10">[1] 0.1158250</text>
+<text top="451" left="481" width="324" height="15" font="0">Even on this relatively simple stylized example,</text>
+<text top="469" left="459" width="346" height="15" font="0">the optim and nlminb routines converged to local</text>
+<text top="487" left="459" width="55" height="15" font="0">minima.</text>
+<text top="505" left="481" width="324" height="15" font="0">Suppose now the investor is interested in the</text>
+<text top="523" left="459" width="346" height="15" font="0">most risk diversified portfolio whose expected re-</text>
+<text top="541" left="459" width="346" height="15" font="0">turn is higher than the equal-weight portfolio. This</text>
+<text top="559" left="459" width="346" height="15" font="0">amounts to minimizing the largest CVaR contribu-</text>
+<text top="577" left="459" width="346" height="15" font="0">tion subject to a return target and can be imple-</text>
+<text top="595" left="459" width="124" height="15" font="0">mented as follows:</text>
+<text top="625" left="459" width="151" height="10" font="10">&gt; obj &lt;- function(w) {</text>
+<text top="641" left="459" width="7" height="10" font="10">+</text>
+<text top="641" left="486" width="226" height="10" font="10">if(sum(w) == 0) { w &lt;- w + 1e-2 }</text>
+<text top="657" left="459" width="7" height="10" font="10">+</text>
+<text top="657" left="486" width="103" height="10" font="10">w &lt;- w / sum(w)</text>
+<text top="674" left="459" width="7" height="10" font="10">+</text>
+<text top="674" left="486" width="206" height="10" font="10">contribCVaR &lt;- ES(weights = w,</text>
+<text top="690" left="459" width="7" height="10" font="10">+</text>
+<text top="690" left="500" width="137" height="10" font="10">method = &#34;gaussian&#34;,</text>
+<text top="707" left="459" width="7" height="10" font="10">+</text>
+<text top="707" left="500" width="213" height="10" font="10">portfolio_method = &#34;component&#34;,</text>
+<text top="723" left="459" width="7" height="10" font="10">+</text>
+<text top="723" left="500" width="55" height="10" font="10">mu = mu,</text>
+<text top="740" left="459" width="7" height="10" font="10">+</text>
+<text top="740" left="500" width="185" height="10" font="10">sigma = sigma)$contribution</text>
+<text top="756" left="459" width="7" height="10" font="10">+</text>
+<text top="756" left="486" width="165" height="10" font="10">tmp1 &lt;- max(contribCVaR)</text>
+<text top="772" left="459" width="7" height="10" font="10">+</text>
+<text top="772" left="486" width="261" height="10" font="10">tmp2 &lt;- max(mean(mu) - sum(w * mu), 0)</text>
+<text top="789" left="459" width="7" height="10" font="10">+</text>
+<text top="789" left="486" width="165" height="10" font="10">out &lt;- tmp1 + 1e3 * tmp2</text>
+<text top="805" left="459" width="21" height="10" font="10">+ }</text>
+<text top="822" left="459" width="110" height="10" font="10">&gt; set.seed(1234)</text>
+<text top="838" left="459" width="178" height="10" font="10">&gt; out &lt;- DEoptim(fn = obj,</text>
+<text top="855" left="459" width="7" height="10" font="10">+</text>
+<text top="855" left="486" width="123" height="10" font="10">lower = rep(0, 5),</text>
+<text top="871" left="459" width="7" height="10" font="10">+</text>
+<text top="871" left="486" width="123" height="10" font="10">upper = rep(1, 5))</text>
+<text top="888" left="459" width="192" height="10" font="10">&gt; wstar &lt;- out$optim$bestmem</text>
+<text top="904" left="459" width="199" height="10" font="10">&gt; wstar &lt;- wstar / sum(wstar)</text>
+<text top="920" left="459" width="268" height="10" font="10">&gt; rbind(tickers, round(100 * wstar, 2))</text>
+<text top="937" left="514" width="27" height="10" font="10">par1</text>
+<text top="937" left="569" width="27" height="10" font="10">par2</text>
+<text top="937" left="623" width="27" height="10" font="10">par3</text>
+<text top="937" left="678" width="27" height="10" font="10">par4</text>
+<text top="937" left="733" width="27" height="10" font="10">par5</text>
+<text top="953" left="459" width="82" height="10" font="10">tickers &#34;GE&#34;</text>
+<text top="953" left="569" width="34" height="10" font="10">&#34;IBM&#34;</text>
+<text top="953" left="623" width="34" height="10" font="10">&#34;JPM&#34;</text>
+<text top="953" left="678" width="41" height="10" font="10">&#34;MSFT&#34;</text>
+<text top="953" left="733" width="34" height="10" font="10">&#34;WMT&#34;</text>
+<text top="970" left="514" width="268" height="10" font="10">&#34;17.38&#34; &#34;19.61&#34; &#34;14.85&#34; &#34;15.19&#34; &#34;32.98&#34;</text>
+<text top="986" left="459" width="247" height="10" font="10">&gt; 100 * (sum(wstar * mu) - mean(mu))</text>
+<text top="1003" left="459" width="96" height="10" font="10">[1] 0.04150506</text>
+<text top="1030" left="481" width="324" height="15" font="0">This portfolio invests more in the JPM stock and</text>
+<text top="1048" left="459" width="346" height="15" font="0">less in the GE (which has the lowest average return)</text>
+<text top="1065" left="459" width="346" height="15" font="0">compared to the portfolio with the upper 22.5% per-</text>
+<text top="1083" left="459" width="260" height="15" font="0">centage CVaR constraint. We refer to</text>
+<text top="1083" left="725" width="81" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">Boudt et al.</a></text>
+<text top="1101" left="459" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">(</a></text>
+<text top="1101" left="464" width="37" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">2010a</a></text>
+<text top="1101" left="501" width="304" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#6">) </a>for a more elaborate study on using CVaR al-</text>
+<text top="1119" left="459" width="346" height="15" font="0">locations as an objective function or constraint in the</text>
+<text top="1137" left="459" width="210" height="15" font="0">portfolio optimization problem.</text>
+<text top="1155" left="481" width="324" height="15" font="0">A classic risk/return (i.e., CVaR/mean) scatter</text>
+<text top="1173" left="459" width="346" height="15" font="0">chart showing the results for portfolios tested by</text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">32</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="126" left="82" width="53" height="12" font="0">DEoptim</text>
+<text top="125" left="143" width="153" height="15" font="0">is displayed in Figure</text>
+<text top="125" left="304" width="7" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#7">3</a></text>
+<text top="125" left="311" width="4" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#7">.</a></text>
+<text top="125" left="330" width="99" height="15" font="0">Gray elements</text>
+<text top="143" left="82" width="346" height="15" font="0">depict the results for all tested portfolios (using</text>
+<text top="161" left="82" width="346" height="15" font="0">hexagon binning which is a form of bivariate his-</text>
+<text top="179" left="82" width="76" height="15" font="0">togram, see</text>
+<text top="179" left="163" width="66" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Carr et al.</a></text>
+<text top="179" left="233" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="179" left="237" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2011</a></text>
+<text top="179" left="267" width="162" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">); </a>higher density regions</text>
+<text top="197" left="82" width="346" height="15" font="0">are darker). The yellow-red line shows the path of</text>
+<text top="215" left="82" width="346" height="15" font="0">the best member of the population over time, with</text>
+<text top="233" left="82" width="346" height="15" font="0">the darkest solution at the end being the optimal port-</text>
+<text top="251" left="82" width="346" height="15" font="0">folio. We can notice how DEoptim does not spend</text>
+<text top="268" left="82" width="346" height="15" font="0">much time computing solutions in the scatter space</text>
+<text top="286" left="82" width="346" height="15" font="0">that are suboptimal, but concentrates the bulk of the</text>
+<text top="304" left="82" width="346" height="15" font="0">calculation time in the vicinity of the final best port-</text>
+<text top="322" left="82" width="346" height="15" font="0">folio. Note that we are not looking for the tangency</text>
+<text top="340" left="82" width="346" height="15" font="0">portfolio; simple mean/CVaR optimization can be</text>
+<text top="358" left="82" width="346" height="15" font="0">achieved with standard optimizers. We are looking</text>
+<text top="376" left="82" width="346" height="15" font="0">here for the best balance between return and risk con-</text>
+<text top="394" left="82" width="71" height="15" font="0">centration.</text>
+<text top="413" left="105" width="324" height="15" font="0">We have utilized the mean return/CVaR concen-</text>
+<text top="431" left="82" width="346" height="15" font="0">tration examples here as more realistic, but still styl-</text>
+<text top="449" left="82" width="346" height="15" font="0">ized, examples of non-convex objectives and con-</text>
+<text top="467" left="82" width="346" height="15" font="0">straints in portfolio optimization; other non-convex</text>
+<text top="485" left="82" width="346" height="15" font="0">objectives, such as drawdown minimization, are also</text>
+<text top="503" left="82" width="346" height="15" font="0">common in real portfolios, and are likewise suitable</text>
+<text top="521" left="82" width="346" height="15" font="0">to application of Differential Evolution. One of the</text>
+<text top="539" left="82" width="346" height="15" font="0">key issues in practice with real portfolios is that a</text>
+<text top="557" left="82" width="346" height="15" font="0">portfolio manager rarely has only a single objective</text>
+<text top="574" left="82" width="346" height="15" font="0">or only a few simple objectives combined. For many</text>
+<text top="592" left="82" width="346" height="15" font="0">combinations of objectives, there is no unique global</text>
+<text top="610" left="82" width="346" height="15" font="0">optimum, and the constraints and objectives formed</text>
+<text top="628" left="82" width="346" height="15" font="0">lead to a non-convex search space. It may take sev-</text>
+<text top="646" left="82" width="346" height="15" font="0">eral hours on very fast machines to get the best an-</text>
+<text top="664" left="82" width="346" height="15" font="0">swers, and the best answers may not be a true global</text>
+<text top="682" left="82" width="346" height="15" font="0">optimum, they are just as close as feasible given poten-</text>
+<text top="700" left="82" width="302" height="15" font="0">tially competing and contradictory objectives.</text>
+<text top="719" left="105" width="324" height="15" font="0">When the constraints and objectives are relatively</text>
+<text top="737" left="82" width="346" height="15" font="0">simple, and may be reduced to quadratic, linear, or</text>
+<text top="755" left="82" width="346" height="15" font="0">conical forms, a simpler optimization solver will pro-</text>
+<text top="773" left="82" width="346" height="15" font="0">duce answers more quickly. When the objectives</text>
+<text top="791" left="82" width="346" height="15" font="0">are more layered, complex, and potentially contra-</text>
+<text top="809" left="82" width="346" height="15" font="0">dictory, as those in real portfolios tend to be, <b>DE-</b></text>
+<text top="827" left="82" width="41" height="15" font="3"><b>optim</b></text>
+<text top="827" left="128" width="301" height="15" font="0">or other global optimization algorithms such</text>
+<text top="845" left="82" width="346" height="15" font="0">as those integrated into <b>PortfolioAnalytics </b>provide</text>
+<text top="863" left="82" width="346" height="15" font="0">a portfolio manager with a feasible option for opti-</text>
+<text top="880" left="82" width="346" height="15" font="0">mizing their portfolio under real-world non-convex</text>
+<text top="898" left="82" width="174" height="15" font="0">constraints and objectives.</text>
+<text top="917" left="105" width="324" height="15" font="0">The <b>PortfolioAnalytics </b>framework allows any ar-</text>
+<text top="935" left="82" width="346" height="15" font="0">bitrary R function to be part of the objective set, and</text>
+<text top="953" left="82" width="346" height="15" font="0">allows the user to set the relative weighting that they</text>
+<text top="971" left="82" width="346" height="15" font="0">want on any specific objective, and use the appropri-</text>
+<text top="989" left="82" width="346" height="15" font="0">ately tuned optimization solver algorithm to locate</text>
+<text top="1007" left="82" width="335" height="15" font="0">portfolios that most closely match those objectives.</text>
+<text top="1061" left="82" width="96" height="21" font="4"><b>Summary</b></text>
+<text top="1101" left="82" width="346" height="15" font="0">In this note we have introduced DE and <b>DEoptim</b>.</text>
+<text top="1119" left="82" width="346" height="15" font="0">The package <b>DEoptim </b>provides a means of applying</text>
+<text top="1137" left="82" width="346" height="15" font="0">the DE algorithm in the R language and environment</text>
+<text top="1155" left="82" width="346" height="15" font="0">for statistical computing. DE and the package <b>DE-</b></text>
+<text top="1173" left="82" width="41" height="15" font="3"><b>optim</b></text>
+<text top="1173" left="128" width="301" height="15" font="0">have proven themselves to be powerful tools</text>
+<text top="125" left="459" width="346" height="15" font="0">for the solution of global optimization problems in</text>
+<text top="143" left="459" width="346" height="15" font="0">a wide variety of fields. We have referred interested</text>
+<text top="161" left="459" width="51" height="15" font="0">users to</text>
+<text top="161" left="514" width="68" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Price et al.</a></text>
+<text top="161" left="585" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="161" left="590" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2006</a></text>
+<text top="161" left="620" width="34" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>and</text>
+<text top="161" left="657" width="82" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Mullen et al.</a></text>
+<text top="161" left="743" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="161" left="748" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2011</a></text>
+<text top="161" left="778" width="28" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">) </a>for</text>
+<text top="179" left="459" width="346" height="15" font="0">a more extensive introduction, and further pointers</text>
+<text top="197" left="459" width="346" height="15" font="0">to the literature on DE. The utility of using <b>DEoptim</b></text>
+<text top="215" left="459" width="346" height="15" font="0">was further demonstrated with a simple example of a</text>
+<text top="233" left="459" width="346" height="15" font="0">stylized non-convex portfolio risk contribution allo-</text>
+<text top="251" left="459" width="346" height="15" font="0">cation, with users referred to <b>PortfolioAnalytics </b>for</text>
+<text top="268" left="459" width="346" height="15" font="0">portfolio optimization using DE with real portfolios</text>
+<text top="286" left="459" width="298" height="15" font="0">under non-convex constraints and objectives.</text>
+<text top="305" left="481" width="324" height="15" font="0">The latest version of the package includes the</text>
+<text top="323" left="459" width="300" height="15" font="0">adaptive Differential Evolution framework by</text>
+<text top="323" left="762" width="43" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">Zhang</a></text>
+<text top="341" left="459" width="100" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">and Sanderson</a></text>
+<text top="341" left="564" width="5" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">(</a></text>
+<text top="341" left="569" width="30" height="15" font="5"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">2009</a></text>
+<text top="341" left="598" width="207" height="15" font="0"><a href="2011-1-RJournal_2011-1_Ardia~et~al.html#8">). </a>Future work will also be di-</text>
+<text top="359" left="459" width="346" height="15" font="0">rected at parallelization of the implementation. The</text>
+<text top="377" left="459" width="62" height="15" font="3"><b>DEoptim</b></text>
+<text top="377" left="527" width="212" height="15" font="0">project is hosted on R-forge at</text>
+<text top="378" left="744" width="61" height="12" font="5"><a href="https://r-forge.r-project.org/projects/deoptim/">https://</a></text>
+<text top="396" left="459" width="299" height="12" font="5"><a href="https://r-forge.r-project.org/projects/deoptim/">r-forge.r-project.org/projects/deoptim/</a></text>
+<text top="395" left="758" width="4" height="15" font="0"><a href="https://r-forge.r-project.org/projects/deoptim/">.</a></text>
+<text top="445" left="459" width="196" height="21" font="4"><b>Acknowledgements</b></text>
+<text top="485" left="459" width="346" height="15" font="0">The authors would like to thank Dirk Eddelbuettel,</text>
+<text top="503" left="459" width="346" height="15" font="0">Juan Ospina, and Enrico Schumann for useful com-</text>
+<text top="520" left="459" width="346" height="15" font="0">ments and Rainer Storn for his advocacy of DE and</text>
+<text top="538" left="459" width="346" height="15" font="0">making his code publicly available. The authors are</text>
+<text top="556" left="459" width="346" height="15" font="0">also grateful to two anonymous reviewers for help-</text>
+<text top="574" left="459" width="346" height="15" font="0">ful comments that have led to improvements of this</text>
+<text top="592" left="459" width="346" height="15" font="0">note. Kris Boudt gratefully acknowledges financial</text>
+<text top="610" left="459" width="291" height="15" font="0">support from the National Bank of Belgium.</text>
+<text top="660" left="459" width="108" height="21" font="4"><b>Disclaimer</b></text>
+<text top="700" left="459" width="346" height="15" font="0">The views expressed in this note are the sole respon-</text>
+<text top="718" left="459" width="346" height="15" font="0">sibility of the authors and do not necessarily reflect</text>
+<text top="736" left="459" width="346" height="15" font="0">those of aeris CAPITAL AG, Guidance Capital Man-</text>
+<text top="754" left="459" width="346" height="15" font="0">agement, Cheiron Trading, or any of their affiliates.</text>
+<text top="772" left="459" width="346" height="15" font="0">Any remaining errors or shortcomings are the au-</text>
+<text top="790" left="459" width="134" height="15" font="0">thors’ responsibility.</text>
+<text top="840" left="459" width="130" height="21" font="4"><b>Bibliography</b></text>
+<text top="879" left="459" width="346" height="15" font="0">D. Ardia, K. M. Mullen, B. G. Peterson and J. Ulrich.</text>
+<text top="897" left="474" width="332" height="15" font="0">DEoptim: Differential Evolution Optimization in R,</text>
+<text top="915" left="474" width="69" height="15" font="0">2011. URL</text>
+<text top="916" left="545" width="260" height="12" font="5"><a href="http://CRAN.R-project.org/package=DEoptim">http://CRAN.R-project.org/package=</a></text>
+<text top="934" left="474" width="53" height="12" font="5"><a href="http://CRAN.R-project.org/package=DEoptim">DEoptim</a></text>
+<text top="933" left="527" width="169" height="15" font="0"><a href="http://CRAN.R-project.org/package=DEoptim">. </a>R package version 2.1-0.</text>
+<text top="965" left="459" width="346" height="15" font="0">K. Boudt, P. Carl, and B. G. Peterson. Portfolio op-</text>
+<text top="983" left="474" width="332" height="15" font="0">timization with conditional value-at-risk budgets.</text>
+<text top="1001" left="474" width="138" height="15" font="0">Working paper, 2010a.</text>
+<text top="1033" left="459" width="289" height="15" font="0">K. Boudt, P. Carl, and B. G. Peterson.</text>
+<text top="1033" left="774" width="32" height="15" font="0">Port-</text>
+<text top="1051" left="474" width="88" height="15" font="0">folioAnalytics:</text>
+<text top="1051" left="580" width="226" height="15" font="0">Portfolio Analysis, including Nu-</text>
+<text top="1069" left="474" width="332" height="15" font="0">meric Methods for Optimization of Portfolios, 2010b.</text>
+<text top="1087" left="474" width="31" height="15" font="0">URL</text>
+<text top="1088" left="514" width="291" height="12" font="5"><a href="http://r-forge.r-project.org/projects/returnanalytics/">http://r-forge.r-project.org/projects/</a></text>
+<text top="1106" left="474" width="122" height="12" font="5"><a href="http://r-forge.r-project.org/projects/returnanalytics/">returnanalytics/</a></text>
+<text top="1105" left="596" width="156" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">. </a>R package version 0.6.</text>
+<text top="1137" left="459" width="191" height="15" font="0">P. Carl and B. G. Peterson.</text>
+<text top="1137" left="667" width="138" height="15" font="0">PerformanceAnalytics:</text>
+<text top="1155" left="474" width="332" height="15" font="0">Econometric tools for performance and risk analy-</text>
+<text top="1173" left="474" width="104" height="15" font="0">sis., 2011. URL</text>
+<text top="1174" left="583" width="223" height="12" font="5"><a href="http://r-forge.r-project.org/projects/returnanalytics/">http://r-forge.r-project.org/</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="24" size="14" family="Times" color="#000000"/>
+	<fontspec id="25" size="14" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">C</a></text>
+<text top="69" left="94" width="86" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">ONTRIBUTED</a></text>
+<text top="67" left="184" width="10" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">R</a></text>
+<text top="69" left="195" width="61" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">ESEARCH</a></text>
+<text top="67" left="261" width="12" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">A</a></text>
+<text top="69" left="273" width="53" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">RTICLES</a></text>
+<text top="67" left="790" width="15" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">33</a></text>
+<text top="888" left="257" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">14</a></text>
+<text top="888" left="331" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">16</a></text>
+<text top="888" left="405" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">18</a></text>
+<text top="888" left="479" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">20</a></text>
+<text top="888" left="553" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">22</a></text>
+<text top="888" left="627" width="13" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">24</a></text>
+<text top="825" left="176" width="24" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">−0.4</a></text>
+<text top="735" left="176" width="24" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">−0.2</a></text>
+<text top="645" left="193" width="7" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">0</a></text>
+<text top="555" left="183" width="17" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">0.2</a></text>
+<text top="465" left="183" width="17" height="12" font="15"><a href="http://r-forge.r-project.org/projects/returnanalytics/">0.4</a></text>
+<text top="903" left="383" width="149" height="15" font="24"><a href="http://r-forge.r-project.org/projects/returnanalytics/">monthly CVaR (in %)</a></text>
+<text top="688" left="181" width="0" height="15" font="25"><a href="http://r-forge.r-project.org/projects/returnanalytics/">monthly mean (in %)</a></text>
+<text top="1017" left="157" width="574" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">Figure 3: Risk/return scatter chart showing the results for portfolios tested by DEoptim.</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">34</a></text>
+<text top="67" left="562" width="11" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">C</a></text>
+<text top="69" left="573" width="86" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">ONTRIBUTED</a></text>
+<text top="67" left="664" width="10" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">R</a></text>
+<text top="69" left="674" width="61" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">ESEARCH</a></text>
+<text top="67" left="740" width="12" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">A</a></text>
+<text top="69" left="752" width="53" height="12" font="1"><a href="http://r-forge.r-project.org/projects/returnanalytics/">RTICLES</a></text>
+<text top="126" left="97" width="191" height="12" font="5"><a href="http://r-forge.r-project.org/projects/returnanalytics/">projects/returnanalytics/</a></text>
+<text top="125" left="288" width="141" height="15" font="0"><a href="http://r-forge.r-project.org/projects/returnanalytics/">. </a>R package version</text>
+<text top="143" left="97" width="45" height="15" font="0">1.0.3.3.</text>
+<text top="171" left="82" width="287" height="15" font="0">D. Carr, N. Lewin-Koh and M. Maechler.</text>
+<text top="171" left="385" width="44" height="15" font="0">hexbin:</text>
+<text top="189" left="97" width="223" height="15" font="0">Hexagonal binning routines, 2011.</text>
+<text top="189" left="337" width="31" height="15" font="0">URL</text>
+<text top="190" left="376" width="53" height="12" font="5"><a href="http://CRAN.R-project.org/package=hexbin">http://</a></text>
+<text top="208" left="97" width="252" height="12" font="5"><a href="http://CRAN.R-project.org/package=hexbin">CRAN.R-project.org/package=hexbin</a></text>
+<text top="207" left="350" width="79" height="15" font="0"><a href="http://CRAN.R-project.org/package=hexbin">. </a>R package</text>
+<text top="225" left="97" width="90" height="15" font="0">version 1.26.0</text>
+<text top="252" left="82" width="346" height="15" font="0">Y. Crama and M. Schyns. Simulated annealing for</text>
+<text top="270" left="97" width="258" height="15" font="0">complex portfolio selection problems.</text>
+<text top="270" left="371" width="58" height="15" font="0">European</text>
+<text top="288" left="97" width="332" height="15" font="0">Journal of Operations Research, 150(3):546–571, 2003.</text>
+<text top="316" left="82" width="346" height="15" font="0">C. Fábián and A. Veszprémi. Algorithms for han-</text>
+<text top="334" left="97" width="332" height="15" font="0">dling CVaR constraints in dynamic stochastic pro-</text>
+<text top="352" left="97" width="332" height="15" font="0">gramming models with applications to finance.</text>
+<text top="370" left="97" width="227" height="15" font="0">Journal of Risk, 10(3):111–131, 2008.</text>
+<text top="398" left="82" width="193" height="15" font="0">M. Gilli and E. Schumann.</text>
+<text top="398" left="297" width="132" height="15" font="0">Heuristic optimisa-</text>
+<text top="416" left="97" width="188" height="15" font="0">tion in financial modelling.</text>
+<text top="416" left="300" width="129" height="15" font="0">COMISEF wps-007</text>
+<text top="434" left="97" width="119" height="15" font="0">09/02/2009, 2009.</text>
+<text top="462" left="82" width="346" height="15" font="0">J. H. Holland. Adaptation in Natural Artificial Systems.</text>
+<text top="479" left="97" width="233" height="15" font="0">University of Michigan Press, 1975.</text>
+<text top="507" left="82" width="346" height="15" font="0">T. Krink and S. Paterlini. Multiobjective optimization</text>
+<text top="525" left="97" width="332" height="15" font="0">using Differential Evolution for real-world portfo-</text>
+<text top="543" left="97" width="332" height="15" font="0">lio optimization. Computational Management Sci-</text>
+<text top="561" left="97" width="138" height="15" font="0">ence, 8:157–179, 2011.</text>
+<text top="589" left="82" width="346" height="15" font="0">S. Maillard, T. Roncalli, and J. Teiletche. On the prop-</text>
+<text top="607" left="97" width="332" height="15" font="0">erties of equally-weighted risk contributions port-</text>
+<text top="625" left="97" width="332" height="15" font="0">folios. Journal of Portfolio Management, 36(4):60–70,</text>
+<text top="643" left="97" width="34" height="15" font="0">2010.</text>
+<text top="671" left="82" width="346" height="15" font="0">D. G. Maringer and M. Meyer. Smooth transition</text>
+<text top="689" left="97" width="332" height="15" font="0">autoregressive models: New approaches to the</text>
+<text top="706" left="97" width="332" height="15" font="0">model selection problem. Studies in Nonlinear Dy-</text>
+<text top="724" left="97" width="257" height="15" font="0">namics &amp; Econometrics, 12(1):1–19, 2008.</text>
+<text top="752" left="82" width="346" height="15" font="0">K. M. Mullen, D. Ardia, D. L. Gil, D. Windover, and</text>
+<text top="770" left="97" width="332" height="15" font="0">J. Cline. DEoptim: An R package for global opti-</text>
+<text top="788" left="97" width="332" height="15" font="0">mization by Differential Evolution. Journal of Sta-</text>
+<text top="806" left="97" width="212" height="15" font="0">tistical Software, 40(6):1–26, 2011.</text>
+<text top="834" left="82" width="346" height="15" font="0">K. V. Price, R. M. Storn, and J. A. Lampinen. Differ-</text>
+<text top="852" left="97" width="332" height="15" font="0">ential Evolution: A Practical Approach to Global Opti-</text>
+<text top="870" left="97" width="332" height="15" font="0">mization. Springer-Verlag, Berlin, Heidelberg, sec-</text>
+<text top="888" left="97" width="240" height="15" font="0">ond edition, 2006. ISBN 3540209506.</text>
+<text top="916" left="82" width="346" height="15" font="0">E. Qian. Risk parity portfolios: Efficient portfolios</text>
+<text top="934" left="97" width="332" height="15" font="0">through true diversification of risk. PanAgora As-</text>
+<text top="951" left="97" width="232" height="15" font="0">set Management working paper, 2005.</text>
+<text top="125" left="459" width="346" height="15" font="0">J. A. Ryan. quantmod: Quantitative Financial Modelling</text>
+<text top="143" left="474" width="157" height="15" font="0">Framework, 2010. URL</text>
+<text top="144" left="637" width="168" height="12" font="5"><a href="http://CRAN.R-project.org/package=quantmod">http://CRAN.R-project.</a></text>
+<text top="162" left="474" width="152" height="12" font="5"><a href="http://CRAN.R-project.org/package=quantmod">org/package=quantmod</a></text>
+<text top="161" left="626" width="176" height="15" font="0"><a href="http://CRAN.R-project.org/package=quantmod">. </a>R package version 0.3-16.</text>
+<text top="196" left="459" width="346" height="15" font="0">O. Scaillet. Nonparametric estimation and sensitiv-</text>
+<text top="214" left="474" width="332" height="15" font="0">ity analysis of expected shortfall. Mathematical Fi-</text>
+<text top="231" left="474" width="157" height="15" font="0">nance, 14(1):74–86, 2002.</text>
+<text top="266" left="459" width="346" height="15" font="0">R. Storn and K. Price. Differential Evolution – A sim-</text>
+<text top="284" left="474" width="332" height="15" font="0">ple and efficient heuristic for global optimization</text>
+<text top="302" left="474" width="332" height="15" font="0">over continuous spaces. Journal of Global Optimiza-</text>
+<text top="320" left="474" width="144" height="15" font="0">tion, 11:341–359, 1997.</text>
+<text top="355" left="459" width="346" height="15" font="0">D. Würtz, Y. Chalabi, W. Chen and A. Ellis Portfolio</text>
+<text top="373" left="474" width="332" height="15" font="0">Optimization with R/Rmetrics. Rmetrics Association</text>
+<text top="391" left="474" width="170" height="15" font="0">and Finance Online, 2009.</text>
+<text top="426" left="459" width="229" height="15" font="0">J. Zhang and A. C. Sanderson.</text>
+<text top="426" left="712" width="93" height="15" font="0">JADE: Adap-</text>
+<text top="444" left="474" width="332" height="15" font="0">tive Differential Evolution with optional external</text>
+<text top="461" left="474" width="332" height="15" font="0">archive. IEEE Transactions on Evolutionary Compu-</text>
+<text top="479" left="474" width="173" height="15" font="0">tation, 13(5):945–958, 2009.</text>
+<text top="514" left="459" width="346" height="15" font="0">S. Zhu, D. Li, and X. Sun. Portfolio selection with</text>
+<text top="532" left="474" width="332" height="15" font="0">marginal risk control. Journal of Computational Fi-</text>
+<text top="550" left="474" width="150" height="15" font="0">nance, 14(1):1–26, 2010.</text>
+<text top="606" left="459" width="76" height="15" font="0">David Ardia</text>
+<text top="624" left="459" width="200" height="15" font="0">aeris CAPITAL AG, Switzerland</text>
+<text top="643" left="459" width="152" height="12" font="5"><a href="mailto:da@aeris-capital.com">da@aeris-capital.com</a></text>
+<text top="679" left="459" width="66" height="15" font="0">Kris Boudt</text>
+<text top="697" left="459" width="205" height="15" font="0">Lessius and K.U.Leuven, Belgium</text>
+<text top="716" left="459" width="206" height="12" font="5"><a href="mailto:kris.boudt@econ.kuleuven.be">kris.boudt@econ.kuleuven.be</a></text>
+<text top="752" left="459" width="62" height="15" font="0">Peter Carl</text>
+<text top="770" left="459" width="265" height="15" font="0">Guidance Capital Management, Chicago, IL</text>
+<text top="789" left="459" width="168" height="12" font="5"><a href="mailto:pcarl@gsb.uchicago.edu">pcarl@gsb.uchicago.edu</a></text>
+<text top="825" left="459" width="130" height="15" font="0">Katharine M. Mullen</text>
+<text top="843" left="459" width="286" height="15" font="0">National Institute of Standards and Technology</text>
+<text top="860" left="459" width="113" height="15" font="0">Gaithersburg, MD</text>
+<text top="880" left="459" width="191" height="12" font="5"><a href="mailto:katharine.mullen@nist.gov">katharine.mullen@nist.gov</a></text>
+<text top="915" left="459" width="108" height="15" font="0">Brian G. Peterson</text>
+<text top="933" left="459" width="176" height="15" font="0">Cheiron Trading, Chicago, IL</text>
+<text top="953" left="459" width="145" height="12" font="5"><a href="mailto:brian@braverock.com">brian@braverock.com</a></text>
+<text top="1218" left="82" width="220" height="15" font="0">The R Journal Vol. 3/1, June 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">104</text>
+<text top="98" left="149" width="436" height="30" font="2"><b>lfe: Linear Group Fixed Effects</b></text>
+<text top="134" left="149" width="97" height="15" font="0">by Simen Gaure</text>
+<text top="175" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="175" left="204" width="543" height="13" font="4">Linear models with fixed effects and many dummy variables are common in some fields.</text>
+<text top="192" left="149" width="595" height="13" font="4">Such models are straightforward to estimate unless the factors have too many levels. The R package</text>
+<text top="208" left="149" width="16" height="13" font="3"><b>lfe</b></text>
+<text top="208" left="169" width="575" height="13" font="4">solves this problem by implementing a generalization of the <b>within transformation </b>to multiple</text>
+<text top="224" left="149" width="209" height="13" font="4">factors, tailored for large problems.</text>
+<text top="269" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="308" left="148" width="197" height="13" font="4">A typical linear model looks like:</text>
+<text top="334" left="149" width="171" height="11" font="4">&gt; y ~ x1+x2+x3 + f1+f2+f3</text>
+<text top="359" left="148" width="596" height="13" font="4">where f1,f2,f3 are arbitrary factors, and x1,x2,x3 are other covariates. Coefficients may easily be</text>
+<text top="375" left="149" width="111" height="13" font="4">estimated by lm():</text>
+<text top="401" left="149" width="199" height="11" font="4">&gt; lm(y ~ x1+x2+x3 + f1+f2+f3)</text>
+<text top="426" left="171" width="573" height="13" font="4">However, in some applications, in particular in econometrics, the factors have too many levels</text>
+<text top="443" left="149" width="244" height="13" font="4">and are still needed as fixed effects, as in</text>
+<text top="443" left="396" width="77" height="13" font="6"><a href="2013-2-gaure.html#12">Abowd et al.</a></text>
+<text top="443" left="476" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="443" left="481" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1999</a></text>
+<text top="443" left="508" width="236" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>The use of fixed effects as opposed to</text>
+<text top="459" left="149" width="595" height="13" font="4">random effects is typically necessitated by the possibility that the factors and the other regressors are</text>
+<text top="476" left="149" width="595" height="13" font="4">correlated. They study log wage (logwage) as an outcome, where fixed effects for individuals (id) and</text>
+<text top="492" left="149" width="592" height="13" font="4">firms (firm) are included, with some ordinary covariates (exemplified by x), i.e. a model of the type:</text>
+<text top="518" left="149" width="171" height="11" font="4">&gt; logwage ~ x + id + firm</text>
+<text top="543" left="148" width="596" height="13" font="4">where id is a factor with one level for each employee, and firm is a factor with one level for each</text>
+<text top="560" left="149" width="595" height="13" font="4">firm. Employees change firm now and then, so it is not a nested model. The model is used to account</text>
+<text top="576" left="149" width="596" height="13" font="4">for arbitrarily distributed time constant individual and firm hetereogeneity, and is used to study</text>
+<text top="593" left="149" width="595" height="13" font="4">the correlation between the firm effect and the employee effect. There are also similar cases with 3</text>
+<text top="609" left="149" width="82" height="13" font="4">factors, e.g. in</text>
+<text top="609" left="234" width="68" height="13" font="6"><a href="2013-2-gaure.html#13">Torres et al.</a></text>
+<text top="609" left="306" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="609" left="310" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2013</a></text>
+<text top="609" left="337" width="407" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>where job title is also considered. They have a dataset of 27 million</text>
+<text top="626" left="149" width="595" height="13" font="4">observations, with 5.5 million, 568,000, and 96,000 levels in the three factors. In other applications the</text>
+<text top="642" left="149" width="250" height="13" font="4">factors are primarily used as controls, as in</text>
+<text top="642" left="402" width="124" height="13" font="6"><a href="2013-2-gaure.html#13">Markussen and Røed</a></text>
+<text top="642" left="529" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="642" left="534" width="26" height="13" font="6"><a href="2013-2-gaure.html#13">2012</a></text>
+<text top="642" left="560" width="184" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>where a variety of models are</text>
+<text top="658" left="149" width="596" height="13" font="4">used, controlling for various combinations of interactions between factors. These datasets are typically</text>
+<text top="675" left="149" width="595" height="13" font="4">sourced from large public registries, and can contain tens of millions of observations, with hundreds</text>
+<text top="691" left="149" width="595" height="13" font="4">of thousands or millions of factor levels. This far exceeds the capabilities of lm(), and can also be too</text>
+<text top="708" left="149" width="275" height="13" font="4">demanding for the sparse methods in package</text>
+<text top="708" left="427" width="41" height="13" font="7"><a href="http://CRAN.R-project.org/package=Matrix"><b>Matrix</b></a></text>
+<text top="708" left="472" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="708" left="476" width="116" height="13" font="6"><a href="2013-2-gaure.html#12">Bates and Maechler</a></text>
+<text top="708" left="592" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="708" left="599" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2013</a></text>
+<text top="708" left="626" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">).</a></text>
+<text top="729" left="171" width="573" height="13" font="4">When estimating such models, the case with a single factor is special. It can be estimated by using</text>
+<text top="745" left="149" width="597" height="13" font="4">the within groups transformation, where the mean of the groups are subtracted from the covariates,</text>
+<text top="762" left="149" width="520" height="13" font="4">resulting in a system without the factor, via the Frisch-Waugh-Lovell theorem. See e.g.</text>
+<text top="762" left="672" width="72" height="13" font="6"><a href="2013-2-gaure.html#13">Wooldridge</a></text>
+<text top="778" left="148" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="778" left="153" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2002</a></text>
+<text top="778" left="180" width="564" height="13" font="4"><a href="2013-2-gaure.html#13">, </a>Section 10.5). The coefficients for the factor levels can easily be recovered as the group means</text>
+<text top="794" left="149" width="398" height="13" font="4">of the residuals. This estimation method can be found in package</text>
+<text top="795" left="551" width="25" height="13" font="7"><a href="http://CRAN.R-project.org/package=plm"><b>plm</b></a></text>
+<text top="794" left="579" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="794" left="584" width="120" height="13" font="6"><a href="2013-2-gaure.html#12">Croissant and Millo</a></text>
+<text top="794" left="704" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="794" left="711" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2008</a></text>
+<text top="794" left="738" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">).</a></text>
+<text top="811" left="148" width="596" height="13" font="4">The method can also be used with more than one factor, by using the within transformation to project</text>
+<text top="827" left="149" width="597" height="13" font="4">out the factor with the highest number of levels, coding the others as dummy variables. However,</text>
+<text top="844" left="149" width="598" height="13" font="4">if all of the factors have many levels this can still result in a too large system which is non-sparse.</text>
+<text top="860" left="149" width="595" height="13" font="4">Moreover, having such sets of dummies in datasets which are not balanced may lead to non-trivial</text>
+<text top="877" left="149" width="387" height="13" font="4">identification problems. We will illustrate how to use the package</text>
+<text top="877" left="539" width="16" height="13" font="7"><a href="http://CRAN.R-project.org/package=lfe"><b>lfe</b></a></text>
+<text top="877" left="559" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="877" left="564" width="36" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="877" left="600" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="877" left="607" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013b</a></text>
+<text top="877" left="641" width="103" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>to solve some of</text>
+<text top="893" left="149" width="596" height="13" font="4">these problems. For clarity we construct quite small datasets by drawing random covariates, rather</text>
+<text top="910" left="149" width="395" height="13" font="4">than to refer to large real datasets which are not publicly available.</text>
+<text top="954" left="149" width="70" height="17" font="5"><b>Enter lfe</b></text>
+<text top="993" left="148" width="596" height="13" font="4">The package <b>lfe </b>is designed to handle the above estimation problem. It also contains some methods for</text>
+<text top="1009" left="149" width="596" height="13" font="4">solving identification problems, though not completely in all cases. Since <b>lfe </b>handles quite ordinary</text>
+<text top="1025" left="149" width="595" height="13" font="4">linear models which conceptually could be handled by lm(), we do not go into detail about the</text>
+<text top="1042" left="149" width="595" height="13" font="4">feasibility of fixed effect linear models as such, only the problems which are more or less peculiar to</text>
+<text top="1058" left="149" width="246" height="13" font="4">models with a large number of dummies.</text>
+<text top="1079" left="171" width="545" height="13" font="4">The short story is that coefficients for x1, x2, and x3 in the above model can be estimated by:</text>
+<text top="1105" left="149" width="96" height="11" font="4">&gt; library(lfe)</text>
+<text top="1122" left="149" width="322" height="11" font="4">&gt; est &lt;- felm(y ~ x1+x2+x3 + G(f1)+G(f2)+G(f3))</text>
+<text top="1147" left="148" width="478" height="13" font="4">whereas the coefficients for the factor levels of f1, f2, and f3 can be retrieved by:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">105</text>
+<text top="104" left="149" width="144" height="11" font="4">&gt; alpha &lt;- getfe(est)</text>
+<text top="130" left="148" width="422" height="13" font="4">A longer story follows, the theoretical part of which is mainly based on</text>
+<text top="130" left="573" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="130" left="613" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="130" left="618" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="130" left="652" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">).</a></text>
+<text top="151" left="171" width="209" height="13" font="4">We write our model in matrix form</text>
+<text top="180" left="394" width="7" height="13" font="4">y</text>
+<text top="180" left="405" width="11" height="12" font="0">=</text>
+<text top="180" left="420" width="18" height="13" font="4">X<i>β</i></text>
+<text top="180" left="441" width="11" height="12" font="0">+</text>
+<text top="180" left="455" width="18" height="13" font="4">D<i>α</i></text>
+<text top="180" left="476" width="11" height="12" font="0">+</text>
+<text top="183" left="490" width="6" height="10" font="8"><i>e</i></text>
+<text top="180" left="496" width="3" height="13" font="4">,</text>
+<text top="180" left="728" width="16" height="13" font="4">(1)</text>
+<text top="209" left="148" width="598" height="13" font="4">where D is a matrix of dummies coding the factor levels, X is a matrix with the other covariates,</text>
+<text top="226" left="149" width="595" height="14" font="4">y is the response vector, and <i>e </i>is a normally distributed error term. Performing an ordinary least</text>
+<text top="242" left="149" width="595" height="13" font="4">squares regression (OLS) on this system yields the OLS estimates ˆ<i>β </i>for the X covariates and ˆ<i>α </i>for the</text>
+<text top="259" left="149" width="595" height="13" font="4">factor levels. The Frisch-Waugh-Lovell theorem states that if P is the projection onto the orthogonal</text>
+<text top="275" left="149" width="337" height="13" font="4">complement of the range of D, then the projected system</text>
+<text top="304" left="398" width="15" height="13" font="4">Py</text>
+<text top="304" left="418" width="11" height="12" font="0">=</text>
+<text top="304" left="433" width="27" height="13" font="4">PX<i>β</i></text>
+<text top="304" left="463" width="11" height="12" font="0">+</text>
+<text top="304" left="477" width="18" height="14" font="4">P<i>e</i>,</text>
+<text top="333" left="148" width="401" height="13" font="4">yields the same ˆ<i>β </i>when estimated with OLS. Moreover, the matrix</text>
+<text top="333" left="553" width="5" height="12" font="0">(</text>
+<text top="333" left="559" width="10" height="13" font="4">X</text>
+<text top="330" left="570" width="3" height="10" font="9">t</text>
+<text top="333" left="574" width="18" height="13" font="4">PX</text>
+<text top="333" left="593" width="5" height="12" font="0">)</text>
+<text top="330" left="599" width="14" height="11" font="9">−1</text>
+<text top="333" left="617" width="127" height="13" font="4">which is used to find</text>
+<text top="350" left="149" width="583" height="13" font="4">the covariance matrix of ˆ<i>β</i>, is identical to the ˆ<i>β</i>-part of the corresponding matrix in the full system <a href="2013-2-gaure.html#2">(</a></text>
+<text top="350" left="732" width="7" height="13" font="6"><a href="2013-2-gaure.html#2">1</a></text>
+<text top="350" left="739" width="8" height="13" font="4"><a href="2013-2-gaure.html#2">)</a>.</text>
+<text top="366" left="149" width="596" height="13" font="4">Similarly, the residuals are identical. The projected system does not contain the dummies for the factor</text>
+<text top="383" left="149" width="412" height="13" font="4">levels, and may therefore be manageable with conventional methods.</text>
+<text top="404" left="171" width="141" height="13" font="4">Unfortunately, P is an n</text>
+<text top="403" left="315" width="11" height="13" font="0">×</text>
+<text top="403" left="329" width="415" height="14" font="4">n matrix, where n is the number of observations, so it is impractical to</text>
+<text top="420" left="149" width="114" height="13" font="4">compute P when n</text>
+<text top="419" left="267" width="11" height="13" font="0">≈</text>
+<text top="420" left="281" width="14" height="13" font="4">10</text>
+<text top="417" left="295" width="5" height="10" font="9">7</text>
+<text top="420" left="301" width="443" height="13" font="4">. However, it is easier to compute Px for a vector x, i.e. y and the columns</text>
+<text top="436" left="149" width="474" height="13" font="4">of X. In the special case when D encodes a single factor, the transformation x</text>
+<text top="435" left="628" width="14" height="13" font="0">7→</text>
+<text top="436" left="648" width="96" height="14" font="4">Px is the within</text>
+<text top="453" left="149" width="441" height="13" font="4">transformation, i.e. centring of the groups on their means. It is shown in</text>
+<text top="453" left="594" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="453" left="635" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="453" left="640" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="453" left="674" width="70" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>that when</text>
+<text top="469" left="149" width="203" height="13" font="4">there is more than one factor, say e</text>
+<text top="469" left="356" width="11" height="12" font="0">&gt;</text>
+<text top="469" left="371" width="373" height="13" font="4">1 factors, we may consider the centring transformation for each</text>
+<text top="486" left="149" width="134" height="13" font="4">of them, a projection P</text>
+<text top="491" left="282" width="3" height="10" font="9">i</text>
+<text top="486" left="289" width="55" height="13" font="4">for each i</text>
+<text top="486" left="348" width="11" height="12" font="0">=</text>
+<text top="486" left="363" width="153" height="13" font="4">1 . . . e, and compute Px as</text>
+<text top="515" left="359" width="16" height="13" font="4">Px</text>
+<text top="515" left="379" width="11" height="12" font="0">=</text>
+<text top="515" left="398" width="20" height="13" font="4">lim</text>
+<text top="525" left="394" width="19" height="10" font="9">m→</text>
+<text top="523" left="413" width="9" height="14" font="9">∞</text>
+<text top="515" left="431" width="5" height="12" font="0">(</text>
+<text top="515" left="437" width="8" height="13" font="4">P</text>
+<text top="520" left="444" width="5" height="10" font="9">1</text>
+<text top="515" left="451" width="8" height="13" font="4">P</text>
+<text top="520" left="458" width="5" height="10" font="9">2</text>
+<text top="514" left="466" width="17" height="13" font="0">· · ·</text>
+<text top="515" left="486" width="8" height="13" font="4">P</text>
+<text top="519" left="493" width="4" height="10" font="9">e</text>
+<text top="515" left="498" width="5" height="12" font="0">)</text>
+<text top="511" left="504" width="8" height="10" font="9">m</text>
+<text top="515" left="515" width="7" height="13" font="4">x</text>
+<text top="513" left="523" width="12" height="15" font="4"> .</text>
+<text top="548" left="148" width="538" height="13" font="4">This approach is known as the method of alternating projections and is based on a result by</text>
+<text top="548" left="690" width="54" height="13" font="6"><a href="2013-2-gaure.html#13">Halperin</a></text>
+<text top="565" left="148" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="565" left="153" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1962</a></text>
+<text top="565" left="180" width="564" height="13" font="4"><a href="2013-2-gaure.html#13">, </a>Theorem 1). The procedure can easily be implemented with an R function taking as input a</text>
+<text top="581" left="148" width="216" height="13" font="4">vector x and the list of factors flist:</text>
+<text top="609" left="149" width="219" height="11" font="4">&gt; demean &lt;- function(x, flist) {</text>
+<text top="625" left="149" width="7" height="11" font="4">+</text>
+<text top="625" left="176" width="151" height="11" font="4">cx &lt;- x; oldx &lt;- x - 1</text>
+<text top="642" left="149" width="7" height="11" font="4">+</text>
+<text top="642" left="176" width="295" height="11" font="4">while(sqrt(sum((cx - oldx) ^ 2)) &gt;= 1e-8) {</text>
+<text top="658" left="149" width="7" height="11" font="4">+</text>
+<text top="658" left="190" width="69" height="11" font="4">oldx &lt;- cx</text>
+<text top="674" left="149" width="7" height="11" font="4">+</text>
+<text top="674" left="190" width="254" height="11" font="4">for(f in flist) cx &lt;- cx - ave(cx, f)</text>
+<text top="691" left="149" width="7" height="11" font="4">+</text>
+<text top="691" left="176" width="7" height="11" font="4">}</text>
+<text top="707" left="149" width="7" height="11" font="4">+</text>
+<text top="707" left="176" width="69" height="11" font="4">return(cx)</text>
+<text top="724" left="149" width="21" height="11" font="4">+ }</text>
+<text top="750" left="148" width="220" height="13" font="4">This algorithm was also arrived at by</text>
+<text top="750" left="372" width="145" height="13" font="6"><a href="2013-2-gaure.html#13">Guimarães and Portugal</a></text>
+<text top="750" left="521" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="750" left="525" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2010</a></text>
+<text top="750" left="552" width="194" height="13" font="4"><a href="2013-2-gaure.html#13">, </a>p. 637) as a technical simplifica-</text>
+<text top="767" left="149" width="372" height="13" font="4">tion of their iterated estimation approach to the same problem.</text>
+<text top="787" left="171" width="573" height="13" font="4">For efficiency reasons, this linear transformation has been written in C, made threaded to centre</text>
+<text top="804" left="148" width="597" height="13" font="4">vectors in parallel, and is available as the function demeanlist() in <b>lfe</b>, though the function felm()</text>
+<text top="820" left="148" width="194" height="13" font="4">wraps it in an lm() like function.</text>
+<text top="841" left="171" width="575" height="13" font="4">We create a simple example to illustrate the usage. We have 100,000 observations of a covariate x,</text>
+<text top="858" left="149" width="595" height="13" font="4">and two factors f1, f2, each with 10,000 randomly drawn levels. We create an outcome variable y and</text>
+<text top="874" left="149" width="595" height="13" font="4">estimate the x coefficient. The G() syntax is used to specify which factors should be projected out of</text>
+<text top="891" left="149" width="597" height="13" font="4">the system, a similar syntax as for the Error() term in aov(). The G() is not an R function in itself,</text>
+<text top="907" left="149" width="595" height="13" font="4">though it translates to as.factor() inside felm() after the G() terms have been removed from the</text>
+<text top="923" left="149" width="163" height="13" font="4">model for special handling.</text>
+<text top="951" left="149" width="96" height="11" font="4">&gt; library(lfe)</text>
+<text top="967" left="149" width="96" height="11" font="4">&gt; set.seed(42)</text>
+<text top="984" left="149" width="137" height="11" font="4">&gt; x &lt;- rnorm(100000)</text>
+<text top="1000" left="149" width="316" height="11" font="4">&gt; f1 &lt;- sample(10000, length(x), replace=TRUE)</text>
+<text top="1017" left="149" width="316" height="11" font="4">&gt; f2 &lt;- sample(10000, length(x), replace=TRUE)</text>
+<text top="1033" left="149" width="425" height="11" font="4">&gt; y &lt;- 2.13*x + cos(f1) + log(f2+1) + rnorm(length(x), sd=0.5)</text>
+<text top="1050" left="149" width="247" height="11" font="4">&gt; est &lt;- felm(y ~ x + G(f1) + G(f2))</text>
+<text top="1066" left="149" width="96" height="11" font="4">&gt; summary(est)</text>
+<text top="1096" left="149" width="34" height="11" font="4">Call:</text>
+<text top="1112" left="169" width="254" height="11" font="4">felm(formula = y ~ x + G(f1) + G(f2))</text>
+<text top="1145" left="149" width="69" height="11" font="4">Residuals:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">106</text>
+<text top="104" left="197" width="21" height="11" font="4">Min</text>
+<text top="104" left="279" width="14" height="11" font="4">1Q</text>
+<text top="104" left="327" width="41" height="11" font="4">Median</text>
+<text top="104" left="430" width="14" height="11" font="4">3Q</text>
+<text top="104" left="499" width="21" height="11" font="4">Max</text>
+<text top="120" left="149" width="219" height="11" font="4">-1.9531308 -0.3018539 -0.0003573</text>
+<text top="120" left="382" width="62" height="11" font="4">0.3007738</text>
+<text top="120" left="457" width="62" height="11" font="4">2.2052754</text>
+<text top="153" left="149" width="89" height="11" font="4">Coefficients:</text>
+<text top="169" left="163" width="247" height="11" font="4">Estimate Std. Error t value Pr(&gt;|t|)</text>
+<text top="186" left="149" width="69" height="11" font="4">x 2.130889</text>
+<text top="186" left="238" width="55" height="11" font="4">0.001768</text>
+<text top="186" left="320" width="27" height="11" font="4">1205</text>
+<text top="186" left="368" width="69" height="11" font="4">&lt;2e-16 ***</text>
+<text top="202" left="149" width="21" height="11" font="4">---</text>
+<text top="219" left="149" width="96" height="11" font="4">Signif. codes:</text>
+<text top="219" left="259" width="316" height="11" font="4">0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</text>
+<text top="252" left="149" width="405" height="11" font="4">Residual standard error: 0.5013 on 80000 degrees of freedom</text>
+<text top="268" left="149" width="178" height="11" font="4">Multiple R-squared: 0.9683</text>
+<text top="268" left="348" width="178" height="11" font="4">Adjusted R-squared: 0.9603</text>
+<text top="285" left="149" width="412" height="11" font="4">F-statistic: 122.1 on 19999 and 80000 DF, p-value: &lt; 2.2e-16</text>
+<text top="313" left="148" width="596" height="13" font="4">The result of felm() is a ’felm’ object which is quite similar to an ’lm’ object. However, it is not fully</text>
+<text top="330" left="149" width="595" height="13" font="4">compatible with it, so some methods for ’lm’ objects may work on a ’felm’ object, others may not. In</text>
+<text top="346" left="149" width="595" height="13" font="4">an earlier version, the ’felm’ object inherited from the class ’lm’, but there are important differences</text>
+<text top="363" left="149" width="595" height="13" font="4">in the structure, so this inheritance has been removed. In particular there is no qr-decomposition in</text>
+<text top="379" left="149" width="597" height="13" font="4">the ’felm’ object, so methods for ’lm’ objects which depend on the qr-decomposition, such as anova(),</text>
+<text top="395" left="149" width="595" height="13" font="4">can not be used. Also, the ’felm’-object does not contain a copy of the dataset. This has been removed</text>
+<text top="412" left="149" width="598" height="13" font="4">to conserve memory for very large datasets. Simple extractors like coef() and residuals() work.</text>
+<text top="428" left="149" width="596" height="13" font="4">Extracting the covariance matrix with vcov() also works, via a separate S3 method, albeit only for</text>
+<text top="445" left="149" width="595" height="13" font="4">the ˆ<i>β</i>s. Also, a summary() S3-method, and an accompanying print() method have been included. It</text>
+<text top="461" left="149" width="596" height="13" font="4">is possible to try ’lm’-methods explicitly as in: getS3method(’vcov’,’lm’)(est), though the author</text>
+<text top="478" left="149" width="304" height="13" font="4">does not guarantee any success with this approach.</text>
+<text top="499" left="171" width="573" height="13" font="4">The careful reader has noticed that the behaviour of summary() on a ’felm’ object with respect to</text>
+<text top="515" left="149" width="152" height="13" font="4">degrees of freedom and R</text>
+<text top="512" left="301" width="5" height="10" font="9">2</text>
+<text top="515" left="311" width="433" height="13" font="4">is the same as that of on an ’lm’ object when including an intercept. There</text>
+<text top="531" left="149" width="549" height="13" font="4">is no explicit intercept in the result of felm(), but the factor structure includes one implicitly.</text>
+<text top="576" left="149" width="291" height="17" font="5"><b>The coefficients for the factor levels</b></text>
+<text top="615" left="149" width="595" height="13" font="4">If the factors are used as controls only, the above procedure is all we have to worry about, but if we</text>
+<text top="631" left="149" width="595" height="13" font="4">also need the group coefficients ˆ<i>α</i>, what econometricians often refer to as the fixed effects, we can solve</text>
+<text top="648" left="149" width="74" height="13" font="4">the equation</text>
+<text top="664" left="378" width="10" height="13" font="4">D</text>
+<text top="664" left="390" width="6" height="14" font="4">ˆ<i>α</i></text>
+<text top="664" left="400" width="20" height="12" font="0">= (</text>
+<text top="664" left="422" width="4" height="13" font="4">I</text>
+<text top="663" left="430" width="11" height="13" font="0">−</text>
+<text top="664" left="444" width="8" height="13" font="4">P</text>
+<text top="664" left="452" width="11" height="12" font="0">)(</text>
+<text top="664" left="464" width="7" height="13" font="4">y</text>
+<text top="663" left="474" width="11" height="13" font="0">−</text>
+<text top="664" left="488" width="17" height="13" font="4">X ˆ</text>
+<text top="667" left="498" width="7" height="10" font="8"><i>β</i></text>
+<text top="664" left="506" width="5" height="12" font="0">)</text>
+<text top="664" left="512" width="3" height="13" font="4">,</text>
+<text top="664" left="728" width="16" height="13" font="4">(2)</text>
+<text top="687" left="149" width="595" height="13" font="4">for ˆ<i>α</i>. The right hand side is easily computed when we have ˆ<i>β</i>, PX and Py. The equation is solved</text>
+<text top="703" left="149" width="160" height="13" font="4">by the Kaczmarz method <a href="2013-2-gaure.html#13">(</a></text>
+<text top="703" left="309" width="61" height="13" font="6"><a href="2013-2-gaure.html#13">Kaczmarz</a></text>
+<text top="703" left="370" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="703" left="376" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1937</a></text>
+<text top="703" left="404" width="101" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>as described in</text>
+<text top="703" left="509" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="703" left="549" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="703" left="554" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="703" left="588" width="156" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>The method is available</text>
+<text top="719" left="149" width="547" height="13" font="4">as a function kaczmarz(), but the wrapper getfe() is more useful. A solution of equation <a href="2013-2-gaure.html#3">(</a></text>
+<text top="719" left="696" width="7" height="13" font="6"><a href="2013-2-gaure.html#3">2</a></text>
+<text top="719" left="703" width="41" height="13" font="4"><a href="2013-2-gaure.html#3">) </a>is not</text>
+<text top="736" left="149" width="595" height="13" font="4">unique, the matrix D dummy-encodes all the factor levels, hence there will be multicollinearities</text>
+<text top="752" left="148" width="596" height="13" font="4">(unless there is only one factor), both the obvious ones, but there can also be spurious ones. The</text>
+<text top="769" left="149" width="597" height="13" font="4">multicollinearities are resolved by applying an estimable function. <b>lfe </b>contains a function efactory()</text>
+<text top="785" left="149" width="409" height="13" font="4">for creating estimable functions, but users can also supply their own.</text>
+<text top="807" left="171" width="48" height="11" font="4">getfe()</text>
+<text top="806" left="223" width="521" height="13" font="4">returns a ’data.frame’ with some information in addition to the coefficients. The reason</text>
+<text top="823" left="149" width="595" height="13" font="4">for this is that the intended use of <b>lfe </b>is for factors with so many levels that they probably anyway must</text>
+<text top="839" left="149" width="590" height="13" font="4">be analyzed according to the researcher’s needs prior to being presented. We continue the example:</text>
+<text top="866" left="149" width="144" height="11" font="4">&gt; alpha &lt;- getfe(est)</text>
+<text top="883" left="149" width="89" height="11" font="4">&gt; nrow(alpha)</text>
+<text top="912" left="149" width="62" height="11" font="4">[1] 20000</text>
+<text top="941" left="149" width="137" height="11" font="4">&gt; alpha[9998:10003,]</text>
+<text top="970" left="238" width="123" height="11" font="4">effect obs comp fe</text>
+<text top="970" left="382" width="21" height="11" font="4">idx</text>
+<text top="987" left="149" width="48" height="11" font="4">f1.9998</text>
+<text top="987" left="211" width="69" height="11" font="4">-0.2431720</text>
+<text top="987" left="300" width="7" height="11" font="4">9</text>
+<text top="987" left="334" width="27" height="11" font="4">1 f1</text>
+<text top="987" left="375" width="27" height="11" font="4">9998</text>
+<text top="1003" left="149" width="48" height="11" font="4">f1.9999</text>
+<text top="1003" left="211" width="69" height="11" font="4">-0.9733257</text>
+<text top="1003" left="300" width="7" height="11" font="4">5</text>
+<text top="1003" left="334" width="27" height="11" font="4">1 f1</text>
+<text top="1003" left="375" width="27" height="11" font="4">9999</text>
+<text top="1020" left="149" width="130" height="11" font="4">f1.10000 -0.8456289</text>
+<text top="1020" left="300" width="7" height="11" font="4">9</text>
+<text top="1020" left="334" width="69" height="11" font="4">1 f1 10000</text>
+<text top="1036" left="149" width="27" height="11" font="4">f2.1</text>
+<text top="1036" left="217" width="62" height="11" font="4">0.4800013</text>
+<text top="1036" left="300" width="7" height="11" font="4">9</text>
+<text top="1036" left="334" width="27" height="11" font="4">1 f2</text>
+<text top="1036" left="396" width="7" height="11" font="4">1</text>
+<text top="1052" left="149" width="27" height="11" font="4">f2.2</text>
+<text top="1052" left="217" width="62" height="11" font="4">1.4868744</text>
+<text top="1052" left="293" width="14" height="11" font="4">14</text>
+<text top="1052" left="334" width="27" height="11" font="4">1 f2</text>
+<text top="1052" left="396" width="7" height="11" font="4">2</text>
+<text top="1069" left="149" width="27" height="11" font="4">f2.3</text>
+<text top="1069" left="217" width="62" height="11" font="4">1.5002583</text>
+<text top="1069" left="293" width="14" height="11" font="4">11</text>
+<text top="1069" left="334" width="27" height="11" font="4">1 f2</text>
+<text top="1069" left="396" width="7" height="11" font="4">3</text>
+<text top="1098" left="171" width="573" height="13" font="4">The ’obs’ column is the number of observations of this level. The ’fe’ and ’idx’ columns are</text>
+<text top="1115" left="149" width="41" height="11" font="4">factor</text>
+<text top="1114" left="190" width="554" height="13" font="4">s containing the same information as the row name, but split into the name of the factor and</text>
+<text top="1130" left="149" width="597" height="13" font="4">the level for convenience. The ’comp’ column is important in that it is used for identification purposes,</text>
+<text top="1147" left="149" width="595" height="13" font="4">and here is a main deviation from how lm() treats identification in the presence of factors. The</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">107</text>
+<text top="103" left="149" width="595" height="13" font="4">default method when using lm() is taken from the global ’contrasts’ option which defaults to using</text>
+<text top="120" left="149" width="595" height="13" font="4">treatment contrasts for each factor. It introduces a reference level for each factor, this is equivalent to</text>
+<text top="136" left="149" width="595" height="13" font="4">forcing the coefficient for the reference level to zero, and the other coefficients are only meaningful</text>
+<text top="152" left="148" width="597" height="13" font="4">when compared to this zero coefficient. It is also possible to specify different constraints for the lm()</text>
+<text top="169" left="149" width="598" height="13" font="4">coefficients, such as forcing the sum of the coefficients to zero, or an arbitrary one via the ’contrasts’</text>
+<text top="185" left="149" width="595" height="13" font="4">option, or the ’contrasts’ argument to lm(), but typically a single constraint is used for each factor.</text>
+<text top="206" left="171" width="573" height="13" font="4">Identification when the factors have many levels can be a more complicated matter. The standard</text>
+<text top="223" left="149" width="343" height="13" font="4">example in the econometrics literature is the one found in</text>
+<text top="223" left="495" width="76" height="13" font="6"><a href="2013-2-gaure.html#12">Abowd et al.</a></text>
+<text top="223" left="575" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="223" left="579" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1999</a></text>
+<text top="223" left="606" width="90" height="13" font="4"><a href="2013-2-gaure.html#12">), </a>elaborated in</text>
+<text top="223" left="699" width="45" height="13" font="6"><a href="2013-2-gaure.html#12">Abowd</a></text>
+<text top="239" left="149" width="28" height="13" font="6"><a href="2013-2-gaure.html#12">et al.</a></text>
+<text top="239" left="180" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="239" left="184" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">2002</a></text>
+<text top="239" left="210" width="534" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>In this case there are two factors, one for employees and one for firms. It may happen that</text>
+<text top="256" left="149" width="595" height="13" font="4">one set of employees move between one set of firms, whereas another disjoint set of employees move</text>
+<text top="272" left="149" width="595" height="13" font="4">between some other firms. There are no movements between these mobility groups, hence coefficients</text>
+<text top="288" left="149" width="595" height="13" font="4">from different groups can not be compared. A useful construction for analysis of this problem is the</text>
+<text top="305" left="149" width="595" height="13" font="4">undirected, bipartite graph which has the factor levels as vertices, and an edge between levels that</text>
+<text top="321" left="149" width="598" height="13" font="4">occur in the same observation. The mobility groups are then the connected components of this graph.</text>
+<text top="338" left="149" width="78" height="13" font="4">It is shown in</text>
+<text top="338" left="229" width="74" height="13" font="6"><a href="2013-2-gaure.html#12">Abowd et al.</a></text>
+<text top="338" left="307" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="338" left="311" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">2002</a></text>
+<text top="338" left="337" width="407" height="13" font="4"><a href="2013-2-gaure.html#12">, </a>Appendix 1) that for identification of the coefficients, it is sufficient to</text>
+<text top="354" left="149" width="598" height="13" font="4">introduce a single reference level in each of the disjoint mobility groups, either a firm or an employee.</text>
+<text top="371" left="148" width="210" height="13" font="4">This was previously established by</text>
+<text top="371" left="362" width="138" height="13" font="6"><a href="2013-2-gaure.html#12">Eccleston and Hedayat</a></text>
+<text top="371" left="503" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="371" left="508" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1974</a></text>
+<text top="371" left="535" width="209" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>in a different context, and there is</text>
+<text top="387" left="149" width="119" height="13" font="4">another argument in</text>
+<text top="387" left="271" width="36" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="387" left="310" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="387" left="314" width="33" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="387" left="347" width="397" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>using spectral graph theory. The ’comp’ column in the return value</text>
+<text top="404" left="149" width="597" height="13" font="4">from getfe() when using estimable functions from efactory() is a factor enumerating these groups,</text>
+<text top="420" left="149" width="595" height="13" font="4">i.e. the connected components. efactory() chooses by default the level with the highest number of</text>
+<text top="436" left="149" width="596" height="13" font="4">observations as a reference level, and sets the coefficient to 0. When interpreting the coefficients, they</text>
+<text top="453" left="149" width="595" height="13" font="4">should never be compared between the components; a coefficient is only meaningful relative to the</text>
+<text top="469" left="149" width="595" height="13" font="4">reference level in the component it belongs to. For this reason, one may choose to restrict attention to</text>
+<text top="486" left="149" width="556" height="13" font="4">the largest component only, the one with comp == 1, if this is feasible for the problem at hand.</text>
+<text top="507" left="171" width="573" height="13" font="4">To the author’s knowledge, the identification problem when there are more than two factors</text>
+<text top="523" left="149" width="595" height="13" font="4">has not been solved in general. efactory()’s behaviour with more than two factors is to assume</text>
+<text top="540" left="149" width="595" height="13" font="4">that the connected components of the two first factors are sufficient for identification, and a single</text>
+<text top="556" left="149" width="596" height="13" font="4">reference is used in each of the remaining factors. <b>lfe </b>contains a probabilistic test for estimability</text>
+<text top="572" left="149" width="197" height="13" font="4">in this case, the one described in</text>
+<text top="572" left="350" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="572" left="391" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="572" left="396" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="572" left="430" width="314" height="13" font="4"><a href="2013-2-gaure.html#12">, </a>Remark 6.2), and getfe() will issue a warning if it</text>
+<text top="589" left="149" width="597" height="13" font="4">finds an identification problem. The test is also available as the function is.estimable(). In theory,</text>
+<text top="605" left="149" width="595" height="13" font="4">the test can fail only on a set of measure zero. Specifically, the test uses the fact that an estimable</text>
+<text top="622" left="149" width="422" height="13" font="4">function must evaluate to the same value on all solutions of equation <a href="2013-2-gaure.html#3">(</a></text>
+<text top="622" left="571" width="7" height="13" font="6"><a href="2013-2-gaure.html#3">2</a></text>
+<text top="622" left="578" width="166" height="13" font="4"><a href="2013-2-gaure.html#3">)</a>. Different solutions can be</text>
+<text top="638" left="149" width="595" height="13" font="4">obtained by running the Kaczmarz algorithm with different initial vectors. By starting with the zero</text>
+<text top="655" left="148" width="596" height="13" font="4">vector we obtain the solution with least Euclidean norm. The test works by comparing the value of</text>
+<text top="671" left="149" width="595" height="13" font="4">the candidate estimable function on the least norm solution and a solution obtained by drawing the</text>
+<text top="687" left="149" width="595" height="13" font="4">initial vector <i>η </i>at random. The test will only fail to find an identification problem if <i>η </i>happens to lie in</text>
+<text top="704" left="149" width="598" height="13" font="4">a particular, but unknown, subspace of positive codimension, i.e. in a set of Lebesgue measure zero.</text>
+<text top="720" left="149" width="595" height="13" font="4">However, due to numerical inaccuracies, finite arithmetic, and bad luck, the test may in practice fail to</text>
+<text top="737" left="149" width="595" height="13" font="4">find an identification problem even if there is one, with some very small positive probability. It does</text>
+<text top="753" left="149" width="595" height="13" font="4">however not report identification problems when there are none. If there are identification problems</text>
+<text top="770" left="148" width="596" height="13" font="4">which are unaccounted for, then some, or all of the resulting coefficients are non-estimable, i.e. they</text>
+<text top="786" left="149" width="99" height="13" font="4">are meaningless.</text>
+<text top="807" left="171" width="573" height="13" font="4">Sometimes, an identification problem can be alleviated by changing the order of the G() terms</text>
+<text top="823" left="149" width="595" height="13" font="4">in the formula supplied to felm(). To illustrate, consider a situation where we add a third factor to</text>
+<text top="840" left="149" width="598" height="13" font="4">the example in the Introduction, nkids, the number of an individual’s offspring, with only 5 levels.</text>
+<text top="856" left="149" width="595" height="13" font="4">If our formula contains G(firm) + G(nkids) + G(id), it is likely that the graph associated with the</text>
+<text top="873" left="149" width="595" height="13" font="4">two first factors, firm and nkids, is connected, and there can be many mobility groups which are</text>
+<text top="889" left="149" width="595" height="13" font="4">unaccounted for. getfe() issues a warning, the returned coefficients are non-estimable; there is no</text>
+<text top="906" left="149" width="596" height="13" font="4">correct indication of which mobility groups the coefficients belong to, and therefore, we do not know</text>
+<text top="922" left="148" width="598" height="13" font="4">which coefficients can be meaningfully compared. If we change the model specification to G(id) +</text>
+<text top="939" left="149" width="123" height="11" font="4">G(firm) + G(nkids)</text>
+<text top="939" left="272" width="472" height="13" font="4">, or G(id) + G(firm) + nkids, the mobility groups are found, and accounted</text>
+<text top="955" left="149" width="20" height="13" font="4">for.</text>
+<text top="976" left="171" width="358" height="13" font="4">Another approach to the identification problem is found in</text>
+<text top="976" left="533" width="86" height="13" font="6"><a href="2013-2-gaure.html#12">Carneiro et al.</a></text>
+<text top="976" left="623" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="976" left="627" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2012</a></text>
+<text top="976" left="655" width="89" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>They restrict</text>
+<text top="992" left="149" width="595" height="13" font="4">attention to a subset of the dataset in which, by construction, all elementary contrasts, i.e. differences</text>
+<text top="1009" left="149" width="308" height="13" font="4">between coefficients, are estimable, as described by</text>
+<text top="1009" left="460" width="122" height="13" font="6"><a href="2013-2-gaure.html#13">Weeks and Williams</a></text>
+<text top="1009" left="585" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="1009" left="590" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1964</a></text>
+<text top="1009" left="617" width="127" height="13" font="4"><a href="2013-2-gaure.html#13">). </a>Such a partitioning</text>
+<text top="1025" left="149" width="595" height="13" font="4">of the dataset can be found by constructing a graph with the observations as vertices, and with</text>
+<text top="1042" left="149" width="595" height="13" font="4">an edge between two observations if they differ in at most a single factor. The partitions of the</text>
+<text top="1058" left="149" width="595" height="13" font="4">dataset correspond to connected components of the graph. They can be found by the function</text>
+<text top="1075" left="149" width="158" height="11" font="4">compfactor(...,WW=TRUE)</text>
+<text top="1074" left="307" width="438" height="13" font="4">, which returns a factor enumerating the partitions. It can be used to select</text>
+<text top="1091" left="149" width="595" height="13" font="4">a subset of the dataset prior to calling felm(). When there are only two factors, this partitioning</text>
+<text top="1107" left="149" width="555" height="13" font="4">structure coincides with the mobility groups discussed above. In some datasets, like the one in</text>
+<text top="1107" left="708" width="36" height="13" font="6"><a href="2013-2-gaure.html#13">Torres</a></text>
+<text top="1124" left="149" width="28" height="13" font="6"><a href="2013-2-gaure.html#13">et al.</a></text>
+<text top="1124" left="180" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="1124" left="184" width="26" height="13" font="6"><a href="2013-2-gaure.html#13">2013</a></text>
+<text top="1124" left="211" width="534" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>the largest partition comprises almost the entire dataset, but if it does not, such a selection</text>
+<text top="1140" left="149" width="355" height="13" font="4">may introduce bias in the coefficients. An extreme example:</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="12" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">108</text>
+<text top="104" left="149" width="96" height="11" font="4">&gt; set.seed(42)</text>
+<text top="120" left="149" width="316" height="11" font="4">&gt; f1 &lt;- factor(sample(50, 1000, replace=TRUE))</text>
+<text top="137" left="149" width="316" height="11" font="4">&gt; f2 &lt;- factor(sample(50, 1000, replace=TRUE))</text>
+<text top="153" left="149" width="316" height="11" font="4">&gt; f3 &lt;- factor(sample(50, 1000, replace=TRUE))</text>
+<text top="169" left="149" width="295" height="11" font="4">&gt; ww &lt;- compfactor(list(f1,f2,f3), WW=TRUE)</text>
+<text top="186" left="149" width="117" height="11" font="4">&gt; head(table(ww))</text>
+<text top="216" left="149" width="14" height="11" font="4">ww</text>
+<text top="232" left="156" width="7" height="11" font="4">1</text>
+<text top="232" left="176" width="7" height="11" font="4">2</text>
+<text top="232" left="197" width="7" height="11" font="4">3</text>
+<text top="232" left="217" width="7" height="11" font="4">4</text>
+<text top="232" left="238" width="7" height="11" font="4">5</text>
+<text top="232" left="259" width="7" height="11" font="4">6</text>
+<text top="249" left="149" width="117" height="11" font="4">29 20 19 16 14 14</text>
+<text top="278" left="148" width="596" height="13" font="4">The largest partition has 29 observations, fewer than the number of levels, even though far more</text>
+<text top="294" left="149" width="595" height="13" font="4">estimable functions exist. This can be seen by computing the rank deficiency of the matrix D with</text>
+<text top="311" left="149" width="595" height="13" font="4">the function rankMatrix() from package <b>Matrix</b>. Indeed, it is sufficient with two references in the 3</text>
+<text top="327" left="149" width="43" height="13" font="4">factors:</text>
+<text top="355" left="149" width="480" height="11" font="4">&gt; D &lt;- t(do.call(’rBind’, lapply(list(f1,f2,f3), as, ’sparseMatrix’)))</text>
+<text top="371" left="149" width="254" height="11" font="4">&gt; ncol(D) - as.integer(rankMatrix(D))</text>
+<text top="401" left="149" width="34" height="11" font="4">[1] 2</text>
+<text top="430" left="148" width="597" height="13" font="4">The standard method of efactory(), to analyze the connected components of the first two factors only,</text>
+<text top="447" left="148" width="596" height="13" font="4">works well in this particular case. It will find a reference among the two first factors, and a reference</text>
+<text top="463" left="149" width="496" height="13" font="4">in the last, and differences between coefficients within each factor will be estimable:</text>
+<text top="491" left="149" width="123" height="11" font="4">&gt; x &lt;- rnorm(1000)</text>
+<text top="507" left="149" width="610" height="11" font="4">&gt; y &lt;- 3.14*x + log(1:50)[f1] + cos(1:50)[f2] + exp(sqrt(1:50))[f3] + rnorm(1000, sd=0.5)</text>
+<text top="524" left="149" width="302" height="11" font="4">&gt; est &lt;- felm(y ~ x + G(f1) + G(f2) + G(f3))</text>
+<text top="540" left="149" width="75" height="11" font="4">&gt; coef(est)</text>
+<text top="570" left="197" width="7" height="11" font="4">x</text>
+<text top="586" left="149" width="55" height="11" font="4">3.139781</text>
+<text top="616" left="149" width="254" height="11" font="4">&gt; is.estimable(efactory(est), est$fe)</text>
+<text top="646" left="149" width="55" height="11" font="4">[1] TRUE</text>
+<text top="675" left="148" width="266" height="13" font="4">This can happen because the construction in</text>
+<text top="675" left="418" width="122" height="13" font="6"><a href="2013-2-gaure.html#13">Weeks and Williams</a></text>
+<text top="675" left="544" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="675" left="548" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1964</a></text>
+<text top="675" left="576" width="168" height="13" font="4"><a href="2013-2-gaure.html#13">, </a>Theorem 1) does not find a</text>
+<text top="692" left="149" width="476" height="13" font="4">maximal subset, only a subset which is guaranteed to have the desired property.</text>
+<text top="713" left="171" width="410" height="13" font="4">Yet another algorithm for finding estimable functions is described by</text>
+<text top="713" left="585" width="160" height="13" font="6"><a href="2013-2-gaure.html#12">Godolphin and Godolphin</a></text>
+<text top="729" left="148" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="729" left="153" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2001</a></text>
+<text top="729" left="180" width="188" height="13" font="4"><a href="2013-2-gaure.html#12">), </a>but <b>lfe </b>does not implement it.</text>
+<text top="772" left="149" width="226" height="15" font="10"><b>Specifying an estimable function</b></text>
+<text top="803" left="148" width="596" height="13" font="4">The function efactory() in <b>lfe </b>is by default called by getfe() to create an estimable function for</text>
+<text top="820" left="149" width="595" height="13" font="4">a factor structure. The default is to use reference levels as described above, some other estimable</text>
+<text top="836" left="149" width="595" height="13" font="4">functions are also available. However, researchers may have other needs, so it is possible to supply a</text>
+<text top="852" left="149" width="595" height="13" font="4">user written estimable function to getfe(). We describe this interface with an example, for a small</text>
+<text top="869" left="149" width="595" height="13" font="4">dataset. The function takes as an argument a vector of length the sum of the number of levels of the</text>
+<text top="885" left="149" width="201" height="13" font="4">factors, i.e. a solution to equation <a href="2013-2-gaure.html#3">(</a></text>
+<text top="885" left="350" width="7" height="13" font="6"><a href="2013-2-gaure.html#3">2</a></text>
+<text top="885" left="357" width="387" height="13" font="4"><a href="2013-2-gaure.html#3">)</a>, applies an estimable function of choice, and returns the result. It</text>
+<text top="902" left="149" width="595" height="13" font="4">is not necessary to include a full set of estimable functions; if so desired, our function may return just</text>
+<text top="918" left="149" width="598" height="13" font="4">a single difference between two specific factor levels, or even some nonlinear transformation thereof.</text>
+<text top="935" left="149" width="525" height="13" font="4">It should, however, evaluate to the same value on all the different solutions of equation <a href="2013-2-gaure.html#3">(</a></text>
+<text top="935" left="674" width="7" height="13" font="6"><a href="2013-2-gaure.html#3">2</a></text>
+<text top="935" left="680" width="8" height="13" font="4"><a href="2013-2-gaure.html#3">).</a></text>
+<text top="956" left="171" width="575" height="13" font="4">We make a small dataset with 100 observations, a covariate x and 3 factors with a handful of levels.</text>
+<text top="983" left="149" width="96" height="11" font="4">&gt; set.seed(42)</text>
+<text top="1000" left="149" width="117" height="11" font="4">&gt; x &lt;- rnorm(100)</text>
+<text top="1016" left="149" width="302" height="11" font="4">&gt; f1 &lt;- factor(sample(4, 100, replace=TRUE))</text>
+<text top="1032" left="149" width="302" height="11" font="4">&gt; f2 &lt;- factor(sample(5, 100, replace=TRUE))</text>
+<text top="1049" left="149" width="302" height="11" font="4">&gt; f3 &lt;- factor(sample(6, 100, replace=TRUE))</text>
+<text top="1065" left="149" width="281" height="11" font="4">&gt; e1 &lt;- sin(1:4)[f1] + 0.02*((1:5)^2)[f2]</text>
+<text top="1065" left="444" width="226" height="11" font="4">+ 0.17*((1:6)^3)[f3] + rnorm(100)</text>
+<text top="1082" left="149" width="41" height="11" font="4">&gt; y &lt;-</text>
+<text top="1082" left="204" width="144" height="11" font="4">2.5*x + (e1-mean(e1))</text>
+<text top="1098" left="149" width="302" height="11" font="4">&gt; est &lt;- felm(y ~ x + G(f1) + G(f2) + G(f3))</text>
+<text top="1124" left="171" width="573" height="13" font="4">Then we create an estimable function which is the same as the one provided by lm() when using</text>
+<text top="1141" left="149" width="595" height="13" font="4">treatment contrasts. The addnames argument is there because in the event that the estimable function</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">109</text>
+<text top="103" left="149" width="595" height="13" font="4">is used in bootstrapping, adding names to very long vectors would only contribute to exercising R’s</text>
+<text top="120" left="149" width="595" height="13" font="4">memory management; hence names should only be added when required. It is also possible to add an</text>
+<text top="137" left="149" width="62" height="11" font="4">attribute</text>
+<text top="136" left="214" width="530" height="13" font="4">called ’extra’, which is a named list of vectors of the same length as the names, for adding</text>
+<text top="152" left="149" width="595" height="13" font="4">additional information to the result of getfe(). This attribute is added by the estimable functions</text>
+<text top="169" left="149" width="595" height="13" font="4">returned by efactory() to provide the ’obs’, ’fe’, ’comp’ and ’idx’ columns, but the content is not</text>
+<text top="185" left="149" width="168" height="13" font="4">used for anything inside <b>lfe</b>.</text>
+<text top="210" left="149" width="240" height="11" font="4">&gt; ef &lt;- function(gamma, addnames) {</text>
+<text top="227" left="149" width="7" height="11" font="4">+</text>
+<text top="227" left="176" width="110" height="11" font="4">ref1 &lt;- gamma[1]</text>
+<text top="227" left="300" width="130" height="11" font="4"># first level of f1</text>
+<text top="243" left="149" width="7" height="11" font="4">+</text>
+<text top="243" left="176" width="110" height="11" font="4">ref2 &lt;- gamma[5]</text>
+<text top="243" left="300" width="130" height="11" font="4"># first level of f2</text>
+<text top="260" left="149" width="7" height="11" font="4">+</text>
+<text top="260" left="176" width="254" height="11" font="4">ref3 &lt;- gamma[10] # first level of f3</text>
+<text top="276" left="149" width="7" height="11" font="4">+</text>
+<text top="276" left="176" width="295" height="11" font="4"># put the intercept in the first coordinate</text>
+<text top="292" left="149" width="7" height="11" font="4">+</text>
+<text top="292" left="176" width="178" height="11" font="4">icpt &lt;- ref1 + ref2 + ref3</text>
+<text top="309" left="149" width="7" height="11" font="4">+</text>
+<text top="309" left="176" width="281" height="11" font="4"># subtract the references for each factor</text>
+<text top="325" left="149" width="7" height="11" font="4">+</text>
+<text top="325" left="176" width="446" height="11" font="4"># unlike the efactory() functions, we omit the zero coefficients.</text>
+<text top="342" left="149" width="7" height="11" font="4">+</text>
+<text top="342" left="176" width="480" height="11" font="4">result &lt;- c(icpt, gamma[2:4]-ref1, gamma[6:9]-ref2, gamma[11:15]-ref3)</text>
+<text top="358" left="149" width="7" height="11" font="4">+</text>
+<text top="358" left="176" width="96" height="11" font="4">if(addnames) {</text>
+<text top="375" left="149" width="7" height="11" font="4">+</text>
+<text top="375" left="190" width="226" height="11" font="4">names(result) &lt;- c(’(Intercept)’,</text>
+<text top="391" left="149" width="7" height="11" font="4">+</text>
+<text top="391" left="320" width="254" height="11" font="4">paste(’f1’, levels(f1)[2:4], sep=’’),</text>
+<text top="407" left="149" width="7" height="11" font="4">+</text>
+<text top="407" left="320" width="254" height="11" font="4">paste(’f2’, levels(f2)[2:5], sep=’’),</text>
+<text top="424" left="149" width="7" height="11" font="4">+</text>
+<text top="424" left="320" width="254" height="11" font="4">paste(’f3’, levels(f3)[2:6], sep=’’))</text>
+<text top="440" left="149" width="7" height="11" font="4">+</text>
+<text top="440" left="190" width="274" height="11" font="4">attr(result, ’extra’) &lt;- list(fe=factor(</text>
+<text top="457" left="149" width="7" height="11" font="4">+</text>
+<text top="457" left="403" width="151" height="11" font="4">c(’icpt’, rep(’f1’,3),</text>
+<text top="473" left="149" width="7" height="11" font="4">+</text>
+<text top="473" left="416" width="185" height="11" font="4">rep(’f2’,4), rep(’f3’,5))),</text>
+<text top="490" left="149" width="7" height="11" font="4">+</text>
+<text top="490" left="389" width="219" height="11" font="4">idx=factor(c(1, 2:4, 2:5, 2:6)))</text>
+<text top="506" left="149" width="7" height="11" font="4">+</text>
+<text top="506" left="176" width="7" height="11" font="4">}</text>
+<text top="523" left="149" width="7" height="11" font="4">+</text>
+<text top="523" left="176" width="41" height="11" font="4">result</text>
+<text top="539" left="149" width="21" height="11" font="4">+ }</text>
+<text top="563" left="148" width="266" height="13" font="4">We now check that our function is estimable:</text>
+<text top="588" left="149" width="233" height="11" font="4">&gt; is.estimable(ef, list(f1,f2,f3))</text>
+<text top="614" left="149" width="55" height="11" font="4">[1] TRUE</text>
+<text top="639" left="148" width="596" height="13" font="4">The estimable function is supplied to getfe() via the argument ef. In this example we also request</text>
+<text top="656" left="149" width="595" height="13" font="4">bootstrapped standard errors with the arguments se and bN, we elaborate on this in the next section.</text>
+<text top="681" left="149" width="254" height="11" font="4">&gt; getfe(est, ef=ef, se=TRUE, bN=1000)</text>
+<text top="707" left="265" width="41" height="11" font="4">effect</text>
+<text top="707" left="327" width="41" height="11" font="4">fe idx</text>
+<text top="707" left="423" width="14" height="11" font="4">se</text>
+<text top="723" left="149" width="192" height="11" font="4">(Intercept) -10.9016327 icpt</text>
+<text top="723" left="361" width="75" height="11" font="4">1 0.3077378</text>
+<text top="739" left="149" width="21" height="11" font="4">f12</text>
+<text top="739" left="238" width="69" height="11" font="4">-0.1265879</text>
+<text top="739" left="327" width="14" height="11" font="4">f1</text>
+<text top="739" left="361" width="75" height="11" font="4">2 0.2356162</text>
+<text top="756" left="149" width="21" height="11" font="4">f13</text>
+<text top="756" left="238" width="69" height="11" font="4">-0.7541019</text>
+<text top="756" left="327" width="14" height="11" font="4">f1</text>
+<text top="756" left="361" width="75" height="11" font="4">3 0.2896058</text>
+<text top="772" left="149" width="21" height="11" font="4">f14</text>
+<text top="772" left="238" width="69" height="11" font="4">-1.7409436</text>
+<text top="772" left="327" width="14" height="11" font="4">f1</text>
+<text top="772" left="361" width="75" height="11" font="4">4 0.2776542</text>
+<text top="789" left="149" width="21" height="11" font="4">f22</text>
+<text top="789" left="245" width="62" height="11" font="4">0.4611797</text>
+<text top="789" left="327" width="14" height="11" font="4">f2</text>
+<text top="789" left="361" width="75" height="11" font="4">2 0.3012931</text>
+<text top="805" left="149" width="21" height="11" font="4">f23</text>
+<text top="805" left="245" width="62" height="11" font="4">0.6852553</text>
+<text top="805" left="327" width="14" height="11" font="4">f2</text>
+<text top="805" left="361" width="75" height="11" font="4">3 0.2898361</text>
+<text top="822" left="149" width="21" height="11" font="4">f24</text>
+<text top="822" left="245" width="62" height="11" font="4">0.8467309</text>
+<text top="822" left="327" width="14" height="11" font="4">f2</text>
+<text top="822" left="361" width="75" height="11" font="4">4 0.3232411</text>
+<text top="838" left="149" width="21" height="11" font="4">f25</text>
+<text top="838" left="245" width="62" height="11" font="4">0.5886517</text>
+<text top="838" left="327" width="14" height="11" font="4">f2</text>
+<text top="838" left="361" width="75" height="11" font="4">5 0.2841049</text>
+<text top="854" left="149" width="21" height="11" font="4">f32</text>
+<text top="854" left="245" width="62" height="11" font="4">1.0898551</text>
+<text top="854" left="327" width="14" height="11" font="4">f3</text>
+<text top="854" left="361" width="75" height="11" font="4">2 0.3364884</text>
+<text top="871" left="149" width="21" height="11" font="4">f33</text>
+<text top="871" left="245" width="62" height="11" font="4">4.3490898</text>
+<text top="871" left="327" width="14" height="11" font="4">f3</text>
+<text top="871" left="361" width="75" height="11" font="4">3 0.3058420</text>
+<text top="887" left="149" width="21" height="11" font="4">f34</text>
+<text top="887" left="238" width="69" height="11" font="4">10.7505266</text>
+<text top="887" left="327" width="14" height="11" font="4">f3</text>
+<text top="887" left="361" width="75" height="11" font="4">4 0.3377505</text>
+<text top="904" left="149" width="21" height="11" font="4">f35</text>
+<text top="904" left="238" width="69" height="11" font="4">21.3832700</text>
+<text top="904" left="327" width="14" height="11" font="4">f3</text>
+<text top="904" left="361" width="75" height="11" font="4">5 0.3649107</text>
+<text top="920" left="149" width="21" height="11" font="4">f36</text>
+<text top="920" left="238" width="69" height="11" font="4">36.7369397</text>
+<text top="920" left="327" width="14" height="11" font="4">f3</text>
+<text top="920" left="361" width="75" height="11" font="4">6 0.3059049</text>
+<text top="946" left="171" width="48" height="11" font="4">getfe()</text>
+<text top="946" left="222" width="522" height="13" font="4">performs no automatic addition of columns like ’idx’ or ’comp’, they have to be provided</text>
+<text top="962" left="149" width="596" height="13" font="4">by the estimable function. The reason being that getfe() does not know the structure imposed by</text>
+<text top="979" left="149" width="598" height="13" font="4">the user written function. If bootstrapped standard errors are requested via the se argument, the ’se’</text>
+<text top="995" left="149" width="595" height="13" font="4">column is added also for user written functions. If you are certain that your function is estimable, you</text>
+<text top="1011" left="149" width="596" height="13" font="4">can add an attribute to it, attr(ef,’verified’) &lt;- TRUE, this causes getfe() to skip the estimability</text>
+<text top="1028" left="149" width="595" height="13" font="4">test, and may save significant amounts of time with datasets for which convergence is slow. The</text>
+<text top="1044" left="149" width="483" height="13" font="4">functions produced by efactory() for one and two factors have this attribute set.</text>
+<text top="1088" left="149" width="127" height="17" font="5"><b>Standard errors</b></text>
+<text top="1130" left="148" width="596" height="13" font="4">The standard errors for ˆ<i>β </i>are easily computed, and are identical to the the standard errors from lm() if</text>
+<text top="1147" left="148" width="596" height="13" font="4">we were to run it with all the dummies. However, there is a minor difference. The degrees of freedom</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">110</text>
+<text top="103" left="149" width="255" height="13" font="4">depends on the rank of the matrix D, or D</text>
+<text top="100" left="404" width="3" height="10" font="9">t</text>
+<text top="103" left="409" width="335" height="14" font="4">D, or the trace of P. The rank is easily computed for the</text>
+<text top="120" left="149" width="595" height="13" font="4">cases with one or two factors, but requires a much more time consuming approach for 3 or more</text>
+<text top="136" left="149" width="572" height="13" font="4">factors. The default approach of felm() is to assume that the column rank deficiency of D is e</text>
+<text top="135" left="724" width="11" height="13" font="0">−</text>
+<text top="136" left="738" width="7" height="13" font="4">1</text>
+<text top="152" left="148" width="98" height="13" font="4">when there are e</text>
+<text top="152" left="251" width="11" height="12" font="0">&gt;</text>
+<text top="152" left="265" width="479" height="13" font="4">2 factors. This may result in a too high value for the rank, hence a too low value</text>
+<text top="169" left="149" width="596" height="13" font="4">for the degrees of freedom, which will yield too high standard errors. In most real cases the author</text>
+<text top="185" left="149" width="595" height="13" font="4">has witnessed, the error is negligible. felm() has an argument exactDOF which may be set to TRUE</text>
+<text top="202" left="149" width="595" height="13" font="4">to activate a more accurate computation of the rank. It does a sparse pivoted Cholesky factorization</text>
+<text top="218" left="149" width="27" height="13" font="4">of D</text>
+<text top="215" left="176" width="3" height="10" font="9">t</text>
+<text top="218" left="181" width="10" height="13" font="4">D</text>
+<text top="218" left="195" width="11" height="12" font="0">+</text>
+<text top="221" left="209" width="12" height="10" font="8"><i>e</i>I</text>
+<text top="218" left="225" width="519" height="13" font="4">for some small <i>e </i>and finds the rank deficiency by counting small pivots. This is not a</text>
+<text top="235" left="148" width="171" height="13" font="4">perfect method, as noted by</text>
+<text top="235" left="324" width="50" height="13" font="6"><a href="2013-2-gaure.html#13">Higham</a></text>
+<text top="235" left="378" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="235" left="382" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1990</a></text>
+<text top="235" left="410" width="335" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>but it seems to work well for the matrices the author</text>
+<text top="251" left="149" width="597" height="13" font="4">has encountered, and it is much faster than rankMatrix() from package <b>Matrix</b>. To use rankMatrix()</text>
+<text top="268" left="149" width="595" height="13" font="4">instead, one may specify exactDOF=’rM’. If, for some reason, one happens to know the degrees of</text>
+<text top="284" left="149" width="479" height="13" font="4">freedom in advance, they can be specified as a numeric, like exactDOF=12536819.</text>
+<text top="305" left="171" width="575" height="13" font="4">The standard errors for ˆ<i>α</i>, the coefficients for the factor levels, can be estimated by bootstrapping.</text>
+<text top="321" left="148" width="596" height="13" font="4">This requires resampling the residuals with replacement, and do the whole estimation over and over</text>
+<text top="338" left="149" width="597" height="13" font="4">again, an operation which can be very time consuming. It can be requested, as in the above example,</text>
+<text top="354" left="149" width="595" height="13" font="4">by the se argument to getfe(), the number of samples can be specified in the bN argument. The</text>
+<text top="371" left="149" width="597" height="13" font="4">common practice of resampling observations rather than residuals is not useful for this kind of model,</text>
+<text top="387" left="149" width="595" height="13" font="4">it results in a different factor structure, hence possibly a different set of identified coefficients in each</text>
+<text top="404" left="149" width="46" height="13" font="4">sample.</text>
+<text top="448" left="149" width="186" height="17" font="5"><b>Instrumental variables</b></text>
+<text top="487" left="149" width="16" height="13" font="3"><b>lfe</b></text>
+<text top="487" left="169" width="467" height="13" font="4">supports instrumental variables estimation through 2SLS, i.e. two step OLS <a href="2013-2-gaure.html#13">(</a></text>
+<text top="487" left="636" width="72" height="13" font="6"><a href="2013-2-gaure.html#13">Wooldridge</a></text>
+<text top="487" left="708" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="487" left="715" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2002</a></text>
+<text top="487" left="742" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="504" left="149" width="66" height="13" font="4">Chapter 5).</text>
+<text top="525" left="171" width="307" height="13" font="4">Here is an example. We first create some covariates:</text>
+<text top="552" left="149" width="123" height="11" font="4">&gt; set.seed(276709)</text>
+<text top="568" left="149" width="130" height="11" font="4">&gt; x &lt;- rnorm(10000)</text>
+<text top="585" left="149" width="165" height="11" font="4">&gt; x2 &lt;- rnorm(length(x))</text>
+<text top="601" left="149" width="165" height="11" font="4">&gt; x3 &lt;- rnorm(length(x))</text>
+<text top="628" left="148" width="273" height="13" font="4">Then we create some factors, and their effects:</text>
+<text top="655" left="149" width="364" height="11" font="4">&gt; id &lt;- factor(sample(2000, length(x), replace=TRUE))</text>
+<text top="672" left="149" width="377" height="11" font="4">&gt; firm &lt;- factor(sample(1300, length(x), replace=TRUE))</text>
+<text top="688" left="149" width="206" height="11" font="4">&gt; id.eff &lt;- rnorm(nlevels(id))</text>
+<text top="704" left="149" width="233" height="11" font="4">&gt; firm.eff &lt;- rnorm(nlevels(firm))</text>
+<text top="731" left="149" width="350" height="13" font="4">and a normally distributed error term u, and an outcome y:</text>
+<text top="758" left="149" width="158" height="11" font="4">&gt; u &lt;- rnorm(length(x))</text>
+<text top="775" left="149" width="350" height="11" font="4">&gt; y &lt;- x + 0.5*x2 + id.eff[id] + firm.eff[firm] + u</text>
+<text top="801" left="148" width="596" height="13" font="4">We create a covariate Q which is correlated with the other covariates, the instrument x3, and the error</text>
+<text top="817" left="149" width="191" height="13" font="4">term, and add it to the outcome:</text>
+<text top="845" left="149" width="535" height="11" font="4">&gt; Q &lt;- 0.3*x3 + x + 0.2*x2 + 0.5*id.eff[id] + 0.7*u + rnorm(length(x), sd=0.3)</text>
+<text top="861" left="149" width="110" height="11" font="4">&gt; y &lt;- y + 0.9*Q</text>
+<text top="888" left="171" width="573" height="13" font="4">Estimation is now carried out by specifying the instrumented variable equation with the iv</text>
+<text top="904" left="149" width="595" height="13" font="4">argument of felm. Only the instrument variable, in this case x3, is needed, the other covariates are</text>
+<text top="921" left="149" width="104" height="13" font="4">added by felm().</text>
+<text top="948" left="149" width="412" height="11" font="4">&gt; ivest &lt;- felm(y ~ x + x2 + G(id) + G(firm) + Q, iv=Q ~ x3)</text>
+<text top="964" left="149" width="110" height="11" font="4">&gt; summary(ivest)</text>
+<text top="994" left="149" width="34" height="11" font="4">Call:</text>
+<text top="1011" left="169" width="418" height="11" font="4">felm(formula = y ~ x + x2 + G(id) + G(firm) + Q, iv = Q ~ x3)</text>
+<text top="1044" left="149" width="69" height="11" font="4">Residuals:</text>
+<text top="1060" left="190" width="21" height="11" font="4">Min</text>
+<text top="1060" left="265" width="14" height="11" font="4">1Q</text>
+<text top="1060" left="307" width="41" height="11" font="4">Median</text>
+<text top="1060" left="403" width="14" height="11" font="4">3Q</text>
+<text top="1060" left="464" width="21" height="11" font="4">Max</text>
+<text top="1077" left="149" width="130" height="11" font="4">-6.036142 -0.903260</text>
+<text top="1077" left="293" width="55" height="11" font="4">0.000759</text>
+<text top="1077" left="361" width="55" height="11" font="4">0.913758</text>
+<text top="1077" left="430" width="55" height="11" font="4">4.971614</text>
+<text top="1109" left="149" width="89" height="11" font="4">Coefficients:</text>
+<text top="1126" left="211" width="247" height="11" font="4">Estimate Std. Error t value Pr(&gt;|t|)</text>
+<text top="1142" left="149" width="7" height="11" font="4">x</text>
+<text top="1142" left="217" width="48" height="11" font="4">0.94963</text>
+<text top="1142" left="293" width="48" height="11" font="4">0.03975</text>
+<text top="1142" left="361" width="34" height="11" font="4">23.89</text>
+<text top="1142" left="416" width="69" height="11" font="4">&lt;2e-16 ***</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">111</text>
+<text top="104" left="149" width="14" height="11" font="4">x2</text>
+<text top="104" left="217" width="48" height="11" font="4">0.49567</text>
+<text top="104" left="293" width="48" height="11" font="4">0.01449</text>
+<text top="104" left="361" width="34" height="11" font="4">34.20</text>
+<text top="104" left="416" width="69" height="11" font="4">&lt;2e-16 ***</text>
+<text top="120" left="149" width="55" height="11" font="4">‘Q(fit)‘</text>
+<text top="120" left="217" width="48" height="11" font="4">0.94297</text>
+<text top="120" left="293" width="48" height="11" font="4">0.03816</text>
+<text top="120" left="361" width="34" height="11" font="4">24.71</text>
+<text top="120" left="416" width="69" height="11" font="4">&lt;2e-16 ***</text>
+<text top="137" left="149" width="21" height="11" font="4">---</text>
+<text top="153" left="149" width="96" height="11" font="4">Signif. codes:</text>
+<text top="153" left="259" width="316" height="11" font="4">0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</text>
+<text top="186" left="149" width="391" height="11" font="4">Residual standard error: 1.668 on 6717 degrees of freedom</text>
+<text top="202" left="149" width="178" height="11" font="4">Multiple R-squared: 0.8112</text>
+<text top="202" left="348" width="178" height="11" font="4">Adjusted R-squared: 0.7189</text>
+<text top="219" left="149" width="398" height="11" font="4">F-statistic: 8.791 on 3282 and 6717 DF, p-value: &lt; 2.2e-16</text>
+<text top="249" left="171" width="41" height="11" font="4">felm()</text>
+<text top="248" left="216" width="529" height="13" font="4">supports more than one instrumented variable, in this case the iv argument must be a list</text>
+<text top="265" left="149" width="570" height="13" font="4">of formulas, one for each instrumented variable, with all the instruments on the right hand side.</text>
+<text top="285" left="171" width="573" height="13" font="4">The author has been made aware that both the G() syntax and the handling of instrumental</text>
+<text top="302" left="148" width="596" height="13" font="4">variables equations could be done in a smoother fashion with multi-part formulas. Such a syntax is</text>
+<text top="318" left="149" width="173" height="13" font="4">not presently available in <b>lfe</b>.</text>
+<text top="363" left="149" width="130" height="17" font="5"><b>Estimation time</b></text>
+<text top="402" left="149" width="595" height="13" font="4">It is a fact of life that both felm() and getfe() may take quite a while to complete. What is more</text>
+<text top="418" left="149" width="595" height="13" font="4">unfortunate is that time to completion does not only depend on the size of the dataset, but also on its</text>
+<text top="435" left="149" width="597" height="13" font="4">structure. In particular, the dependencies between the factors, beyond the pure identification problems,</text>
+<text top="451" left="149" width="595" height="13" font="4">have a huge impact. The rate of convergence for the general method of alternating projections has</text>
+<text top="468" left="149" width="103" height="13" font="4">been analyzed by</text>
+<text top="468" left="256" width="61" height="13" font="6"><a href="2013-2-gaure.html#12">Aronszajn</a></text>
+<text top="468" left="320" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="468" left="324" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1950</a></text>
+<text top="468" left="351" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">);</a></text>
+<text top="468" left="362" width="122" height="13" font="6"><a href="2013-2-gaure.html#13">Kayalar and Weinert</a></text>
+<text top="468" left="487" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="468" left="492" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">1988</a></text>
+<text top="468" left="519" width="8" height="13" font="4"><a href="2013-2-gaure.html#13">);</a></text>
+<text top="468" left="530" width="120" height="13" font="6"><a href="2013-2-gaure.html#12">Gearhart and Koshy</a></text>
+<text top="468" left="653" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="468" left="657" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1989</a></text>
+<text top="468" left="684" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">);</a></text>
+<text top="468" left="695" width="49" height="13" font="6"><a href="2013-2-gaure.html#12">Deutsch</a></text>
+<text top="484" left="149" width="71" height="13" font="6"><a href="2013-2-gaure.html#12">and Hundal</a></text>
+<text top="484" left="223" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="484" left="228" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">1997</a></text>
+<text top="484" left="254" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">);</a></text>
+<text top="484" left="265" width="87" height="13" font="6"><a href="2013-2-gaure.html#12">Bauschke et al.</a></text>
+<text top="484" left="355" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="484" left="360" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">2003</a></text>
+<text top="484" left="386" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">);</a></text>
+<text top="484" left="398" width="67" height="13" font="6"><a href="2013-2-gaure.html#12">Badea et al.</a></text>
+<text top="484" left="468" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="484" left="472" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">2012</a></text>
+<text top="484" left="499" width="245" height="13" font="4"><a href="2013-2-gaure.html#12">), </a>among others. Their results are in terms</text>
+<text top="501" left="149" width="565" height="13" font="4">of the cosine c of generalized angles between the subspaces corresponding to the projections P</text>
+<text top="505" left="713" width="3" height="10" font="9">i</text>
+<text top="501" left="716" width="28" height="13" font="4">. For</text>
+<text top="517" left="149" width="391" height="13" font="4">two factors, the convergence rate in operator norm is known to be</text>
+<text top="547" left="377" width="13" height="13" font="0">k(</text>
+<text top="548" left="390" width="8" height="13" font="4">P</text>
+<text top="553" left="397" width="5" height="10" font="9">1</text>
+<text top="548" left="404" width="8" height="13" font="4">P</text>
+<text top="553" left="411" width="5" height="10" font="9">2</text>
+<text top="548" left="417" width="5" height="12" font="0">)</text>
+<text top="544" left="423" width="6" height="10" font="9">n</text>
+<text top="547" left="432" width="11" height="13" font="0">−</text>
+<text top="548" left="446" width="8" height="13" font="4">P</text>
+<text top="547" left="455" width="22" height="13" font="0">k =</text>
+<text top="548" left="481" width="5" height="13" font="4">c</text>
+<text top="544" left="487" width="25" height="10" font="9">2n−1</text>
+<text top="548" left="513" width="3" height="13" font="4">,</text>
+<text top="548" left="728" width="16" height="13" font="4">(3)</text>
+<text top="577" left="148" width="47" height="13" font="4">where 0</text>
+<text top="576" left="199" width="11" height="13" font="0">≤</text>
+<text top="577" left="214" width="5" height="13" font="4">c</text>
+<text top="577" left="224" width="11" height="12" font="0">&lt;</text>
+<text top="577" left="238" width="506" height="13" font="4">1. The convergence is linear in the case with two factors, but the rate depends heavily</text>
+<text top="593" left="149" width="595" height="13" font="4">on the structure of the factors. With 3 or more factors, the convergence rate depends on both the</text>
+<text top="610" left="149" width="518" height="13" font="4">structure of the factors and their order in the iterations, in a quite complicated way <a href="2013-2-gaure.html#12">(</a></text>
+<text top="610" left="667" width="77" height="13" font="6"><a href="2013-2-gaure.html#12">Deutsch and</a></text>
+<text top="626" left="149" width="47" height="13" font="6"><a href="2013-2-gaure.html#12">Hundal</a></text>
+<text top="626" left="196" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="626" left="204" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1997</a></text>
+<text top="626" left="231" width="513" height="13" font="4"><a href="2013-2-gaure.html#12">, </a>Theorem 2.7). The theoretical convergence results are also valid for the Kaczmarz</text>
+<text top="643" left="149" width="545" height="13" font="4">method used by getfe(), as this is a special case of the method of alternating projections <a href="2013-2-gaure.html#12">(</a></text>
+<text top="643" left="694" width="50" height="13" font="6"><a href="2013-2-gaure.html#12">Deutsch</a></text>
+<text top="659" left="149" width="71" height="13" font="6"><a href="2013-2-gaure.html#12">and Hundal</a></text>
+<text top="659" left="220" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="659" left="226" width="26" height="13" font="6"><a href="2013-2-gaure.html#12">1997</a></text>
+<text top="659" left="253" width="492" height="13" font="4"><a href="2013-2-gaure.html#12">, </a>Section 4). Though, for our Kaczmarz step the number of projections is the number</text>
+<text top="676" left="149" width="251" height="13" font="4">of observations, not the number of factors.</text>
+<text top="697" left="171" width="573" height="13" font="4">We do not offer general results which relate intuitive properties of the factors to the convergence</text>
+<text top="713" left="149" width="395" height="13" font="4">rate, but here are some small examples to illustrate the complexity.</text>
+<text top="734" left="171" width="347" height="13" font="4">In our first example the factors f1 and f2 are independent:</text>
+<text top="761" left="149" width="96" height="11" font="4">&gt; set.seed(54)</text>
+<text top="778" left="149" width="137" height="11" font="4">&gt; x &lt;- rnorm(100000)</text>
+<text top="794" left="149" width="316" height="11" font="4">&gt; f1 &lt;- sample(10000, length(x), replace=TRUE)</text>
+<text top="811" left="149" width="302" height="11" font="4">&gt; f2 &lt;- sample(300, length(x), replace=TRUE)</text>
+<text top="827" left="149" width="391" height="11" font="4">&gt; y &lt;- x + cos(f1) + log(f2+1) + rnorm(length(x), sd=0.5)</text>
+<text top="853" left="148" width="140" height="13" font="4">We time the estimation:</text>
+<text top="881" left="149" width="336" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + G(f2)))</text>
+<text top="911" left="169" width="27" height="11" font="4">user</text>
+<text top="911" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="927" left="163" width="34" height="11" font="4">2.420</text>
+<text top="927" left="217" width="34" height="11" font="4">0.008</text>
+<text top="927" left="272" width="34" height="11" font="4">1.955</text>
+<text top="957" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="987" left="169" width="27" height="11" font="4">user</text>
+<text top="987" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="1004" left="163" width="34" height="11" font="4">0.256</text>
+<text top="1004" left="217" width="34" height="11" font="4">0.008</text>
+<text top="1004" left="272" width="34" height="11" font="4">0.263</text>
+<text top="1033" left="148" width="596" height="13" font="4">This is a quite fast example, in general it is the author’s experience that datasets with this kind of full</text>
+<text top="1049" left="149" width="595" height="13" font="4">independence between the factors converge quite fast. Convergence is equally fast with 10,000 levels</text>
+<text top="1066" left="149" width="164" height="13" font="4">in the second factor as well.</text>
+<text top="1087" left="171" width="573" height="13" font="4">But then we introduce a dependence which makes convergence slow. We let the second factor be</text>
+<text top="1103" left="149" width="595" height="13" font="4">closely related to the first, with some stochasticity, but we do not increase the number of levels. In this</text>
+<text top="1119" left="149" width="490" height="13" font="4">example, the second factor f3 can only have 5 different values for each value of f1.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">112</text>
+<text top="104" left="149" width="384" height="11" font="4">&gt; f3 &lt;- (f1 + sample(5, length(x), replace=TRUE)) %% 300</text>
+<text top="120" left="149" width="391" height="11" font="4">&gt; y &lt;- x + cos(f1) + log(f3+1) + rnorm(length(x), sd=0.5)</text>
+<text top="137" left="149" width="336" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + G(f3)))</text>
+<text top="166" left="169" width="27" height="11" font="4">user</text>
+<text top="166" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="182" left="156" width="41" height="11" font="4">34.624</text>
+<text top="182" left="217" width="34" height="11" font="4">0.000</text>
+<text top="182" left="265" width="41" height="11" font="4">18.804</text>
+<text top="212" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="241" left="169" width="27" height="11" font="4">user</text>
+<text top="241" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="258" left="163" width="34" height="11" font="4">3.868</text>
+<text top="258" left="217" width="34" height="11" font="4">0.008</text>
+<text top="258" left="272" width="34" height="11" font="4">3.880</text>
+<text top="287" left="149" width="595" height="13" font="4">Execution time increases by an order of magnitude, even though the size of the dataset is the same as</text>
+<text top="303" left="149" width="596" height="13" font="4">before. In this example, with only 300 levels in the second factor, we may as well encode it as ordinary</text>
+<text top="319" left="149" width="541" height="13" font="4">dummies, reducing our model to the classical within groups estimator, with 300 covariates:</text>
+<text top="347" left="149" width="370" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + factor(f3)))</text>
+<text top="376" left="169" width="27" height="11" font="4">user</text>
+<text top="376" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="393" left="156" width="41" height="11" font="4">10.340</text>
+<text top="393" left="217" width="34" height="11" font="4">0.832</text>
+<text top="393" left="272" width="34" height="11" font="4">5.379</text>
+<text top="422" left="149" width="130" height="11" font="4">&gt; length(coef(est))</text>
+<text top="451" left="149" width="48" height="11" font="4">[1] 300</text>
+<text top="481" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="510" left="169" width="27" height="11" font="4">user</text>
+<text top="510" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="527" left="163" width="34" height="11" font="4">0.192</text>
+<text top="527" left="217" width="34" height="11" font="4">0.000</text>
+<text top="527" left="272" width="34" height="11" font="4">0.192</text>
+<text top="556" left="171" width="573" height="13" font="4">This is far from being the whole story. A “small” change to the second factor brings the execution</text>
+<text top="572" left="149" width="595" height="13" font="4">time back down. We still have only 5 different values of the second factor f4 for each value of f1, but</text>
+<text top="588" left="149" width="196" height="13" font="4">they are spread irregularly apart:</text>
+<text top="616" left="149" width="398" height="11" font="4">&gt; f4 &lt;- (f1 + sample(5, length(x), replace=TRUE)^3) %% 300</text>
+<text top="632" left="149" width="391" height="11" font="4">&gt; y &lt;- x + cos(f1) + log(f4+1) + rnorm(length(x), sd=0.5)</text>
+<text top="648" left="149" width="336" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + G(f4)))</text>
+<text top="678" left="169" width="27" height="11" font="4">user</text>
+<text top="678" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="694" left="163" width="34" height="11" font="4">2.564</text>
+<text top="694" left="217" width="34" height="11" font="4">0.000</text>
+<text top="694" left="272" width="34" height="11" font="4">2.081</text>
+<text top="724" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="753" left="169" width="27" height="11" font="4">user</text>
+<text top="753" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="770" left="163" width="34" height="11" font="4">0.240</text>
+<text top="770" left="217" width="34" height="11" font="4">0.004</text>
+<text top="770" left="272" width="34" height="11" font="4">0.244</text>
+<text top="798" left="171" width="573" height="13" font="4">To better appreciate the complexity, we create two more examples which are similar to the previous</text>
+<text top="815" left="149" width="596" height="13" font="4">one, but the randomly drawn numbers are spread regularly apart. The first one results in slow</text>
+<text top="831" left="149" width="78" height="13" font="4">convergence:</text>
+<text top="859" left="149" width="466" height="11" font="4">&gt; f5 &lt;- (f1 + sample(seq(1,197,49), length(x), replace=TRUE)) %% 300</text>
+<text top="875" left="149" width="391" height="11" font="4">&gt; y &lt;- x + cos(f1) + log(f5+1) + rnorm(length(x), sd=0.5)</text>
+<text top="891" left="149" width="336" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + G(f5)))</text>
+<text top="921" left="169" width="27" height="11" font="4">user</text>
+<text top="921" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="937" left="156" width="41" height="11" font="4">32.636</text>
+<text top="937" left="217" width="34" height="11" font="4">0.000</text>
+<text top="937" left="265" width="41" height="11" font="4">17.368</text>
+<text top="967" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="996" left="169" width="27" height="11" font="4">user</text>
+<text top="996" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="1013" left="163" width="34" height="11" font="4">3.972</text>
+<text top="1013" left="217" width="34" height="11" font="4">0.000</text>
+<text top="1013" left="272" width="34" height="11" font="4">3.975</text>
+<text top="1041" left="148" width="184" height="13" font="4">The second one converges fast:</text>
+<text top="1069" left="149" width="466" height="11" font="4">&gt; f6 &lt;- (f1 + sample(seq(1,201,50), length(x), replace=TRUE)) %% 300</text>
+<text top="1085" left="149" width="391" height="11" font="4">&gt; y &lt;- x + cos(f1) + log(f6+1) + rnorm(length(x), sd=0.5)</text>
+<text top="1101" left="149" width="336" height="11" font="4">&gt; system.time(est &lt;- felm(y ~ x + G(f1) + G(f6)))</text>
+<text top="1131" left="169" width="27" height="11" font="4">user</text>
+<text top="1131" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="1147" left="163" width="34" height="11" font="4">2.548</text>
+<text top="1147" left="217" width="34" height="11" font="4">0.000</text>
+<text top="1147" left="272" width="34" height="11" font="4">2.073</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">113</text>
+<text top="104" left="149" width="233" height="11" font="4">&gt; system.time(alpha &lt;- getfe(est))</text>
+<text top="134" left="169" width="27" height="11" font="4">user</text>
+<text top="134" left="211" width="96" height="11" font="4">system elapsed</text>
+<text top="150" left="163" width="34" height="11" font="4">0.244</text>
+<text top="150" left="217" width="34" height="11" font="4">0.000</text>
+<text top="150" left="272" width="34" height="11" font="4">0.244</text>
+<text top="179" left="171" width="573" height="13" font="4">By comparing the “user” and “elapsed” times for felm() in the above examples, it can be inferred</text>
+<text top="196" left="149" width="595" height="13" font="4">that most of the time in the fast examples is spent in bookkeeping outside the centring, otherwise</text>
+<text top="212" left="147" width="597" height="13" font="4">“user” time would be close to twice the “elapsed” time, since the actual centring of y and x is done in</text>
+<text top="229" left="148" width="596" height="13" font="4">parallel. This means that the actual centring convergence rate differences are larger than the reported</text>
+<text top="245" left="149" width="595" height="13" font="4">differences in execution time. For a careful analysis of centring times only, the centring process should</text>
+<text top="262" left="149" width="201" height="13" font="4">be timed directly, as mentioned in</text>
+<text top="262" left="353" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="262" left="393" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="262" left="398" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="262" left="431" width="82" height="13" font="4"><a href="2013-2-gaure.html#12">, </a>top of p. 17).</text>
+<text top="282" left="171" width="575" height="13" font="4">The author has not succeeded in finding general intuitive guidelines for the convergence rate.</text>
+<text top="299" left="149" width="595" height="13" font="4">However, with two factors, a relevant concept seems to be the bipartite graph where the vertices are</text>
+<text top="315" left="149" width="595" height="13" font="4">factor levels and there is an edge between levels which are observed together. It is the connected</text>
+<text top="332" left="149" width="595" height="13" font="4">components of this graph which determines estimability. The graph can be analyzed with the tools in</text>
+<text top="348" left="148" width="49" height="13" font="4">package</text>
+<text top="348" left="201" width="40" height="13" font="7"><a href="http://CRAN.R-project.org/package=igraph"><b>igraph</b></a></text>
+<text top="348" left="244" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="348" left="249" width="115" height="13" font="6"><a href="2013-2-gaure.html#12">Csardi and Nepusz</a></text>
+<text top="348" left="364" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="348" left="370" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2006</a></text>
+<text top="348" left="397" width="71" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>as follows:</text>
+<text top="376" left="149" width="117" height="11" font="4">&gt; library(igraph)</text>
+<text top="392" left="149" width="206" height="11" font="4">&gt; mkgraph &lt;- function(flist) {</text>
+<text top="409" left="149" width="7" height="11" font="4">+</text>
+<text top="409" left="176" width="295" height="11" font="4">graph.adjacency(tcrossprod(do.call(’rBind’,</text>
+<text top="425" left="149" width="7" height="11" font="4">+</text>
+<text top="425" left="416" width="261" height="11" font="4">lapply(flist, as, ’sparseMatrix’)))&gt;0,</text>
+<text top="441" left="149" width="7" height="11" font="4">+</text>
+<text top="441" left="286" width="171" height="11" font="4">’undirected’, diag=FALSE)</text>
+<text top="458" left="149" width="21" height="11" font="4">+ }</text>
+<text top="484" left="148" width="235" height="13" font="4">We make a list of the associated graphs:</text>
+<text top="512" left="149" width="268" height="11" font="4">&gt; glist &lt;- lapply(list(f2,f3,f4,f5,f6),</text>
+<text top="528" left="149" width="7" height="11" font="4">+</text>
+<text top="528" left="272" width="329" height="11" font="4">function(f) mkgraph(lapply(list(f1,f), factor)))</text>
+<text top="554" left="148" width="271" height="13" font="4">The graphs, except for the last, are connected:</text>
+<text top="582" left="149" width="192" height="11" font="4">&gt; sapply(glist, no.clusters)</text>
+<text top="612" left="149" width="21" height="11" font="4">[1]</text>
+<text top="612" left="183" width="7" height="11" font="4">1</text>
+<text top="612" left="204" width="7" height="11" font="4">1</text>
+<text top="612" left="224" width="7" height="11" font="4">1</text>
+<text top="612" left="245" width="27" height="11" font="4">1 50</text>
+<text top="641" left="148" width="596" height="13" font="4">The average degrees, i.e. the number of edges in the graph, show no convincing signs of being strongly</text>
+<text top="658" left="149" width="178" height="13" font="4">related to the estimation time:</text>
+<text top="685" left="149" width="302" height="11" font="4">&gt; sapply(glist, function(g) mean(degree(g)))</text>
+<text top="715" left="149" width="89" height="11" font="4">[1] 19.100301</text>
+<text top="715" left="252" width="55" height="11" font="4">8.404311</text>
+<text top="715" left="320" width="55" height="11" font="4">8.410719</text>
+<text top="715" left="389" width="55" height="11" font="4">8.400039</text>
+<text top="715" left="457" width="55" height="11" font="4">8.423925</text>
+<text top="744" left="171" width="573" height="13" font="4">A property of the graph which shows some promise of correlating with the convergence rate is the</text>
+<text top="761" left="149" width="595" height="13" font="4">diameter. To get some intuituion of what this is, consider the example with firms and employees. The</text>
+<text top="777" left="149" width="595" height="13" font="4">associated graph has as vertices the firms and employees, and there is an edge between a firm and an</text>
+<text top="794" left="149" width="595" height="13" font="4">employee if the employee has worked for the firm. A path between e.g. two employees Roy and Floyd</text>
+<text top="810" left="149" width="595" height="13" font="4">can be constructed by finding a firm that Roy has worked for, then another employee Warshall of this</text>
+<text top="826" left="149" width="595" height="13" font="4">firm, then another firm for Warshall, zigzagging between firms and their employees until we reach</text>
+<text top="843" left="149" width="595" height="13" font="4">the employee Floyd. For each pair of vertices (i.e. firms and employees) in a mobility group, there is</text>
+<text top="859" left="149" width="595" height="13" font="4">a shortest path. The length of the longest of the shortest paths among all vertex pairs is the graph’s</text>
+<text top="876" left="149" width="56" height="13" font="4">diameter.</text>
+<text top="897" left="171" width="575" height="13" font="4">In these particular examples, it turns out that in the cases with fast convergence (the first, third,</text>
+<text top="913" left="149" width="596" height="13" font="4">and fifth), the shortest paths between pairs of vertices are typically much shorter than in the slowly</text>
+<text top="930" left="149" width="598" height="13" font="4">converging cases. We do not compute the diameter as a typical fast algorithm for this, the Roy-Warshall-</text>
+<text top="946" left="148" width="259" height="14" font="4">Floyd algorithm, has complexity of order O</text>
+<text top="946" left="408" width="5" height="12" font="0">(</text>
+<text top="946" left="414" width="7" height="13" font="4">n</text>
+<text top="943" left="421" width="5" height="10" font="9">3</text>
+<text top="946" left="428" width="5" height="12" font="0">)</text>
+<text top="946" left="433" width="311" height="13" font="4">, where n is the number of vertices, i.e. 10300 in our</text>
+<text top="962" left="149" width="597" height="13" font="4">example. Below, for simplicity, we exclude the last graph, it is disconnected, hence of infinite diameter,</text>
+<text top="979" left="149" width="595" height="13" font="4">though the diameters of its (comparably small) components are relevant. A component of this graph</text>
+<text top="995" left="148" width="252" height="13" font="4">would typically contain only about 300/50</text>
+<text top="995" left="404" width="11" height="12" font="0">=</text>
+<text top="995" left="419" width="326" height="13" font="4">6 different levels of the second factor f6, so its diameter</text>
+<text top="1012" left="149" width="165" height="13" font="4">can’t possibly be very large.</text>
+<text top="1039" left="149" width="158" height="11" font="4">&gt; for(gr in glist[1:4])</text>
+<text top="1056" left="149" width="7" height="11" font="4">+</text>
+<text top="1056" left="176" width="514" height="11" font="4">print(fivenum(shortest.paths(gr, v=sample(V(gr),10), to=sample(V(gr),10))))</text>
+<text top="1086" left="149" width="21" height="11" font="4">[1]</text>
+<text top="1086" left="183" width="7" height="11" font="4">2</text>
+<text top="1086" left="204" width="7" height="11" font="4">2</text>
+<text top="1086" left="224" width="7" height="11" font="4">4</text>
+<text top="1086" left="245" width="7" height="11" font="4">4</text>
+<text top="1086" left="265" width="7" height="11" font="4">4</text>
+<text top="1102" left="149" width="21" height="11" font="4">[1]</text>
+<text top="1102" left="183" width="89" height="11" font="4">2 20 39 62 76</text>
+<text top="1118" left="149" width="21" height="11" font="4">[1]</text>
+<text top="1118" left="183" width="7" height="11" font="4">2</text>
+<text top="1118" left="204" width="7" height="11" font="4">4</text>
+<text top="1118" left="224" width="7" height="11" font="4">6</text>
+<text top="1118" left="245" width="7" height="11" font="4">6</text>
+<text top="1118" left="265" width="7" height="11" font="4">8</text>
+<text top="1135" left="149" width="21" height="11" font="4">[1]</text>
+<text top="1135" left="183" width="89" height="11" font="4">2 18 40 58 76</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">114</text>
+<text top="103" left="171" width="277" height="13" font="4">Also, the many variants of factor structures in</text>
+<text top="103" left="452" width="129" height="13" font="6"><a href="2013-2-gaure.html#13">Markussen and Røed</a></text>
+<text top="103" left="585" width="5" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="103" left="589" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2012</a></text>
+<text top="103" left="617" width="87" height="13" font="4"><a href="2013-2-gaure.html#13">) </a>(described in</text>
+<text top="103" left="707" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="120" left="148" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="120" left="153" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="120" left="187" width="558" height="13" font="4"><a href="2013-2-gaure.html#12">)) </a>and ongoing subsequent works, use factors which are interactions of other factors, in such a</text>
+<text top="136" left="148" width="596" height="13" font="4">way that there are a few collinearities by design. This is not a conceptual problem when the factors</text>
+<text top="152" left="149" width="595" height="13" font="4">are used as controls, but manually removing these known collinearities by merging some levels into</text>
+<text top="169" left="149" width="595" height="13" font="4">a common “reference” level, yields performance improvements of up to two orders of magnitude</text>
+<text top="185" left="148" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="185" left="153" width="66" height="13" font="6"><a href="2013-2-gaure.html#13">Markussen</a></text>
+<text top="185" left="219" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="185" left="225" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2013</a></text>
+<text top="185" left="252" width="240" height="13" font="4"><a href="2013-2-gaure.html#13">), </a>a phenomenon which was not noted in</text>
+<text top="185" left="496" width="36" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="185" left="535" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="185" left="540" width="33" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="185" left="573" width="171" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>Incidentally, this also leads</text>
+<text top="202" left="149" width="285" height="13" font="4">to shorter paths via the common reference level.</text>
+<text top="223" left="171" width="573" height="13" font="4">This suggests that, loosely speaking, datasets with six degrees of separation converge fast, whereas</text>
+<text top="239" left="149" width="595" height="13" font="4">less well connected datasets converge slower. However, we cannot rule out other structural differences</text>
+<text top="256" left="148" width="596" height="13" font="4">which may have an impact on the convergence rate; there is no such thing as “larger diameter, ceteris</text>
+<text top="272" left="148" width="596" height="13" font="4">paribus” for graphs. It is possible that a diameter path could be used to construct a lower bound for</text>
+<text top="288" left="149" width="106" height="13" font="4">the c in equation <a href="2013-2-gaure.html#8">(</a></text>
+<text top="288" left="255" width="7" height="13" font="6"><a href="2013-2-gaure.html#8">3</a></text>
+<text top="288" left="262" width="357" height="13" font="4"><a href="2013-2-gaure.html#8">), </a>but the author has not found a proof for such an assertion.</text>
+<text top="309" left="171" width="573" height="13" font="4">The convergence rate with more than two factors is more complicated, the theoretical results</text>
+<text top="326" left="149" width="12" height="13" font="4">of</text>
+<text top="326" left="165" width="127" height="13" font="6"><a href="2013-2-gaure.html#12">Deutsch and Hundal</a></text>
+<text top="326" left="296" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="326" left="300" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">1997</a></text>
+<text top="326" left="328" width="416" height="13" font="4"><a href="2013-2-gaure.html#12">) </a>are less complete, the rate is not a function of the cosines of pairs of</text>
+<text top="342" left="149" width="595" height="13" font="4">subspaces, and even the order of the projections matters. In cases where only some of the factors</text>
+<text top="359" left="149" width="596" height="13" font="4">have many levels, the remaining factors may be specified without G(), treating them as ordinary</text>
+<text top="375" left="149" width="169" height="13" font="4">dummy-encoded covariates.</text>
+<text top="396" left="171" width="16" height="13" font="3"><b>lfe</b></text>
+<text top="396" left="191" width="555" height="13" font="4">utilizes two acceleration techniques for the alternating projections methods. In demeanlist(),</text>
+<text top="412" left="148" width="462" height="13" font="4">which is used by felm() to centre the covariates, the line search method in</text>
+<text top="412" left="614" width="92" height="13" font="6"><a href="2013-2-gaure.html#12">Bauschke et al.</a></text>
+<text top="412" left="710" width="5" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="412" left="715" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2003</a></text>
+<text top="412" left="742" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="429" left="148" width="596" height="13" font="4">Theorem 3.16) is used, even though their Example 3.24 shows that in some special cases with more</text>
+<text top="445" left="149" width="595" height="13" font="4">than two factors, this method is in fact slower. For the Kaczmarz method, random shuffling of the</text>
+<text top="462" left="149" width="204" height="13" font="4">equations is used, as suggested by</text>
+<text top="462" left="356" width="37" height="13" font="6"><a href="2013-2-gaure.html#12">Gaure</a></text>
+<text top="462" left="396" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="462" left="400" width="34" height="13" font="6"><a href="2013-2-gaure.html#12">2013a</a></text>
+<text top="462" left="434" width="8" height="13" font="4"><a href="2013-2-gaure.html#12">).</a></text>
+<text top="507" left="149" width="93" height="17" font="5"><b>Parallelism</b></text>
+<text top="546" left="149" width="41" height="11" font="4">felm()</text>
+<text top="545" left="195" width="550" height="13" font="4">is thread parallelized over the vectors to be centred, i.e. all variables in the model except</text>
+<text top="562" left="149" width="595" height="13" font="4">those enclosed in G(). The number of processors is fetched with getOptions(’lfe.threads’) which</text>
+<text top="578" left="149" width="596" height="13" font="4">is initialized upon loading of <b>lfe </b>from the environment variable LFE_THREADS or OMP_NUM_THREADS, or</text>
+<text top="595" left="149" width="299" height="13" font="4">otherwise from an heuristic snatched from package</text>
+<text top="595" left="451" width="59" height="13" font="7"><a href="http://CRAN.R-project.org/package=multicore"><b>multicore</b></a></text>
+<text top="595" left="513" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="595" left="518" width="51" height="13" font="6"><a href="2013-2-gaure.html#13">Urbanek</a></text>
+<text top="595" left="569" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="595" left="575" width="26" height="13" font="6"><a href="2013-2-gaure.html#13">2011</a></text>
+<text top="595" left="602" width="142" height="13" font="4"><a href="2013-2-gaure.html#13">). </a>It may of course be set</text>
+<text top="611" left="149" width="595" height="13" font="4">manually after loading the package. There is no benefit from specifying more threads than there are</text>
+<text top="628" left="148" width="598" height="13" font="4">variables to centre. getfe() is not parallelized as such, but bootstrapping with getfe(...,se=TRUE) is.</text>
+<text top="672" left="149" width="85" height="17" font="5"><b>Elsewhere</b></text>
+<text top="711" left="149" width="16" height="13" font="3"><b>lfe</b></text>
+<text top="711" left="169" width="321" height="13" font="4">is similar in function, but not in method, to the Stata <a href="2013-2-gaure.html#13">(</a></text>
+<text top="711" left="489" width="64" height="13" font="6"><a href="2013-2-gaure.html#13">StataCorp.</a></text>
+<text top="711" left="553" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="711" left="560" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2013</a></text>
+<text top="711" left="587" width="108" height="13" font="4"><a href="2013-2-gaure.html#13">) </a>modules A2reg <a href="2013-2-gaure.html#13">(</a></text>
+<text top="711" left="695" width="48" height="13" font="6"><a href="2013-2-gaure.html#13">Ouazad</a></text>
+<text top="711" left="742" width="3" height="13" font="4"><a href="2013-2-gaure.html#13">,</a></text>
+<text top="728" left="149" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2008</a></text>
+<text top="728" left="176" width="102" height="13" font="4"><a href="2013-2-gaure.html#13">) </a>and felsdvreg <a href="2013-2-gaure.html#12">(</a></text>
+<text top="728" left="278" width="67" height="13" font="6"><a href="2013-2-gaure.html#12">Cornelißen</a></text>
+<text top="728" left="346" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="728" left="354" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2008</a></text>
+<text top="728" left="381" width="363" height="13" font="4"><a href="2013-2-gaure.html#12">). </a>It is the same algorithm as in the Stata module reg2hdfe</text>
+<text top="744" left="148" width="4" height="13" font="4"><a href="2013-2-gaure.html#12">(</a></text>
+<text top="744" left="153" width="65" height="13" font="6"><a href="2013-2-gaure.html#12">Guimarães</a></text>
+<text top="744" left="218" width="3" height="13" font="4"><a href="2013-2-gaure.html#12">,</a></text>
+<text top="744" left="225" width="27" height="13" font="6"><a href="2013-2-gaure.html#12">2009</a></text>
+<text top="744" left="252" width="87" height="13" font="4"><a href="2013-2-gaure.html#12">), </a>described by</text>
+<text top="744" left="342" width="146" height="13" font="6"><a href="2013-2-gaure.html#13">Guimarães and Portugal</a></text>
+<text top="744" left="491" width="4" height="13" font="4"><a href="2013-2-gaure.html#13">(</a></text>
+<text top="744" left="496" width="27" height="13" font="6"><a href="2013-2-gaure.html#13">2010</a></text>
+<text top="744" left="523" width="215" height="13" font="4"><a href="2013-2-gaure.html#13">) </a>in terms of Gauss-Seidel iterations.</text>
+<text top="789" left="149" width="80" height="17" font="5"><b>Summary</b></text>
+<text top="828" left="148" width="596" height="13" font="4">The package <b>lfe </b>contains methods for estimating ordinary least square models with multiple factors</text>
+<text top="844" left="148" width="596" height="13" font="4">with too many levels for conventional methods like lm(). Such models may exhibit non-trivial</text>
+<text top="861" left="149" width="595" height="13" font="4">identification problems. These are satisfactorily solved for the two factor case, and the package also</text>
+<text top="877" left="149" width="595" height="13" font="4">includes some partial solutions for the case with more factors. Instrumental variable regression via the</text>
+<text top="894" left="149" width="595" height="13" font="4">two step OLS is also supported. Convergence rate can be an issue for some datasets, and the present</text>
+<text top="910" left="148" width="336" height="13" font="4">paper suggests some intuitive structural reasons for this.</text>
+<text top="931" left="171" width="573" height="13" font="4">The method employed by <b>lfe </b>is known as the method of alternating projections, a somewhat old and</text>
+<text top="947" left="148" width="596" height="13" font="4">well studied method which to the author’s knowledge has not been applied to the particular problem</text>
+<text top="964" left="149" width="296" height="13" font="4">of linear regression with dummy variables before.</text>
+<text top="1009" left="149" width="163" height="17" font="5"><b>Acknowledgements</b></text>
+<text top="1047" left="149" width="595" height="13" font="4">I wish to thank the associate editor and two anonymous reviewers for helpful comments, as well as</text>
+<text top="1064" left="149" width="249" height="13" font="4">Bjørn-Helge Mevik for fruitful discussion.</text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">115</text>
+<text top="100" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="139" left="149" width="597" height="13" font="4">J. M. Abowd, F. Kramarz, and D. N. Margolis. High wage workers and high wage firms. Econometrica,</text>
+<text top="155" left="164" width="336" height="13" font="4">67(2):251–333, 1999. doi: 10.1111/1468-0262.00020. URL</text>
+<text top="156" left="503" width="240" height="11" font="6"><a href="http://www.jstor.org/stable/2999586">http://www.jstor.org/stable/2999586</a></text>
+<text top="155" left="743" width="3" height="13" font="4"><a href="http://www.jstor.org/stable/2999586">.</a></text>
+<text top="172" left="164" width="13" height="13" font="4"><a href="2013-2-gaure.html#1">[p</a></text>
+<text top="172" left="176" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="172" left="196" width="3" height="13" font="4"><a href="2013-2-gaure.html#1">,</a></text>
+<text top="172" left="203" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="172" left="223" width="4" height="13" font="4"><a href="2013-2-gaure.html#4">]</a></text>
+<text top="200" left="149" width="598" height="13" font="4">J. M. Abowd, R. H. Creecy, and F. Kramarz. Computing person and firm effects using linked longitu-</text>
+<text top="217" left="164" width="580" height="13" font="4">dinal employer-employee data. Longitudinal Employer-Household Dynamics Technical Papers</text>
+<text top="233" left="164" width="407" height="13" font="4">2002-06, Center for Economic Studies, U.S. Census Bureau, 2002. URL</text>
+<text top="234" left="574" width="171" height="11" font="6"><a href="http://ideas.repec.org/p/cen/tpaper/2002-06.html">http://ideas.repec.org/p/</a></text>
+<text top="250" left="164" width="159" height="11" font="6"><a href="http://ideas.repec.org/p/cen/tpaper/2002-06.html">cen/tpaper/2002-06.html</a></text>
+<text top="249" left="322" width="21" height="13" font="4"><a href="http://ideas.repec.org/p/cen/tpaper/2002-06.html">. </a><a href="2013-2-gaure.html#4">[p</a></text>
+<text top="249" left="343" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="249" left="363" width="4" height="13" font="4"><a href="2013-2-gaure.html#4">]</a></text>
+<text top="278" left="149" width="597" height="13" font="4">L. Aronszajn. Theory of reproducing kernels. Transactions of the American Mathematical Society, 68:337–</text>
+<text top="294" left="164" width="91" height="13" font="4">404, 1950. URL</text>
+<text top="295" left="258" width="485" height="11" font="6"><a href="http://www.ams.org/journals/tran/1950-068-03/S0002-9947-1950-0051437-7">http://www.ams.org/journals/tran/1950-068-03/S0002-9947-1950-0051437-7</a></text>
+<text top="294" left="743" width="3" height="13" font="4"><a href="http://www.ams.org/journals/tran/1950-068-03/S0002-9947-1950-0051437-7">.</a></text>
+<text top="311" left="164" width="13" height="13" font="4"><a href="2013-2-gaure.html#8">[p</a></text>
+<text top="311" left="176" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="311" left="196" width="4" height="13" font="4"><a href="2013-2-gaure.html#8">]</a></text>
+<text top="339" left="149" width="597" height="13" font="4">C. Badea, S. Grivaux, and V. Müller. The rate of convergence in the method of alternating projections. St.</text>
+<text top="355" left="163" width="319" height="14" font="4">Petersburg Mathematical Journal, 23:413–434, 2012. URL</text>
+<text top="356" left="486" width="261" height="11" font="6"><a href="http://www.ams.org/journals/spmj/2012-23-03/S1061-0022-2012-01202-1">http://www.ams.org/journals/spmj/2012-</a></text>
+<text top="373" left="164" width="203" height="11" font="6"><a href="http://www.ams.org/journals/spmj/2012-23-03/S1061-0022-2012-01202-1">23-03/S1061-0022-2012-01202-1</a></text>
+<text top="372" left="366" width="190" height="13" font="4"><a href="http://www.ams.org/journals/spmj/2012-23-03/S1061-0022-2012-01202-1">. </a>preprint in arXiv:1006.2047. <a href="2013-2-gaure.html#8">[p</a></text>
+<text top="372" left="556" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="372" left="576" width="4" height="13" font="4"><a href="2013-2-gaure.html#8">]</a></text>
+<text top="400" left="149" width="560" height="13" font="4">D. Bates and M. Maechler. Matrix: Sparse and dense matrix classes and methods, 2013. URL</text>
+<text top="401" left="713" width="34" height="11" font="6"><a href="http://CRAN.R-project.org/package=Matrix">http:</a></text>
+<text top="417" left="163" width="241" height="11" font="6"><a href="http://CRAN.R-project.org/package=Matrix">//CRAN.R-project.org/package=Matrix</a></text>
+<text top="417" left="404" width="176" height="13" font="4"><a href="http://CRAN.R-project.org/package=Matrix">. </a>R package version 1.0-15. <a href="2013-2-gaure.html#1">[p</a></text>
+<text top="417" left="580" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="417" left="600" width="4" height="13" font="4"><a href="2013-2-gaure.html#1">]</a></text>
+<text top="445" left="149" width="595" height="13" font="4">H. H. Bauschke, F. Deutsch, H. Hundal, and S.-H. Park. Accelerating the convergence of the method</text>
+<text top="462" left="164" width="583" height="13" font="4">of alternating projections. Transactions of the American Mathematical Society, 355(9):3433–3461, 2003.</text>
+<text top="478" left="164" width="28" height="13" font="4">URL</text>
+<text top="479" left="195" width="457" height="11" font="6"><a href="http://www.ams.org/journals/tran/2003-355-09/S0002-9947-03-03136-2">http://www.ams.org/journals/tran/2003-355-09/S0002-9947-03-03136-2</a></text>
+<text top="478" left="652" width="21" height="13" font="4"><a href="http://www.ams.org/journals/tran/2003-355-09/S0002-9947-03-03136-2">. </a><a href="2013-2-gaure.html#8">[p</a></text>
+<text top="478" left="673" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="478" left="693" width="3" height="13" font="4"><a href="2013-2-gaure.html#8">,</a></text>
+<text top="478" left="700" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="478" left="720" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="506" left="149" width="596" height="13" font="4">A. Carneiro, P. Guimarães, and P. Portugal. Real wages and the business cycle: Accounting for</text>
+<text top="523" left="163" width="583" height="13" font="4">worker and firm heterogeneity. American Economic Journal: Macroeconomics, 4(2):133–152, Apr. 2012.</text>
+<text top="539" left="164" width="214" height="13" font="4">doi: doi:10.1257/mac.4.2.133. URL</text>
+<text top="540" left="382" width="364" height="11" font="6"><a href="http://www.ingentaconnect.com/content/aea/aejma/2012/00000004/00000002/art00005">http://www.ingentaconnect.com/content/aea/aejma/2012/</a></text>
+<text top="556" left="164" width="178" height="11" font="6"><a href="http://www.ingentaconnect.com/content/aea/aejma/2012/00000004/00000002/art00005">00000004/00000002/art00005</a></text>
+<text top="556" left="342" width="21" height="13" font="4"><a href="http://www.ingentaconnect.com/content/aea/aejma/2012/00000004/00000002/art00005">. </a><a href="2013-2-gaure.html#4">[p</a></text>
+<text top="556" left="363" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="556" left="383" width="4" height="13" font="4"><a href="2013-2-gaure.html#4">]</a></text>
+<text top="584" left="149" width="595" height="13" font="4">T. Cornelißen. The Stata command felsdvreg to fit a linear model with two high-dimensional fixed</text>
+<text top="601" left="164" width="287" height="13" font="4">effects. Stata Journal, 8(2):170–189, 2008. URL</text>
+<text top="601" left="456" width="289" height="11" font="6"><a href="http://www.stata-journal.com/article.html?article=st0143">http://www.stata-journal.com/article.html?</a></text>
+<text top="618" left="164" width="96" height="11" font="6"><a href="http://www.stata-journal.com/article.html?article=st0143">article=st0143</a></text>
+<text top="617" left="260" width="21" height="13" font="4"><a href="http://www.stata-journal.com/article.html?article=st0143">. </a><a href="2013-2-gaure.html#11">[p</a></text>
+<text top="617" left="281" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="617" left="301" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="645" left="149" width="597" height="13" font="4">Y. Croissant and G. Millo. Panel data econometrics in R: The plm package. Journal of Statistical Software,</text>
+<text top="662" left="164" width="99" height="13" font="4">27(2), 2008. URL</text>
+<text top="662" left="266" width="226" height="11" font="6"><a href="http://www.jstatsoft.org/v27/i02/">http://www.jstatsoft.org/v27/i02/</a></text>
+<text top="662" left="492" width="21" height="13" font="4"><a href="http://www.jstatsoft.org/v27/i02/">. </a><a href="2013-2-gaure.html#1">[p</a></text>
+<text top="662" left="513" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="662" left="533" width="4" height="13" font="4"><a href="2013-2-gaure.html#1">]</a></text>
+<text top="690" left="149" width="597" height="13" font="4">G. Csardi and T. Nepusz. The igraph software package for complex network research. InterJournal,</text>
+<text top="707" left="164" width="206" height="13" font="4">Complex Systems:1695, 2006. URL</text>
+<text top="707" left="373" width="137" height="11" font="6"><a href="http://igraph.sf.net">http://igraph.sf.net</a></text>
+<text top="707" left="510" width="21" height="13" font="4"><a href="http://igraph.sf.net">. </a><a href="2013-2-gaure.html#10">[p</a></text>
+<text top="707" left="531" width="20" height="13" font="6"><a href="2013-2-gaure.html#10">113</a></text>
+<text top="707" left="551" width="4" height="13" font="4"><a href="2013-2-gaure.html#10">]</a></text>
+<text top="735" left="149" width="598" height="13" font="4">F. Deutsch and H. Hundal. The rate of convergence for the method of alternating projections, II.</text>
+<text top="751" left="164" width="583" height="14" font="4">Journal of Mathematical Analysis and Applications, 205(2):381–405, 1997. ISSN 0022-247X. doi: 10.1006/</text>
+<text top="768" left="164" width="123" height="13" font="4">jmaa.1997.5202. URL</text>
+<text top="769" left="290" width="453" height="11" font="6"><a href="http://www.sciencedirect.com/science/article/pii/S0022247X97952021">http://www.sciencedirect.com/science/article/pii/S0022247X97952021</a></text>
+<text top="768" left="743" width="3" height="13" font="4"><a href="http://www.sciencedirect.com/science/article/pii/S0022247X97952021">.</a></text>
+<text top="784" left="164" width="13" height="13" font="4"><a href="2013-2-gaure.html#8">[p</a></text>
+<text top="784" left="176" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="784" left="196" width="3" height="13" font="4"><a href="2013-2-gaure.html#8">,</a></text>
+<text top="784" left="203" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="784" left="223" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="813" left="149" width="598" height="13" font="4">J. A. Eccleston and A. Hedayat. On the theory of connected designs: Characterization and optimality.</text>
+<text top="829" left="163" width="292" height="14" font="4">The Annals of Statistics, 2(6):1238–1255, 1974. URL</text>
+<text top="830" left="459" width="240" height="11" font="6"><a href="http://www.jstor.org/stable/2958341">http://www.jstor.org/stable/2958341</a></text>
+<text top="829" left="699" width="21" height="13" font="4"><a href="http://www.jstor.org/stable/2958341">. </a><a href="2013-2-gaure.html#4">[p</a></text>
+<text top="829" left="719" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="829" left="740" width="4" height="13" font="4"><a href="2013-2-gaure.html#4">]</a></text>
+<text top="858" left="149" width="595" height="13" font="4">S. Gaure. OLS with multiple high dimensional category variables. Computational Statistics &amp; Data</text>
+<text top="874" left="163" width="581" height="14" font="4">Analysis, 66:8–18, 2013a. ISSN 0167-9473. doi: http://dx.doi.org/10.1016/j.csda.2013.03.024. URL</text>
+<text top="891" left="164" width="453" height="11" font="6"><a href="http://www.sciencedirect.com/science/article/pii/S0167947313001266">http://www.sciencedirect.com/science/article/pii/S0167947313001266</a></text>
+<text top="891" left="616" width="22" height="13" font="4"><a href="http://www.sciencedirect.com/science/article/pii/S0167947313001266">. </a><a href="2013-2-gaure.html#2">[p</a></text>
+<text top="891" left="639" width="21" height="13" font="6"><a href="2013-2-gaure.html#2">105</a></text>
+<text top="891" left="659" width="3" height="13" font="4"><a href="2013-2-gaure.html#2">,</a></text>
+<text top="891" left="666" width="21" height="13" font="6"><a href="2013-2-gaure.html#3">106</a></text>
+<text top="891" left="687" width="3" height="13" font="4"><a href="2013-2-gaure.html#3">,</a></text>
+<text top="891" left="694" width="21" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="891" left="715" width="3" height="13" font="4"><a href="2013-2-gaure.html#4">,</a></text>
+<text top="891" left="722" width="21" height="13" font="6"><a href="2013-2-gaure.html#10">113</a></text>
+<text top="891" left="742" width="3" height="13" font="4"><a href="2013-2-gaure.html#10">,</a></text>
+<text top="907" left="163" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="907" left="183" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="935" left="149" width="315" height="13" font="4">S. Gaure. lfe: Linear group fixed effects, 2013b. URL</text>
+<text top="936" left="468" width="255" height="11" font="6"><a href="http://CRAN.R-project.org/package=lfe">http://CRAN.R-project.org/package=lfe</a></text>
+<text top="935" left="723" width="22" height="13" font="4"><a href="http://CRAN.R-project.org/package=lfe">. </a>R</text>
+<text top="952" left="163" width="169" height="13" font="4">package version 1.5-1107. <a href="2013-2-gaure.html#1">[p</a></text>
+<text top="952" left="332" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="952" left="352" width="4" height="13" font="4"><a href="2013-2-gaure.html#1">]</a></text>
+<text top="980" left="149" width="595" height="13" font="4">W. B. Gearhart and M. Koshy. Acceleration schemes for the method of alternating projections. Journal</text>
+<text top="997" left="164" width="582" height="14" font="4">of Computational and Applied Mathematics, 26(3):235–249, 1989. ISSN 0377-0427. doi: 10.1016/0377-</text>
+<text top="1013" left="164" width="130" height="13" font="4">0427(89)90296-3. URL</text>
+<text top="1014" left="297" width="446" height="11" font="6"><a href="http://www.sciencedirect.com/science/article/pii/0377042789902963">http://www.sciencedirect.com/science/article/pii/0377042789902963</a></text>
+<text top="1013" left="743" width="3" height="13" font="4"><a href="http://www.sciencedirect.com/science/article/pii/0377042789902963">.</a></text>
+<text top="1030" left="164" width="13" height="13" font="4"><a href="2013-2-gaure.html#8">[p</a></text>
+<text top="1030" left="176" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="1030" left="196" width="4" height="13" font="4"><a href="2013-2-gaure.html#8">]</a></text>
+<text top="1058" left="149" width="597" height="13" font="4">J. D. Godolphin and E. J. Godolphin. On the connectivity of row-column designs. Utilitas Mathematica,</text>
+<text top="1074" left="164" width="105" height="13" font="4">60:51–65, 2001. <a href="2013-2-gaure.html#5">[p</a></text>
+<text top="1074" left="269" width="20" height="13" font="6"><a href="2013-2-gaure.html#5">108</a></text>
+<text top="1074" left="289" width="4" height="13" font="4"><a href="2013-2-gaure.html#5">]</a></text>
+<text top="1103" left="149" width="598" height="13" font="4">P. Guimarães. REG2HDFE: Stata module to estimate a linear regression model with two high dimen-</text>
+<text top="1119" left="164" width="582" height="13" font="4">sional fixed effects. Statistical Software Components, Boston College Department of Economics,</text>
+<text top="1136" left="164" width="63" height="13" font="4">2009. URL</text>
+<text top="1136" left="230" width="329" height="11" font="6"><a href="http://ideas.repec.org/c/boc/bocode/s457101.html">http://ideas.repec.org/c/boc/bocode/s457101.html</a></text>
+<text top="1136" left="559" width="21" height="13" font="4"><a href="http://ideas.repec.org/c/boc/bocode/s457101.html">. </a><a href="2013-2-gaure.html#11">[p</a></text>
+<text top="1136" left="580" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="1136" left="600" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="13" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="807" width="22" height="15" font="0">116</text>
+<text top="103" left="149" width="595" height="13" font="4">P. Guimarães and P. Portugal. A simple feasible procedure to fit models with high-dimensional fixed</text>
+<text top="120" left="164" width="288" height="13" font="4">effects. Stata Journal, 10(4):628–649, 2010. URL</text>
+<text top="120" left="456" width="289" height="11" font="6"><a href="http://www.stata-journal.com/article.html?article=st0212">http://www.stata-journal.com/article.html?</a></text>
+<text top="137" left="164" width="96" height="11" font="6"><a href="http://www.stata-journal.com/article.html?article=st0212">article=st0212</a></text>
+<text top="136" left="260" width="21" height="13" font="4"><a href="http://www.stata-journal.com/article.html?article=st0212">. </a><a href="2013-2-gaure.html#2">[p</a></text>
+<text top="136" left="281" width="20" height="13" font="6"><a href="2013-2-gaure.html#2">105</a></text>
+<text top="136" left="301" width="3" height="13" font="4"><a href="2013-2-gaure.html#2">,</a></text>
+<text top="136" left="307" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="136" left="328" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="164" left="149" width="77" height="13" font="4">I. Halperin.</text>
+<text top="164" left="254" width="249" height="13" font="4">The product of projection operators.</text>
+<text top="164" left="532" width="212" height="13" font="4">Acta Scientiarum Mathematicarum</text>
+<text top="181" left="163" width="207" height="14" font="4">(Szeged), 23(1-2):96–99, 1962. URL</text>
+<text top="181" left="374" width="370" height="11" font="6"><a href="http://acta.fyx.hu/acta/showCustomerArticle.action?id=7164&amp;dataObjectType=article">http://acta.fyx.hu/acta/showCustomerArticle.action?id=</a></text>
+<text top="198" left="163" width="185" height="11" font="6"><a href="http://acta.fyx.hu/acta/showCustomerArticle.action?id=7164&amp;dataObjectType=article">7164&amp;dataObjectType=article</a></text>
+<text top="197" left="349" width="21" height="13" font="4"><a href="http://acta.fyx.hu/acta/showCustomerArticle.action?id=7164&amp;dataObjectType=article">. </a><a href="2013-2-gaure.html#2">[p</a></text>
+<text top="197" left="369" width="20" height="13" font="6"><a href="2013-2-gaure.html#2">105</a></text>
+<text top="197" left="390" width="4" height="13" font="4"><a href="2013-2-gaure.html#2">]</a></text>
+<text top="226" left="149" width="598" height="13" font="4">N. J. Higham. Analysis of the Cholesky decomposition of a semi-definite matrix. In M. G. Cox and S. J.</text>
+<text top="242" left="164" width="581" height="13" font="4">Hammarling, editors, Reliable Numerical Computation, chapter 9, pages 161–185. Oxford University</text>
+<text top="259" left="164" width="345" height="13" font="4">Press, 1990. eprint: http://eprints.ma.man.ac.uk/1193. <a href="2013-2-gaure.html#7">[p</a></text>
+<text top="259" left="509" width="20" height="13" font="6"><a href="2013-2-gaure.html#7">110</a></text>
+<text top="259" left="529" width="4" height="13" font="4"><a href="2013-2-gaure.html#7">]</a></text>
+<text top="287" left="149" width="595" height="13" font="4">A. Kaczmarz. Angenäherte Auflösung von Systemen linearer Gleichungen. Bulletin International</text>
+<text top="303" left="164" width="582" height="14" font="4">de l’Academie Polonaise des Sciences et des Lettres. Classe de Sciences Mathématiques et Naturelles., 35:</text>
+<text top="320" left="164" width="305" height="13" font="4">355–357, 1937. Série A, Sciences Mathématiques. <a href="2013-2-gaure.html#3">[p</a></text>
+<text top="320" left="469" width="20" height="13" font="6"><a href="2013-2-gaure.html#3">106</a></text>
+<text top="320" left="489" width="4" height="13" font="4"><a href="2013-2-gaure.html#3">]</a></text>
+<text top="348" left="149" width="595" height="13" font="4">S. Kayalar and H. L. Weinert. Error bounds for the method of alternating projections. Mathematics of</text>
+<text top="365" left="163" width="438" height="14" font="4">Control, Signals and Systems, 1:43–59, 1988. doi: 10.1007/BF02551235. URL</text>
+<text top="365" left="605" width="144" height="11" font="6"><a href="http://link.springer.com/article/10.1007%2FBF02551235">http://link.springer.</a></text>
+<text top="382" left="164" width="219" height="11" font="6"><a href="http://link.springer.com/article/10.1007%2FBF02551235">com/article/10.1007%2FBF02551235</a></text>
+<text top="381" left="383" width="21" height="13" font="4"><a href="http://link.springer.com/article/10.1007%2FBF02551235">. </a><a href="2013-2-gaure.html#8">[p</a></text>
+<text top="381" left="404" width="20" height="13" font="6"><a href="2013-2-gaure.html#8">111</a></text>
+<text top="381" left="424" width="4" height="13" font="4"><a href="2013-2-gaure.html#8">]</a></text>
+<text top="409" left="149" width="294" height="13" font="4">S. Markussen. Personal Communication, 2013. <a href="2013-2-gaure.html#11">[p</a></text>
+<text top="409" left="443" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="409" left="463" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="438" left="149" width="596" height="13" font="4">S. Markussen and K. Røed. Social insurance networks. IZA Discussion Papers 6446, Institute for</text>
+<text top="454" left="164" width="213" height="13" font="4">the Study of Labor (IZA), 2012. URL</text>
+<text top="455" left="380" width="322" height="11" font="6"><a href="http://ideas.repec.org/p/iza/izadps/dp6446.html">http://ideas.repec.org/p/iza/izadps/dp6446.html</a></text>
+<text top="454" left="702" width="20" height="13" font="4"><a href="http://ideas.repec.org/p/iza/izadps/dp6446.html">. </a><a href="2013-2-gaure.html#1">[p</a></text>
+<text top="454" left="723" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="454" left="742" width="3" height="13" font="4"><a href="2013-2-gaure.html#1">,</a></text>
+<text top="471" left="163" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="471" left="183" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="499" left="149" width="595" height="13" font="4">A. Ouazad. A2REG: Stata module to estimate models with two fixed effects. Statistical Software</text>
+<text top="516" left="164" width="416" height="13" font="4">Components, Boston College Department of Economics, 2008. URL</text>
+<text top="516" left="584" width="165" height="11" font="6"><a href="http://econpapers.repec.org/RePEc:boc:bocode:s456942">http://econpapers.repec.</a></text>
+<text top="533" left="164" width="192" height="11" font="6"><a href="http://econpapers.repec.org/RePEc:boc:bocode:s456942">org/RePEc:boc:bocode:s456942</a></text>
+<text top="532" left="356" width="21" height="13" font="4"><a href="http://econpapers.repec.org/RePEc:boc:bocode:s456942">. </a><a href="2013-2-gaure.html#11">[p</a></text>
+<text top="532" left="377" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="532" left="397" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="560" left="149" width="598" height="13" font="4">StataCorp. Stata Data Analysis Statistical Software: Release 13. StataCorp LP, College Station, TX, 2013.</text>
+<text top="577" left="164" width="28" height="13" font="4">URL</text>
+<text top="577" left="195" width="144" height="11" font="6"><a href="http://www.stata.com/">http://www.stata.com/</a></text>
+<text top="577" left="339" width="21" height="13" font="4"><a href="http://www.stata.com/">. </a><a href="2013-2-gaure.html#11">[p</a></text>
+<text top="577" left="360" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="577" left="380" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="605" left="149" width="596" height="13" font="4">S. M. Torres, P. Portugal, J. T. Addison, and P. Guimarães. The sources of wage variation: A three-way</text>
+<text top="622" left="164" width="581" height="13" font="4">high-dimensional fixed effects regression model. IZA Discussion Paper 7276, Institute for the Study</text>
+<text top="638" left="164" width="156" height="13" font="4">of Labor (IZA), 2013. URL</text>
+<text top="639" left="323" width="219" height="11" font="6"><a href="http://ssrn.com/abstract=2238309">http://ssrn.com/abstract=2238309</a></text>
+<text top="638" left="543" width="21" height="13" font="4"><a href="http://ssrn.com/abstract=2238309">. </a><a href="2013-2-gaure.html#1">[p</a></text>
+<text top="638" left="563" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="638" left="584" width="3" height="13" font="4"><a href="2013-2-gaure.html#1">,</a></text>
+<text top="638" left="590" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="638" left="610" width="4" height="13" font="4"><a href="2013-2-gaure.html#4">]</a></text>
+<text top="667" left="149" width="596" height="13" font="4">S. Urbanek. multicore: Parallel processing of R code on machines with multiple cores or CPUs, 2011. URL</text>
+<text top="684" left="164" width="296" height="11" font="6"><a href="http://CRAN.R-project.org/package=multicore">http://CRAN.R-project.org/package=multicore</a></text>
+<text top="683" left="459" width="169" height="13" font="4"><a href="http://CRAN.R-project.org/package=multicore">. </a>R package version 0.1-7. <a href="2013-2-gaure.html#11">[p</a></text>
+<text top="683" left="629" width="20" height="13" font="6"><a href="2013-2-gaure.html#11">114</a></text>
+<text top="683" left="649" width="4" height="13" font="4"><a href="2013-2-gaure.html#11">]</a></text>
+<text top="711" left="149" width="595" height="13" font="4">D. L. Weeks and D. R. Williams. A note on the determination of connectedness in an N-way cross</text>
+<text top="728" left="164" width="546" height="13" font="4">classification. Technometrics, 6(3):319–324, 1964. doi: 10.1080/00401706.1964.10490188. URL</text>
+<text top="728" left="713" width="34" height="11" font="6"><a href="http://www.tandfonline.com/doi/abs/10.1080/00401706.1964.10490188">http:</a></text>
+<text top="745" left="163" width="412" height="11" font="6"><a href="http://www.tandfonline.com/doi/abs/10.1080/00401706.1964.10490188">//www.tandfonline.com/doi/abs/10.1080/00401706.1964.10490188</a></text>
+<text top="744" left="575" width="21" height="13" font="4"><a href="http://www.tandfonline.com/doi/abs/10.1080/00401706.1964.10490188">. </a><a href="2013-2-gaure.html#4">[p</a></text>
+<text top="744" left="595" width="20" height="13" font="6"><a href="2013-2-gaure.html#4">107</a></text>
+<text top="744" left="616" width="3" height="13" font="4"><a href="2013-2-gaure.html#4">,</a></text>
+<text top="744" left="622" width="20" height="13" font="6"><a href="2013-2-gaure.html#5">108</a></text>
+<text top="744" left="642" width="4" height="13" font="4"><a href="2013-2-gaure.html#5">]</a></text>
+<text top="773" left="149" width="545" height="13" font="4">J. M. Wooldridge. Econometric Analysis of Cross Section and Panel Data. The MIT Press, 2002. <a href="2013-2-gaure.html#1">[p</a></text>
+<text top="773" left="693" width="20" height="13" font="6"><a href="2013-2-gaure.html#1">104</a></text>
+<text top="773" left="713" width="3" height="13" font="4"><a href="2013-2-gaure.html#1">,</a></text>
+<text top="773" left="720" width="20" height="13" font="6"><a href="2013-2-gaure.html#7">110</a></text>
+<text top="773" left="740" width="4" height="13" font="4"><a href="2013-2-gaure.html#7">]</a></text>
+<text top="819" left="148" width="71" height="13" font="4">Simen Gaure</text>
+<text top="835" left="148" width="243" height="13" font="4">Ragnar Frisch Centre for Economic Research</text>
+<text top="852" left="148" width="76" height="13" font="4">Oslo, Norway</text>
+<text top="869" left="149" width="171" height="11" font="6"><a href="mailto:Simen.Gaure@frisch.uio.no">Simen.Gaure@frisch.uio.no</a></text>
+<text top="1210" left="148" width="223" height="15" font="0">The R Journal Vol. 5/2, December</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

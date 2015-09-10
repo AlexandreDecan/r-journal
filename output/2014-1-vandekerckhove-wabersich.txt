@@ -1,0 +1,50 @@
+page	left	top	code
+1	738	667	r
+3	149	386	set.seed(0)
+3	149	403	dat <- rwiener(n=100, alpha=2, tau=.3, beta=.5, delta=.5)
+3	149	734	dwiener(dat$q[1], alpha=2, tau=.3, beta=.5, delta=.5, resp=dat$resp[1], give_log=FALSE)
+3	717	776	resp
+3	149	842	give_log that takes TRUE or FALSE as values and is set to FALSE as a default. When this argument is
+3	149	921	curve(dwiener(x, 2, .3, .5, .5, rep("upper", length(x))),
+3	190	938	xlim=c(0,3), main="Density of upper responses",
+3	190	954	ylab="density", xlab="quantile")
+3	149	1005	pwiener(dat$q[1], alpha=2, tau=.3, beta=.5, delta=.5, resp=dat$resp[1])
+3	149	1127	# lookup of the .2 quantile for the CDF of the lower boundary
+3	149	1144	qwiener(p=.2, alpha=2, tau=.3, beta=.5, delta=.5, resp="lower")
+4	737	703	n
+4	653	793	wiener_plot as
+4	149	836	wiener_plot(dat)
+4	148	969	wiener_plot, the RWiener package provides four more functions designed for use in parameter
+4	149	1078	x <- c(2, .3, .5, .5)
+4	149	1094	wiener_likelihood(x=x, dat=dat)
+4	149	1111	wiener_deviance(x=x, dat=dat)
+4	149	1127	wiener_aic(x=x, dat=dat)
+4	149	1144	wiener_bic(x=x, dat=dat)
+5	149	165	rwiener function. The first column of the dataframe has to contain the RTs and the second column of
+5	149	284	# using optim, first with Nelder-Mead algorithm, then with BFGS
+5	149	300	optim1 <- optim(c(1, .1, .1, 1), wiener_deviance, dat=dat, method="Nelder-Mead")
+5	149	317	optim2 <- optim(optim1[["par"]], wiener_deviance, dat=dat, method="BFGS", hessian=TRUE)
+5	149	349	# using nlm, which uses a Newton-type algorithm
+5	149	366	nlm1 <- nlm(p=c(1, .1, .1, 1), f=wiener_deviance, dat=dat)
+5	149	540	many_drifts <- function(x, datlist) {
+5	163	557	l = 0
+5	163	573	for (c in 1:length(datlist)) {
+5	176	589	l = l + wiener_deviance(x[c(1, 2, 3, c+3)], datlist[[c]])
+5	163	606	}
+5	163	622	return(l)
+5	149	639	}
+5	149	672	# create a second data set and a list containing both data sets
+5	149	688	dat2 <- rwiener(n=100, alpha=2, tau=.3, beta=.5, delta=1)
+5	149	704	datlist <- list(dat, dat2)
+5	149	737	# use nlm to estimate parameters
+5	149	754	nlm1 <- nlm(p=c(1, .1, .1, 1, 1), f=many_drifts, dat=datlist)
+5	149	876	one_drift <- function(x, datlist) {
+5	163	892	l = 0
+5	163	908	for (c in 1:length(datlist)) {
+5	176	925	l = l + wiener_deviance(x, datlist[[c]])
+5	163	941	}
+5	163	958	return(l)
+5	149	974	}
+5	149	1007	nlm2 <- nlm(p=c(1, .1, .1, 1), f=one_drift, dat=datlist)
+5	149	1059	AIC1 <- wiener_aic(x=nlm1$estimate, dat=datlist, loss=many_drifts)
+5	149	1075	AIC2 <- wiener_aic(x=nlm2$estimate, dat=datlist, loss=one_drift)

@@ -1,0 +1,40 @@
+page	left	top	code
+3	464	640	# Assess the robustness of the one-sample
+3	464	657	# t-test when underlying data are exponential.
+3	464	673	# This function returns a data frame with
+3	464	689	# number of rows equal to the value of "ntask".
+3	464	706	# The option "param" specifies the sample size.
+3	464	722	job <- function(ntask, param) {
+3	485	739	alpha <- 0.05 # how often to reject under null
+3	485	755	leftreject <- logical(ntask) # placeholder
+3	485	772	rightreject <- logical(ntask) # for results
+3	485	788	for (i in 1:ntask) {
+3	505	805	dat <- rexp(param) # generate skewed data
+3	505	821	left <- t.test(dat, mu = 1,
+3	526	837	alternative = "less")
+3	505	854	leftreject[i] <- left$p.value <= alpha/2
+3	505	870	right <- t.test(dat, mu = 1,
+3	526	887	alternative = "greater")
+3	505	903	rightreject[i] <- right$p.value <= alpha/2
+3	485	920	}
+3	485	936	return(data.frame(leftreject, rightreject,
+3	505	953	n = rep(param, ntask)))
+3	464	969	}
+4	88	126	source("job.R")
+4	88	142	# commandArgs() is expecting three arguments:
+4	88	159	# 1) number of tasks to run within this job
+4	88	175	# 2) parameter to pass to the function
+4	88	192	# 3) place to stash the results when finished
+4	88	208	args <- commandArgs(trailingOnly = TRUE)
+4	88	225	ntask1 <- as.numeric(args[1])
+4	88	241	param1 <- args[2]
+4	88	258	resfile <- args[3]
+4	88	274	res0 <- job(ntask = ntask1, param = param1)
+4	88	290	# stash the results
+4	88	307	saveRDS(res0, file = resfile)
+4	88	571	require(xgrid)
+4	88	587	# run the simulation
+4	88	603	res <- xgrid(Rcmd = "runjob.R", param = 30,
+4	108	620	numsim = 10^6, ntask = 5*10^4)
+4	88	636	# analyze the results
+4	88	653	with(res, table(leftreject,rightreject))

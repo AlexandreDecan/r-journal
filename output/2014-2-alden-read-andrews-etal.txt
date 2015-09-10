@@ -1,0 +1,267 @@
+page	left	top	code
+3	149	213	# Firstly, import the package
+3	149	229	library(spartan)
+3	149	246	# Directory where the example simulation results for this technique were extracted
+3	149	262	FILEPATH <- "/home/user/AA"
+3	149	279	# Sample sizes (number of simulation replicates in each distribution) to be analysed
+3	149	295	SAMPLESIZES <- c(1, 5, 50, 100, 300)
+3	149	312	# The simulation output measures to be analysed
+3	149	328	MEASURES <- c("Velocity", "Displacement")
+3	149	344	# Number of distributions being compared. Default: 20, as performed by Read et al
+3	149	361	NUMSUBSETSPERSAMPLESIZE <- 20
+3	149	377	# Output file name containing the simulation responses.
+3	149	394	RESULTFILENAME <- "trackedCells_Close.csv"
+3	149	410	# Not used in this case. Useful where two result files exist (e.g.\ if tracking cells
+3	149	427	# close and those further away, two output files could be used). Here, results in a
+3	149	443	# second file are processed if the first is blank or does not exist.
+3	149	459	ALTFILENAME <- NULL
+3	149	476	# Notes the column in the CSV results file where the results start.
+3	149	492	# Useful as it restricts what is read in to R, getting round potential errors where
+3	149	509	# the first column contains a label
+3	149	525	OUTPUTFILECOLSTART <- 10
+3	149	542	# Last column of the output measure results
+3	149	558	OUTPUTFILECOLEND <- 11
+3	149	575	# Use this if simulation results are in CSV format.
+3	149	591	# Last column of the output measure results
+3	149	607	OUTPUTFILECOLEND <- 11
+3	149	624	# File either A: created by method 1 of this technique, containing the median of each
+3	149	640	# output measure of each simulation run in that subset, or B: The name of the provided
+3	149	657	# single CSV file containing the simulation responses. So if you are using the CSV
+3	149	673	# structured tutorial data, this fill be the name of that CSV file.
+3	149	690	MEDIANS_SUMMARY_FILE_NAME <- "AA_SimResponses.csv"
+3	149	706	# The results of the A-Test comparisons of the twenty subsets for each sample size
+3	149	722	# are stored within an output file. This parameter sets the name of this file.
+3	149	739	# Note no file extension. Current versions of spartan output to CSV files
+3	149	755	ATESTRESULTSFILENAME <- "AA_ATest_Scores.csv"
+3	149	772	# A summary file is created containing the maximum and median
+3	149	788	# A-Test values for each sample size. This parameter sets the name of this file.
+3	149	805	SUMMARYFILENAME <- "AA_ATestMaxAndMedians.csv"
+3	149	821	# The A-Test value either side of 0.5 which should be considered a 'large difference'
+3	149	838	# between two sets of results. Use of 0.23 was taken from the Vargha-Delaney
+3	149	854	# publication but can be adjusted here as necessary.
+3	149	870	LARGEDIFFINDICATOR <- 0.23
+3	149	887	# A-Test values above 0.5 (no difference) which should be considered as small,
+3	149	903	# medium, and large differences between two result sets. Used in the graph
+3	149	920	# summarising all sample sizes.
+3	149	936	SMALL <- 0.56
+3	149	953	MEDIUM <- 0.66
+3	149	969	LARGE <- 0.73
+3	149	985	# Name of the graph which summarises the analysis results for all sample sizes.
+3	149	1002	# Current versions of spartan output to pdf.
+3	149	1018	GRAPHOUTPUTFILE <- "AA_ATestMaxes.pdf"
+3	149	1035	# Timepoints being analysed. Must be NULL if no timepoints being analysed, or else
+3	149	1051	# be an array of timepoints. Scale sets the measure of these timepoints
+3	149	1068	TIMEPOINTS <- NULL; TIMEPOINTSCALE <- NULL
+3	149	1084	# Example Timepoints, if being used:
+3	149	1101	#TIMEPOINTS <- c(12, 36, 48, 60); TIMEPOINTSCALE <- "Hours"
+4	149	557	MEDIANS_SUMMARY_FILE_NAME. The appropriate set of medians is then generated for distributions 2-20,
+4	149	603	aa_summariseReplicateRuns(FILEPATH, SAMPLESIZES, MEASURES, RESULTFILENAME,
+4	204	620	ALTFILENAME, OUTPUTFILECOLSTART, OUTPUTFILECOLEND, MEDIANS_SUMMARY_FILE_NAME,
+4	204	636	TIMEPOINTS, TIMEPOINTSCALE)
+4	149	832	aa_getATestResults(FILEPATH, SAMPLESIZES, NUMSUBSETSPERSAMPLESIZE, MEASURES,
+4	204	848	MEDIANS_SUMMARY_FILE_NAME, ATESTRESULTSFILENAME, LARGEDIFFINDICATOR,
+4	204	865	TIMEPOINTS, TIMEPOINTSCALE)
+4	149	1028	aa_sampleSizeSummary(FILEPATH, SAMPLESIZES, MEASURES, ATESTRESULTSFILENAME,
+4	204	1044	SUMMARYFILENAME, TIMEPOINTS, TIMEPOINTSCALE)
+4	149	1077	aa_graphSampleSizeSummary(FILEPATH, MEASURES, 300, SMALL, MEDIUM, LARGE,
+4	204	1093	SUMMARYFILENAME, GRAPHOUTPUTFILE, TIMEPOINTS, TIMEPOINTSCALE)
+6	149	517	# Import the package
+6	149	533	library(spartan)
+6	149	550	# Set a folder where the parameter value samples should be output to
+6	149	566	FILEPATH <- "/home/user/OAT/Sampling"
+6	149	583	# Set the names of the parameters for which values are being generated for
+6	149	599	PARAMETERS <- c("thresholdBindProbability", "chemoThreshold",
+6	149	616	"chemoUpperLinearAdjust", "chemoLowerLinearAdjust",
+6	149	632	"maxVCAMeffectProbabilityCutoff", "vcamSlope")
+6	149	649	# The calibrated values, or baseline values, of each stated parameter
+6	149	665	BASELINE <- c(50, 0.3, 0.2, 0.04, 0.60, 1.0)
+6	149	681	# Parameter Value Information
+6	149	698	# You can specify this in two ways:
+6	149	714	# 1. The minimum and maximum of each parameter, and increment over which
+6	149	731	# sampling should be increased.
+6	149	747	# 2. A string list of values that parameter should be assigned in sampling
+6	149	764	# Example of 1:
+6	149	780	PMIN <- c(0, 0.10, 0.10, 0.015, 0.1, 0.25)
+6	149	796	PMAX <- c(100, 0.9, 0.50, 0.08, 1.0, 5.0)
+6	149	813	PINC <- c(10, 0.1, 0.05, 0.005, 0.05, 0.25)
+6	149	829	PARAMVALS <- NULL
+6	149	846	# Example of 2:
+6	149	862	#PARAMVALS <- c("0, 50, 90","0.10, 0.3, 0.8","0.10, 0.25, 0.4",
+6	204	879	"0.015, 0.04, 0.08", "0.1, 0.5, 0.9","0.25, 1.25, 2.0, 3.0, 5.0")
+6	149	895	# If using method 1, PARAMVALS must be set to NULL. If using method 2, PMIN,
+6	149	912	# PMAX, and PINC must be set to NULL
+6	149	944	oat_parameter_sampling(FILEPATH, PARAMETERS, BASELINE, PMIN, PMAX,
+6	204	961	PINC, PARAMVALS)
+6	149	1037	FILEPATH. Simulations should then be run on each parameter value set in each file, and analysed using
+7	149	211	library(spartan)
+7	149	227	# Folder containing the example simulation results. Make sure the folder is unzipped
+7	149	244	FILEPATH <- "/home/user/OAT/Results"
+7	149	260	# Array of the parameters to be analysed.
+7	149	276	# Note only two of the six here for download size reasons
+7	149	293	PARAMETERS <- c("chemoLowerLinearAdjust", "chemoUpperLinearAdjust")
+7	149	309	# Similar to the sampling function discussed above, there are two ways to specify
+7	149	326	# parameter value information in the analysis. Ensure you are using the appropriate
+7	149	342	# method, setting these to NULL if using the alternative (see comments in sampling
+7	149	359	# function description).
+7	149	375	# Method 1:
+7	149	391	PMIN <- c(0.015, 0.10)
+7	149	408	PMAX <- c(0.08, 0.50)
+7	149	424	PINC <- c(0.005, 0.05)
+7	149	441	PARAMVALS<-NULL
+7	149	457	# Method 2:
+7	149	474	#PARAMVALS <- c("0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06,
+7	149	490	# 0.065, 0.07,0.075, 0.08", "0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5")
+7	149	507	#PMIN <- NULL; PMAX <- NULL; PINC <- NULL
+7	149	523	BASELINE <- c(0.04, 0.2)
+7	149	539	MEASURES <- c("Velocity", "Displacement")
+7	149	556	# What each measure represents. Used in graphing results
+7	149	572	MEASURE_SCALE <- c("microns/min", "microns")
+7	149	589	RESULTFILENAME <- "trackedCells_Close.csv"
+7	149	605	OUTPUTCOLSTART <- 10
+7	149	622	OUTPUTCOLEND <- 11
+7	149	638	ALTERNATIVEFILENAME <- NULL
+7	149	654	# Either 1: The name of the CSV file containing all simulation output (see description
+7	149	671	# that follows in this section) or name to give the summary file that spartan generates
+7	149	687	CSV_FILE_NAME <- "OAT_Medians.csv"
+7	149	704	# Number of replicate runs performed for each parameter value set
+7	149	720	NUMRUNSPERSAMPLE <- 300
+7	149	737	# The results of the A-Test comparisons of each parameter value against that of the
+7	149	753	# parameters baseline value are output as a file. This sets the name of this file.
+7	149	770	# Current versions of spartan output this to a CSV file
+7	149	786	ATESTRESULTSFILENAME <- "EgSet_ATests.csv"
+7	149	802	# A-Test result value either side of 0.5 at which the difference between two sets of
+7	149	819	# results is significant
+7	149	835	ATESTSIGLEVEL <- 0.23
+7	149	852	# Timepoints being analysed. Must be NULL if no timepoints being analysed, or else
+7	149	868	# be an array of timepoints. Scale sets the measure of these timepoints
+7	149	885	TIMEPOINTS <- NULL; TIMEPOINTSCALE <- NULL
+7	149	901	# Example Timepoints, if being used:
+7	149	918	#TIMEPOINTS <- c(12, 36, 48, 60); TIMEPOINTSCALE <- "Hours"
+8	149	198	CSV_FILE_NAME. PMIN, PMAX, PINC, and PARAMVALS should be set appropriately as described in
+8	149	245	oat_processParamSubsets(FILEPATH, PARAMETERS, NUMRUNSPERSAMPLE, MEASURES,
+8	204	261	RESULTFILENAME, ALTERNATIVEFILENAME, OUTPUTCOLSTART, OUTPUTCOLEND,
+8	204	278	CSV_FILE_NAME, BASELINE, PMIN, PMAX, PINC, PARAMVALS,
+8	204	294	TIMEPOINTS, TIMEPOINTSCALE)
+8	149	609	oat_csv_result_file_analysis(FILEPATH, CSV_FILE_NAME, PARAMETERS, BASELINE,
+8	204	626	MEASURES, ATESTRESULTFILENAME, PMIN, PMAX, PINC,
+8	204	642	PARAMVALS, TIMEPOINTS, TIMEPOINTSCALE)
+8	149	751	oat_graphATestsForSampleSize(FILEPATH, PARAMETERS, MEASURES, ATESTSIGLEVEL,
+8	204	768	ATESTRESULTSFILENAME, BASELINE, PMIN, PMAX, PINC, PARAMVALS, TIMEPOINTS,
+8	204	784	TIMEPOINTSCALE)
+8	149	910	oat_plotResultDistribution(FILEPATH, PARAMETERS, MEASURES, MEASURE_SCALE,
+8	204	926	CSV_FILE_NAME, BASELINE, PMIN, PMAX, PINC, PARAMVALS, TIMEPOINTS,
+8	204	943	TIMEPOINTSCALE)
+10	149	400	# Import the packages
+10	149	416	library(spartan)
+10	149	433	library(lhs)
+10	149	449	# The folder where the parameter samples should be output to
+10	149	465	FILEPATH <- "/home/user/LHC/Sampling"
+10	149	482	# Names of the parameters to generate values for.
+10	149	498	PARAMETERS <- c("thresholdBindProbability", "chemoThreshold", "chemoUpperLinearAdjust",
+10	204	515	"chemoLowerLinearAdjust", "maxVCAMeffectProbabilityCutoff", "vcamSlope")
+10	149	531	# The number of parameter sample sets to create using the hypercube
+10	149	548	NUMSAMPLES <- 500
+10	149	564	# The minimum value in the range for each parameter
+10	149	581	PMIN <- c(0, 0.10, 0.10, 0.015, 0.1, 0.25)
+10	149	597	# The maximum value in the range for each parameter
+10	149	613	PMAX <- c(100, 0.9, 0.50, 0.08, 1.0, 5.0)
+10	149	630	# Algorithm to use to generate the hypercube. Can be normal (quick) or optimal,
+10	149	646	# which can take a long time (especially for high number of parameters)
+10	149	663	ALGORITHM <- "normal"
+10	149	696	lhc_generate_lhc_sample(FILEPATH, PARAMETERS, NUMSAMPLES, PMIN, PMAX, ALGORITHM)
+10	149	946	library(spartan)
+10	149	963	# Folder containing the example simulation results. Make sure the folder is unzipped
+10	149	979	FILEPATH <- "/home/user/LHC/LHC_Results"
+10	149	996	PARAMETERS <- c("thresholdBindProbability", "chemoThreshold", "chemoUpperLinearAdjust",
+10	204	1012	"chemoLowerLinearAdjust", "maxVCAMeffectProbabilityCutoff", "vcamSlope")
+10	149	1028	MEASURES <- c("Velocity", "Displacement")
+10	149	1045	MEASURE_SCALE <- c("microns/min", "microns")
+10	149	1061	# Number of parameter value sets created in latin-hypercube sampling
+10	149	1078	NUMSAMPLES <- 500
+10	149	1094	# Number of simulation runs performed for each parameter value set
+10	149	1111	NUMRUNSPERSAMPLE <- 300
+10	149	1127	RESULTSFILENAME <- "trackedCells_Close.csv"
+10	149	1144	ALTERNATIVEFILENAME <- NULL
+11	149	100	OUTPUTCOLSTART <- 10
+11	149	116	OUTPUTCOLEND <- 11
+11	149	133	# This is either 1: The name of the single CSV file that summarises all simulation runs
+11	149	149	# of all parameter sets generated by the hypercube (using input format 2), or the name
+11	149	165	# to assign this file when spartan produces it from simulation results (using input
+11	149	182	# format 1).
+11	149	198	LHC_ALL_SIM_RESULTS_FILE <- "LHC_AllResults.csv"
+11	149	215	# Location of a file containing the parameter value sets generated by the hypercube
+11	149	231	# sampling (i.e. the file generated in the previous function of this paper). However
+11	149	248	# if providing a CSV file with all results, you do not need to provide this
+11	149	264	LHC_PARAM_CSV_LOCATION <- "Tutorial_Parameters_for_Runs.csv"
+11	149	281	# spartan produces a summary file showing the parameter value sets alongside the
+11	149	297	# median results for each simulation output measure. This names this file.
+11	149	313	# Note no file extension
+11	149	330	LHCSUMMARYFILENAME <- "LHC_Summary.csv"
+11	149	346	# File name to give to the file showing the Partial Rank Correlation Coefficients
+11	149	363	# for each parameter.
+11	149	379	CORCOEFFSOUTPUTFILE <- "LHC_corCoeffs.csv"
+11	149	396	# Timepoints being analysed. Must be NULL if no timepoints being analysed, or else
+11	149	412	# be an array of timepoints. Scale sets the measure of these timepoints
+11	149	428	TIMEPOINTS<-NULL; TIMEPOINTSCALE<-NULL
+11	149	445	# Example Timepoints, if being used:
+11	149	461	#TIMEPOINTS <- c(12, 36, 48, 60); TIMEPOINTSCALE <- "Hours"
+11	149	871	lhc_process_sample_run_subsets(FILEPATH, LHC_PARAM_CSV_LOCATION, PARAMETERS, NUMSAMPLES,
+11	204	887	NUMRUNSPERSAMPLE, MEASURES, RESULTFILENAME, ALTERNATIVEFILENAME, OUTPUTCOLSTART,
+11	204	904	OUTPUTCOLEND, LHC_ALL_SIM_RESULTS_FILE)
+11	149	1013	lhc_generateLHCSummary(FILEPATH, PARAMETERS, MEASURES, LHC_ALL_SIM_RESULTS_FILE,
+11	204	1029	LHCSUMMARYFILENAME, LHC_PARAM_CSV_LOCATION, TIMEPOINTS, TIMEPOINTSCALE)
+12	149	809	lhc_generatePRCoEffs(FILEPATH, PARAMETERS, MEASURES, LHCSUMMARYFILENAME,
+12	204	826	CORCOEFFSOUTPUTFILE, TIMEPOINTS, TIMEPOINTSCALE)
+12	149	858	lhc_graphMeasuresForParameterChange(FILEPATH, PARAMETERS, MEASURES, MEASURE_SCALE,
+12	204	875	CORCOEFFSOUTPUTFILE, LHCSUMMARYFILENAME, TIMEPOINTS, TIMEPOINTSCALE)
+13	149	971	# Import the package
+13	149	988	library(spartan)
+13	149	1004	# The folder where the parameter samples should be output to
+13	149	1021	FILEPATH <- "/home/user/eFAST/"
+13	149	1037	# Number of resample curves (phase shifts) to use in the sampling procedure
+13	149	1054	NUMCURVES <- 3
+13	149	1070	# Names of the parameters to generate parameter value samples for.
+13	149	1087	PARAMETERS <- c("BindProbability", "ChemoThreshold", "ChemoUpperLinearAdjust",
+13	204	1103	"ChemoLowerLinearAdjust", "VCAMProbabilityThreshold", "VCAMSlope", "Dummy")
+13	149	1119	# The number of parameter sample sets to create for each curve
+13	149	1136	NUMSAMPLES <- 65
+14	149	100	# The minimum value in the range for each parameter
+14	149	116	PMIN <- c(0, 0.10, 0.10, 0.015, 0.1, 0.25, 1)
+14	149	133	# The maximum value in the range for each parameter
+14	149	149	PMAX <- c(100, 0.9, 0.50, 0.08, 1.0, 5.0, 10)
+14	149	182	efast_generate_sample(FILEPATH, NUMCURVES, NUMSAMPLES, PARAMETERS, PMIN, PMAX)
+14	149	368	library(spartan)
+14	149	384	library(gplots)
+14	149	401	# Folder containing the eFAST simulation results. Make sure example data is unzipped
+14	149	417	FILEPATH <- "/home/user/eFAST/Results"
+14	149	434	PARAMETERS <- c("BindProbability", "ChemoThreshold", "ChemoUpperLinearAdjust",
+14	204	450	"ChemoLowerLinearAdjust", "VCAMProbabilityThreshold", "VCAMSlope", "Dummy")
+14	149	467	MEASURES <- c("Velocity", "Displacement")
+14	149	483	RESULTFILENAME <- "trackedCells_Close.csv"
+14	149	499	ALTERNATIVEFILENAME <- NULL
+14	149	516	OUTPUTCOLSTART <- 10
+14	149	532	OUTPUTCOLEND <- 11
+14	149	549	# Number of resample curves employed when the parameter space was sampled
+14	149	565	NUMCURVES <- 3
+14	149	582	# The number of parameter sample sets taken from each curve
+14	149	598	NUMSAMPLES <- 65
+14	149	614	# Number of simulation runs performed for each parameter value set
+14	149	631	NUMRUNSPERSAMPLE <- 300
+14	149	647	# Which of the output measures to T-Test for significance
+14	149	664	OUTPUTMEASURES_TO_TTEST <- 1:2
+14	149	680	# T-Test confidence level
+14	149	697	TTEST_CONF_INT <- 0.95
+14	149	713	# Name of the final result file for this analysis, showing the partitioning of
+14	149	730	# the variance between input parameters
+14	149	746	EFASTRESULTFILENAME <- "EgSet_eFAST_Analysis.csv"
+14	149	762	# Boolean to note whether summary graphs should be produced
+14	149	779	GRAPH_FLAG <- TRUE
+14	149	795	TIMEPOINTS <- NULL; TIMEPOINTSCALE <- NULL
+15	149	195	efast_generate_medians_for_all_parameter_subsets(FILEPATH, NUMCURVES, PARAMETERS,
+15	204	212	NUMSAMPLES, NUMRUNSPERSAMPLE, MEASURES, RESULTFILENAME, ALTERNATIVEFILENAME,
+15	204	228	OUTPUTCOLSTART, OUTPUTCOLEND, TIMEPOINTS, TIMEPOINTSCALE)
+15	149	518	efast_get_overall_medians(FILEPATH, NUMCURVES, PARAMETERS, NUMSAMPLES, MEASURES,
+15	204	535	TIMEPOINTS, TIMEPOINTSCALE)
+15	149	611	efast_run_Analysis(FILEPATH, MEASURES, PARAMETERS, NUMCURVES, NUMSAMPLES,
+15	204	627	OUTPUTMEASURES_TO_TTEST, TTEST_CONF_INT, GRAPH_FLAG, EFASTRESULTFILENAME,
+15	204	644	TIMEPOINTS, TIMEPOINTSCALE)

@@ -1,0 +1,78 @@
+page	left	top	code
+5	163	697	library(spMC)
+5	163	714	data(jura, package = "gstat")
+5	163	767	setCores(4)
+5	163	956	data <- jura.grid[, 4]
+5	163	973	coords <- jura.grid[, 1:2]
+5	163	989	Trg <- list()
+5	163	1006	Trg[[1]] <- transiogram(data, coords, max.dist = 3, mpoints = 20,
+5	327	1022	direction = c(1, 0))
+5	163	1039	Trg[[2]] <- transiogram(data, coords, max.dist = 3, mpoints = 20,
+5	327	1055	direction = c(0, 1))
+6	163	548	RTm <- list()
+6	163	564	RTm[[1]] <- tpfit_ml(data, coords, direction = c(1, 0))
+6	163	581	RTm[[2]] <- tpfit_ml(data, coords, direction = c(0, 1))
+6	163	666	ETm <- list()
+6	163	683	ETm[[1]] <- tpfit_me(data, coords, direction = c(1, 0))
+6	163	699	ETm[[2]] <- tpfit_me(data, coords, direction = c(0, 1))
+6	163	768	RTr <- list()
+6	163	785	ETr <- list()
+6	163	801	for (i in 1:2) {
+6	190	817	RTr[[i]] <- predict(RTm[[i]], lags = Trg[[i]]$lags)
+6	190	834	ETr[[i]] <- predict(ETm[[i]], lags = Trg[[i]]$lags)
+6	163	850	}
+6	163	936	for (i in 1:2)
+6	176	952	mixplot(list(Trg[[i]], RTr[[i]], ETr[[i]]), type = c("p", "l", "l"), pch = "+",
+6	231	969	col = c(3, 1, 2), legend = FALSE, main = paste(
+6	231	985	"One-dimensional transiograms", c("(X-axis)", "(Y-axis)")[i]))
+7	163	1037	psEmpTr <- pemt(data, coords, 40, max.dist = c(.5, .5))
+7	163	1053	mycol <- rev(heat.colors(500))
+7	163	1070	image(psEmpTr, col = mycol, useRaster = TRUE, breaks = c(0:500) / 500)
+8	163	592	MTr <- list()
+8	163	609	MTr$average <- multi_tpfit_ml(data, coords)
+8	163	625	MTr$entropy <- multi_tpfit_me(data, coords)
+8	163	695	image(MTr$average, 40, max.dist = 0.25, col = mycol, nlevels = 5,
+8	204	712	breaks = 0:500 / 500)
+8	163	728	image(MTr$entropy, 40, max.dist = 0.25, col = mycol, nlevels = 5,
+8	204	745	breaks = 0:500 / 500)
+9	163	532	X <- jura.grid$X
+9	163	548	Y <- jura.grid$Y
+9	163	565	library(RColorBrewer)
+9	163	581	brwCol <- brewer.pal(nlevels(data), "Accent")
+9	163	598	par(mfrow = c(1, 1), mar = c(5, 4, 4, 2))
+9	163	614	plot(X, Y, col = brwCol[data], pch = 15, main = "Swiss Jura geological map")
+9	163	630	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+9	163	684	set.seed(29062011)
+9	163	700	smp <- sample(length(data):1, 100)
+9	163	754	plot(X, Y, type = "n", main = "Sample of 100 observations", xlab = "X", ylab = "Y")
+9	163	770	points(X[smp], Y[smp], pch = 19, col = brwCol[data[smp]])
+9	163	786	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+9	163	856	grid <- jura.grid[, 1:2]
+9	163	942	iks <- sim_ik(MTr$average, data = data[smp], coords = coords[smp, ],
+9	259	959	grid, knn = 12, max.it = 0)
+9	163	1028	fpth <- sim_path(MTr$average, data = data[smp], coords = coords[smp, ],
+9	279	1045	grid, radius = 1, TRUE)
+9	163	1061	rpth <- sim_path(MTr$average, data = data[smp], coords = coords[smp, ],
+9	279	1078	grid, radius = 1)
+9	163	1147	mcs <- sim_mcs(MTr$average, data = data[smp], coords = coords[smp, ], grid)
+10	163	606	posCol <- as.integer(iks$Prediction)
+10	163	623	plot(X, Y, pch = 15, col = brwCol[posCol], main = "Kriging prediction map")
+10	163	639	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+10	163	656	posCol <- as.integer(fpth$Prediction)
+10	163	672	plot(X, Y, pch = 15, col = brwCol[posCol], main = "Fixed path prediction map")
+10	163	689	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+10	163	705	posCol <- as.integer(rpth$Prediction)
+10	163	721	plot(X, Y, pch = 15, col = brwCol[posCol], main = "Random path prediction map")
+10	163	738	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+10	163	754	posCol <- as.integer(mcs$Prediction)
+10	163	771	plot(X, Y, pch = 15, col = brwCol[posCol],
+10	197	787	main = "Multinomial categorical prediction map")
+10	163	804	legend("topleft", legend = levels(data), col = brwCol, pch = 15)
+10	163	1029	ikTb <- table(data, iks$Prediction)
+10	163	1046	fpTb <- table(data, fpth$Prediction)
+10	163	1062	rpTb <- table(data, rpth$Prediction)
+10	163	1079	mcTb <- table(data, mcs$Prediction)
+10	163	1131	ikPr <- sum(diag(ikTb)) / length(data)
+10	163	1147	fpPr <- sum(diag(fpTb)) / length(data)
+11	163	702	rpPr <- sum(diag(rpTb)) / length(data)
+11	163	719	mcPr <- sum(diag(mcTb)) / length(data)

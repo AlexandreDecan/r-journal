@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="12" family="Times" color="#00004c"/>
+	<fontspec id="5" size="19" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">22</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="358" height="36" font="2"><b>Watch Your Spelling!</b></text>
+<text top="173" left="82" width="233" height="15" font="0">by Kurt Hornik and Duncan Murdoch</text>
+<text top="208" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="208" left="174" width="242" height="15" font="0">We discuss the facilities in base R</text>
+<text top="226" left="96" width="321" height="15" font="0">for spell checking via Aspell, Hunspell or Ispell,</text>
+<text top="244" left="96" width="320" height="15" font="0">which are useful in particular for conveniently</text>
+<text top="262" left="96" width="319" height="15" font="0">checking the spelling of natural language texts</text>
+<text top="280" left="96" width="319" height="15" font="0">in package Rd files and vignettes. Spell checking</text>
+<text top="298" left="96" width="319" height="15" font="0">performance is illustrated using the Rd files in</text>
+<text top="316" left="96" width="319" height="15" font="0">package <b>stats</b>. This example clearly indicates the</text>
+<text top="334" left="96" width="321" height="15" font="0">need for a domain-specific statistical dictionary.</text>
+<text top="352" left="96" width="320" height="15" font="0">We analyze the results of spell checking all Rd</text>
+<text top="370" left="96" width="319" height="15" font="0">files in all CRAN packages and show how these</text>
+<text top="388" left="96" width="314" height="15" font="0">can be employed for building such a dictionary.</text>
+<text top="436" left="82" width="346" height="15" font="0">R and its add-on packages contain large amounts of</text>
+<text top="453" left="82" width="349" height="15" font="0">natural language text (in particular, in the documen-</text>
+<text top="471" left="82" width="346" height="15" font="0">tation in package Rd files and vignettes). This text is</text>
+<text top="489" left="82" width="349" height="15" font="0">useful for reading by humans and as a testbed for a va-</text>
+<text top="507" left="82" width="346" height="15" font="0">riety of natural language processing (NLP) tasks, but</text>
+<text top="525" left="82" width="347" height="15" font="0">it is not always spelled correctly. This is not entirely</text>
+<text top="543" left="82" width="346" height="15" font="0">unsurprising, given that available spell checkers are</text>
+<text top="561" left="82" width="348" height="15" font="0">not aware of the special Rd file and vignette formats,</text>
+<text top="579" left="82" width="348" height="15" font="0">and thus rather inconvenient to use. (In particular,</text>
+<text top="597" left="82" width="347" height="15" font="0">we are unaware of ways to take advantage of the ESS</text>
+<text top="615" left="82" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="615" left="87" width="83" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Rossini et al.</a></text>
+<text top="615" left="170" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="615" left="177" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2004</a></text>
+<text top="615" left="207" width="222" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">) </a>facilities to teach Emacs to check</text>
+<text top="633" left="82" width="322" height="15" font="0">the spelling of vignettes by only analyzing the L</text>
+<text top="633" left="399" width="9" height="11" font="1">A</text>
+<text top="633" left="405" width="24" height="18" font="0">TEX</text>
+<text top="651" left="82" width="204" height="18" font="0">chunks in suitable TEX modes.)</text>
+<text top="670" left="105" width="324" height="15" font="0">In addition to providing facilities to make spell</text>
+<text top="688" left="82" width="348" height="15" font="0">checking for Rd files and vignettes more convenient,</text>
+<text top="706" left="82" width="349" height="15" font="0">it is also desirable to have programmatic (R-level) ac-</text>
+<text top="724" left="82" width="346" height="15" font="0">cess to the possibly mis-spelled words (and suggested</text>
+<text top="742" left="82" width="349" height="15" font="0">corrections). This will allow their inclusion into auto-</text>
+<text top="759" left="82" width="348" height="15" font="0">matically generated reports (e.g., by R CMD check),</text>
+<text top="777" left="82" width="349" height="15" font="0">or aggregation for subsequent analyses. Spell check-</text>
+<text top="795" left="82" width="346" height="15" font="0">ers typically know how to extract words from text</text>
+<text top="813" left="82" width="349" height="15" font="0">employing language-dependent algorithms for han-</text>
+<text top="831" left="82" width="346" height="15" font="0">dling morphology, and compare the extracted words</text>
+<text top="849" left="82" width="349" height="15" font="0">against a known list of correctly spelled ones, the so-</text>
+<text top="867" left="82" width="349" height="15" font="0">called dictionary. However, NLP resources for statis-</text>
+<text top="885" left="82" width="348" height="15" font="0">tics and related knowledge domains are rather scarce,</text>
+<text top="903" left="82" width="349" height="15" font="0">and we are unaware of suitable dictionaries for these.</text>
+<text top="921" left="82" width="347" height="15" font="0">The result is that domain-specific terms in texts from</text>
+<text top="939" left="82" width="349" height="15" font="0">these domains are typically reported as possibly mis-</text>
+<text top="957" left="82" width="346" height="15" font="0">spelled. It thus seems attractive to create additional</text>
+<text top="975" left="82" width="346" height="15" font="0">dictionaries based on determining the most frequent</text>
+<text top="993" left="82" width="347" height="15" font="0">possibly mis-spelled terms in corpora such as the Rd</text>
+<text top="1011" left="82" width="349" height="15" font="0">files and vignettes in the packages in the R reposito-</text>
+<text top="1028" left="82" width="27" height="15" font="0">ries.</text>
+<text top="1048" left="105" width="327" height="15" font="0">In this paper, we discuss the spell check function-</text>
+<text top="1065" left="82" width="346" height="15" font="0">ality provided by aspell() and related utilities made</text>
+<text top="1083" left="82" width="346" height="15" font="0">available in the R standard package <b>utils</b>. After a</text>
+<text top="1101" left="82" width="348" height="15" font="0">quick introduction to spell checking, we indicate how</text>
+<text top="1121" left="82" width="61" height="12" font="0">aspell()</text>
+<text top="1119" left="149" width="280" height="15" font="0">can be used for checking individual files</text>
+<text top="1137" left="82" width="346" height="15" font="0">and packages, and how this can be integrated into</text>
+<text top="1155" left="82" width="346" height="15" font="0">typical work flows. We then compare the agreement</text>
+<text top="1173" left="82" width="346" height="15" font="0">of the spell check results obtained by two different</text>
+<text top="173" left="458" width="347" height="15" font="0">programs (Aspell and Hunspell) and their respective</text>
+<text top="191" left="459" width="347" height="15" font="0">dictionaries. Finally, we investigate the possibility</text>
+<text top="209" left="459" width="346" height="15" font="0">of using the CRAN package Rd files for creating a</text>
+<text top="227" left="459" width="130" height="15" font="0">statistics dictionary.</text>
+<text top="274" left="459" width="145" height="21" font="5"><b>Spell checking</b></text>
+<text top="312" left="458" width="347" height="15" font="0">The first spell checkers were widely available on</text>
+<text top="330" left="459" width="306" height="15" font="0">mainframe computers in the late 1970s (e.g.,</text>
+<text top="332" left="771" width="38" height="12" font="4"><a href="http://en.wikipedia.org/wiki/Spell_checker">http:</a></text>
+<text top="349" left="458" width="282" height="12" font="4"><a href="http://en.wikipedia.org/wiki/Spell_checker">//en.wikipedia.org/wiki/Spell_checker</a></text>
+<text top="348" left="740" width="68" height="15" font="0"><a href="http://en.wikipedia.org/wiki/Spell_checker">). </a>They ac-</text>
+<text top="366" left="459" width="349" height="15" font="0">tually were “verifiers” instead of “correctors”, re-</text>
+<text top="384" left="458" width="347" height="15" font="0">porting words not found in the dictionary but not</text>
+<text top="402" left="459" width="346" height="15" font="0">making useful suggestions for replacements (e.g., as</text>
+<text top="420" left="459" width="346" height="15" font="0">close matches in the Levenshtein distance to terms</text>
+<text top="438" left="459" width="346" height="15" font="0">from the dictionary). In the 1980s, checkers became</text>
+<text top="456" left="459" width="346" height="15" font="0">available on personal computers, and were integrated</text>
+<text top="474" left="459" width="349" height="15" font="0">into popular word-processing packages like Word-</text>
+<text top="492" left="459" width="346" height="15" font="0">Star. Recently, applications such as web browsers and</text>
+<text top="510" left="459" width="349" height="15" font="0">email clients have added spell check support for user-</text>
+<text top="527" left="458" width="347" height="15" font="0">written content. Extending coverage from English</text>
+<text top="545" left="459" width="346" height="15" font="0">to beyond western European languages has required</text>
+<text top="563" left="459" width="346" height="15" font="0">software to deal with character encoding issues and</text>
+<text top="581" left="459" width="348" height="15" font="0">increased sophistication in the morphology routines,</text>
+<text top="599" left="458" width="349" height="15" font="0">particularly with regard to heavily-agglutinative lan-</text>
+<text top="617" left="459" width="346" height="15" font="0">guages like Hungarian and Finnish, and resulted in</text>
+<text top="635" left="459" width="349" height="15" font="0">several generations of open-source checkers. Limi-</text>
+<text top="653" left="459" width="346" height="15" font="0">tations of the basic unigram (single-word) approach</text>
+<text top="671" left="459" width="346" height="15" font="0">have led to the development of context-sensitive spell</text>
+<text top="689" left="459" width="346" height="15" font="0">checkers, currently available in commercial software</text>
+<text top="707" left="459" width="346" height="15" font="0">such as e.g. Microsoft Office 2007. Another approach</text>
+<text top="725" left="459" width="346" height="15" font="0">to spell checking is using adaptive domain-specific</text>
+<text top="743" left="459" width="347" height="15" font="0">models for mis-spellings (e.g., based on the frequency</text>
+<text top="761" left="459" width="346" height="15" font="0">of word n-grams), as employed for example in web</text>
+<text top="779" left="459" width="252" height="15" font="0">search engines (“Did you mean . . . ?”).</text>
+<text top="796" left="481" width="324" height="15" font="0">The first spell checker on Unix-alikes was spell</text>
+<text top="814" left="458" width="349" height="15" font="0">(originally written in 1971 in PDP-10 Assembly lan-</text>
+<text top="832" left="459" width="346" height="15" font="0">guage and later ported to C), which read an input</text>
+<text top="850" left="459" width="349" height="15" font="0">file and wrote possibly mis-spelled words to out-</text>
+<text top="868" left="458" width="347" height="15" font="0">put (one word per line). A variety of enhancements</text>
+<text top="886" left="459" width="199" height="15" font="0">led to (International) Ispell <a href="http://lasr.cs.ucla.edu/geoff/ispell.html">(</a></text>
+<text top="887" left="658" width="152" height="12" font="4"><a href="http://lasr.cs.ucla.edu/geoff/ispell.html">http://lasr.cs.ucla.</a></text>
+<text top="905" left="459" width="160" height="12" font="4"><a href="http://lasr.cs.ucla.edu/geoff/ispell.html">edu/geoff/ispell.html</a></text>
+<text top="904" left="619" width="187" height="15" font="0"><a href="http://lasr.cs.ucla.edu/geoff/ispell.html">), </a>which added interactivity</text>
+<text top="922" left="458" width="349" height="15" font="0">(hence “i”-spell), suggestion of replacements, and sup-</text>
+<text top="940" left="458" width="347" height="15" font="0">port for a large number of European languages (hence</text>
+<text top="958" left="457" width="351" height="15" font="0">“international”). It pioneered the idea of a program-</text>
+<text top="976" left="459" width="348" height="15" font="0">ming interface, originally intended for use by Emacs,</text>
+<text top="994" left="459" width="348" height="15" font="0">and awareness of special input file formats (originally,</text>
+<text top="1012" left="458" width="124" height="18" font="0">TEX or nroff/troff).</text>
+<text top="1030" left="481" width="272" height="15" font="0">GNU Aspell, usually called just Aspell <a href="http://aspell.net">(</a></text>
+<text top="1031" left="753" width="53" height="12" font="4"><a href="http://aspell.net">http://</a></text>
+<text top="1049" left="459" width="76" height="12" font="4"><a href="http://aspell.net">aspell.net</a></text>
+<text top="1048" left="535" width="273" height="15" font="0"><a href="http://aspell.net">), </a>was mainly developed by Kevin Atkin-</text>
+<text top="1065" left="459" width="346" height="15" font="0">son and designed to eventually replace Ispell. Aspell</text>
+<text top="1083" left="459" width="346" height="15" font="0">can either be used as a library (in fact, the Omegahat</text>
+<text top="1101" left="458" width="112" height="15" font="0">package <b>Aspell </b><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="1101" left="571" width="87" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Temple Lang</a></text>
+<text top="1101" left="657" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="1101" left="665" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2005</a></text>
+<text top="1101" left="695" width="113" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">) </a>provides a fine-</text>
+<text top="1119" left="459" width="349" height="15" font="0">grained R interface to this) or as a standalone program.</text>
+<text top="1137" left="459" width="349" height="15" font="0">Compared to Ispell, Aspell can also easily check docu-</text>
+<text top="1155" left="459" width="349" height="15" font="0">ments in UTF-8 without having to use a special dictio-</text>
+<text top="1173" left="459" width="346" height="15" font="0">nary, and supports using multiple dictionaries. It also</text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="6" size="9" family="Times" color="#00004c"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">23</text>
+<text top="125" left="82" width="346" height="15" font="0">tries to do a better job suggesting corrections (Ispell</text>
+<text top="143" left="82" width="346" height="15" font="0">only suggests words with a Levenshtein distance of</text>
+<text top="161" left="82" width="350" height="18" font="0">1), and provides powerful and customizable TEX filter-</text>
+<text top="179" left="82" width="346" height="15" font="0">ing. Aspell is the standard spell checker for the GNU</text>
+<text top="197" left="82" width="349" height="15" font="0">software system, with packages available for all com-</text>
+<text top="215" left="82" width="346" height="15" font="0">mon Linux distributions. E.g., for Debian/Ubuntu</text>
+<text top="233" left="82" width="346" height="15" font="0">flavors, <b>aspell </b>contains the programs, <b>aspell-en </b>the</text>
+<text top="251" left="82" width="346" height="15" font="0">English language dictionaries (with American, British</text>
+<text top="268" left="82" width="346" height="15" font="0">and Canadian spellings), and <b>libaspell-dev </b>provides</text>
+<text top="286" left="82" width="346" height="15" font="0">the files needed to build applications that link against</text>
+<text top="304" left="82" width="129" height="15" font="0">the Aspell libraries.</text>
+<text top="322" left="105" width="23" height="15" font="0">See</text>
+<text top="324" left="135" width="130" height="12" font="4"><a href="http://aspell.net">http://aspell.net</a></text>
+<text top="322" left="271" width="160" height="15" font="0">for information on ob-</text>
+<text top="340" left="82" width="309" height="15" font="0">taining Aspell, and available dictionaries.</text>
+<text top="340" left="418" width="12" height="15" font="0">A</text>
+<text top="358" left="82" width="349" height="15" font="0">native Windows build of an old release of As-</text>
+<text top="376" left="82" width="132" height="15" font="0">pell is available on</text>
+<text top="377" left="220" width="183" height="12" font="4"><a href="http://aspell.net/win32/">http://aspell.net/win32/</a></text>
+<text top="376" left="403" width="27" height="15" font="0"><a href="http://aspell.net/win32/">. </a>A</text>
+<text top="394" left="82" width="349" height="15" font="0">current build is included in the Cygwin sys-</text>
+<text top="412" left="82" width="48" height="15" font="0">tem at</text>
+<text top="413" left="139" width="130" height="12" font="4"><a href="http://cygwin.com">http://cygwin.com</a></text>
+<text top="409" left="269" width="6" height="11" font="6"><a href="http://cygwin.com">1</a></text>
+<text top="412" left="275" width="154" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#2">, </a>and a native build</text>
+<text top="430" left="82" width="102" height="15" font="0">is available at</text>
+<text top="431" left="194" width="236" height="12" font="4"><a href="http://www.ndl.kiev.ua/content/patch-aspell-0605-win32-compilation">http://www.ndl.kiev.ua/content/</a></text>
+<text top="449" left="82" width="270" height="12" font="4"><a href="http://www.ndl.kiev.ua/content/patch-aspell-0605-win32-compilation">patch-aspell-0605-win32-compilation</a></text>
+<text top="448" left="352" width="4" height="15" font="0"><a href="http://www.ndl.kiev.ua/content/patch-aspell-0605-win32-compilation">.</a></text>
+<text top="466" left="105" width="77" height="15" font="0">Hunspell <a href="http://hunspell.sourceforge.net/">(</a></text>
+<text top="467" left="181" width="244" height="12" font="4"><a href="http://hunspell.sourceforge.net/">http://hunspell.sourceforge.net/</a></text>
+<text top="466" left="425" width="5" height="15" font="0"><a href="http://hunspell.sourceforge.net/">)</a></text>
+<text top="484" left="82" width="349" height="15" font="0">is a spell checker and morphological analyzer de-</text>
+<text top="502" left="82" width="349" height="15" font="0">signed for languages with rich morphology and com-</text>
+<text top="520" left="82" width="349" height="15" font="0">plex word compounding or character encoding, orig-</text>
+<text top="537" left="82" width="346" height="15" font="0">inally designed for the Hungarian language. It is in</text>
+<text top="555" left="82" width="346" height="15" font="0">turn based on Myspell, which was started by Kevin</text>
+<text top="573" left="82" width="346" height="15" font="0">Hendricks to integrate various open source spelling</text>
+<text top="591" left="82" width="349" height="15" font="0">checkers into the OpenOffice.org build, and facili-</text>
+<text top="609" left="82" width="346" height="15" font="0">tated by Kevin Atkinson. Unlike Myspell, Hunspell</text>
+<text top="627" left="82" width="349" height="15" font="0">can use Unicode UTF-8-encoded dictionaries. Hun-</text>
+<text top="645" left="82" width="346" height="15" font="0">spell is the spell checker of OpenOffice.org, Mozilla</text>
+<text top="663" left="82" width="346" height="15" font="0">Firefox 3 &amp; Thunderbird and Google Chrome, and</text>
+<text top="681" left="82" width="349" height="15" font="0">it is also used by proprietary software like MacOS X.</text>
+<text top="699" left="82" width="347" height="18" font="0">Its TEX support is similar to Ispell, but nowhere near</text>
+<text top="717" left="82" width="349" height="15" font="0">that of Aspell. Again, Hunspell is conveniently pack-</text>
+<text top="735" left="82" width="349" height="15" font="0">aged for all common Linux distributions (with De-</text>
+<text top="753" left="82" width="346" height="15" font="0">bian/Ubuntu packages <b>hunspell </b>for the standalone</text>
+<text top="771" left="82" width="347" height="15" font="0">program, dictionaries including <b>hunspell-en-us </b>and</text>
+<text top="789" left="82" width="101" height="15" font="3"><b>hunspell-en-ca</b></text>
+<text top="789" left="184" width="248" height="15" font="0">, and <b>libhunspell-dev </b>for the applica-</text>
+<text top="806" left="82" width="346" height="15" font="0">tion library interface). For Windows, the most recent</text>
+<text top="824" left="82" width="308" height="15" font="0">available build appears to be version 1.2.8 on</text>
+<text top="826" left="395" width="38" height="12" font="4"><a href="http://sourceforge.net/projects/hunspell/files/">http:</a></text>
+<text top="844" left="82" width="320" height="12" font="4"><a href="http://sourceforge.net/projects/hunspell/files/">//sourceforge.net/projects/hunspell/files/</a></text>
+<text top="842" left="402" width="4" height="15" font="0"><a href="http://sourceforge.net/projects/hunspell/files/">.</a></text>
+<text top="860" left="105" width="324" height="15" font="0">Aspell and Hunspell both support the so-called</text>
+<text top="878" left="82" width="346" height="15" font="0">Ispell pipe interface, which reads a given input file</text>
+<text top="896" left="82" width="346" height="15" font="0">and then, for each input line, writes a single line to the</text>
+<text top="914" left="82" width="346" height="15" font="0">standard output for each word checked for spelling on</text>
+<text top="932" left="82" width="346" height="15" font="0">the line, with different line formats for words found</text>
+<text top="950" left="82" width="347" height="15" font="0">in the dictionary, and words not found, either with or</text>
+<text top="968" left="82" width="350" height="15" font="0">without suggestions. Through this interface, applica-</text>
+<text top="986" left="82" width="346" height="15" font="0">tions can easily gain spell-checking capabilities (with</text>
+<text top="1004" left="82" width="236" height="15" font="0">Emacs the longest-serving “client”).</text>
+<text top="1050" left="82" width="217" height="21" font="5"><b>Spell checking with R</b></text>
+<text top="1089" left="82" width="347" height="15" font="0">The basic function for spell checking provided by the</text>
+<text top="1107" left="82" width="31" height="15" font="3"><b>utils</b></text>
+<text top="1107" left="117" width="233" height="15" font="0">package is aspell(), with synopsis</text>
+<text top="1135" left="103" width="268" height="10" font="7">aspell(files, filter, control = list(),</text>
+<text top="1151" left="151" width="254" height="10" font="7">encoding = &#34;unknown&#34;, program = NULL)</text>
+<text top="125" left="458" width="347" height="15" font="0">Argument files is a character vector with the names</text>
+<text top="143" left="459" width="347" height="15" font="0">of the files to be checked (in fact, in R 2.12.0 or later</text>
+<text top="161" left="459" width="349" height="15" font="0">alternatively a list of R objects representing connec-</text>
+<text top="179" left="459" width="347" height="15" font="0">tions or having suitable srcrefs), control is a list or</text>
+<text top="197" left="459" width="346" height="15" font="0">character vector of control options (command line</text>
+<text top="215" left="459" width="348" height="15" font="0">arguments) to be passed to the spell check program,</text>
+<text top="233" left="459" width="349" height="15" font="0">and program optionally specifies the name of the pro-</text>
+<text top="251" left="459" width="346" height="15" font="0">gram to be employed. By default, the system path</text>
+<text top="268" left="459" width="346" height="15" font="0">is searched for aspell, hunspell and ispell (in that</text>
+<text top="286" left="459" width="346" height="15" font="0">order), and the first one found is used. Encodings</text>
+<text top="304" left="458" width="350" height="15" font="0">which can not be inferred from the files can be spec-</text>
+<text top="322" left="459" width="346" height="15" font="0">ified via encoding. Finally, one can use argument</text>
+<text top="342" left="459" width="46" height="12" font="0">filter</text>
+<text top="340" left="509" width="299" height="15" font="0">to specify a filter for processing the files be-</text>
+<text top="358" left="459" width="348" height="15" font="0">fore spell checking, either as a user-defined function,</text>
+<text top="376" left="459" width="346" height="15" font="0">or a character string specifying a built-in filter, or a</text>
+<text top="394" left="459" width="346" height="15" font="0">list with the name of a built-in filter and additional</text>
+<text top="412" left="459" width="349" height="15" font="0">arguments to be passed to it. The built-in filters cur-</text>
+<text top="430" left="459" width="349" height="15" font="0">rently available are &#34;Rd&#34; and &#34;Sweave&#34;, correspond-</text>
+<text top="448" left="459" width="347" height="15" font="0">ing to functions RdTextFilter and SweaveTeXFilter</text>
+<text top="466" left="459" width="346" height="15" font="0">in package <b>tools</b>, with self-explanatory names: the</text>
+<text top="484" left="459" width="346" height="15" font="0">former blanks out all non-text in an Rd file, dropping</text>
+<text top="502" left="459" width="347" height="15" font="0">elements such as \email and \url or as specified by</text>
+<text top="520" left="459" width="346" height="15" font="0">the user via argument drop; the latter blanks out code</text>
+<text top="537" left="459" width="344" height="15" font="0">chunks and Noweb markup in an Sweave input file.</text>
+<text top="557" left="481" width="61" height="12" font="0">aspell()</text>
+<text top="555" left="549" width="257" height="15" font="0">returns a data frame inheriting from</text>
+<text top="575" left="459" width="61" height="12" font="0">&#34;aspell&#34;</text>
+<text top="573" left="525" width="283" height="15" font="0">with the information about possibly mis-</text>
+<text top="591" left="459" width="346" height="15" font="0">spelled words, which has useful print() and</text>
+<text top="611" left="459" width="69" height="12" font="0">summary()</text>
+<text top="609" left="533" width="235" height="15" font="0">methods. For example, consider ‘</text>
+<text top="610" left="768" width="36" height="12" font="7">lm.Rd</text>
+<text top="609" left="804" width="4" height="15" font="0">’</text>
+<text top="627" left="459" width="349" height="15" font="0">in package <b>stats </b>which provides the documenta-</text>
+<text top="645" left="459" width="346" height="15" font="0">tion for fitting linear models. Assuming that src</text>
+<text top="663" left="459" width="349" height="15" font="0">is set to the URL for the source of that file, i.e.</text>
+<text top="682" left="459" width="351" height="12" font="0">&#34;http://svn.R-project.org/R/trunk/src/library/</text>
+<text top="700" left="459" width="122" height="12" font="0">stats/man/lm.Rd&#34;</text>
+<text top="699" left="581" width="225" height="15" font="0">, and f is set to &#34;lm.Rd&#34;, we can</text>
+<text top="717" left="459" width="246" height="15" font="0">obtain a copy and check it as follows:</text>
+<text top="749" left="459" width="158" height="10" font="7">&gt; download.file(src, f)</text>
+<text top="765" left="459" width="151" height="10" font="7">&gt; a &lt;- aspell(f, &#34;Rd&#34;)</text>
+<text top="782" left="459" width="21" height="10" font="7">&gt; a</text>
+<text top="811" left="459" width="55" height="10" font="7">accessor</text>
+<text top="828" left="473" width="82" height="10" font="7">lm.Rd:128:25</text>
+<text top="858" left="459" width="34" height="10" font="7">ANOVA</text>
+<text top="874" left="473" width="75" height="10" font="7">lm.Rd:177:7</text>
+<text top="904" left="459" width="55" height="10" font="7">datasets</text>
+<text top="920" left="473" width="82" height="10" font="7">lm.Rd:199:37</text>
+<text top="950" left="459" width="75" height="10" font="7">differenced</text>
+<text top="966" left="473" width="82" height="10" font="7">lm.Rd:168:57</text>
+<text top="996" left="459" width="55" height="10" font="7">formulae</text>
+<text top="1013" left="473" width="82" height="10" font="7">lm.Rd:103:27</text>
+<text top="1042" left="459" width="34" height="10" font="7">Ihaka</text>
+<text top="1059" left="473" width="82" height="10" font="7">lm.Rd:214:68</text>
+<text top="1088" left="459" width="55" height="10" font="7">logicals</text>
+<text top="1105" left="473" width="75" height="10" font="7">lm.Rd:55:26</text>
+<text top="1135" left="459" width="41" height="10" font="7">priori</text>
+<text top="1151" left="473" width="75" height="10" font="7">lm.Rd:66:56</text>
+<text top="1173" left="99" width="4" height="9" font="8">1</text>
+<text top="1175" left="104" width="676" height="12" font="1">The Cygwin build requires Unix-style text file inputs, and Cygwin-style file paths, so is not fully compatible with aspell() in R.</text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">24</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="82" width="62" height="10" font="7">regressor</text>
+<text top="144" left="96" width="75" height="10" font="7">lm.Rd:169:3</text>
+<text top="179" left="82" width="347" height="15" font="0">(results will be quite different if one forgets to use</text>
+<text top="197" left="82" width="347" height="15" font="0">the Rd filter). The output is self-explanatory: for</text>
+<text top="215" left="82" width="346" height="15" font="0">each possibly mis-spelled word, we get the word and</text>
+<text top="233" left="82" width="349" height="15" font="0">the occurrences in the form file:linenum:colnum.</text>
+<text top="251" left="82" width="346" height="15" font="0">Clearly, terms such as ‘ANOVA’ and ‘regressor’ are</text>
+<text top="269" left="82" width="346" height="15" font="0">missing from the dictionary; if one was not sure</text>
+<text top="287" left="82" width="269" height="15" font="0">about ‘datasets’, one could try visiting</text>
+<text top="288" left="358" width="76" height="12" font="4"><a href="http://en.wiktionary.org/wiki/datasets">http://en.</a></text>
+<text top="306" left="82" width="213" height="12" font="4"><a href="http://en.wiktionary.org/wiki/datasets">wiktionary.org/wiki/datasets</a></text>
+<text top="305" left="296" width="4" height="15" font="0"><a href="http://en.wiktionary.org/wiki/datasets">.</a></text>
+<text top="324" left="105" width="324" height="15" font="0">If one is only interested in the possibly mis-spelled</text>
+<text top="342" left="82" width="203" height="15" font="0">words themselves, one can use</text>
+<text top="376" left="82" width="82" height="10" font="7">&gt; summary(a)</text>
+<text top="392" left="82" width="185" height="10" font="7">Possibly mis-spelled words:</text>
+<text top="409" left="82" width="96" height="10" font="7">[1] &#34;accessor&#34;</text>
+<text top="409" left="206" width="48" height="10" font="7">&#34;ANOVA&#34;</text>
+<text top="409" left="302" width="69" height="10" font="7">&#34;datasets&#34;</text>
+<text top="425" left="82" width="192" height="10" font="7">[4] &#34;differenced&#34; &#34;formulae&#34;</text>
+<text top="425" left="302" width="48" height="10" font="7">&#34;Ihaka&#34;</text>
+<text top="441" left="82" width="96" height="10" font="7">[7] &#34;logicals&#34;</text>
+<text top="441" left="206" width="55" height="10" font="7">&#34;priori&#34;</text>
+<text top="441" left="302" width="75" height="10" font="7">&#34;regressor&#34;</text>
+<text top="473" left="82" width="347" height="15" font="0">(or directly access the Original variable); to see</text>
+<text top="491" left="82" width="346" height="15" font="0">the suggested corrections, one can print with</text>
+<text top="510" left="82" width="107" height="12" font="0">verbose = TRUE</text>
+<text top="508" left="189" width="4" height="15" font="0">:</text>
+<text top="543" left="82" width="117" height="10" font="7">&gt; print(subset(a,</text>
+<text top="559" left="82" width="7" height="10" font="7">+</text>
+<text top="559" left="185" width="89" height="10" font="7">Original %in%</text>
+<text top="575" left="82" width="7" height="10" font="7">+</text>
+<text top="575" left="185" width="171" height="10" font="7">c(&#34;ANOVA&#34;, &#34;regressor&#34;)),</text>
+<text top="592" left="82" width="7" height="10" font="7">+</text>
+<text top="592" left="137" width="103" height="10" font="7">verbose = TRUE)</text>
+<text top="628" left="82" width="171" height="10" font="7">Word: ANOVA (lm.Rd:177:7)</text>
+<text top="644" left="82" width="288" height="10" font="7">Suggestions: AN OVA AN-OVA NOVA ANICA ANIA</text>
+<text top="661" left="117" width="261" height="10" font="7">NOVAE ANA AVA INVAR NOV OVA UNIV ANITA</text>
+<text top="677" left="117" width="268" height="10" font="7">ANNORA AVIVA ABOVE ENVOY ANNA NEVA ALVA</text>
+<text top="694" left="117" width="254" height="10" font="7">ANYA AZOV ANON ENVY JANEVA ANODE ARNO</text>
+<text top="710" left="117" width="261" height="10" font="7">IVA ANVIL NAIVE OLVA ANAL AVON AV IONA</text>
+<text top="727" left="117" width="247" height="10" font="7">NV NAVY OONA AN AVOW INFO NAVE ANNOY</text>
+<text top="743" left="117" width="240" height="10" font="7">ANN ANY ARV AVE EVA INA NEV ONO UNA</text>
+<text top="759" left="117" width="90" height="10" font="7">ANCHOVY ANA'S</text>
+<text top="792" left="82" width="199" height="10" font="7">Word: regressor (lm.Rd:169:3)</text>
+<text top="809" left="82" width="288" height="10" font="7">Suggestions: regress or regress-or regress</text>
+<text top="825" left="117" width="206" height="10" font="7">regressive regressed regresses</text>
+<text top="842" left="117" width="240" height="10" font="7">aggressor regressing egress regrets</text>
+<text top="858" left="117" width="268" height="10" font="7">Negress redress repress recross regrows</text>
+<text top="875" left="117" width="126" height="10" font="7">egress's Negress's</text>
+<text top="910" left="82" width="288" height="15" font="0">Note that the first suggestion is ‘regress or’.</text>
+<text top="929" left="105" width="324" height="15" font="0">The print method also has an indent argument</text>
+<text top="947" left="82" width="347" height="15" font="0">controlling the indentation of the locations of possibly</text>
+<text top="965" left="82" width="347" height="15" font="0">mis-spelled words. The default is 2; Emacs users may</text>
+<text top="983" left="82" width="349" height="15" font="0">find it useful to use an indentation of 0 and visit out-</text>
+<text top="1001" left="82" width="349" height="15" font="0">put (directly when running R from inside ESS, or redi-</text>
+<text top="1019" left="82" width="334" height="15" font="0">recting output to a file using sink()) in grep-mode.</text>
+<text top="1038" left="105" width="324" height="15" font="0">The above spell check results were obtained using</text>
+<text top="1056" left="82" width="347" height="15" font="0">Aspell with an American English dictionary. One can</text>
+<text top="1073" left="82" width="188" height="15" font="0">also use several dictionaries:</text>
+<text top="1108" left="82" width="158" height="10" font="7">&gt; a2 &lt;- aspell(f, &#34;Rd&#34;,</text>
+<text top="1124" left="82" width="7" height="10" font="7">+</text>
+<text top="1124" left="185" width="62" height="10" font="7">control =</text>
+<text top="1141" left="82" width="7" height="10" font="7">+</text>
+<text top="1141" left="185" width="130" height="10" font="7">c(&#34;--master=en_US&#34;,</text>
+<text top="1157" left="82" width="7" height="10" font="7">+</text>
+<text top="1157" left="199" width="185" height="10" font="7">&#34;--add-extra-dicts=en_GB&#34;))</text>
+<text top="1173" left="82" width="89" height="10" font="7">&gt; summary(a2)</text>
+<text top="127" left="459" width="185" height="10" font="7">Possibly mis-spelled words:</text>
+<text top="144" left="459" width="96" height="10" font="7">[1] &#34;accessor&#34;</text>
+<text top="144" left="582" width="48" height="10" font="7">&#34;ANOVA&#34;</text>
+<text top="144" left="678" width="69" height="10" font="7">&#34;datasets&#34;</text>
+<text top="160" left="459" width="171" height="10" font="7">[4] &#34;differenced&#34; &#34;Ihaka&#34;</text>
+<text top="160" left="678" width="69" height="10" font="7">&#34;logicals&#34;</text>
+<text top="177" left="459" width="82" height="10" font="7">[7] &#34;priori&#34;</text>
+<text top="177" left="582" width="75" height="10" font="7">&#34;regressor&#34;</text>
+<text top="208" left="459" width="233" height="10" font="7">&gt; setdiff(a$Original, a2$Original)</text>
+<text top="240" left="459" width="96" height="10" font="7">[1] &#34;formulae&#34;</text>
+<text top="271" left="458" width="349" height="15" font="0">This shows that Aspell no longer considers ‘for-</text>
+<text top="289" left="459" width="347" height="15" font="0">mulae’ mis-spelled when the “British” dictionary</text>
+<text top="307" left="459" width="346" height="15" font="0">is added, and also exemplifies how to use the</text>
+<text top="326" left="459" width="53" height="12" font="0">control</text>
+<text top="325" left="516" width="292" height="15" font="0">argument: using Hunspell, the correspond-</text>
+<text top="343" left="459" width="346" height="15" font="0">ing choice of dictionaries could be achieved using</text>
+<text top="362" left="459" width="198" height="12" font="0">control = &#34;-d en_US,en_GB&#34;</text>
+<text top="361" left="657" width="151" height="15" font="0">. (Note that the dictio-</text>
+<text top="379" left="459" width="347" height="15" font="0">naries differ, as we shall see below). This works for</text>
+<text top="397" left="457" width="352" height="15" font="0">“system” dictionaries; one can also specify “personal”</text>
+<text top="415" left="459" width="346" height="15" font="0">dictionaries (using the common command line option</text>
+<text top="432" left="457" width="32" height="15" font="0">‘-p’).</text>
+<text top="451" left="481" width="325" height="18" font="0">We already pointed out that Aspell excels in its TEX</text>
+<text top="468" left="459" width="349" height="15" font="0">filtering capabilities, which is obviously rather use-</text>
+<text top="486" left="459" width="346" height="15" font="0">ful for spell-checking R package vignettes in Sweave</text>
+<text top="504" left="459" width="346" height="15" font="0">format. Similar to Ispell and Hunspell, it provides</text>
+<text top="522" left="459" width="346" height="18" font="0">a TEX mode (activated by the common command</text>
+<text top="540" left="459" width="349" height="18" font="0">line option ‘-t’) which knows to blank out TEX com-</text>
+<text top="558" left="459" width="349" height="15" font="0">mands. In addition to the others, it allows to selec-</text>
+<text top="576" left="459" width="349" height="15" font="0">tively blank out options and parameters of these com-</text>
+<text top="594" left="459" width="346" height="15" font="0">mands. This works via specifications of the form</text>
+<text top="612" left="457" width="349" height="15" font="0">‘name signature’ where the first gives the name of the</text>
+<text top="630" left="459" width="347" height="15" font="0">command and the second is a string containing ‘p’ or</text>
+<text top="648" left="457" width="349" height="15" font="0">‘o’ indicating to blank out parameters or options, or</text>
+<text top="666" left="457" width="350" height="15" font="0">‘P’ or ‘O’ indicating to keep them for checking. E.g.,</text>
+<text top="684" left="457" width="349" height="15" font="0">‘foo Pop’ specifies to check the first parameter and</text>
+<text top="702" left="459" width="347" height="15" font="0">then skip the next option and the second parameter</text>
+<text top="720" left="458" width="349" height="15" font="0">(even if the option is not present), i.e˙following the pat-</text>
+<text top="737" left="459" width="346" height="15" font="0">tern \foo{checked}[unchecked]{unchecked}, and is</text>
+<text top="755" left="458" width="126" height="15" font="0">passed to Aspell as</text>
+<text top="786" left="473" width="185" height="10" font="7">--add-tex-command=&#34;foo Pop&#34;</text>
+<text top="814" left="458" width="347" height="18" font="0">Aspell’s TEX filter is already aware of a number of</text>
+<text top="832" left="459" width="78" height="15" font="0">common (L</text>
+<text top="832" left="531" width="9" height="11" font="1">A</text>
+<text top="832" left="538" width="268" height="18" font="0">TEX) commands (but not, e.g., of \citep</text>
+<text top="850" left="459" width="349" height="15" font="0">used for parenthetical citations using <b>natbib</b>). How-</text>
+<text top="868" left="459" width="346" height="15" font="0">ever, this filter is based on C++ code internal to the</text>
+<text top="886" left="458" width="347" height="15" font="0">Aspell data structures, and hence not reusable for</text>
+<text top="904" left="459" width="346" height="15" font="0">other spell checkers: we are currently exploring the</text>
+<text top="922" left="458" width="337" height="15" font="0">possibility to provide similar functionality using R.</text>
+<text top="940" left="481" width="327" height="15" font="0">Package <b>utils </b>also provides three additional utili-</text>
+<text top="958" left="459" width="222" height="15" font="0">ties (exported in R 2.12.0 or later):</text>
+<text top="977" left="459" width="191" height="12" font="0">aspell_package_Rd_files()</text>
+<text top="976" left="649" width="4" height="15" font="0">,</text>
+<text top="995" left="459" width="198" height="12" font="0">aspell_package_vignettes()</text>
+<text top="994" left="657" width="33" height="15" font="0">, and</text>
+<text top="1013" left="459" width="297" height="12" font="0">aspell_write_personal_dictionary_file()</text>
+<text top="1012" left="756" width="4" height="15" font="0">.</text>
+<text top="1030" left="458" width="347" height="15" font="0">The first two, obviously for spell checking the Rd files</text>
+<text top="1048" left="459" width="347" height="15" font="0">and (Sweave) vignettes in a package, are not only</text>
+<text top="1065" left="459" width="346" height="15" font="0">useful for automatically computing all relevant files</text>
+<text top="1083" left="459" width="346" height="15" font="0">and choosing the appropriate filter (and, in the case</text>
+<text top="1101" left="459" width="346" height="15" font="0">of vignettes, adding a few commands like \Sexpr and</text>
+<text top="1121" left="458" width="46" height="12" font="0">\citep</text>
+<text top="1119" left="509" width="297" height="15" font="0">to the blank out list), but also because they</text>
+<text top="1137" left="459" width="349" height="15" font="0">support a package default mechanism described be-</text>
+<text top="1155" left="459" width="347" height="15" font="0">low. To see a simple example, we use Aspell to check</text>
+<text top="1173" left="459" width="280" height="15" font="0">the spelling of all Rd files in package <b>stats</b>:</text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">25</text>
+<text top="127" left="82" width="123" height="10" font="7">&gt; require(&#34;tools&#34;)</text>
+<text top="144" left="82" width="350" height="10" font="7">&gt; drop &lt;- c(&#34;\\author&#34;, &#34;\\source&#34;, &#34;\\references&#34;)</text>
+<text top="160" left="82" width="185" height="10" font="7">&gt; ca &lt;- c(&#34;--master=en_US&#34;,</text>
+<text top="177" left="82" width="7" height="10" font="7">+</text>
+<text top="177" left="151" width="178" height="10" font="7">&#34;--add-extra-dicts=en_GB&#34;)</text>
+<text top="193" left="82" width="281" height="10" font="7">&gt; asa &lt;- aspell_package_Rd_files(&#34;stats&#34;,</text>
+<text top="210" left="82" width="7" height="10" font="7">+</text>
+<text top="210" left="158" width="219" height="10" font="7">drop = drop, program = &#34;aspell&#34;,</text>
+<text top="226" left="82" width="7" height="10" font="7">+</text>
+<text top="226" left="158" width="89" height="10" font="7">control = ca)</text>
+<text top="253" left="82" width="349" height="15" font="0">This currently (2011-05-11) finds 1114 possibly mis-</text>
+<text top="271" left="82" width="346" height="15" font="0">spelled words which should hopefully all be false</text>
+<text top="289" left="82" width="347" height="15" font="0">positives (as we regularly use aspell() to check the</text>
+<text top="307" left="82" width="349" height="15" font="0">spelling in R’s Rd files). The most frequent occur-</text>
+<text top="325" left="82" width="66" height="15" font="0">rences are</text>
+<text top="358" left="82" width="357" height="10" font="7">&gt; head(sort(table(asa$Original), decreasing = TRUE))</text>
+<text top="390" left="96" width="130" height="10" font="7">quantile dendrogram</text>
+<text top="390" left="281" width="96" height="10" font="7">AIC univariate</text>
+<text top="406" left="137" width="14" height="10" font="7">57</text>
+<text top="406" left="213" width="14" height="10" font="7">44</text>
+<text top="406" left="288" width="14" height="10" font="7">42</text>
+<text top="406" left="364" width="14" height="10" font="7">42</text>
+<text top="422" left="89" width="62" height="10" font="7">quantiles</text>
+<text top="422" left="192" width="34" height="10" font="7">ARIMA</text>
+<text top="439" left="137" width="14" height="10" font="7">30</text>
+<text top="439" left="213" width="14" height="10" font="7">23</text>
+<text top="469" left="82" width="350" height="15" font="0">which should clearly be in every statistician’s dictio-</text>
+<text top="487" left="82" width="35" height="15" font="0">nary!</text>
+<text top="505" left="105" width="324" height="15" font="0">Package defaults for spell checking (as well as</text>
+<text top="523" left="82" width="346" height="15" font="0">a personal dictionary file) can be specified in a</text>
+<text top="541" left="80" width="4" height="15" font="0">‘</text>
+<text top="542" left="85" width="61" height="12" font="7">defaults.R</text>
+<text top="541" left="146" width="79" height="15" font="0">’ file in the ‘</text>
+<text top="542" left="225" width="40" height="12" font="7">.aspell</text>
+<text top="541" left="265" width="167" height="15" font="0">’ subdirectory of the top-</text>
+<text top="559" left="82" width="346" height="15" font="0">level package source directory, and are provided via</text>
+<text top="577" left="82" width="283" height="15" font="0">assignments to suitably named lists, as e.g.</text>
+<text top="607" left="96" width="82" height="10" font="7">vignettes &lt;-</text>
+<text top="624" left="124" width="302" height="10" font="7">list(control = &#34;--add-tex-command=mycmd op&#34;)</text>
+<text top="651" left="82" width="346" height="15" font="0">for vignettes and assigning to Rd_files for Rd files</text>
+<text top="669" left="82" width="349" height="15" font="0">defaults. For the latter, one can also give a drop de-</text>
+<text top="687" left="82" width="346" height="15" font="0">fault specifying additional Rd sections to be blanked</text>
+<text top="705" left="82" width="56" height="15" font="0">out, e.g.,</text>
+<text top="735" left="96" width="254" height="10" font="7">Rd_files &lt;- list(drop = c(&#34;\\author&#34;,</text>
+<text top="752" left="275" width="75" height="10" font="7">&#34;\\source&#34;,</text>
+<text top="768" left="275" width="110" height="10" font="7">&#34;\\references&#34;))</text>
+<text top="795" left="82" width="347" height="15" font="0">The default lists can also contain a personal element</text>
+<text top="813" left="82" width="349" height="15" font="0">for specifying a package-specific personal dictionary.</text>
+<text top="831" left="82" width="347" height="15" font="0">A possible work flow for package maintainers is the</text>
+<text top="849" left="82" width="346" height="15" font="0">following: one runs the spell checkers and corrects all</text>
+<text top="867" left="82" width="348" height="15" font="0">true positives, leaving the false positives. Obviously,</text>
+<text top="885" left="82" width="346" height="15" font="0">these should be recorded so that they are not reported</text>
+<text top="903" left="82" width="349" height="15" font="0">the next time when texts are modified and check-</text>
+<text top="921" left="82" width="346" height="15" font="0">ing is performed again. To do this one re-runs the</text>
+<text top="939" left="82" width="346" height="15" font="0">check utility (e.g., aspell_package_vignettes() and</text>
+<text top="957" left="82" width="346" height="15" font="0">saves its results into a personal dictionary file using</text>
+<text top="976" left="82" width="297" height="12" font="0">aspell_write_personal_dictionary_file()</text>
+<text top="975" left="380" width="4" height="15" font="0">.</text>
+<text top="975" left="400" width="29" height="15" font="0">This</text>
+<text top="993" left="82" width="164" height="15" font="0">file is then moved to the ‘</text>
+<text top="994" left="246" width="38" height="12" font="7">.aspell</text>
+<text top="993" left="284" width="147" height="15" font="0">’ subdirectory (named,</text>
+<text top="1011" left="82" width="34" height="15" font="0">e.g., ‘</text>
+<text top="1012" left="116" width="80" height="12" font="7">vignettes.pws</text>
+<text top="1011" left="196" width="233" height="15" font="0">’) and then activated via the defaults</text>
+<text top="1029" left="82" width="95" height="15" font="0">file using, e.g.,</text>
+<text top="1059" left="103" width="82" height="10" font="7">vignettes &lt;-</text>
+<text top="1075" left="131" width="302" height="10" font="7">list(control = &#34;--add-tex-command=mycmd op&#34;,</text>
+<text top="1092" left="165" width="185" height="10" font="7">personal = &#34;vignettes.pws&#34;)</text>
+<text top="1119" left="82" width="348" height="15" font="0">Following a new round of checking and correcting,</text>
+<text top="1137" left="82" width="349" height="15" font="0">the procedure is repeated (with the personal dictio-</text>
+<text top="1155" left="82" width="346" height="15" font="0">nary file temporarily removed before re-running the</text>
+<text top="1173" left="82" width="348" height="15" font="0">utility and re-creating the dictionary file; currently,</text>
+<text top="125" left="459" width="349" height="15" font="0">there is no user-level facility for reading/merging per-</text>
+<text top="143" left="459" width="125" height="15" font="0">sonal dictionaries).</text>
+<text top="161" left="481" width="324" height="15" font="0">A different work flow is to keep the previous spell</text>
+<text top="179" left="459" width="346" height="15" font="0">check results and compare the current one to the most</text>
+<text top="197" left="459" width="346" height="15" font="0">recent previous one. In fact, one of us (KH) uses this</text>
+<text top="215" left="459" width="347" height="15" font="0">approach to automatically generate “check diffs” for</text>
+<text top="233" left="459" width="346" height="15" font="0">the R Rd files, vignettes and Texinfo manuals and</text>
+<text top="251" left="459" width="210" height="15" font="0">correct the true positives found.</text>
+<text top="269" left="481" width="324" height="15" font="0">A spell check utility R itself does not (yet) provide</text>
+<text top="287" left="459" width="346" height="15" font="0">is one for checking a list of given words, which is</text>
+<text top="305" left="459" width="207" height="15" font="0">easily accomplished as follows:</text>
+<text top="336" left="459" width="336" height="10" font="7">&gt; aspell_words &lt;- function(x, control = list()) {</text>
+<text top="352" left="459" width="7" height="10" font="7">+</text>
+<text top="352" left="500" width="165" height="10" font="7">con &lt;- textConnection(x)</text>
+<text top="368" left="459" width="7" height="10" font="7">+</text>
+<text top="368" left="500" width="130" height="10" font="7">on.exit(close(con))</text>
+<text top="385" left="459" width="7" height="10" font="7">+</text>
+<text top="385" left="500" width="247" height="10" font="7">aspell(list(con), control = control)</text>
+<text top="401" left="459" width="21" height="10" font="7">+ }</text>
+<text top="429" left="459" width="346" height="15" font="0">Of course, this reports useless locations, but is useful</text>
+<text top="447" left="459" width="243" height="15" font="0">for programmatic dictionary lookup:</text>
+<text top="478" left="459" width="329" height="10" font="7">&gt; print(aspell_words(&#34;flavour&#34;), verbose = TRUE)</text>
+<text top="510" left="459" width="199" height="10" font="7">Word: flavour (&lt;unknown&gt;:1:1)</text>
+<text top="526" left="459" width="268" height="10" font="7">Suggestions: flavor flavors favor flour</text>
+<text top="543" left="493" width="269" height="10" font="7">flair flours floury Flor flavor's Fleur</text>
+<text top="559" left="493" width="145" height="10" font="7">floor flyover flour's</text>
+<text top="590" left="458" width="349" height="15" font="0">(again using Aspell with an American English dictio-</text>
+<text top="608" left="459" width="39" height="15" font="0">nary).</text>
+<text top="656" left="459" width="275" height="21" font="5"><b>Spell checking performance</b></text>
+<text top="695" left="459" width="349" height="15" font="0">Should one use Aspell or Hunspell (assuming con-</text>
+<text top="712" left="458" width="347" height="15" font="0">venient access to both)? Due to its more powerful</text>
+<text top="730" left="459" width="349" height="15" font="0">morphological algorithms, Hunspell is slower. For vi-</text>
+<text top="748" left="459" width="346" height="15" font="0">gnettes, Aspell performance is clearly superior, given</text>
+<text top="766" left="459" width="346" height="18" font="0">its superior TEX capabilities. For Rd files, we compare</text>
+<text top="784" left="459" width="346" height="15" font="0">the results we obtain for package <b>stats</b>. Similar to the</text>
+<text top="802" left="459" width="274" height="15" font="0">above, we use Hunspell on these Rd files:</text>
+<text top="833" left="459" width="165" height="10" font="7">&gt; ch &lt;- &#34;-d en_US,en_GB&#34;</text>
+<text top="850" left="459" width="206" height="10" font="7">&gt; ash &lt;- aspell(files, filter,</text>
+<text top="866" left="459" width="7" height="10" font="7">+</text>
+<text top="866" left="569" width="240" height="10" font="7">program = &#34;hunspell&#34;, control = ch)</text>
+<text top="894" left="458" width="349" height="15" font="0">(In fact, this currently triggers a segfault on at least De-</text>
+<text top="912" left="459" width="223" height="15" font="0">bian GNU/Linux squeeze on file ‘</text>
+<text top="913" left="682" width="61" height="12" font="7">lowess.Rd</text>
+<text top="912" left="743" width="62" height="15" font="0">’ once the</text>
+<text top="930" left="459" width="346" height="15" font="0">en_GB dictionary is in place: so we really check this</text>
+<text top="948" left="459" width="348" height="15" font="0">file using en_US only, and remove two GB spellings.)</text>
+<text top="966" left="458" width="349" height="15" font="0">We then extract the words and terms (unique words)</text>
+<text top="984" left="459" width="234" height="15" font="0">reported as potentially mis-spelled:</text>
+<text top="1015" left="459" width="302" height="10" font="7">&gt; asaw &lt;- asa$Original; asat &lt;- unique(asaw)</text>
+<text top="1031" left="459" width="302" height="10" font="7">&gt; ashw &lt;- ash$Original; asht &lt;- unique(ashw)</text>
+<text top="1047" left="459" width="213" height="10" font="7">&gt; allt &lt;- unique(c(asat, asht))</text>
+<text top="1075" left="458" width="349" height="15" font="0">This gives 1114 and 355 words and terms for Aspell,</text>
+<text top="1093" left="459" width="349" height="15" font="0">and 789 and 296 for Hunspell, respectively. Cross-</text>
+<text top="1111" left="459" width="111" height="15" font="0">tabulation yields</text>
+<text top="1142" left="459" width="268" height="10" font="7">&gt; tab &lt;- table(Aspell = allt %in% asat,</text>
+<text top="1159" left="459" width="7" height="10" font="7">+</text>
+<text top="1159" left="562" width="178" height="10" font="7">Hunspell = allt %in% asht)</text>
+<text top="1175" left="459" width="34" height="10" font="7">&gt; tab</text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">26</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="127" left="131" width="55" height="10" font="7">Hunspell</text>
+<text top="144" left="82" width="41" height="10" font="7">Aspell</text>
+<text top="144" left="137" width="69" height="10" font="7">FALSE TRUE</text>
+<text top="160" left="96" width="34" height="10" font="7">FALSE</text>
+<text top="160" left="165" width="7" height="10" font="7">0</text>
+<text top="160" left="192" width="14" height="10" font="7">27</text>
+<text top="177" left="96" width="27" height="10" font="7">TRUE</text>
+<text top="177" left="158" width="14" height="10" font="7">86</text>
+<text top="177" left="185" width="21" height="10" font="7">269</text>
+<text top="208" left="82" width="346" height="15" font="0">and the amount of agreement can be measured via the</text>
+<text top="226" left="82" width="347" height="15" font="0">Jaccard dissimilarity coefficient, which we compute</text>
+<text top="244" left="80" width="93" height="15" font="0">“by hand” via</text>
+<text top="275" left="82" width="295" height="10" font="7">&gt; sum(tab[row(tab) != col(tab)]) / sum(tab)</text>
+<text top="308" left="82" width="89" height="10" font="7">[1] 0.2958115</text>
+<text top="339" left="82" width="347" height="15" font="0">which is actually quite large. To gain more insight, we</text>
+<text top="357" left="82" width="346" height="15" font="0">inspect the most frequent terms found only by Aspell</text>
+<text top="388" left="82" width="288" height="10" font="7">&gt; head(sort(table(asaw[! asaw %in% asht]),</text>
+<text top="405" left="82" width="7" height="10" font="7">+</text>
+<text top="405" left="165" width="158" height="10" font="7">decreasing = TRUE), 4L)</text>
+<text top="437" left="96" width="130" height="10" font="7">quantile univariate</text>
+<text top="437" left="240" width="62" height="10" font="7">quantiles</text>
+<text top="437" left="364" width="14" height="10" font="7">th</text>
+<text top="454" left="137" width="14" height="10" font="7">57</text>
+<text top="454" left="213" width="14" height="10" font="7">42</text>
+<text top="454" left="288" width="14" height="10" font="7">30</text>
+<text top="454" left="364" width="14" height="10" font="7">18</text>
+<text top="485" left="82" width="179" height="15" font="0">and similarly for Hunspell:</text>
+<text top="517" left="82" width="288" height="10" font="7">&gt; head(sort(table(ashw[! ashw %in% asat]),</text>
+<text top="533" left="82" width="7" height="10" font="7">+</text>
+<text top="533" left="165" width="158" height="10" font="7">decreasing = TRUE), 4L)</text>
+<text top="565" left="124" width="78" height="10" font="7">'s Mallows'</text>
+<text top="565" left="215" width="48" height="10" font="7">hessian</text>
+<text top="565" left="304" width="21" height="10" font="7">BIC</text>
+<text top="582" left="124" width="14" height="10" font="7">21</text>
+<text top="582" left="192" width="7" height="10" font="7">6</text>
+<text top="582" left="254" width="7" height="10" font="7">5</text>
+<text top="582" left="316" width="7" height="10" font="7">4</text>
+<text top="613" left="82" width="349" height="15" font="0">indicating that Aspell currently does not know quan-</text>
+<text top="631" left="82" width="349" height="15" font="0">tiles, and some differences in the morphological han-</text>
+<text top="649" left="82" width="346" height="15" font="0">dling (the apostrophe s terms reported by Hunspell</text>
+<text top="667" left="82" width="346" height="15" font="0">are all instances of possessive forms of words typeset</text>
+<text top="685" left="82" width="346" height="15" font="0">using markup blanked out by the filtering). It might</text>
+<text top="703" left="82" width="349" height="15" font="0">appear that Hunspell has a larger and hence “better”</text>
+<text top="721" left="82" width="346" height="15" font="0">dictionary: but in general, increasing dictionary size</text>
+<text top="739" left="82" width="347" height="15" font="0">will also increase the true negative rate. To inspect</text>
+<text top="757" left="82" width="150" height="15" font="0">commonalities, we use</text>
+<text top="788" left="82" width="219" height="10" font="7">&gt; head(sort(table(asaw[asaw %in%</text>
+<text top="805" left="82" width="7" height="10" font="7">+</text>
+<text top="805" left="240" width="165" height="10" font="7">intersect(asat, asht)]),</text>
+<text top="821" left="82" width="7" height="10" font="7">+</text>
+<text top="821" left="165" width="130" height="10" font="7">decreasing = TRUE),</text>
+<text top="837" left="82" width="7" height="10" font="7">+</text>
+<text top="837" left="131" width="27" height="10" font="7">12L)</text>
+<text top="870" left="89" width="69" height="10" font="7">dendrogram</text>
+<text top="870" left="220" width="21" height="10" font="7">AIC</text>
+<text top="870" left="288" width="34" height="10" font="7">ARIMA</text>
+<text top="870" left="377" width="27" height="10" font="7">ARMA</text>
+<text top="886" left="144" width="14" height="10" font="7">44</text>
+<text top="886" left="227" width="14" height="10" font="7">42</text>
+<text top="886" left="309" width="14" height="10" font="7">23</text>
+<text top="886" left="391" width="14" height="10" font="7">22</text>
+<text top="903" left="103" width="55" height="10" font="7">Wilcoxon</text>
+<text top="903" left="192" width="49" height="10" font="7">Tukey's</text>
+<text top="903" left="303" width="21" height="10" font="7">GLM</text>
+<text top="903" left="386" width="21" height="10" font="7">Nls</text>
+<text top="919" left="144" width="14" height="10" font="7">16</text>
+<text top="919" left="227" width="14" height="10" font="7">15</text>
+<text top="919" left="309" width="14" height="10" font="7">12</text>
+<text top="919" left="391" width="14" height="10" font="7">10</text>
+<text top="935" left="82" width="75" height="10" font="7">periodogram</text>
+<text top="935" left="220" width="21" height="10" font="7">MLE</text>
+<text top="935" left="295" width="27" height="10" font="7">GLMs</text>
+<text top="935" left="377" width="27" height="10" font="7">IWLS</text>
+<text top="952" left="144" width="14" height="10" font="7">10</text>
+<text top="952" left="233" width="7" height="10" font="7">9</text>
+<text top="952" left="316" width="7" height="10" font="7">8</text>
+<text top="952" left="398" width="7" height="10" font="7">8</text>
+<text top="983" left="82" width="346" height="15" font="0">re-iterating the fact that a statistics dictionary is</text>
+<text top="1001" left="82" width="52" height="15" font="0">needed.</text>
+<text top="1019" left="105" width="327" height="15" font="0">We can also use the above to assess the “raw” per-</text>
+<text top="1037" left="82" width="349" height="15" font="0">formance of the spell checkers, by counting the num-</text>
+<text top="1055" left="82" width="349" height="15" font="0">ber of terms and words in the stats Rd file corpus. Us-</text>
+<text top="1073" left="82" width="349" height="15" font="0">ing the text mining infrastructure provided by pack-</text>
+<text top="1091" left="82" width="54" height="15" font="0">age <b>tm </b><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="1091" left="136" width="90" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Feinerer et al.</a></text>
+<text top="1091" left="227" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="1091" left="234" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2008</a></text>
+<text top="1091" left="265" width="164" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">), </a>this can be achieved as</text>
+<text top="1109" left="82" width="53" height="15" font="0">follows:</text>
+<text top="1141" left="82" width="103" height="10" font="7">&gt; require(&#34;tm&#34;)</text>
+<text top="1157" left="82" width="69" height="10" font="7">&gt; texts &lt;-</text>
+<text top="1173" left="82" width="7" height="10" font="7">+</text>
+<text top="1173" left="124" width="274" height="10" font="7">lapply(files, RdTextFilter, drop = drop)</text>
+<text top="127" left="459" width="192" height="10" font="7">&gt; dtm &lt;- DocumentTermMatrix(</text>
+<text top="144" left="459" width="7" height="10" font="7">+</text>
+<text top="144" left="500" width="192" height="10" font="7">Corpus(VectorSource(texts)),</text>
+<text top="160" left="459" width="7" height="10" font="7">+</text>
+<text top="160" left="500" width="274" height="10" font="7">control = list(removePunctuation = TRUE,</text>
+<text top="177" left="459" width="7" height="10" font="7">+</text>
+<text top="177" left="603" width="144" height="10" font="7">removeNumbers = TRUE,</text>
+<text top="193" left="459" width="7" height="10" font="7">+</text>
+<text top="193" left="603" width="137" height="10" font="7">minWordLength = 2L))</text>
+<text top="219" left="458" width="349" height="15" font="0">(the control argument is chosen to match the behav-</text>
+<text top="237" left="459" width="235" height="15" font="0">ior of the spell checkers). This gives</text>
+<text top="263" left="459" width="34" height="10" font="7">&gt; dtm</text>
+<text top="290" left="459" width="343" height="10" font="7">A document-term matrix (304 documents, 3533 terms)</text>
+<text top="323" left="459" width="233" height="10" font="7">Non-/sparse entries: 31398/1042634</text>
+<text top="339" left="459" width="55" height="10" font="7">Sparsity</text>
+<text top="339" left="589" width="34" height="10" font="7">: 97%</text>
+<text top="356" left="459" width="158" height="10" font="7">Maximal term length: 24</text>
+<text top="382" left="459" width="69" height="10" font="7">&gt; sum(dtm)</text>
+<text top="409" left="459" width="62" height="10" font="7">[1] 69910</text>
+<text top="434" left="458" width="347" height="15" font="0">with 3533 terms and 69910 words, so that Aspell</text>
+<text top="452" left="458" width="347" height="15" font="0">would give “raw” false positive rates of 10.05 and 1.59</text>
+<text top="470" left="458" width="347" height="15" font="0">percent for terms and words, respectively (assuming</text>
+<text top="488" left="459" width="346" height="15" font="0">that the regular spell checking of the Rd files in the R</text>
+<text top="506" left="459" width="306" height="15" font="0">sources has truly eliminated all mis-spellings).</text>
+<text top="552" left="459" width="330" height="21" font="5"><b>Towards a dictionary for statistics</b></text>
+<text top="591" left="459" width="346" height="15" font="0">Finally, we show how the spell check results can</text>
+<text top="609" left="459" width="349" height="15" font="0">be employed for building a domain-specific dictio-</text>
+<text top="627" left="459" width="346" height="15" font="0">nary (supplementing the default ones). Similar to the</text>
+<text top="645" left="459" width="346" height="15" font="0">above, we run Aspell on all Rd files in CRAN and</text>
+<text top="663" left="459" width="346" height="15" font="0">base R packages (Rd files are typically written in a</text>
+<text top="680" left="459" width="346" height="15" font="0">rather terse and somewhat technical style, but should</text>
+<text top="698" left="459" width="349" height="15" font="0">nevertheless be a good proxy for current terminol-</text>
+<text top="716" left="459" width="348" height="15" font="0">ogy in computational statistics). With results in ac,</text>
+<text top="734" left="458" width="347" height="15" font="0">we build a corpus obtained by splitting the words</text>
+<text top="752" left="459" width="348" height="15" font="0">according to the Rd file in which they were found,</text>
+<text top="770" left="459" width="264" height="15" font="0">and compute its document-term matrix:</text>
+<text top="797" left="459" width="151" height="10" font="7">&gt; terms &lt;- ac$Original</text>
+<text top="813" left="459" width="123" height="10" font="7">&gt; files &lt;- ac$File</text>
+<text top="830" left="459" width="206" height="10" font="7">&gt; dtm_f &lt;- DocumentTermMatrix(</text>
+<text top="846" left="459" width="7" height="10" font="7">+</text>
+<text top="846" left="500" width="288" height="10" font="7">Corpus(VectorSource(split(terms, files))),</text>
+<text top="863" left="459" width="7" height="10" font="7">+</text>
+<text top="863" left="500" width="62" height="10" font="7">control =</text>
+<text top="879" left="459" width="7" height="10" font="7">+</text>
+<text top="879" left="500" width="144" height="10" font="7">list(tolower = FALSE,</text>
+<text top="896" left="459" width="7" height="10" font="7">+</text>
+<text top="896" left="534" width="137" height="10" font="7">minWordLength = 2L))</text>
+<text top="919" left="458" width="349" height="15" font="0">(Again, minWordLength = 2L corresponds to the As-</text>
+<text top="937" left="458" width="348" height="15" font="0">pell default to ignore single-character words only.)</text>
+<text top="955" left="458" width="347" height="15" font="0">This finds 50658 possibly mis-spelled terms in 43287</text>
+<text top="973" left="459" width="346" height="15" font="0">Rd files, for a total number of 332551 words. As is</text>
+<text top="991" left="458" width="347" height="15" font="0">quite typical in corpus linguistics, the term frequency</text>
+<text top="1009" left="459" width="213" height="15" font="0">distribution is heavily left-tailed</text>
+<text top="1036" left="459" width="117" height="10" font="7">&gt; require(&#34;slam&#34;)</text>
+<text top="1052" left="459" width="158" height="10" font="7">&gt; tf &lt;- col_sums(dtm_f)</text>
+<text top="1069" left="459" width="89" height="10" font="7">&gt; summary(tf)</text>
+<text top="1095" left="473" width="27" height="10" font="7">Min.</text>
+<text top="1095" left="514" width="48" height="10" font="7">1st Qu.</text>
+<text top="1095" left="575" width="41" height="10" font="7">Median</text>
+<text top="1095" left="637" width="27" height="10" font="7">Mean</text>
+<text top="1095" left="678" width="48" height="10" font="7">3rd Qu.</text>
+<text top="1095" left="768" width="27" height="10" font="7">Max.</text>
+<text top="1111" left="466" width="34" height="10" font="7">1.000</text>
+<text top="1111" left="527" width="34" height="10" font="7">1.000</text>
+<text top="1111" left="582" width="34" height="10" font="7">2.000</text>
+<text top="1111" left="630" width="34" height="10" font="7">6.565</text>
+<text top="1111" left="692" width="34" height="10" font="7">4.000</text>
+<text top="1111" left="740" width="55" height="10" font="7">3666.000</text>
+<text top="1137" left="459" width="346" height="15" font="0">and can conveniently be visualized by plotting the</text>
+<text top="1155" left="459" width="349" height="15" font="0">cumulative frequencies for the terms sorted in de-</text>
+<text top="1173" left="459" width="170" height="15" font="0">creasing order (see Figure</text>
+<text top="1173" left="633" width="7" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#6">1</a></text>
+<text top="1173" left="640" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#6">):</a></text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="9" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="5" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="13" family="Times" color="#000000"/>
+	<fontspec id="12" size="12" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">27</text>
+<text top="127" left="82" width="240" height="10" font="7">&gt; tf &lt;- sort(tf, decreasing = TRUE)</text>
+<text top="144" left="82" width="82" height="10" font="7">&gt; par(las=1)</text>
+<text top="160" left="82" width="144" height="10" font="7">&gt; plot(seq_along(tf),</text>
+<text top="177" left="82" width="7" height="10" font="7">+</text>
+<text top="177" left="131" width="144" height="10" font="7">cumsum(tf) / sum(tf),</text>
+<text top="193" left="82" width="7" height="10" font="7">+</text>
+<text top="193" left="131" width="75" height="10" font="7">type = &#34;l&#34;,</text>
+<text top="210" left="82" width="7" height="10" font="7">+</text>
+<text top="210" left="131" width="268" height="10" font="7">xlab = &#34;Number of most frequent terms&#34;,</text>
+<text top="226" left="82" width="7" height="10" font="7">+</text>
+<text top="226" left="131" width="199" height="10" font="7">ylab = &#34;Proportion of words&#34;,</text>
+<text top="242" left="82" width="7" height="10" font="7">+</text>
+<text top="242" left="131" width="281" height="10" font="7">panel.first = abline(v=1000, col=&#34;gray&#34;))</text>
+<text top="514" left="160" width="4" height="7" font="9">0</text>
+<text top="514" left="192" width="22" height="7" font="9">10000</text>
+<text top="514" left="233" width="22" height="7" font="9">20000</text>
+<text top="514" left="273" width="22" height="7" font="9">30000</text>
+<text top="514" left="314" width="22" height="7" font="9">40000</text>
+<text top="514" left="355" width="22" height="7" font="9">50000</text>
+<text top="494" left="134" width="11" height="7" font="9">0.0</text>
+<text top="458" left="134" width="11" height="7" font="9">0.2</text>
+<text top="422" left="134" width="11" height="7" font="9">0.4</text>
+<text top="385" left="134" width="11" height="7" font="9">0.6</text>
+<text top="349" left="134" width="11" height="7" font="9">0.8</text>
+<text top="312" left="134" width="11" height="7" font="9">1.0</text>
+<text top="532" left="211" width="108" height="7" font="9">Number of most frequent terms</text>
+<text top="433" left="124" width="0" height="7" font="10">Propor</text>
+<text top="410" left="124" width="0" height="7" font="10">tion of w</text>
+<text top="381" left="124" width="0" height="7" font="10">ords</text>
+<text top="567" left="82" width="346" height="15" font="0">Figure 1: The number of possibly mis-spelled words</text>
+<text top="585" left="82" width="347" height="15" font="0">(cumulative term frequency) in the Rd files in the</text>
+<text top="603" left="82" width="346" height="15" font="0">CRAN and R base packages versus the number of</text>
+<text top="621" left="82" width="349" height="15" font="0">terms (unique words), with terms sorted in decreas-</text>
+<text top="639" left="82" width="345" height="15" font="0">ing frequency. The vertical line indicates 1000 terms.</text>
+<text top="674" left="82" width="348" height="15" font="0">We see that the 1000 most frequent terms already</text>
+<text top="692" left="82" width="349" height="15" font="0">cover about half of the words. The corpus also reason-</text>
+<text top="710" left="82" width="196" height="15" font="0">ably satisfies Heap’s Law (e.g.,</text>
+<text top="712" left="282" width="152" height="12" font="4"><a href="http://en.wikipedia.org/wiki/Heaps%27_law">http://en.wikipedia.</a></text>
+<text top="730" left="82" width="160" height="12" font="4"><a href="http://en.wikipedia.org/wiki/Heaps%27_law">org/wiki/Heaps%27_law</a></text>
+<text top="728" left="246" width="14" height="15" font="0">or</text>
+<text top="728" left="264" width="94" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Manning et al.</a></text>
+<text top="728" left="362" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="728" left="366" width="29" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2008</a></text>
+<text top="728" left="396" width="33" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">)), </a>an</text>
+<text top="746" left="82" width="346" height="15" font="0">empirical law indicating that the vocabulary size V</text>
+<text top="764" left="82" width="349" height="15" font="0">(the number of different terms employed) grows poly-</text>
+<text top="782" left="82" width="346" height="15" font="0">nomially with text size T (the number of words), as</text>
+<text top="800" left="82" width="108" height="15" font="0">shown in Figure</text>
+<text top="800" left="194" width="7" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#6">2</a></text>
+<text top="800" left="201" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#6">:</a></text>
+<text top="1061" left="188" width="4" height="7" font="9">4</text>
+<text top="1061" left="229" width="4" height="7" font="9">6</text>
+<text top="1061" left="270" width="4" height="7" font="9">8</text>
+<text top="1061" left="308" width="9" height="7" font="9">10</text>
+<text top="1061" left="349" width="9" height="7" font="9">12</text>
+<text top="1007" left="140" width="4" height="7" font="9">4</text>
+<text top="964" left="140" width="4" height="7" font="9">6</text>
+<text top="920" left="140" width="4" height="7" font="9">8</text>
+<text top="877" left="136" width="9" height="7" font="9">10</text>
+<text top="1079" left="255" width="20" height="7" font="9">log(T)</text>
+<text top="957" left="124" width="0" height="7" font="10">log(V)</text>
+<text top="1114" left="82" width="346" height="15" font="0">Figure 2: An illustration of Heap’s Law for the corpus</text>
+<text top="1132" left="82" width="346" height="15" font="0">of possibly mis-spelled words in the Rd files in the</text>
+<text top="1150" left="82" width="346" height="15" font="0">CRAN and R base packages, taking the individual</text>
+<text top="1168" left="82" width="125" height="15" font="0">files as documents.</text>
+<text top="127" left="459" width="130" height="10" font="7">&gt; Heaps_plot(dtm_f)</text>
+<text top="158" left="459" width="75" height="10" font="7">(Intercept)</text>
+<text top="158" left="610" width="7" height="10" font="7">x</text>
+<text top="174" left="473" width="62" height="10" font="7">0.2057821</text>
+<text top="174" left="555" width="62" height="10" font="7">0.8371087</text>
+<text top="204" left="458" width="307" height="15" font="0">(the regression coefficients are for the model log</text>
+<text top="203" left="766" width="6" height="16" font="11">(</text>
+<text top="204" left="772" width="11" height="15" font="0">V</text>
+<text top="203" left="784" width="21" height="16" font="11">) =</text>
+<text top="225" left="459" width="8" height="11" font="12"><i>α</i></text>
+<text top="221" left="470" width="12" height="16" font="11">+</text>
+<text top="225" left="486" width="8" height="11" font="12"><i>β</i></text>
+<text top="222" left="496" width="21" height="15" font="0">log</text>
+<text top="221" left="517" width="6" height="16" font="11">(</text>
+<text top="222" left="524" width="9" height="15" font="0">T</text>
+<text top="221" left="533" width="6" height="16" font="11">)</text>
+<text top="222" left="540" width="9" height="15" font="0">).</text>
+<text top="240" left="481" width="325" height="15" font="0">To develop a dictionary, the term frequencies may</text>
+<text top="257" left="459" width="349" height="15" font="0">need further normalization to weight their “impor-</text>
+<text top="275" left="459" width="346" height="15" font="0">tance”. In fact, to adjust for possible authoring and</text>
+<text top="293" left="458" width="347" height="15" font="0">package size effects, it seems preferable to aggregate</text>
+<text top="311" left="459" width="347" height="15" font="0">the frequencies according to package. We then apply</text>
+<text top="329" left="459" width="346" height="15" font="0">a simple, so-called binary weighting scheme which</text>
+<text top="347" left="459" width="349" height="15" font="0">counts occurrences only once, so that the correspond-</text>
+<text top="365" left="459" width="346" height="15" font="0">ing aggregate term frequencies become the numbers</text>
+<text top="383" left="459" width="346" height="15" font="0">of packages the terms occurred in. Other weighting</text>
+<text top="401" left="459" width="346" height="15" font="0">schemes are possible (e.g., normalizing by the total</text>
+<text top="419" left="459" width="349" height="15" font="0">number of words checked in the respective package).</text>
+<text top="437" left="458" width="347" height="15" font="0">This results in term frequencies tf with the following</text>
+<text top="455" left="459" width="97" height="15" font="0">characteristics:</text>
+<text top="485" left="459" width="89" height="10" font="7">&gt; summary(tf)</text>
+<text top="515" left="479" width="82" height="10" font="7">Min. 1st Qu.</text>
+<text top="515" left="575" width="41" height="10" font="7">Median</text>
+<text top="515" left="644" width="82" height="10" font="7">Mean 3rd Qu.</text>
+<text top="515" left="754" width="27" height="10" font="7">Max.</text>
+<text top="531" left="473" width="34" height="10" font="7">1.000</text>
+<text top="531" left="527" width="34" height="10" font="7">1.000</text>
+<text top="531" left="582" width="34" height="10" font="7">1.000</text>
+<text top="531" left="637" width="34" height="10" font="7">2.038</text>
+<text top="531" left="692" width="89" height="10" font="7">1.000 682.000</text>
+<text top="562" left="459" width="295" height="10" font="7">&gt; quantile(tf, c(seq(0.9, 1.0, by = 0.01)))</text>
+<text top="592" left="466" width="21" height="10" font="7">90%</text>
+<text top="592" left="500" width="21" height="10" font="7">91%</text>
+<text top="592" left="534" width="21" height="10" font="7">92%</text>
+<text top="592" left="569" width="21" height="10" font="7">93%</text>
+<text top="592" left="603" width="21" height="10" font="7">94%</text>
+<text top="592" left="637" width="21" height="10" font="7">95%</text>
+<text top="592" left="671" width="21" height="10" font="7">96%</text>
+<text top="592" left="706" width="21" height="10" font="7">97%</text>
+<text top="592" left="740" width="21" height="10" font="7">98%</text>
+<text top="592" left="774" width="21" height="10" font="7">99%</text>
+<text top="609" left="479" width="7" height="10" font="7">3</text>
+<text top="609" left="514" width="7" height="10" font="7">3</text>
+<text top="609" left="548" width="7" height="10" font="7">3</text>
+<text top="609" left="582" width="7" height="10" font="7">4</text>
+<text top="609" left="617" width="7" height="10" font="7">4</text>
+<text top="609" left="651" width="7" height="10" font="7">5</text>
+<text top="609" left="685" width="7" height="10" font="7">6</text>
+<text top="609" left="720" width="7" height="10" font="7">7</text>
+<text top="609" left="747" width="14" height="10" font="7">10</text>
+<text top="609" left="781" width="14" height="10" font="7">17</text>
+<text top="625" left="459" width="27" height="10" font="7">100%</text>
+<text top="641" left="466" width="21" height="10" font="7">682</text>
+<text top="671" left="481" width="325" height="15" font="0">Again, the frequency distribution has a very heavy</text>
+<text top="689" left="459" width="347" height="15" font="0">left tail. We apply a simple selection logic, and drop</text>
+<text top="707" left="459" width="346" height="15" font="0">terms occurring in less than 0.5% of the packages</text>
+<text top="725" left="458" width="347" height="15" font="0">(currently, about 12.5), leaving 764 terms for possible</text>
+<text top="743" left="459" width="346" height="15" font="0">inclusion into the dictionary. (This also eliminates the</text>
+<text top="761" left="459" width="346" height="15" font="0">terms from the few CRAN packages with non-English</text>
+<text top="779" left="459" width="349" height="15" font="0">Rd files.) For further processing, it is highly advis-</text>
+<text top="796" left="459" width="349" height="15" font="0">able to take advantage of available lexical resources.</text>
+<text top="814" left="459" width="346" height="15" font="0">One could programmatically employ the APIs of web</text>
+<text top="832" left="459" width="349" height="15" font="0">search engines: but note that the spell correction fa-</text>
+<text top="850" left="459" width="346" height="15" font="0">cilities these provide are not domain specific. Using</text>
+<text top="868" left="458" width="68" height="15" font="0">WordNet <a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="868" left="526" width="61" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Fellbaum</a></text>
+<text top="868" left="587" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="868" left="593" width="29" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">1998</a></text>
+<text top="868" left="623" width="183" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">), </a>the most prominent lexical</text>
+<text top="886" left="459" width="346" height="15" font="0">database for the English language, does not help too</text>
+<text top="904" left="459" width="347" height="15" font="0">much: it only has entries for about 10% of our terms.</text>
+<text top="922" left="481" width="290" height="15" font="0">We use the already mentioned Wiktionary <a href="http://www.wiktionary.org/">(</a></text>
+<text top="923" left="771" width="38" height="12" font="4"><a href="http://www.wiktionary.org/">http:</a></text>
+<text top="941" left="458" width="160" height="12" font="4"><a href="http://www.wiktionary.org/">//www.wiktionary.org/</a></text>
+<text top="940" left="618" width="187" height="15" font="0"><a href="http://www.wiktionary.org/">), </a>a multilingual, web-based</text>
+<text top="958" left="458" width="347" height="15" font="0">project to create a free content dictionary which</text>
+<text top="976" left="459" width="349" height="15" font="0">is run by the Wikimedia Foundation (like its sis-</text>
+<text top="994" left="459" width="347" height="15" font="0">ter project Wikipedia) and which has successfully</text>
+<text top="1012" left="459" width="297" height="15" font="0">been used for semantic web tasks (e.g.,</text>
+<text top="1012" left="766" width="40" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Zesch</a></text>
+<text top="1030" left="459" width="34" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">et al.</a></text>
+<text top="1030" left="492" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="1030" left="502" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2008</a></text>
+<text top="1030" left="532" width="273" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">). </a>Wiktionary provides a simple API at</text>
+<text top="1049" left="459" width="259" height="12" font="4"><a href="http://en.wiktionary.org/w/api.php">http://en.wiktionary.org/w/api.php</a></text>
+<text top="1048" left="727" width="79" height="15" font="0">for English</text>
+<text top="1065" left="459" width="347" height="15" font="0">language queries. One can look up given terms by</text>
+<text top="1083" left="458" width="349" height="15" font="0">queries using parameters action=query, format=xml,</text>
+<text top="1103" left="459" width="99" height="12" font="0">prop=revision</text>
+<text top="1101" left="558" width="247" height="15" font="0">, rvprop=content and titles as a list</text>
+<text top="1119" left="459" width="349" height="15" font="0">of the given terms collapsed by a vertical bar (actu-</text>
+<text top="1137" left="459" width="346" height="15" font="0">ally, a maximum of 50 terms can be looked up in one</text>
+<text top="1155" left="458" width="347" height="15" font="0">query). When doing so via R, one can conveniently</text>
+<text top="1173" left="459" width="156" height="15" font="0">use the <b>XML </b>package <a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">(</a></text>
+<text top="1173" left="615" width="88" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">Temple Lang</a></text>
+<text top="1173" left="703" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">,</a></text>
+<text top="1173" left="711" width="30" height="15" font="4"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">2010</a></text>
+<text top="1173" left="742" width="64" height="15" font="0"><a href="2011-2-RJournal_2011-2_Hornik+Murdoch.html#7">) </a>to parse</text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">28</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="349" height="15" font="0">the result. For our terms, the lookup returns informa-</text>
+<text top="143" left="82" width="346" height="15" font="0">tion for 416 terms. However, these can not be accepted</text>
+<text top="161" left="82" width="346" height="15" font="0">unconditionally into the dictionary: in addition to</text>
+<text top="179" left="82" width="348" height="15" font="0">some terms being flagged as mis-spelled or archaic,</text>
+<text top="197" left="82" width="346" height="15" font="0">some terms have possible meanings that were almost</text>
+<text top="215" left="82" width="346" height="15" font="0">certainly not intended (e.g., “wether” as a castrated</text>
+<text top="233" left="82" width="346" height="15" font="0">buck goat or ram). In addition, 2-character terms</text>
+<text top="251" left="82" width="346" height="15" font="0">need special attention (e.g., ISO language codes most</text>
+<text top="268" left="82" width="346" height="15" font="0">likely not intended). Therefore, we extract suitable</text>
+<text top="286" left="82" width="346" height="15" font="0">terms by serially working through suitable subsets</text>
+<text top="304" left="82" width="346" height="15" font="0">of the Wiktionary results (e.g., terms categorized as</text>
+<text top="322" left="82" width="347" height="15" font="0">statistical or mathematical (unfortunately, only a very</text>
+<text top="340" left="82" width="346" height="15" font="0">few), acronyms or initialisms, and plural forms) and</text>
+<text top="358" left="82" width="346" height="15" font="0">inspecting these for possible inclusion. After these</text>
+<text top="376" left="82" width="346" height="15" font="0">structured eliminations, the remaining terms with</text>
+<text top="394" left="82" width="347" height="15" font="0">query results as well as the ones Wiktionary does</text>
+<text top="412" left="82" width="346" height="15" font="0">not know about (the majority of which actually are</text>
+<text top="430" left="82" width="346" height="15" font="0">mis-spellings) are handled. Quite a few of our terms</text>
+<text top="448" left="82" width="346" height="15" font="0">are surnames, and for now we only include the most</text>
+<text top="466" left="82" width="94" height="15" font="0">frequent ones.</text>
+<text top="492" left="82" width="219" height="10" font="7">&gt; p &lt;- readLines(&#34;en-stats.pws&#34;)</text>
+<text top="516" left="82" width="21" height="15" font="0">We</text>
+<text top="516" left="121" width="43" height="15" font="0">finally</text>
+<text top="516" left="183" width="43" height="15" font="0">obtain</text>
+<text top="516" left="243" width="8" height="15" font="0">a</text>
+<text top="516" left="269" width="69" height="15" font="0">dictionary</text>
+<text top="516" left="357" width="31" height="15" font="0">with</text>
+<text top="516" left="406" width="23" height="15" font="0">443</text>
+<text top="534" left="82" width="218" height="15" font="0">terms, which we save into ‘</text>
+<text top="535" left="300" width="77" height="12" font="7">en-stats.pws</text>
+<text top="534" left="377" width="52" height="15" font="0">’ using</text>
+<text top="553" left="82" width="297" height="12" font="0">aspell_write_personal_dictionary_file()</text>
+<text top="552" left="380" width="52" height="15" font="0">. We in-</text>
+<text top="570" left="82" width="346" height="15" font="0">tend to make this easily available from within R at</text>
+<text top="588" left="82" width="163" height="15" font="0">some point in the future.</text>
+<text top="606" left="105" width="327" height="15" font="0">A few false positives remain systematically: As-</text>
+<text top="624" left="82" width="350" height="15" font="0">pell’s word extraction turns ‘1st’ and ‘2nd’ into ‘st’</text>
+<text top="642" left="82" width="346" height="15" font="0">and ‘nd’ (and so forth), which clearly are not terms</text>
+<text top="660" left="82" width="349" height="15" font="0">to be included in the dictionary. Similarly, ‘a-priori’</text>
+<text top="677" left="82" width="348" height="15" font="0">is split with ‘priori’ reported as mis-spelled (actually,</text>
+<text top="695" left="82" width="347" height="15" font="0">Aspell has some support for accepting “run-together</text>
+<text top="713" left="82" width="347" height="15" font="0">words”). These and other cases could be handled</text>
+<text top="731" left="82" width="346" height="15" font="0">by enhancing the filtering routines before calling the</text>
+<text top="749" left="82" width="95" height="15" font="0">spell checkers.</text>
+<text top="767" left="105" width="326" height="15" font="0">We re-run the checks on <b>stats </b>using this dictionary:</text>
+<text top="794" left="82" width="62" height="10" font="7">&gt; asap &lt;-</text>
+<text top="810" left="82" width="7" height="10" font="7">+</text>
+<text top="810" left="124" width="281" height="10" font="7">aspell(files, filter, program = &#34;aspell&#34;,</text>
+<text top="827" left="82" width="7" height="10" font="7">+</text>
+<text top="827" left="172" width="254" height="10" font="7">control = c(ca, &#34;-p ./en-stats.pws&#34;))</text>
+<text top="850" left="82" width="347" height="15" font="0">(the strange ‘./’ is needed to ensure that Aspell does</text>
+<text top="868" left="82" width="346" height="15" font="0">not look for the personal dictionary in its system</text>
+<text top="886" left="82" width="349" height="15" font="0">paths). This reduces the number of possibly mis-</text>
+<text top="904" left="82" width="346" height="15" font="0">spelled words found to 411, and the “estimated” false</text>
+<text top="922" left="82" width="347" height="15" font="0">positive rates for terms and words to 5.97 and 0.59</text>
+<text top="940" left="82" width="138" height="15" font="0">percent, respectively.</text>
+<text top="958" left="105" width="324" height="15" font="0">Many of the remaining false positives could also</text>
+<text top="976" left="82" width="347" height="15" font="0">be eliminated by using the appropriate Rd markup</text>
+<text top="994" left="82" width="349" height="15" font="0">(such as \acronym or \code). With R 2.12.0 or later,</text>
+<text top="1012" left="82" width="346" height="15" font="0">one can also use markup in titles. In fact, R 2.12.0 also</text>
+<text top="1030" left="82" width="349" height="15" font="0">adds \newcommand tags to the Rd format to allow user-</text>
+<text top="1048" left="82" width="350" height="15" font="0">defined macros: using, e.g., \newcommand{\I}{#1}</text>
+<text top="1065" left="82" width="349" height="15" font="0">one could wrap content to be ignored for spell check-</text>
+<text top="1083" left="82" width="346" height="15" font="0">ing into \I{}, as currently all user-defined macros are</text>
+<text top="1101" left="82" width="349" height="15" font="0">blanked out by the Rd filtering. Similar considera-</text>
+<text top="1119" left="82" width="347" height="15" font="0">tions apply to vignettes when using Aspell’s superior</text>
+<text top="1137" left="82" width="135" height="15" font="0">filtering capabilities.</text>
+<text top="1155" left="105" width="327" height="15" font="0">Using a custom dictionary has significantly re-</text>
+<text top="1173" left="82" width="314" height="15" font="0">duced the false positive rate, demonstrating the</text>
+<text top="125" left="459" width="346" height="15" font="0">usefulness of the approach. Clearly, more work will</text>
+<text top="143" left="459" width="349" height="15" font="0">be needed: modern statistics needs better lexical re-</text>
+<text top="161" left="459" width="346" height="15" font="0">sources, and a dictionary based on the most frequent</text>
+<text top="179" left="459" width="346" height="15" font="0">spell check false alarms can only be a start. We hope</text>
+<text top="197" left="459" width="349" height="15" font="0">that this article will foster community interest in con-</text>
+<text top="215" left="459" width="346" height="15" font="0">tributing to the development of such resources, and</text>
+<text top="233" left="459" width="346" height="15" font="0">that refined domain specific dictionaries can be made</text>
+<text top="251" left="459" width="346" height="15" font="0">available and used for improved text analysis with R</text>
+<text top="268" left="459" width="119" height="15" font="0">in the near future.</text>
+<text top="314" left="459" width="130" height="21" font="5"><b>Bibliography</b></text>
+<text top="353" left="459" width="346" height="15" font="0">Ingo Feinerer, Kurt Hornik, and David Meyer. Text</text>
+<text top="371" left="474" width="334" height="15" font="0">mining infrastructure in R. Journal of Statistical Soft-</text>
+<text top="389" left="474" width="332" height="15" font="0">ware, 25(5):1–54, 2 2008. ISSN 1548-7660. URL</text>
+<text top="408" left="474" width="244" height="12" font="4"><a href="http://www.jstatsoft.org/v25/i05">http://www.jstatsoft.org/v25/i05</a></text>
+<text top="407" left="718" width="4" height="15" font="0"><a href="http://www.jstatsoft.org/v25/i05">.</a></text>
+<text top="434" left="459" width="346" height="15" font="0">Christiane Fellbaum, editor. WordNet: An Electronic</text>
+<text top="452" left="473" width="335" height="15" font="0">Lexical Database. MIT Press, Cambridge, MA, 1998.</text>
+<text top="470" left="474" width="159" height="15" font="0">ISBN 978-0-262-06197-1.</text>
+<text top="498" left="459" width="348" height="15" font="0">Christopher D. Manning, Prabhakar Raghavan,</text>
+<text top="516" left="474" width="157" height="15" font="0">and Hinrich Schütze.</text>
+<text top="516" left="660" width="148" height="15" font="0">Introduction to Infor-</text>
+<text top="533" left="474" width="111" height="15" font="0">mation Retrieval.</text>
+<text top="534" left="605" width="203" height="15" font="0">Cambridge University Press,</text>
+<text top="552" left="474" width="34" height="15" font="0">2008.</text>
+<text top="552" left="524" width="31" height="15" font="0">URL</text>
+<text top="553" left="562" width="245" height="12" font="4"><a href="http://nlp.stanford.edu/IR-book/information-retrieval-book.html">http://nlp.stanford.edu/IR-book/</a></text>
+<text top="571" left="474" width="238" height="12" font="4"><a href="http://nlp.stanford.edu/IR-book/information-retrieval-book.html">information-retrieval-book.html</a></text>
+<text top="569" left="712" width="4" height="15" font="0"><a href="http://nlp.stanford.edu/IR-book/information-retrieval-book.html">.</a></text>
+<text top="597" left="459" width="349" height="15" font="0">Anthony J. Rossini, Richard M. Heiberger, Rod-</text>
+<text top="615" left="474" width="334" height="15" font="0">ney Sparapani, Martin Mächler, and Kurt Hornik.</text>
+<text top="633" left="474" width="334" height="15" font="0">Emacs speaks statistics: A multi-platform, multi-</text>
+<text top="651" left="473" width="332" height="15" font="0">package development environment for statistical</text>
+<text top="669" left="474" width="332" height="15" font="0">analysis. Journal of Computational and Graphical</text>
+<text top="687" left="473" width="193" height="15" font="0">Statistics, 13(1):247–261, 2004.</text>
+<text top="714" left="459" width="349" height="15" font="0">Duncan Temple Lang. Interface to aspell library, 2005.</text>
+<text top="732" left="474" width="31" height="15" font="0">URL</text>
+<text top="734" left="511" width="229" height="12" font="4"><a href="http://www.omegahat.org/Aspell">http://www.omegahat.org/Aspell</a></text>
+<text top="732" left="739" width="68" height="15" font="0"><a href="http://www.omegahat.org/Aspell">. </a>R pack-</text>
+<text top="750" left="474" width="114" height="15" font="0">age version 0.2-0.</text>
+<text top="778" left="459" width="349" height="15" font="0">Duncan Temple Lang. XML: Tools for parsing and gen-</text>
+<text top="796" left="474" width="293" height="15" font="0">erating XML within R and S-Plus., 2010. URL</text>
+<text top="797" left="771" width="38" height="12" font="4"><a href="http://CRAN.R-project.org/package=XML">http:</a></text>
+<text top="815" left="473" width="245" height="12" font="4"><a href="http://CRAN.R-project.org/package=XML">//CRAN.R-project.org/package=XML</a></text>
+<text top="814" left="718" width="88" height="15" font="0"><a href="http://CRAN.R-project.org/package=XML">. </a>R package</text>
+<text top="831" left="473" width="88" height="15" font="0">version 3.1-1.</text>
+<text top="859" left="459" width="349" height="15" font="0">Torsten Zesch, Christof Müller, and Iryna Gurevych.</text>
+<text top="877" left="474" width="334" height="15" font="0">Using wiktionary for computing semantic related-</text>
+<text top="895" left="474" width="332" height="15" font="0">ness. In AAAI’08: Proceedings of the 23rd national</text>
+<text top="913" left="474" width="334" height="15" font="0">conference on Artificial intelligence, pages 861–866.</text>
+<text top="931" left="473" width="284" height="15" font="0">AAAI Press, 2008. ISBN 978-1-57735-368-3.</text>
+<text top="976" left="458" width="76" height="15" font="0">Kurt Hornik</text>
+<text top="994" left="458" width="303" height="15" font="0">Department of Finance, Accounting and Statistics</text>
+<text top="1012" left="458" width="172" height="15" font="0">Wirtschaftsuniversität Wien</text>
+<text top="1030" left="458" width="150" height="15" font="0">Augasse 2–6, 1090 Wien</text>
+<text top="1047" left="458" width="46" height="15" font="0">Austria</text>
+<text top="1067" left="459" width="191" height="12" font="4"><a href="mailto:Kurt.Hornik@R-project.org">Kurt.Hornik@R-project.org</a></text>
+<text top="1101" left="458" width="109" height="15" font="0">Duncan Murdoch</text>
+<text top="1119" left="458" width="294" height="15" font="0">Department of Statistical and Actuarial Sciences</text>
+<text top="1137" left="458" width="186" height="15" font="0">University of Western Ontario</text>
+<text top="1155" left="458" width="154" height="15" font="0">London, Ontario, Canada</text>
+<text top="1174" left="459" width="152" height="12" font="4"><a href="mailto:murdoch@stats.uwo.ca">murdoch@stats.uwo.ca</a></text>
+<text top="1218" left="82" width="226" height="15" font="0">The R Journal Vol. 3/2, 2010-09-17</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

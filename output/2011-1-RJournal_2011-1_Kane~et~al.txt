@@ -1,0 +1,106 @@
+page	left	top	code
+2	82	174	> library(orderbook)
+2	82	190	> filename <- system.file("extdata",
+2	82	207	+ "sample.txt",
+2	82	223	+ package = "orderbook")
+2	82	240	> ob <- orderbook(file = filename)
+2	82	256	> ob <- read.orders(ob, 10000)
+2	82	285	> ob
+2	82	314	An object of class orderbook (default)
+2	82	330	--------------------------
+2	82	346	Current orderbook time: 09:35:02
+2	82	363	Message Index: 10,000
+2	82	379	Bid Orders: 631
+2	82	396	Ask Orders: 1,856
+2	82	412	Total Orders: 2,487
+2	82	597	> summary(ob)
+2	82	625	Current time is 09:35:02
+2	82	658	Ask price levels: 540
+2	82	675	Bid price levels: 179
+2	82	691	Total price levels: 719
+2	82	707	-----------------------------
+2	82	724	Ask orders: 1,856
+2	82	740	Bid orders: 631
+2	82	757	Total orders: 2,487
+2	82	773	-----------------------------
+2	82	790	Spread: 0.02
+2	82	823	Mid point: 11.37
+2	82	839	-----------------------------
+2	82	855	Inside market
+2	82	888	Best Bid: 11.36
+2	82	905	Size: 2,700
+2	82	938	Best Ask: 11.38
+2	82	954	Size: 400
+2	459	127	> display(ob)
+2	459	159	Current time is 09:35:02
+2	575	192	Price Ask Size
+2	459	208	---------------------------------------------
+2	575	224	11.42 900
+2	575	241	11.41 1,400
+2	575	257	11.40 1,205
+2	575	274	11.39 1,600
+2	575	290	11.38 400
+2	459	307	---------------------------------------------
+2	473	323	2,700 11.36
+2	473	340	1,100 11.35
+2	473	356	1,100 11.34
+2	473	372	1,600 11.33
+2	486	389	700 11.32
+2	459	405	---------------------------------------------
+2	459	422	Bid Size Price
+2	459	516	> plot(ob)
+3	82	127	> ob["11.01"]
+3	96	165	price size type time id
+3	82	181	1 11.01 109 BID 34220988 4403084
+3	82	198	2 11.01 50000 BID 34220988 4403085
+3	82	214	3 11.01 100 BID 34220988 4403086
+3	82	476	> nrow(ob["11.00"])
+3	82	513	[1] 56
+3	82	599	> plot(ob, bounds = 0.033, type = 'o')
+3	459	132	> plot(ob, bounds = 0.01, type = "sd")
+3	459	623	> ob <- read.time(ob, "9:30:00")
+3	459	728	> ob <- read.orders(ob, n = -50)
+3	459	744	> ob
+3	459	769	An object of class orderbook (default)
+3	459	786	--------------------------
+3	459	802	Current orderbook time: 09:28:41
+3	459	818	Message Index: 292
+3	459	835	Bid Orders: 72
+3	459	851	Ask Orders: 81
+3	459	868	Total Orders: 153
+4	82	618	> filename <- system.file("extdata",
+4	82	634	+ "tradersample.txt",
+4	82	650	+ package = "orderbook")
+4	82	667	> ob <- orderbook(file = filename)
+4	82	683	> ob <- read.time(ob, "9:30:05")
+4	82	700	> ob <- next.trade(ob)
+4	82	716	> ob
+4	82	745	An object of class orderbook (trader)
+4	82	761	--------------------------
+4	82	778	Current orderbook time: 09:30:05
+4	82	794	Message Index: 6,062
+4	82	811	Bid Orders: 164
+4	82	827	Ask Orders: 252
+4	82	844	Total Orders: 416
+4	82	974	> view.trade(ob, tradenum = 584)
+4	131	1003	trade 584
+4	82	1019	row 6063
+4	82	1036	time 09:30:05
+4	82	1052	id 636783
+4	82	1069	price 25.94
+4	82	1085	size 1000
+4	82	1102	status FALSE
+4	82	1130	> mid.point(ob)
+4	89	1159	price
+4	82	1175	25.935
+4	459	231	> midpoint.return(ob, tradenum = 584, time = 10)
+4	527	262	midpoint.return
+4	459	279	10 second 0.065
+4	459	445	> ob <- read.time(ob, "9:30:15")
+4	459	461	> plot(ob, type = "t", bounds = 0.02)
+5	82	225	> ob <- add.order(ob, 11.20, 300, "ASK")
+5	82	242	> ob <- remove.order(ob, 1231883)
+5	82	258	> ob <- replace.order(ob, 1231883, 150)
+5	82	275	> ob <- market.order(ob, 200, "BUY")
+5	82	634	> ob <- simulate(ob)
+5	82	667	> plot(ob)

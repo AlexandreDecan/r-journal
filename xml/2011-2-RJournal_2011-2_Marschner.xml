@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="12" family="Times" color="#00004c"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="19" family="Times" color="#000000"/>
+	<fontspec id="7" size="13" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">12</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="693" height="36" font="2"><b>glm2: Fitting Generalized Linear Models</b></text>
+<text top="166" left="81" width="479" height="36" font="2"><b>with Convergence Problems</b></text>
+<text top="218" left="82" width="125" height="15" font="0">by Ian C. Marschner</text>
+<text top="252" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="252" left="163" width="253" height="15" font="0">The R function glm uses step-halving to</text>
+<text top="270" left="96" width="319" height="15" font="0">deal with certain types of convergence problems</text>
+<text top="288" left="96" width="319" height="15" font="0">when using iteratively reweighted least squares</text>
+<text top="306" left="96" width="319" height="15" font="0">to fit a generalized linear model. This works</text>
+<text top="324" left="96" width="319" height="15" font="0">well in some circumstances but non-convergence</text>
+<text top="342" left="96" width="321" height="15" font="0">remains a possibility, particularly with a non-</text>
+<text top="360" left="96" width="321" height="15" font="0">standard link function. In some cases this is be-</text>
+<text top="378" left="96" width="319" height="15" font="0">cause step-halving is never invoked, despite a</text>
+<text top="396" left="96" width="319" height="15" font="0">lack of convergence. In other cases step-halving</text>
+<text top="413" left="96" width="321" height="15" font="0">is invoked but is unable to induce convergence.</text>
+<text top="431" left="96" width="321" height="15" font="0">One remedy is to impose a stricter form of step-</text>
+<text top="449" left="96" width="319" height="15" font="0">halving than is currently available in glm, so that</text>
+<text top="467" left="96" width="321" height="15" font="0">the deviance is forced to decrease in every iter-</text>
+<text top="485" left="96" width="319" height="15" font="0">ation. This has been implemented in the glm2</text>
+<text top="503" left="96" width="319" height="15" font="0">function available in the <b>glm2 </b>package. Aside</text>
+<text top="521" left="96" width="319" height="15" font="0">from a modified computational algorithm, glm2</text>
+<text top="539" left="96" width="321" height="15" font="0">operates in exactly the same way as glm and pro-</text>
+<text top="557" left="96" width="319" height="15" font="0">vides improved convergence properties. These</text>
+<text top="575" left="96" width="321" height="15" font="0">improvements are illustrated here with an iden-</text>
+<text top="593" left="96" width="319" height="15" font="0">tity link Poisson model, but are also relevant in</text>
+<text top="611" left="96" width="97" height="15" font="0">other contexts.</text>
+<text top="646" left="82" width="346" height="15" font="0">It is not too uncommon for iteratively reweighted</text>
+<text top="664" left="82" width="346" height="15" font="0">least squares (IRLS) to exhibit convergence problems</text>
+<text top="682" left="82" width="347" height="15" font="0">when fitting a generalized linear model (GLM). Such</text>
+<text top="700" left="82" width="349" height="15" font="0">problems tend to be most common when using a non-</text>
+<text top="718" left="82" width="346" height="15" font="0">standard link function, such as a log link binomial</text>
+<text top="736" left="82" width="349" height="15" font="0">model or an identity link Poisson model. Conse-</text>
+<text top="754" left="82" width="347" height="15" font="0">quently, most commonly used statistical software has</text>
+<text top="772" left="82" width="346" height="15" font="0">the provision to invoke various modifications of IRLS</text>
+<text top="790" left="82" width="176" height="15" font="0">if non-convergence occurs.</text>
+<text top="808" left="105" width="324" height="15" font="0">In the <b>stats </b>package of R, IRLS is implemented in</text>
+<text top="826" left="82" width="349" height="15" font="0">the glm function via its workhorse routine glm.fit.</text>
+<text top="844" left="82" width="347" height="15" font="0">This routine deals with specific types of convergence</text>
+<text top="862" left="82" width="349" height="15" font="0">problems by switching to step-halving if iterates dis-</text>
+<text top="880" left="82" width="347" height="15" font="0">play certain undesirable properties. That is, if a full</text>
+<text top="898" left="82" width="349" height="15" font="0">Fisher scoring step of IRLS will lead to either an infi-</text>
+<text top="915" left="82" width="347" height="15" font="0">nite deviance or predicted values that are invalid for</text>
+<text top="933" left="82" width="349" height="15" font="0">the model being fitted, then the increment in parame-</text>
+<text top="951" left="82" width="346" height="15" font="0">ter estimates is repeatedly halved until the updated</text>
+<text top="969" left="82" width="346" height="15" font="0">estimates no longer exhibit these features. This is</text>
+<text top="987" left="82" width="323" height="15" font="0">achieved through repeated application of the call</text>
+<text top="1019" left="82" width="213" height="12" font="0">start &lt;- (start + coefold)/2</text>
+<text top="1047" left="82" width="347" height="15" font="0">where coefold and start contain estimates from the</text>
+<text top="1065" left="82" width="294" height="15" font="0">previous and current iterations, respectively.</text>
+<text top="1083" left="105" width="327" height="15" font="0">Although this approach works well in some con-</text>
+<text top="1101" left="82" width="349" height="15" font="0">texts, it can be prone to fail in others. In particular, al-</text>
+<text top="1119" left="82" width="347" height="15" font="0">though the step-halving process in glm.fit will throw</text>
+<text top="1137" left="82" width="349" height="15" font="0">an errant iterative sequence back into the desired re-</text>
+<text top="1155" left="82" width="346" height="15" font="0">gion, the sequence may repeatedly try to escape that</text>
+<text top="1173" left="82" width="346" height="15" font="0">region and never converge. Furthermore, it is even</text>
+<text top="218" left="458" width="347" height="15" font="0">possible for the IRLS iterative sequence to be such that</text>
+<text top="236" left="459" width="349" height="15" font="0">step-halving is never invoked in glm.fit, yet the se-</text>
+<text top="254" left="458" width="347" height="15" font="0">quence does not converge. Such behavior is typically</text>
+<text top="271" left="459" width="346" height="15" font="0">accompanied by a deviance sequence that increases</text>
+<text top="289" left="459" width="349" height="15" font="0">in one or more of the iterations. This suggests a mod-</text>
+<text top="307" left="459" width="346" height="15" font="0">ification to glm.fit which has been implemented in</text>
+<text top="325" left="459" width="21" height="15" font="0">the</text>
+<text top="325" left="483" width="34" height="15" font="4"><a href="http://cran.r-project.org/package=glm2"><b>glm2</b></a></text>
+<text top="325" left="521" width="63" height="15" font="0">package <a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="325" left="584" width="71" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="325" left="655" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">,</a></text>
+<text top="325" left="663" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2011</a></text>
+<text top="325" left="692" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">).</a></text>
+<text top="344" left="481" width="324" height="15" font="0">As motivation for the proposed modification, we</text>
+<text top="362" left="459" width="346" height="15" font="0">begin by discussing the potential for non-convergence</text>
+<text top="380" left="459" width="346" height="15" font="0">using some numerical examples of the above types of</text>
+<text top="398" left="459" width="346" height="15" font="0">behavior. The <b>glm2 </b>package is then discussed, which</text>
+<text top="416" left="459" width="349" height="15" font="0">consists of a main function glm2 and a workhorse rou-</text>
+<text top="434" left="459" width="346" height="15" font="0">tine glm.fit2. These are modified versions of glm</text>
+<text top="452" left="459" width="346" height="15" font="0">and glm.fit, in which step-halving is used to force</text>
+<text top="470" left="459" width="349" height="15" font="0">the deviance to decrease from one iteration to the next.</text>
+<text top="488" left="459" width="346" height="15" font="0">It is shown that this modification provides improved</text>
+<text top="506" left="459" width="147" height="15" font="0">convergence behavior.</text>
+<text top="558" left="459" width="172" height="21" font="6"><b>Non-convergence</b></text>
+<text top="598" left="458" width="347" height="15" font="0">We start by providing illustrations of the two types</text>
+<text top="616" left="459" width="348" height="15" font="0">of non-convergence alluded to above. Specifically,</text>
+<text top="634" left="458" width="347" height="15" font="0">we will consider situations in which standard IRLS</text>
+<text top="652" left="459" width="349" height="15" font="0">does not converge, and for which either: (i) the step-</text>
+<text top="670" left="459" width="349" height="15" font="0">halving in glm.fit is invoked but cannot induce con-</text>
+<text top="688" left="458" width="347" height="15" font="0">vergence; or (ii) the step-halving in glm.fit is never</text>
+<text top="706" left="459" width="346" height="15" font="0">invoked despite the non-convergence of IRLS. These</text>
+<text top="724" left="459" width="346" height="15" font="0">two types of behavior will be illustrated using an</text>
+<text top="742" left="459" width="346" height="15" font="0">identity link Poisson regression model, which can be</text>
+<text top="760" left="458" width="347" height="15" font="0">prone to convergence problems as the link function</text>
+<text top="778" left="459" width="346" height="15" font="0">does not automatically respect the non-negativity of</text>
+<text top="796" left="459" width="346" height="15" font="0">the Poisson means. This context is useful for studying</text>
+<text top="813" left="459" width="346" height="15" font="0">the convergence properties of algorithms based on</text>
+<text top="831" left="459" width="349" height="15" font="0">IRLS, because for this particular GLM a reliable alter-</text>
+<text top="849" left="459" width="348" height="15" font="0">native algorithm exists which is not based on IRLS,</text>
+<text top="867" left="459" width="101" height="15" font="0">as described by</text>
+<text top="867" left="563" width="70" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="867" left="637" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="867" left="642" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="867" left="671" width="134" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">). </a>While we focus on</text>
+<text top="885" left="459" width="349" height="15" font="0">the identity link Poisson model here, the same behav-</text>
+<text top="903" left="459" width="346" height="15" font="0">ior can occur in other models and the documentation</text>
+<text top="921" left="459" width="346" height="15" font="0">for the <b>glm2 </b>package includes a log link binomial</text>
+<text top="939" left="459" width="60" height="15" font="0">example.</text>
+<text top="958" left="481" width="88" height="15" font="0">In Table 3.2 of</text>
+<text top="958" left="573" width="47" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Agresti</a></text>
+<text top="958" left="623" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="958" left="628" width="29" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2007</a></text>
+<text top="958" left="657" width="148" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">) </a>a data set is presented</text>
+<text top="976" left="459" width="346" height="15" font="0">that is amenable to analysis using a linear Poisson</text>
+<text top="994" left="459" width="349" height="15" font="0">model. The data set consists of a count response vari-</text>
+<text top="1012" left="459" width="38" height="15" font="0">able y</text>
+<text top="1017" left="498" width="3" height="11" font="1">i</text>
+<text top="1012" left="502" width="12" height="15" font="0">, i</text>
+<text top="1011" left="517" width="12" height="16" font="7">=</text>
+<text top="1012" left="533" width="140" height="15" font="0">1, . . . , 173, called Sa in</text>
+<text top="1012" left="676" width="48" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Agresti</a></text>
+<text top="1012" left="728" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="1012" left="733" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2007</a></text>
+<text top="1012" left="763" width="43" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">), </a>with</text>
+<text top="1030" left="459" width="346" height="15" font="0">observed values ranging from 0 through 15 and a</text>
+<text top="1048" left="459" width="346" height="15" font="0">mean of 2.9. Also presented are a number of potential</text>
+<text top="1065" left="459" width="310" height="15" font="0">covariates. Here we define three covariates, x</text>
+<text top="1071" left="769" width="9" height="11" font="1">i1</text>
+<text top="1065" left="779" width="16" height="15" font="0">, x</text>
+<text top="1071" left="796" width="9" height="11" font="1">i2</text>
+<text top="1083" left="459" width="38" height="15" font="0">and x</text>
+<text top="1089" left="497" width="9" height="11" font="1">i3</text>
+<text top="1083" left="507" width="12" height="15" font="0">, i</text>
+<text top="1082" left="523" width="12" height="16" font="7">=</text>
+<text top="1083" left="539" width="144" height="15" font="0">1, . . . , 173, similarly to</text>
+<text top="1083" left="687" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="1083" left="763" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="1083" left="769" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="1083" left="799" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">).</a></text>
+<text top="1101" left="458" width="232" height="15" font="0">The first two of these covariates, x</text>
+<text top="1107" left="691" width="9" height="11" font="1">i1</text>
+<text top="1101" left="705" width="38" height="15" font="0">and x</text>
+<text top="1107" left="743" width="9" height="11" font="1">i2</text>
+<text top="1101" left="753" width="55" height="15" font="0">, are de-</text>
+<text top="1119" left="459" width="346" height="15" font="0">fined by dichotomizing the covariates called C and</text>
+<text top="1137" left="459" width="26" height="15" font="0">S in</text>
+<text top="1137" left="489" width="49" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Agresti</a></text>
+<text top="1137" left="543" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="1137" left="548" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2007</a></text>
+<text top="1137" left="578" width="76" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">), </a>such that</text>
+<text top="1136" left="659" width="8" height="18" font="7">{</text>
+<text top="1137" left="667" width="7" height="15" font="0">x</text>
+<text top="1143" left="675" width="9" height="11" font="1">i1</text>
+<text top="1136" left="685" width="24" height="18" font="7">} =</text>
+<text top="1137" left="713" width="8" height="15" font="0">1</text>
+<text top="1136" left="721" width="8" height="18" font="7">{</text>
+<text top="1137" left="729" width="11" height="15" font="0">C</text>
+<text top="1136" left="743" width="12" height="16" font="7">&gt;</text>
+<text top="1137" left="759" width="8" height="15" font="0">3</text>
+<text top="1136" left="767" width="8" height="18" font="7">}</text>
+<text top="1137" left="780" width="26" height="15" font="0">and</text>
+<text top="1154" left="459" width="8" height="18" font="7">{</text>
+<text top="1155" left="467" width="7" height="15" font="0">x</text>
+<text top="1161" left="475" width="9" height="11" font="1">i2</text>
+<text top="1154" left="485" width="24" height="18" font="7">} =</text>
+<text top="1155" left="512" width="8" height="15" font="0">1</text>
+<text top="1154" left="520" width="8" height="18" font="7">{</text>
+<text top="1155" left="528" width="8" height="15" font="0">S</text>
+<text top="1154" left="539" width="12" height="16" font="7">&lt;</text>
+<text top="1155" left="555" width="8" height="15" font="0">3</text>
+<text top="1154" left="563" width="8" height="18" font="7">}</text>
+<text top="1155" left="571" width="237" height="15" font="0">. This yields two 0/1 binary covari-</text>
+<text top="1173" left="459" width="346" height="15" font="0">ates with means 0.4 and 0.3, respectively. The third</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+	<fontspec id="9" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="6" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="8" family="Helvetica" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">13</text>
+<text top="125" left="82" width="78" height="15" font="0">covariate, x</text>
+<text top="130" left="161" width="9" height="11" font="1">i3</text>
+<text top="125" left="170" width="259" height="15" font="0">, is a continuous covariate called W in</text>
+<text top="143" left="82" width="49" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Agresti</a></text>
+<text top="143" left="136" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="143" left="141" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2007</a></text>
+<text top="143" left="171" width="258" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">), </a>which is shifted here by subtracting</text>
+<text top="161" left="82" width="346" height="15" font="0">the smallest value, so that it ranges from 0 through</text>
+<text top="179" left="82" width="155" height="15" font="0">12.5 with a mean of 5.3.</text>
+<text top="197" left="105" width="79" height="15" font="0">Assuming y</text>
+<text top="202" left="184" width="3" height="11" font="1">i</text>
+<text top="197" left="192" width="240" height="15" font="0">is an observation from a Poisson dis-</text>
+<text top="215" left="82" width="145" height="15" font="0">tribution with mean <i>µ</i></text>
+<text top="220" left="228" width="3" height="11" font="1">i</text>
+<text top="215" left="232" width="173" height="15" font="0">, the identity link model is</text>
+<text top="247" left="156" width="9" height="11" font="8"><i>µ</i></text>
+<text top="249" left="165" width="3" height="11" font="1">i</text>
+<text top="243" left="173" width="12" height="16" font="7">=</text>
+<text top="247" left="188" width="8" height="11" font="8"><i>α</i></text>
+<text top="249" left="196" width="6" height="11" font="1">0</text>
+<text top="243" left="206" width="12" height="16" font="7">+</text>
+<text top="247" left="221" width="8" height="11" font="8"><i>α</i></text>
+<text top="249" left="229" width="6" height="11" font="1">1</text>
+<text top="243" left="236" width="7" height="15" font="0">x</text>
+<text top="249" left="244" width="9" height="11" font="1">i1</text>
+<text top="243" left="257" width="12" height="16" font="7">+</text>
+<text top="247" left="272" width="8" height="11" font="8"><i>α</i></text>
+<text top="249" left="280" width="6" height="11" font="1">2</text>
+<text top="243" left="287" width="7" height="15" font="0">x</text>
+<text top="249" left="295" width="9" height="11" font="1">i2</text>
+<text top="243" left="308" width="12" height="16" font="7">+</text>
+<text top="247" left="323" width="8" height="11" font="8"><i>α</i></text>
+<text top="249" left="331" width="6" height="11" font="1">3</text>
+<text top="243" left="338" width="7" height="15" font="0">x</text>
+<text top="249" left="346" width="9" height="11" font="1">i3</text>
+<text top="272" left="82" width="178" height="15" font="0">with parameter vector <i>θ</i></text>
+<text top="271" left="267" width="25" height="16" font="7">= (</text>
+<text top="276" left="293" width="8" height="11" font="8"><i>α</i></text>
+<text top="278" left="301" width="6" height="11" font="1">0</text>
+<text top="272" left="307" width="14" height="15" font="0">, <i>α</i></text>
+<text top="278" left="321" width="6" height="11" font="1">1</text>
+<text top="272" left="327" width="14" height="15" font="0">, <i>α</i></text>
+<text top="278" left="341" width="6" height="11" font="1">2</text>
+<text top="272" left="347" width="14" height="15" font="0">, <i>α</i></text>
+<text top="278" left="361" width="6" height="11" font="1">3</text>
+<text top="271" left="368" width="6" height="16" font="7">)</text>
+<text top="272" left="374" width="4" height="15" font="0">.</text>
+<text top="272" left="400" width="29" height="15" font="0">This</text>
+<text top="290" left="82" width="346" height="15" font="0">model can be fitted in R by first defining a</text>
+<text top="308" left="82" width="220" height="15" font="0">response vector y with y[i]</text>
+<text top="307" left="303" width="12" height="16" font="7">=</text>
+<text top="308" left="324" width="7" height="15" font="0">y</text>
+<text top="314" left="331" width="3" height="11" font="1">i</text>
+<text top="308" left="336" width="96" height="15" font="0">, and corre-</text>
+<text top="326" left="82" width="346" height="15" font="0">sponding covariate vectors x1, x2 and x3 with</text>
+<text top="346" left="82" width="152" height="12" font="0">c(x1[i],x2[i],x3[i])</text>
+<text top="343" left="235" width="26" height="16" font="7">= (</text>
+<text top="344" left="262" width="7" height="15" font="0">x</text>
+<text top="350" left="269" width="9" height="11" font="1">i1</text>
+<text top="344" left="279" width="13" height="15" font="0">, x</text>
+<text top="350" left="293" width="9" height="11" font="1">i2</text>
+<text top="344" left="303" width="13" height="15" font="0">, x</text>
+<text top="350" left="316" width="9" height="11" font="1">i3</text>
+<text top="343" left="326" width="6" height="16" font="7">)</text>
+<text top="344" left="332" width="97" height="15" font="0">, along with</text>
+<text top="362" left="82" width="346" height="15" font="0">a data frame poisdata through the assignment</text>
+<text top="381" left="82" width="259" height="12" font="0">poisdata &lt;- data.frame(y,x1,x2,x3)</text>
+<text top="380" left="342" width="87" height="15" font="0">. The call to</text>
+<text top="398" left="82" width="132" height="15" font="0">fit the model is then</text>
+<text top="428" left="82" width="290" height="12" font="0">glm(y ~ x1 + x2 + x3, data = poisdata,</text>
+<text top="446" left="113" width="274" height="12" font="0">family = poisson(link = &#34;identity&#34;),</text>
+<text top="464" left="113" width="130" height="12" font="0">start = rep(1,4))</text>
+<text top="492" left="82" width="347" height="15" font="0">which includes an initial estimate through the start</text>
+<text top="510" left="82" width="346" height="15" font="0">argument because the default choice is invalid for this</text>
+<text top="528" left="82" width="346" height="15" font="0">model. Below we also use the control argument to</text>
+<text top="545" left="82" width="201" height="15" font="0">monitor the iterative behavior.</text>
+<text top="563" left="105" width="327" height="15" font="0">As discussed later in the paper, the above call pro-</text>
+<text top="581" left="82" width="349" height="15" font="0">duces satisfactory convergence for these data; how-</text>
+<text top="599" left="82" width="346" height="15" font="0">ever, a bootstrap analysis using the same call leads to</text>
+<text top="617" left="82" width="347" height="15" font="0">quite severe numerical instability. Using the sample</text>
+<text top="635" left="82" width="347" height="15" font="0">function, bootstrap replications were generated by</text>
+<text top="653" left="82" width="348" height="15" font="0">sampling with replacement from the original data,</text>
+<text top="671" left="82" width="346" height="15" font="0">after which glm was applied to each replication. This</text>
+<text top="689" left="82" width="347" height="15" font="0">process readily produced replications for which glm</text>
+<text top="707" left="82" width="346" height="15" font="0">failed, and a collection of 100 such replications was</text>
+<text top="725" left="82" width="346" height="15" font="0">generated in which non-convergence occurred. Two</text>
+<text top="743" left="82" width="346" height="15" font="0">of these replications are discussed as examples in this</text>
+<text top="761" left="82" width="346" height="15" font="0">section, while the full collection of 100 replications is</text>
+<text top="779" left="82" width="242" height="15" font="0">discussed further in the next section.</text>
+<text top="796" left="105" width="324" height="15" font="0">Figure 1 displays the lack of convergence using</text>
+<text top="816" left="82" width="23" height="12" font="0">glm</text>
+<text top="814" left="110" width="319" height="15" font="0">for the two illustrative replications. Increasing</text>
+<text top="832" left="82" width="349" height="15" font="0">the maximum number of iterations does not allevi-</text>
+<text top="850" left="82" width="349" height="15" font="0">ate the problem. Also plotted in Figure 1 is the de-</text>
+<text top="868" left="82" width="347" height="15" font="0">viance achieved by the maximum likelihood estimate</text>
+<text top="886" left="82" width="347" height="15" font="0">(MLE), calculated using the non-IRLS linear Poisson</text>
+<text top="904" left="82" width="72" height="15" font="0">method of</text>
+<text top="904" left="160" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="904" left="238" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="904" left="244" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="904" left="274" width="155" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">). </a>For Figure 1(a) this</text>
+<text top="922" left="82" width="346" height="15" font="0">minimum possible deviance is 604.0 with an MLE</text>
+<text top="940" left="82" width="24" height="15" font="0">of ˆ<i>θ</i></text>
+<text top="939" left="110" width="22" height="16" font="7">= (</text>
+<text top="939" left="133" width="12" height="18" font="7">−</text>
+<text top="940" left="145" width="37" height="15" font="0">0.095,</text>
+<text top="939" left="184" width="12" height="18" font="7">−</text>
+<text top="940" left="196" width="112" height="15" font="0">0.385, 0.618, 0.530</text>
+<text top="939" left="309" width="6" height="16" font="7">)</text>
+<text top="940" left="315" width="114" height="15" font="0">, while for Figure</text>
+<text top="958" left="82" width="347" height="15" font="0">1(b) the minimum possible deviance is 656.3 with an</text>
+<text top="976" left="82" width="60" height="15" font="0">MLE of ˆ<i>θ</i></text>
+<text top="975" left="147" width="22" height="16" font="7">= (</text>
+<text top="976" left="169" width="38" height="15" font="0">0.997,</text>
+<text top="974" left="208" width="12" height="18" font="7">−</text>
+<text top="976" left="220" width="38" height="15" font="0">1.344,</text>
+<text top="974" left="260" width="12" height="18" font="7">−</text>
+<text top="976" left="272" width="73" height="15" font="0">0.169, 0.524</text>
+<text top="975" left="345" width="6" height="16" font="7">)</text>
+<text top="976" left="351" width="78" height="15" font="0">. Inspection</text>
+<text top="994" left="82" width="349" height="15" font="0">of the score functions reveals both MLEs are station-</text>
+<text top="1012" left="82" width="302" height="15" font="0">ary and in the interior of the parameter space.</text>
+<text top="1030" left="105" width="324" height="15" font="0">These two examples illustrate the two scenarios of</text>
+<text top="1048" left="82" width="346" height="15" font="0">non-convergence described at the beginning of this</text>
+<text top="1065" left="82" width="346" height="15" font="0">section. In Figure 1(a), step-halving was invoked in</text>
+<text top="1083" left="82" width="346" height="15" font="0">28 of the 100 iterations, showing that glm can fail to</text>
+<text top="1101" left="82" width="349" height="15" font="0">converge even with step-halving. In Figure 1(b) step-</text>
+<text top="1119" left="82" width="346" height="15" font="0">halving was not invoked, showing that glm can fail</text>
+<text top="1137" left="82" width="349" height="15" font="0">to converge without ever making use of step-halving.</text>
+<text top="1155" left="82" width="349" height="15" font="0">The latter example is indicative of a potential prob-</text>
+<text top="1173" left="82" width="346" height="15" font="0">lem with Newton-type algorithms, which can have a</text>
+<text top="125" left="459" width="346" height="15" font="0">so-called attracting periodic cycle. In this case IRLS</text>
+<text top="143" left="459" width="349" height="15" font="0">is attracted to a cycle of two iterate values, with de-</text>
+<text top="161" left="458" width="347" height="15" font="0">viances of 673.2 and 691.1, and then subsequently</text>
+<text top="179" left="459" width="209" height="15" font="0">oscillates between those values.</text>
+<text top="198" left="481" width="326" height="15" font="0">Although these results use a specific starting value,</text>
+<text top="216" left="459" width="347" height="15" font="0">the non-convergence cannot be remedied with better</text>
+<text top="234" left="459" width="348" height="15" font="0">initial estimates. This is illustrated in Figure 1(a),</text>
+<text top="252" left="458" width="350" height="15" font="0">where the iterates get very close to the optimal value.</text>
+<text top="270" left="459" width="346" height="15" font="0">Only when the initial estimate is identical to the MLE</text>
+<text top="288" left="459" width="239" height="15" font="0">does glm converge (in one iteration).</text>
+<text top="627" left="508" width="5" height="8" font="9">0</text>
+<text top="627" left="558" width="9" height="8" font="9">20</text>
+<text top="627" left="611" width="9" height="8" font="9">40</text>
+<text top="627" left="664" width="9" height="8" font="9">60</text>
+<text top="627" left="717" width="9" height="8" font="9">80</text>
+<text top="627" left="767" width="14" height="8" font="9">100</text>
+<text top="606" left="488" width="0" height="8" font="10">600</text>
+<text top="564" left="488" width="0" height="8" font="10">610</text>
+<text top="523" left="488" width="0" height="8" font="10">620</text>
+<text top="482" left="488" width="0" height="8" font="10">630</text>
+<text top="441" left="488" width="0" height="8" font="10">640</text>
+<text top="400" left="488" width="0" height="8" font="10">650</text>
+<text top="359" left="488" width="0" height="8" font="10">660</text>
+<text top="647" left="620" width="43" height="8" font="9">ITERATION</text>
+<text top="497" left="468" width="0" height="8" font="10">DEVIANCE</text>
+<text top="323" left="636" width="12" height="9" font="11"><b>(a)</b></text>
+<text top="990" left="508" width="5" height="8" font="9">0</text>
+<text top="990" left="560" width="5" height="8" font="9">5</text>
+<text top="990" left="611" width="9" height="8" font="9">10</text>
+<text top="990" left="664" width="9" height="8" font="9">15</text>
+<text top="990" left="717" width="9" height="8" font="9">20</text>
+<text top="990" left="769" width="9" height="8" font="9">25</text>
+<text top="946" left="488" width="0" height="8" font="10">660</text>
+<text top="902" left="488" width="0" height="8" font="10">670</text>
+<text top="857" left="488" width="0" height="8" font="10">680</text>
+<text top="812" left="488" width="0" height="8" font="10">690</text>
+<text top="767" left="488" width="0" height="8" font="10">700</text>
+<text top="722" left="488" width="0" height="8" font="10">710</text>
+<text top="1011" left="620" width="43" height="8" font="9">ITERATION</text>
+<text top="860" left="468" width="0" height="8" font="10">DEVIANCE</text>
+<text top="686" left="636" width="12" height="9" font="11"><b>(b)</b></text>
+<text top="1047" left="459" width="64" height="15" font="0">Figure 1:</text>
+<text top="1047" left="538" width="270" height="15" font="0">Examples of non-convergence in glm.</text>
+<text top="1065" left="459" width="280" height="15" font="0">Dashed lines denote the optimal deviance.</text>
+<text top="1114" left="459" width="178" height="21" font="6"><b>The glm2 package</b></text>
+<text top="1155" left="458" width="347" height="15" font="0">An important feature of Figure 1 is that the iterative</text>
+<text top="1173" left="459" width="346" height="15" font="0">sequences display instances of increasing deviance</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="12" size="6" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">14</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="125" left="82" width="346" height="15" font="0">from one iteration to the next. It is well known that</text>
+<text top="143" left="82" width="346" height="15" font="0">step-halving can be used in Newton-type algorithms</text>
+<text top="161" left="82" width="349" height="15" font="0">to force the objective function to improve monotoni-</text>
+<text top="179" left="82" width="41" height="15" font="0">cally <a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="179" left="123" width="42" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Lange</a></text>
+<text top="179" left="165" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">,</a></text>
+<text top="179" left="172" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="179" left="203" width="226" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">, </a>p. 251). This approach is used to</text>
+<text top="197" left="82" width="347" height="15" font="0">improve the convergence properties of IRLS in other</text>
+<text top="215" left="82" width="349" height="15" font="0">standard statistical software. Here we discuss its im-</text>
+<text top="233" left="82" width="347" height="15" font="0">plementation in the glm2 function available within</text>
+<text top="251" left="82" width="346" height="15" font="0">the <b>glm2 </b>package, and the associated improvements</text>
+<text top="268" left="82" width="174" height="15" font="0">in convergence properties.</text>
+<text top="287" left="105" width="324" height="15" font="0">The source code for glm.fit has two step-halving</text>
+<text top="305" left="82" width="346" height="15" font="0">blocks called inner loops 1 and 2. These occur within</text>
+<text top="323" left="82" width="349" height="15" font="0">the main loop immediately prior to the test of conver-</text>
+<text top="341" left="82" width="346" height="15" font="0">gence, and they use step-halving to rectify a divergent</text>
+<text top="359" left="82" width="349" height="15" font="0">deviance and invalid predicted values, respectively.</text>
+<text top="377" left="82" width="347" height="15" font="0">The main change implemented in the <b>glm2 </b>package</text>
+<text top="395" left="82" width="347" height="15" font="0">is that the modified routine glm.fit2 has a further</text>
+<text top="413" left="82" width="346" height="15" font="0">step-halving block, called inner loop 3, which tests</text>
+<text top="431" left="82" width="347" height="15" font="0">whether the deviance is lower than in the previous</text>
+<text top="449" left="82" width="349" height="15" font="0">iteration. If not, step-halving is invoked until the de-</text>
+<text top="467" left="82" width="347" height="15" font="0">viance is lowered, leading to an iterative sequence</text>
+<text top="485" left="82" width="283" height="15" font="0">that monotonically decreases the deviance.</text>
+<text top="504" left="105" width="325" height="15" font="0">Convergence in glm.fit occurs if abs(rel) &lt;</text>
+<text top="523" left="82" width="114" height="12" font="0">control$epsilon</text>
+<text top="522" left="203" width="226" height="15" font="0">where rel is the relative change</text>
+<text top="541" left="82" width="236" height="12" font="0">(dev - devold)/(0.1 + abs(dev))</text>
+<text top="540" left="322" width="107" height="15" font="0">from the current</text>
+<text top="558" left="82" width="346" height="15" font="0">deviance devold to the updated deviance dev, and</text>
+<text top="577" left="82" width="114" height="12" font="0">control$epsilon</text>
+<text top="575" left="201" width="228" height="15" font="0">is a positive tolerance. In glm.fit2</text>
+<text top="593" left="82" width="349" height="15" font="0">the same convergence test is used, and if it is not sat-</text>
+<text top="611" left="82" width="349" height="15" font="0">isfied because rel &lt;= -control$epsilon, then itera-</text>
+<text top="629" left="82" width="346" height="15" font="0">tions proceed as in glm.fit. However, if convergence</text>
+<text top="647" left="82" width="348" height="15" font="0">is not satisfied because rel &gt;= control$epsilon,</text>
+<text top="665" left="82" width="346" height="15" font="0">then inner loop 3 invokes step-halving until rel &lt;=</text>
+<text top="684" left="79" width="122" height="12" font="0">-control$epsilon</text>
+<text top="683" left="201" width="228" height="15" font="0">. Thus, as well as decreasing the</text>
+<text top="701" left="82" width="346" height="15" font="0">deviance, the step-halving takes rel from one side of</text>
+<text top="719" left="82" width="347" height="15" font="0">the convergence region to the other, therefore never</text>
+<text top="737" left="82" width="175" height="15" font="0">causing false convergence.</text>
+<text top="756" left="105" width="326" height="15" font="0">The glm2 function is essentially identical to glm,</text>
+<text top="774" left="82" width="349" height="15" font="0">except the default fitting method is glm.fit2. This al-</text>
+<text top="792" left="82" width="346" height="15" font="0">lows glm2 to be called with the same calling sequence</text>
+<text top="810" left="82" width="346" height="15" font="0">as glm. Alternatively, in version 2.12.1 and later, it</text>
+<text top="828" left="82" width="349" height="15" font="0">should be possible to achieve the same effect by pass-</text>
+<text top="846" left="82" width="348" height="15" font="0">ing glm.fit2 to glm through the method argument,</text>
+<text top="863" left="82" width="349" height="15" font="0">instead of the default method glm.fit. Indeed, exist-</text>
+<text top="881" left="82" width="346" height="15" font="0">ing scripts calling glm should work unchanged with</text>
+<text top="899" left="82" width="291" height="15" font="0">the new fitting function, after first executing</text>
+<text top="939" left="82" width="351" height="12" font="0">glm &lt;- function(..., method = glm2::glm.fit2){</text>
+<text top="957" left="113" width="244" height="12" font="0">stats::glm(..., method = method)</text>
+<text top="975" left="81" width="8" height="12" font="0">}</text>
+<text top="1011" left="82" width="347" height="15" font="0">which makes glm.fit2 the default fitting method</text>
+<text top="1029" left="82" width="125" height="15" font="0">when glm is called.</text>
+<text top="1048" left="105" width="324" height="15" font="0">In the previous section we discussed a data set</text>
+<text top="1065" left="82" width="346" height="15" font="0">for which 100 bootstrap replications were generated</text>
+<text top="1083" left="82" width="349" height="15" font="0">where glm failed to converge. When glm2 was used,</text>
+<text top="1101" left="82" width="346" height="15" font="0">convergence was achieved for all 100 replications with</text>
+<text top="1119" left="82" width="349" height="15" font="0">an initial value of 1 for each of the four parameters.</text>
+<text top="1137" left="82" width="347" height="15" font="0">This included the two illustrative examples plotted</text>
+<text top="1155" left="82" width="349" height="15" font="0">in Figure 1, which both converged to the MLEs pro-</text>
+<text top="1173" left="82" width="226" height="15" font="0">duced by the non-IRLS method of</text>
+<text top="1173" left="312" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="1173" left="388" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="1173" left="393" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="1173" left="423" width="9" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">).</a></text>
+<text top="125" left="458" width="347" height="15" font="0">This convergence is displayed in Figure 2, together</text>
+<text top="143" left="458" width="227" height="15" font="0">with the path that glm would take.</text>
+<text top="482" left="508" width="5" height="8" font="9">0</text>
+<text top="482" left="566" width="5" height="8" font="9">2</text>
+<text top="482" left="625" width="5" height="8" font="9">4</text>
+<text top="482" left="684" width="5" height="8" font="9">6</text>
+<text top="482" left="742" width="5" height="8" font="9">8</text>
+<text top="461" left="488" width="0" height="8" font="10">600</text>
+<text top="420" left="488" width="0" height="8" font="10">610</text>
+<text top="379" left="488" width="0" height="8" font="10">620</text>
+<text top="338" left="488" width="0" height="8" font="10">630</text>
+<text top="297" left="488" width="0" height="8" font="10">640</text>
+<text top="255" left="488" width="0" height="8" font="10">650</text>
+<text top="214" left="488" width="0" height="8" font="10">660</text>
+<text top="503" left="620" width="43" height="8" font="9">ITERATION</text>
+<text top="353" left="468" width="0" height="8" font="10">DEVIANCE</text>
+<text top="178" left="636" width="12" height="9" font="11"><b>(a)</b></text>
+<text top="423" left="595" width="6" height="8" font="12">●</text>
+<text top="405" left="624" width="6" height="8" font="12">●</text>
+<text top="325" left="654" width="6" height="8" font="12">●</text>
+<text top="244" left="683" width="6" height="8" font="12">●</text>
+<text top="435" left="624" width="6" height="8" font="12">●</text>
+<text top="433" left="654" width="6" height="8" font="12">●</text>
+<text top="427" left="683" width="6" height="8" font="12">●</text>
+<text top="419" left="712" width="6" height="8" font="12">●</text>
+<text top="395" left="742" width="6" height="8" font="12">●</text>
+<text top="846" left="508" width="5" height="8" font="9">0</text>
+<text top="846" left="560" width="5" height="8" font="9">2</text>
+<text top="846" left="613" width="5" height="8" font="9">4</text>
+<text top="846" left="666" width="5" height="8" font="9">6</text>
+<text top="846" left="719" width="5" height="8" font="9">8</text>
+<text top="846" left="769" width="9" height="8" font="9">10</text>
+<text top="802" left="488" width="0" height="8" font="10">660</text>
+<text top="757" left="488" width="0" height="8" font="10">670</text>
+<text top="712" left="488" width="0" height="8" font="10">680</text>
+<text top="667" left="488" width="0" height="8" font="10">690</text>
+<text top="623" left="488" width="0" height="8" font="10">700</text>
+<text top="578" left="488" width="0" height="8" font="10">710</text>
+<text top="866" left="620" width="43" height="8" font="9">ITERATION</text>
+<text top="716" left="468" width="0" height="8" font="10">DEVIANCE</text>
+<text top="542" left="636" width="12" height="9" font="11"><b>(b)</b></text>
+<text top="598" left="560" width="6" height="8" font="12">●</text>
+<text top="745" left="586" width="6" height="8" font="12">●</text>
+<text top="674" left="613" width="6" height="8" font="12">●</text>
+<text top="738" left="639" width="6" height="8" font="12">●</text>
+<text top="658" left="665" width="6" height="8" font="12">●</text>
+<text top="741" left="613" width="6" height="8" font="12">●</text>
+<text top="755" left="639" width="6" height="8" font="12">●</text>
+<text top="696" left="665" width="6" height="8" font="12">●</text>
+<text top="740" left="692" width="6" height="8" font="12">●</text>
+<text top="663" left="718" width="6" height="8" font="12">●</text>
+<text top="738" left="745" width="6" height="8" font="12">●</text>
+<text top="657" left="771" width="6" height="8" font="12">●</text>
+<text top="803" left="639" width="6" height="8" font="12">●</text>
+<text top="797" left="665" width="6" height="8" font="12">●</text>
+<text top="796" left="692" width="6" height="8" font="12">●</text>
+<text top="782" left="718" width="6" height="8" font="12">●</text>
+<text top="783" left="745" width="6" height="8" font="12">●</text>
+<text top="757" left="771" width="6" height="8" font="12">●</text>
+<text top="903" left="459" width="349" height="15" font="0">Figure 2: Convergence of glm2 (squares) for the ex-</text>
+<text top="921" left="459" width="346" height="15" font="0">amples presented in Figure 1. Circles denote the path</text>
+<text top="939" left="459" width="135" height="15" font="0">that glm would take.</text>
+<text top="976" left="481" width="327" height="15" font="0">Using glm2, Figure 3 provides medians and inter-</text>
+<text top="994" left="458" width="349" height="15" font="0">quartile ranges of the estimates from the 100 replica-</text>
+<text top="1012" left="459" width="346" height="15" font="0">tions that did not converge in glm. Also shown is the</text>
+<text top="1030" left="459" width="346" height="15" font="0">same information for 100 replications where glm did</text>
+<text top="1048" left="459" width="346" height="15" font="0">converge. In each case the two sets of estimates are</text>
+<text top="1065" left="459" width="346" height="15" font="0">relatively consistent. This would seem to suggest that</text>
+<text top="1083" left="459" width="346" height="15" font="0">estimates from the replications in which glm failed</text>
+<text top="1101" left="459" width="346" height="15" font="0">to converge are not particularly unusual compared</text>
+<text top="1119" left="459" width="346" height="15" font="0">to those for which it did converge. In particular, as</text>
+<text top="1137" left="459" width="346" height="15" font="0">demonstrated in Figure 1, non-convergence of glm</text>
+<text top="1155" left="459" width="346" height="15" font="0">can occur even when the MLE is a stationary point in</text>
+<text top="1173" left="459" width="231" height="15" font="0">the interior of the parameter space.</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="13" size="15" family="Symbol" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">15</text>
+<text top="125" left="105" width="324" height="15" font="0">As well as the functions glm2 and glm.fit2, the</text>
+<text top="143" left="82" width="34" height="15" font="3"><b>glm2</b></text>
+<text top="143" left="120" width="311" height="15" font="0">package provides data sets and example code il-</text>
+<text top="161" left="82" width="346" height="15" font="0">lustrating the usefulness of the proposed change. This</text>
+<text top="179" left="82" width="346" height="15" font="0">allows reproduction of the behavior described here</text>
+<text top="197" left="82" width="346" height="15" font="0">for the identity link Poisson model, and also provides</text>
+<text top="215" left="82" width="289" height="15" font="0">an example for the log link binomial model.</text>
+<text top="553" left="140" width="16" height="8" font="9">−1.5</text>
+<text top="553" left="190" width="16" height="8" font="9">−1.0</text>
+<text top="553" left="240" width="16" height="8" font="9">−0.5</text>
+<text top="553" left="292" width="11" height="8" font="9">0.0</text>
+<text top="553" left="342" width="11" height="8" font="9">0.5</text>
+<text top="553" left="392" width="11" height="8" font="9">1.0</text>
+<text top="573" left="243" width="46" height="8" font="9">ESTIMATES</text>
+<text top="402" left="91" width="0" height="8" font="10"> </text>
+<text top="299" left="334" width="6" height="8" font="12">●</text>
+<text top="364" left="212" width="6" height="8" font="12">●</text>
+<text top="429" left="313" width="6" height="8" font="12">●</text>
+<text top="494" left="345" width="6" height="8" font="12">●</text>
+<text top="299" left="143" width="10" height="22" font="13">αα</text>
+<text top="313" left="154" width="5" height="8" font="9">0</text>
+<text top="364" left="143" width="10" height="22" font="13">αα</text>
+<text top="378" left="154" width="5" height="8" font="9">1</text>
+<text top="429" left="143" width="10" height="22" font="13">αα</text>
+<text top="443" left="154" width="5" height="8" font="9">2</text>
+<text top="494" left="143" width="10" height="22" font="13">αα</text>
+<text top="507" left="154" width="5" height="8" font="9">3</text>
+<text top="430" left="91" width="0" height="8" font="10">P</text>
+<text top="425" left="91" width="0" height="8" font="10">ARAMETERS</text>
+<text top="610" left="82" width="349" height="15" font="0">Figure 3: Medians and interquartile ranges of esti-</text>
+<text top="628" left="82" width="348" height="15" font="0">mates in 100 replications that converged (squares)</text>
+<text top="646" left="82" width="346" height="15" font="0">and 100 replications that did not converge (circles) in</text>
+<text top="665" left="82" width="23" height="12" font="0">glm</text>
+<text top="663" left="105" width="257" height="15" font="0">. The latter were calculated using glm2.</text>
+<text top="704" left="82" width="109" height="21" font="6"><b>Discussion</b></text>
+<text top="743" left="82" width="347" height="15" font="0">This paper describes a modification that improves the</text>
+<text top="761" left="82" width="346" height="15" font="0">convergence properties of glm, and which is available</text>
+<text top="779" left="82" width="346" height="15" font="0">in the glm2 function in the <b>glm2 </b>package. Following</text>
+<text top="796" left="82" width="346" height="15" font="0">the recommendation of the editors, the modification</text>
+<text top="814" left="82" width="346" height="15" font="0">has been presented as a separate package rather than</text>
+<text top="832" left="82" width="349" height="15" font="0">as a code snippet. This has the advantage of facilitat-</text>
+<text top="850" left="82" width="346" height="15" font="0">ing thorough testing of the proposed change, and also</text>
+<text top="868" left="82" width="346" height="15" font="0">allows some example analyses to be made available</text>
+<text top="886" left="82" width="349" height="15" font="0">through the package. These examples are promis-</text>
+<text top="904" left="82" width="346" height="15" font="0">ing, but additional testing would be required before</text>
+<text top="922" left="82" width="346" height="15" font="0">considering a change to glm and its ancillaries in the</text>
+<text top="940" left="82" width="169" height="15" font="0">standard R <b>stats </b>package.</text>
+<text top="958" left="105" width="327" height="15" font="0">While glm2 should converge whenever glm con-</text>
+<text top="976" left="82" width="350" height="15" font="0">verges, it may take a different path to convergence.</text>
+<text top="994" left="82" width="347" height="15" font="0">This will occur whenever a convergent glm sequence</text>
+<text top="1012" left="82" width="346" height="15" font="0">has an iteration where the deviance increased. The</text>
+<text top="1030" left="82" width="349" height="15" font="0">fact that glm2 may take a different path to conver-</text>
+<text top="1048" left="82" width="349" height="15" font="0">gence should be inconsequential in practice, particu-</text>
+<text top="1065" left="82" width="309" height="15" font="0">larly as it will be a more stable monotone path.</text>
+<text top="1083" left="105" width="324" height="15" font="0">Although we have found cases in which glm has</text>
+<text top="1101" left="82" width="347" height="15" font="0">convergence problems, in other contexts it copes very</text>
+<text top="1119" left="82" width="347" height="15" font="0">well with numerical difficulties. The data set from</text>
+<text top="1137" left="82" width="347" height="15" font="0">which the bootstrap replications were generated is an</text>
+<text top="1155" left="82" width="349" height="15" font="0">example. Using an identity link Poisson model, the ex-</text>
+<text top="1173" left="82" width="346" height="15" font="0">isting step-halving in glm allows it to converge to the</text>
+<text top="125" left="459" width="147" height="15" font="0">non-stationary MLE ˆ<i>θ</i></text>
+<text top="124" left="610" width="22" height="16" font="7">= (</text>
+<text top="125" left="632" width="38" height="15" font="0">0.578,</text>
+<text top="124" left="672" width="12" height="18" font="7">−</text>
+<text top="125" left="684" width="114" height="15" font="0">0.626, 0.048, 0.484</text>
+<text top="124" left="798" width="6" height="16" font="7">)</text>
+<text top="125" left="804" width="4" height="15" font="0">.</text>
+<text top="143" left="459" width="349" height="15" font="0">Since the fitted value for the observed covariate pat-</text>
+<text top="161" left="459" width="26" height="15" font="0">tern</text>
+<text top="160" left="488" width="6" height="16" font="7">(</text>
+<text top="161" left="495" width="7" height="15" font="0">x</text>
+<text top="166" left="503" width="9" height="11" font="1">i1</text>
+<text top="161" left="512" width="13" height="15" font="0">, x</text>
+<text top="166" left="526" width="9" height="11" font="1">i2</text>
+<text top="161" left="536" width="13" height="15" font="0">, x</text>
+<text top="166" left="549" width="9" height="11" font="1">i3</text>
+<text top="160" left="559" width="30" height="16" font="7">) = (</text>
+<text top="161" left="590" width="33" height="15" font="0">1, 1, 0</text>
+<text top="160" left="622" width="6" height="16" font="7">)</text>
+<text top="161" left="632" width="46" height="15" font="0">is 0.578</text>
+<text top="160" left="681" width="12" height="18" font="7">−</text>
+<text top="161" left="695" width="33" height="15" font="0">0.626</text>
+<text top="160" left="731" width="12" height="16" font="7">+</text>
+<text top="161" left="745" width="33" height="15" font="0">0.048</text>
+<text top="160" left="781" width="12" height="16" font="7">=</text>
+<text top="161" left="796" width="11" height="15" font="0">0,</text>
+<text top="179" left="459" width="346" height="15" font="0">and all other fitted values are positive, the estimate</text>
+<text top="197" left="458" width="350" height="15" font="0">produced is on the boundary of the parameter space.</text>
+<text top="215" left="459" width="346" height="15" font="0">Not all GLM software would be able to converge to a</text>
+<text top="233" left="459" width="288" height="15" font="0">non-stationary boundary point such as this.</text>
+<text top="251" left="481" width="324" height="15" font="0">Finally, we end with an observation on predicted</text>
+<text top="268" left="458" width="350" height="15" font="0">values when using a non-standard link function.</text>
+<text top="286" left="458" width="347" height="15" font="0">When glm (or glm2) converges with a link function</text>
+<text top="304" left="459" width="349" height="15" font="0">that does not respect the natural parameter restric-</text>
+<text top="322" left="459" width="349" height="15" font="0">tions of the error distribution, such as in the exam-</text>
+<text top="340" left="458" width="349" height="15" font="0">ple here, the predicted values will meet these restric-</text>
+<text top="358" left="459" width="349" height="15" font="0">tions for all observed covariate combinations. How-</text>
+<text top="376" left="459" width="349" height="15" font="0">ever, predicted values for other covariate combina-</text>
+<text top="394" left="459" width="346" height="15" font="0">tions may not meet these restrictions. This is true</text>
+<text top="412" left="459" width="349" height="15" font="0">not only for extreme covariate values outside the ob-</text>
+<text top="430" left="459" width="346" height="15" font="0">served ranges, but also for unobserved combinations</text>
+<text top="448" left="459" width="348" height="15" font="0">that are within the observed ranges. For example,</text>
+<text top="466" left="459" width="86" height="15" font="0">the values x</text>
+<text top="471" left="545" width="9" height="11" font="1">i1</text>
+<text top="465" left="560" width="12" height="16" font="7">=</text>
+<text top="466" left="577" width="26" height="15" font="0">1, x</text>
+<text top="471" left="603" width="9" height="11" font="1">i2</text>
+<text top="465" left="618" width="12" height="16" font="7">=</text>
+<text top="466" left="635" width="54" height="15" font="0">0 and x</text>
+<text top="471" left="690" width="9" height="11" font="1">i3</text>
+<text top="465" left="705" width="12" height="16" font="7">=</text>
+<text top="466" left="722" width="86" height="15" font="0">0 are all ob-</text>
+<text top="484" left="459" width="346" height="15" font="0">served in the above data set, but the combination</text>
+<text top="501" left="458" width="6" height="16" font="7">(</text>
+<text top="502" left="465" width="7" height="15" font="0">x</text>
+<text top="507" left="473" width="9" height="11" font="1">i1</text>
+<text top="502" left="483" width="13" height="15" font="0">, x</text>
+<text top="507" left="496" width="9" height="11" font="1">i2</text>
+<text top="502" left="506" width="13" height="15" font="0">, x</text>
+<text top="507" left="520" width="9" height="11" font="1">i3</text>
+<text top="501" left="530" width="33" height="16" font="7">) = (</text>
+<text top="502" left="563" width="34" height="15" font="0">1, 0, 0</text>
+<text top="501" left="597" width="6" height="16" font="7">)</text>
+<text top="502" left="608" width="197" height="15" font="0">was not observed, and has a</text>
+<text top="520" left="459" width="225" height="15" font="0">negative predicted value of 0.578</text>
+<text top="518" left="687" width="12" height="18" font="7">−</text>
+<text top="520" left="703" width="34" height="15" font="0">0.626</text>
+<text top="519" left="741" width="12" height="16" font="7">=</text>
+<text top="518" left="758" width="12" height="18" font="7">−</text>
+<text top="520" left="770" width="38" height="15" font="0">0.048.</text>
+<text top="537" left="458" width="347" height="15" font="0">Although not available in glm or glm2, in principle it</text>
+<text top="555" left="459" width="347" height="15" font="0">is possible to use a smaller parameter space that only</text>
+<text top="573" left="459" width="346" height="15" font="0">has valid predicted values for covariate combinations</text>
+<text top="591" left="459" width="346" height="15" font="0">that are within the observed ranges of the individual</text>
+<text top="609" left="459" width="346" height="15" font="0">covariates. For the above data set this leads to the</text>
+<text top="627" left="459" width="67" height="15" font="0">estimate ˆ<i>θ</i></text>
+<text top="626" left="530" width="22" height="16" font="7">= (</text>
+<text top="627" left="552" width="38" height="15" font="0">0.640,</text>
+<text top="626" left="591" width="12" height="18" font="7">−</text>
+<text top="627" left="604" width="113" height="15" font="0">0.640, 0.000, 0.476</text>
+<text top="626" left="717" width="6" height="16" font="7">)</text>
+<text top="627" left="727" width="5" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">(</a></text>
+<text top="627" left="732" width="72" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">Marschner</a></text>
+<text top="627" left="803" width="4" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">,</a></text>
+<text top="645" left="459" width="30" height="15" font="5"><a href="2011-2-RJournal_2011-2_Marschner.html#4">2010</a></text>
+<text top="645" left="489" width="317" height="15" font="0"><a href="2011-2-RJournal_2011-2_Marschner.html#4">), </a>which is slightly different to the one produced</text>
+<text top="663" left="459" width="349" height="15" font="0">by glm and has a valid predicted value for the combi-</text>
+<text top="681" left="459" width="43" height="15" font="0">nation</text>
+<text top="680" left="506" width="6" height="16" font="7">(</text>
+<text top="681" left="512" width="34" height="15" font="0">1, 0, 0</text>
+<text top="680" left="546" width="6" height="16" font="7">)</text>
+<text top="681" left="552" width="253" height="15" font="0">. A discussion of the relative merits of</text>
+<text top="699" left="459" width="346" height="15" font="0">these parameter spaces is not attempted here, but it</text>
+<text top="717" left="459" width="346" height="15" font="0">is important to understand which one is being used</text>
+<text top="735" left="458" width="310" height="15" font="0">when one fits a GLM with a non-standard link.</text>
+<text top="781" left="459" width="130" height="21" font="6"><b>Bibliography</b></text>
+<text top="820" left="459" width="349" height="15" font="0">A. Agresti. An Introduction to Categorical Data Analysis.</text>
+<text top="838" left="473" width="289" height="15" font="0">Wiley, Hoboken, USA, second edition, 2007.</text>
+<text top="867" left="459" width="348" height="15" font="0">K. Lange. Numerical Analysis for Statisticians. Springer,</text>
+<text top="885" left="474" width="250" height="15" font="0">New York, USA, second edition, 2010.</text>
+<text top="915" left="459" width="349" height="15" font="0">I. C. Marschner. Stable computation of maximum like-</text>
+<text top="933" left="474" width="334" height="15" font="0">lihood estimates in identity link Poisson regression.</text>
+<text top="950" left="474" width="332" height="15" font="0">Journal of Computational and Graphical Statistics, 19</text>
+<text top="969" left="473" width="115" height="15" font="0">(3):666–683, 2010.</text>
+<text top="998" left="459" width="347" height="15" font="0">I. C. Marschner. glm2: Fitting generalized linear</text>
+<text top="1016" left="474" width="130" height="15" font="0">models. 2011. URL</text>
+<text top="1017" left="608" width="199" height="12" font="5"><a href="http://CRAN.R-project.org/package=glm2">http://CRAN.R-project.org/</a></text>
+<text top="1035" left="474" width="91" height="12" font="5"><a href="http://CRAN.R-project.org/package=glm2">package=glm2</a></text>
+<text top="1034" left="565" width="156" height="15" font="0"><a href="http://CRAN.R-project.org/package=glm2">. </a>R package version 1.0.</text>
+<text top="1083" left="459" width="90" height="15" font="0">Ian Marschner</text>
+<text top="1101" left="458" width="147" height="15" font="0">Department of Statistics</text>
+<text top="1119" left="459" width="134" height="15" font="0">Macquarie University</text>
+<text top="1137" left="459" width="68" height="15" font="0">NSW 2109</text>
+<text top="1155" left="458" width="57" height="15" font="0">Australia</text>
+<text top="1174" left="459" width="175" height="12" font="5"><a href="mailto:ian.marschner@mq.edu.au">ian.marschner@mq.edu.au</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 3/2, December 2011</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

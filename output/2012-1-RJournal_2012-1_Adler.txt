@@ -1,0 +1,752 @@
+page	left	top	code
+1	82	67	30
+1	82	173	by Daniel Adler
+1	96	225	Function Interface (FFI) for R to call arbitary na-
+1	96	243	tive functions without the need for C wrapper
+1	96	261	code. Further we discuss a dynamic linkage
+1	96	279	framework for binding standard C libraries to
+1	96	297	R across platforms using a universal type infor-
+1	96	315	mation format. The package rdyncall comprises
+1	96	333	the framework and an initial repository of cross-
+1	96	351	platform bindings for standard libraries such as
+1	96	369	(legacy and modern) OpenGL, the family of SDL
+1	96	387	libraries and Expat. The package enables system-
+1	96	405	level programming using the R language; sam-
+1	96	423	ple applications are given in the article. We out-
+1	96	441	line the underlying automation tool-chain that
+1	96	458	extracts cross-platform bindings from C headers,
+1	96	476	making the repository extendable and open for
+1	96	494	library developers.
+1	82	579	We present an improved Foreign Function Interface
+1	82	596	(FFI) for R that significantly reduces the amount of
+1	82	614	C wrapper code needed to interface with C. We also
+1	82	632	introduce a dynamic linkage that binds the C inter-
+1	82	650	face of a pre-compiled library (as a whole) to an inter-
+1	82	668	preted programming environment such as R - hence
+1	82	704	list of the C libraries currently supported across ma-
+1	82	722	jor R platforms. For each library supported, ab-
+1	82	740	stract interface specifications are declared in a com-
+1	82	758	pact platform-neutral text-based format stored in so-
+1	82	776	called DynPort file on a local repository.
+1	105	794	R was choosen as the first language to implement
+1	82	812	a proof-of-concept implementation for this approach.
+1	82	848	plements a toolkit of low-level facilities that can be
+1	82	866	used as an alternative FFI to interface with C. It also
+1	82	884	facilitates direct and convenient access to common C
+1	82	902	libraries from R without compilation.
+1	105	920	The project was motivated by the fact that high-
+1	82	938	quality software solutions implemented in portable
+1	82	956	C are often not available in interpreter-based lan-
+1	82	973	guages such as R. The pool of freely available C li-
+1	82	991	braries is quite large and represents an invaluable
+1	82	1009	resource for software development. For example,
+1	82	1063	accelerated graphics hardware for developing real-
+1	82	1081	time graphics software. The combination of OpenGL
+1	82	1135	tion framework for developing interactive multime-
+1	459	173	dia applications that can run on a multitude of plat-
+1	459	191	forms.
+1	459	282	FFIs provide the backbone of a language to inter-
+1	459	300	face with foreign code. Depending on the design of
+1	459	318	this service, it can largely unburden developers from
+1	459	336	writing additional wrapper code. In this section, we
+1	459	354	compare the built-in R FFI with that provided by
+1	459	390	different work flow paths for making an R binding to
+1	459	408	a function from a foreign C library.
+1	459	486	Suppose that we wish to invoke the C function sqrt
+1	459	504	of the Standard C Math library. The function is de-
+1	459	522	clared as follows in C:
+1	481	587	The .C function from the base R FFI offers a call
+1	459	605	gate to C code with very strict conversion rules, and
+1	459	623	strong limitations regarding argument- and return-
+1	459	641	types: R arguments are passed as C pointers and C
+1	459	659	return types are not supported, so only C void func-
+1	459	677	tions, which are procedures, can be called. Given
+1	459	695	these limitations, we are not able to invoke the for-
+1	459	713	eign sqrt function directly; intermediate wrapper
+1	459	731	code written in C is needed:
+1	481	901	We assume that the wrapper code is deployed as
+1	459	919	a shared library in a package named testsqrt which
+1	459	954	the testsqrt package and call the C wrapper function
+1	459	972	directly via .C.
+1	481	1099	To make sqrt available as a public function, an
+1	459	1117	additional R wrapper layer is needed to carry out
+1	459	1135	type-safety checks:
+1	82	1218	The R Journal Vol. 4/1, June 2012
+1	704	1218	ISSN 2073-4859
+2	790	67	31
+2	141	128	Lib/DynPort Description
+2	489	128	Functions Constants Struct/Union
+2	511	154	336 3254 -
+2	514	172	59 155 -
+2	511	190	238 700 27
+2	511	208	201 416 34
+2	514	226	35 3 -
+2	514	244	71 27 -
+2	514	262	34 5 3
+2	514	279	38 7 -
+2	511	297	387 665 84
+2	514	315	65 70 -
+2	507	333	1857 - -
+2	511	351	317 838 1
+2	511	369	547 109 11
+2	514	387	79 263 10
+2	514	405	75 3 -
+2	229	442	Table 1: Overview of available DynPorts for portable C Libraries
+2	105	625	We can conclude that – in realistic settings – the
+2	82	643	built-in FFI of R almost always needs support by a
+2	82	661	wrapper layer written in C. The "foreign" in the FFI
+2	82	679	of base is in fact relegated to the C wrapper layer.
+2	82	774	cessible via the function .dyncall. In contrast to the
+2	82	792	base R FFI, which uses a C wrapper layer, the sqrt
+2	82	810	function is invoked dynamically and directly by the
+2	82	828	interpreter at run-time. Whereas the Standard C Math
+2	82	846	library was loaded implicitly via the testsqrt package,
+2	82	864	it now has to be loaded explicitly.
+2	105	883	R offers functions to deal with shared libraries
+2	82	901	at run-time, but the location has to be specified as
+2	82	919	an absolute file path, which is platform-specific. A
+2	82	936	platform-portable solution is discussed in a follow-
+2	82	954	ing section on Portable loading of shared library. For
+2	82	972	now, we assume that the example is done on Mac OS
+2	82	990	X where the Standard C Math library has the file path
+2	105	1098	We first need to load the R package rdyncall:
+2	481	491	Finally, we invoke the foreign C function sqrt di-
+2	459	508	rectly via .dyncall:
+2	481	580	The last call pinpoints the core solution for a di-
+2	459	598	rect invocation of foreign code within R: The first
+2	459	616	argument specifies the address of the foreign code,
+2	459	634	given as an external pointer. The second argument
+2	459	652	is a call signature that specifies the argument- and re-
+2	459	670	turn types of the target C function. This string "d)d"
+2	459	688	specifies that the foreign function expects a double
+2	459	705	scalar argument and returns a double scalar value
+2	459	723	in accordance with the C declaration of sqrt. Argu-
+2	459	741	ments following the call signature are passed to the
+2	459	759	foreign function in the form specified by the call sig-
+2	459	777	nature. In the example we pass 144 as a C double ar-
+2	459	795	gument type as first argument and receive a C double
+2	459	813	value converted to an R numeric.
+2	459	884	The introduction of a type descriptor for foreign
+2	459	902	functions is a key component that makes the FFI flex-
+2	459	920	ible and type-safe. The format of the call signature
+2	459	938	has the following pattern:
+2	533	965	argument-types ')' return-type
+2	481	991	The signature can be derived from the C function
+2	459	1009	declaration: Argument types are specified first, in the
+2	459	1027	direct left-to-right order of the corresponding C func-
+2	459	1045	tion prototyp declaration, and are terminated by the
+2	459	1063	symbol ')' followed by a single return type signa-
+2	459	1081	ture.
+2	481	1099	Almost all fundamental C types are supported
+3	82	67	32
+3	269	128	Type Sign. Type
+3	563	128	Sign.
+3	318	349	Table 2: C/C++ Types and Signatures
+3	156	389	C function declaration
+3	587	389	Call signature
+3	220	487	Table 3: Examples of C functions and corresponding call signatures
+3	82	536	overview of supported C types and the correspond-
+3	82	572	of C functions and call signatures.
+3	105	590	A public R function that encapsulates the details
+3	82	608	of the sqrt call is simply defined by
+3	105	695	No further guard code is needed here because
+3	82	731	fied by the signature. In contrast to the R wrap-
+3	82	749	per code using .C, no explicit cast of the arguments
+3	82	767	via as.numeric is required, because automatic coer-
+3	82	784	cion rules for fundamental types are implemented as
+3	82	802	specified by the call signature. For example, using
+3	82	820	the integer literal 144L instead of double works here
+3	82	838	as well.
+3	105	922	If any incompatibility is detected, such as a
+3	82	940	wrong number of arguments, empty atomic vectors
+3	82	958	or incompatible type mappings, the invocation is
+3	82	976	aborted and an error is reported without risking an
+3	82	993	application crash.
+3	105	1012	Pointer type arguments, expressed via 'p', are
+3	82	1030	handled differently. The type signature 'p' indicates
+3	82	1048	that the argument is an address. When passing R
+3	82	1065	atomic vectors, the C argument value is the address
+3	82	1083	of the first element of the vector. External pointers
+3	82	1101	and the NULL object can also be passed as values for
+3	82	1119	pointer type arguments. Automatic coercion is de-
+3	82	1137	liberately not implemented for pointer types. This is
+3	82	1155	to support C functions that write into memory refer-
+3	82	1173	enced by out pointer types.
+3	481	536	Typed pointers, specified by the prefix '*' fol-
+3	459	554	lowed by the signature of the base type, offer a mea-
+3	459	572	sure of type-safety for pointer types; if an R vector
+3	459	590	is passed and the R atomic type does not match the
+3	459	608	base type, the call will be rejected. Typed pointers
+3	459	626	to C struct and union types are also supported; they
+3	459	644	are briefly described in the section Handling of C Types
+3	459	662	in R.
+3	481	680	In contrast to the R FFI, where the argument con-
+3	459	698	version is dictated solely by the R argument type at
+3	459	716	call-time in a one-way fashion, the introduction of
+3	459	734	an additional specification with a call signature gives
+3	459	752	several advantages.
+3	480	788	• Almost all possible C functions can be invoked
+3	496	806	by a single interface; no additional C wrapper
+3	496	824	is required.
+3	480	856	• The built-in type-safety checks enhance stabil-
+3	496	874	ity and significantly reduce the need for asser-
+3	496	892	tion code.
+3	480	924	• The same call signature works across plat-
+3	496	942	forms, given that the C function type remains
+3	496	960	constant.
+3	480	993	• Given that our FFI is implemented in multiple
+3	496	1011	languages (e.g. Python, Ruby, Perl, Lua), call
+3	496	1029	signatures represent a universal type descrip-
+3	496	1047	tion for C libraries.
+3	459	1137	Besides dynamic calling of foreign code, the pack-
+3	459	1155	age provides essential facilities for interoperability
+3	459	1173	between the R and C programming languages. An
+4	790	67	33
+4	349	373	Figure 1: Package Overview
+4	82	422	overview of components that make up the package
+4	105	459	We already described the .dyncall FFI. It is fol-
+4	82	477	lowed by a brief description of portable loading of
+4	82	495	shared libraries using dynfind, installation of wrap-
+4	82	513	pers via dynbind, handling of foreign data types
+4	82	531	via new.struct and wrapping of R functions as C
+4	82	549	callbacks via new.callback. Finally the high-level
+4	82	585	briefly discussed. The technical details at low-level
+4	82	603	of some components are described briefly in the sec-
+4	82	621	tion Architecture.
+4	82	700	The portable loading of shared libraries across plat-
+4	82	718	forms is not trivial because the file path is differ-
+4	82	736	ent across operating systems. Referring back to the
+4	82	754	previous example, to load a particular library in a
+4	82	772	portable fashion, one would have to check the plat-
+4	105	808	Although there is variation among the operating
+4	82	826	systems, library file paths and search patterns have
+4	82	844	common structures. For example, among all the dif-
+4	82	862	ferent locations, prefixes and suffixes, there is a part
+4	82	880	within a full library filename that can be taken as a
+4	82	898	short library name or label.
+4	105	917	The function dynfind takes a list of short li-
+4	82	935	brary names to locate a library using common search
+4	82	953	heuristics. For example, to load the Standard C Math
+4	82	971	library, depending on the operating system the li-
+4	82	989	brary is either the Microsoft Visual C Run-Time DLL
+4	82	1043	systems.
+4	82	1135	as Mac OS X Framework folders. Depending on the
+4	459	422	library, it is sometimes enough to have a single short
+4	459	440	filename - e.g. "expat" for the Expat library.
+4	459	512	Functional R interfaces to foreign code can be de-
+4	459	530	fined with small R wrapper functions, which effec-
+4	459	548	tively delegate to .dyncall. Each function interface
+4	459	566	is parameterized by a target address and a matching
+4	459	584	call signature.
+4	481	647	Since an Application Programming Interface (API)
+4	459	701	wrappers for a library with a single call by using a li-
+4	459	719	brary signature that consists of concatenated function
+4	459	737	names and signatures separated by semicolons.
+4	481	755	For example, to install wrappers to the C func-
+4	459	773	tions sqrt, sin and cos from the math library, one
+4	459	791	could use
+4	481	873	The function call has the side-effect that three R
+4	459	891	wrapper functions are created and stored in an envi-
+4	459	909	ronment that defaults to the global environment. Let
+4	459	927	us review the sin wrapper (on the 64-bit Version of
+4	459	945	R running on Mac OS X 10.6):
+4	481	1063	The wrapper directly uses the address of the sin
+4	459	1081	symbol from the Standard C Math library. In addi-
+4	459	1099	tion, the wrapper uses .dyncall.cdecl, which is a
+4	459	1117	concrete selector of a particular calling convention,
+4	459	1135	as outlined below.
+5	82	67	34
+5	82	154	Calling conventions specify how arguments and re-
+5	82	172	turn values are passed across sub-routines and func-
+5	82	190	tions at machine-level. This information is vital for
+5	82	208	interfacing with the binary interface of C libraries.
+5	82	226	The package has support for multiple calling con-
+5	82	243	ventions. Calling conventions are controlled by
+5	82	279	ify a non-default calling convention. Most supported
+5	82	297	operating systems and platforms only have support
+5	82	315	for a single "default" calling convention at run-time.
+5	82	333	An exception to this is the Microsoft Windows plat-
+5	82	351	form on the Intel i386 processor architecture: While
+5	82	369	the default C calling convention on i386 (excluding
+5	82	387	Plan9) is "default", system shared libraries from
+5	82	459	does the callmode argument have an effect. All other
+5	82	477	platforms currently ignore this argument.
+5	82	550	C APIs often make use of high-level C struct and
+5	82	586	make interoperability work at that level the handling
+5	82	604	of C data types is addressed by the package.
+5	105	622	To illustrate this concept we consider the follow-
+5	82	640	ing example: A user-interface library has a function
+5	82	658	to set the 2D coordinates and dimension of a graph-
+5	82	676	ical output window. The coordinates are specified
+5	82	694	using a C struct Rect data type and the C function
+5	82	711	receives a pointer to that object:
+5	105	777	The structure type is defined as follows:
+5	105	892	Before we can issue a call, we have to allocate an
+5	82	910	object of that size and initialize the fields with val-
+5	82	928	ues encoded in C types that are not part of the sup-
+5	82	946	ported set of R data types. The framework provides
+5	82	964	R helper functions and objects to deal with C data
+5	82	982	types. Type information objects can be created with
+5	82	1000	a description of the C structure type. First, we create
+5	82	1018	a type information object in R for the struct Rect C
+5	82	1036	data type with the function parseStructInfos using
+5	82	1054	a structure type signature.
+5	105	1119	After registration, an R object named Rect is in-
+5	82	1137	stalled that contains C type information that corre-
+5	82	1155	sponds to struct Rect. The format of a structure type
+5	82	1173	signature has the following pattern:
+5	477	125	Struct-name '{' Field-types '}' Field-names ';'
+5	481	152	Field-types use the same type signature encod-
+5	459	170	ing as that of call signatures for argument and return
+5	459	206	space separated names, that label each field compo-
+5	459	224	nent left to right.
+5	481	242	An instance of a C type can be allocated via
+5	459	330	replacement('$<-', '[<-') operators can be used
+5	459	348	to access structure fields symbolically. During value
+5	459	366	transfer between R and C, automatic conversion of
+5	459	384	values with respect to the underlying C field type
+5	459	402	takes place.
+5	481	455	In this example, R numeric values are converted
+5	459	473	on the fly to signed and unsigned short integers
+5	459	491	(usually 16-bit values). On printing r a detailed pic-
+5	459	508	ture of the data object is given:
+5	481	660	At low-level, one can see that r is stored as an R
+5	481	780	To follow the example, we issue a foreign func-
+5	459	798	tion call to setRect via .dyncall and pass in the r
+5	459	816	object, assuming the library is loaded and the sym-
+5	459	833	bol is resolved and stored in an external pointer ob-
+5	459	851	ject named setWindowRectAddr:
+5	481	904	We make use of a typed pointer expression
+5	459	958	users from passing other objects that do not refer-
+5	459	976	ence a struct Rect data object. Typed pointer ex-
+5	459	994	pressions increase type-safety and use the pattern
+5	459	1030	the argument passed in is not of C type Rect. As
+5	459	1083	occur as return types that permit the manipulation
+5	459	1101	of returned objects in the same symbolic manner as
+5	459	1119	above.
+5	481	1137	C union types are supported as well but use the
+5	459	1173	and a slightly different signature format:
+6	790	67	35
+6	100	125	Union-name '|' Field-types '}' Field-names ';'
+6	105	156	The underlying low-level C type read and write
+6	82	174	operations and conversions from R data types are
+6	82	191	performed by the functions .pack and .unpack.
+6	82	209	These can be used for various low-level operations
+6	82	227	as well, such as dereferencing of pointer to pointers.
+6	105	245	R objects such as external pointers and atomic
+6	82	263	raw, integer and numeric vectors can be used as C
+6	82	281	struct/union types via the attribute struct. To cast a
+6	82	299	type in the style of C, one can use as.struct.
+6	82	371	Some C libraries, such as user-interface toolkits and
+6	82	389	I/O processing frameworks, use callbacks as part of
+6	82	407	their interface to enable registration and activation
+6	82	425	of user-supplied event handlers. A callback is a user-
+6	82	442	defined function that has a library-defined function
+6	82	460	type. Callbacks are usually registered via a registra-
+6	82	478	tion function offered by the library interface and are
+6	82	496	activated later from within a library run-time con-
+6	82	514	text.
+6	82	550	R functions as C callbacks via the function
+6	82	586	callback signature and the user-supplied R function to
+6	82	604	be wrapped. Callback signatures look very similar to
+6	82	622	call signatures and should match the functional type
+6	82	640	of the underlying C callback. new.callback returns
+6	82	658	an external pointer that can be used as a low-level
+6	82	676	function pointer for the registration as a C callback.
+6	82	694	See Section Parsing XML using Expat below for appli-
+6	82	711	cations of new.callback.
+6	82	783	At the highest level, rdyncall provides the front-end
+6	82	801	function dynport to dynamically set up an interface
+6	82	819	to a C Application Programming Interface. This in-
+6	82	837	cludes loading of the corresponding shared C library
+6	82	855	and resolving of symbols. During the binding pro-
+6	82	891	populated with thin R wrapper objects that repre-
+6	82	909	sent abstractions to C counterparts such as functions,
+6	82	927	pointers-to-functions, type-information objects for C
+6	82	945	struct and union types and symbolic constant equiv-
+6	82	963	alents of C enums and macro definitions. The mech-
+6	82	980	anism works across platforms; as long as the corre-
+6	82	998	sponding shared libraries of a DynPort have been in-
+6	82	1016	stalled in a system standard location on the host.
+6	105	1034	An initial repository of DynPorts is available in
+6	82	1052	the package that provides bindings for several pop-
+6	82	1155	We give examples that demonstrate the direct usage
+6	82	1173	of C APIs from within R through the rdyncall pack-
+6	459	125	age. The R interface to C libraries looks very simi-
+6	459	143	lar to the actual C API. For details on the usage of a
+6	459	161	particular C library, the programming manuals and
+6	459	179	documentation of the libraries should be consulted.
+6	481	198	Before loading R bindings via dynport, the shared
+6	459	215	library should have been installed onto the system.
+6	459	233	Currently this is to be done manually and the instal-
+6	459	251	lation method depends on the target operating sys-
+6	459	269	tem. While OpenGL and Expat is often pre-installed
+6	459	287	on typical desktop-systems, SDL usually has to be in-
+6	459	305	stalled explicitly which is described in the package;
+6	459	323	see ?'rdyncall-demos' for details.
+6	564	744	Figure 2: demo(SDL)
+6	481	779	In the first example, we make use of the Simple Di-
+6	459	851	portable multimedia application skeleton in R.
+6	481	870	We first need to load bindings to SDL and
+6	459	888	OpenGL via dynport:
+6	481	978	Now we initialize the SDL library, e.g. we initial-
+6	459	996	ize the video subsystem, and open a 640x480 win-
+6	459	1014	dow surface in 32-bit color depths with support for
+6	459	1032	OpenGL rendering:
+6	481	1119	Next, we implement the application loop which
+6	459	1137	updates the display repeatedly and processes the
+6	459	1155	event queue until a quit request is issued by the user
+6	459	1173	via the window close button.
+7	82	67	36
+7	105	356	SDL event processing is implemented by collect-
+7	82	374	ing events that occur in a queue. Typical SDL appli-
+7	82	392	cations poll the event queue once per update frame
+7	82	410	by calling SDL_PollEvent with a pointer to a user-
+7	82	428	allocated buffer of C type union SDL_Event. Event
+7	82	446	records have a common type identifier which is set to
+7	82	481	users press a close button on a window.
+7	105	500	Next we implement our draw function making
+7	82	518	use of the OpenGL API. We clear the background
+7	82	535	with a blue color and draw a light-green rectangle.
+7	105	716	Now we can run the application mainloop.
+7	105	782	To stop the application, we press the close button
+7	82	800	of the window. A similar example is also available
+7	82	818	via demo(SDL). Here the draw function displays a ro-
+7	157	1176	Figure 3: demo(randomfield)
+7	459	143	tific application of OpenGL and R: Random fields of
+7	459	161	512x512 size are generated via blending of 5000 tex-
+7	459	179	ture mapped 2D gaussian kernels. The counter in the
+7	459	197	window title bar gives the number of matrices gen-
+7	459	233	the animation window, the current frame and matrix
+7	459	251	is passed to R and plotted. While several dozens of
+7	459	268	matrices are computed and drawn per second using
+7	459	286	OpenGL, it takes several seconds to plot a single ma-
+7	459	304	trix in R using image().
+7	459	376	In the second example, we use the Expat XML Parser
+7	459	412	stream-oriented XML parser suitable for very large
+7	459	430	documents. In Expat, custom XML parsers are im-
+7	459	448	plemented by defining functions that are registered
+7	459	466	as callbacks to be invoked on events that occur dur-
+7	459	484	ing parsing, such as the start and end of XML tags. In
+7	459	502	our second example, we create a simple parser skele-
+7	459	520	ton that prints the start and end tag names.
+7	481	538	First we load R bindings for Expat via dynport.
+7	481	598	Next we create an abstract parser object via the
+7	459	616	C function XML_ParserCreate that receives one argu-
+7	459	634	ment of type C string to specify a desired character
+7	459	652	encoding that overrides the document encoding dec-
+7	459	670	laration. We want to pass a null pointer (NULL) here.
+7	459	688	In the .dyncall FFI C null pointer values for pointer
+7	459	706	types are expressed via the R NULL value:
+7	481	766	The C interface for registering start- and end-tag
+7	459	784	event handler callbacks is given below:
+7	481	976	We implement the callbacks as R functions that
+7	459	994	print the event and tag name. They are wrapped as C
+7	459	1012	callback pointers via new.callback using a matching
+7	459	1030	callback signature. The second argument name of type
+7	459	1048	C string in both callbacks, XML_StartElementHandler
+7	459	1065	and XML_EndElementHandler, is of primary interest
+7	459	1083	in this example; this argument passes over the XML
+7	459	1101	tag name. C strings are handled in a special way by
+7	459	1119	the .dyncall FFI because they have to be copied as R
+7	459	1155	used to denote a C string type. The other arguments
+7	459	1173	are simply denoted as untyped pointers using 'p':
+8	790	67	37
+8	105	290	To test the parser we create a sample document
+8	82	308	stored in a character object named text and pass it
+8	82	326	to the parse function XML_Parse:
+8	105	408	The resulting output is
+8	105	524	Expat supports processing of very large XML
+8	82	542	documents in a chunk-based manner by calling
+8	82	577	used as indicator for the final chunk of the document.
+8	82	664	The core implementation of the FFI, callback wrap-
+8	82	682	ping and loading of code is based on small C libraries
+8	105	718	The implementation of the FFI is based on the
+8	82	754	making arbitrary machine-level calls offering a uni-
+8	82	772	versal C interface for scripting language interpreters.
+8	82	790	It has support for almost all fundamental C argu-
+8	82	826	tions, and is open for extension to other platforms
+8	82	844	and binary standards. Generic call implementations
+8	82	862	for the following processor architectures are sup-
+8	82	880	ported: Intel i386 32-bit, AMD 64-bit, PowerPC 32-
+8	82	898	bit, ARM (including Thumb extension), MIPS 32/64-
+8	82	916	bit and SPARC 32/64-bit including support for sev-
+8	82	934	eral platform-, processor- and compiler-specific call-
+8	82	951	ing conventions.
+8	105	970	The dyncallback C library implements generic
+8	82	987	callback handling. Callback handlers receive calls
+8	82	1005	from C and they forward the call, including con-
+8	82	1023	version of arguments, to a function of a scripting-
+8	82	1041	language interpreter. A subset of architectures from
+8	82	1059	the above is currently supported here: i386, AMD64
+8	82	1077	and ARM, and partial support for PowerPC 32-bit on
+8	82	1095	Mac OS X/Darwin.
+8	105	1113	Besides the processor architecture, the libraries
+8	82	1131	support various operating systems such as Linux,
+8	82	1149	Mac OS X, Windows, the BSD family, Solaris, Haiku,
+8	459	125	Minix and Plan9. Support for embedded platforms
+8	459	143	such as Playstation Portable, Nintendo DS and iOS
+8	459	161	is available as well. FFI implementations for other
+8	459	233	the DynCall project source repository.
+8	481	251	The source tree supports various build tools such
+8	459	269	as gcc, msvc, SunPro, pcc, llvm and supports sev-
+8	459	286	eral make tools (BSD,C,GNU,N,Sun). A common
+8	459	304	abstraction layer for assembler dialects helps to de-
+8	459	322	velop cross-operating system call kernel. Due to the
+8	459	340	generic implementation and simple design, the li-
+8	459	358	braries are quite small (the dyncall library for Mac
+8	459	376	OS X/AMD64 is 24 kb).
+8	481	394	To test stability of the libraries, a suite of test-
+8	459	412	ing frameworks is available, including test-case gen-
+8	459	430	erators with support for structured or random case
+8	459	448	studies and for testing extreme scenarios with large
+8	459	466	number of arguments. Prior to each release, the li-
+8	459	484	braries and tests are built for a large set of architec-
+8	459	555	erating system images to test the release candidates
+8	459	573	and to create pre-built binary releases of the library.
+8	459	646	The creation of DynPort files from C header files is
+8	459	664	briefly described next. A tool chain, comprising of
+8	459	681	freely available components, is applied once on a
+8	459	1083	Figure 4: Tool-chain to create DynPort files from C
+8	459	1101	headers
+8	481	1131	At first a main source file references the C header
+8	459	1149	files of the library that should be made accessable via
+9	82	67	38
+9	82	125	dynport. In a preprocessing phase the GNU C Macro
+9	82	161	using standard system search paths to create a con-
+9	82	215	transforms C header declarations to XML. The XML
+9	82	233	is further transformed to the final type signature for-
+9	82	286	that has been implemented for the actual transforma-
+9	82	304	tion from GCC-XML to the type signature text for-
+9	82	322	mat.
+9	105	341	C Macro #define statements are handled sepa-
+9	82	359	rately by a custom C Preprocessor implemented in
+9	82	395	optional filter stage is used to include only elements
+9	82	413	with a certain pattern, such as a common prefix usu-
+9	82	431	ally found in many libraries, e.g. ’SDL_’. In a last
+9	82	449	step, the various fragments are assembled into a sin-
+9	82	467	gle text-file that represents the DynPort file.
+9	82	561	During the creation of DynPort files, we encountered
+9	82	579	some cases (mainly for the SDL library) where we
+9	82	597	had to comment out some symbolic assignments (de-
+9	82	615	rived from C macro definitions) manually. These
+9	82	633	could not be converted as-is into valid R assignments
+9	82	651	because they consist of complex C expressions such
+9	82	669	as bit-shift operations. One could solve this problem
+9	82	687	by integrating a C interpreter within the tool-chain
+9	82	705	that deduces the appropriate type and value infor-
+9	82	722	mation from the replacement part of each C macro
+9	82	740	definitions; definitions with incomplete type could
+9	82	758	be rejected and constant values could be stored in a
+9	82	776	language-neutral encoding.
+9	105	795	In order to use a single DynPort for a given C
+9	82	813	library across multiple platforms, its interface must
+9	82	831	be constant across platforms. DynPort does not sup-
+9	82	849	port the conditional statements of the C preproces-
+9	82	867	sor. Thus interfaces that use different types for argu-
+9	82	885	ments or structure fields depending on the architec-
+9	82	903	ture cannot be supported in a universal manner. For
+9	82	921	example, the Objective-C Run-Time C library of Mac
+9	82	939	OS X uses a different number of fields within certain
+9	82	975	tecture is i386 or alternative AMD64 in which case
+9	82	993	padding fields are inserted in the middle of the struc-
+9	82	1011	ture. We are aware of this problem although we have
+9	82	1028	not encountered a conflict with the given palette of
+9	82	1046	C libraries available via DynPorts to R. A possible
+9	82	1064	work around for such cases would be to offer sep-
+9	82	1082	arate DynPorts for different architectures.
+9	82	1119	for handling long double, struct and union ar-
+9	82	1137	gument and return value types and architecture-
+9	82	1155	specific vector types. Work is in progress to over-
+9	459	143	uses dyncall, provides support for passing struct
+9	459	161	value types for a number of i386 and AMD64 plat-
+9	459	179	forms.
+9	481	198	R character strings have a maximum size that can
+9	459	216	limit the number of library functions per dynbind
+9	459	234	function call. An improved DynPort file format and
+9	459	252	parser are being developed and are already available
+9	459	269	for luadyncall.
+9	481	288	This version of DynPort does not capture the full
+9	459	306	range of the C type system. For example array
+9	459	324	and bit-field types are not supported; the pointer-to-
+9	459	342	function type in an argument list can only be spec-
+9	459	360	ified using the void pointer '*v' or 'p' instead of
+9	459	378	this (more informative) explicit type. An extended
+9	459	396	version of DynPort, that overcomes these inconve-
+9	459	414	niences and that improves type safety, is being de-
+9	459	432	veloped.
+9	481	451	Certain restrictions apply when rdyncall is used
+9	459	469	to work with C libraries. These arise from limitations
+9	459	487	in R. For example the handling of C float point-
+9	459	505	ers/arrays and char pointer-to-pointer types are not
+9	459	522	implemented in R. The functions .unpack and .pack
+9	459	540	are powerful helper functions designed to over-
+9	459	558	come these and some other restrictions. Additional
+9	459	576	helper functions are included, such as floatraw and
+9	459	612	to C float arrays and vice versa.
+9	481	631	The portable loading of shared libraries via
+9	459	667	names when using less common R platforms such as
+9	459	685	BSDs and Solaris.
+9	459	778	Several dynamic languages offer a flexible FFI, e.g.
+9	459	885	foreign function calls and handling of foreign data.
+9	459	903	With the exception of Rffi, these also support wrap-
+9	459	921	ping of scripting functions as C callbacks. In most
+9	459	939	cases, the type information is specified in the gram-
+9	459	957	mar of the dynamic language. An exception to this
+9	459	975	is the Perl FFI that uses text-based type signatures
+9	459	993	similar to rdyncall.
+9	459	1030	that comes closest to the idea of DynPorts in which
+9	459	1048	Python ctypes statements are automatically gener-
+9	459	1065	ated from C library header files, also using GCC-
+9	459	1101	tributes a compact text-based type information format
+9	459	1119	that is also used as the main user-interface for var-
+9	459	1137	ious tasks in rdyncall. This software design is ap-
+9	459	1155	plicable across languages and thus type information
+9	459	1173	can be shared across platforms and languages at the
+10	790	67	39
+10	82	125	same time.
+10	105	143	Specific alternatives to dyncall include libffi
+10	82	179	mature FFI libraries that use a data-driven C inter-
+10	82	197	face and have support for many platforms. Although
+10	82	215	not as popular as the first two, the C/Invoke library
+10	82	251	ings to Lua, Java and Kite. The dyncall library of-
+10	82	269	fers a functional C interface (inspired by the OpenGL
+10	82	287	API). It includes a comprehensive test suite and de-
+10	82	305	tailed documentation of calling conventions on a va-
+10	82	323	riety of platforms and compilers. As the framework
+10	82	341	was developed "de novo" we were free to introduce
+10	82	359	our own strategy to support open as well as com-
+10	82	376	mercial and embedded platforms. For example, the
+10	82	394	i386 Assembly (except for Plan9) is implemented in a
+10	82	412	common abstract syntax that translates to GNU and
+10	82	430	Microsoft Assembler. This makes sense here, because
+10	82	448	i386-based operating systems use a common C call-
+10	82	466	ing convention which we address using a single As-
+10	82	484	sembly source. A by-product of this feature is that
+10	82	520	eign code on some architectures.
+10	105	538	In contrast to the dynamic zero-compilation ap-
+10	82	556	proach of ctypeslib and rdyncall, the majority of lan-
+10	82	574	guage bindings to libraries use a compiled approach
+10	82	592	in which code (handwritten or auto-generated) is
+10	82	628	a development tool for the automatic generation of
+10	82	646	language bindings. The user specifies the interface
+10	82	664	for a particular library in a C-like language and then
+10	82	682	chooses among the several supported languages (in-
+10	82	700	cluding R) to generate C sources that implement the
+10	82	718	binding for that particular library/language combi-
+10	82	753	offers R bindings for the GTK+ GUI framework con-
+10	82	771	sisting of R and C code. These are produced by a cus-
+10	82	789	tom code generator to offer carefully conceived map-
+10	82	807	pings to the object-oriented GObject framework.
+10	82	825	The generated code includes features such as owner-
+10	82	843	ship management of returned objects using human
+10	82	861	annotations. While custom bindings offer the abil-
+10	82	879	ity to take into account the features of a particu-
+10	82	897	lar library and framework to offer very user-friendly
+10	82	915	mapping schemes, rdyncall aims to offer convenient
+10	82	933	access to C libraries in general but it requires users
+10	82	951	to know the details of the particular interface of a C
+10	82	969	library and the R run-time environment.
+10	82	1077	contributes an improved Foreign Function Interface
+10	82	1095	for R. The FFI facilitates direct invocation of for-
+10	82	1113	eign functions without the need to compile wrappers
+10	82	1131	in C. The FFI offers a dynamic cross-platform link-
+10	82	1149	age framework to wrap and access whole C inter-
+10	459	125	faces of native libraries from R. Instead of compil-
+10	459	143	ing bindings for every library/language combination,
+10	459	161	R bindings of a library are created dynamically at
+10	459	179	run-time in a data-driven manner via DynPort files,
+10	459	197	a cross-platform universal type information format.
+10	459	215	C libraries are made accessible in R as though they
+10	459	233	were extension packages and the R interface looks
+10	459	251	very similar to that of C. This enables system-level
+10	459	268	programming in R and brings a new wave of pos-
+10	459	286	sibilities to R developers such as direct access to
+10	459	304	OpenGL across platforms as illustrated in the exam-
+10	459	322	ple. An initial repository of DynPorts for standard
+10	459	340	cross-platform portable C libraries comes with the
+10	459	358	package. Work is in progress for implementation of
+10	459	376	callback support on architectures already supported
+10	459	394	by the dyncall C library. The handling of foreign data
+10	459	412	types, which is currently implemented in R and C, is
+10	459	430	planned to be reimplemented as a C library and part
+10	459	448	of the DynCall project.
+10	481	467	The DynPort facility in rdyncall consitutes an ini-
+10	459	485	tial step in building up an infrastructure between
+10	459	503	scripting languages and C libraries. Analogous to
+10	459	521	the way in which R users enjoy quick access to the
+10	459	539	large pool of R software managed by CRAN, we en-
+10	459	557	vision an archive network in which C library de-
+10	459	575	velopers can distribute their work across languages,
+10	459	593	users could then get quick access to the pool of C
+10	459	610	libraries from within scripting languages via auto-
+10	459	628	matic installation of precompiled components and
+10	459	646	using universal type information for cross-platform
+10	459	664	and cross-language dynamic bindings.
+10	459	758	D. Adler and T. Philipp. DynCall project. URL
+10	474	794	version 0.7.
+10	459	829	D. M. Beazley. Automated scientific software script-
+10	474	847	ing with SWIG. Future Gener. Comput. Syst., 19:
+10	474	865	599–609, July 2003. ISSN 0167-739X. doi: 10.1016/
+10	459	936	F. Bellard. QEMU, a fast and portable dynamic
+10	474	954	translator. In USENIX Annual Technical Confer-
+10	474	971	ence, FREENIX Track, pages 41–46. USENIX, 2005.
+10	459	1042	J. Bielman. CFFI - common foreign function in-
+10	459	1113	O. Chafik. BridJ - Let Java & Scala call C, C++,
+11	82	67	40
+11	82	125	J. Clark. XSL transformations (XSLT) version 1.1.
+11	97	227	2.0.1.
+11	82	258	D. Flanagan and Y. Matsumoto. The Ruby Program-
+11	97	276	ming Language. O’Reilly, Cambridge, 2008.
+11	82	306	A. Gavare. GXEmul: a framework for full-system
+11	97	360	gram version 0.6.0.
+11	82	391	A. Green. libffi - a portable foreign function interface
+11	97	427	August 2011. C library version 3.0.10.
+11	82	457	B. Haible. ffcall - foreign function call libraries. URL
+11	97	493	library version 1.10.
+11	82	524	T. Heller. ctypes - A foreign function library
+11	82	590	R. Ierusalimschy, L. H. de Figueiredo, and W. C.
+11	97	608	Filho. Lua – an extensible extension language. Soft-
+11	97	626	ware – Practice and Experience, 26(6):635–652, June
+11	97	644	1996.
+11	82	675	H. Kaiser. Wave V2.0 - Boost C++ Libraries.
+11	97	728	brary Version 1.45, Wave C++ Library Version
+11	97	746	2.1.0.
+11	82	777	E. E. Kim. A triumph of simplicity: James Clark on
+11	97	795	markup languages and XML. Dr. Dobb’s Journal
+11	97	813	of Software Tools, 26(7):56, 58–60, July 2001. ISSN
+11	97	879	February 2004. Program version 0.6.0.
+11	82	910	G. K. Kloss. Automatic C library wrapping – ctypes
+11	97	928	from the trenches. The Python Papers, 3(3), 2008.
+11	97	946	ISSN 1834-3147.
+11	82	976	S. Lantinga. libSDL: Simple DirectMedia layer. URL
+11	97	1012	version 1.2.14.
+11	82	1043	M. Lawrence and D. Temple Lang. RGtk2: A graph-
+11	97	1061	ical user interface toolkit for R. Journal of Statis-
+11	459	125	F. Mascarenhas. Alien - pure Lua extensions. URL
+11	474	161	module version 0.5.1.
+11	474	227	sion 1.0.10.
+11	459	257	P. Moore, G. Yahas, and A. Vorobey. FFI - Perl foreign
+11	474	310	version 1.04.
+11	459	340	OpenGL Architecture Review Board, D. Shreiner,
+11	474	358	M. Woo, J. Neider, and T. Davis. OpenGL(R)
+11	474	376	Programming Guide: The Official Guide to Learning
+11	474	394	OpenGL(R), Version 2. Addison Wesley, 2005.
+11	459	424	B. Pendleton. Game programming with the Simple
+11	474	442	DirectMedia Layer (SDL). Linux Journal, 110:42, 44,
+11	474	460	46, 48, June 2003. ISSN 1075-3583.
+11	459	537	R Development Core Team. Writing R Extesions.
+11	474	555	R Foundation for Statistical Computing, Vienna,
+11	474	591	ISBN 3-900051-11-9.
+11	459	621	D. Temple Lang. Rffi for run-time invocation of
+11	474	675	age version 0.3-0.
+11	459	705	L. Tierney. A simple implementation of name spaces
+11	459	771	G. van Rossum and F. L. Drake, Jr. Python Lan-
+11	459	854	D. Veillard and B. Reese. The XSLT C library
+11	474	890	September 2009. C library version 1.1.26.
+11	459	920	W. Weisser. C/Invoke - version 1.0 - easily call C from
+11	459	1007	Daniel Adler
+11	459	1025	Georg-August Universität
+11	459	1042	Institute for Statistics and Economics
+11	459	1060	Platz der Göttinger Sieben 5
+11	459	1078	37079 Göttingen, Germany

@@ -1,0 +1,135 @@
+page	left	top	code
+1	459	822	> library(RecordLinkage)
+1	459	838	> data(RLdata500)
+1	459	854	> RLdata500[1:5, ]
+1	473	890	fname_c1 fname_c2 lname_c1 lname_c2 by bm bd
+1	459	906	1 CARSTEN <NA> MEIER <NA> 1949 7 22
+1	459	922	2 GERD <NA> BAUER <NA> 1968 7 27
+1	459	939	3 ROBERT <NA> HARTMANN <NA> 1930 4 30
+1	459	955	4 STEFAN <NA> WOLFF <NA> 1957 9 2
+1	459	972	5 RALF <NA> KRUEGER <NA> 1966 1 13
+2	82	389	> rpairs <- compare.dedup(RLdata500,
+2	82	405	+ identity = identity.RLdata500)
+2	82	422	> rpairs$pairs[1:5, ]
+2	96	458	id1 id2 fname_c1 fname_c2 lname_c1 lname_c2 by
+2	82	475	1 1 2 0 NA 0 NA 0
+2	82	491	2 1 3 0 NA 0 NA 0
+2	82	508	3 1 4 0 NA 0 NA 0
+2	82	524	4 1 5 0 NA 0 NA 0
+2	82	540	5 1 6 0 NA 0 NA 0
+2	96	557	bm bd is_match
+2	82	573	1 1 0 0
+2	82	590	2 0 0 0
+2	82	606	3 0 0 0
+2	82	623	4 0 0 0
+2	82	639	5 1 0 0
+2	459	378	> rpairs <- compare.dedup(RLdata500,
+2	459	395	+ blockfld = list(1, 5:7),
+2	459	411	+ identity = identity.RLdata500)
+2	459	428	> rpairs$pairs[c(1:3, 1203:1204), ]
+2	493	462	id1 id2 fname_c1 fname_c2 lname_c1 lname_c2
+2	459	479	1 17 119 1 NA 0 NA
+2	459	495	2 61 106 1 NA 0 NA
+2	459	512	3 61 175 1 NA 0 NA
+2	459	528	1203 37 72 0 NA 0 NA
+2	459	545	1204 44 339 0 NA 0 NA
+2	493	561	by bm bd is_match
+2	459	578	1 0 0 0 0
+2	459	594	2 0 0 1 0
+2	459	610	3 0 0 1 0
+2	459	627	1203 1 1 1 1
+2	459	643	1204 1 1 1 0
+3	82	264	> rpairsfuzzy <- compare.dedup(RLdata500,
+3	82	280	+ blockfld = c(5, 6), strcmp = TRUE)
+3	82	297	> rpairsfuzzy$pairs[1:5, ]
+3	96	328	id1 id2 fname_c1 fname_c2 lname_c1 lname_c2
+3	82	345	1 357 414 1.0000000 NA 1.0000000 NA
+3	82	361	2 389 449 0.6428571 NA 0.0000000 NA
+3	82	378	3 103 211 0.7833333 NA 0.5333333 NA
+3	82	394	4 6 328 0.4365079 NA 0.4444444 NA
+3	82	411	5 37 72 0.9750000 NA 0.9500000 NA
+3	96	427	by bm bd is_match
+3	82	443	1 1 1 0.7000000 NA
+3	82	460	2 1 1 0.6666667 NA
+3	82	476	3 1 1 0.0000000 NA
+3	82	493	4 1 1 0.0000000 NA
+3	82	509	5 1 1 1.0000000 NA
+3	459	574	> rpairs <- epiWeights(rpairs)
+3	459	591	> summary(rpairs)
+3	459	624	Deduplication Data Set
+3	459	657	500 records
+3	459	674	1221 record pairs
+3	459	706	49 matches
+3	459	723	1172 non-matches
+3	459	739	0 pairs with unknown status
+3	459	789	Weight distribution:
+3	459	821	[0.15,0.2] (0.2,0.25] (0.25,0.3] (0.3,0.35]
+3	500	838	1011 0 89 30
+3	459	854	(0.35,0.4] (0.4,0.45] (0.45,0.5] (0.5,0.55]
+3	514	871	29 8 7 1
+3	459	887	(0.55,0.6] (0.6,0.65] (0.65,0.7] (0.7,0.75]
+3	514	904	14 19 10 2
+3	459	920	(0.75,0.8]
+3	521	937	1
+4	82	301	> tail(getPairs(rpairs, 0.6, 0.5))
+4	124	331	Weight id fname_c1 fname_c2 lname_c1
+4	82	347	25 0.5924569 266 KARIN <NA> HORN
+4	82	364	26 437 KARINW <NA> HORN
+4	82	380	27 0.5924569 395 GISOELA <NA> BECK
+4	82	397	28 404 GISELA <NA> BECK
+4	82	413	29 0.5067013 388 ANDREA <NA> WEBER
+4	82	430	30 408 ANDREA <NA> SCHMIDT
+4	103	446	lname_c2 by bm bd
+4	82	462	25 <NA> 2002 6 4
+4	82	479	26 <NA> 2002 6 4
+4	82	495	27 <NA> 2003 4 16
+4	82	512	28 <NA> 2003 4 16
+4	82	528	29 <NA> 1945 5 20
+4	82	545	30 <NA> 1945 2 20
+4	82	575	> result <- epiClassify(rpairs, 0.55)
+4	82	726	> summary(result)
+4	82	756	Deduplication Data Set
+4	82	789	[...]
+4	82	822	46 links detected
+4	82	838	0 possible links detected
+4	82	855	1175 non-links detected
+4	82	887	alpha error: 0.061224
+4	82	904	beta error: 0.000000
+4	82	920	accuracy: 0.997543
+4	82	970	Classification table:
+4	158	1003	classification
+4	82	1019	true status N P L
+4	124	1035	FALSE 1172 0 0
+4	124	1052	TRUE 3 0 46
+5	82	663	> summary(classifyUnsup(rpairs, method = "kmeans"))
+5	82	696	Deduplication Data Set
+5	82	729	[...]
+5	82	762	62 links detected
+5	82	778	0 possible links detected
+5	82	795	1159 non-links detected
+5	82	828	alpha error: 0.000000
+5	82	844	beta error: 0.011092
+5	82	861	accuracy: 0.989353
+5	82	910	Classification table:
+5	158	943	classification
+5	82	959	true status N P L
+5	124	976	FALSE 1159 0 13
+5	124	992	TRUE 0 0 49
+5	459	659	> minTrain <- getMinimalTrain(rpairs)
+5	459	675	> minTrain <- editMatch(minTrain)
+6	459	199	> model <- trainSupv(minTrain, method = "bagging")
+6	459	215	> result <- classifySupv(model, newdata = rpairs)
+6	459	232	> summary(result)
+6	459	266	Deduplication Data Set
+6	459	299	[...]
+6	459	332	53 links detected
+6	459	348	0 possible links detected
+6	459	365	1168 non-links detected
+6	459	397	alpha error: 0.020408
+6	459	414	beta error: 0.004266
+6	459	430	accuracy: 0.995086
+6	459	480	Classification table:
+6	534	513	classification
+6	459	529	true status N P L
+6	500	545	FALSE 1167 5
+6	500	562	TRUE 1 0 48

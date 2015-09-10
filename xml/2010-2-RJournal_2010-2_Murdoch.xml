@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="35" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#00004c"/>
+	<fontspec id="6" size="19" family="Times" color="#000000"/>
+<text top="67" left="82" width="15" height="15" font="0">16</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="121" left="82" width="311" height="36" font="2"><b>Source References</b></text>
+<text top="173" left="82" width="127" height="15" font="0">by Duncan Murdoch</text>
+<text top="207" left="96" width="57" height="15" font="3"><b>Abstract</b></text>
+<text top="207" left="173" width="243" height="15" font="0">Since version 2.10.0, R includes ex-</text>
+<text top="225" left="96" width="319" height="15" font="0">panded support for source references in R code</text>
+<text top="243" left="96" width="35" height="15" font="0">and ‘</text>
+<text top="244" left="132" width="21" height="12" font="4">.Rd</text>
+<text top="243" left="152" width="263" height="15" font="0">’ files. This paper describes the origin</text>
+<text top="261" left="96" width="319" height="15" font="0">and purposes of source references, and current</text>
+<text top="279" left="96" width="190" height="15" font="0">and future support for them.</text>
+<text top="317" left="82" width="346" height="15" font="0">One of the strengths of R is that it allows “compu-</text>
+<text top="335" left="82" width="346" height="15" font="0">tation on the language”, i.e. the parser returns an R</text>
+<text top="353" left="82" width="346" height="15" font="0">object which can be manipulated, not just evaluated.</text>
+<text top="371" left="82" width="346" height="15" font="0">This has applications in quality control checks, de-</text>
+<text top="389" left="82" width="346" height="15" font="0">bugging, and elsewhere. For example, the <b>codetools</b></text>
+<text top="407" left="82" width="67" height="15" font="0">package <a href="2010-2-RJournal_2010-2_Murdoch.html#4">(</a></text>
+<text top="407" left="149" width="50" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">Tierney</a></text>
+<text top="407" left="199" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">,</a></text>
+<text top="407" left="210" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">2009</a></text>
+<text top="407" left="240" width="189" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">) </a>examines the structure of</text>
+<text top="425" left="82" width="346" height="15" font="0">parsed source code to look for common program-</text>
+<text top="443" left="82" width="346" height="15" font="0">ming errors. Functions marked by debug() can be</text>
+<text top="461" left="82" width="346" height="15" font="0">executed one statement at a time, and the trace()</text>
+<text top="479" left="82" width="346" height="15" font="0">function can insert debugging statements into any</text>
+<text top="497" left="82" width="59" height="15" font="0">function.</text>
+<text top="514" left="105" width="324" height="15" font="0">Computing on the language is often enhanced by</text>
+<text top="532" left="82" width="346" height="15" font="0">being able to refer to the original source code, rather</text>
+<text top="550" left="82" width="346" height="15" font="0">than just to a deparsed (reconstructed) version of</text>
+<text top="568" left="82" width="346" height="15" font="0">it based on the parsed object. To support this, we</text>
+<text top="586" left="82" width="346" height="15" font="0">added source references to R 2.5.0 in 2007. These are</text>
+<text top="604" left="82" width="346" height="15" font="0">attributes attached to the result of parse() or (as of</text>
+<text top="622" left="82" width="346" height="15" font="0">2.10.0) parse_Rd() to indicate where a particular part</text>
+<text top="640" left="82" width="346" height="15" font="0">of an object originated. In this article I will describe</text>
+<text top="658" left="82" width="346" height="15" font="0">their structure and how they are used in R. The arti-</text>
+<text top="676" left="82" width="346" height="15" font="0">cle is aimed at developers who want to create debug-</text>
+<text top="694" left="82" width="346" height="15" font="0">gers or other tools that use the source references, at</text>
+<text top="712" left="82" width="346" height="15" font="0">users who are curious about R internals, and also at</text>
+<text top="730" left="82" width="346" height="15" font="0">users who want to use the existing debugging facili-</text>
+<text top="748" left="82" width="346" height="15" font="0">ties. The latter group may wish to skip over the gory</text>
+<text top="766" left="82" width="346" height="15" font="0">details and go directly to the section “Using Source</text>
+<text top="783" left="82" width="80" height="15" font="0">References&#34;.</text>
+<text top="830" left="82" width="135" height="21" font="6"><b>The R parsers</b></text>
+<text top="868" left="82" width="346" height="15" font="0">We start with a quick introduction to the R parser.</text>
+<text top="886" left="82" width="346" height="15" font="0">The parse() function returns an R object of type</text>
+<text top="905" left="82" width="91" height="12" font="0">&#34;expression&#34;</text>
+<text top="904" left="174" width="255" height="15" font="0">. This is a list of statements; the state-</text>
+<text top="922" left="82" width="346" height="15" font="0">ments can be of various types. For example, consider</text>
+<text top="940" left="82" width="192" height="15" font="0">the R source shown in Figure</text>
+<text top="940" left="279" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#1">1</a></text>
+<text top="940" left="286" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#1">.</a></text>
+<text top="977" left="82" width="82" height="10" font="4">1: x &lt;- 1:10</text>
+<text top="977" left="233" width="96" height="10" font="4"># Initialize x</text>
+<text top="993" left="82" width="117" height="10" font="4">2: for (i in x) {</text>
+<text top="1010" left="82" width="14" height="10" font="4">3:</text>
+<text top="1010" left="117" width="55" height="10" font="4">print(i)</text>
+<text top="1010" left="233" width="123" height="10" font="4"># Print each entry</text>
+<text top="1026" left="82" width="27" height="10" font="4">4: }</text>
+<text top="1043" left="82" width="27" height="10" font="4">5: x</text>
+<text top="1079" left="134" width="175" height="15" font="0">Figure 1: The contents of ‘</text>
+<text top="1080" left="309" width="57" height="12" font="4">sample.R</text>
+<text top="1079" left="366" width="8" height="15" font="0">’.</text>
+<text top="1113" left="105" width="324" height="15" font="0">If we parse this file, we obtain an expression of</text>
+<text top="1131" left="82" width="57" height="15" font="0">length 3:</text>
+<text top="1159" left="82" width="199" height="10" font="4">&gt; parsed &lt;- parse(&#34;sample.R&#34;)</text>
+<text top="1175" left="82" width="110" height="10" font="4">&gt; length(parsed)</text>
+<text top="175" left="459" width="34" height="10" font="4">[1] 3</text>
+<text top="203" left="459" width="110" height="10" font="4">&gt; typeof(parsed)</text>
+<text top="232" left="459" width="110" height="10" font="4">[1] &#34;expression&#34;</text>
+<text top="259" left="459" width="346" height="15" font="0">The first element is the assignment, the second ele-</text>
+<text top="277" left="459" width="346" height="15" font="0">ment is the for loop, and the third is the single x at</text>
+<text top="295" left="459" width="53" height="15" font="0">the end:</text>
+<text top="323" left="459" width="89" height="10" font="4">&gt; parsed[[1]]</text>
+<text top="351" left="459" width="62" height="10" font="4">x &lt;- 1:10</text>
+<text top="379" left="459" width="89" height="10" font="4">&gt; parsed[[2]]</text>
+<text top="408" left="459" width="96" height="10" font="4">for (i in x) {</text>
+<text top="424" left="486" width="55" height="10" font="4">print(i)</text>
+<text top="440" left="459" width="7" height="10" font="4">}</text>
+<text top="469" left="459" width="89" height="10" font="4">&gt; parsed[[3]]</text>
+<text top="497" left="459" width="7" height="10" font="4">x</text>
+<text top="524" left="459" width="346" height="15" font="0">The first two elements are both of type &#34;language&#34;,</text>
+<text top="542" left="459" width="346" height="15" font="0">and are made up of smaller components. The dif-</text>
+<text top="560" left="459" width="346" height="15" font="0">ference between an &#34;expression&#34; and a &#34;language&#34;</text>
+<text top="578" left="459" width="346" height="15" font="0">object is mainly internal: the former is based on the</text>
+<text top="596" left="459" width="346" height="15" font="0">generic vector type (i.e. type &#34;list&#34;), whereas the</text>
+<text top="614" left="459" width="346" height="15" font="0">latter is based on the &#34;pairlist&#34; type. Pairlists are</text>
+<text top="632" left="459" width="346" height="15" font="0">rarely encountered explicitly in any other context.</text>
+<text top="650" left="459" width="346" height="15" font="0">From a user point of view, they act just like generic</text>
+<text top="668" left="459" width="51" height="15" font="0">vectors.</text>
+<text top="686" left="481" width="324" height="15" font="0">The third element x is of type &#34;symbol&#34;. There are</text>
+<text top="704" left="459" width="346" height="15" font="0">other possible types, such as &#34;NULL&#34;, &#34;double&#34;, etc.:</text>
+<text top="722" left="459" width="342" height="15" font="0">essentially any simple R object could be an element.</text>
+<text top="740" left="481" width="324" height="15" font="0">The comments in the source code and the white</text>
+<text top="757" left="459" width="346" height="15" font="0">space making up the indentation of the third line are</text>
+<text top="775" left="459" width="189" height="15" font="0">not part of the parsed object.</text>
+<text top="793" left="481" width="216" height="15" font="0">The parse_Rd() function parses ‘</text>
+<text top="794" left="698" width="21" height="12" font="4">.Rd</text>
+<text top="793" left="719" width="87" height="15" font="0">’ documenta-</text>
+<text top="811" left="459" width="346" height="15" font="0">tion files. It also returns a recursive structure contain-</text>
+<text top="829" left="459" width="192" height="15" font="0">ing objects of different types <a href="2010-2-RJournal_2010-2_Murdoch.html#4">(</a></text>
+<text top="829" left="651" width="150" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">Murdoch and Urbanek</a></text>
+<text top="829" left="802" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">,</a></text>
+<text top="847" left="459" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">2009</a></text>
+<text top="847" left="489" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">;</a></text>
+<text top="847" left="496" width="61" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">Murdoch</a></text>
+<text top="847" left="558" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">,</a></text>
+<text top="847" left="565" width="30" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">2010</a></text>
+<text top="847" left="595" width="9" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#4">).</a></text>
+<text top="893" left="459" width="256" height="21" font="6"><b>Source reference structure</b></text>
+<text top="932" left="459" width="346" height="15" font="0">As described above, the result of parse() is essen-</text>
+<text top="950" left="459" width="346" height="15" font="0">tially a list (the &#34;expression&#34; object) of objects that</text>
+<text top="968" left="459" width="346" height="15" font="0">may be lists (the &#34;language&#34; objects) themselves, and</text>
+<text top="986" left="459" width="346" height="15" font="0">so on recursively. Each element of this structure from</text>
+<text top="1004" left="459" width="346" height="15" font="0">the top down corresponds to some part of the source</text>
+<text top="1022" left="459" width="346" height="15" font="0">file used to create it: in our example, parse[[1]] cor-</text>
+<text top="1040" left="459" width="187" height="15" font="0">responds to the first line of ‘</text>
+<text top="1041" left="646" width="57" height="12" font="4">sample.R</text>
+<text top="1040" left="702" width="103" height="15" font="0">’, parse[[2]] is</text>
+<text top="1058" left="459" width="346" height="15" font="0">the second through fourth lines, and parse[[3]] is</text>
+<text top="1075" left="459" width="84" height="15" font="0">the fifth line.</text>
+<text top="1093" left="481" width="324" height="15" font="0">The comments and indentation, though helpful</text>
+<text top="1111" left="459" width="346" height="15" font="0">to the human reader, are not part of the parsed object.</text>
+<text top="1129" left="459" width="346" height="15" font="0">However, by default the parsed object does contain a</text>
+<text top="1149" left="459" width="61" height="12" font="0">&#34;srcref&#34;</text>
+<text top="1147" left="524" width="61" height="15" font="0">attribute:</text>
+<text top="1175" left="459" width="165" height="10" font="4">&gt; attr(parsed, &#34;srcref&#34;)</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="7" size="15" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">17</text>
+<text top="127" left="82" width="34" height="10" font="4">[[1]]</text>
+<text top="144" left="82" width="62" height="10" font="4">x &lt;- 1:10</text>
+<text top="177" left="82" width="34" height="10" font="4">[[2]]</text>
+<text top="193" left="82" width="96" height="10" font="4">for (i in x) {</text>
+<text top="210" left="96" width="55" height="10" font="4">print(i)</text>
+<text top="210" left="213" width="123" height="10" font="4"># Print each entry</text>
+<text top="226" left="82" width="7" height="10" font="4">}</text>
+<text top="259" left="82" width="34" height="10" font="4">[[3]]</text>
+<text top="275" left="82" width="7" height="10" font="4">x</text>
+<text top="310" left="82" width="346" height="15" font="0">Although it appears that the &#34;srcref&#34; attribute con-</text>
+<text top="328" left="82" width="346" height="15" font="0">tains the source, in fact it only references it, and the</text>
+<text top="347" left="82" width="107" height="12" font="0">print.srcref()</text>
+<text top="346" left="194" width="235" height="15" font="0">method retrieves it for printing. If</text>
+<text top="364" left="82" width="346" height="15" font="0">we remove the class from each element, we see the</text>
+<text top="382" left="82" width="94" height="15" font="0">true structure:</text>
+<text top="415" left="82" width="281" height="10" font="4">&gt; lapply(attr(parsed, &#34;srcref&#34;), unclass)</text>
+<text top="451" left="82" width="34" height="10" font="4">[[1]]</text>
+<text top="467" left="82" width="103" height="10" font="4">[1] 1 1 1 9 1 9</text>
+<text top="484" left="82" width="110" height="10" font="4">attr(,&#34;srcfile&#34;)</text>
+<text top="500" left="82" width="55" height="10" font="4">sample.R</text>
+<text top="533" left="82" width="34" height="10" font="4">[[2]]</text>
+<text top="549" left="82" width="103" height="10" font="4">[1] 2 1 4 1 1 1</text>
+<text top="566" left="82" width="110" height="10" font="4">attr(,&#34;srcfile&#34;)</text>
+<text top="582" left="82" width="55" height="10" font="4">sample.R</text>
+<text top="615" left="82" width="34" height="10" font="4">[[3]]</text>
+<text top="632" left="82" width="103" height="10" font="4">[1] 5 1 5 1 1 1</text>
+<text top="648" left="82" width="110" height="10" font="4">attr(,&#34;srcfile&#34;)</text>
+<text top="664" left="82" width="55" height="10" font="4">sample.R</text>
+<text top="699" left="82" width="346" height="15" font="0">Each element is a vector of 6 integers: (first line, first</text>
+<text top="717" left="82" width="346" height="15" font="0">byte, last line, last byte, first character, last character).</text>
+<text top="735" left="82" width="346" height="15" font="0">The values refer to the position of the source for each</text>
+<text top="753" left="82" width="346" height="15" font="0">element in the original source file; the details of the</text>
+<text top="771" left="82" width="346" height="15" font="0">source file are contained in a &#34;srcfile&#34; attribute on</text>
+<text top="789" left="82" width="98" height="15" font="0">each reference.</text>
+<text top="808" left="105" width="324" height="15" font="0">The reason both bytes and characters are</text>
+<text top="826" left="82" width="346" height="15" font="0">recorded in the source reference is historical. When</text>
+<text top="844" left="82" width="346" height="15" font="0">they were introduced, they were mainly used for re-</text>
+<text top="862" left="82" width="346" height="15" font="0">trieving source code for display; for this, bytes are</text>
+<text top="879" left="82" width="346" height="15" font="0">needed. Since R 2.9.0, they have also been used to</text>
+<text top="897" left="82" width="346" height="15" font="0">aid in error messages. Since some characters take up</text>
+<text top="915" left="82" width="346" height="15" font="0">more than one byte, users need to be informed about</text>
+<text top="933" left="82" width="346" height="15" font="0">character positions, not byte positions, and the last</text>
+<text top="951" left="82" width="159" height="15" font="0">two entries were added.</text>
+<text top="970" left="105" width="324" height="15" font="0">The &#34;srcfile&#34; attribute is also not as simple as it</text>
+<text top="988" left="82" width="130" height="15" font="0">looks. For example,</text>
+<text top="1022" left="82" width="268" height="10" font="4">&gt; srcref &lt;- attr(parsed, &#34;srcref&#34;)[[1]]</text>
+<text top="1038" left="82" width="247" height="10" font="4">&gt; srcfile &lt;- attr(srcref, &#34;srcfile&#34;)</text>
+<text top="1055" left="82" width="117" height="10" font="4">&gt; typeof(srcfile)</text>
+<text top="1090" left="82" width="117" height="10" font="4">[1] &#34;environment&#34;</text>
+<text top="1125" left="82" width="89" height="10" font="4">&gt; ls(srcfile)</text>
+<text top="1159" left="82" width="62" height="10" font="4">[1] &#34;Enc&#34;</text>
+<text top="1159" left="192" width="69" height="10" font="4">&#34;encoding&#34;</text>
+<text top="1159" left="275" width="69" height="10" font="4">&#34;filename&#34;</text>
+<text top="1175" left="82" width="137" height="10" font="4">[4] &#34;timestamp&#34; &#34;wd&#34;</text>
+<text top="125" left="459" width="346" height="15" font="0">The &#34;srcfile&#34; attribute is actually an environment</text>
+<text top="143" left="459" width="346" height="15" font="0">containing an encoding, a filename, a timestamp,</text>
+<text top="161" left="459" width="346" height="15" font="0">and a working directory. These give information</text>
+<text top="179" left="459" width="346" height="15" font="0">about the file from which the parser was reading.</text>
+<text top="197" left="459" width="346" height="15" font="0">The reason it is an environment is that environments</text>
+<text top="215" left="459" width="346" height="15" font="0">are reference objects: even though all three source ref-</text>
+<text top="233" left="459" width="346" height="15" font="0">erences contain this attribute, in actuality there is</text>
+<text top="251" left="459" width="346" height="15" font="0">only one copy stored. This was done to save mem-</text>
+<text top="268" left="459" width="346" height="15" font="0">ory, since there are often hundreds of source refer-</text>
+<text top="286" left="459" width="133" height="15" font="0">ences from each file.</text>
+<text top="306" left="481" width="44" height="15" font="0">Source</text>
+<text top="306" left="542" width="67" height="15" font="0">references</text>
+<text top="306" left="625" width="13" height="15" font="0">in</text>
+<text top="306" left="654" width="45" height="15" font="0">objects</text>
+<text top="306" left="715" width="58" height="15" font="0">returned</text>
+<text top="306" left="789" width="17" height="15" font="0">by</text>
+<text top="325" left="459" width="76" height="12" font="0">parse_Rd()</text>
+<text top="324" left="539" width="266" height="15" font="0">use the same structure as those returned</text>
+<text top="342" left="459" width="346" height="15" font="0">by parse(). The main difference is that in Rd objects</text>
+<text top="360" left="459" width="346" height="15" font="0">source references are attached to every component,</text>
+<text top="377" left="459" width="346" height="15" font="0">whereas parse() only constructs source references</text>
+<text top="395" left="459" width="346" height="15" font="0">for complete statements, not for their component</text>
+<text top="413" left="459" width="346" height="15" font="0">parts, and they are attached to the container of the</text>
+<text top="431" left="459" width="346" height="15" font="0">statements. Thus for example a braced list of state-</text>
+<text top="449" left="459" width="346" height="15" font="0">ments processed by parse() will receive a &#34;srcref&#34;</text>
+<text top="467" left="459" width="346" height="15" font="0">attribute containing source references for each state-</text>
+<text top="485" left="459" width="346" height="15" font="0">ment within, while the statements themselves will</text>
+<text top="503" left="459" width="346" height="15" font="0">not hold their own source references, and sub-</text>
+<text top="521" left="459" width="346" height="15" font="0">expressions within each statement will not generate</text>
+<text top="539" left="459" width="346" height="15" font="0">source references at all. In contrast the &#34;srcref&#34; at-</text>
+<text top="557" left="459" width="183" height="15" font="0">tribute for a section in an ‘</text>
+<text top="558" left="642" width="21" height="12" font="4">.Rd</text>
+<text top="557" left="662" width="143" height="15" font="0">’ file will be a source</text>
+<text top="575" left="459" width="346" height="15" font="0">reference for the whole section, and each component</text>
+<text top="593" left="459" width="346" height="15" font="0">part in the section will have its own source reference.</text>
+<text top="642" left="459" width="286" height="17" font="7"><b>Relation to the &#34;source&#34; attribute</b></text>
+<text top="675" left="459" width="346" height="15" font="0">By default the R parser also creates an attribute</text>
+<text top="693" left="459" width="346" height="15" font="0">named &#34;source&#34; when it parses a function definition.</text>
+<text top="711" left="459" width="346" height="15" font="0">When available, this attribute is used by default in</text>
+<text top="729" left="459" width="346" height="15" font="0">lieu of deparsing to display the function definition.</text>
+<text top="747" left="459" width="346" height="15" font="0">It is unrelated to the &#34;srcref&#34; attribute, which is in-</text>
+<text top="765" left="459" width="346" height="15" font="0">tended to point to the source, rather than to duplicate</text>
+<text top="783" left="459" width="346" height="15" font="0">the source. An integrated development environment</text>
+<text top="801" left="459" width="346" height="15" font="0">(IDE) would need to know the correspondence be-</text>
+<text top="819" left="459" width="346" height="15" font="0">tween R code in R and the true source, and &#34;srcref&#34;</text>
+<text top="837" left="459" width="254" height="15" font="0">attributes are intended to provide this.</text>
+<text top="886" left="459" width="315" height="17" font="7"><b>When are &#34;srcref&#34; attributes added?</b></text>
+<text top="919" left="459" width="346" height="15" font="0">As mentioned above, the parser adds a &#34;srcref&#34;</text>
+<text top="937" left="459" width="139" height="15" font="0">attribute by default.</text>
+<text top="937" left="614" width="191" height="15" font="0">For this, it is assumes that</text>
+<text top="956" left="459" width="168" height="12" font="0">options(&#34;keep.source&#34;)</text>
+<text top="955" left="631" width="174" height="15" font="0">is left at its default setting</text>
+<text top="973" left="459" width="346" height="15" font="0">of TRUE, and that parse() is given a filename as argu-</text>
+<text top="991" left="459" width="346" height="15" font="0">ment file, or a character vector as argument text.</text>
+<text top="1009" left="459" width="346" height="15" font="0">In the latter case, there is no source file to refer-</text>
+<text top="1027" left="459" width="346" height="15" font="0">ence, so parse() copies the lines of source into a</text>
+<text top="1046" left="459" width="99" height="12" font="0">&#34;srcfilecopy&#34;</text>
+<text top="1045" left="563" width="242" height="15" font="0">object, which is simply a &#34;srcfile&#34;</text>
+<text top="1063" left="459" width="248" height="15" font="0">object that contains a copy of the text.</text>
+<text top="1082" left="481" width="324" height="15" font="0">Developers may wish to add source references in</text>
+<text top="1100" left="459" width="346" height="15" font="0">other situations. To do that, an object inheriting from</text>
+<text top="1118" left="459" width="346" height="15" font="0">class &#34;srcfile&#34; should be passed as the srcfile ar-</text>
+<text top="1136" left="459" width="129" height="15" font="0">gument to parse().</text>
+<text top="1155" left="481" width="324" height="15" font="0">The other situation in which source references</text>
+<text top="1173" left="459" width="346" height="15" font="0">are likely to be created in R code is when calling</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="67" left="82" width="15" height="15" font="0">18</text>
+<text top="67" left="562" width="11" height="15" font="0">C</text>
+<text top="69" left="573" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="664" width="10" height="15" font="0">R</text>
+<text top="69" left="674" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="740" width="12" height="15" font="0">A</text>
+<text top="69" left="752" width="53" height="12" font="1">RTICLES</text>
+<text top="126" left="82" width="61" height="12" font="0">source()</text>
+<text top="125" left="143" width="285" height="15" font="0">. The source() function calls parse(), cre-</text>
+<text top="143" left="82" width="346" height="15" font="0">ating the source references, and then evaluates the</text>
+<text top="161" left="82" width="346" height="15" font="0">resulting code. At this point newly created functions</text>
+<text top="179" left="82" width="346" height="15" font="0">will have source references attached to the body of</text>
+<text top="197" left="82" width="84" height="15" font="0">the function.</text>
+<text top="216" left="105" width="324" height="15" font="0">The section “Breakpoints” below discusses how</text>
+<text top="234" left="82" width="346" height="15" font="0">to make sure that source references are created in</text>
+<text top="251" left="82" width="93" height="15" font="0">package code.</text>
+<text top="303" left="82" width="233" height="21" font="6"><b>Using source references</b></text>
+<text top="345" left="82" width="120" height="17" font="7"><b>Error locations</b></text>
+<text top="377" left="82" width="346" height="15" font="0">For the most part, users need not be concerned with</text>
+<text top="395" left="82" width="346" height="15" font="0">source references, but they interact with them fre-</text>
+<text top="413" left="82" width="346" height="15" font="0">quently. For example, error messages make use of</text>
+<text top="431" left="82" width="307" height="15" font="0">them to report on the location of syntax errors:</text>
+<text top="464" left="82" width="130" height="10" font="4">&gt; source(&#34;error.R&#34;)</text>
+<text top="499" left="82" width="357" height="10" font="4">Error in source(&#34;error.R&#34;) : error.R:4:1: unexpected</text>
+<text top="511" left="82" width="35" height="17" font="4">'else'</text>
+<text top="532" left="82" width="14" height="10" font="4">3:</text>
+<text top="532" left="117" width="103" height="10" font="4">print( &#34;less&#34; )</text>
+<text top="548" left="82" width="48" height="10" font="4">4: else</text>
+<text top="565" left="103" width="7" height="10" font="4">^</text>
+<text top="599" left="105" width="324" height="15" font="0">A more recent addition is the use of source ref-</text>
+<text top="617" left="82" width="346" height="15" font="0">erences in code being executed. When R evaluates</text>
+<text top="635" left="82" width="346" height="15" font="0">a function, it evaluates each statement in turn, keep-</text>
+<text top="653" left="82" width="346" height="15" font="0">ing track of any associated source references. As of</text>
+<text top="671" left="82" width="346" height="15" font="0">R 2.10.0, these are reported by the debugging sup-</text>
+<text top="689" left="82" width="346" height="15" font="0">port functions traceback(), browser(), recover(),</text>
+<text top="707" left="82" width="346" height="15" font="0">and dump.frames(), and are returned as an attribute</text>
+<text top="725" left="82" width="346" height="15" font="0">on each element returned by sys.calls(). For ex-</text>
+<text top="742" left="82" width="300" height="15" font="0">ample, consider the function shown in Figure</text>
+<text top="742" left="386" width="7" height="15" font="5"><a href="2010-2-RJournal_2010-2_Murdoch.html#3">2</a></text>
+<text top="742" left="394" width="4" height="15" font="0"><a href="2010-2-RJournal_2010-2_Murdoch.html#3">.</a></text>
+<text top="780" left="82" width="213" height="10" font="4">1: # Compute the absolute value</text>
+<text top="797" left="82" width="178" height="10" font="4">2: badabs &lt;- function(x) {</text>
+<text top="813" left="82" width="14" height="10" font="4">3:</text>
+<text top="813" left="117" width="69" height="10" font="4">if (x &lt; 0)</text>
+<text top="830" left="82" width="14" height="10" font="4">4:</text>
+<text top="830" left="137" width="48" height="10" font="4">x &lt;- -x</text>
+<text top="846" left="82" width="14" height="10" font="4">5:</text>
+<text top="846" left="117" width="7" height="10" font="4">x</text>
+<text top="863" left="82" width="27" height="10" font="4">6: }</text>
+<text top="900" left="134" width="175" height="15" font="0">Figure 2: The contents of ‘</text>
+<text top="901" left="309" width="57" height="12" font="4">badabs.R</text>
+<text top="900" left="366" width="8" height="15" font="0">’.</text>
+<text top="935" left="105" width="324" height="15" font="0">This function is syntactically correct, and works</text>
+<text top="953" left="82" width="346" height="15" font="0">to calculate the absolute value of scalar values, but is</text>
+<text top="971" left="82" width="346" height="15" font="0">not a valid way to calculate the absolute values of the</text>
+<text top="989" left="82" width="346" height="15" font="0">elements of a vector, and when called it will generate</text>
+<text top="1007" left="82" width="223" height="15" font="0">an incorrect result and a warning:</text>
+<text top="1041" left="82" width="137" height="10" font="4">&gt; source(&#34;badabs.R&#34;)</text>
+<text top="1057" left="82" width="144" height="10" font="4">&gt; badabs( c(5, -10) )</text>
+<text top="1092" left="82" width="21" height="10" font="4">[1]</text>
+<text top="1092" left="124" width="34" height="10" font="4">5 -10</text>
+<text top="1126" left="82" width="110" height="10" font="4">Warning message:</text>
+<text top="1142" left="82" width="158" height="10" font="4">In if (x &lt; 0) x &lt;- -x :</text>
+<text top="1159" left="96" width="322" height="10" font="4">the condition has length &gt; 1 and only the first</text>
+<text top="1175" left="96" width="137" height="10" font="4">element will be used</text>
+<text top="125" left="459" width="346" height="15" font="0">In this simple example it is easy to see where the</text>
+<text top="143" left="459" width="346" height="15" font="0">problem occurred, but in a more complex function</text>
+<text top="161" left="459" width="346" height="15" font="0">it might not be so simple. To find it, we can convert</text>
+<text top="179" left="459" width="194" height="15" font="0">the warning to an error using</text>
+<text top="209" left="459" width="117" height="10" font="4">&gt; options(warn=2)</text>
+<text top="237" left="459" width="346" height="15" font="0">and then re-run the code to generate an error. After</text>
+<text top="255" left="459" width="325" height="15" font="0">generating the error, we can display a stack trace:</text>
+<text top="285" left="459" width="89" height="10" font="4">&gt; traceback()</text>
+<text top="317" left="459" width="288" height="10" font="4">5: doWithOneRestart(return(expr), restart)</text>
+<text top="333" left="459" width="268" height="10" font="4">4: withOneRestart(expr, restarts[[1L]])</text>
+<text top="350" left="459" width="117" height="10" font="4">3: withRestarts({</text>
+<text top="366" left="507" width="185" height="10" font="4">.Internal(.signalCondition(</text>
+<text top="382" left="534" width="254" height="10" font="4">simpleWarning(msg, call), msg, call))</text>
+<text top="399" left="507" width="213" height="10" font="4">.Internal(.dfltWarn(msg, call))</text>
+<text top="415" left="479" width="336" height="10" font="4">}, muffleWarning = function() NULL) at badabs.R#2</text>
+<text top="432" left="459" width="336" height="10" font="4">2: .signalSimpleWarning(&#34;the condition has length</text>
+<text top="448" left="507" width="309" height="10" font="4">&gt; 1 and only the first element will be used&#34;,</text>
+<text top="465" left="507" width="274" height="10" font="4">quote(if (x &lt; 0) x &lt;- -x)) at badabs.R#3</text>
+<text top="481" left="459" width="137" height="10" font="4">1: badabs(c(5, -10))</text>
+<text top="512" left="459" width="346" height="15" font="0">To read a traceback, start at the bottom. We see our</text>
+<text top="529" left="459" width="346" height="15" font="0">call from the console as line “1:”, and the warning</text>
+<text top="547" left="459" width="346" height="15" font="0">being signalled in line “2:”. At the end of line “2:”</text>
+<text top="565" left="459" width="346" height="15" font="0">it says that the warning originated “at badabs.R#3”,</text>
+<text top="583" left="459" width="108" height="15" font="0">i.e. line 3 of the ‘</text>
+<text top="584" left="567" width="57" height="12" font="4">badabs.R</text>
+<text top="583" left="624" width="32" height="15" font="0">’ file.</text>
+<text top="625" left="459" width="100" height="17" font="7"><b>Breakpoints</b></text>
+<text top="655" left="459" width="346" height="15" font="0">Users may also make use of source references when</text>
+<text top="673" left="459" width="346" height="15" font="0">setting breakpoints. The trace() function lets us set</text>
+<text top="691" left="459" width="346" height="15" font="0">breakpoints in particular R functions, but we need to</text>
+<text top="709" left="459" width="346" height="15" font="0">specify which function and where to do the setting.</text>
+<text top="727" left="459" width="346" height="15" font="0">The setBreakpoint() function is a more friendly</text>
+<text top="745" left="459" width="346" height="15" font="0">front end that uses source references to construct a</text>
+<text top="763" left="459" width="346" height="15" font="0">call to trace(). For example, if we wanted to set a</text>
+<text top="781" left="459" width="100" height="15" font="0">breakpoint on ‘</text>
+<text top="782" left="559" width="57" height="12" font="4">badabs.R</text>
+<text top="781" left="617" width="138" height="15" font="0">’ line 3, we could use</text>
+<text top="811" left="459" width="199" height="10" font="4">&gt; setBreakpoint(&#34;badabs.R#3&#34;)</text>
+<text top="843" left="459" width="226" height="10" font="4">D:\svn\papers\srcrefs\badabs.R#3:</text>
+<text top="859" left="466" width="295" height="10" font="4">badabs step 2 in &lt;environment: R_GlobalEnv&gt;</text>
+<text top="890" left="459" width="346" height="15" font="0">This tells us that we have set a breakpoint in step 2 of</text>
+<text top="908" left="459" width="346" height="15" font="0">the function badabs found in the global environment.</text>
+<text top="925" left="459" width="184" height="15" font="0">When we run it, we will see</text>
+<text top="956" left="459" width="144" height="10" font="4">&gt; badabs( c(5, -10) )</text>
+<text top="987" left="459" width="69" height="10" font="4">badabs.R#3</text>
+<text top="1004" left="459" width="206" height="10" font="4">Called from: badabs(c(5, -10))</text>
+<text top="1035" left="459" width="69" height="10" font="4">Browse[1]&gt;</text>
+<text top="1065" left="459" width="346" height="15" font="0">telling us that we have broken into the browser at the</text>
+<text top="1083" left="459" width="346" height="15" font="0">requested line, and it is waiting for input. We could</text>
+<text top="1101" left="459" width="346" height="15" font="0">then examine x, single step through the code, or do</text>
+<text top="1119" left="459" width="323" height="15" font="0">any other action of which the browser is capable.</text>
+<text top="1137" left="481" width="324" height="15" font="0">By default, most packages are built without</text>
+<text top="1155" left="459" width="346" height="15" font="0">source reference information, because it adds quite</text>
+<text top="1173" left="459" width="346" height="15" font="0">substantially to the size of the code. However, setting</text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="15" family="Times" color="#000000"/>
+<text top="67" left="83" width="11" height="15" font="0">C</text>
+<text top="69" left="94" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="67" left="184" width="10" height="15" font="0">R</text>
+<text top="69" left="195" width="61" height="12" font="1">ESEARCH</text>
+<text top="67" left="261" width="12" height="15" font="0">A</text>
+<text top="69" left="273" width="53" height="12" font="1">RTICLES</text>
+<text top="67" left="790" width="15" height="15" font="0">19</text>
+<text top="125" left="82" width="346" height="15" font="0">the environment variable R_KEEP_PKG_SOURCE=yes</text>
+<text top="143" left="82" width="346" height="15" font="0">before installing a source package will tell R to keep</text>
+<text top="161" left="82" width="346" height="15" font="0">the source references, and then breakpoints may be</text>
+<text top="179" left="82" width="346" height="15" font="0">set in package source code. The envir argument to</text>
+<text top="198" left="82" width="122" height="12" font="0">setBreakpoints()</text>
+<text top="197" left="209" width="220" height="15" font="0">will need to be set in order to tell</text>
+<text top="215" left="82" width="346" height="15" font="0">it to search outside the global environment when set-</text>
+<text top="233" left="82" width="112" height="15" font="0">ting breakpoints.</text>
+<text top="274" left="82" width="158" height="17" font="7"><b>The </b>#line <b>directive</b></text>
+<text top="305" left="82" width="346" height="15" font="0">In some cases, R source code is written by a program,</text>
+<text top="322" left="82" width="346" height="15" font="0">not by a human being. For example, Sweave() ex-</text>
+<text top="340" left="82" width="346" height="15" font="0">tracts lines of code from Sweave documents before</text>
+<text top="358" left="82" width="346" height="15" font="0">sending the lines to R for parsing and evaluation. To</text>
+<text top="376" left="82" width="346" height="15" font="0">support such preprocessors, the R 2.10.0 parser rec-</text>
+<text top="394" left="82" width="233" height="15" font="0">ognizes a new directive of the form</text>
+<text top="425" left="82" width="145" height="12" font="0">#line nn &#34;filename&#34;</text>
+<text top="452" left="82" width="346" height="15" font="0">where nn is an integer. As with the same-named</text>
+<text top="470" left="82" width="346" height="15" font="0">directive in the C language, this tells the parser to</text>
+<text top="488" left="82" width="346" height="15" font="0">assume that the next line of source is line nn from</text>
+<text top="506" left="82" width="346" height="15" font="0">the given filename for the purpose of constructing</text>
+<text top="524" left="82" width="346" height="15" font="0">source references. The Sweave() function doesn’t</text>
+<text top="542" left="82" width="346" height="15" font="0">currently make use of this, but in the future, it (and</text>
+<text top="560" left="82" width="346" height="15" font="0">other preprocessors) could output #line directives</text>
+<text top="578" left="82" width="346" height="15" font="0">so that source references and syntax errors refer to</text>
+<text top="596" left="82" width="346" height="15" font="0">the original source location rather than to an inter-</text>
+<text top="614" left="82" width="81" height="15" font="0">mediate file.</text>
+<text top="632" left="105" width="324" height="15" font="0">The #line directive was a late addition to R</text>
+<text top="649" left="82" width="346" height="15" font="0">2.10.0. Support for this in Sweave() appeared in R</text>
+<text top="667" left="82" width="41" height="15" font="0">2.12.0.</text>
+<text top="714" left="82" width="105" height="21" font="6"><b>The future</b></text>
+<text top="753" left="82" width="346" height="15" font="0">The source reference structure could be improved.</text>
+<text top="771" left="82" width="346" height="15" font="0">First, it adds quite a lot of bulk to R objects in mem-</text>
+<text top="789" left="82" width="346" height="15" font="0">ory. Each source reference is an integer vector of</text>
+<text top="125" left="459" width="346" height="15" font="0">length 6 with a class and &#34;srcfile&#34; attribute. It is</text>
+<text top="143" left="459" width="346" height="15" font="0">hard to measure exactly how much space this takes</text>
+<text top="161" left="459" width="346" height="15" font="0">because much is shared with other source references,</text>
+<text top="179" left="459" width="346" height="15" font="0">but it is on the order of 100 bytes per reference.</text>
+<text top="197" left="459" width="346" height="15" font="0">Clearly a more efficient design is possible, at the ex-</text>
+<text top="215" left="459" width="346" height="15" font="0">pense of moving support code to C from R. As part of</text>
+<text top="233" left="459" width="346" height="15" font="0">this move, the use of environments for the &#34;srcfile&#34;</text>
+<text top="251" left="459" width="346" height="15" font="0">attribute could be dropped: they were used as the</text>
+<text top="268" left="459" width="346" height="15" font="0">only available R-level reference objects. For develop-</text>
+<text top="286" left="459" width="346" height="15" font="0">ers, this means that direct access to particular parts</text>
+<text top="304" left="459" width="346" height="15" font="0">of a source reference should be localized as much as</text>
+<text top="322" left="459" width="346" height="15" font="0">possible: They should write functions to extract par-</text>
+<text top="340" left="459" width="346" height="15" font="0">ticular information, and use those functions where</text>
+<text top="358" left="459" width="346" height="15" font="0">needed, rather than extracting information directly.</text>
+<text top="376" left="459" width="346" height="15" font="0">Then, if the implementation changes, only those ex-</text>
+<text top="394" left="459" width="274" height="15" font="0">tractor functions will need to be updated.</text>
+<text top="412" left="481" width="324" height="15" font="0">Finally, source level debugging could be imple-</text>
+<text top="430" left="459" width="346" height="15" font="0">mented to make use of source references, to single</text>
+<text top="448" left="459" width="346" height="15" font="0">step through the actual source files, rather than dis-</text>
+<text top="466" left="459" width="303" height="15" font="0">playing a line at a time as the browser() does.</text>
+<text top="513" left="459" width="130" height="21" font="6"><b>Bibliography</b></text>
+<text top="552" left="459" width="302" height="15" font="0">D. Murdoch. Parsing Rd files. 2010. URL</text>
+<text top="553" left="767" width="38" height="12" font="5"><a href="http://developer.r-project.org/parseRd.pdf">http:</a></text>
+<text top="571" left="474" width="283" height="12" font="5"><a href="http://developer.r-project.org/parseRd.pdf">//developer.r-project.org/parseRd.pdf</a></text>
+<text top="570" left="757" width="4" height="15" font="0"><a href="http://developer.r-project.org/parseRd.pdf">.</a></text>
+<text top="600" left="459" width="346" height="15" font="0">D. Murdoch and S. Urbanek. The new R help system.</text>
+<text top="618" left="474" width="198" height="15" font="0">The R Journal, 1/2:60–65, 2009.</text>
+<text top="648" left="459" width="346" height="15" font="0">L. Tierney. codetools: Code Analysis Tools for R, 2009. R</text>
+<text top="666" left="474" width="146" height="15" font="0">package version 0.2-2.</text>
+<text top="717" left="459" width="109" height="15" font="0">Duncan Murdoch</text>
+<text top="735" left="459" width="255" height="15" font="0">Dept. of Statistical and Actuarial Sciences</text>
+<text top="753" left="459" width="186" height="15" font="0">University of Western Ontario</text>
+<text top="771" left="459" width="154" height="15" font="0">London, Ontario, Canada</text>
+<text top="790" left="459" width="152" height="12" font="5"><a href="mailto:murdoch@stats.uwo.ca">murdoch@stats.uwo.ca</a></text>
+<text top="1218" left="82" width="257" height="15" font="0">The R Journal Vol. 2/2, December 2010</text>
+<text top="1218" left="704" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>

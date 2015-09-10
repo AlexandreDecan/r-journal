@@ -1,0 +1,77 @@
+page	left	top	code
+3	82	873	#!rput inval 'Sheet1'!A1
+3	82	891	result<-sin(inval)
+3	459	572	library(rpart)
+3	459	590	#!rputdataframe trainingdata \
+3	505	608	'database'!A1:P691
+3	459	626	fit<-rpart(V16~.,data=trainingdata)
+3	459	644	plot(fit,branch=0.1,uniform=T,margin=.1, \
+3	505	662	compress=T,nspace=0.1)
+3	459	680	text(fit,fancy=T,use.n=T)
+3	459	698	#!insertcurrentrplot 'database'!T10
+3	459	716	graphics.off()
+3	459	1013	library(rpart)
+3	459	1031	#!rputdataframe trainingdata \
+3	505	1049	'database'!A1:P691
+3	459	1067	#!rputdataframe newcases \
+3	505	1085	'predict'!A1:O3
+3	459	1103	outdf<-as.data.frame(predict(fit,newcases))
+3	459	1121	predGroup <- ifelse(outdf[,1]>0.5, \
+3	505	1139	names(outdf[1]),names(outdf[2]))
+3	459	1156	res<-cbind(predGroup,outdf)
+3	459	1174	#!rgetdataframe res 'predict'!R1
+5	82	460	Sub RExcelDemo()
+5	113	478	RInterface.StartRServer
+5	113	496	RInterface.GetRApply "sin", _
+5	136	514	Range("A2"), Range("A1")
+5	113	532	RInterface.StopRServer
+5	82	550	End Sub
+5	459	357	Sub PredictApp()
+5	489	375	Dim outRange As Range
+5	489	392	ActiveWorkbook.Worksheets("predict") _
+5	505	410	.Activate
+5	489	428	If Err.Number <> 0 Then
+5	505	446	MsgBox "This workbook does not " _
+5	520	464	& "contain data for rpartDemo"
+5	505	482	Exit Sub
+5	489	500	End If
+5	489	518	ClearOutput
+5	489	536	RInterface.StartRServer
+5	489	554	RInterface.RunRCodeFromRange _
+5	505	572	ThisWorkbook.Worksheets("RCode") _
+5	520	590	.UsedRange
+5	489	626	RInterface.GetRApply _
+5	505	644	"function(" _
+5	520	661	& "trainingdata,groupvarname," _
+5	520	679	& "newdata)predictResult(fitApp("_
+5	520	697	& "trainingdata,groupvarname)," _
+5	520	715	& "newdata)", _
+5	505	733	ActiveWorkbook.Worksheets( _
+5	520	751	"predict").Range("R1"), _
+5	505	769	AsSimpleDF(DownRightFrom( _
+5	520	787	ThisWorkbook.Worksheets( _
+5	535	805	"database").Range("A1"))), _
+5	520	823	"V16", _
+5	505	841	AsSimpleDF(ActiveWorkbook _
+5	520	859	.Worksheets("predict").Range( _
+5	535	877	"A1").CurrentRegion)
+5	489	912	RInterface.StopRServer
+5	489	930	Set outRange = ActiveWorkbook _
+5	505	948	.Worksheets("predict").Range("R1") _
+5	520	966	.CurrentRegion
+5	489	984	HighLight outRange
+5	459	1002	End Sub
+6	82	857	Sub PredictApp()
+6	113	875	Dim outRange As Range
+6	113	893	ClearOutput
+6	113	910	RInterface.StartRServer
+6	113	946	RInterface.RRun "library(RExcelrpart)"
+6	113	964	RInterface.GetRApply "approval", _
+6	128	982	Range("'predict'!R1"), _
+6	128	1000	AsSimpleDF(Range("predict!A1") _
+6	143	1018	.CurrentRegion)
+6	113	1054	RInterface.StopRServer
+6	113	1072	Set outRange = Range("predict!R1") _
+6	128	1090	.CurrentRegion
+6	113	1108	HighLight outRange
+6	82	1126	End Sub

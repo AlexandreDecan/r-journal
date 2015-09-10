@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml producer="poppler" version="0.30.0">
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="12" family="Times" color="#000000"/>
+	<fontspec id="1" size="9" family="Times" color="#000000"/>
+	<fontspec id="2" size="28" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="11" family="Times" color="#7282aa"/>
+	<fontspec id="7" size="11" family="Times" color="#7282aa"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">43</text>
+<text top="98" left="149" width="543" height="30" font="2"><b>phaseR: An R Package for Phase Plane</b></text>
+<text top="137" left="148" width="556" height="30" font="2"><b>Analysis of Autonomous ODE Systems</b></text>
+<text top="173" left="149" width="138" height="15" font="0">by Michael J. Grayling</text>
+<text top="214" left="148" width="52" height="13" font="3"><b>Abstract</b></text>
+<text top="214" left="207" width="537" height="13" font="4">When modelling physical systems, analysts will frequently be confronted by differential</text>
+<text top="231" left="149" width="595" height="13" font="4">equations which cannot be solved analytically. In this instance, numerical integration will usually be</text>
+<text top="247" left="149" width="597" height="13" font="4">the only way forward. However, for autonomous systems of ordinary differential equations (ODEs)</text>
+<text top="264" left="149" width="595" height="13" font="4">in one or two dimensions, it is possible to employ an instructive qualitative analysis foregoing this</text>
+<text top="280" left="149" width="595" height="13" font="4">requirement, using so-called phase plane methods. Moreover, this qualitative analysis can even prove</text>
+<text top="297" left="149" width="598" height="13" font="4">to be highly useful for systems that can be solved analytically, or will be solved numerically anyway.</text>
+<text top="313" left="148" width="596" height="13" font="4">The package <b>phaseR </b>allows the user to perform such phase plane analyses: determining the stability</text>
+<text top="329" left="149" width="392" height="13" font="4">of any equilibrium points easily, and producing informative plots.</text>
+<text top="374" left="149" width="104" height="17" font="5"><b>Introduction</b></text>
+<text top="413" left="149" width="598" height="13" font="4">Repeatedly, when a system of differential equations is written down, it cannot be solved analytically.</text>
+<text top="430" left="148" width="596" height="13" font="4">This is particularly true in the non-linear case, which unfortunately habitually arises when modelling</text>
+<text top="446" left="148" width="596" height="13" font="4">physical systems. As such, it is common that numerical integration is the only way for a modeller to</text>
+<text top="462" left="149" width="595" height="13" font="4">analyse the properties of their system. Consequently, many software packages exist today to assist</text>
+<text top="479" left="149" width="254" height="13" font="4">in this step. In R, for example, the package</text>
+<text top="479" left="406" width="49" height="13" font="6"><a href="http://CRAN.R-project.org/package=deSolve"><b>deSolve</b></a></text>
+<text top="479" left="459" width="5" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="479" left="463" width="80" height="13" font="7"><a href="2014-2-grayling.html#9">Soetaert et al.</a></text>
+<text top="479" left="544" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="479" left="550" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2010</a></text>
+<text top="479" left="577" width="167" height="13" font="4"><a href="2014-2-grayling.html#9">) </a>deals with many classes of</text>
+<text top="495" left="149" width="597" height="13" font="4">differential equation. It allows users to solve first-order stiff and non-stiff initial value problem ODEs,</text>
+<text top="512" left="149" width="595" height="13" font="4">as well as stiff and non-stiff delay differential equations (DDEs), and differential algebraic equations</text>
+<text top="528" left="148" width="596" height="13" font="4">(DAEs) up to index 3. Moreover, it can tackle partial differential equations (PDEs) with the assistance</text>
+<text top="545" left="149" width="57" height="13" font="6"><a href="http://CRAN.R-project.org/package=ReacTran"><b>ReacTran</b></a></text>
+<text top="545" left="208" width="4" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="545" left="213" width="133" height="13" font="7"><a href="2014-2-grayling.html#9">Soetaert and Meysman</a></text>
+<text top="545" left="346" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="545" left="352" width="26" height="13" font="7"><a href="2014-2-grayling.html#9">2012</a></text>
+<text top="545" left="378" width="366" height="13" font="4"><a href="2014-2-grayling.html#9">). </a>For such PDE problems users also have available the package</text>
+<text top="561" left="149" width="59" height="13" font="6"><a href="http://CRAN.R-project.org/package=rootSolve"><b>rootSolve</b></a></text>
+<text top="561" left="211" width="4" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="561" left="216" width="79" height="13" font="7"><a href="2014-2-grayling.html#9">Soetaert et al.</a></text>
+<text top="561" left="294" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="561" left="301" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2009</a></text>
+<text top="561" left="327" width="417" height="13" font="4"><a href="2014-2-grayling.html#9">), </a>which is additionally particularly suited to analysing the equilibrium</text>
+<text top="577" left="149" width="191" height="13" font="4">of differential equations. Finally,</text>
+<text top="578" left="343" width="58" height="13" font="6"><a href="http://CRAN.R-project.org/package=bvpSolve"><b>bvpSolve</b></a></text>
+<text top="577" left="405" width="4" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="577" left="410" width="79" height="13" font="7"><a href="2014-2-grayling.html#9">Soetaert et al.</a></text>
+<text top="577" left="489" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="577" left="495" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2013</a></text>
+<text top="577" left="522" width="222" height="13" font="4"><a href="2014-2-grayling.html#9">) </a>can tackle boundary value problems</text>
+<text top="594" left="149" width="162" height="13" font="4">of systems of ODEs, whilst</text>
+<text top="594" left="314" width="21" height="13" font="6"><a href="http://CRAN.R-project.org/package=sde"><b>sde</b></a></text>
+<text top="594" left="338" width="5" height="13" font="4"><a href="2014-2-grayling.html#8">(</a></text>
+<text top="594" left="343" width="32" height="13" font="7"><a href="2014-2-grayling.html#8">Iacus</a></text>
+<text top="594" left="374" width="3" height="13" font="4"><a href="2014-2-grayling.html#8">,</a></text>
+<text top="594" left="381" width="27" height="13" font="7"><a href="2014-2-grayling.html#8">2009</a></text>
+<text top="594" left="408" width="338" height="13" font="4"><a href="2014-2-grayling.html#8">) </a>is available for stochastic differential equations (SDEs).</text>
+<text top="610" left="149" width="595" height="13" font="4">However, for autonomous ODE systems in either one or two dimensions, phase plane methods, as</text>
+<text top="627" left="149" width="445" height="13" font="4">developed by mathematicians such as Henri Poincaré in the 19th Century <a href="2014-2-grayling.html#8">(</a></text>
+<text top="627" left="594" width="42" height="13" font="7"><a href="2014-2-grayling.html#8">Farlow</a></text>
+<text top="627" left="636" width="3" height="13" font="4"><a href="2014-2-grayling.html#8">,</a></text>
+<text top="627" left="642" width="27" height="13" font="7"><a href="2014-2-grayling.html#8">2006</a></text>
+<text top="627" left="669" width="75" height="13" font="4"><a href="2014-2-grayling.html#8">), </a>allow for a</text>
+<text top="643" left="148" width="597" height="13" font="4">qualitative analysis of the system’s properties without the need for numerical integration. Specifically,</text>
+<text top="660" left="149" width="595" height="13" font="4">it is usually possible to determine the long-term behaviour of the system for any initial condition, via</text>
+<text top="676" left="149" width="465" height="13" font="4">a highly graphical procedure coupled with algorithmic mathematical analysis.</text>
+<text top="697" left="171" width="573" height="13" font="4">As a result of these considerations, phase plane analysis is an important device in any modeller’s</text>
+<text top="713" left="149" width="595" height="13" font="4">toolbox. It stands as a key technique not only for mathematicians, but biologists, physicists and</text>
+<text top="730" left="149" width="269" height="13" font="4">engineers amongst others. See for example</text>
+<text top="730" left="423" width="109" height="13" font="7"><a href="2014-2-grayling.html#9">Jordan and Smith</a></text>
+<text top="730" left="536" width="5" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="730" left="541" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2007</a></text>
+<text top="730" left="568" width="8" height="13" font="4"><a href="2014-2-grayling.html#9">),</a></text>
+<text top="730" left="582" width="119" height="13" font="7"><a href="2014-2-grayling.html#8">Barnes and Fulford</a></text>
+<text top="730" left="706" width="5" height="13" font="4"><a href="2014-2-grayling.html#8">(</a></text>
+<text top="730" left="710" width="27" height="13" font="7"><a href="2014-2-grayling.html#8">2009</a></text>
+<text top="730" left="738" width="8" height="13" font="4"><a href="2014-2-grayling.html#8">),</a></text>
+<text top="746" left="149" width="70" height="13" font="7"><a href="2014-2-grayling.html#8">Choudhury</a></text>
+<text top="746" left="222" width="4" height="13" font="4"><a href="2014-2-grayling.html#8">(</a></text>
+<text top="746" left="227" width="27" height="13" font="7"><a href="2014-2-grayling.html#8">2005</a></text>
+<text top="746" left="254" width="34" height="13" font="4"><a href="2014-2-grayling.html#8">), </a>and</text>
+<text top="746" left="291" width="49" height="13" font="7"><a href="2014-2-grayling.html#9">Mooney</a></text>
+<text top="746" left="344" width="4" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="746" left="348" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">1999</a></text>
+<text top="746" left="375" width="369" height="13" font="4"><a href="2014-2-grayling.html#9">) </a>for descriptions of uses in various fields. Since the method is</text>
+<text top="763" left="149" width="595" height="13" font="4">extremely algorithmic in nature, software tools would clearly provide a powerful system by which to</text>
+<text top="779" left="149" width="595" height="13" font="4">execute the techniques. Despite this, few programmes are available for implementing phase plane</text>
+<text top="796" left="149" width="595" height="13" font="4">methods. Presently, a programme entitled pplane that employs a simple GUI system is available</text>
+<text top="812" left="149" width="71" height="13" font="4">for Matlab <a href="2014-2-grayling.html#9">(</a></text>
+<text top="812" left="220" width="58" height="13" font="7"><a href="2014-2-grayling.html#9">MATLAB</a></text>
+<text top="812" left="278" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="812" left="285" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2014</a></text>
+<text top="812" left="312" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">;</a></text>
+<text top="812" left="318" width="47" height="13" font="7"><a href="2014-2-grayling.html#9">Polking</a></text>
+<text top="812" left="365" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="812" left="372" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2009</a></text>
+<text top="812" left="399" width="345" height="13" font="4"><a href="2014-2-grayling.html#9">). </a>In addition, several java applets are available across the</text>
+<text top="829" left="149" width="595" height="13" font="4">internet for executing phase plane methods. But, they vary widely in quality and often struggle when</text>
+<text top="845" left="149" width="598" height="13" font="4">confronted with complex systems, whilst they also provide no simple way to export produced plots.</text>
+<text top="861" left="149" width="595" height="13" font="4">Now, with R ever growing in popularity as an open-source general purpose scientific computing</text>
+<text top="878" left="149" width="595" height="13" font="4">lenguage, it is logical that available code to implement phase plane methods would serve as a</text>
+<text top="894" left="148" width="450" height="13" font="4">valuable resource. The first attempts in this direction were implemented by</text>
+<text top="894" left="602" width="104" height="13" font="7"><a href="2014-2-grayling.html#9">Kaplan and Flath</a></text>
+<text top="894" left="709" width="5" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="894" left="714" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">2004</a></text>
+<text top="894" left="741" width="5" height="13" font="4"><a href="2014-2-grayling.html#9">)</a></text>
+<text top="911" left="149" width="595" height="13" font="4">at Macalester College who created several short programmes to analyse two dimensional ODEs and</text>
+<text top="927" left="148" width="213" height="13" font="4">provided several example systems.</text>
+<text top="927" left="366" width="46" height="13" font="6"><a href="http://CRAN.R-project.org/package=phaseR"><b>phaseR</b></a></text>
+<text top="927" left="415" width="329" height="13" font="4">extends their initial ideas in order to create a complete</text>
+<text top="944" left="148" width="596" height="13" font="4">package; one providing phase plane novices with the opportunity for independent learning, instructors</text>
+<text top="960" left="148" width="596" height="13" font="4">with a useful package for practical sessions, and experienced modellers with an easy means by which</text>
+<text top="976" left="149" width="146" height="13" font="4">to produce quality plots.</text>
+<text top="997" left="171" width="573" height="13" font="4">Overall, <b>phaseR </b>maintains the original structure of Kaplan and Flath’s code; with key functions</text>
+<text top="1014" left="149" width="595" height="13" font="4">available for each of the steps of a full phase plane analysis. Specifically, it can assist in identifying</text>
+<text top="1030" left="149" width="595" height="13" font="4">and classifying equilibrium points, allows direction fields as well as nullclines to be plotted, and</text>
+<text top="1047" left="149" width="595" height="13" font="4">allows trajectories to be added to plots for user specified initial conditions. <b>phaseR</b>, however, extends</text>
+<text top="1063" left="149" width="595" height="13" font="4">the functionality of the code to allow analysis of both one and two dimensional systems, whilst also</text>
+<text top="1080" left="149" width="595" height="13" font="4">allowing for far greater control over the final produced plot. Moreover, <b>phaseR </b>comes complete</text>
+<text top="1096" left="148" width="596" height="13" font="4">with an extensive guide detailing the techniques of phase plane analysis, also containing numerous</text>
+<text top="1112" left="149" width="595" height="13" font="4">examples and exercises. Finally, <b>phaseR </b>makes use of available R packages for finding numerical</text>
+<text top="1129" left="149" width="596" height="13" font="4">solutions to ODEs in order to ensure maximum stability of the required integration step. I will now</text>
+<text top="1145" left="148" width="596" height="13" font="4">proceed by briefly reviewing the techniques of phase plane analysis, before discussing the usage of the</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+	<fontspec id="9" size="11" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">44</text>
+<text top="103" left="148" width="209" height="13" font="4">package through several examples.</text>
+<text top="148" left="149" width="363" height="17" font="5"><b>One dimensional autonomous ODE systems</b></text>
+<text top="189" left="148" width="333" height="13" font="4">Any one dimensional autonomous ODE, of a function y</text>
+<text top="189" left="485" width="11" height="12" font="0">=</text>
+<text top="189" left="500" width="7" height="13" font="4">y</text>
+<text top="189" left="507" width="5" height="12" font="0">(</text>
+<text top="189" left="513" width="4" height="13" font="4">t</text>
+<text top="189" left="518" width="20" height="12" font="0">) =</text>
+<text top="189" left="542" width="7" height="13" font="4">y</text>
+<text top="193" left="549" width="3" height="10" font="8">t</text>
+<text top="189" left="554" width="190" height="13" font="4">, can be written in the following</text>
+<text top="205" left="149" width="29" height="13" font="4">form</text>
+<text top="217" left="409" width="14" height="13" font="4">dy</text>
+<text top="221" left="423" width="3" height="10" font="8">t</text>
+<text top="235" left="412" width="12" height="13" font="4">dt</text>
+<text top="226" left="433" width="11" height="12" font="0">=</text>
+<text top="226" left="450" width="4" height="13" font="4">f</text>
+<text top="226" left="458" width="5" height="12" font="0">(</text>
+<text top="226" left="463" width="7" height="13" font="4">y</text>
+<text top="230" left="470" width="3" height="10" font="8">t</text>
+<text top="226" left="475" width="5" height="12" font="0">)</text>
+<text top="226" left="483" width="3" height="13" font="4">.</text>
+<text top="252" left="148" width="596" height="13" font="4">Thus, autonomous systems are characterised by not explicitly depending on the independent variable</text>
+<text top="269" left="149" width="595" height="14" font="4">t. For such systems, phase plane analysis begins by plotting at a range of values for both the dependent</text>
+<text top="285" left="149" width="473" height="13" font="4">and the independent variable, a small arrow indicating the rate of change of y</text>
+<text top="289" left="622" width="3" height="10" font="8">t</text>
+<text top="285" left="630" width="114" height="13" font="4">as provided by the</text>
+<text top="302" left="149" width="595" height="13" font="4">ODE. This plot, commonly referred to as the direction field, is useful because solutions to the ODE</text>
+<text top="318" left="149" width="596" height="13" font="4">must pass through the arrows in a tangential manner. Therefore, once produced, it provides an easy</text>
+<text top="334" left="149" width="595" height="13" font="4">construction from which to draw trajectories for any initial condition without the need to solve the</text>
+<text top="351" left="149" width="33" height="13" font="4">ODE.</text>
+<text top="372" left="171" width="524" height="13" font="4">Following this, so-called equilibrium points are determined. Defined as the points y</text>
+<text top="375" left="695" width="5" height="10" font="8">∗</text>
+<text top="372" left="706" width="38" height="13" font="4">where</text>
+<text top="388" left="151" width="4" height="13" font="4">f</text>
+<text top="388" left="159" width="5" height="12" font="0">(</text>
+<text top="388" left="165" width="7" height="13" font="4">y</text>
+<text top="392" left="172" width="5" height="10" font="8">∗</text>
+<text top="388" left="178" width="20" height="12" font="0">) =</text>
+<text top="388" left="202" width="542" height="13" font="4">0, the reason for their name is easy to see: beginning at such a point, because of the lack of</text>
+<text top="405" left="149" width="597" height="13" font="4">explicit dependence upon t in f , means the solution will remain there for all values of t. Moreover,</text>
+<text top="421" left="149" width="595" height="13" font="4">these points are then classified as either stable or unstable, depending upon whether solutions converge</text>
+<text top="438" left="149" width="595" height="13" font="4">towards, or diverge away, from them. Stability may here be determined from a ’phase portrait plot’ of</text>
+<text top="454" left="151" width="4" height="13" font="4">f</text>
+<text top="454" left="159" width="5" height="12" font="0">(</text>
+<text top="454" left="165" width="7" height="13" font="4">y</text>
+<text top="458" left="172" width="3" height="10" font="8">t</text>
+<text top="454" left="176" width="5" height="12" font="0">)</text>
+<text top="454" left="185" width="53" height="13" font="4">against y</text>
+<text top="458" left="239" width="3" height="10" font="8">t</text>
+<text top="454" left="246" width="401" height="13" font="4">; on which arrows are placed indicating the direction of change of y</text>
+<text top="458" left="648" width="3" height="10" font="8">t</text>
+<text top="454" left="656" width="89" height="13" font="4">with t. Arrows</text>
+<text top="470" left="148" width="596" height="13" font="4">pointing towards each other on either side of an equilibrium point denote stability, whilst arrows</text>
+<text top="487" left="148" width="596" height="13" font="4">pointing away from each other indicate the presence of an unstable point. Alternatively, a Taylor</text>
+<text top="503" left="149" width="595" height="13" font="4">Series argument can be utilised to define a simple criterion. The argument proceeds by supposing the</text>
+<text top="520" left="149" width="194" height="13" font="4">system begins a small distance <i>δ</i></text>
+<text top="524" left="343" width="5" height="10" font="8">0</text>
+<text top="520" left="352" width="167" height="13" font="4">away from the fixed point y</text>
+<text top="523" left="519" width="5" height="10" font="8">∗</text>
+<text top="520" left="525" width="38" height="13" font="4">, i. e. y</text>
+<text top="524" left="563" width="5" height="10" font="8">0</text>
+<text top="520" left="573" width="11" height="12" font="0">=</text>
+<text top="520" left="588" width="7" height="13" font="4">y</text>
+<text top="523" left="595" width="5" height="10" font="8">∗</text>
+<text top="520" left="604" width="11" height="12" font="0">+</text>
+<text top="523" left="618" width="6" height="10" font="9"><i>δ</i></text>
+<text top="524" left="624" width="5" height="10" font="8">0</text>
+<text top="520" left="630" width="114" height="13" font="4">. Then, writing our</text>
+<text top="536" left="149" width="140" height="13" font="4">general expression for y</text>
+<text top="540" left="289" width="3" height="10" font="8">t</text>
+<text top="536" left="297" width="22" height="13" font="4">as y</text>
+<text top="540" left="319" width="3" height="10" font="8">t</text>
+<text top="536" left="328" width="11" height="12" font="0">=</text>
+<text top="536" left="343" width="7" height="13" font="4">y</text>
+<text top="540" left="350" width="5" height="10" font="8">∗</text>
+<text top="536" left="359" width="11" height="12" font="0">+</text>
+<text top="539" left="373" width="6" height="10" font="9"><i>δ</i></text>
+<text top="540" left="379" width="3" height="10" font="8">t</text>
+<text top="536" left="383" width="361" height="13" font="4">, we use the Taylor Series expansion of f to form a differential</text>
+<text top="553" left="149" width="112" height="13" font="4">equation for how <i>δ</i></text>
+<text top="557" left="261" width="3" height="10" font="8">t</text>
+<text top="553" left="269" width="87" height="13" font="4">changes with t</text>
+<text top="589" left="328" width="4" height="13" font="4">f</text>
+<text top="590" left="336" width="5" height="12" font="0">(</text>
+<text top="589" left="342" width="7" height="13" font="4">y</text>
+<text top="593" left="349" width="5" height="10" font="8">∗</text>
+<text top="589" left="358" width="11" height="12" font="0">+</text>
+<text top="593" left="372" width="6" height="10" font="9"><i>δ</i></text>
+<text top="594" left="378" width="3" height="10" font="8">t</text>
+<text top="590" left="383" width="20" height="12" font="0">) =</text>
+<text top="589" left="409" width="4" height="13" font="4">f</text>
+<text top="590" left="417" width="5" height="12" font="0">(</text>
+<text top="589" left="423" width="7" height="13" font="4">y</text>
+<text top="593" left="430" width="5" height="10" font="8">∗</text>
+<text top="590" left="436" width="19" height="12" font="0">) +</text>
+<text top="593" left="459" width="6" height="10" font="9"><i>δ</i></text>
+<text top="594" left="465" width="3" height="10" font="8">t</text>
+<text top="584" left="473" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="602" left="471" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="603" left="485" width="3" height="10" font="8">t</text>
+<text top="590" left="493" width="5" height="12" font="0">(</text>
+<text top="589" left="499" width="7" height="13" font="4">y</text>
+<text top="593" left="506" width="5" height="10" font="8">∗</text>
+<text top="590" left="513" width="19" height="12" font="0">) +</text>
+<text top="589" left="535" width="6" height="13" font="4">o</text>
+<text top="589" left="541" width="5" height="12" font="0">(</text>
+<text top="593" left="547" width="6" height="10" font="9"><i>δ</i></text>
+<text top="594" left="553" width="3" height="10" font="8">t</text>
+<text top="589" left="558" width="5" height="12" font="0">)</text>
+<text top="590" left="563" width="3" height="13" font="4">,</text>
+<text top="627" left="148" width="417" height="13" font="4">where we have assumed higher order terms are negligible. Recalling f</text>
+<text top="627" left="569" width="5" height="12" font="0">(</text>
+<text top="627" left="575" width="7" height="13" font="4">y</text>
+<text top="631" left="582" width="5" height="10" font="8">∗</text>
+<text top="627" left="588" width="20" height="12" font="0">) =</text>
+<text top="627" left="613" width="121" height="13" font="4">0, our ODE becomes</text>
+<text top="655" left="353" width="7" height="13" font="4">d</text>
+<text top="673" left="351" width="12" height="13" font="4">dt</text>
+<text top="664" left="366" width="4" height="13" font="4">f</text>
+<text top="664" left="375" width="5" height="12" font="0">(</text>
+<text top="664" left="380" width="7" height="13" font="4">y</text>
+<text top="667" left="387" width="5" height="10" font="8">∗</text>
+<text top="664" left="396" width="11" height="12" font="0">+</text>
+<text top="667" left="410" width="6" height="10" font="9"><i>δ</i></text>
+<text top="668" left="416" width="3" height="10" font="8">t</text>
+<text top="664" left="421" width="20" height="12" font="0">) =</text>
+<text top="667" left="445" width="6" height="10" font="9"><i>δ</i></text>
+<text top="668" left="451" width="3" height="10" font="8">t</text>
+<text top="658" left="460" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="676" left="458" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="677" left="471" width="3" height="10" font="8">t</text>
+<text top="664" left="480" width="5" height="12" font="0">(</text>
+<text top="664" left="486" width="7" height="13" font="4">y</text>
+<text top="667" left="493" width="5" height="10" font="8">∗</text>
+<text top="664" left="499" width="5" height="12" font="0">)</text>
+<text top="664" left="507" width="3" height="13" font="4">,</text>
+<text top="701" left="387" width="14" height="13" font="0">⇒</text>
+<text top="693" left="407" width="13" height="13" font="4">d<i>δ</i></text>
+<text top="697" left="420" width="3" height="10" font="8">t</text>
+<text top="711" left="410" width="12" height="13" font="4">dt</text>
+<text top="702" left="430" width="11" height="12" font="0">=</text>
+<text top="705" left="445" width="6" height="10" font="9"><i>δ</i></text>
+<text top="706" left="451" width="3" height="10" font="8">t</text>
+<text top="696" left="460" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="714" left="458" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="715" left="471" width="3" height="10" font="8">t</text>
+<text top="702" left="480" width="5" height="12" font="0">(</text>
+<text top="702" left="486" width="7" height="13" font="4">y</text>
+<text top="705" left="493" width="5" height="10" font="8">∗</text>
+<text top="702" left="499" width="20" height="12" font="0">) =</text>
+<text top="702" left="524" width="13" height="13" font="4">k<i>δ</i></text>
+<text top="706" left="536" width="3" height="10" font="8">t</text>
+<text top="702" left="541" width="3" height="13" font="4">.</text>
+<text top="741" left="148" width="166" height="13" font="4">This autonomous ODE for <i>δ</i></text>
+<text top="746" left="314" width="3" height="10" font="8">t</text>
+<text top="741" left="322" width="171" height="13" font="4">can be solved easily to give <i>δ</i></text>
+<text top="746" left="492" width="3" height="10" font="8">t</text>
+<text top="741" left="500" width="11" height="12" font="0">=</text>
+<text top="745" left="515" width="6" height="10" font="9"><i>δ</i></text>
+<text top="746" left="521" width="5" height="10" font="8">0</text>
+<text top="741" left="527" width="5" height="13" font="4">e</text>
+<text top="739" left="533" width="8" height="10" font="8">kt</text>
+<text top="741" left="542" width="202" height="13" font="4">. This analysis is useful to us since</text>
+<text top="758" left="149" width="306" height="13" font="4">stability can be determined based upon whether <i>δ</i></text>
+<text top="762" left="455" width="3" height="10" font="8">t</text>
+<text top="758" left="463" width="281" height="13" font="4">grows, or decays, as t increases, i. e. using the</text>
+<text top="774" left="149" width="94" height="13" font="4">simple criterion</text>
+<text top="803" left="340" width="6" height="13" font="4">k</text>
+<text top="803" left="350" width="11" height="12" font="0">=</text>
+<text top="797" left="369" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="815" left="367" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="817" left="381" width="3" height="10" font="8">t</text>
+<text top="803" left="389" width="5" height="12" font="0">(</text>
+<text top="803" left="395" width="7" height="13" font="4">y</text>
+<text top="807" left="402" width="5" height="10" font="8">∗</text>
+<text top="803" left="409" width="20" height="12" font="0">) =</text>
+<text top="789" left="433" width="11" height="6" font="4">(</text>
+<text top="794" left="444" width="11" height="12" font="0">&gt;</text>
+<text top="794" left="459" width="7" height="13" font="4">0</text>
+<text top="794" left="493" width="39" height="13" font="4">Stable,</text>
+<text top="813" left="444" width="11" height="12" font="0">&lt;</text>
+<text top="814" left="459" width="7" height="13" font="4">0</text>
+<text top="814" left="493" width="53" height="13" font="4">Unstable</text>
+<text top="803" left="550" width="3" height="13" font="4">.</text>
+<text top="860" left="149" width="363" height="17" font="5"><b>Two dimensional autonomous ODE systems</b></text>
+<text top="901" left="149" width="266" height="13" font="4">In the two dimensional case, for functions x</text>
+<text top="901" left="419" width="11" height="12" font="0">=</text>
+<text top="901" left="435" width="7" height="13" font="4">x</text>
+<text top="901" left="442" width="5" height="12" font="0">(</text>
+<text top="901" left="448" width="4" height="13" font="4">t</text>
+<text top="901" left="453" width="21" height="12" font="0">) =</text>
+<text top="901" left="478" width="7" height="13" font="4">x</text>
+<text top="905" left="485" width="3" height="10" font="8">t</text>
+<text top="901" left="493" width="34" height="13" font="4">and y</text>
+<text top="901" left="531" width="11" height="12" font="0">=</text>
+<text top="901" left="547" width="7" height="13" font="4">y</text>
+<text top="901" left="554" width="5" height="12" font="0">(</text>
+<text top="901" left="560" width="4" height="13" font="4">t</text>
+<text top="901" left="564" width="21" height="12" font="0">) =</text>
+<text top="901" left="590" width="7" height="13" font="4">y</text>
+<text top="905" left="597" width="3" height="10" font="8">t</text>
+<text top="901" left="601" width="143" height="13" font="4">, any autonomous ODE</text>
+<text top="917" left="149" width="145" height="13" font="4">system can be written as</text>
+<text top="932" left="349" width="14" height="13" font="4">dx</text>
+<text top="936" left="363" width="3" height="10" font="8">t</text>
+<text top="950" left="352" width="12" height="13" font="4">dt</text>
+<text top="941" left="373" width="11" height="12" font="0">=</text>
+<text top="941" left="390" width="4" height="13" font="4">f</text>
+<text top="941" left="398" width="5" height="12" font="0">(</text>
+<text top="941" left="404" width="7" height="13" font="4">x</text>
+<text top="945" left="411" width="3" height="10" font="8">t</text>
+<text top="941" left="415" width="12" height="13" font="4">, y</text>
+<text top="945" left="428" width="3" height="10" font="8">t</text>
+<text top="941" left="433" width="5" height="12" font="0">)</text>
+<text top="941" left="440" width="3" height="13" font="4">,</text>
+<text top="932" left="452" width="14" height="13" font="4">dy</text>
+<text top="936" left="466" width="3" height="10" font="8">t</text>
+<text top="950" left="455" width="12" height="13" font="4">dt</text>
+<text top="941" left="476" width="11" height="12" font="0">=</text>
+<text top="941" left="491" width="7" height="13" font="4">g</text>
+<text top="941" left="500" width="5" height="12" font="0">(</text>
+<text top="941" left="506" width="7" height="13" font="4">x</text>
+<text top="945" left="513" width="3" height="10" font="8">t</text>
+<text top="941" left="518" width="12" height="13" font="4">, y</text>
+<text top="945" left="531" width="3" height="10" font="8">t</text>
+<text top="941" left="535" width="5" height="12" font="0">)</text>
+<text top="941" left="543" width="3" height="13" font="4">.</text>
+<text top="968" left="148" width="596" height="13" font="4">Thus as before, these systems are characterised by a lack of explicit dependence upon the independent</text>
+<text top="984" left="148" width="262" height="13" font="4">variable t in the functional forms of f and g.</text>
+<text top="1005" left="171" width="573" height="13" font="4">The direction field, more commonly referred to here as the velocity field, is again produced to</text>
+<text top="1022" left="148" width="596" height="13" font="4">provide a powerful way by which to plot trajectories for any initial condition. However, here this is</text>
+<text top="1038" left="149" width="96" height="13" font="4">done so in the x</text>
+<text top="1042" left="245" width="3" height="10" font="8">t</text>
+<text top="1038" left="250" width="11" height="13" font="4">-y</text>
+<text top="1042" left="261" width="3" height="10" font="8">t</text>
+<text top="1038" left="269" width="475" height="13" font="4">plane, rather than that containing the independent variable. This visualisation</text>
+<text top="1054" left="148" width="525" height="13" font="4">proves to be the best way by which to examine an autonomous two dimensional system.</text>
+<text top="1075" left="171" width="573" height="13" font="4">Commonly, to assist the plotting of the velocity field, nullclines are first computed. These are</text>
+<text top="1092" left="149" width="181" height="13" font="4">defined as the location where f</text>
+<text top="1092" left="335" width="5" height="12" font="0">(</text>
+<text top="1092" left="341" width="7" height="13" font="4">x</text>
+<text top="1096" left="348" width="3" height="10" font="8">t</text>
+<text top="1092" left="352" width="12" height="13" font="4">, y</text>
+<text top="1096" left="365" width="3" height="10" font="8">t</text>
+<text top="1092" left="369" width="20" height="12" font="0">) =</text>
+<text top="1092" left="394" width="33" height="13" font="4">0 or g</text>
+<text top="1092" left="429" width="5" height="12" font="0">(</text>
+<text top="1092" left="435" width="7" height="13" font="4">x</text>
+<text top="1096" left="442" width="3" height="10" font="8">t</text>
+<text top="1092" left="447" width="12" height="13" font="4">, y</text>
+<text top="1096" left="459" width="3" height="10" font="8">t</text>
+<text top="1092" left="464" width="20" height="12" font="0">) =</text>
+<text top="1092" left="488" width="256" height="13" font="4">0. Thus they define the curves across which</text>
+<text top="1108" left="149" width="45" height="13" font="4">either x</text>
+<text top="1112" left="195" width="3" height="10" font="8">t</text>
+<text top="1108" left="202" width="23" height="13" font="4">or y</text>
+<text top="1112" left="226" width="3" height="10" font="8">t</text>
+<text top="1108" left="233" width="511" height="13" font="4">does not change in t. Any velocity arrows produced will therefore either be perfectly</text>
+<text top="1125" left="149" width="596" height="13" font="4">horizontal or vertical. Since a velocity field must vary continuously across a particular nullcline, by</text>
+<text top="1141" left="149" width="595" height="13" font="4">the uniqueness of solutions to ODEs, nullclines can be used to check that no arrows have been plotted</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="10" size="8" family="Times" color="#000000"/>
+	<fontspec id="11" size="5" family="Times" color="#000000"/>
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">45</text>
+<text top="103" left="149" width="65" height="13" font="4">incorrectly.</text>
+<text top="124" left="171" width="575" height="13" font="4">As one would expect, equilibrium points retain their great importance in two dimensions. Here,</text>
+<text top="141" left="149" width="258" height="13" font="4">their definition generalises as the locations</text>
+<text top="141" left="410" width="5" height="12" font="0">(</text>
+<text top="140" left="416" width="7" height="13" font="4">x</text>
+<text top="144" left="423" width="5" height="10" font="8">∗</text>
+<text top="141" left="430" width="12" height="13" font="4">, y</text>
+<text top="144" left="442" width="5" height="10" font="8">∗</text>
+<text top="141" left="449" width="5" height="12" font="0">)</text>
+<text top="141" left="458" width="47" height="13" font="4">where f</text>
+<text top="141" left="509" width="5" height="12" font="0">(</text>
+<text top="140" left="515" width="7" height="13" font="4">x</text>
+<text top="144" left="522" width="5" height="10" font="8">∗</text>
+<text top="141" left="528" width="12" height="13" font="4">, y</text>
+<text top="144" left="541" width="5" height="10" font="8">∗</text>
+<text top="141" left="548" width="20" height="12" font="0">) =</text>
+<text top="140" left="573" width="7" height="13" font="4">g</text>
+<text top="141" left="582" width="5" height="12" font="0">(</text>
+<text top="140" left="588" width="7" height="13" font="4">x</text>
+<text top="144" left="595" width="5" height="10" font="8">∗</text>
+<text top="141" left="601" width="12" height="13" font="4">, y</text>
+<text top="144" left="614" width="5" height="10" font="8">∗</text>
+<text top="141" left="621" width="20" height="12" font="0">) =</text>
+<text top="141" left="645" width="101" height="13" font="4">0. Consequently,</text>
+<text top="157" left="149" width="143" height="13" font="4">the intersection of the x</text>
+<text top="161" left="292" width="3" height="10" font="8">t</text>
+<text top="157" left="300" width="34" height="13" font="4">and y</text>
+<text top="161" left="334" width="3" height="10" font="8">t</text>
+<text top="157" left="342" width="402" height="13" font="4">nullclines can be used to determine their location. Stability here is</text>
+<text top="173" left="149" width="595" height="13" font="4">defined in an analogous manner to the one dimensional case, whilst a Taylor Series argument again</text>
+<text top="190" left="149" width="595" height="13" font="4">allows the formulation of a simple rule for determining said stability. As before, it supposes that we</text>
+<text top="206" left="149" width="240" height="13" font="4">have an equilibrium point, now given by</text>
+<text top="206" left="392" width="5" height="12" font="0">(</text>
+<text top="206" left="398" width="7" height="13" font="4">x</text>
+<text top="210" left="405" width="5" height="10" font="8">∗</text>
+<text top="206" left="412" width="12" height="13" font="4">, y</text>
+<text top="210" left="425" width="5" height="10" font="8">∗</text>
+<text top="206" left="431" width="5" height="12" font="0">)</text>
+<text top="206" left="437" width="307" height="13" font="4">, and that the system initially lies slightly away from</text>
+<text top="223" left="149" width="74" height="13" font="4">this point at</text>
+<text top="223" left="227" width="5" height="12" font="0">(</text>
+<text top="223" left="233" width="7" height="13" font="4">x</text>
+<text top="226" left="240" width="5" height="10" font="8">∗</text>
+<text top="223" left="249" width="11" height="12" font="0">+</text>
+<text top="226" left="263" width="6" height="10" font="9"><i>δ</i></text>
+<text top="227" left="268" width="5" height="10" font="8">0</text>
+<text top="223" left="274" width="12" height="13" font="4">, y</text>
+<text top="226" left="287" width="5" height="10" font="8">∗</text>
+<text top="223" left="296" width="11" height="12" font="0">+</text>
+<text top="226" left="310" width="6" height="10" font="9"><i>e</i></text>
+<text top="227" left="316" width="5" height="10" font="8">0</text>
+<text top="223" left="323" width="5" height="12" font="0">)</text>
+<text top="223" left="328" width="151" height="13" font="4">, and in general we have</text>
+<text top="223" left="483" width="5" height="12" font="0">(</text>
+<text top="223" left="489" width="7" height="13" font="4">x</text>
+<text top="227" left="496" width="3" height="10" font="8">t</text>
+<text top="223" left="501" width="12" height="13" font="4">, y</text>
+<text top="227" left="513" width="3" height="10" font="8">t</text>
+<text top="223" left="518" width="32" height="12" font="0">) = (</text>
+<text top="223" left="550" width="7" height="13" font="4">x</text>
+<text top="226" left="558" width="5" height="10" font="8">∗</text>
+<text top="223" left="567" width="11" height="12" font="0">+</text>
+<text top="226" left="580" width="6" height="10" font="9"><i>δ</i></text>
+<text top="227" left="586" width="3" height="10" font="8">t</text>
+<text top="223" left="591" width="12" height="13" font="4">, y</text>
+<text top="226" left="604" width="5" height="10" font="8">∗</text>
+<text top="223" left="613" width="11" height="12" font="0">+</text>
+<text top="226" left="627" width="6" height="10" font="9"><i>e</i></text>
+<text top="227" left="633" width="3" height="10" font="8">t</text>
+<text top="223" left="638" width="5" height="12" font="0">)</text>
+<text top="223" left="643" width="101" height="13" font="4">. Then using the</text>
+<text top="239" left="148" width="314" height="13" font="4">Taylor expansion for f , the differential equation for x</text>
+<text top="243" left="463" width="3" height="10" font="8">t</text>
+<text top="239" left="471" width="51" height="13" font="4">becomes</text>
+<text top="267" left="258" width="13" height="13" font="4">d<i>δ</i></text>
+<text top="271" left="272" width="3" height="10" font="8">t</text>
+<text top="285" left="261" width="12" height="13" font="4">dt</text>
+<text top="276" left="282" width="11" height="12" font="0">=</text>
+<text top="276" left="298" width="4" height="13" font="4">f</text>
+<text top="276" left="306" width="5" height="12" font="0">(</text>
+<text top="276" left="312" width="7" height="13" font="4">x</text>
+<text top="279" left="319" width="5" height="10" font="8">∗</text>
+<text top="276" left="329" width="11" height="12" font="0">+</text>
+<text top="279" left="342" width="6" height="10" font="9"><i>δ</i></text>
+<text top="280" left="348" width="3" height="10" font="8">t</text>
+<text top="276" left="353" width="12" height="13" font="4">, y</text>
+<text top="279" left="366" width="5" height="10" font="8">∗</text>
+<text top="276" left="375" width="11" height="12" font="0">+</text>
+<text top="279" left="389" width="6" height="10" font="9"><i>e</i></text>
+<text top="280" left="395" width="3" height="10" font="8">t</text>
+<text top="276" left="399" width="5" height="12" font="0">)</text>
+<text top="276" left="407" width="3" height="13" font="4">,</text>
+<text top="310" left="282" width="11" height="12" font="0">=</text>
+<text top="310" left="298" width="4" height="13" font="4">f</text>
+<text top="310" left="306" width="5" height="12" font="0">(</text>
+<text top="310" left="312" width="7" height="13" font="4">x</text>
+<text top="314" left="319" width="5" height="10" font="8">∗</text>
+<text top="310" left="326" width="12" height="13" font="4">, y</text>
+<text top="314" left="339" width="5" height="10" font="8">∗</text>
+<text top="310" left="345" width="19" height="12" font="0">) +</text>
+<text top="313" left="367" width="6" height="10" font="9"><i>δ</i></text>
+<text top="314" left="373" width="3" height="10" font="8">t</text>
+<text top="304" left="382" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="323" left="380" width="14" height="10" font="9"><i>∂</i>x</text>
+<text top="324" left="394" width="3" height="10" font="8">t</text>
+<text top="310" left="402" width="5" height="12" font="0">(</text>
+<text top="310" left="408" width="7" height="13" font="4">x</text>
+<text top="314" left="415" width="5" height="10" font="8">∗</text>
+<text top="310" left="422" width="12" height="13" font="4">, y</text>
+<text top="314" left="434" width="5" height="10" font="8">∗</text>
+<text top="310" left="441" width="19" height="12" font="0">) +</text>
+<text top="313" left="463" width="6" height="10" font="9"><i>e</i></text>
+<text top="314" left="470" width="3" height="10" font="8">t</text>
+<text top="304" left="478" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="323" left="476" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="324" left="490" width="3" height="10" font="8">t</text>
+<text top="310" left="498" width="5" height="12" font="0">(</text>
+<text top="310" left="504" width="7" height="13" font="4">x</text>
+<text top="314" left="511" width="5" height="10" font="8">∗</text>
+<text top="310" left="518" width="12" height="13" font="4">, y</text>
+<text top="314" left="531" width="5" height="10" font="8">∗</text>
+<text top="310" left="537" width="19" height="12" font="0">) +</text>
+<text top="310" left="559" width="6" height="13" font="4">o</text>
+<text top="310" left="566" width="5" height="12" font="0">(</text>
+<text top="313" left="572" width="6" height="10" font="9"><i>δ</i></text>
+<text top="314" left="577" width="3" height="10" font="8">t</text>
+<text top="310" left="582" width="19" height="12" font="0">) +</text>
+<text top="310" left="604" width="6" height="13" font="4">o</text>
+<text top="310" left="611" width="5" height="12" font="0">(</text>
+<text top="313" left="616" width="6" height="10" font="9"><i>e</i></text>
+<text top="314" left="623" width="3" height="10" font="8">t</text>
+<text top="310" left="627" width="5" height="12" font="0">)</text>
+<text top="310" left="633" width="3" height="13" font="4">,</text>
+<text top="348" left="282" width="11" height="12" font="0">=</text>
+<text top="351" left="297" width="6" height="10" font="9"><i>δ</i></text>
+<text top="352" left="303" width="3" height="10" font="8">t</text>
+<text top="342" left="311" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="360" left="309" width="14" height="10" font="9"><i>∂</i>x</text>
+<text top="361" left="323" width="3" height="10" font="8">t</text>
+<text top="348" left="332" width="5" height="12" font="0">(</text>
+<text top="348" left="338" width="7" height="13" font="4">x</text>
+<text top="352" left="345" width="5" height="10" font="8">∗</text>
+<text top="348" left="351" width="12" height="13" font="4">, y</text>
+<text top="352" left="364" width="5" height="10" font="8">∗</text>
+<text top="348" left="370" width="19" height="12" font="0">) +</text>
+<text top="351" left="392" width="6" height="10" font="9"><i>e</i></text>
+<text top="352" left="399" width="3" height="10" font="8">t</text>
+<text top="342" left="407" width="12" height="10" font="9"><i>∂ </i>f</text>
+<text top="360" left="405" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="361" left="419" width="3" height="10" font="8">t</text>
+<text top="348" left="428" width="5" height="12" font="0">(</text>
+<text top="348" left="434" width="7" height="13" font="4">x</text>
+<text top="352" left="441" width="5" height="10" font="8">∗</text>
+<text top="348" left="447" width="12" height="13" font="4">, y</text>
+<text top="352" left="460" width="5" height="10" font="8">∗</text>
+<text top="348" left="466" width="19" height="12" font="0">) +</text>
+<text top="348" left="489" width="6" height="13" font="4">o</text>
+<text top="348" left="495" width="5" height="12" font="0">(</text>
+<text top="351" left="501" width="6" height="10" font="9"><i>δ</i></text>
+<text top="352" left="507" width="3" height="10" font="8">t</text>
+<text top="348" left="511" width="19" height="12" font="0">) +</text>
+<text top="348" left="534" width="6" height="13" font="4">o</text>
+<text top="348" left="540" width="5" height="12" font="0">(</text>
+<text top="351" left="546" width="6" height="10" font="9"><i>e</i></text>
+<text top="352" left="552" width="3" height="10" font="8">t</text>
+<text top="348" left="557" width="5" height="12" font="0">)</text>
+<text top="348" left="562" width="3" height="13" font="4">.</text>
+<text top="385" left="149" width="233" height="13" font="4">Similarly, the differential equation for y</text>
+<text top="389" left="382" width="3" height="10" font="8">t</text>
+<text top="385" left="390" width="51" height="13" font="4">becomes</text>
+<text top="413" left="294" width="13" height="13" font="4">d<i>e</i></text>
+<text top="417" left="307" width="3" height="10" font="8">t</text>
+<text top="431" left="297" width="12" height="13" font="4">dt</text>
+<text top="422" left="317" width="11" height="12" font="0">=</text>
+<text top="425" left="332" width="6" height="10" font="9"><i>δ</i></text>
+<text top="426" left="338" width="3" height="10" font="8">t</text>
+<text top="416" left="347" width="14" height="10" font="9"><i>∂</i>g</text>
+<text top="434" left="344" width="14" height="10" font="9"><i>∂</i>x</text>
+<text top="435" left="359" width="3" height="10" font="8">t</text>
+<text top="422" left="367" width="5" height="12" font="0">(</text>
+<text top="422" left="373" width="7" height="13" font="4">x</text>
+<text top="425" left="380" width="5" height="10" font="8">∗</text>
+<text top="422" left="387" width="12" height="13" font="4">, y</text>
+<text top="425" left="399" width="5" height="10" font="8">∗</text>
+<text top="422" left="406" width="19" height="12" font="0">) +</text>
+<text top="425" left="428" width="6" height="10" font="9"><i>e</i></text>
+<text top="426" left="434" width="3" height="10" font="8">t</text>
+<text top="416" left="443" width="14" height="10" font="9"><i>∂</i>g</text>
+<text top="434" left="441" width="14" height="10" font="9"><i>∂</i>y</text>
+<text top="435" left="455" width="3" height="10" font="8">t</text>
+<text top="422" left="463" width="5" height="12" font="0">(</text>
+<text top="422" left="469" width="7" height="13" font="4">x</text>
+<text top="425" left="476" width="5" height="10" font="8">∗</text>
+<text top="422" left="483" width="12" height="13" font="4">, y</text>
+<text top="425" left="495" width="5" height="10" font="8">∗</text>
+<text top="422" left="502" width="19" height="12" font="0">) +</text>
+<text top="422" left="524" width="6" height="13" font="4">o</text>
+<text top="422" left="531" width="5" height="12" font="0">(</text>
+<text top="425" left="536" width="6" height="10" font="9"><i>δ</i></text>
+<text top="426" left="542" width="3" height="10" font="8">t</text>
+<text top="422" left="547" width="19" height="12" font="0">) +</text>
+<text top="422" left="569" width="6" height="13" font="4">o</text>
+<text top="422" left="576" width="5" height="12" font="0">(</text>
+<text top="425" left="581" width="6" height="10" font="9"><i>e</i></text>
+<text top="426" left="588" width="3" height="10" font="8">t</text>
+<text top="422" left="592" width="5" height="12" font="0">)</text>
+<text top="422" left="598" width="3" height="13" font="4">.</text>
+<text top="459" left="149" width="595" height="13" font="4">In both equations we have again assumed terms of second order and higher are negligible. Now if we</text>
+<text top="475" left="148" width="260" height="13" font="4">write this system in matrix form we acquire</text>
+<text top="511" left="344" width="14" height="13" font="4">dδ</text>
+<text top="516" left="358" width="3" height="10" font="8">t</text>
+<text top="530" left="347" width="12" height="13" font="4">dt</text>
+<text top="521" left="368" width="11" height="12" font="0">=</text>
+<text top="503" left="385" width="12" height="6" font="4"></text>
+<text top="527" left="385" width="12" height="6" font="4"></text>
+<text top="506" left="400" width="10" height="8" font="10"><i>∂ </i>f</text>
+<text top="519" left="398" width="11" height="8" font="10"><i>∂</i>x</text>
+<text top="520" left="409" width="2" height="7" font="11">t</text>
+<text top="506" left="433" width="10" height="8" font="10"><i>∂ </i>f</text>
+<text top="519" left="431" width="11" height="8" font="10"><i>∂</i>y</text>
+<text top="520" left="442" width="2" height="7" font="11">t</text>
+<text top="530" left="400" width="11" height="8" font="10"><i>∂</i>g</text>
+<text top="542" left="398" width="11" height="8" font="10"><i>∂</i>x</text>
+<text top="543" left="409" width="2" height="7" font="11">t</text>
+<text top="530" left="433" width="11" height="8" font="10"><i>∂</i>g</text>
+<text top="542" left="431" width="11" height="8" font="10"><i>∂</i>y</text>
+<text top="543" left="442" width="2" height="7" font="11">t</text>
+<text top="503" left="448" width="12" height="6" font="4"></text>
+<text top="527" left="448" width="12" height="6" font="4"></text>
+<text top="502" left="460" width="4" height="6" font="4"></text>
+<text top="510" left="460" width="4" height="6" font="4"></text>
+<text top="518" left="460" width="4" height="6" font="4"></text>
+<text top="526" left="460" width="4" height="6" font="4"></text>
+<text top="534" left="460" width="4" height="6" font="4"></text>
+<text top="543" left="460" width="4" height="6" font="4"></text>
+<text top="544" left="464" width="10" height="10" font="8">(x</text>
+<text top="547" left="475" width="4" height="7" font="11">∗</text>
+<text top="544" left="479" width="8" height="10" font="8">,y</text>
+<text top="547" left="488" width="4" height="7" font="11">∗</text>
+<text top="544" left="492" width="4" height="10" font="8">)</text>
+<text top="521" left="500" width="7" height="12" font="4">δ</text>
+<text top="525" left="507" width="3" height="10" font="8">t</text>
+<text top="521" left="515" width="11" height="12" font="0">=</text>
+<text top="521" left="531" width="12" height="13" font="4">Jδ</text>
+<text top="525" left="544" width="3" height="10" font="8">t</text>
+<text top="521" left="548" width="3" height="13" font="4">.</text>
+<text top="573" left="149" width="296" height="13" font="4">Here J is called the Jacobian of the system, and δ</text>
+<text top="573" left="450" width="21" height="13" font="0">= (</text>
+<text top="576" left="471" width="6" height="10" font="9"><i>δ</i></text>
+<text top="573" left="477" width="12" height="13" font="4">, <i>e</i></text>
+<text top="573" left="490" width="5" height="12" font="0">)</text>
+<text top="568" left="495" width="8" height="10" font="8">&gt;</text>
+<text top="573" left="505" width="239" height="13" font="4">. It is consideration of the characteristic</text>
+<text top="589" left="149" width="595" height="13" font="4">equation of J, and the values of its eigenvalues it provides, that allows equilibrium points to be</text>
+<text top="606" left="149" width="595" height="13" font="4">classified, not only as either stable or unstable, but also in to sub-categories. Full details of this can be</text>
+<text top="622" left="149" width="598" height="13" font="4">found in the guide that accompanies <b>phaseR</b>, available in the documentation folder of its installation.</text>
+<text top="639" left="149" width="595" height="13" font="4">However, classification ultimately, and simply, depends upon the values of the determinant and trace</text>
+<text top="655" left="149" width="25" height="13" font="4">of J.</text>
+<text top="676" left="171" width="573" height="13" font="4">Thus, in both the one and two dimensional cases, phase plane methods allow trajectories to be</text>
+<text top="693" left="149" width="595" height="13" font="4">easily plotted, and the long-term behaviour of a system identified by classifying the equilibria. We</text>
+<text top="709" left="149" width="580" height="13" font="4">shall next see how <b>phaseR </b>can be used to perform such analyses using several simple commands.</text>
+<text top="754" left="149" width="115" height="17" font="5"><b>Key functions</b></text>
+<text top="793" left="148" width="46" height="13" font="3"><b>phaseR</b></text>
+<text top="793" left="197" width="420" height="13" font="4">employs six key functions for the employment of phase plane analysis.</text>
+<text top="823" left="171" width="8" height="13" font="4">•</text>
+<text top="819" left="186" width="558" height="18" font="4">flowField: Plots the direction or velocity field of one or two dimensional autonomous ODE</text>
+<text top="839" left="186" width="51" height="13" font="4">systems.</text>
+<text top="861" left="171" width="8" height="13" font="4">•</text>
+<text top="858" left="186" width="558" height="18" font="4">nullclines: Plots the nullclines of two dimensional autonomous ODE systems. Alternatively, it</text>
+<text top="878" left="186" width="558" height="13" font="4">can be used to plot horizontal lines at equilibrium points for one dimensional autonomous ODE</text>
+<text top="894" left="186" width="51" height="13" font="4">systems.</text>
+<text top="917" left="171" width="8" height="13" font="4">•</text>
+<text top="913" left="186" width="558" height="18" font="4">numericalSolution: For two dimensional systems, this function numerically solves the ODEs</text>
+<text top="933" left="186" width="558" height="13" font="4">for a given initial condition via <b>deSolve</b>, and then plots the dependent variables against the</text>
+<text top="950" left="186" width="558" height="13" font="4">independent variable. Thus, it behaves as a wrapper for the user to <b>deSolve</b>, allowing for easier</text>
+<text top="966" left="186" width="246" height="13" font="4">implementation and subsequent plotting.</text>
+<text top="988" left="171" width="8" height="13" font="4">•</text>
+<text top="985" left="186" width="558" height="18" font="4">phasePortrait: For one dimensional autonomous ODEs, it plots the phase portrait i. e. the</text>
+<text top="1005" left="186" width="558" height="13" font="4">derivative against the dependent variable. In addition, it adds arrows to the dependent variable</text>
+<text top="1021" left="186" width="441" height="13" font="4">axis from which the stability of any equilibrium points can be determined.</text>
+<text top="1044" left="171" width="8" height="13" font="4">•</text>
+<text top="1040" left="186" width="558" height="18" font="4">stability: Classifies equilibrium points, using the criteria that result from the aforementioned</text>
+<text top="1060" left="186" width="146" height="13" font="4">Taylor Series arguments.</text>
+<text top="1083" left="171" width="8" height="13" font="4">•</text>
+<text top="1079" left="186" width="230" height="18" font="4">trajectory: Plots trajectories in the x</text>
+<text top="1087" left="416" width="3" height="10" font="8">t</text>
+<text top="1083" left="421" width="11" height="13" font="4">-y</text>
+<text top="1087" left="432" width="3" height="10" font="8">t</text>
+<text top="1083" left="441" width="303" height="13" font="4">plane by performing numerical integration of the</text>
+<text top="1099" left="186" width="558" height="13" font="4">chosen ODE system, again via <b>deSolve</b>. Initial conditions can be specified as an argument, or</text>
+<text top="1115" left="186" width="363" height="13" font="4">by clicking with the cursor on locations in a pre-existing plot.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">46</text>
+<text top="103" left="171" width="573" height="13" font="4">As an example, standard phase plane analyses for a two dimensional ODE system would proceed</text>
+<text top="120" left="149" width="54" height="13" font="4">by using</text>
+<text top="116" left="208" width="536" height="18" font="4">flowField, nullclines and then trajectory to create a summarising plot, and finally</text>
+<text top="133" left="149" width="210" height="18" font="4">stability to classify the equilibria.</text>
+<text top="181" left="149" width="274" height="17" font="5"><b>Example 1: logistic growth model</b></text>
+<text top="220" left="148" width="596" height="13" font="4">To describe how <b>phaseR </b>can be used to analyse a one dimensional autonomous system of interest, we</text>
+<text top="236" left="148" width="371" height="13" font="4">will consider the logistic growth model. Originally proposed by</text>
+<text top="236" left="522" width="49" height="13" font="7"><a href="2014-2-grayling.html#9">Verhulst</a></text>
+<text top="236" left="574" width="4" height="13" font="4"><a href="2014-2-grayling.html#9">(</a></text>
+<text top="236" left="578" width="26" height="13" font="7"><a href="2014-2-grayling.html#9">1838</a></text>
+<text top="236" left="605" width="140" height="13" font="4"><a href="2014-2-grayling.html#9">), </a>this ODE is frequently</text>
+<text top="253" left="149" width="595" height="13" font="4">used in Biology to model the growth of a population under density dependence. It is given in its most</text>
+<text top="269" left="149" width="91" height="13" font="4">general case by</text>
+<text top="284" left="387" width="14" height="13" font="4">dy</text>
+<text top="288" left="401" width="3" height="10" font="8">t</text>
+<text top="302" left="390" width="12" height="13" font="4">dt</text>
+<text top="293" left="411" width="11" height="12" font="0">=</text>
+<text top="296" left="426" width="14" height="10" font="9"><i>β</i>y</text>
+<text top="297" left="441" width="3" height="10" font="8">t</text>
+<text top="287" left="448" width="8" height="6" font="4"></text>
+<text top="293" left="456" width="7" height="13" font="4">1</text>
+<text top="292" left="465" width="11" height="13" font="0">−</text>
+<text top="284" left="481" width="7" height="13" font="4">y</text>
+<text top="288" left="488" width="3" height="10" font="8">t</text>
+<text top="302" left="482" width="9" height="13" font="4">K</text>
+<text top="287" left="494" width="8" height="6" font="4"></text>
+<text top="293" left="505" width="3" height="13" font="4">.</text>
+<text top="324" left="171" width="573" height="13" font="4">To analyse any system using <b>phaseR</b>, a function must first be created to return the value of the</text>
+<text top="341" left="149" width="139" height="13" font="4">derivative at any point</text>
+<text top="341" left="291" width="5" height="12" font="0">(</text>
+<text top="341" left="297" width="17" height="14" font="4">t, y</text>
+<text top="341" left="314" width="5" height="12" font="0">)</text>
+<text top="341" left="320" width="424" height="13" font="4">, in a style compatible with <b>deSolve</b>. For this model such a function is</text>
+<text top="357" left="149" width="197" height="13" font="4">already present in the package as</text>
+<text top="354" left="349" width="276" height="18" font="4">logistic, which comprises the following code</text>
+<text top="384" left="149" width="268" height="18" font="4">logistic &lt;- function(t, y, parameters){</text>
+<text top="400" left="176" width="144" height="18" font="4">beta &lt;- parameters[1]</text>
+<text top="416" left="176" width="7" height="18" font="4">K</text>
+<text top="416" left="211" width="110" height="18" font="4">&lt;- parameters[2]</text>
+<text top="433" left="176" width="14" height="18" font="4">dy</text>
+<text top="433" left="211" width="130" height="18" font="4">&lt;- beta*y*(1 - y/K)</text>
+<text top="449" left="176" width="55" height="18" font="4">list(dy)</text>
+<text top="466" left="149" width="7" height="18" font="4">}</text>
+<text top="499" left="171" width="471" height="13" font="4">The general format of this derivative function should be a common one: given</text>
+<text top="496" left="646" width="98" height="18" font="4">t, y and a vector</text>
+<text top="512" left="149" width="515" height="18" font="4">parameters, it should simply return a list with first element the value of the derivative.</text>
+<text top="536" left="171" width="573" height="13" font="4">With this, we can then proceed with our desired analysis. From here we shall consider the</text>
+<text top="553" left="148" width="115" height="13" font="4">particular case beta</text>
+<text top="553" left="268" width="11" height="12" font="0">=</text>
+<text top="553" left="284" width="46" height="13" font="4">1 and K</text>
+<text top="553" left="335" width="11" height="12" font="0">=</text>
+<text top="553" left="350" width="220" height="13" font="4">2. The following code creates Figure</text>
+<text top="553" left="574" width="7" height="13" font="7"><a href="2014-2-grayling.html#5">1</a></text>
+<text top="553" left="581" width="165" height="13" font="4"><a href="2014-2-grayling.html#5">; </a>adding the direction field,</text>
+<text top="569" left="149" width="390" height="13" font="4">several trajectories and horizontal lines at any equilibrium points.</text>
+<text top="596" left="149" width="165" height="18" font="4">&gt; logistic.flowField &lt;-</text>
+<text top="612" left="149" width="7" height="18" font="4">+</text>
+<text top="612" left="190" width="370" height="18" font="4">flowField(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),</text>
+<text top="629" left="149" width="7" height="18" font="4">+</text>
+<text top="629" left="259" width="233" height="18" font="4">parameters = c(1, 2), points = 21,</text>
+<text top="645" left="149" width="7" height="18" font="4">+</text>
+<text top="645" left="259" width="302" height="18" font="4">system = &#34;one.dim&#34;, add = FALSE, xlab = &#34;t&#34;)</text>
+<text top="661" left="149" width="55" height="18" font="4">&gt; grid()</text>
+<text top="678" left="149" width="165" height="18" font="4">&gt; logistic.nullclines &lt;-</text>
+<text top="694" left="149" width="7" height="18" font="4">+</text>
+<text top="694" left="190" width="377" height="18" font="4">nullclines(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),</text>
+<text top="711" left="149" width="7" height="18" font="4">+</text>
+<text top="711" left="265" width="281" height="18" font="4">parameters = c(1, 2), system = &#34;one.dim&#34;)</text>
+<text top="727" left="149" width="165" height="18" font="4">&gt; logistic.trajectory &lt;-</text>
+<text top="744" left="149" width="7" height="18" font="4">+</text>
+<text top="744" left="190" width="412" height="18" font="4">trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5), t.end = 5,</text>
+<text top="760" left="149" width="7" height="18" font="4">+</text>
+<text top="760" left="265" width="460" height="18" font="4">parameters = c(1, 2), system = &#34;one.dim&#34;, colour = rep(&#34;black&#34;, 4))</text>
+<text top="793" left="171" width="573" height="13" font="4">Here we have tailored our result by setting a suitable range for the dependent and independent</text>
+<text top="810" left="148" width="596" height="13" font="4">variables, whilst by default suitable axes labels have been added to the plot. These are just several</text>
+<text top="826" left="149" width="469" height="13" font="4">input variables that can be changed to suit the needs of your particular system.</text>
+<text top="847" left="171" width="196" height="13" font="4">Now, we can observe from Figure</text>
+<text top="847" left="371" width="7" height="13" font="7"><a href="2014-2-grayling.html#5">1</a></text>
+<text top="847" left="381" width="363" height="13" font="4">that two equilibrium points have been identified; appearing to</text>
+<text top="864" left="149" width="24" height="13" font="4">be y</text>
+<text top="867" left="174" width="5" height="10" font="8">∗</text>
+<text top="864" left="184" width="11" height="12" font="0">=</text>
+<text top="864" left="199" width="44" height="13" font="4">0 and y</text>
+<text top="867" left="243" width="5" height="10" font="8">∗</text>
+<text top="864" left="253" width="11" height="12" font="0">=</text>
+<text top="864" left="268" width="476" height="13" font="4">2. We can confirm their location analytically however by setting the right hand</text>
+<text top="880" left="149" width="138" height="13" font="4">side of the ODE to zero</text>
+<text top="909" left="381" width="7" height="13" font="4">y</text>
+<text top="913" left="388" width="5" height="10" font="8">∗</text>
+<text top="903" left="396" width="8" height="6" font="4"></text>
+<text top="909" left="405" width="7" height="13" font="4">1</text>
+<text top="908" left="414" width="11" height="13" font="0">−</text>
+<text top="900" left="430" width="7" height="13" font="4">y</text>
+<text top="904" left="437" width="5" height="10" font="8">∗</text>
+<text top="918" left="433" width="7" height="13" font="4">2</text>
+<text top="903" left="445" width="8" height="6" font="4"></text>
+<text top="909" left="457" width="11" height="12" font="0">=</text>
+<text top="909" left="472" width="10" height="13" font="4">0,</text>
+<text top="935" left="422" width="14" height="13" font="0">⇒</text>
+<text top="936" left="440" width="7" height="13" font="4">y</text>
+<text top="939" left="447" width="5" height="10" font="8">∗</text>
+<text top="936" left="457" width="22" height="12" font="0">= {</text>
+<text top="936" left="479" width="22" height="13" font="4">0, 2</text>
+<text top="935" left="502" width="7" height="13" font="0">}</text>
+<text top="936" left="509" width="3" height="13" font="4">.</text>
+<text top="970" left="171" width="237" height="13" font="4">It appears from the trajectories in Figure</text>
+<text top="970" left="411" width="7" height="13" font="7"><a href="2014-2-grayling.html#5">1</a></text>
+<text top="970" left="421" width="90" height="13" font="4">that the point y</text>
+<text top="973" left="511" width="5" height="10" font="8">∗</text>
+<text top="970" left="521" width="11" height="12" font="0">=</text>
+<text top="970" left="536" width="97" height="13" font="4">2 is stable, and y</text>
+<text top="973" left="633" width="5" height="10" font="8">∗</text>
+<text top="970" left="643" width="11" height="12" font="0">=</text>
+<text top="970" left="658" width="86" height="13" font="4">0 unstable. We</text>
+<text top="986" left="149" width="529" height="13" font="4">can confirm this by plotting the phase portrait with the following code, producing Figure</text>
+<text top="986" left="681" width="7" height="13" font="7"><a href="2014-2-grayling.html#5">2</a></text>
+<text top="1013" left="149" width="501" height="18" font="4">&gt; logistic.phasePortrait &lt;- phasePortrait(logistic, y.lim = c(-0.5, 2.5),</text>
+<text top="1029" left="149" width="7" height="18" font="4">+</text>
+<text top="1029" left="437" width="233" height="18" font="4">parameters = c(1, 2), points = 10)</text>
+<text top="1045" left="149" width="55" height="18" font="4">&gt; grid()</text>
+<text top="1079" left="171" width="496" height="13" font="4">Alternatively, if we use our Taylor Series method we can draw this same conclusion</text>
+<text top="1111" left="326" width="7" height="13" font="4">d</text>
+<text top="1129" left="322" width="14" height="13" font="4">dy</text>
+<text top="1110" left="340" width="26" height="14" font="4"> dy</text>
+<text top="1129" left="353" width="12" height="13" font="4">dt</text>
+<text top="1110" left="368" width="15" height="6" font="4"></text>
+<text top="1118" left="378" width="4" height="6" font="4"></text>
+<text top="1126" left="378" width="4" height="6" font="4"></text>
+<text top="1134" left="378" width="4" height="6" font="4"></text>
+<text top="1136" left="383" width="19" height="10" font="8">y=y</text>
+<text top="1139" left="403" width="4" height="7" font="11">∗</text>
+<text top="1120" left="412" width="11" height="12" font="0">=</text>
+<text top="1120" left="427" width="7" height="13" font="4">1</text>
+<text top="1119" left="436" width="11" height="13" font="0">−</text>
+<text top="1120" left="450" width="7" height="13" font="4">y</text>
+<text top="1124" left="457" width="5" height="10" font="8">∗</text>
+<text top="1120" left="468" width="11" height="12" font="0">=</text>
+<text top="1106" left="483" width="11" height="6" font="4">(</text>
+<text top="1111" left="494" width="11" height="12" font="0">+</text>
+<text top="1111" left="505" width="7" height="13" font="4">1</text>
+<text top="1111" left="525" width="7" height="13" font="4">y</text>
+<text top="1114" left="532" width="5" height="10" font="8">∗</text>
+<text top="1111" left="542" width="11" height="12" font="0">=</text>
+<text top="1111" left="557" width="10" height="13" font="4">0,</text>
+<text top="1130" left="494" width="11" height="13" font="0">−</text>
+<text top="1131" left="505" width="7" height="13" font="4">1</text>
+<text top="1131" left="525" width="7" height="13" font="4">y</text>
+<text top="1134" left="532" width="5" height="10" font="8">∗</text>
+<text top="1131" left="542" width="11" height="12" font="0">=</text>
+<text top="1131" left="557" width="7" height="13" font="4">2</text>
+<text top="1120" left="571" width="3" height="13" font="4">.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">47</text>
+<text top="550" left="149" width="54" height="13" font="3"><b>Figure 1:</b></text>
+<text top="550" left="208" width="482" height="13" font="4">The direction field and several trajectories for the logistic growth model with <i>β</i></text>
+<text top="550" left="694" width="11" height="12" font="0">=</text>
+<text top="550" left="710" width="34" height="13" font="4">1 and</text>
+<text top="566" left="149" width="9" height="13" font="4">K</text>
+<text top="566" left="162" width="11" height="12" font="0">=</text>
+<text top="566" left="177" width="375" height="13" font="4">2. It can be seen that two equilibrium points have been located.</text>
+<text top="1062" left="149" width="53" height="13" font="3"><b>Figure 2:</b></text>
+<text top="1062" left="206" width="331" height="13" font="4">The phase portrait for the logistic growth model with <i>β</i></text>
+<text top="1062" left="542" width="11" height="12" font="0">=</text>
+<text top="1062" left="556" width="46" height="13" font="4">1 and K</text>
+<text top="1062" left="606" width="11" height="12" font="0">=</text>
+<text top="1062" left="621" width="73" height="13" font="4">2. The line y</text>
+<text top="1062" left="699" width="11" height="12" font="0">=</text>
+<text top="1062" left="713" width="31" height="13" font="4">0 has</text>
+<text top="1078" left="149" width="246" height="13" font="4">been identified as unstable, and the line y</text>
+<text top="1078" left="399" width="11" height="12" font="0">=</text>
+<text top="1078" left="414" width="64" height="13" font="4">2 as stable.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">48</text>
+<text top="103" left="148" width="257" height="13" font="4">Thus we have drawn the same conclusion; y</text>
+<text top="107" left="406" width="5" height="10" font="8">∗</text>
+<text top="103" left="416" width="11" height="12" font="0">=</text>
+<text top="103" left="431" width="155" height="13" font="4">0 is indeed unstable, and y</text>
+<text top="107" left="586" width="5" height="10" font="8">∗</text>
+<text top="103" left="596" width="11" height="12" font="0">=</text>
+<text top="103" left="611" width="133" height="13" font="4">2 stable. The following</text>
+<text top="120" left="149" width="255" height="13" font="4">code can perform this analysis for us using</text>
+<text top="116" left="407" width="62" height="18" font="4">stability</text>
+<text top="144" left="149" width="171" height="18" font="4">&gt; logistic.stability.1 &lt;-</text>
+<text top="160" left="149" width="7" height="18" font="4">+</text>
+<text top="160" left="190" width="501" height="18" font="4">stability(logistic, y.star = 0, parameters = c(1, 2), system = &#34;one.dim&#34;)</text>
+<text top="193" left="149" width="103" height="18" font="4">Discriminant: 1</text>
+<text top="193" left="272" width="165" height="18" font="4">Classification: Unstable</text>
+<text top="226" left="149" width="171" height="18" font="4">&gt; logistic.stability.2 &lt;-</text>
+<text top="243" left="149" width="7" height="18" font="4">+</text>
+<text top="243" left="190" width="501" height="18" font="4">stability(logistic, y.star = 2, parameters = c(1, 2), system = &#34;one.dim&#34;)</text>
+<text top="275" left="149" width="110" height="18" font="4">Discriminant: -1</text>
+<text top="275" left="279" width="151" height="18" font="4">Classification: Stable</text>
+<text top="307" left="171" width="573" height="13" font="4">This completes our phase plane analysis of the logistic growth model. We have successfully</text>
+<text top="323" left="149" width="201" height="13" font="4">identified that for this model, if y</text>
+<text top="328" left="350" width="5" height="10" font="8">0</text>
+<text top="323" left="360" width="11" height="12" font="0">&gt;</text>
+<text top="323" left="375" width="369" height="13" font="4">0, which it must be for the model to make physical sense, the</text>
+<text top="340" left="149" width="260" height="13" font="4">system will eventually approach the line y</text>
+<text top="344" left="410" width="3" height="10" font="8">t</text>
+<text top="339" left="419" width="11" height="12" font="0">=</text>
+<text top="340" left="436" width="308" height="13" font="4">2, regardless of the exact initial condition. <b>phaseR</b></text>
+<text top="356" left="149" width="596" height="13" font="4">clearly provided a capacity by which to either check, or perform, the analyses that would take time by</text>
+<text top="372" left="149" width="227" height="13" font="4">hand using several short lines of code.</text>
+<text top="417" left="149" width="269" height="17" font="5"><b>Example 2: Lotka-Volterra model</b></text>
+<text top="456" left="148" width="596" height="13" font="4">As an example of the capabilities of <b>phaseR </b>for a two dimensional system, we will study a particular</text>
+<text top="472" left="149" width="202" height="13" font="4">case of the Lotka-Volterra model <a href="2014-2-grayling.html#9">(</a></text>
+<text top="472" left="351" width="34" height="13" font="7"><a href="2014-2-grayling.html#9">Lotka</a></text>
+<text top="472" left="385" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="472" left="392" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">1925</a></text>
+<text top="472" left="419" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">;</a></text>
+<text top="472" left="425" width="48" height="13" font="7"><a href="2014-2-grayling.html#9">Volterra</a></text>
+<text top="472" left="473" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="472" left="480" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">1926</a></text>
+<text top="472" left="507" width="237" height="13" font="4"><a href="2014-2-grayling.html#9">) </a>for interacting predator and prey. This</text>
+<text top="488" left="149" width="254" height="13" font="4">model can be written in its general form as</text>
+<text top="516" left="393" width="14" height="13" font="4">dx</text>
+<text top="520" left="407" width="3" height="10" font="8">t</text>
+<text top="534" left="396" width="12" height="13" font="4">dt</text>
+<text top="525" left="417" width="11" height="12" font="0">=</text>
+<text top="528" left="432" width="15" height="10" font="9"><i>λ</i>x</text>
+<text top="529" left="448" width="3" height="10" font="8">t</text>
+<text top="524" left="455" width="11" height="13" font="0">−</text>
+<text top="528" left="469" width="14" height="10" font="9"><i>e</i>x</text>
+<text top="529" left="483" width="3" height="10" font="8">t</text>
+<text top="525" left="487" width="7" height="13" font="4">y</text>
+<text top="529" left="494" width="3" height="10" font="8">t</text>
+<text top="525" left="499" width="3" height="13" font="4">,</text>
+<text top="550" left="393" width="14" height="13" font="4">dy</text>
+<text top="555" left="407" width="3" height="10" font="8">t</text>
+<text top="569" left="396" width="12" height="13" font="4">dt</text>
+<text top="559" left="417" width="11" height="12" font="0">=</text>
+<text top="563" left="432" width="15" height="10" font="9"><i>η</i>x</text>
+<text top="564" left="447" width="3" height="10" font="8">t</text>
+<text top="559" left="452" width="7" height="13" font="4">y</text>
+<text top="564" left="459" width="3" height="10" font="8">t</text>
+<text top="559" left="466" width="11" height="13" font="0">−</text>
+<text top="563" left="480" width="13" height="10" font="9"><i>δ</i>y</text>
+<text top="564" left="493" width="3" height="10" font="8">t</text>
+<text top="560" left="498" width="3" height="13" font="4">.</text>
+<text top="597" left="171" width="573" height="13" font="4">Again, we must first specify a derivative function. As before, this is already provided in the</text>
+<text top="614" left="148" width="65" height="13" font="4">package as</text>
+<text top="610" left="216" width="312" height="18" font="4">lotkaVolterra, which consists of the following code</text>
+<text top="638" left="149" width="309" height="18" font="4">lotkaVolterra &lt;- function(t, y, parameters) {</text>
+<text top="655" left="176" width="62" height="18" font="4">x &lt;- y[1]</text>
+<text top="671" left="176" width="62" height="18" font="4">y &lt;- y[2]</text>
+<text top="687" left="176" width="165" height="18" font="4">lambda &lt;- parameters[1]</text>
+<text top="704" left="176" width="165" height="18" font="4">epsilon &lt;- parameters[2]</text>
+<text top="720" left="176" width="21" height="18" font="4">eta</text>
+<text top="720" left="231" width="110" height="18" font="4">&lt;- parameters[3]</text>
+<text top="737" left="176" width="34" height="18" font="4">delta</text>
+<text top="737" left="231" width="110" height="18" font="4">&lt;- parameters[4]</text>
+<text top="753" left="176" width="14" height="18" font="4">dy</text>
+<text top="753" left="217" width="89" height="18" font="4">&lt;- numeric(2)</text>
+<text top="770" left="176" width="213" height="18" font="4">dy[1] &lt;- lambda*x - epsilon*x*y</text>
+<text top="786" left="176" width="178" height="18" font="4">dy[2] &lt;- eta*x*y - delta*y</text>
+<text top="802" left="176" width="55" height="18" font="4">list(dy)</text>
+<text top="819" left="149" width="7" height="18" font="4">}</text>
+<text top="850" left="171" width="49" height="13" font="3"><b>deSolve</b></text>
+<text top="850" left="224" width="344" height="13" font="4">again requires us here to create a function taking values for</text>
+<text top="847" left="571" width="173" height="18" font="4">t, y and parameters, but here</text>
+<text top="867" left="149" width="519" height="13" font="4">returning a list whose first element is a vector of the two derivatives, and also accepting</text>
+<text top="863" left="671" width="73" height="18" font="4">y as a vector</text>
+<text top="883" left="149" width="61" height="13" font="4">argument.</text>
+<text top="904" left="171" width="303" height="13" font="4">From here we shall focus on the particular case <i>λ</i></text>
+<text top="904" left="480" width="11" height="12" font="0">=</text>
+<text top="904" left="497" width="21" height="13" font="4">2, <i>e</i></text>
+<text top="904" left="523" width="11" height="12" font="0">=</text>
+<text top="904" left="540" width="22" height="13" font="4">1, <i>η</i></text>
+<text top="904" left="568" width="11" height="12" font="0">=</text>
+<text top="904" left="584" width="45" height="13" font="4">3 and <i>δ</i></text>
+<text top="904" left="635" width="11" height="12" font="0">=</text>
+<text top="904" left="651" width="94" height="13" font="4">2. We begin by</text>
+<text top="920" left="149" width="521" height="13" font="4">determining the nullclines; by setting the two derivatives to zero in turn, starting with x</text>
+<text top="925" left="671" width="3" height="10" font="8">t</text>
+<text top="950" left="298" width="14" height="13" font="4">2x</text>
+<text top="954" left="312" width="3" height="10" font="8">t</text>
+<text top="949" left="319" width="11" height="13" font="0">−</text>
+<text top="949" left="333" width="7" height="13" font="4">x</text>
+<text top="954" left="340" width="3" height="10" font="8">t</text>
+<text top="949" left="345" width="7" height="13" font="4">y</text>
+<text top="954" left="352" width="3" height="10" font="8">t</text>
+<text top="949" left="360" width="11" height="12" font="0">=</text>
+<text top="950" left="375" width="7" height="13" font="4">0</text>
+<text top="949" left="385" width="14" height="13" font="0">⇒</text>
+<text top="949" left="404" width="7" height="13" font="4">x</text>
+<text top="954" left="411" width="3" height="10" font="8">t</text>
+<text top="949" left="415" width="5" height="12" font="0">(</text>
+<text top="950" left="421" width="7" height="13" font="4">2</text>
+<text top="949" left="430" width="11" height="13" font="0">−</text>
+<text top="949" left="444" width="7" height="13" font="4">y</text>
+<text top="954" left="451" width="3" height="10" font="8">t</text>
+<text top="949" left="456" width="20" height="12" font="0">) =</text>
+<text top="950" left="480" width="7" height="13" font="4">0</text>
+<text top="949" left="491" width="14" height="13" font="0">⇒</text>
+<text top="949" left="509" width="7" height="13" font="4">x</text>
+<text top="954" left="516" width="3" height="10" font="8">t</text>
+<text top="949" left="524" width="11" height="12" font="0">=</text>
+<text top="950" left="539" width="23" height="13" font="4">0, y</text>
+<text top="954" left="562" width="3" height="10" font="8">t</text>
+<text top="949" left="570" width="11" height="12" font="0">=</text>
+<text top="950" left="585" width="10" height="13" font="4">2,</text>
+<text top="979" left="149" width="63" height="13" font="4">and then y</text>
+<text top="983" left="212" width="3" height="10" font="8">t</text>
+<text top="995" left="284" width="14" height="13" font="4">3x</text>
+<text top="999" left="298" width="3" height="10" font="8">t</text>
+<text top="995" left="302" width="7" height="13" font="4">y</text>
+<text top="999" left="309" width="3" height="10" font="8">t</text>
+<text top="994" left="316" width="11" height="13" font="0">−</text>
+<text top="995" left="330" width="14" height="13" font="4">2y</text>
+<text top="999" left="344" width="3" height="10" font="8">t</text>
+<text top="995" left="352" width="11" height="12" font="0">=</text>
+<text top="995" left="367" width="7" height="13" font="4">0</text>
+<text top="994" left="378" width="14" height="13" font="0">⇒</text>
+<text top="995" left="396" width="7" height="13" font="4">y</text>
+<text top="999" left="403" width="3" height="10" font="8">t</text>
+<text top="995" left="407" width="5" height="12" font="0">(</text>
+<text top="995" left="413" width="14" height="13" font="4">3x</text>
+<text top="999" left="427" width="3" height="10" font="8">t</text>
+<text top="994" left="434" width="11" height="13" font="0">−</text>
+<text top="995" left="448" width="7" height="13" font="4">2</text>
+<text top="995" left="455" width="20" height="12" font="0">) =</text>
+<text top="995" left="479" width="7" height="13" font="4">0</text>
+<text top="994" left="490" width="14" height="13" font="0">⇒</text>
+<text top="995" left="508" width="7" height="13" font="4">y</text>
+<text top="999" left="515" width="3" height="10" font="8">t</text>
+<text top="995" left="523" width="11" height="12" font="0">=</text>
+<text top="995" left="538" width="23" height="13" font="4">0, x</text>
+<text top="999" left="561" width="3" height="10" font="8">t</text>
+<text top="995" left="569" width="11" height="12" font="0">=</text>
+<text top="995" left="584" width="25" height="13" font="4">2/3.</text>
+<text top="1022" left="171" width="573" height="13" font="4">Requiring that both derivatives are zero identifies the equilibrium points of the model; clearly</text>
+<text top="1038" left="149" width="81" height="13" font="4">given here by</text>
+<text top="1038" left="233" width="5" height="12" font="0">(</text>
+<text top="1038" left="239" width="19" height="13" font="4">0, 0</text>
+<text top="1038" left="258" width="5" height="12" font="0">)</text>
+<text top="1038" left="267" width="23" height="13" font="4">and</text>
+<text top="1038" left="293" width="5" height="12" font="0">(</text>
+<text top="1038" left="299" width="34" height="13" font="4">2/3, 2</text>
+<text top="1038" left="333" width="5" height="12" font="0">)</text>
+<text top="1038" left="339" width="244" height="13" font="4">. To classify them we turn to the Jacobian</text>
+<text top="1076" left="374" width="4" height="13" font="4">J</text>
+<text top="1076" left="383" width="11" height="12" font="0">=</text>
+<text top="1066" left="398" width="17" height="15" font="4">2</text>
+<text top="1067" left="418" width="11" height="13" font="0">−</text>
+<text top="1068" left="432" width="7" height="13" font="4">y</text>
+<text top="1071" left="439" width="5" height="10" font="8">∗</text>
+<text top="1067" left="470" width="11" height="13" font="0">−</text>
+<text top="1068" left="481" width="7" height="13" font="4">x</text>
+<text top="1071" left="488" width="5" height="10" font="8">∗</text>
+<text top="1084" left="417" width="14" height="13" font="4">3y</text>
+<text top="1088" left="431" width="5" height="10" font="8">∗</text>
+<text top="1084" left="460" width="14" height="13" font="4">3x</text>
+<text top="1088" left="474" width="5" height="10" font="8">∗</text>
+<text top="1084" left="483" width="11" height="13" font="0">−</text>
+<text top="1084" left="497" width="7" height="13" font="4">2</text>
+<text top="1066" left="504" width="10" height="6" font="4"></text>
+<text top="1076" left="516" width="3" height="13" font="4">.</text>
+<text top="1114" left="148" width="50" height="13" font="4">Thus for</text>
+<text top="1114" left="202" width="5" height="12" font="0">(</text>
+<text top="1114" left="208" width="19" height="13" font="4">0, 0</text>
+<text top="1114" left="227" width="5" height="12" font="0">)</text>
+<text top="1114" left="233" width="26" height="13" font="4">; det</text>
+<text top="1114" left="258" width="5" height="12" font="0">(</text>
+<text top="1114" left="265" width="4" height="13" font="4">J</text>
+<text top="1114" left="270" width="35" height="12" font="0">) = −</text>
+<text top="1114" left="306" width="336" height="13" font="4">4, which classifies the point as a saddle. Additionally, for</text>
+<text top="1114" left="646" width="5" height="12" font="0">(</text>
+<text top="1114" left="651" width="34" height="13" font="4">2/3, 2</text>
+<text top="1114" left="686" width="5" height="12" font="0">)</text>
+<text top="1114" left="695" width="49" height="13" font="4">we have</text>
+<text top="1130" left="149" width="46" height="13" font="4">that det</text>
+<text top="1130" left="195" width="5" height="12" font="0">(</text>
+<text top="1130" left="201" width="4" height="13" font="4">J</text>
+<text top="1130" left="207" width="20" height="12" font="0">) =</text>
+<text top="1130" left="231" width="49" height="13" font="4">4, and tr</text>
+<text top="1130" left="280" width="5" height="12" font="0">(</text>
+<text top="1130" left="287" width="4" height="13" font="4">J</text>
+<text top="1130" left="292" width="20" height="12" font="0">) =</text>
+<text top="1130" left="316" width="428" height="13" font="4">0, which classifies the point as a centre. Readers are again pointed to the</text>
+<text top="1147" left="148" width="405" height="13" font="4">package guide for further details of classification using the Jacobian.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">49</text>
+<text top="103" left="171" width="573" height="13" font="4">We can repeat all of the above analyses easily using <b>phaseR</b>; plotting the nullclines along with the</text>
+<text top="120" left="148" width="489" height="13" font="4">velocity field and several trajectories with the following code that produces Figure</text>
+<text top="120" left="641" width="7" height="13" font="7"><a href="2014-2-grayling.html#7">3</a></text>
+<text top="146" left="149" width="192" height="18" font="4">&gt; lotkaVolterra.flowField &lt;-</text>
+<text top="162" left="149" width="7" height="18" font="4">+</text>
+<text top="162" left="190" width="405" height="18" font="4">flowField(lotkaVolterra, x.lim = c(0, 5), y.lim = c(0, 10),</text>
+<text top="179" left="149" width="7" height="18" font="4">+</text>
+<text top="179" left="259" width="364" height="18" font="4">parameters = c(2, 1, 3, 2), points = 19, add = FALSE)</text>
+<text top="195" left="149" width="55" height="18" font="4">&gt; grid()</text>
+<text top="212" left="149" width="199" height="18" font="4">&gt; lotkaVolterra.nullclines &lt;-</text>
+<text top="228" left="149" width="7" height="18" font="4">+</text>
+<text top="228" left="190" width="425" height="18" font="4">nullclines(lotkaVolterra, x.lim = c(-1, 5), y.lim = c(-1, 10),</text>
+<text top="245" left="149" width="7" height="18" font="4">+</text>
+<text top="245" left="265" width="281" height="18" font="4">parameters = c(2, 1, 3, 2), points = 500)</text>
+<text top="261" left="149" width="473" height="18" font="4">&gt; y0 &lt;- matrix(c(1, 2, 2, 2, 3, 4), ncol = 2, nrow = 3, byrow = TRUE)</text>
+<text top="278" left="149" width="199" height="18" font="4">&gt; lotkaVolterra.trajectory &lt;-</text>
+<text top="294" left="149" width="7" height="18" font="4">+</text>
+<text top="294" left="190" width="316" height="18" font="4">trajectory(lotkaVolterra, y0 = y0, t.end = 10,</text>
+<text top="310" left="149" width="7" height="18" font="4">+</text>
+<text top="310" left="265" width="364" height="18" font="4">parameters = c(2, 1, 3, 2), colour = rep(&#34;black&#34;, 3))</text>
+<text top="691" left="149" width="53" height="13" font="3"><b>Figure 3:</b></text>
+<text top="691" left="206" width="511" height="13" font="4">The velocity field, nullclines and several trajectories for the Lotka-Volterra model with <i>λ</i></text>
+<text top="691" left="721" width="11" height="12" font="0">=</text>
+<text top="691" left="736" width="10" height="13" font="4">2,</text>
+<text top="711" left="149" width="6" height="10" font="9"><i>e</i></text>
+<text top="708" left="159" width="11" height="12" font="0">=</text>
+<text top="708" left="174" width="21" height="13" font="4">1, <i>η</i></text>
+<text top="708" left="199" width="11" height="12" font="0">=</text>
+<text top="708" left="214" width="43" height="13" font="4">3 and <i>δ</i></text>
+<text top="708" left="261" width="11" height="12" font="0">=</text>
+<text top="708" left="275" width="323" height="13" font="4">2. Trajectories can be seen to traverse around the point</text>
+<text top="708" left="602" width="5" height="12" font="0">(</text>
+<text top="708" left="607" width="34" height="13" font="4">2/3, 2</text>
+<text top="708" left="642" width="5" height="12" font="0">)</text>
+<text top="708" left="647" width="3" height="13" font="4">.</text>
+<text top="745" left="171" width="395" height="13" font="4">Finally, we can verify that our stability analysis was indeed correct</text>
+<text top="771" left="149" width="206" height="18" font="4">&gt; lotkaVolterra.stability.1 &lt;-</text>
+<text top="788" left="149" width="7" height="18" font="4">+</text>
+<text top="788" left="190" width="480" height="18" font="4">stability(lotkaVolterra, y.star = c(0, 0), parameters = c(2, 1, 3, 2))</text>
+<text top="820" left="149" width="27" height="18" font="4">T: 0</text>
+<text top="820" left="197" width="62" height="18" font="4">Delta: -4</text>
+<text top="820" left="279" width="110" height="18" font="4">Discriminant: 16</text>
+<text top="820" left="409" width="151" height="18" font="4">Classification: Saddle</text>
+<text top="853" left="149" width="206" height="18" font="4">&gt; lotkaVolterra.stability.2 &lt;-</text>
+<text top="870" left="149" width="7" height="18" font="4">+</text>
+<text top="870" left="190" width="494" height="18" font="4">stability(lotkaVolterra, y.star = c(2/3, 2), parameters = c(2, 1, 3, 2))</text>
+<text top="903" left="149" width="27" height="18" font="4">T: 0</text>
+<text top="903" left="197" width="55" height="18" font="4">Delta: 4</text>
+<text top="903" left="272" width="117" height="18" font="4">Discriminant: -16</text>
+<text top="903" left="409" width="151" height="18" font="4">Classification: Centre</text>
+<text top="936" left="171" width="573" height="13" font="4">Biologically, we have seen that no matter what the exact initial starting values are, according to</text>
+<text top="952" left="149" width="458" height="13" font="4">this model the numbers of predator and prey will oscillate around the centre</text>
+<text top="952" left="611" width="5" height="12" font="0">(</text>
+<text top="952" left="616" width="35" height="13" font="4">2/3, 2</text>
+<text top="952" left="651" width="5" height="12" font="0">)</text>
+<text top="952" left="657" width="89" height="13" font="4">. Alternatively,</text>
+<text top="969" left="149" width="595" height="13" font="4">this oscillation can be seen by plotting the dependent variables against the independent using the</text>
+<text top="985" left="149" width="199" height="13" font="4">following code, producing Figure</text>
+<text top="985" left="352" width="7" height="13" font="7"><a href="2014-2-grayling.html#8">4</a></text>
+<text top="1012" left="149" width="247" height="18" font="4">&gt; lotkaVolterra.numericalSolution &lt;-</text>
+<text top="1028" left="149" width="7" height="18" font="4">+</text>
+<text top="1028" left="190" width="494" height="18" font="4">numericalSolution(lotkaVolterra, y0 = c(3, 4), t.end = 10, type = &#34;one&#34;,</text>
+<text top="1045" left="149" width="7" height="18" font="4">+</text>
+<text top="1045" left="313" width="398" height="18" font="4">parameters = c(2, 1, 3, 2), colour = c(&#34;green&#34;, &#34;orange&#34;),</text>
+<text top="1061" left="149" width="7" height="18" font="4">+</text>
+<text top="1061" left="313" width="213" height="18" font="4">ylab = &#34;x, y&#34;, ylim = c(0, 10))</text>
+<text top="1077" left="149" width="562" height="18" font="4">&gt; legend(&#34;bottomright&#34;, col = c(&#34;green&#34;, &#34;orange&#34;), legend = c(&#34;x&#34;, &#34;y&#34;), lty = 1)</text>
+<text top="1111" left="171" width="573" height="13" font="4">This concludes our analysis of this two dimensional system. Again <b>phaseR </b>allowed for the phase</text>
+<text top="1127" left="148" width="596" height="13" font="4">plane analysis to be performed quickly and easily, bypassing the time consuming process of drawing</text>
+<text top="1144" left="149" width="52" height="13" font="4">by hand.</text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">50</text>
+<text top="435" left="149" width="53" height="13" font="3"><b>Figure 4:</b></text>
+<text top="435" left="206" width="346" height="13" font="4">The numerical solution of the Lotka-Volterra mode with <i>λ</i></text>
+<text top="435" left="556" width="11" height="12" font="0">=</text>
+<text top="435" left="571" width="20" height="13" font="4">2, <i>e</i></text>
+<text top="435" left="595" width="11" height="12" font="0">=</text>
+<text top="435" left="610" width="21" height="13" font="4">1, <i>η</i></text>
+<text top="435" left="635" width="11" height="12" font="0">=</text>
+<text top="435" left="650" width="43" height="13" font="4">3 and <i>δ</i></text>
+<text top="435" left="696" width="11" height="12" font="0">=</text>
+<text top="435" left="711" width="33" height="13" font="4">2 and</text>
+<text top="451" left="148" width="5" height="12" font="0">(</text>
+<text top="451" left="154" width="7" height="13" font="4">x</text>
+<text top="456" left="161" width="5" height="10" font="8">0</text>
+<text top="451" left="167" width="12" height="13" font="4">, y</text>
+<text top="456" left="180" width="5" height="10" font="8">0</text>
+<text top="451" left="186" width="30" height="12" font="0">) = (</text>
+<text top="451" left="216" width="19" height="13" font="4">3, 4</text>
+<text top="451" left="235" width="5" height="12" font="0">)</text>
+<text top="451" left="241" width="313" height="13" font="4">. The number of each species can be seen to oscillate.</text>
+<text top="497" left="149" width="379" height="17" font="5"><b>Concluding remarks and future developments</b></text>
+<text top="536" left="149" width="595" height="13" font="4">Rarely can a system of differential equations be solved in closed form. Consequently, numerical</text>
+<text top="552" left="149" width="595" height="13" font="4">solutions are often required and therefore much theory exists around integration techniques for each</text>
+<text top="569" left="149" width="595" height="13" font="4">class of differential equations. In R many of these methods have been implemented in packages such</text>
+<text top="585" left="149" width="595" height="13" font="4">as <b>deSolve</b>, <b>bvpSolve</b>, <b>sde</b>, <b>ReacTran </b>and <b>rootSolve</b>. Between them, these packages allow modellers</text>
+<text top="602" left="149" width="595" height="13" font="4">to deal with many classes of ODEs, DDEs, DAEs, SDEs and PDEs. However, for a one or two</text>
+<text top="618" left="149" width="595" height="13" font="4">dimensional system of autonomous ODEs, an alternative approach to direct numerical solution is</text>
+<text top="634" left="149" width="595" height="13" font="4">available. This so-called phase plane analysis allows much important inference to be made about the</text>
+<text top="651" left="149" width="595" height="13" font="4">system using relatively simplistic graphical and mathematical techniques. The algorithmic nature</text>
+<text top="667" left="149" width="595" height="13" font="4">of the phase plane approach lends itself well to software tools, and <b>phaseR </b>provides the first such</text>
+<text top="684" left="149" width="596" height="13" font="4">complete package in R for its implementation. I have demonstrated how <b>phaseR </b>allows users to easily</text>
+<text top="700" left="148" width="597" height="13" font="4">perform this qualitative analysis with little initial system set-up, and few commands for execution,</text>
+<text top="717" left="149" width="595" height="13" font="4">required. Sometimes, phase plane analysis is criticised on two grounds; that it is limited to systems of</text>
+<text top="733" left="149" width="142" height="13" font="4">two or less dimension <a href="2014-2-grayling.html#9">(</a></text>
+<text top="733" left="290" width="71" height="13" font="7"><a href="2014-2-grayling.html#9">Mutambara</a></text>
+<text top="733" left="362" width="3" height="13" font="4"><a href="2014-2-grayling.html#9">,</a></text>
+<text top="733" left="369" width="27" height="13" font="7"><a href="2014-2-grayling.html#9">1999</a></text>
+<text top="733" left="396" width="348" height="13" font="4"><a href="2014-2-grayling.html#9">), </a>and that it is highly labour intensive. Whilst the former</text>
+<text top="749" left="149" width="595" height="13" font="4">still stands, and thus only problems that can be at least well approximated by a second order system</text>
+<text top="766" left="149" width="595" height="13" font="4">may be analysed using the methods discussed above, the latter issue is at least relieved further by the</text>
+<text top="782" left="149" width="595" height="13" font="4">creation of <b>phaseR</b>. Whilst to provide greater detail on the dimensional limitation future development</text>
+<text top="799" left="149" width="595" height="13" font="4">of the package will seek to incorporate further example systems from nature, including approximation</text>
+<text top="815" left="149" width="595" height="13" font="4">techniques for higher order problems. In addition, package development will see the one dimensional</text>
+<text top="832" left="149" width="595" height="13" font="4">tools extended to non-autonomous ODEs. Therefore, given all these considerations, in conjunction</text>
+<text top="848" left="148" width="596" height="13" font="4">with the extensive accompanying guide describing in increased detail both the above techniques</text>
+<text top="865" left="149" width="595" height="13" font="4">and providing many worked examples and exercises, <b>phaseR </b>should hopefully serve as a useful</text>
+<text top="881" left="148" width="596" height="13" font="4">package for both independent and group led learning, as well as for those simply seeking to produce</text>
+<text top="897" left="149" width="121" height="13" font="4">high-quality figures.</text>
+<text top="942" left="149" width="109" height="17" font="5"><b>Bibliography</b></text>
+<text top="981" left="149" width="595" height="13" font="4">B. Barnes and G. R. Fulford. Mathematical Modelling with Case Studies: A Differential Equations Approach</text>
+<text top="997" left="163" width="583" height="14" font="4">Using Maple and MATLAB, pages 159–258. CRC Press, Florida, United States, second edition, 2009.</text>
+<text top="1014" left="164" width="147" height="13" font="4">ISBN 978-1420083484. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="1014" left="311" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="1014" left="324" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="1042" left="149" width="595" height="13" font="4">D. R. Choudhury. Modern Control Engineering, page 755. Prentice-Hall, New Delhi, India, 2005. ISBN</text>
+<text top="1058" left="164" width="126" height="13" font="4">978-81-203-2196-0. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="1058" left="290" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="1058" left="303" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="1086" left="149" width="597" height="13" font="4">S. J. Farlow. An Introduction to Differential Equations and Their Applications, page 452. Dover Publications,</text>
+<text top="1103" left="164" width="182" height="13" font="4">2006. ISBN 978-0486445953. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="1103" left="346" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="1103" left="359" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="1130" left="149" width="499" height="13" font="4">S. M. Iacus. sde: Simulation and Inference for Stochastic Differential Equations, 2009. URL</text>
+<text top="1127" left="651" width="96" height="18" font="7"><a href="http://CRAN.R-project.org/package=sde">http://CRAN.R-</a></text>
+<text top="1144" left="164" width="158" height="18" font="7"><a href="http://CRAN.R-project.org/package=sde">project.org/package=sde</a></text>
+<text top="1147" left="322" width="175" height="13" font="4"><a href="http://CRAN.R-project.org/package=sde">. </a>R package version 2.0.10. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="1147" left="496" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="1147" left="510" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="44" left="64" width="11" height="15" font="0">C</text>
+<text top="47" left="75" width="86" height="12" font="1">ONTRIBUTED</text>
+<text top="44" left="166" width="10" height="15" font="0">R</text>
+<text top="47" left="177" width="61" height="12" font="1">ESEARCH</text>
+<text top="44" left="242" width="12" height="15" font="0">A</text>
+<text top="47" left="254" width="53" height="12" font="1">RTICLES</text>
+<text top="44" left="814" width="15" height="15" font="0">51</text>
+<text top="103" left="149" width="595" height="13" font="4">D. W. Jordan and P. Smith. Nonlinear Ordinary Differential Equations: An Introduction for Scientists and</text>
+<text top="119" left="163" width="583" height="14" font="4">Engineers, pages 49–88. Oxford University Press, New York, United States, fourth edition, 2007.</text>
+<text top="136" left="164" width="149" height="13" font="4">ISBN 978-0-19-920824. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="136" left="313" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="136" left="326" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="164" left="149" width="445" height="13" font="4">D. Kaplan and D. Flath. Visualizing the Phase Plane using R, 2004. URL</text>
+<text top="161" left="598" width="151" height="18" font="7"><a href="http://www.macalester.edu/~kaplan/math135/pplane.pdf">http://www.macalester.</a></text>
+<text top="177" left="164" width="206" height="18" font="7"><a href="http://www.macalester.edu/~kaplan/math135/pplane.pdf">edu/~kaplan/math135/pplane.pdf</a></text>
+<text top="181" left="370" width="21" height="13" font="4"><a href="http://www.macalester.edu/~kaplan/math135/pplane.pdf">. </a><a href="2014-2-grayling.html#1">[p</a></text>
+<text top="181" left="390" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="181" left="404" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="209" left="149" width="568" height="13" font="4">A. J. Lotka. Elements of Physical Biology. Williams and Wilkins, Baltimore, United States, 1925. <a href="2014-2-grayling.html#6">[p</a></text>
+<text top="209" left="717" width="13" height="13" font="7"><a href="2014-2-grayling.html#6">48</a></text>
+<text top="209" left="731" width="4" height="13" font="4"><a href="2014-2-grayling.html#6">]</a></text>
+<text top="238" left="149" width="507" height="13" font="4">MATLAB. 2014a. The MathWorks Inc., Natick, Massachusetts, United States, 2014. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="238" left="656" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="238" left="669" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="266" left="149" width="597" height="13" font="4">D. Mooney. A Course in Mathematical Modeling, page 283. The Mathematical Association of America,</text>
+<text top="282" left="163" width="191" height="13" font="4">1999. ISBN 978-0-88385-7120. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="282" left="354" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="282" left="368" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="311" left="149" width="595" height="13" font="4">A. G. O. Mutambara. Design and Analysis of Control Systems, page 722. CRC Press, 1999. ISBN</text>
+<text top="327" left="164" width="113" height="13" font="4">978-0849318986. <a href="2014-2-grayling.html#8">[p</a></text>
+<text top="327" left="276" width="13" height="13" font="7"><a href="2014-2-grayling.html#8">50</a></text>
+<text top="327" left="290" width="4" height="13" font="4"><a href="2014-2-grayling.html#8">]</a></text>
+<text top="356" left="149" width="199" height="13" font="4">J. C. Polking. pplane8, 2009. URL</text>
+<text top="352" left="351" width="199" height="18" font="7"><a href="http://math.rice.edu/~dfield/">http://math.rice.edu/~dfield/</a></text>
+<text top="356" left="550" width="21" height="13" font="4"><a href="http://math.rice.edu/~dfield/">. </a><a href="2014-2-grayling.html#1">[p</a></text>
+<text top="356" left="571" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="356" left="584" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="384" left="149" width="595" height="13" font="4">K. Soetaert and F. Meysman. Reactive transport in aquatic ecosystems: Rapid model prototyping in</text>
+<text top="401" left="164" width="487" height="13" font="4">the open source software R. Environmental Modelling &amp; Software, 32:49–60, 2012. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="401" left="650" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="401" left="664" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="429" left="149" width="595" height="13" font="4">K. Soetaert, T. Petzoldt, and R. W. Setzer. A Practical Guide to Ecological Modelling. Using R as a Simulation</text>
+<text top="445" left="163" width="295" height="14" font="4">Platform. Springer, 2009. ISBN 978-1402086236. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="445" left="459" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="445" left="472" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="474" left="149" width="595" height="13" font="4">K. Soetaert, T. Petzoldt, and R. W. Setzer. Solving Differential Equations in R: Package deSolve. Journal</text>
+<text top="490" left="164" width="239" height="14" font="4">of Statistical Software, 33(9):1–25, 2010. <a href="2014-2-grayling.html#1">[p</a></text>
+<text top="490" left="403" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="490" left="417" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="519" left="149" width="595" height="13" font="4">K. Soetaert, J. Cash, and F. Mazzia. bvpSolve: Solvers for boundary value problems of ordinary differential</text>
+<text top="535" left="164" width="129" height="14" font="4">equations, 2013. URL</text>
+<text top="532" left="297" width="289" height="18" font="7"><a href="http://CRAN.R-project.org/package=bvpSolve">http://CRAN.R-project.org/package=bvpSolve</a></text>
+<text top="535" left="586" width="161" height="13" font="4"><a href="http://CRAN.R-project.org/package=bvpSolve">. </a>R package version 1.2.4.</text>
+<text top="551" left="164" width="13" height="13" font="4"><a href="2014-2-grayling.html#1">[p</a></text>
+<text top="551" left="176" width="13" height="13" font="7"><a href="2014-2-grayling.html#1">43</a></text>
+<text top="551" left="190" width="4" height="13" font="4"><a href="2014-2-grayling.html#1">]</a></text>
+<text top="580" left="149" width="595" height="13" font="4">P.-F. Verhulst. Notice sur la loi que la population poursuit dans son accroissement. Correspondance</text>
+<text top="596" left="164" width="267" height="14" font="4">mathamatique et physique, 10:113–121, 1838. <a href="2014-2-grayling.html#4">[p</a></text>
+<text top="596" left="430" width="13" height="13" font="7"><a href="2014-2-grayling.html#4">46</a></text>
+<text top="596" left="444" width="4" height="13" font="4"><a href="2014-2-grayling.html#4">]</a></text>
+<text top="625" left="149" width="595" height="13" font="4">V. Volterra. Variazioni e fluttuazioni del numero d’individui in specie animali conviventi. Mem Acad</text>
+<text top="641" left="163" width="179" height="14" font="4">Lincei Roma, 2:31–113, 1926. <a href="2014-2-grayling.html#6">[p</a></text>
+<text top="641" left="343" width="13" height="13" font="7"><a href="2014-2-grayling.html#6">48</a></text>
+<text top="641" left="356" width="4" height="13" font="4"><a href="2014-2-grayling.html#6">]</a></text>
+<text top="687" left="149" width="107" height="13" font="4">Michael J. Grayling</text>
+<text top="704" left="149" width="130" height="13" font="4">MRC Biostatistics Unit</text>
+<text top="720" left="148" width="59" height="13" font="4">Cambridge</text>
+<text top="737" left="148" width="50" height="13" font="4">CB2 0SR</text>
+<text top="753" left="148" width="92" height="13" font="4">United Kingdom</text>
+<text top="766" left="149" width="110" height="18" font="7"><a href="mailto:mjg211@cam.ac.uk">mjg211@cam.ac.uk</a></text>
+<text top="1210" left="148" width="257" height="15" font="0">The R Journal Vol. 6/2, December 2014</text>
+<text top="1210" left="642" width="102" height="15" font="0">ISSN 2073-4859</text>
+</page>
+</pdf2xml>
